@@ -1,0 +1,23 @@
+workflowVersion: 1.0.0
+speakeasyVersion: 1.680.0
+sources:
+  OpenRouter API:
+    inputs:
+      - location: .speakeasy/in.openapi.yaml
+    overlays:
+      - location: .speakeasy/overlays/open-enums.overlay.yaml
+      - location: .speakeasy/overlays/remove-rss-responses.overlay.yaml
+      - location: .speakeasy/overlays/add-headers.overlay.yaml
+    output: .speakeasy/out.openapi.yaml
+    registry:
+      location: registry.speakeasyapi.dev/openrouter/sdk/open-router-chat-completions-api
+targets:
+  openrouter:
+    target: go
+    source: OpenRouter API
+    codeSamples:
+      registry:
+        location: registry.speakeasyapi.dev/openrouter/sdk/open-router-chat-completions-api-go-code-samples
+      labelOverride:
+        fixedValue: Go (SDK)
+      blocking: false

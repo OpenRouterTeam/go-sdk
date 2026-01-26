@@ -1,0 +1,66 @@
+configVersion: 2.0.0
+generation:
+  devContainers:
+    enabled: true
+    schemaPath: .speakeasy/out.openapi.yaml
+  sdkClassName: OpenRouter
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: never
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: true
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: true
+    hoistGlobalSecurity: true
+  inferSSEOverload: true
+  sdkHooksConfigAccess: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
+  persistentEdits: {}
+  tests:
+    generateTests: false
+    generateNewTests: true
+    skipResponseBodyAssertions: false
+  preApplyUnionDiscriminators: true
+go:
+  version: 0.1.0
+  additionalDependencies: {}
+  baseErrorName: OpenRouterError
+  clientServerStatusCodesAsErrors: true
+  defaultErrorName: APIError
+  envVarPrefix: OPENROUTER
+  flattenGlobalSecurity: true
+  flatteningOrder: parameters-first
+  forwardCompatibleEnumsByDefault: true
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/sdkerrors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  includeEmptyObjects: true
+  inferSSEOverload: true
+  inferUnionDiscriminators: true
+  inputModelSuffix: input
+  maxMethodParams: 4
+  methodArguments: infer-optional-args
+  modulePath: github.com/OpenRouterTeam/go-sdk
+  multipartArrayFormat: standard
+  nullableOptionalWrapper: true
+  outputModelSuffix: output
+  respectRequiredFields: false
+  responseFormat: flat
+  sdkPackageAlias: openrouter
+  sdkPackageName: openrouter
+  unionStrategy: populated-fields

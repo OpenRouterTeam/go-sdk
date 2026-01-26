@@ -1,0 +1,11 @@
+# InternalServerResponseError
+
+Internal Server Error - Unexpected server error
+
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              | Example                                                                                                  |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `Error`                                                                                                  | [components.InternalServerResponseErrorData](../../models/components/internalserverresponseerrordata.md) | :heavy_check_mark:                                                                                       | Error data for InternalServerResponse                                                                    | {<br/>"code": 500,<br/>"message": "Internal Server Error"<br/>}                                          |
+| `UserID`                                                                                                 | **string*                                                                                                | :heavy_minus_sign:                                                                                       | N/A                                                                                                      |                                                                                                          |
