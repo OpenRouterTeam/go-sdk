@@ -48,8 +48,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `author`                                                 | *string*                                                 | :heavy_check_mark:                                       | N/A                                                      |
-| `slug`                                                   | *string*                                                 | :heavy_check_mark:                                       | N/A                                                      |
+| `author`                                                 | `string`                                                 | :heavy_check_mark:                                       | N/A                                                      |
+| `slug`                                                   | `string`                                                 | :heavy_check_mark:                                       | N/A                                                      |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

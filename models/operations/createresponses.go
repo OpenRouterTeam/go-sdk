@@ -13,122 +13,134 @@ import (
 // CreateResponsesResponseBody - Successful response
 type CreateResponsesResponseBody struct {
 	// Union of all possible event types emitted during response streaming
-	Data components.OpenResponsesStreamEvent `json:"data"`
+	Data components.StreamEvents `json:"data"`
 }
 
-func (c *CreateResponsesResponseBody) GetData() components.OpenResponsesStreamEvent {
+func (c *CreateResponsesResponseBody) GetData() components.StreamEvents {
 	if c == nil {
-		return components.OpenResponsesStreamEvent{}
+		return components.StreamEvents{}
 	}
 	return c.Data
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseCreated() *components.OpenResponsesStreamEventResponseCreated {
-	return c.GetData().OpenResponsesStreamEventResponseCreated
+func (c *CreateResponsesResponseBody) GetDataResponseCreated() *components.StreamEventsResponseCreated {
+	return c.GetData().StreamEventsResponseCreated
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseInProgress() *components.OpenResponsesStreamEventResponseInProgress {
-	return c.GetData().OpenResponsesStreamEventResponseInProgress
+func (c *CreateResponsesResponseBody) GetDataResponseInProgress() *components.StreamEventsResponseInProgress {
+	return c.GetData().StreamEventsResponseInProgress
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseCompleted() *components.OpenResponsesStreamEventResponseCompleted {
-	return c.GetData().OpenResponsesStreamEventResponseCompleted
+func (c *CreateResponsesResponseBody) GetDataResponseCompleted() *components.StreamEventsResponseCompleted {
+	return c.GetData().StreamEventsResponseCompleted
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseIncomplete() *components.OpenResponsesStreamEventResponseIncomplete {
-	return c.GetData().OpenResponsesStreamEventResponseIncomplete
+func (c *CreateResponsesResponseBody) GetDataResponseIncomplete() *components.StreamEventsResponseIncomplete {
+	return c.GetData().StreamEventsResponseIncomplete
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseFailed() *components.OpenResponsesStreamEventResponseFailed {
-	return c.GetData().OpenResponsesStreamEventResponseFailed
+func (c *CreateResponsesResponseBody) GetDataResponseFailed() *components.StreamEventsResponseFailed {
+	return c.GetData().StreamEventsResponseFailed
 }
 
-func (c *CreateResponsesResponseBody) GetDataError() *components.OpenResponsesErrorEvent {
-	return c.GetData().OpenResponsesErrorEvent
+func (c *CreateResponsesResponseBody) GetDataError() *components.ErrorEvent {
+	return c.GetData().ErrorEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputItemAdded() *components.OpenResponsesStreamEventResponseOutputItemAdded {
-	return c.GetData().OpenResponsesStreamEventResponseOutputItemAdded
+func (c *CreateResponsesResponseBody) GetDataResponseOutputItemAdded() *components.StreamEventsResponseOutputItemAdded {
+	return c.GetData().StreamEventsResponseOutputItemAdded
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputItemDone() *components.OpenResponsesStreamEventResponseOutputItemDone {
-	return c.GetData().OpenResponsesStreamEventResponseOutputItemDone
+func (c *CreateResponsesResponseBody) GetDataResponseOutputItemDone() *components.StreamEventsResponseOutputItemDone {
+	return c.GetData().StreamEventsResponseOutputItemDone
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseContentPartAdded() *components.OpenResponsesStreamEventResponseContentPartAdded {
-	return c.GetData().OpenResponsesStreamEventResponseContentPartAdded
+func (c *CreateResponsesResponseBody) GetDataResponseContentPartAdded() *components.ContentPartAddedEvent {
+	return c.GetData().ContentPartAddedEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseContentPartDone() *components.OpenResponsesStreamEventResponseContentPartDone {
-	return c.GetData().OpenResponsesStreamEventResponseContentPartDone
+func (c *CreateResponsesResponseBody) GetDataResponseContentPartDone() *components.ContentPartDoneEvent {
+	return c.GetData().ContentPartDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDelta() *components.OpenResponsesStreamEventResponseOutputTextDelta {
-	return c.GetData().OpenResponsesStreamEventResponseOutputTextDelta
+func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDelta() *components.TextDeltaEvent {
+	return c.GetData().TextDeltaEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDone() *components.OpenResponsesStreamEventResponseOutputTextDone {
-	return c.GetData().OpenResponsesStreamEventResponseOutputTextDone
+func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDone() *components.TextDoneEvent {
+	return c.GetData().TextDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseRefusalDelta() *components.OpenResponsesStreamEventResponseRefusalDelta {
-	return c.GetData().OpenResponsesStreamEventResponseRefusalDelta
+func (c *CreateResponsesResponseBody) GetDataResponseRefusalDelta() *components.RefusalDeltaEvent {
+	return c.GetData().RefusalDeltaEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseRefusalDone() *components.OpenResponsesStreamEventResponseRefusalDone {
-	return c.GetData().OpenResponsesStreamEventResponseRefusalDone
+func (c *CreateResponsesResponseBody) GetDataResponseRefusalDone() *components.RefusalDoneEvent {
+	return c.GetData().RefusalDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputTextAnnotationAdded() *components.OpenResponsesStreamEventResponseOutputTextAnnotationAdded {
-	return c.GetData().OpenResponsesStreamEventResponseOutputTextAnnotationAdded
+func (c *CreateResponsesResponseBody) GetDataResponseOutputTextAnnotationAdded() *components.AnnotationAddedEvent {
+	return c.GetData().AnnotationAddedEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseFunctionCallArgumentsDelta() *components.OpenResponsesStreamEventResponseFunctionCallArgumentsDelta {
-	return c.GetData().OpenResponsesStreamEventResponseFunctionCallArgumentsDelta
+func (c *CreateResponsesResponseBody) GetDataResponseFunctionCallArgumentsDelta() *components.FunctionCallArgsDeltaEvent {
+	return c.GetData().FunctionCallArgsDeltaEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseFunctionCallArgumentsDone() *components.OpenResponsesStreamEventResponseFunctionCallArgumentsDone {
-	return c.GetData().OpenResponsesStreamEventResponseFunctionCallArgumentsDone
+func (c *CreateResponsesResponseBody) GetDataResponseFunctionCallArgumentsDone() *components.FunctionCallArgsDoneEvent {
+	return c.GetData().FunctionCallArgsDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDelta() *components.OpenResponsesReasoningDeltaEvent {
-	return c.GetData().OpenResponsesReasoningDeltaEvent
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDelta() *components.ReasoningDeltaEvent {
+	return c.GetData().ReasoningDeltaEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDone() *components.OpenResponsesReasoningDoneEvent {
-	return c.GetData().OpenResponsesReasoningDoneEvent
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDone() *components.ReasoningDoneEvent {
+	return c.GetData().ReasoningDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryPartAdded() *components.OpenResponsesReasoningSummaryPartAddedEvent {
-	return c.GetData().OpenResponsesReasoningSummaryPartAddedEvent
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryPartAdded() *components.ReasoningSummaryPartAddedEvent {
+	return c.GetData().ReasoningSummaryPartAddedEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryPartDone() *components.OpenResponsesStreamEventResponseReasoningSummaryPartDone {
-	return c.GetData().OpenResponsesStreamEventResponseReasoningSummaryPartDone
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryPartDone() *components.ReasoningSummaryPartDoneEvent {
+	return c.GetData().ReasoningSummaryPartDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryTextDelta() *components.OpenResponsesReasoningSummaryTextDeltaEvent {
-	return c.GetData().OpenResponsesReasoningSummaryTextDeltaEvent
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryTextDelta() *components.ReasoningSummaryTextDeltaEvent {
+	return c.GetData().ReasoningSummaryTextDeltaEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryTextDone() *components.OpenResponsesReasoningSummaryTextDoneEvent {
-	return c.GetData().OpenResponsesReasoningSummaryTextDoneEvent
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryTextDone() *components.ReasoningSummaryTextDoneEvent {
+	return c.GetData().ReasoningSummaryTextDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallInProgress() *components.OpenResponsesImageGenCallInProgress {
-	return c.GetData().OpenResponsesImageGenCallInProgress
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallInProgress() *components.ImageGenCallInProgressEvent {
+	return c.GetData().ImageGenCallInProgressEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallGenerating() *components.OpenResponsesImageGenCallGenerating {
-	return c.GetData().OpenResponsesImageGenCallGenerating
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallGenerating() *components.ImageGenCallGeneratingEvent {
+	return c.GetData().ImageGenCallGeneratingEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallPartialImage() *components.OpenResponsesImageGenCallPartialImage {
-	return c.GetData().OpenResponsesImageGenCallPartialImage
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallPartialImage() *components.ImageGenCallPartialImageEvent {
+	return c.GetData().ImageGenCallPartialImageEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallCompleted() *components.OpenResponsesImageGenCallCompleted {
-	return c.GetData().OpenResponsesImageGenCallCompleted
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallCompleted() *components.ImageGenCallCompletedEvent {
+	return c.GetData().ImageGenCallCompletedEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallInProgress() *components.WebSearchCallInProgressEvent {
+	return c.GetData().WebSearchCallInProgressEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallSearching() *components.WebSearchCallSearchingEvent {
+	return c.GetData().WebSearchCallSearchingEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallCompleted() *components.WebSearchCallCompletedEvent {
+	return c.GetData().WebSearchCallCompletedEvent
 }
 
 func (c CreateResponsesResponseBody) GetEventEncoding(event string) (string, error) {
@@ -138,23 +150,23 @@ func (c CreateResponsesResponseBody) GetEventEncoding(event string) (string, err
 type CreateResponsesResponseType string
 
 const (
-	CreateResponsesResponseTypeOpenResponsesNonStreamingResponse CreateResponsesResponseType = "OpenResponsesNonStreamingResponse"
-	CreateResponsesResponseTypeEventStream                       CreateResponsesResponseType = "event-stream"
+	CreateResponsesResponseTypeOpenResponsesResult CreateResponsesResponseType = "OpenResponsesResult"
+	CreateResponsesResponseTypeEventStream         CreateResponsesResponseType = "event-stream"
 )
 
 type CreateResponsesResponse struct {
-	OpenResponsesNonStreamingResponse *components.OpenResponsesNonStreamingResponse    `queryParam:"inline,name=createResponses_response" union:"member"`
-	EventStream                       *stream.EventStream[CreateResponsesResponseBody] `queryParam:"inline,name=createResponses_response" union:"member"`
+	OpenResponsesResult *components.OpenResponsesResult                  `queryParam:"inline" union:"member"`
+	EventStream         *stream.EventStream[CreateResponsesResponseBody] `queryParam:"inline" union:"member"`
 
 	Type CreateResponsesResponseType
 }
 
-func CreateCreateResponsesResponseOpenResponsesNonStreamingResponse(openResponsesNonStreamingResponse components.OpenResponsesNonStreamingResponse) CreateResponsesResponse {
-	typ := CreateResponsesResponseTypeOpenResponsesNonStreamingResponse
+func CreateCreateResponsesResponseOpenResponsesResult(openResponsesResult components.OpenResponsesResult) CreateResponsesResponse {
+	typ := CreateResponsesResponseTypeOpenResponsesResult
 
 	return CreateResponsesResponse{
-		OpenResponsesNonStreamingResponse: &openResponsesNonStreamingResponse,
-		Type:                              typ,
+		OpenResponsesResult: &openResponsesResult,
+		Type:                typ,
 	}
 }
 
@@ -172,11 +184,11 @@ func (u *CreateResponsesResponse) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var openResponsesNonStreamingResponse components.OpenResponsesNonStreamingResponse = components.OpenResponsesNonStreamingResponse{}
-	if err := utils.UnmarshalJSON(data, &openResponsesNonStreamingResponse, "", true, nil); err == nil {
+	var openResponsesResult components.OpenResponsesResult = components.OpenResponsesResult{}
+	if err := utils.UnmarshalJSON(data, &openResponsesResult, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateResponsesResponseTypeOpenResponsesNonStreamingResponse,
-			Value: &openResponsesNonStreamingResponse,
+			Type:  CreateResponsesResponseTypeOpenResponsesResult,
+			Value: &openResponsesResult,
 		})
 	}
 
@@ -201,8 +213,8 @@ func (u *CreateResponsesResponse) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(CreateResponsesResponseType)
 	switch best.Type {
-	case CreateResponsesResponseTypeOpenResponsesNonStreamingResponse:
-		u.OpenResponsesNonStreamingResponse = best.Value.(*components.OpenResponsesNonStreamingResponse)
+	case CreateResponsesResponseTypeOpenResponsesResult:
+		u.OpenResponsesResult = best.Value.(*components.OpenResponsesResult)
 		return nil
 	case CreateResponsesResponseTypeEventStream:
 		u.EventStream = best.Value.(*stream.EventStream[CreateResponsesResponseBody])
@@ -213,8 +225,8 @@ func (u *CreateResponsesResponse) UnmarshalJSON(data []byte) error {
 }
 
 func (u CreateResponsesResponse) MarshalJSON() ([]byte, error) {
-	if u.OpenResponsesNonStreamingResponse != nil {
-		return utils.MarshalJSON(u.OpenResponsesNonStreamingResponse, "", true)
+	if u.OpenResponsesResult != nil {
+		return utils.MarshalJSON(u.OpenResponsesResult, "", true)
 	}
 
 	if u.EventStream != nil {

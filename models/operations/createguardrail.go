@@ -37,11 +37,13 @@ type CreateGuardrailRequest struct {
 	// Description of the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
 	// Spending limit in USD
-	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
+	LimitUsd *float64 `json:"limit_usd,omitzero"`
 	// Interval at which the limit resets (daily, weekly, monthly)
 	ResetInterval optionalnullable.OptionalNullable[CreateGuardrailResetIntervalRequest] `json:"reset_interval,omitzero"`
 	// List of allowed provider IDs
 	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
+	// List of provider IDs to exclude from routing
+	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Array of model identifiers (slug or canonical_slug accepted)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// Whether to enforce zero data retention
@@ -73,7 +75,7 @@ func (c *CreateGuardrailRequest) GetDescription() optionalnullable.OptionalNulla
 	return c.Description
 }
 
-func (c *CreateGuardrailRequest) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
+func (c *CreateGuardrailRequest) GetLimitUsd() *float64 {
 	if c == nil {
 		return nil
 	}
@@ -92,6 +94,13 @@ func (c *CreateGuardrailRequest) GetAllowedProviders() optionalnullable.Optional
 		return nil
 	}
 	return c.AllowedProviders
+}
+
+func (c *CreateGuardrailRequest) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoredProviders
 }
 
 func (c *CreateGuardrailRequest) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
@@ -141,11 +150,13 @@ type CreateGuardrailData struct {
 	// Description of the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
 	// Spending limit in USD
-	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
+	LimitUsd *float64 `json:"limit_usd,omitzero"`
 	// Interval at which the limit resets (daily, weekly, monthly)
 	ResetInterval optionalnullable.OptionalNullable[CreateGuardrailResetIntervalResponse] `json:"reset_interval,omitzero"`
 	// List of allowed provider IDs
 	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
+	// List of provider IDs to exclude from routing
+	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Array of model canonical_slugs (immutable identifiers)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// Whether to enforce zero data retention
@@ -188,7 +199,7 @@ func (c *CreateGuardrailData) GetDescription() optionalnullable.OptionalNullable
 	return c.Description
 }
 
-func (c *CreateGuardrailData) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
+func (c *CreateGuardrailData) GetLimitUsd() *float64 {
 	if c == nil {
 		return nil
 	}
@@ -207,6 +218,13 @@ func (c *CreateGuardrailData) GetAllowedProviders() optionalnullable.OptionalNul
 		return nil
 	}
 	return c.AllowedProviders
+}
+
+func (c *CreateGuardrailData) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoredProviders
 }
 
 func (c *CreateGuardrailData) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {

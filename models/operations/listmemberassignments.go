@@ -85,7 +85,7 @@ type ListMemberAssignmentsResponse struct {
 	// List of member assignments
 	Data []ListMemberAssignmentsData `json:"data"`
 	// Total number of member assignments
-	TotalCount float64 `json:"total_count"`
+	TotalCount int64 `json:"total_count"`
 }
 
 func (l *ListMemberAssignmentsResponse) GetData() []ListMemberAssignmentsData {
@@ -95,9 +95,9 @@ func (l *ListMemberAssignmentsResponse) GetData() []ListMemberAssignmentsData {
 	return l.Data
 }
 
-func (l *ListMemberAssignmentsResponse) GetTotalCount() float64 {
+func (l *ListMemberAssignmentsResponse) GetTotalCount() int64 {
 	if l == nil {
-		return 0.0
+		return 0
 	}
 	return l.TotalCount
 }

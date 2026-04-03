@@ -37,12 +37,12 @@ func (b *BulkUnassignMembersFromGuardrailRequest) GetRequestBody() BulkUnassignM
 // BulkUnassignMembersFromGuardrailResponse - Unassignment result
 type BulkUnassignMembersFromGuardrailResponse struct {
 	// Number of members successfully unassigned
-	UnassignedCount float64 `json:"unassigned_count"`
+	UnassignedCount int64 `json:"unassigned_count"`
 }
 
-func (b *BulkUnassignMembersFromGuardrailResponse) GetUnassignedCount() float64 {
+func (b *BulkUnassignMembersFromGuardrailResponse) GetUnassignedCount() int64 {
 	if b == nil {
-		return 0.0
+		return 0
 	}
 	return b.UnassignedCount
 }

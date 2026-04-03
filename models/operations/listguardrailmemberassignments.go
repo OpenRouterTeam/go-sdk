@@ -94,7 +94,7 @@ type ListGuardrailMemberAssignmentsResponse struct {
 	// List of member assignments
 	Data []ListGuardrailMemberAssignmentsData `json:"data"`
 	// Total number of member assignments
-	TotalCount float64 `json:"total_count"`
+	TotalCount int64 `json:"total_count"`
 }
 
 func (l *ListGuardrailMemberAssignmentsResponse) GetData() []ListGuardrailMemberAssignmentsData {
@@ -104,9 +104,9 @@ func (l *ListGuardrailMemberAssignmentsResponse) GetData() []ListGuardrailMember
 	return l.Data
 }
 
-func (l *ListGuardrailMemberAssignmentsResponse) GetTotalCount() float64 {
+func (l *ListGuardrailMemberAssignmentsResponse) GetTotalCount() int64 {
 	if l == nil {
-		return 0.0
+		return 0
 	}
 	return l.TotalCount
 }

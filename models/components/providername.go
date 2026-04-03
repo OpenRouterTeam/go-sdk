@@ -5,9 +5,11 @@ package components
 type ProviderName string
 
 const (
+	ProviderNameAkashMl         ProviderName = "AkashML"
 	ProviderNameAi21            ProviderName = "AI21"
 	ProviderNameAionLabs        ProviderName = "AionLabs"
 	ProviderNameAlibaba         ProviderName = "Alibaba"
+	ProviderNameAmbient         ProviderName = "Ambient"
 	ProviderNameAmazonBedrock   ProviderName = "Amazon Bedrock"
 	ProviderNameAmazonNova      ProviderName = "Amazon Nova"
 	ProviderNameAnthropic       ProviderName = "Anthropic"
@@ -38,7 +40,9 @@ const (
 	ProviderNameInception       ProviderName = "Inception"
 	ProviderNameInceptron       ProviderName = "Inceptron"
 	ProviderNameInferenceNet    ProviderName = "InferenceNet"
+	ProviderNameIonstream       ProviderName = "Ionstream"
 	ProviderNameInfermatic      ProviderName = "Infermatic"
+	ProviderNameIoNet           ProviderName = "Io Net"
 	ProviderNameInflection      ProviderName = "Inflection"
 	ProviderNameLiquid          ProviderName = "Liquid"
 	ProviderNameMara            ProviderName = "Mara"
@@ -59,11 +63,13 @@ const (
 	ProviderNameParasail        ProviderName = "Parasail"
 	ProviderNamePerplexity      ProviderName = "Perplexity"
 	ProviderNamePhala           ProviderName = "Phala"
+	ProviderNameReka            ProviderName = "Reka"
 	ProviderNameRelace          ProviderName = "Relace"
 	ProviderNameSambaNova       ProviderName = "SambaNova"
 	ProviderNameSeed            ProviderName = "Seed"
 	ProviderNameSiliconFlow     ProviderName = "SiliconFlow"
 	ProviderNameSourceful       ProviderName = "Sourceful"
+	ProviderNameStepFun         ProviderName = "StepFun"
 	ProviderNameStealth         ProviderName = "Stealth"
 	ProviderNameStreamLake      ProviderName = "StreamLake"
 	ProviderNameSwitchpoint     ProviderName = "Switchpoint"
@@ -85,7 +91,7 @@ func (e ProviderName) ToPointer() *ProviderName {
 func (e *ProviderName) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "AI21", "AionLabs", "Alibaba", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crusoe", "DeepInfra", "DeepSeek", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "Hyperbolic", "Inception", "Inceptron", "InferenceNet", "Infermatic", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Perplexity", "Phala", "Relace", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "Stealth", "StreamLake", "Switchpoint", "Together", "Upstage", "Venice", "WandB", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+		case "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crusoe", "DeepInfra", "DeepSeek", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "Hyperbolic", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Perplexity", "Phala", "Reka", "Relace", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Together", "Upstage", "Venice", "WandB", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
 			return true
 		}
 	}

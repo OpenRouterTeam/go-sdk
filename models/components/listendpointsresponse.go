@@ -12,6 +12,7 @@ const (
 	TokenizerGpt      Tokenizer = "GPT"
 	TokenizerClaude   Tokenizer = "Claude"
 	TokenizerGemini   Tokenizer = "Gemini"
+	TokenizerGemma    Tokenizer = "Gemma"
 	TokenizerGrok     Tokenizer = "Grok"
 	TokenizerCohere   Tokenizer = "Cohere"
 	TokenizerNova     Tokenizer = "Nova"
@@ -35,7 +36,7 @@ func (e Tokenizer) ToPointer() *Tokenizer {
 func (e *Tokenizer) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "Router", "Media", "Other", "GPT", "Claude", "Gemini", "Grok", "Cohere", "Nova", "Qwen", "Yi", "DeepSeek", "Mistral", "Llama2", "Llama3", "Llama4", "PaLM", "RWKV", "Qwen3":
+		case "Router", "Media", "Other", "GPT", "Claude", "Gemini", "Gemma", "Grok", "Cohere", "Nova", "Qwen", "Yi", "DeepSeek", "Mistral", "Llama2", "Llama3", "Llama4", "PaLM", "RWKV", "Qwen3":
 			return true
 		}
 	}
@@ -97,7 +98,7 @@ type ListEndpointsResponse struct {
 	// Display name of the model
 	Name string `json:"name"`
 	// Unix timestamp of when the model was created
-	Created float64 `json:"created"`
+	Created int64 `json:"created"`
 	// Description of the model
 	Description  string       `json:"description"`
 	Architecture Architecture `json:"architecture"`
@@ -119,9 +120,9 @@ func (l *ListEndpointsResponse) GetName() string {
 	return l.Name
 }
 
-func (l *ListEndpointsResponse) GetCreated() float64 {
+func (l *ListEndpointsResponse) GetCreated() int64 {
 	if l == nil {
-		return 0.0
+		return 0
 	}
 	return l.Created
 }

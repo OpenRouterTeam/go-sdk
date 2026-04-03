@@ -7,6 +7,32 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// By - The provider sorting strategy (price, throughput, latency)
+type By string
+
+const (
+	ByPrice      By = "price"
+	ByThroughput By = "throughput"
+	ByLatency    By = "latency"
+	ByExacto     By = "exacto"
+)
+
+func (e By) ToPointer() *By {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *By) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "price", "throughput", "latency", "exacto":
+			return true
+		}
+	}
+	return false
+}
+
+// Partition - Partitioning strategy for sorting: "model" (default) groups endpoints by model before sorting (fallback models remain fallbacks), "none" sorts all endpoints together regardless of model.
 type Partition string
 
 const (
@@ -29,9 +55,12 @@ func (e *Partition) IsExact() bool {
 	return false
 }
 
+// ProviderSortConfig - The provider sorting strategy (price, throughput, latency)
 type ProviderSortConfig struct {
-	By        optionalnullable.OptionalNullable[ProviderSort] `json:"by,omitzero"`
-	Partition optionalnullable.OptionalNullable[Partition]    `json:"partition,omitzero"`
+	// The provider sorting strategy (price, throughput, latency)
+	By optionalnullable.OptionalNullable[By] `json:"by,omitzero"`
+	// Partitioning strategy for sorting: "model" (default) groups endpoints by model before sorting (fallback models remain fallbacks), "none" sorts all endpoints together regardless of model.
+	Partition optionalnullable.OptionalNullable[Partition] `json:"partition,omitzero"`
 }
 
 func (p ProviderSortConfig) MarshalJSON() ([]byte, error) {
@@ -45,7 +74,7 @@ func (p *ProviderSortConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *ProviderSortConfig) GetBy() optionalnullable.OptionalNullable[ProviderSort] {
+func (p *ProviderSortConfig) GetBy() optionalnullable.OptionalNullable[By] {
 	if p == nil {
 		return nil
 	}

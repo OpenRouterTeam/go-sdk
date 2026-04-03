@@ -22,7 +22,7 @@ Guardrails endpoints
 
 ## List
 
-List all guardrails for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+List all guardrails for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -59,8 +59,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | **string*                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | **string*                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -77,7 +77,7 @@ func main() {
 
 ## Create
 
-Create a new guardrail for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Create a new guardrail for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -135,7 +135,7 @@ func main() {
 
 ## Get
 
-Get a single guardrail by ID. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Get a single guardrail by ID. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -172,7 +172,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail to retrieve       | 550e8400-e29b-41d4-a716-446655440000                     |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail to retrieve       | 550e8400-e29b-41d4-a716-446655440000                     |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -190,7 +190,7 @@ func main() {
 
 ## Update
 
-Update an existing guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Update an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -228,7 +228,7 @@ func main() {
 | Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             | Example                                                                                                                 |
 | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                                                   | :heavy_check_mark:                                                                                                      | The context to use for the request.                                                                                     |                                                                                                                         |
-| `id`                                                                                                                    | *string*                                                                                                                | :heavy_check_mark:                                                                                                      | The unique identifier of the guardrail to update                                                                        | 550e8400-e29b-41d4-a716-446655440000                                                                                    |
+| `id`                                                                                                                    | `string`                                                                                                                | :heavy_check_mark:                                                                                                      | The unique identifier of the guardrail to update                                                                        | 550e8400-e29b-41d4-a716-446655440000                                                                                    |
 | `requestBody`                                                                                                           | [operations.UpdateGuardrailRequestBody](../../models/operations/updateguardrailrequestbody.md)                          | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | {<br/>"name": "Updated Guardrail Name",<br/>"description": "Updated description",<br/>"limit_usd": 75,<br/>"reset_interval": "weekly"<br/>} |
 | `opts`                                                                                                                  | [][operations.Option](../../models/operations/option.md)                                                                | :heavy_minus_sign:                                                                                                      | The options for this request.                                                                                           |                                                                                                                         |
 
@@ -248,7 +248,7 @@ func main() {
 
 ## Delete
 
-Delete an existing guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Delete an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -285,7 +285,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail to delete         | 550e8400-e29b-41d4-a716-446655440000                     |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail to delete         | 550e8400-e29b-41d4-a716-446655440000                     |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -303,7 +303,7 @@ func main() {
 
 ## ListKeyAssignments
 
-List all API key guardrail assignments for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+List all API key guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -340,8 +340,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | **string*                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | **string*                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -358,7 +358,7 @@ func main() {
 
 ## ListMemberAssignments
 
-List all organization member guardrail assignments for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+List all organization member guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -395,8 +395,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | **string*                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | **string*                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -413,7 +413,7 @@ func main() {
 
 ## ListGuardrailKeyAssignments
 
-List all API key assignments for a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+List all API key assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -450,9 +450,9 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
-| `offset`                                                 | **string*                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | **string*                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
+| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -470,7 +470,7 @@ func main() {
 
 ## BulkAssignKeys
 
-Assign multiple API keys to a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Assign multiple API keys to a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -512,7 +512,7 @@ func main() {
 | Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        | Example                                                                                                            |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                                              | :heavy_check_mark:                                                                                                 | The context to use for the request.                                                                                |                                                                                                                    |
-| `id`                                                                                                               | *string*                                                                                                           | :heavy_check_mark:                                                                                                 | The unique identifier of the guardrail                                                                             | 550e8400-e29b-41d4-a716-446655440000                                                                               |
+| `id`                                                                                                               | `string`                                                                                                           | :heavy_check_mark:                                                                                                 | The unique identifier of the guardrail                                                                             | 550e8400-e29b-41d4-a716-446655440000                                                                               |
 | `requestBody`                                                                                                      | [operations.BulkAssignKeysToGuardrailRequestBody](../../models/operations/bulkassignkeystoguardrailrequestbody.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |                                                                                                                    |
 | `opts`                                                                                                             | [][operations.Option](../../models/operations/option.md)                                                           | :heavy_minus_sign:                                                                                                 | The options for this request.                                                                                      |                                                                                                                    |
 
@@ -532,7 +532,7 @@ func main() {
 
 ## ListGuardrailMemberAssignments
 
-List all organization member assignments for a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+List all organization member assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -569,9 +569,9 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `id`                                                     | *string*                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
-| `offset`                                                 | **string*                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | **string*                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
+| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -589,7 +589,7 @@ func main() {
 
 ## BulkAssignMembers
 
-Assign multiple organization members to a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Assign multiple organization members to a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -632,7 +632,7 @@ func main() {
 | Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              | Example                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                                    | :heavy_check_mark:                                                                                                       | The context to use for the request.                                                                                      |                                                                                                                          |
-| `id`                                                                                                                     | *string*                                                                                                                 | :heavy_check_mark:                                                                                                       | The unique identifier of the guardrail                                                                                   | 550e8400-e29b-41d4-a716-446655440000                                                                                     |
+| `id`                                                                                                                     | `string`                                                                                                                 | :heavy_check_mark:                                                                                                       | The unique identifier of the guardrail                                                                                   | 550e8400-e29b-41d4-a716-446655440000                                                                                     |
 | `requestBody`                                                                                                            | [operations.BulkAssignMembersToGuardrailRequestBody](../../models/operations/bulkassignmemberstoguardrailrequestbody.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |                                                                                                                          |
 | `opts`                                                                                                                   | [][operations.Option](../../models/operations/option.md)                                                                 | :heavy_minus_sign:                                                                                                       | The options for this request.                                                                                            |                                                                                                                          |
 
@@ -652,7 +652,7 @@ func main() {
 
 ## BulkUnassignKeys
 
-Unassign multiple API keys from a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Unassign multiple API keys from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -694,7 +694,7 @@ func main() {
 | Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                | Example                                                                                                                    |
 | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                                      | :heavy_check_mark:                                                                                                         | The context to use for the request.                                                                                        |                                                                                                                            |
-| `id`                                                                                                                       | *string*                                                                                                                   | :heavy_check_mark:                                                                                                         | The unique identifier of the guardrail                                                                                     | 550e8400-e29b-41d4-a716-446655440000                                                                                       |
+| `id`                                                                                                                       | `string`                                                                                                                   | :heavy_check_mark:                                                                                                         | The unique identifier of the guardrail                                                                                     | 550e8400-e29b-41d4-a716-446655440000                                                                                       |
 | `requestBody`                                                                                                              | [operations.BulkUnassignKeysFromGuardrailRequestBody](../../models/operations/bulkunassignkeysfromguardrailrequestbody.md) | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |                                                                                                                            |
 | `opts`                                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                                   | :heavy_minus_sign:                                                                                                         | The options for this request.                                                                                              |                                                                                                                            |
 
@@ -714,7 +714,7 @@ func main() {
 
 ## BulkUnassignMembers
 
-Unassign multiple organization members from a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Unassign multiple organization members from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -757,7 +757,7 @@ func main() {
 | Parameter                                                                                                                        | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      | Example                                                                                                                          |
 | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                            | :heavy_check_mark:                                                                                                               | The context to use for the request.                                                                                              |                                                                                                                                  |
-| `id`                                                                                                                             | *string*                                                                                                                         | :heavy_check_mark:                                                                                                               | The unique identifier of the guardrail                                                                                           | 550e8400-e29b-41d4-a716-446655440000                                                                                             |
+| `id`                                                                                                                             | `string`                                                                                                                         | :heavy_check_mark:                                                                                                               | The unique identifier of the guardrail                                                                                           | 550e8400-e29b-41d4-a716-446655440000                                                                                             |
 | `requestBody`                                                                                                                    | [operations.BulkUnassignMembersFromGuardrailRequestBody](../../models/operations/bulkunassignmembersfromguardrailrequestbody.md) | :heavy_check_mark:                                                                                                               | N/A                                                                                                                              |                                                                                                                                  |
 | `opts`                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                         | :heavy_minus_sign:                                                                                                               | The options for this request.                                                                                                    |                                                                                                                                  |
 

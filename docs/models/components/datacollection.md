@@ -5,6 +5,19 @@ Data collection setting. If no available model provider meets the requirement, y
 
 - deny: use only providers which do not collect user data.
 
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.DataCollectionDeny
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.DataCollection("custom_value")
+```
+
 
 ## Values
 

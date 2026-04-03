@@ -1,0 +1,11 @@
+# ListOrganizationMembersResponse
+
+List of organization members
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        | Example                                                                                            |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `Data`                                                                                             | [][operations.ListOrganizationMembersData](../../models/operations/listorganizationmembersdata.md) | :heavy_check_mark:                                                                                 | List of organization members                                                                       |                                                                                                    |
+| `TotalCount`                                                                                       | `int64`                                                                                            | :heavy_check_mark:                                                                                 | Total number of members in the organization                                                        | 25                                                                                                 |

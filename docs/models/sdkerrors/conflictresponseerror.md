@@ -1,0 +1,11 @@
+# ConflictResponseError
+
+Conflict - Resource conflict or concurrent modification
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  | Example                                                                                      |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `Error`                                                                                      | [components.ConflictResponseErrorData](../../models/components/conflictresponseerrordata.md) | :heavy_check_mark:                                                                           | Error data for ConflictResponse                                                              | {<br/>"code": 409,<br/>"message": "Resource conflict. Please try again later."<br/>}         |
+| `UserID`                                                                                     | `*string`                                                                                    | :heavy_minus_sign:                                                                           | N/A                                                                                          |                                                                                              |

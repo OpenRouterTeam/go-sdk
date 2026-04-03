@@ -16,6 +16,8 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: false
+    nameOverrideFeb2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -25,6 +27,7 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
   persistentEdits: {}
   tests:
     generateTests: false
@@ -32,15 +35,18 @@ generation:
     skipResponseBodyAssertions: false
   preApplyUnionDiscriminators: true
 go:
-  version: 0.1.0
+  version: 0.2.0
   additionalDependencies: {}
   baseErrorName: OpenRouterError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError
+  enableCustomCodeRegions: false
+  enableSkipDeserialization: false
   envVarPrefix: OPENROUTER
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   forwardCompatibleEnumsByDefault: true
+  forwardCompatibleUnionsByDefault: "false"
   imports:
     option: openapi
     paths:
@@ -60,6 +66,7 @@ go:
   nullableOptionalWrapper: true
   outputModelSuffix: output
   respectRequiredFields: false
+  respectTitlesForPrimitiveUnionMembers: false
   responseFormat: flat
   sdkPackageAlias: openrouter
   sdkPackageName: openrouter

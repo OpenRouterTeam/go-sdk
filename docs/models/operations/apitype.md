@@ -2,6 +2,19 @@
 
 Type of API used for the generation
 
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.APITypeCompletions
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.APIType("custom_value")
+```
+
 
 ## Values
 
@@ -9,3 +22,4 @@ Type of API used for the generation
 | -------------------- | -------------------- |
 | `APITypeCompletions` | completions          |
 | `APITypeEmbeddings`  | embeddings           |
+| `APITypeVideo`       | video                |

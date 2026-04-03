@@ -60,11 +60,13 @@ type ListGuardrailsData struct {
 	// Description of the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
 	// Spending limit in USD
-	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
+	LimitUsd *float64 `json:"limit_usd,omitzero"`
 	// Interval at which the limit resets (daily, weekly, monthly)
 	ResetInterval optionalnullable.OptionalNullable[ListGuardrailsResetInterval] `json:"reset_interval,omitzero"`
 	// List of allowed provider IDs
 	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
+	// List of provider IDs to exclude from routing
+	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Array of model canonical_slugs (immutable identifiers)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// Whether to enforce zero data retention
@@ -107,7 +109,7 @@ func (l *ListGuardrailsData) GetDescription() optionalnullable.OptionalNullable[
 	return l.Description
 }
 
-func (l *ListGuardrailsData) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
+func (l *ListGuardrailsData) GetLimitUsd() *float64 {
 	if l == nil {
 		return nil
 	}
@@ -126,6 +128,13 @@ func (l *ListGuardrailsData) GetAllowedProviders() optionalnullable.OptionalNull
 		return nil
 	}
 	return l.AllowedProviders
+}
+
+func (l *ListGuardrailsData) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
+	if l == nil {
+		return nil
+	}
+	return l.IgnoredProviders
 }
 
 func (l *ListGuardrailsData) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
@@ -161,7 +170,7 @@ type ListGuardrailsResponse struct {
 	// List of guardrails
 	Data []ListGuardrailsData `json:"data"`
 	// Total number of guardrails
-	TotalCount float64 `json:"total_count"`
+	TotalCount int64 `json:"total_count"`
 }
 
 func (l *ListGuardrailsResponse) GetData() []ListGuardrailsData {
@@ -171,9 +180,9 @@ func (l *ListGuardrailsResponse) GetData() []ListGuardrailsData {
 	return l.Data
 }
 
-func (l *ListGuardrailsResponse) GetTotalCount() float64 {
+func (l *ListGuardrailsResponse) GetTotalCount() int64 {
 	if l == nil {
-		return 0.0
+		return 0
 	}
 	return l.TotalCount
 }

@@ -2,12 +2,14 @@
 
 package components
 
+// ProviderSort - The provider sorting strategy (price, throughput, latency)
 type ProviderSort string
 
 const (
 	ProviderSortPrice      ProviderSort = "price"
 	ProviderSortThroughput ProviderSort = "throughput"
 	ProviderSortLatency    ProviderSort = "latency"
+	ProviderSortExacto     ProviderSort = "exacto"
 )
 
 func (e ProviderSort) ToPointer() *ProviderSort {
@@ -18,7 +20,7 @@ func (e ProviderSort) ToPointer() *ProviderSort {
 func (e *ProviderSort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "price", "throughput", "latency":
+		case "price", "throughput", "latency", "exacto":
 			return true
 		}
 	}

@@ -32,7 +32,7 @@ func newAPIKeys(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *h
 }
 
 // List API keys
-// List all API keys for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// List all API keys for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *APIKeys) List(ctx context.Context, includeDisabled *string, offset *string, opts ...operations.Option) (*operations.ListResponse, error) {
 	request := operations.ListRequest{
 		IncludeDisabled: includeDisabled,
@@ -303,7 +303,7 @@ func (s *APIKeys) List(ctx context.Context, includeDisabled *string, offset *str
 }
 
 // Create a new API key
-// Create a new API key for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Create a new API key for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *APIKeys) Create(ctx context.Context, request operations.CreateKeysRequest, opts ...operations.Option) (*operations.CreateKeysResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -593,7 +593,7 @@ func (s *APIKeys) Create(ctx context.Context, request operations.CreateKeysReque
 }
 
 // Update an API key
-// Update an existing API key. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Update an existing API key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *APIKeys) Update(ctx context.Context, hash string, requestBody operations.UpdateKeysRequestBody, opts ...operations.Option) (*operations.UpdateKeysResponse, error) {
 	request := operations.UpdateKeysRequest{
 		Hash:        hash,
@@ -909,7 +909,7 @@ func (s *APIKeys) Update(ctx context.Context, hash string, requestBody operation
 }
 
 // Delete an API key
-// Delete an existing API key. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Delete an existing API key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *APIKeys) Delete(ctx context.Context, hash string, opts ...operations.Option) (*operations.DeleteKeysResponse, error) {
 	request := operations.DeleteKeysRequest{
 		Hash: hash,
@@ -1196,7 +1196,7 @@ func (s *APIKeys) Delete(ctx context.Context, hash string, opts ...operations.Op
 }
 
 // Get a single API key
-// Get a single API key by hash. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Get a single API key by hash. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *APIKeys) Get(ctx context.Context, hash string, opts ...operations.Option) (*operations.GetKeyResponse, error) {
 	request := operations.GetKeyRequest{
 		Hash: hash,

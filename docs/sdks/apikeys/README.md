@@ -15,7 +15,7 @@ API key management endpoints
 
 ## List
 
-List all API keys for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+List all API keys for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -52,8 +52,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `includeDisabled`                                        | **string*                                                | :heavy_minus_sign:                                       | Whether to include disabled API keys in the response     | false                                                    |
-| `offset`                                                 | **string*                                                | :heavy_minus_sign:                                       | Number of API keys to skip for pagination                | 0                                                        |
+| `includeDisabled`                                        | `*string`                                                | :heavy_minus_sign:                                       | Whether to include disabled API keys in the response     | false                                                    |
+| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of API keys to skip for pagination                | 0                                                        |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -71,7 +71,7 @@ func main() {
 
 ## Create
 
-Create a new API key for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Create a new API key for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -130,7 +130,7 @@ func main() {
 
 ## Update
 
-Update an existing API key. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Update an existing API key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -168,7 +168,7 @@ func main() {
 | Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               | Example                                                                                                                   |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                                     | :heavy_check_mark:                                                                                                        | The context to use for the request.                                                                                       |                                                                                                                           |
-| `hash`                                                                                                                    | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | The hash identifier of the API key to update                                                                              | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943                                                          |
+| `hash`                                                                                                                    | `string`                                                                                                                  | :heavy_check_mark:                                                                                                        | The hash identifier of the API key to update                                                                              | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943                                                          |
 | `requestBody`                                                                                                             | [operations.UpdateKeysRequestBody](../../models/operations/updatekeysrequestbody.md)                                      | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       | {<br/>"name": "Updated API Key Name",<br/>"disabled": false,<br/>"limit": 75,<br/>"limit_reset": "daily",<br/>"include_byok_in_limit": true<br/>} |
 | `opts`                                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                                  | :heavy_minus_sign:                                                                                                        | The options for this request.                                                                                             |                                                                                                                           |
 
@@ -189,7 +189,7 @@ func main() {
 
 ## Delete
 
-Delete an existing API key. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Delete an existing API key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -226,7 +226,7 @@ func main() {
 | Parameter                                                        | Type                                                             | Required                                                         | Description                                                      | Example                                                          |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |                                                                  |
-| `hash`                                                           | *string*                                                         | :heavy_check_mark:                                               | The hash identifier of the API key to delete                     | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943 |
+| `hash`                                                           | `string`                                                         | :heavy_check_mark:                                               | The hash identifier of the API key to delete                     | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943 |
 | `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |                                                                  |
 
 ### Response
@@ -245,7 +245,7 @@ func main() {
 
 ## Get
 
-Get a single API key by hash. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+Get a single API key by hash. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -282,7 +282,7 @@ func main() {
 | Parameter                                                        | Type                                                             | Required                                                         | Description                                                      | Example                                                          |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |                                                                  |
-| `hash`                                                           | *string*                                                         | :heavy_check_mark:                                               | The hash identifier of the API key to retrieve                   | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943 |
+| `hash`                                                           | `string`                                                         | :heavy_check_mark:                                               | The hash identifier of the API key to retrieve                   | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943 |
 | `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |                                                                  |
 
 ### Response

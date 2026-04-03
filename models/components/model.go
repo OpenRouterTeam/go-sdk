@@ -17,13 +17,13 @@ type Model struct {
 	// Display name of the model
 	Name string `json:"name"`
 	// Unix timestamp of when the model was created
-	Created float64 `json:"created"`
+	Created int64 `json:"created"`
 	// Description of the model
 	Description *string `json:"description,omitzero"`
 	// Pricing information for the model
 	Pricing PublicPricing `json:"pricing"`
 	// Maximum context length in tokens
-	ContextLength *float64 `json:"context_length"`
+	ContextLength int64 `json:"context_length"`
 	// Model architecture information
 	Architecture ModelArchitecture `json:"architecture"`
 	// Information about the top provider for this model
@@ -34,6 +34,8 @@ type Model struct {
 	SupportedParameters []Parameter `json:"supported_parameters"`
 	// Default parameters for this model
 	DefaultParameters *DefaultParameters `json:"default_parameters"`
+	// The date up to which the model was trained on data. ISO 8601 date string (YYYY-MM-DD) or null if unknown.
+	KnowledgeCutoff optionalnullable.OptionalNullable[string] `json:"knowledge_cutoff,omitzero"`
 	// The date after which the model may be removed. ISO 8601 date string (YYYY-MM-DD) or null if no expiration.
 	ExpirationDate optionalnullable.OptionalNullable[string] `json:"expiration_date,omitzero"`
 }
@@ -66,9 +68,9 @@ func (m *Model) GetName() string {
 	return m.Name
 }
 
-func (m *Model) GetCreated() float64 {
+func (m *Model) GetCreated() int64 {
 	if m == nil {
-		return 0.0
+		return 0
 	}
 	return m.Created
 }
@@ -87,9 +89,9 @@ func (m *Model) GetPricing() PublicPricing {
 	return m.Pricing
 }
 
-func (m *Model) GetContextLength() *float64 {
+func (m *Model) GetContextLength() int64 {
 	if m == nil {
-		return nil
+		return 0
 	}
 	return m.ContextLength
 }
@@ -127,6 +129,13 @@ func (m *Model) GetDefaultParameters() *DefaultParameters {
 		return nil
 	}
 	return m.DefaultParameters
+}
+
+func (m *Model) GetKnowledgeCutoff() optionalnullable.OptionalNullable[string] {
+	if m == nil {
+		return nil
+	}
+	return m.KnowledgeCutoff
 }
 
 func (m *Model) GetExpirationDate() optionalnullable.OptionalNullable[string] {

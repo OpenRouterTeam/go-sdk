@@ -11,15 +11,31 @@ The sorting strategy to use for this request, if "order" is not specified. When 
 providerPreferencesSortUnion := components.CreateProviderPreferencesSortUnionProviderPreferencesProviderSort(components.ProviderPreferencesProviderSort{/* values here */})
 ```
 
-### ProviderSortConfigUnion
+### ProviderPreferencesProviderSortConfigUnion
 
 ```go
-providerPreferencesSortUnion := components.CreateProviderPreferencesSortUnionProviderSortConfigUnion(components.ProviderSortConfigUnion{/* values here */})
+providerPreferencesSortUnion := components.CreateProviderPreferencesSortUnionProviderPreferencesProviderSortConfigUnion(components.ProviderPreferencesProviderSortConfigUnion{/* values here */})
 ```
 
-### SortEnum
+### ProviderPreferencesSortEnum
 
 ```go
-providerPreferencesSortUnion := components.CreateProviderPreferencesSortUnionSortEnum(components.SortEnum{/* values here */})
+providerPreferencesSortUnion := components.CreateProviderPreferencesSortUnionProviderPreferencesSortEnum(components.ProviderPreferencesSortEnum{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch providerPreferencesSortUnion.Type {
+	case components.ProviderPreferencesSortUnionTypeProviderPreferencesProviderSort:
+		// providerPreferencesSortUnion.ProviderPreferencesProviderSort is populated
+	case components.ProviderPreferencesSortUnionTypeProviderPreferencesProviderSortConfigUnion:
+		// providerPreferencesSortUnion.ProviderPreferencesProviderSortConfigUnion is populated
+	case components.ProviderPreferencesSortUnionTypeProviderPreferencesSortEnum:
+		// providerPreferencesSortUnion.ProviderPreferencesSortEnum is populated
+	default:
+		// Unknown type - use providerPreferencesSortUnion.GetUnknownRaw() for raw JSON
+}
+```

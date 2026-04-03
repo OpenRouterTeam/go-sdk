@@ -1,35 +1,55 @@
 # ResponseFormat
 
+Response format configuration
+
 
 ## Supported Types
 
-### ResponseFormatText
+### ChatFormatTextConfig
 
 ```go
-responseFormat := components.CreateResponseFormatText(components.ResponseFormatText{/* values here */})
+responseFormat := components.CreateResponseFormatText(components.ChatFormatTextConfig{/* values here */})
 ```
 
-### ResponseFormatJSONObject
+### FormatJSONObjectConfig
 
 ```go
-responseFormat := components.CreateResponseFormatJSONObject(components.ResponseFormatJSONObject{/* values here */})
+responseFormat := components.CreateResponseFormatJSONObject(components.FormatJSONObjectConfig{/* values here */})
 ```
 
-### ResponseFormatJSONSchema
+### ChatFormatJSONSchemaConfig
 
 ```go
-responseFormat := components.CreateResponseFormatJSONSchema(components.ResponseFormatJSONSchema{/* values here */})
+responseFormat := components.CreateResponseFormatJSONSchema(components.ChatFormatJSONSchemaConfig{/* values here */})
 ```
 
-### ResponseFormatTextGrammar
+### ChatFormatGrammarConfig
 
 ```go
-responseFormat := components.CreateResponseFormatGrammar(components.ResponseFormatTextGrammar{/* values here */})
+responseFormat := components.CreateResponseFormatGrammar(components.ChatFormatGrammarConfig{/* values here */})
 ```
 
-### ResponseFormatPython
+### ChatFormatPythonConfig
 
 ```go
-responseFormat := components.CreateResponseFormatPython(components.ResponseFormatPython{/* values here */})
+responseFormat := components.CreateResponseFormatPython(components.ChatFormatPythonConfig{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch responseFormat.Type {
+	case components.ResponseFormatTypeText:
+		// responseFormat.ChatFormatTextConfig is populated
+	case components.ResponseFormatTypeJSONObject:
+		// responseFormat.FormatJSONObjectConfig is populated
+	case components.ResponseFormatTypeJSONSchema:
+		// responseFormat.ChatFormatJSONSchemaConfig is populated
+	case components.ResponseFormatTypeGrammar:
+		// responseFormat.ChatFormatGrammarConfig is populated
+	case components.ResponseFormatTypePython:
+		// responseFormat.ChatFormatPythonConfig is populated
+}
+```

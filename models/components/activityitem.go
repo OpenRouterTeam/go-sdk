@@ -18,13 +18,13 @@ type ActivityItem struct {
 	// BYOK inference cost in USD (external credits spent)
 	ByokUsageInference float64 `json:"byok_usage_inference"`
 	// Number of requests made
-	Requests float64 `json:"requests"`
+	Requests int64 `json:"requests"`
 	// Total prompt tokens used
-	PromptTokens float64 `json:"prompt_tokens"`
+	PromptTokens int64 `json:"prompt_tokens"`
 	// Total completion tokens generated
-	CompletionTokens float64 `json:"completion_tokens"`
+	CompletionTokens int64 `json:"completion_tokens"`
 	// Total reasoning tokens used
-	ReasoningTokens float64 `json:"reasoning_tokens"`
+	ReasoningTokens int64 `json:"reasoning_tokens"`
 }
 
 func (a *ActivityItem) GetDate() string {
@@ -76,30 +76,30 @@ func (a *ActivityItem) GetByokUsageInference() float64 {
 	return a.ByokUsageInference
 }
 
-func (a *ActivityItem) GetRequests() float64 {
+func (a *ActivityItem) GetRequests() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.Requests
 }
 
-func (a *ActivityItem) GetPromptTokens() float64 {
+func (a *ActivityItem) GetPromptTokens() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.PromptTokens
 }
 
-func (a *ActivityItem) GetCompletionTokens() float64 {
+func (a *ActivityItem) GetCompletionTokens() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.CompletionTokens
 }
 
-func (a *ActivityItem) GetReasoningTokens() float64 {
+func (a *ActivityItem) GetReasoningTokens() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.ReasoningTokens
 }

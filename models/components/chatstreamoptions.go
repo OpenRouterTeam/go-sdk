@@ -2,7 +2,11 @@
 
 package components
 
+// ChatStreamOptions - Streaming configuration options
 type ChatStreamOptions struct {
+	// Deprecated: This field has no effect. Full usage details are always included.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	IncludeUsage *bool `json:"include_usage,omitzero"`
 }
 

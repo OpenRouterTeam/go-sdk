@@ -10,30 +10,47 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/types/stream"
 )
 
+// SendChatCompletionRequestResponseBody - Successful chat completion response
+type SendChatCompletionRequestResponseBody struct {
+	// Streaming chat completion chunk
+	Data components.ChatStreamChunk `json:"data"`
+}
+
+func (s *SendChatCompletionRequestResponseBody) GetData() components.ChatStreamChunk {
+	if s == nil {
+		return components.ChatStreamChunk{}
+	}
+	return s.Data
+}
+
+func (s SendChatCompletionRequestResponseBody) GetEventEncoding(event string) (string, error) {
+	return "application/json", nil
+}
+
 type SendChatCompletionRequestResponseType string
 
 const (
-	SendChatCompletionRequestResponseTypeChatResponse SendChatCompletionRequestResponseType = "ChatResponse"
-	SendChatCompletionRequestResponseTypeEventStream  SendChatCompletionRequestResponseType = "event-stream"
+	SendChatCompletionRequestResponseTypeChatResult  SendChatCompletionRequestResponseType = "ChatResult"
+	SendChatCompletionRequestResponseTypeEventStream SendChatCompletionRequestResponseType = "event-stream"
 )
 
 type SendChatCompletionRequestResponse struct {
-	ChatResponse *components.ChatResponse                                   `queryParam:"inline,name=sendChatCompletionRequest_response" union:"member"`
-	EventStream  *stream.EventStream[components.ChatStreamingResponseChunk] `queryParam:"inline,name=sendChatCompletionRequest_response" union:"member"`
+	ChatResult  *components.ChatResult                                     `queryParam:"inline" union:"member"`
+	EventStream *stream.EventStream[SendChatCompletionRequestResponseBody] `queryParam:"inline" union:"member"`
 
 	Type SendChatCompletionRequestResponseType
 }
 
-func CreateSendChatCompletionRequestResponseChatResponse(chatResponse components.ChatResponse) SendChatCompletionRequestResponse {
-	typ := SendChatCompletionRequestResponseTypeChatResponse
+func CreateSendChatCompletionRequestResponseChatResult(chatResult components.ChatResult) SendChatCompletionRequestResponse {
+	typ := SendChatCompletionRequestResponseTypeChatResult
 
 	return SendChatCompletionRequestResponse{
-		ChatResponse: &chatResponse,
-		Type:         typ,
+		ChatResult: &chatResult,
+		Type:       typ,
 	}
 }
 
-func CreateSendChatCompletionRequestResponseEventStream(eventStream *stream.EventStream[components.ChatStreamingResponseChunk]) SendChatCompletionRequestResponse {
+func CreateSendChatCompletionRequestResponseEventStream(eventStream *stream.EventStream[SendChatCompletionRequestResponseBody]) SendChatCompletionRequestResponse {
 	typ := SendChatCompletionRequestResponseTypeEventStream
 
 	return SendChatCompletionRequestResponse{
@@ -47,15 +64,15 @@ func (u *SendChatCompletionRequestResponse) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var chatResponse components.ChatResponse = components.ChatResponse{}
-	if err := utils.UnmarshalJSON(data, &chatResponse, "", true, nil); err == nil {
+	var chatResult components.ChatResult = components.ChatResult{}
+	if err := utils.UnmarshalJSON(data, &chatResult, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SendChatCompletionRequestResponseTypeChatResponse,
-			Value: &chatResponse,
+			Type:  SendChatCompletionRequestResponseTypeChatResult,
+			Value: &chatResult,
 		})
 	}
 
-	var eventStream *stream.EventStream[components.ChatStreamingResponseChunk] = &stream.EventStream[components.ChatStreamingResponseChunk]{}
+	var eventStream *stream.EventStream[SendChatCompletionRequestResponseBody] = &stream.EventStream[SendChatCompletionRequestResponseBody]{}
 	if err := utils.UnmarshalJSON(data, &eventStream, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  SendChatCompletionRequestResponseTypeEventStream,
@@ -76,11 +93,11 @@ func (u *SendChatCompletionRequestResponse) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(SendChatCompletionRequestResponseType)
 	switch best.Type {
-	case SendChatCompletionRequestResponseTypeChatResponse:
-		u.ChatResponse = best.Value.(*components.ChatResponse)
+	case SendChatCompletionRequestResponseTypeChatResult:
+		u.ChatResult = best.Value.(*components.ChatResult)
 		return nil
 	case SendChatCompletionRequestResponseTypeEventStream:
-		u.EventStream = best.Value.(*stream.EventStream[components.ChatStreamingResponseChunk])
+		u.EventStream = best.Value.(*stream.EventStream[SendChatCompletionRequestResponseBody])
 		return nil
 	}
 
@@ -88,8 +105,8 @@ func (u *SendChatCompletionRequestResponse) UnmarshalJSON(data []byte) error {
 }
 
 func (u SendChatCompletionRequestResponse) MarshalJSON() ([]byte, error) {
-	if u.ChatResponse != nil {
-		return utils.MarshalJSON(u.ChatResponse, "", true)
+	if u.ChatResult != nil {
+		return utils.MarshalJSON(u.ChatResult, "", true)
 	}
 
 	if u.EventStream != nil {

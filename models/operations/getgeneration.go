@@ -2,6 +2,10 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+)
+
 type GetGenerationRequest struct {
 	ID string `queryParam:"style=form,explode=true,name=id"`
 }
@@ -19,6 +23,7 @@ type APIType string
 const (
 	APITypeCompletions APIType = "completions"
 	APITypeEmbeddings  APIType = "embeddings"
+	APITypeVideo       APIType = "video"
 )
 
 func (e APIType) ToPointer() *APIType {
@@ -29,11 +34,194 @@ func (e APIType) ToPointer() *APIType {
 func (e *APIType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "completions", "embeddings":
+		case "completions", "embeddings", "video":
 			return true
 		}
 	}
 	return false
+}
+
+type ProviderName string
+
+const (
+	ProviderNameAnyScale        ProviderName = "AnyScale"
+	ProviderNameAtoma           ProviderName = "Atoma"
+	ProviderNameCentMl          ProviderName = "Cent-ML"
+	ProviderNameCrofAi          ProviderName = "CrofAI"
+	ProviderNameEnfer           ProviderName = "Enfer"
+	ProviderNameGoPomelo        ProviderName = "GoPomelo"
+	ProviderNameHuggingFace     ProviderName = "HuggingFace"
+	ProviderNameHyperbolic2     ProviderName = "Hyperbolic 2"
+	ProviderNameInoCloud        ProviderName = "InoCloud"
+	ProviderNameKluster         ProviderName = "Kluster"
+	ProviderNameLambda          ProviderName = "Lambda"
+	ProviderNameLepton          ProviderName = "Lepton"
+	ProviderNameLynn2           ProviderName = "Lynn 2"
+	ProviderNameLynn            ProviderName = "Lynn"
+	ProviderNameMancer          ProviderName = "Mancer"
+	ProviderNameMeta            ProviderName = "Meta"
+	ProviderNameModal           ProviderName = "Modal"
+	ProviderNameNineteen        ProviderName = "Nineteen"
+	ProviderNameOctoAi          ProviderName = "OctoAI"
+	ProviderNameRecursal        ProviderName = "Recursal"
+	ProviderNameReflection      ProviderName = "Reflection"
+	ProviderNameReplicate       ProviderName = "Replicate"
+	ProviderNameSambaNova2      ProviderName = "SambaNova 2"
+	ProviderNameSfCompute       ProviderName = "SF Compute"
+	ProviderNameTargon          ProviderName = "Targon"
+	ProviderNameTogether2       ProviderName = "Together 2"
+	ProviderNameUbicloud        ProviderName = "Ubicloud"
+	ProviderNameOneDotAi        ProviderName = "01.AI"
+	ProviderNameAkashMl         ProviderName = "AkashML"
+	ProviderNameAi21            ProviderName = "AI21"
+	ProviderNameAionLabs        ProviderName = "AionLabs"
+	ProviderNameAlibaba         ProviderName = "Alibaba"
+	ProviderNameAmbient         ProviderName = "Ambient"
+	ProviderNameAmazonBedrock   ProviderName = "Amazon Bedrock"
+	ProviderNameAmazonNova      ProviderName = "Amazon Nova"
+	ProviderNameAnthropic       ProviderName = "Anthropic"
+	ProviderNameArceeAi         ProviderName = "Arcee AI"
+	ProviderNameAtlasCloud      ProviderName = "AtlasCloud"
+	ProviderNameAvian           ProviderName = "Avian"
+	ProviderNameAzure           ProviderName = "Azure"
+	ProviderNameBaseTen         ProviderName = "BaseTen"
+	ProviderNameBytePlus        ProviderName = "BytePlus"
+	ProviderNameBlackForestLabs ProviderName = "Black Forest Labs"
+	ProviderNameCerebras        ProviderName = "Cerebras"
+	ProviderNameChutes          ProviderName = "Chutes"
+	ProviderNameCirrascale      ProviderName = "Cirrascale"
+	ProviderNameClarifai        ProviderName = "Clarifai"
+	ProviderNameCloudflare      ProviderName = "Cloudflare"
+	ProviderNameCohere          ProviderName = "Cohere"
+	ProviderNameCrusoe          ProviderName = "Crusoe"
+	ProviderNameDeepInfra       ProviderName = "DeepInfra"
+	ProviderNameDeepSeek        ProviderName = "DeepSeek"
+	ProviderNameFeatherless     ProviderName = "Featherless"
+	ProviderNameFireworks       ProviderName = "Fireworks"
+	ProviderNameFriendli        ProviderName = "Friendli"
+	ProviderNameGmiCloud        ProviderName = "GMICloud"
+	ProviderNameGoogle          ProviderName = "Google"
+	ProviderNameGoogleAiStudio  ProviderName = "Google AI Studio"
+	ProviderNameGroq            ProviderName = "Groq"
+	ProviderNameHyperbolic      ProviderName = "Hyperbolic"
+	ProviderNameInception       ProviderName = "Inception"
+	ProviderNameInceptron       ProviderName = "Inceptron"
+	ProviderNameInferenceNet    ProviderName = "InferenceNet"
+	ProviderNameIonstream       ProviderName = "Ionstream"
+	ProviderNameInfermatic      ProviderName = "Infermatic"
+	ProviderNameIoNet           ProviderName = "Io Net"
+	ProviderNameInflection      ProviderName = "Inflection"
+	ProviderNameLiquid          ProviderName = "Liquid"
+	ProviderNameMara            ProviderName = "Mara"
+	ProviderNameMancer2         ProviderName = "Mancer 2"
+	ProviderNameMinimax         ProviderName = "Minimax"
+	ProviderNameModelRun        ProviderName = "ModelRun"
+	ProviderNameMistral         ProviderName = "Mistral"
+	ProviderNameModular         ProviderName = "Modular"
+	ProviderNameMoonshotAi      ProviderName = "Moonshot AI"
+	ProviderNameMorph           ProviderName = "Morph"
+	ProviderNameNCompass        ProviderName = "NCompass"
+	ProviderNameNebius          ProviderName = "Nebius"
+	ProviderNameNextBit         ProviderName = "NextBit"
+	ProviderNameNovita          ProviderName = "Novita"
+	ProviderNameNvidia          ProviderName = "Nvidia"
+	ProviderNameOpenAi          ProviderName = "OpenAI"
+	ProviderNameOpenInference   ProviderName = "OpenInference"
+	ProviderNameParasail        ProviderName = "Parasail"
+	ProviderNamePerplexity      ProviderName = "Perplexity"
+	ProviderNamePhala           ProviderName = "Phala"
+	ProviderNameReka            ProviderName = "Reka"
+	ProviderNameRelace          ProviderName = "Relace"
+	ProviderNameSambaNova       ProviderName = "SambaNova"
+	ProviderNameSeed            ProviderName = "Seed"
+	ProviderNameSiliconFlow     ProviderName = "SiliconFlow"
+	ProviderNameSourceful       ProviderName = "Sourceful"
+	ProviderNameStepFun         ProviderName = "StepFun"
+	ProviderNameStealth         ProviderName = "Stealth"
+	ProviderNameStreamLake      ProviderName = "StreamLake"
+	ProviderNameSwitchpoint     ProviderName = "Switchpoint"
+	ProviderNameTogether        ProviderName = "Together"
+	ProviderNameUpstage         ProviderName = "Upstage"
+	ProviderNameVenice          ProviderName = "Venice"
+	ProviderNameWandB           ProviderName = "WandB"
+	ProviderNameXiaomi          ProviderName = "Xiaomi"
+	ProviderNameXAi             ProviderName = "xAI"
+	ProviderNameZAi             ProviderName = "Z.AI"
+	ProviderNameFakeProvider    ProviderName = "FakeProvider"
+)
+
+func (e ProviderName) ToPointer() *ProviderName {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ProviderName) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Meta", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crusoe", "DeepInfra", "DeepSeek", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "Hyperbolic", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Perplexity", "Phala", "Reka", "Relace", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Together", "Upstage", "Venice", "WandB", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+			return true
+		}
+	}
+	return false
+}
+
+type ProviderResponse struct {
+	ID             *string       `json:"id,omitzero"`
+	EndpointID     *string       `json:"endpoint_id,omitzero"`
+	ModelPermaslug *string       `json:"model_permaslug,omitzero"`
+	ProviderName   *ProviderName `json:"provider_name,omitzero"`
+	Status         *float64      `json:"status"`
+	Latency        *float64      `json:"latency,omitzero"`
+	IsByok         *bool         `json:"is_byok,omitzero"`
+}
+
+func (p *ProviderResponse) GetID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ID
+}
+
+func (p *ProviderResponse) GetEndpointID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.EndpointID
+}
+
+func (p *ProviderResponse) GetModelPermaslug() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ModelPermaslug
+}
+
+func (p *ProviderResponse) GetProviderName() *ProviderName {
+	if p == nil {
+		return nil
+	}
+	return p.ProviderName
+}
+
+func (p *ProviderResponse) GetStatus() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.Status
+}
+
+func (p *ProviderResponse) GetLatency() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.Latency
+}
+
+func (p *ProviderResponse) GetIsByok() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IsByok
 }
 
 // GetGenerationData - Generation data
@@ -45,15 +233,15 @@ type GetGenerationData struct {
 	// Total cost of the generation in USD
 	TotalCost float64 `json:"total_cost"`
 	// Discount applied due to caching
-	CacheDiscount *float64 `json:"cache_discount"`
+	CacheDiscount float64 `json:"cache_discount"`
 	// Cost charged by the upstream provider
-	UpstreamInferenceCost *float64 `json:"upstream_inference_cost"`
+	UpstreamInferenceCost float64 `json:"upstream_inference_cost"`
 	// ISO 8601 timestamp of when the generation was created
 	CreatedAt string `json:"created_at"`
 	// Model used for the generation
 	Model string `json:"model"`
 	// ID of the app that made the request
-	AppID *float64 `json:"app_id"`
+	AppID int64 `json:"app_id"`
 	// Whether the response was streamed
 	Streamed *bool `json:"streamed"`
 	// Whether the generation was cancelled
@@ -61,35 +249,35 @@ type GetGenerationData struct {
 	// Name of the provider that served the request
 	ProviderName *string `json:"provider_name"`
 	// Total latency in milliseconds
-	Latency *float64 `json:"latency"`
+	Latency float64 `json:"latency"`
 	// Moderation latency in milliseconds
-	ModerationLatency *float64 `json:"moderation_latency"`
+	ModerationLatency float64 `json:"moderation_latency"`
 	// Time taken for generation in milliseconds
-	GenerationTime *float64 `json:"generation_time"`
+	GenerationTime float64 `json:"generation_time"`
 	// Reason the generation finished
 	FinishReason *string `json:"finish_reason"`
 	// Number of tokens in the prompt
-	TokensPrompt *float64 `json:"tokens_prompt"`
+	TokensPrompt int64 `json:"tokens_prompt"`
 	// Number of tokens in the completion
-	TokensCompletion *float64 `json:"tokens_completion"`
+	TokensCompletion int64 `json:"tokens_completion"`
 	// Native prompt tokens as reported by provider
-	NativeTokensPrompt *float64 `json:"native_tokens_prompt"`
+	NativeTokensPrompt int64 `json:"native_tokens_prompt"`
 	// Native completion tokens as reported by provider
-	NativeTokensCompletion *float64 `json:"native_tokens_completion"`
+	NativeTokensCompletion int64 `json:"native_tokens_completion"`
 	// Native completion image tokens as reported by provider
-	NativeTokensCompletionImages *float64 `json:"native_tokens_completion_images"`
+	NativeTokensCompletionImages int64 `json:"native_tokens_completion_images"`
 	// Native reasoning tokens as reported by provider
-	NativeTokensReasoning *float64 `json:"native_tokens_reasoning"`
+	NativeTokensReasoning int64 `json:"native_tokens_reasoning"`
 	// Native cached tokens as reported by provider
-	NativeTokensCached *float64 `json:"native_tokens_cached"`
+	NativeTokensCached int64 `json:"native_tokens_cached"`
 	// Number of media items in the prompt
-	NumMediaPrompt *float64 `json:"num_media_prompt"`
+	NumMediaPrompt int64 `json:"num_media_prompt"`
 	// Number of audio inputs in the prompt
-	NumInputAudioPrompt *float64 `json:"num_input_audio_prompt"`
+	NumInputAudioPrompt int64 `json:"num_input_audio_prompt"`
 	// Number of media items in the completion
-	NumMediaCompletion *float64 `json:"num_media_completion"`
+	NumMediaCompletion int64 `json:"num_media_completion"`
 	// Number of search results included
-	NumSearchResults *float64 `json:"num_search_results"`
+	NumSearchResults int64 `json:"num_search_results"`
 	// Origin URL of the request
 	Origin string `json:"origin"`
 	// Usage amount in USD
@@ -104,6 +292,14 @@ type GetGenerationData struct {
 	APIType *APIType `json:"api_type"`
 	// Router used for the request (e.g., openrouter/auto)
 	Router *string `json:"router"`
+	// List of provider responses for this generation, including fallback attempts
+	ProviderResponses []ProviderResponse `json:"provider_responses"`
+	// User-Agent header from the request
+	UserAgent *string `json:"user_agent"`
+	// Referer header from the request
+	HTTPReferer *string `json:"http_referer"`
+	// Unique identifier grouping all generations from a single API request
+	RequestID optionalnullable.OptionalNullable[string] `json:"request_id,omitzero"`
 }
 
 func (g *GetGenerationData) GetID() string {
@@ -127,16 +323,16 @@ func (g *GetGenerationData) GetTotalCost() float64 {
 	return g.TotalCost
 }
 
-func (g *GetGenerationData) GetCacheDiscount() *float64 {
+func (g *GetGenerationData) GetCacheDiscount() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
 	return g.CacheDiscount
 }
 
-func (g *GetGenerationData) GetUpstreamInferenceCost() *float64 {
+func (g *GetGenerationData) GetUpstreamInferenceCost() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
 	return g.UpstreamInferenceCost
 }
@@ -155,9 +351,9 @@ func (g *GetGenerationData) GetModel() string {
 	return g.Model
 }
 
-func (g *GetGenerationData) GetAppID() *float64 {
+func (g *GetGenerationData) GetAppID() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.AppID
 }
@@ -183,23 +379,23 @@ func (g *GetGenerationData) GetProviderName() *string {
 	return g.ProviderName
 }
 
-func (g *GetGenerationData) GetLatency() *float64 {
+func (g *GetGenerationData) GetLatency() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
 	return g.Latency
 }
 
-func (g *GetGenerationData) GetModerationLatency() *float64 {
+func (g *GetGenerationData) GetModerationLatency() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
 	return g.ModerationLatency
 }
 
-func (g *GetGenerationData) GetGenerationTime() *float64 {
+func (g *GetGenerationData) GetGenerationTime() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
 	return g.GenerationTime
 }
@@ -211,79 +407,79 @@ func (g *GetGenerationData) GetFinishReason() *string {
 	return g.FinishReason
 }
 
-func (g *GetGenerationData) GetTokensPrompt() *float64 {
+func (g *GetGenerationData) GetTokensPrompt() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.TokensPrompt
 }
 
-func (g *GetGenerationData) GetTokensCompletion() *float64 {
+func (g *GetGenerationData) GetTokensCompletion() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.TokensCompletion
 }
 
-func (g *GetGenerationData) GetNativeTokensPrompt() *float64 {
+func (g *GetGenerationData) GetNativeTokensPrompt() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NativeTokensPrompt
 }
 
-func (g *GetGenerationData) GetNativeTokensCompletion() *float64 {
+func (g *GetGenerationData) GetNativeTokensCompletion() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NativeTokensCompletion
 }
 
-func (g *GetGenerationData) GetNativeTokensCompletionImages() *float64 {
+func (g *GetGenerationData) GetNativeTokensCompletionImages() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NativeTokensCompletionImages
 }
 
-func (g *GetGenerationData) GetNativeTokensReasoning() *float64 {
+func (g *GetGenerationData) GetNativeTokensReasoning() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NativeTokensReasoning
 }
 
-func (g *GetGenerationData) GetNativeTokensCached() *float64 {
+func (g *GetGenerationData) GetNativeTokensCached() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NativeTokensCached
 }
 
-func (g *GetGenerationData) GetNumMediaPrompt() *float64 {
+func (g *GetGenerationData) GetNumMediaPrompt() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NumMediaPrompt
 }
 
-func (g *GetGenerationData) GetNumInputAudioPrompt() *float64 {
+func (g *GetGenerationData) GetNumInputAudioPrompt() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NumInputAudioPrompt
 }
 
-func (g *GetGenerationData) GetNumMediaCompletion() *float64 {
+func (g *GetGenerationData) GetNumMediaCompletion() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NumMediaCompletion
 }
 
-func (g *GetGenerationData) GetNumSearchResults() *float64 {
+func (g *GetGenerationData) GetNumSearchResults() int64 {
 	if g == nil {
-		return nil
+		return 0
 	}
 	return g.NumSearchResults
 }
@@ -335,6 +531,34 @@ func (g *GetGenerationData) GetRouter() *string {
 		return nil
 	}
 	return g.Router
+}
+
+func (g *GetGenerationData) GetProviderResponses() []ProviderResponse {
+	if g == nil {
+		return nil
+	}
+	return g.ProviderResponses
+}
+
+func (g *GetGenerationData) GetUserAgent() *string {
+	if g == nil {
+		return nil
+	}
+	return g.UserAgent
+}
+
+func (g *GetGenerationData) GetHTTPReferer() *string {
+	if g == nil {
+		return nil
+	}
+	return g.HTTPReferer
+}
+
+func (g *GetGenerationData) GetRequestID() optionalnullable.OptionalNullable[string] {
+	if g == nil {
+		return nil
+	}
+	return g.RequestID
 }
 
 // GetGenerationResponse - Generation response

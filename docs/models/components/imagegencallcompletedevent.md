@@ -1,0 +1,13 @@
+# ImageGenCallCompletedEvent
+
+Image generation call completed
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `Type`                                                                                                 | [components.ImageGenCallCompletedEventType](../../models/components/imagegencallcompletedeventtype.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `ItemID`                                                                                               | `string`                                                                                               | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `OutputIndex`                                                                                          | `float64`                                                                                              | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `SequenceNumber`                                                                                       | `float64`                                                                                              | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

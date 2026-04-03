@@ -36,13 +36,15 @@ type CreateKeysRequest struct {
 	// Name for the new API key
 	Name string `json:"name"`
 	// Optional spending limit for the API key in USD
-	Limit optionalnullable.OptionalNullable[float64] `json:"limit,omitzero"`
+	Limit *float64 `json:"limit,omitzero"`
 	// Type of limit reset for the API key (daily, weekly, monthly, or null for no reset). Resets happen automatically at midnight UTC, and weeks are Monday through Sunday.
 	LimitReset optionalnullable.OptionalNullable[CreateKeysLimitReset] `json:"limit_reset,omitzero"`
 	// Whether to include BYOK usage in the limit
 	IncludeByokInLimit *bool `json:"include_byok_in_limit,omitzero"`
 	// Optional ISO 8601 UTC timestamp when the API key should expire. Must be UTC, other timezones will be rejected
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Optional user ID of the key creator. Only meaningful for organization-owned keys where a specific member is creating the key.
+	CreatorUserID optionalnullable.OptionalNullable[string] `json:"creator_user_id,omitzero"`
 }
 
 func (c CreateKeysRequest) MarshalJSON() ([]byte, error) {
@@ -63,7 +65,7 @@ func (c *CreateKeysRequest) GetName() string {
 	return c.Name
 }
 
-func (c *CreateKeysRequest) GetLimit() optionalnullable.OptionalNullable[float64] {
+func (c *CreateKeysRequest) GetLimit() *float64 {
 	if c == nil {
 		return nil
 	}
@@ -91,6 +93,13 @@ func (c *CreateKeysRequest) GetExpiresAt() optionalnullable.OptionalNullable[tim
 	return c.ExpiresAt
 }
 
+func (c *CreateKeysRequest) GetCreatorUserID() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.CreatorUserID
+}
+
 // CreateKeysData - The created API key information
 type CreateKeysData struct {
 	// Unique hash identifier for the API key
@@ -102,9 +111,9 @@ type CreateKeysData struct {
 	// Whether the API key is disabled
 	Disabled bool `json:"disabled"`
 	// Spending limit for the API key in USD
-	Limit *float64 `json:"limit"`
+	Limit float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining *float64 `json:"limit_remaining"`
+	LimitRemaining float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Whether to include external BYOK usage in the credit limit
@@ -131,6 +140,8 @@ type CreateKeysData struct {
 	UpdatedAt *string `json:"updated_at"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
+	CreatorUserID *string `json:"creator_user_id"`
 }
 
 func (c CreateKeysData) MarshalJSON() ([]byte, error) {
@@ -172,16 +183,16 @@ func (c *CreateKeysData) GetDisabled() bool {
 	return c.Disabled
 }
 
-func (c *CreateKeysData) GetLimit() *float64 {
+func (c *CreateKeysData) GetLimit() float64 {
 	if c == nil {
-		return nil
+		return 0.0
 	}
 	return c.Limit
 }
 
-func (c *CreateKeysData) GetLimitRemaining() *float64 {
+func (c *CreateKeysData) GetLimitRemaining() float64 {
 	if c == nil {
-		return nil
+		return 0.0
 	}
 	return c.LimitRemaining
 }
@@ -275,6 +286,13 @@ func (c *CreateKeysData) GetExpiresAt() optionalnullable.OptionalNullable[time.T
 		return nil
 	}
 	return c.ExpiresAt
+}
+
+func (c *CreateKeysData) GetCreatorUserID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CreatorUserID
 }
 
 // CreateKeysResponse - API key created successfully

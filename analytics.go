@@ -32,10 +32,12 @@ func newAnalytics(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks 
 }
 
 // GetUserActivity - Get user activity grouped by endpoint
-// Returns user activity data grouped by endpoint for the last 30 (completed) UTC days. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
-func (s *Analytics) GetUserActivity(ctx context.Context, date *string, opts ...operations.Option) (*operations.GetUserActivityResponse, error) {
+// Returns user activity data grouped by endpoint for the last 30 (completed) UTC days. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHash *string, userID *string, opts ...operations.Option) (*operations.GetUserActivityResponse, error) {
 	request := operations.GetUserActivityRequest{
-		Date: date,
+		Date:       date,
+		APIKeyHash: apiKeyHash,
+		UserID:     userID,
 	}
 
 	o := operations.Options{}
@@ -177,7 +179,7 @@ func (s *Analytics) GetUserActivity(ctx context.Context, date *string, opts ...o
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "403", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"400", "401", "403", "404", "4XX", "500", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -265,6 +267,27 @@ func (s *Analytics) GetUserActivity(ctx context.Context, date *string, opts ...o
 			}
 
 			var out sdkerrors.ForbiddenResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 404:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.NotFoundResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

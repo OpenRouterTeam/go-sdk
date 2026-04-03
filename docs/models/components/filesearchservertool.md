@@ -1,0 +1,14 @@
+# FileSearchServerTool
+
+File search tool configuration
+
+
+## Fields
+
+| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `Type`                                                                                      | [components.TypeFileSearch](../../models/components/typefilesearch.md)                      | :heavy_check_mark:                                                                          | N/A                                                                                         |
+| `VectorStoreIds`                                                                            | []`string`                                                                                  | :heavy_check_mark:                                                                          | N/A                                                                                         |
+| `Filters`                                                                                   | optionalnullable.OptionalNullable[[components.Filters](../../models/components/filters.md)] | :heavy_minus_sign:                                                                          | N/A                                                                                         |
+| `MaxNumResults`                                                                             | `*int64`                                                                                    | :heavy_minus_sign:                                                                          | N/A                                                                                         |
+| `RankingOptions`                                                                            | [*components.RankingOptions](../../models/components/rankingoptions.md)                     | :heavy_minus_sign:                                                                          | N/A                                                                                         |

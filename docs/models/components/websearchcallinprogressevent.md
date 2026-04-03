@@ -1,0 +1,13 @@
+# WebSearchCallInProgressEvent
+
+Web search call in progress
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `Type`                                                                                                     | [components.WebSearchCallInProgressEventType](../../models/components/websearchcallinprogresseventtype.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `ItemID`                                                                                                   | `string`                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `OutputIndex`                                                                                              | `float64`                                                                                                  | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `SequenceNumber`                                                                                           | `float64`                                                                                                  | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
