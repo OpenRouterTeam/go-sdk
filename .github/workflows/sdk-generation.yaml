@@ -1,17 +1,20 @@
-name: Regenerate SDK
+name: Generate SDK
 
 on:
-  pull_request:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
     paths:
       - ".speakeasy/in.openapi.yaml"
 
 jobs:
-  regenerate:
+  generate:
     uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@v15
     with:
-      speakeasy_version: "1.680.0"
+      speakeasy_version: "1.761.1"
       force: true
-      mode: direct
+      mode: pr
     secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      github_access_token: ${{ secrets.SDK_MERGE_PAT }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
