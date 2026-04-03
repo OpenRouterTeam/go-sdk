@@ -1,0 +1,16 @@
+# TextDeltaEvent
+
+Event emitted when a text delta is streamed
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `Type`                                                                                 | [components.TextDeltaEventType](../../models/components/textdeltaeventtype.md)         | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `Logprobs`                                                                             | [][components.TextDeltaEventLogprob](../../models/components/textdeltaeventlogprob.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `OutputIndex`                                                                          | `int64`                                                                                | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `ItemID`                                                                               | `string`                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `ContentIndex`                                                                         | `int64`                                                                                | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `Delta`                                                                                | `string`                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `SequenceNumber`                                                                       | `int64`                                                                                | :heavy_check_mark:                                                                     | N/A                                                                                    |

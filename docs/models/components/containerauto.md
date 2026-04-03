@@ -1,0 +1,10 @@
+# ContainerAuto
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `Type`                                                                                              | [components.ContainerType](../../models/components/containertype.md)                                | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+| `FileIds`                                                                                           | []`string`                                                                                          | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
+| `MemoryLimit`                                                                                       | optionalnullable.OptionalNullable[[components.MemoryLimit](../../models/components/memorylimit.md)] | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |

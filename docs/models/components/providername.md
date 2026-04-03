@@ -1,13 +1,28 @@
 # ProviderName
 
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ProviderNameAkashMl
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ProviderName("custom_value")
+```
+
 
 ## Values
 
 | Name                          | Value                         |
 | ----------------------------- | ----------------------------- |
+| `ProviderNameAkashMl`         | AkashML                       |
 | `ProviderNameAi21`            | AI21                          |
 | `ProviderNameAionLabs`        | AionLabs                      |
 | `ProviderNameAlibaba`         | Alibaba                       |
+| `ProviderNameAmbient`         | Ambient                       |
 | `ProviderNameAmazonBedrock`   | Amazon Bedrock                |
 | `ProviderNameAmazonNova`      | Amazon Nova                   |
 | `ProviderNameAnthropic`       | Anthropic                     |
@@ -38,7 +53,9 @@
 | `ProviderNameInception`       | Inception                     |
 | `ProviderNameInceptron`       | Inceptron                     |
 | `ProviderNameInferenceNet`    | InferenceNet                  |
+| `ProviderNameIonstream`       | Ionstream                     |
 | `ProviderNameInfermatic`      | Infermatic                    |
+| `ProviderNameIoNet`           | Io Net                        |
 | `ProviderNameInflection`      | Inflection                    |
 | `ProviderNameLiquid`          | Liquid                        |
 | `ProviderNameMara`            | Mara                          |
@@ -59,11 +76,13 @@
 | `ProviderNameParasail`        | Parasail                      |
 | `ProviderNamePerplexity`      | Perplexity                    |
 | `ProviderNamePhala`           | Phala                         |
+| `ProviderNameReka`            | Reka                          |
 | `ProviderNameRelace`          | Relace                        |
 | `ProviderNameSambaNova`       | SambaNova                     |
 | `ProviderNameSeed`            | Seed                          |
 | `ProviderNameSiliconFlow`     | SiliconFlow                   |
 | `ProviderNameSourceful`       | Sourceful                     |
+| `ProviderNameStepFun`         | StepFun                       |
 | `ProviderNameStealth`         | Stealth                       |
 | `ProviderNameStreamLake`      | StreamLake                    |
 | `ProviderNameSwitchpoint`     | Switchpoint                   |

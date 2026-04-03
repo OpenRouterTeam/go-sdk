@@ -35,7 +35,7 @@ func newResponses(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks 
 
 // Send - Create a response
 // Creates a streaming or non-streaming response using OpenResponses API format
-func (s *Responses) Send(ctx context.Context, request components.OpenResponsesRequest, opts ...operations.Option) (*operations.CreateResponsesResponse, error) {
+func (s *Responses) Send(ctx context.Context, request components.ResponsesRequest, opts ...operations.Option) (*operations.CreateResponsesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -208,15 +208,15 @@ func (s *Responses) Send(ctx context.Context, request components.OpenResponsesRe
 				return nil, err
 			}
 
-			var out components.OpenResponsesNonStreamingResponse
+			var out components.OpenResponsesResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			result := operations.CreateCreateResponsesResponseOpenResponsesNonStreamingResponse(out)
+			result := operations.CreateCreateResponsesResponseOpenResponsesResult(out)
 			return &result, nil
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `text/event-stream`):
-			out := stream.NewEventStream(httpRes.Body, func(se []byte) (operations.CreateResponsesResponseBody, error) {
+			out := stream.NewEventStream(ctx, httpRes.Body, func(se []byte) (operations.CreateResponsesResponseBody, error) {
 				var e operations.CreateResponsesResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(se), &e, ""); err != nil {
 					return operations.CreateResponsesResponseBody{}, err

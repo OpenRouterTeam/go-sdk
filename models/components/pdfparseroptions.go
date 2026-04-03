@@ -8,7 +8,7 @@ import (
 
 // PDFParserOptions - Options for PDF parsing.
 type PDFParserOptions struct {
-	// The engine to use for parsing PDF files.
+	// The engine to use for parsing PDF files. "pdf-text" is deprecated and automatically redirected to "cloudflare-ai".
 	Engine *PDFParserEngine `json:"engine,omitzero"`
 }
 

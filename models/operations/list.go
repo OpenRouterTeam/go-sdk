@@ -39,9 +39,9 @@ type ListData struct {
 	// Whether the API key is disabled
 	Disabled bool `json:"disabled"`
 	// Spending limit for the API key in USD
-	Limit *float64 `json:"limit"`
+	Limit float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining *float64 `json:"limit_remaining"`
+	LimitRemaining float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Whether to include external BYOK usage in the credit limit
@@ -68,6 +68,8 @@ type ListData struct {
 	UpdatedAt *string `json:"updated_at"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
+	CreatorUserID *string `json:"creator_user_id"`
 }
 
 func (l ListData) MarshalJSON() ([]byte, error) {
@@ -109,16 +111,16 @@ func (l *ListData) GetDisabled() bool {
 	return l.Disabled
 }
 
-func (l *ListData) GetLimit() *float64 {
+func (l *ListData) GetLimit() float64 {
 	if l == nil {
-		return nil
+		return 0.0
 	}
 	return l.Limit
 }
 
-func (l *ListData) GetLimitRemaining() *float64 {
+func (l *ListData) GetLimitRemaining() float64 {
 	if l == nil {
-		return nil
+		return 0.0
 	}
 	return l.LimitRemaining
 }
@@ -212,6 +214,13 @@ func (l *ListData) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
 		return nil
 	}
 	return l.ExpiresAt
+}
+
+func (l *ListData) GetCreatorUserID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.CreatorUserID
 }
 
 // ListResponse - List of API keys

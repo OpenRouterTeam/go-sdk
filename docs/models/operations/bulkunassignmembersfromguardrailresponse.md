@@ -7,4 +7,4 @@ Unassignment result
 
 | Field                                     | Type                                      | Required                                  | Description                               | Example                                   |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| `UnassignedCount`                         | *float64*                                 | :heavy_check_mark:                        | Number of members successfully unassigned | 2                                         |
+| `UnassignedCount`                         | `int64`                                   | :heavy_check_mark:                        | Number of members successfully unassigned | 2                                         |

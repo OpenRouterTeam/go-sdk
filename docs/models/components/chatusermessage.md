@@ -1,0 +1,12 @@
+# ChatUserMessage
+
+User message
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            | Example                                                                                |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `Role`                                                                                 | [components.ChatUserMessageRole](../../models/components/chatusermessagerole.md)       | :heavy_check_mark:                                                                     | N/A                                                                                    |                                                                                        |
+| `Content`                                                                              | [components.ChatUserMessageContent](../../models/components/chatusermessagecontent.md) | :heavy_check_mark:                                                                     | User message content                                                                   | What is the capital of France?                                                         |
+| `Name`                                                                                 | `*string`                                                                              | :heavy_minus_sign:                                                                     | Optional name for the user                                                             | User                                                                                   |

@@ -37,12 +37,12 @@ func (b *BulkUnassignKeysFromGuardrailRequest) GetRequestBody() BulkUnassignKeys
 // BulkUnassignKeysFromGuardrailResponse - Unassignment result
 type BulkUnassignKeysFromGuardrailResponse struct {
 	// Number of keys successfully unassigned
-	UnassignedCount float64 `json:"unassigned_count"`
+	UnassignedCount int64 `json:"unassigned_count"`
 }
 
-func (b *BulkUnassignKeysFromGuardrailResponse) GetUnassignedCount() float64 {
+func (b *BulkUnassignKeysFromGuardrailResponse) GetUnassignedCount() int64 {
 	if b == nil {
-		return 0.0
+		return 0
 	}
 	return b.UnassignedCount
 }

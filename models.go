@@ -33,7 +33,11 @@ func newModels(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *ho
 }
 
 // Count - Get total count of available models
-func (s *Models) Count(ctx context.Context, opts ...operations.Option) (*components.ModelsCountResponse, error) {
+func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...operations.Option) (*components.ModelsCountResponse, error) {
+	request := operations.ListModelsCountRequest{
+		OutputModalities: outputModalities,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -84,6 +88,10 @@ func (s *Models) Count(ctx context.Context, opts ...operations.Option) (*compone
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -169,7 +177,7 @@ func (s *Models) Count(ctx context.Context, opts ...operations.Option) (*compone
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"400", "4XX", "500", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -199,6 +207,27 @@ func (s *Models) Count(ctx context.Context, opts ...operations.Option) (*compone
 			}
 
 			return &out, nil
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 400:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.BadRequestResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -252,10 +281,11 @@ func (s *Models) Count(ctx context.Context, opts ...operations.Option) (*compone
 }
 
 // List all models and their properties
-func (s *Models) List(ctx context.Context, category *operations.Category, supportedParameters *string, opts ...operations.Option) (*components.ModelsListResponse, error) {
+func (s *Models) List(ctx context.Context, category *operations.Category, supportedParameters *string, outputModalities *string, opts ...operations.Option) (*components.ModelsListResponse, error) {
 	request := operations.GetModelsRequest{
 		Category:            category,
 		SupportedParameters: supportedParameters,
+		OutputModalities:    outputModalities,
 	}
 
 	o := operations.Options{}

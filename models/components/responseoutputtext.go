@@ -69,57 +69,57 @@ func (r *ResponseOutputTextTopLogprob) GetLogprob() float64 {
 	return r.Logprob
 }
 
-type Logprob struct {
+type ResponseOutputTextLogprob struct {
 	Token       string                         `json:"token"`
 	Bytes       []float64                      `json:"bytes"`
 	Logprob     float64                        `json:"logprob"`
 	TopLogprobs []ResponseOutputTextTopLogprob `json:"top_logprobs"`
 }
 
-func (l Logprob) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
+func (r ResponseOutputTextLogprob) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
 }
 
-func (l *Logprob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+func (r *ResponseOutputTextLogprob) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *Logprob) GetToken() string {
-	if l == nil {
+func (r *ResponseOutputTextLogprob) GetToken() string {
+	if r == nil {
 		return ""
 	}
-	return l.Token
+	return r.Token
 }
 
-func (l *Logprob) GetBytes() []float64 {
-	if l == nil {
+func (r *ResponseOutputTextLogprob) GetBytes() []float64 {
+	if r == nil {
 		return []float64{}
 	}
-	return l.Bytes
+	return r.Bytes
 }
 
-func (l *Logprob) GetLogprob() float64 {
-	if l == nil {
+func (r *ResponseOutputTextLogprob) GetLogprob() float64 {
+	if r == nil {
 		return 0.0
 	}
-	return l.Logprob
+	return r.Logprob
 }
 
-func (l *Logprob) GetTopLogprobs() []ResponseOutputTextTopLogprob {
-	if l == nil {
+func (r *ResponseOutputTextLogprob) GetTopLogprobs() []ResponseOutputTextTopLogprob {
+	if r == nil {
 		return []ResponseOutputTextTopLogprob{}
 	}
-	return l.TopLogprobs
+	return r.TopLogprobs
 }
 
 type ResponseOutputText struct {
 	Type        ResponseOutputTextType      `json:"type"`
 	Text        string                      `json:"text"`
 	Annotations []OpenAIResponsesAnnotation `json:"annotations,omitzero"`
-	Logprobs    []Logprob                   `json:"logprobs,omitzero"`
+	Logprobs    []ResponseOutputTextLogprob `json:"logprobs,omitzero"`
 }
 
 func (r ResponseOutputText) MarshalJSON() ([]byte, error) {
@@ -154,7 +154,7 @@ func (r *ResponseOutputText) GetAnnotations() []OpenAIResponsesAnnotation {
 	return r.Annotations
 }
 
-func (r *ResponseOutputText) GetLogprobs() []Logprob {
+func (r *ResponseOutputText) GetLogprobs() []ResponseOutputTextLogprob {
 	if r == nil {
 		return nil
 	}

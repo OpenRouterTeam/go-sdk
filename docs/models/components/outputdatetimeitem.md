@@ -1,0 +1,14 @@
+# OutputDatetimeItem
+
+An openrouter:datetime server tool output item
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `Type`                                                                                     | [components.OutputDatetimeItemType](../../models/components/outputdatetimeitemtype.md)     | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `ID`                                                                                       | `*string`                                                                                  | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `Status`                                                                                   | [components.OutputDatetimeItemStatus](../../models/components/outputdatetimeitemstatus.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `Datetime`                                                                                 | `string`                                                                                   | :heavy_check_mark:                                                                         | ISO 8601 datetime string                                                                   |
+| `Timezone`                                                                                 | `string`                                                                                   | :heavy_check_mark:                                                                         | IANA timezone name                                                                         |

@@ -18,9 +18,9 @@ const (
 
 // PreferredMinThroughput - Preferred minimum throughput (in tokens per second). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints below the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
 type PreferredMinThroughput struct {
-	Number                      *float64                     `queryParam:"inline,name=PreferredMinThroughput" union:"member"`
-	PercentileThroughputCutoffs *PercentileThroughputCutoffs `queryParam:"inline,name=PreferredMinThroughput" union:"member"`
-	Any                         any                          `queryParam:"inline,name=PreferredMinThroughput" union:"member"`
+	Number                      *float64                     `queryParam:"inline" union:"member"`
+	PercentileThroughputCutoffs *PercentileThroughputCutoffs `queryParam:"inline" union:"member"`
+	Any                         any                          `queryParam:"inline" union:"member"`
 
 	Type PreferredMinThroughputType
 }

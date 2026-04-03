@@ -13,7 +13,7 @@ Developer-friendly & type-safe Go SDK specifically catered to leverage *openrout
 <!-- Start Summary [summary] -->
 ## Summary
 
-OpenRouter API: OpenAI-compatible API with additional OpenRouter features
+OpenRouter API: OpenAI-compatible API with additional OpenRouter features.
 
 For more information about the API: [OpenRouter Documentation](https://openrouter.ai/docs)
 <!-- End Summary [summary] -->
@@ -69,7 +69,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -117,7 +117,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -143,7 +143,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"log"
 	"os"
@@ -154,12 +153,8 @@ func main() {
 
 	s := openrouter.New()
 
-	res, err := s.Credits.CreateCoinbaseCharge(ctx, operations.CreateCoinbaseChargeSecurity{
+	res, err := s.Models.ListForUser(ctx, operations.ListModelsUserSecurity{
 		Bearer: os.Getenv("OPENROUTER_BEARER"),
-	}, components.CreateChargeRequest{
-		Amount:  100,
-		Sender:  "0x1234567890123456789012345678901234567890",
-		ChainID: components.ChainIDOne,
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -202,7 +197,7 @@ func main() {
 ### [Credits](docs/sdks/credits/README.md)
 
 * [GetCredits](docs/sdks/credits/README.md#getcredits) - Get remaining credits
-* [CreateCoinbaseCharge](docs/sdks/credits/README.md#createcoinbasecharge) - Create a Coinbase charge for crypto payment
+* [~~CreateCoinbaseCharge~~](docs/sdks/credits/README.md#createcoinbasecharge) - Deprecated Coinbase Commerce charge endpoint :warning: **Deprecated**
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 
@@ -245,6 +240,10 @@ func main() {
 * [ExchangeAuthCodeForAPIKey](docs/sdks/oauth/README.md#exchangeauthcodeforapikey) - Exchange authorization code for API key
 * [CreateAuthCode](docs/sdks/oauth/README.md#createauthcode) - Create authorization code
 
+### [Organization](docs/sdks/organization/README.md)
+
+* [ListMembers](docs/sdks/organization/README.md#listmembers) - List organization members
+
 ### [Providers](docs/sdks/providers/README.md)
 
 * [List](docs/sdks/providers/README.md#list) - List all providers
@@ -279,7 +278,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -325,7 +324,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{}, operations.WithRetries(
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{}, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -383,7 +382,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -449,7 +448,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 
 		var e *sdkerrors.BadRequestResponseError
@@ -573,7 +572,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -612,7 +611,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}

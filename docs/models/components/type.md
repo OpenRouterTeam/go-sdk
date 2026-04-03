@@ -15,3 +15,15 @@ type := components.CreateTypeOpenAIResponsesToolChoiceTypeWebSearchPreview202503
 type := components.CreateTypeOpenAIResponsesToolChoiceTypeWebSearchPreview(components.OpenAIResponsesToolChoiceTypeWebSearchPreview{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch type.Type {
+	case components.TypeTypeOpenAIResponsesToolChoiceTypeWebSearchPreview20250311:
+		// type.OpenAIResponsesToolChoiceTypeWebSearchPreview20250311 is populated
+	case components.TypeTypeOpenAIResponsesToolChoiceTypeWebSearchPreview:
+		// type.OpenAIResponsesToolChoiceTypeWebSearchPreview is populated
+}
+```

@@ -1,0 +1,12 @@
+# ChatContentText
+
+Text content part
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               | Example                                                                                   |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `Type`                                                                                    | [components.ChatContentTextType](../../models/components/chatcontenttexttype.md)          | :heavy_check_mark:                                                                        | N/A                                                                                       |                                                                                           |
+| `Text`                                                                                    | `string`                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |                                                                                           |
+| `CacheControl`                                                                            | [*components.ChatContentCacheControl](../../models/components/chatcontentcachecontrol.md) | :heavy_minus_sign:                                                                        | Cache control for the content part                                                        | {<br/>"type": "ephemeral",<br/>"ttl": "5m"<br/>}                                          |

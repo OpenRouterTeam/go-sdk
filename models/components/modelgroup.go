@@ -12,6 +12,7 @@ const (
 	ModelGroupGpt      ModelGroup = "GPT"
 	ModelGroupClaude   ModelGroup = "Claude"
 	ModelGroupGemini   ModelGroup = "Gemini"
+	ModelGroupGemma    ModelGroup = "Gemma"
 	ModelGroupGrok     ModelGroup = "Grok"
 	ModelGroupCohere   ModelGroup = "Cohere"
 	ModelGroupNova     ModelGroup = "Nova"
@@ -35,7 +36,7 @@ func (e ModelGroup) ToPointer() *ModelGroup {
 func (e *ModelGroup) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "Router", "Media", "Other", "GPT", "Claude", "Gemini", "Grok", "Cohere", "Nova", "Qwen", "Yi", "DeepSeek", "Mistral", "Llama2", "Llama3", "Llama4", "PaLM", "RWKV", "Qwen3":
+		case "Router", "Media", "Other", "GPT", "Claude", "Gemini", "Gemma", "Grok", "Cohere", "Nova", "Qwen", "Yi", "DeepSeek", "Mistral", "Llama2", "Llama3", "Llama4", "PaLM", "RWKV", "Qwen3":
 			return true
 		}
 	}

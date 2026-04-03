@@ -5,8 +5,8 @@ package stream
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"regexp"
 	"strconv"
@@ -21,8 +21,9 @@ type ServerEvent struct {
 }
 
 var (
-	boundary   = regexp.MustCompile(`\r\n\r\n|\r\r|\n\n`)
-	lineEnding = regexp.MustCompile(`\r?\n|\r`)
+	boundary   = regexp.MustCompile(`\r\n\r\n|\r\n\r|\r\n\n|\r\r\n|\n\r\n|\r\r|\n\r|\n\n`)
+	lineEnding = regexp.MustCompile(`\r\n|\r|\n`)
+	bom        = "\uFEFF"
 )
 
 func scanServerEvents(data []byte, atEOF bool) (advance int, token []byte, err error) {
@@ -51,16 +52,22 @@ type EventStream[T any] struct {
 	scanner      *bufio.Scanner
 	unmarshaller func(se []byte) (T, error)
 	sentinel     string
+	ctx          context.Context
+	dataRequired bool
 
 	finished bool
+	first    bool
 	err      error
 	val      *T
+	eventID  *string
 }
 
 func NewEventStream[T any](
+	ctx context.Context,
 	source io.Reader,
 	unmarshaller func(se []byte) (T, error),
 	sentinel string,
+	opts ...func(*EventStream[T]),
 ) *EventStream[T] {
 	scanner := bufio.NewScanner(source)
 	scanner.Split(scanServerEvents)
@@ -72,11 +79,28 @@ func NewEventStream[T any](
 		src = io.NopCloser(source)
 	}
 
-	return &EventStream[T]{
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	es := &EventStream[T]{
 		r:            src,
 		scanner:      scanner,
 		unmarshaller: unmarshaller,
 		sentinel:     sentinel,
+		ctx:          ctx,
+		first:        true,
+		dataRequired: true,
+	}
+	for _, opt := range opts {
+		opt(es)
+	}
+	return es
+}
+
+func WithDataRequired[T any](dataRequired bool) func(*EventStream[T]) {
+	return func(es *EventStream[T]) {
+		es.dataRequired = dataRequired
 	}
 }
 
@@ -89,116 +113,151 @@ func (es *EventStream[T]) Next() bool {
 		return false
 	}
 
-	if !es.scanner.Scan() {
+	// Check if context is canceled
+	select {
+	case <-es.ctx.Done():
+		es.err = es.ctx.Err()
 		return false
+	default:
 	}
 
-	es.err = es.scanner.Err()
-	if es.err != nil {
-		return false
-	}
-
-	b := es.scanner.Bytes()
-
-	var event ServerEvent
-	lines := lineEnding.Split(string(b), -1)
-	publish := false
-	data := ""
-	for _, line := range lines {
-		if line == "" {
-			continue
+	for {
+		if !es.scanner.Scan() {
+			return false
 		}
 
-		delim := strings.Index(line, ":")
-		if delim == 0 {
-			continue
+		es.err = es.scanner.Err()
+		if es.err != nil {
+			return false
 		}
 
-		field := ""
-		value := ""
-		if delim > 0 {
-			field = line[:delim]
+		b := es.scanner.Bytes()
+		content := string(b)
+		if es.first {
+			es.first = false
+			content = strings.TrimPrefix(content, bom)
 		}
-		if delim > 0 && delim < len(line)-1 {
-			value = line[delim+1:]
-		}
-		value = strings.TrimPrefix(value, " ")
 
-		switch field {
-		case "id":
-			publish = true
-			event.ID = &value
-		case "event":
-			publish = true
-			event.Event = &value
-		case "retry":
-			retry, err := strconv.ParseInt(value, 10, 64)
-			if err == nil {
-				publish = true
-				event.Retry = &retry
+		var event ServerEvent
+		lines := lineEnding.Split(content, -1)
+		publish := false
+		data := ""
+		for _, line := range lines {
+			if line == "" {
+				continue
 			}
-		case "data":
-			publish = true
-			data += value + "\n"
+
+			delim := strings.Index(line, ":")
+			if delim == 0 {
+				continue
+			}
+
+			var field, value string
+			if delim > 0 {
+				field = line[:delim]
+				value = line[delim+1:]
+				value = strings.TrimPrefix(value, " ")
+			} else {
+				field = line
+				value = ""
+			}
+
+			switch field {
+			case "id":
+				publish = true
+				if !strings.Contains(value, "\x00") {
+					es.eventID = &value
+				}
+			case "event":
+				publish = true
+				event.Event = &value
+			case "retry":
+				retry, err := strconv.ParseInt(value, 10, 64)
+				if err == nil {
+					publish = true
+					event.Retry = &retry
+				}
+			case "data":
+				publish = true
+				data += value + "\n"
+			}
 		}
-	}
 
-	if es.sentinel != "" && data == es.sentinel+"\n" {
-		es.finished = true
-		return false
-	}
-
-	if len(data) > 0 {
-		data = data[:len(data)-1]
-	}
-
-	encoding := "application/json"
-
-	var t T
-	if et, ok := any(t).(EventType); ok {
-		ev := ""
-		if event.Event != nil {
-			ev = *event.Event
+		// Skip comment-only or empty blocks (e.g. SSE keepalive heartbeats)
+		if !publish {
+			continue
 		}
 
-		var err error
-		encoding, err = et.GetEventEncoding(ev)
+		// Skip events with no data lines when data is required
+		if data == "" && es.dataRequired {
+			continue
+		}
+
+		event.ID = es.eventID
+
+		if es.sentinel != "" && data == es.sentinel+"\n" {
+			es.finished = true
+			return false
+		}
+
+		if len(data) > 0 {
+			data = data[:len(data)-1]
+		}
+
+		encoding := "application/json"
+
+		var t T
+		if et, ok := any(t).(EventType); ok {
+			ev := ""
+			if event.Event != nil {
+				ev = *event.Event
+			}
+			encoding, _ = et.GetEventEncoding(ev)
+		} else {
+			var a interface{}
+			if err := json.Unmarshal([]byte(data), &a); err != nil {
+				encoding = "string"
+			}
+		}
+
+		// "auto" means the data field is a mixed union (JSON + plain-text variants).
+		// Probe the actual data to decide.
+		if encoding == "auto" {
+			var a interface{}
+			if err := json.Unmarshal([]byte(data), &a); err != nil {
+				encoding = "string"
+			} else {
+				encoding = "application/json"
+			}
+		}
+
+		if encoding == "string" {
+			jsonData, err := json.Marshal(data)
+			if err != nil {
+				es.err = err
+				return false
+			}
+			event.Data = jsonData
+		} else {
+			event.Data = []byte(data)
+		}
+
+		e, err := json.Marshal(event)
 		if err != nil {
 			es.err = err
 			return false
 		}
-	} else {
-		var a interface{}
-		if err := json.Unmarshal([]byte(data), &a); err != nil {
-			encoding = "string"
+
+		parsedEvent, err := es.unmarshaller(e)
+		if err != nil {
+			es.err = err
+			return false
 		}
-	}
 
-	if encoding == "string" {
-		data = fmt.Sprintf("%q", data)
-	}
-
-	event.Data = []byte(data)
-
-	e, err := json.Marshal(event)
-	if err != nil {
-		es.err = err
-		return false
-	}
-
-	parsedEvent, err := es.unmarshaller(e)
-	if err != nil {
-		es.err = err
-		return false
-	}
-
-	if publish {
 		es.val = &parsedEvent
-	} else {
-		es.val = nil
-	}
 
-	return true
+		return true
+	}
 }
 
 // Value returns the most recent event that was generated from a call to Next
@@ -214,5 +273,6 @@ func (es *EventStream[T]) Err() error {
 // Close will release underlying resources held by an event stream. It must
 // always be called.
 func (es *EventStream[T]) Close() error {
+	es.finished = true
 	return es.r.Close()
 }

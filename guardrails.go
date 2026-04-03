@@ -32,7 +32,7 @@ func newGuardrails(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks
 }
 
 // List guardrails
-// List all guardrails for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// List all guardrails for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, opts ...operations.Option) (*operations.ListGuardrailsResponse, error) {
 	request := operations.ListGuardrailsRequest{
 		Offset: offset,
@@ -282,7 +282,7 @@ func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, op
 }
 
 // Create a guardrail
-// Create a new guardrail for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Create a new guardrail for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) Create(ctx context.Context, request operations.CreateGuardrailRequest, opts ...operations.Option) (*operations.CreateGuardrailResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -551,7 +551,7 @@ func (s *Guardrails) Create(ctx context.Context, request operations.CreateGuardr
 }
 
 // Get a guardrail
-// Get a single guardrail by ID. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Get a single guardrail by ID. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetGuardrailResponse, error) {
 	request := operations.GetGuardrailRequest{
 		ID: id,
@@ -817,7 +817,7 @@ func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Opti
 }
 
 // Update a guardrail
-// Update an existing guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Update an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) Update(ctx context.Context, id string, requestBody operations.UpdateGuardrailRequestBody, opts ...operations.Option) (*operations.UpdateGuardrailResponse, error) {
 	request := operations.UpdateGuardrailRequest{
 		ID:          id,
@@ -1112,7 +1112,7 @@ func (s *Guardrails) Update(ctx context.Context, id string, requestBody operatio
 }
 
 // Delete a guardrail
-// Delete an existing guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Delete an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteGuardrailResponse, error) {
 	request := operations.DeleteGuardrailRequest{
 		ID: id,
@@ -1378,7 +1378,7 @@ func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.O
 }
 
 // ListKeyAssignments - List all key assignments
-// List all API key guardrail assignments for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// List all API key guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, limit *string, opts ...operations.Option) (*operations.ListKeyAssignmentsResponse, error) {
 	request := operations.ListKeyAssignmentsRequest{
 		Offset: offset,
@@ -1628,7 +1628,7 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, lim
 }
 
 // ListMemberAssignments - List all member assignments
-// List all organization member guardrail assignments for the authenticated user. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// List all organization member guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, limit *string, opts ...operations.Option) (*operations.ListMemberAssignmentsResponse, error) {
 	request := operations.ListMemberAssignmentsRequest{
 		Offset: offset,
@@ -1878,7 +1878,7 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, 
 }
 
 // ListGuardrailKeyAssignments - List key assignments for a guardrail
-// List all API key assignments for a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// List all API key assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string, offset *string, limit *string, opts ...operations.Option) (*operations.ListGuardrailKeyAssignmentsResponse, error) {
 	request := operations.ListGuardrailKeyAssignmentsRequest{
 		ID:     id,
@@ -2150,7 +2150,7 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 }
 
 // BulkAssignKeys - Bulk assign keys to a guardrail
-// Assign multiple API keys to a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Assign multiple API keys to a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody operations.BulkAssignKeysToGuardrailRequestBody, opts ...operations.Option) (*operations.BulkAssignKeysToGuardrailResponse, error) {
 	request := operations.BulkAssignKeysToGuardrailRequest{
 		ID:          id,
@@ -2445,7 +2445,7 @@ func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody 
 }
 
 // ListGuardrailMemberAssignments - List member assignments for a guardrail
-// List all organization member assignments for a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// List all organization member assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id string, offset *string, limit *string, opts ...operations.Option) (*operations.ListGuardrailMemberAssignmentsResponse, error) {
 	request := operations.ListGuardrailMemberAssignmentsRequest{
 		ID:     id,
@@ -2717,7 +2717,7 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 }
 
 // BulkAssignMembers - Bulk assign members to a guardrail
-// Assign multiple organization members to a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Assign multiple organization members to a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBody operations.BulkAssignMembersToGuardrailRequestBody, opts ...operations.Option) (*operations.BulkAssignMembersToGuardrailResponse, error) {
 	request := operations.BulkAssignMembersToGuardrailRequest{
 		ID:          id,
@@ -3012,7 +3012,7 @@ func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBo
 }
 
 // BulkUnassignKeys - Bulk unassign keys from a guardrail
-// Unassign multiple API keys from a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Unassign multiple API keys from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBody operations.BulkUnassignKeysFromGuardrailRequestBody, opts ...operations.Option) (*operations.BulkUnassignKeysFromGuardrailResponse, error) {
 	request := operations.BulkUnassignKeysFromGuardrailRequest{
 		ID:          id,
@@ -3307,7 +3307,7 @@ func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBod
 }
 
 // BulkUnassignMembers - Bulk unassign members from a guardrail
-// Unassign multiple organization members from a specific guardrail. [Provisioning key](/docs/guides/overview/auth/provisioning-api-keys) required.
+// Unassign multiple organization members from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, requestBody operations.BulkUnassignMembersFromGuardrailRequestBody, opts ...operations.Option) (*operations.BulkUnassignMembersFromGuardrailResponse, error) {
 	request := operations.BulkUnassignMembersFromGuardrailRequest{
 		ID:          id,

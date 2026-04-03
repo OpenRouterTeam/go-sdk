@@ -9,21 +9,37 @@
 variables := components.CreateVariablesStr(string{/* values here */})
 ```
 
-### ResponseInputText
+### InputText
 
 ```go
-variables := components.CreateVariablesResponseInputText(components.ResponseInputText{/* values here */})
+variables := components.CreateVariablesInputText(components.InputText{/* values here */})
 ```
 
-### ResponseInputImage
+### InputImage
 
 ```go
-variables := components.CreateVariablesResponseInputImage(components.ResponseInputImage{/* values here */})
+variables := components.CreateVariablesInputImage(components.InputImage{/* values here */})
 ```
 
-### ResponseInputFile
+### InputFile
 
 ```go
-variables := components.CreateVariablesResponseInputFile(components.ResponseInputFile{/* values here */})
+variables := components.CreateVariablesInputFile(components.InputFile{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch variables.Type {
+	case components.VariablesTypeStr:
+		// variables.Str is populated
+	case components.VariablesTypeInputText:
+		// variables.InputText is populated
+	case components.VariablesTypeInputImage:
+		// variables.InputImage is populated
+	case components.VariablesTypeInputFile:
+		// variables.InputFile is populated
+}
+```

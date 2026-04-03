@@ -31,6 +31,30 @@ func (e *CreateAuthKeysCodeCodeChallengeMethod) IsExact() bool {
 	return false
 }
 
+// UsageLimitType - Optional credit limit reset interval. When set, the credit limit resets on this interval.
+type UsageLimitType string
+
+const (
+	UsageLimitTypeDaily   UsageLimitType = "daily"
+	UsageLimitTypeWeekly  UsageLimitType = "weekly"
+	UsageLimitTypeMonthly UsageLimitType = "monthly"
+)
+
+func (e UsageLimitType) ToPointer() *UsageLimitType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *UsageLimitType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "daily", "weekly", "monthly":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateAuthKeysCodeRequest struct {
 	// The callback URL to redirect to after authorization. Note, only https URLs on ports 443 and 3000 are allowed.
 	CallbackURL string `json:"callback_url"`
@@ -42,6 +66,10 @@ type CreateAuthKeysCodeRequest struct {
 	Limit *float64 `json:"limit,omitzero"`
 	// Optional expiration time for the API key to be created
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Optional custom label for the API key. Defaults to the app name if not provided.
+	KeyLabel *string `json:"key_label,omitzero"`
+	// Optional credit limit reset interval. When set, the credit limit resets on this interval.
+	UsageLimitType *UsageLimitType `json:"usage_limit_type,omitzero"`
 }
 
 func (c CreateAuthKeysCodeRequest) MarshalJSON() ([]byte, error) {
@@ -90,12 +118,26 @@ func (c *CreateAuthKeysCodeRequest) GetExpiresAt() optionalnullable.OptionalNull
 	return c.ExpiresAt
 }
 
+func (c *CreateAuthKeysCodeRequest) GetKeyLabel() *string {
+	if c == nil {
+		return nil
+	}
+	return c.KeyLabel
+}
+
+func (c *CreateAuthKeysCodeRequest) GetUsageLimitType() *UsageLimitType {
+	if c == nil {
+		return nil
+	}
+	return c.UsageLimitType
+}
+
 // CreateAuthKeysCodeData - Auth code data
 type CreateAuthKeysCodeData struct {
 	// The authorization code ID to use in the exchange request
 	ID string `json:"id"`
 	// The application ID associated with this auth code
-	AppID float64 `json:"app_id"`
+	AppID int64 `json:"app_id"`
 	// ISO 8601 timestamp of when the auth code was created
 	CreatedAt string `json:"created_at"`
 }
@@ -107,9 +149,9 @@ func (c *CreateAuthKeysCodeData) GetID() string {
 	return c.ID
 }
 
-func (c *CreateAuthKeysCodeData) GetAppID() float64 {
+func (c *CreateAuthKeysCodeData) GetAppID() int64 {
 	if c == nil {
-		return 0.0
+		return 0
 	}
 	return c.AppID
 }

@@ -2,7 +2,7 @@
 
 package openrouter
 
-// Generated from OpenAPI doc version 1.0.0 and generator version 2.788.4
+// Generated from OpenAPI doc version 1.0.0 and generator version 2.879.6
 
 import (
 	"context"
@@ -53,7 +53,7 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-// OpenRouter API: OpenAI-compatible API with additional OpenRouter features
+// OpenRouter API: OpenAI-compatible API with additional OpenRouter features.
 //
 // https://openrouter.ai/docs - OpenRouter Documentation
 type OpenRouter struct {
@@ -61,10 +61,9 @@ type OpenRouter struct {
 	Beta       *Beta
 	// Analytics and usage endpoints
 	Analytics *Analytics
+	Chat      *Chat
 	// Credit management endpoints
 	Credits *Credits
-	// Text embedding endpoints
-	Embeddings *Embeddings
 	// Generation history endpoints
 	Generations *Generations
 	// Model information endpoints
@@ -75,11 +74,14 @@ type OpenRouter struct {
 	Providers *Providers
 	// API key management endpoints
 	APIKeys *APIKeys
+	// Organization endpoints
+	Organization *Organization
 	// Guardrails endpoints
 	Guardrails *Guardrails
 	// OAuth authentication endpoints
 	OAuth *OAuth
-	Chat  *Chat
+	// Text embedding endpoints
+	Embeddings *Embeddings
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -87,7 +89,7 @@ type OpenRouter struct {
 
 type SDKOption func(*OpenRouter)
 
-// WithServerURL allows the overriding of the default server URL
+// WithServerURL allows providing an alternative server URL
 func WithServerURL(serverURL string) SDKOption {
 	return func(sdk *OpenRouter) {
 		sdk.sdkConfiguration.ServerURL = serverURL
@@ -171,9 +173,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.1.0",
+		SDKVersion: "0.2.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.1.0 2.788.4 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.2.0 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -201,16 +203,17 @@ func New(opts ...SDKOption) *OpenRouter {
 
 	sdk.Beta = newBeta(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Analytics = newAnalytics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Endpoints = newEndpoints(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Providers = newProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Organization = newOrganization(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

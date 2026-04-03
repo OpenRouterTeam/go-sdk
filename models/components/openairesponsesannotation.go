@@ -18,9 +18,9 @@ const (
 )
 
 type OpenAIResponsesAnnotation struct {
-	FileCitation *FileCitation `queryParam:"inline,name=OpenAIResponsesAnnotation" union:"member"`
-	URLCitation  *URLCitation  `queryParam:"inline,name=OpenAIResponsesAnnotation" union:"member"`
-	FilePath     *FilePath     `queryParam:"inline,name=OpenAIResponsesAnnotation" union:"member"`
+	FileCitation *FileCitation `queryParam:"inline" union:"member"`
+	URLCitation  *URLCitation  `queryParam:"inline" union:"member"`
+	FilePath     *FilePath     `queryParam:"inline" union:"member"`
 
 	Type OpenAIResponsesAnnotationType
 }

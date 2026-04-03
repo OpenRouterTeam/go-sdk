@@ -1,0 +1,11 @@
+# ChatWebSearchServerTool
+
+OpenRouter built-in server tool: searches the web for current information
+
+
+## Fields
+
+| Field                                                                                                                                  | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `Type`                                                                                                                                 | [components.ChatWebSearchServerToolTypeOpenrouterWebSearch](../../models/components/chatwebsearchservertooltypeopenrouterwebsearch.md) | :heavy_check_mark:                                                                                                                     | N/A                                                                                                                                    |
+| `Parameters`                                                                                                                           | [*components.ChatWebSearchServerToolParameters](../../models/components/chatwebsearchservertoolparameters.md)                          | :heavy_minus_sign:                                                                                                                     | N/A                                                                                                                                    |

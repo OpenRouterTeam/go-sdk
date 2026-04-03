@@ -17,7 +17,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.OpenResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}

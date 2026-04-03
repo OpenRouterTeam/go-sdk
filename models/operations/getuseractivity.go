@@ -9,6 +9,10 @@ import (
 type GetUserActivityRequest struct {
 	// Filter by a single UTC date in the last 30 days (YYYY-MM-DD format).
 	Date *string `queryParam:"style=form,explode=true,name=date"`
+	// Filter by API key hash (SHA-256 hex string, as returned by the keys API).
+	APIKeyHash *string `queryParam:"style=form,explode=true,name=api_key_hash"`
+	// Filter by org member user ID. Only applicable for organization accounts.
+	UserID *string `queryParam:"style=form,explode=true,name=user_id"`
 }
 
 func (g *GetUserActivityRequest) GetDate() *string {
@@ -16,6 +20,20 @@ func (g *GetUserActivityRequest) GetDate() *string {
 		return nil
 	}
 	return g.Date
+}
+
+func (g *GetUserActivityRequest) GetAPIKeyHash() *string {
+	if g == nil {
+		return nil
+	}
+	return g.APIKeyHash
+}
+
+func (g *GetUserActivityRequest) GetUserID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.UserID
 }
 
 // GetUserActivityResponse - Returns user activity data grouped by endpoint

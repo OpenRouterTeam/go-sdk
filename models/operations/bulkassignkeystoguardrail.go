@@ -37,12 +37,12 @@ func (b *BulkAssignKeysToGuardrailRequest) GetRequestBody() BulkAssignKeysToGuar
 // BulkAssignKeysToGuardrailResponse - Assignment result
 type BulkAssignKeysToGuardrailResponse struct {
 	// Number of keys successfully assigned
-	AssignedCount float64 `json:"assigned_count"`
+	AssignedCount int64 `json:"assigned_count"`
 }
 
-func (b *BulkAssignKeysToGuardrailResponse) GetAssignedCount() float64 {
+func (b *BulkAssignKeysToGuardrailResponse) GetAssignedCount() int64 {
 	if b == nil {
-		return 0.0
+		return 0
 	}
 	return b.AssignedCount
 }

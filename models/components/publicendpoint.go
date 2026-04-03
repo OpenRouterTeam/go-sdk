@@ -3,33 +3,20 @@
 package components
 
 type Pricing struct {
-	// A value in string format that is a large number
-	Prompt string `json:"prompt"`
-	// A value in string format that is a large number
-	Completion string `json:"completion"`
-	// A value in string format that is a large number
-	Request *string `json:"request,omitzero"`
-	// A value in string format that is a large number
-	Image *string `json:"image,omitzero"`
-	// A value in string format that is a large number
-	ImageToken *string `json:"image_token,omitzero"`
-	// A value in string format that is a large number
-	ImageOutput *string `json:"image_output,omitzero"`
-	// A value in string format that is a large number
-	Audio *string `json:"audio,omitzero"`
-	// A value in string format that is a large number
-	AudioOutput *string `json:"audio_output,omitzero"`
-	// A value in string format that is a large number
-	InputAudioCache *string `json:"input_audio_cache,omitzero"`
-	// A value in string format that is a large number
-	WebSearch *string `json:"web_search,omitzero"`
-	// A value in string format that is a large number
-	InternalReasoning *string `json:"internal_reasoning,omitzero"`
-	// A value in string format that is a large number
-	InputCacheRead *string `json:"input_cache_read,omitzero"`
-	// A value in string format that is a large number
-	InputCacheWrite *string  `json:"input_cache_write,omitzero"`
-	Discount        *float64 `json:"discount,omitzero"`
+	Prompt            string   `json:"prompt"`
+	Completion        string   `json:"completion"`
+	Request           *string  `json:"request,omitzero"`
+	Image             *string  `json:"image,omitzero"`
+	ImageToken        *string  `json:"image_token,omitzero"`
+	ImageOutput       *string  `json:"image_output,omitzero"`
+	Audio             *string  `json:"audio,omitzero"`
+	AudioOutput       *string  `json:"audio_output,omitzero"`
+	InputAudioCache   *string  `json:"input_audio_cache,omitzero"`
+	WebSearch         *string  `json:"web_search,omitzero"`
+	InternalReasoning *string  `json:"internal_reasoning,omitzero"`
+	InputCacheRead    *string  `json:"input_cache_read,omitzero"`
+	InputCacheWrite   *string  `json:"input_cache_write,omitzero"`
+	Discount          *float64 `json:"discount,omitzero"`
 }
 
 func (p *Pricing) GetPrompt() string {
@@ -163,19 +150,23 @@ func (e *PublicEndpointQuantization) IsExact() bool {
 type PublicEndpoint struct {
 	Name string `json:"name"`
 	// The unique identifier for the model (permaslug)
-	ModelID                 string                      `json:"model_id"`
-	ModelName               string                      `json:"model_name"`
-	ContextLength           float64                     `json:"context_length"`
-	Pricing                 Pricing                     `json:"pricing"`
-	ProviderName            ProviderName                `json:"provider_name"`
-	Tag                     string                      `json:"tag"`
-	Quantization            *PublicEndpointQuantization `json:"quantization"`
-	MaxCompletionTokens     *float64                    `json:"max_completion_tokens"`
-	MaxPromptTokens         *float64                    `json:"max_prompt_tokens"`
-	SupportedParameters     []Parameter                 `json:"supported_parameters"`
-	Status                  *EndpointStatus             `json:"status,omitzero"`
-	UptimeLast30m           *float64                    `json:"uptime_last_30m"`
-	SupportsImplicitCaching bool                        `json:"supports_implicit_caching"`
+	ModelID             string                      `json:"model_id"`
+	ModelName           string                      `json:"model_name"`
+	ContextLength       float64                     `json:"context_length"`
+	Pricing             Pricing                     `json:"pricing"`
+	ProviderName        ProviderName                `json:"provider_name"`
+	Tag                 string                      `json:"tag"`
+	Quantization        *PublicEndpointQuantization `json:"quantization"`
+	MaxCompletionTokens *float64                    `json:"max_completion_tokens"`
+	MaxPromptTokens     *float64                    `json:"max_prompt_tokens"`
+	SupportedParameters []Parameter                 `json:"supported_parameters"`
+	Status              *EndpointStatus             `json:"status,omitzero"`
+	UptimeLast30m       *float64                    `json:"uptime_last_30m"`
+	// Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
+	UptimeLast5m *float64 `json:"uptime_last_5m"`
+	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
+	UptimeLast1d            *float64 `json:"uptime_last_1d"`
+	SupportsImplicitCaching bool     `json:"supports_implicit_caching"`
 	// Latency percentiles in milliseconds over the last 30 minutes. Latency measures time to first token. Only visible when authenticated with an API key or cookie; returns null for unauthenticated requests.
 	LatencyLast30m    *PercentileStats `json:"latency_last_30m"`
 	ThroughputLast30m *PercentileStats `json:"throughput_last_30m"`
@@ -270,6 +261,20 @@ func (p *PublicEndpoint) GetUptimeLast30m() *float64 {
 		return nil
 	}
 	return p.UptimeLast30m
+}
+
+func (p *PublicEndpoint) GetUptimeLast5m() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.UptimeLast5m
+}
+
+func (p *PublicEndpoint) GetUptimeLast1d() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.UptimeLast1d
 }
 
 func (p *PublicEndpoint) GetSupportsImplicitCaching() bool {

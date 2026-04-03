@@ -1,0 +1,13 @@
+# ImageGenCallGeneratingEvent
+
+Image generation call is generating
+
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `Type`                                                                                                   | [components.ImageGenCallGeneratingEventType](../../models/components/imagegencallgeneratingeventtype.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `ItemID`                                                                                                 | `string`                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `OutputIndex`                                                                                            | `float64`                                                                                                | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `SequenceNumber`                                                                                         | `float64`                                                                                                | :heavy_check_mark:                                                                                       | N/A                                                                                                      |

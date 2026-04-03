@@ -103,7 +103,7 @@ type ListGuardrailKeyAssignmentsResponse struct {
 	// List of key assignments
 	Data []ListGuardrailKeyAssignmentsData `json:"data"`
 	// Total number of key assignments for this guardrail
-	TotalCount float64 `json:"total_count"`
+	TotalCount int64 `json:"total_count"`
 }
 
 func (l *ListGuardrailKeyAssignmentsResponse) GetData() []ListGuardrailKeyAssignmentsData {
@@ -113,9 +113,9 @@ func (l *ListGuardrailKeyAssignmentsResponse) GetData() []ListGuardrailKeyAssign
 	return l.Data
 }
 
-func (l *ListGuardrailKeyAssignmentsResponse) GetTotalCount() float64 {
+func (l *ListGuardrailKeyAssignmentsResponse) GetTotalCount() int64 {
 	if l == nil {
-		return 0.0
+		return 0
 	}
 	return l.TotalCount
 }

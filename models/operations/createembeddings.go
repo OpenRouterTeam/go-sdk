@@ -146,8 +146,8 @@ const (
 )
 
 type Content struct {
-	ContentText     *ContentText     `queryParam:"inline,name=content" union:"member"`
-	ContentImageURL *ContentImageURL `queryParam:"inline,name=content" union:"member"`
+	ContentText     *ContentText     `queryParam:"inline" union:"member"`
+	ContentImageURL *ContentImageURL `queryParam:"inline" union:"member"`
 
 	Type ContentType
 }
@@ -256,11 +256,11 @@ const (
 )
 
 type InputUnion struct {
-	Str                  *string     `queryParam:"inline,name=input" union:"member"`
-	ArrayOfStr           []string    `queryParam:"inline,name=input" union:"member"`
-	ArrayOfNumber        []float64   `queryParam:"inline,name=input" union:"member"`
-	ArrayOfArrayOfNumber [][]float64 `queryParam:"inline,name=input" union:"member"`
-	ArrayOfInput         []Input     `queryParam:"inline,name=input" union:"member"`
+	Str                  *string     `queryParam:"inline" union:"member"`
+	ArrayOfStr           []string    `queryParam:"inline" union:"member"`
+	ArrayOfNumber        []float64   `queryParam:"inline" union:"member"`
+	ArrayOfArrayOfNumber [][]float64 `queryParam:"inline" union:"member"`
+	ArrayOfInput         []Input     `queryParam:"inline" union:"member"`
 
 	Type InputUnionType
 }
@@ -559,8 +559,8 @@ const (
 )
 
 type Embedding struct {
-	ArrayOfNumber []float64 `queryParam:"inline,name=embedding" union:"member"`
-	Str           *string   `queryParam:"inline,name=embedding" union:"member"`
+	ArrayOfNumber []float64 `queryParam:"inline" union:"member"`
+	Str           *string   `queryParam:"inline" union:"member"`
 
 	Type EmbeddingType
 }
@@ -757,8 +757,8 @@ const (
 )
 
 type CreateEmbeddingsResponse struct {
-	CreateEmbeddingsResponseBody *CreateEmbeddingsResponseBody `queryParam:"inline,name=createEmbeddings_response" union:"member"`
-	Str                          *string                       `queryParam:"inline,name=createEmbeddings_response" union:"member"`
+	CreateEmbeddingsResponseBody *CreateEmbeddingsResponseBody `queryParam:"inline" union:"member"`
+	Str                          *string                       `queryParam:"inline" union:"member"`
 
 	Type CreateEmbeddingsResponseType
 }
