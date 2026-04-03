@@ -13,5 +13,5 @@ jobs:
     with:
       target: openrouter
     secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      github_access_token: ${{ secrets.SDK_MERGE_PAT }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
