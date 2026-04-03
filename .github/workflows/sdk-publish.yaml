@@ -1,0 +1,17 @@
+name: Publish SDK
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "RELEASES.md"
+
+jobs:
+  publish:
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v15
+    with:
+      target: openrouter
+    secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
