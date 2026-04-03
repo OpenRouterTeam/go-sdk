@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: OpenRouter API
   version: 1.0.0
-  description: OpenAI-compatible API with additional OpenRouter features
+  description: OpenAI-compatible API with additional OpenRouter features.
   contact:
     name: OpenRouter Support
     url: https://openrouter.ai/docs
