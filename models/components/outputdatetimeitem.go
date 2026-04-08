@@ -31,34 +31,11 @@ func (e *OutputDatetimeItemType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputDatetimeItemStatus string
-
-const (
-	OutputDatetimeItemStatusCompleted  OutputDatetimeItemStatus = "completed"
-	OutputDatetimeItemStatusInProgress OutputDatetimeItemStatus = "in_progress"
-	OutputDatetimeItemStatusIncomplete OutputDatetimeItemStatus = "incomplete"
-)
-
-func (e OutputDatetimeItemStatus) ToPointer() *OutputDatetimeItemStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDatetimeItemStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "completed", "in_progress", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputDatetimeItem - An openrouter:datetime server tool output item
 type OutputDatetimeItem struct {
-	Type   OutputDatetimeItemType   `json:"type"`
-	ID     *string                  `json:"id,omitzero"`
-	Status OutputDatetimeItemStatus `json:"status"`
+	Type   OutputDatetimeItemType `json:"type"`
+	ID     *string                `json:"id,omitzero"`
+	Status ToolCallStatus         `json:"status"`
 	// ISO 8601 datetime string
 	Datetime string `json:"datetime"`
 	// IANA timezone name
@@ -90,9 +67,9 @@ func (o *OutputDatetimeItem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputDatetimeItem) GetStatus() OutputDatetimeItemStatus {
+func (o *OutputDatetimeItem) GetStatus() ToolCallStatus {
 	if o == nil {
-		return OutputDatetimeItemStatus("")
+		return ToolCallStatus("")
 	}
 	return o.Status
 }

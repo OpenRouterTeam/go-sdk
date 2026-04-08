@@ -32,74 +32,18 @@ func (e *WebSearchServerToolType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type WebSearchServerToolFilters struct {
-	AllowedDomains  optionalnullable.OptionalNullable[[]string] `json:"allowed_domains,omitzero"`
-	ExcludedDomains optionalnullable.OptionalNullable[[]string] `json:"excluded_domains,omitzero"`
-}
-
-func (w WebSearchServerToolFilters) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(w, "", false)
-}
-
-func (w *WebSearchServerToolFilters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &w, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (w *WebSearchServerToolFilters) GetAllowedDomains() optionalnullable.OptionalNullable[[]string] {
-	if w == nil {
-		return nil
-	}
-	return w.AllowedDomains
-}
-
-func (w *WebSearchServerToolFilters) GetExcludedDomains() optionalnullable.OptionalNullable[[]string] {
-	if w == nil {
-		return nil
-	}
-	return w.ExcludedDomains
-}
-
-// WebSearchServerToolEngine - Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-type WebSearchServerToolEngine string
-
-const (
-	WebSearchServerToolEngineAuto      WebSearchServerToolEngine = "auto"
-	WebSearchServerToolEngineNative    WebSearchServerToolEngine = "native"
-	WebSearchServerToolEngineExa       WebSearchServerToolEngine = "exa"
-	WebSearchServerToolEngineFirecrawl WebSearchServerToolEngine = "firecrawl"
-	WebSearchServerToolEngineParallel  WebSearchServerToolEngine = "parallel"
-)
-
-func (e WebSearchServerToolEngine) ToPointer() *WebSearchServerToolEngine {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *WebSearchServerToolEngine) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "native", "exa", "firecrawl", "parallel":
-			return true
-		}
-	}
-	return false
-}
-
 // WebSearchServerTool - Web search tool configuration (2025-08-26 version)
 type WebSearchServerTool struct {
-	Type    WebSearchServerToolType                                       `json:"type"`
-	Filters optionalnullable.OptionalNullable[WebSearchServerToolFilters] `json:"filters,omitzero"`
+	Type    WebSearchServerToolType                                  `json:"type"`
+	Filters optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
 	// Size of the search context for web search tools
 	SearchContextSize *SearchContextSizeEnum `json:"search_context_size,omitzero"`
 	// User location information for web search
 	UserLocation optionalnullable.OptionalNullable[WebSearchUserLocation] `json:"user_location,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-	Engine *WebSearchServerToolEngine `json:"engine,omitzero"`
+	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
-	MaxResults *float64 `json:"max_results,omitzero"`
+	MaxResults *int64 `json:"max_results,omitzero"`
 }
 
 func (w WebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -120,7 +64,7 @@ func (w *WebSearchServerTool) GetType() WebSearchServerToolType {
 	return w.Type
 }
 
-func (w *WebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchServerToolFilters] {
+func (w *WebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchDomainFilter] {
 	if w == nil {
 		return nil
 	}
@@ -141,14 +85,14 @@ func (w *WebSearchServerTool) GetUserLocation() optionalnullable.OptionalNullabl
 	return w.UserLocation
 }
 
-func (w *WebSearchServerTool) GetEngine() *WebSearchServerToolEngine {
+func (w *WebSearchServerTool) GetEngine() *WebSearchEngineEnum {
 	if w == nil {
 		return nil
 	}
 	return w.Engine
 }
 
-func (w *WebSearchServerTool) GetMaxResults() *float64 {
+func (w *WebSearchServerTool) GetMaxResults() *int64 {
 	if w == nil {
 		return nil
 	}

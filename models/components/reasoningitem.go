@@ -217,32 +217,6 @@ func (u ReasoningItemStatusUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ReasoningItemStatusUnion: all fields are null")
 }
 
-type ReasoningItemFormat string
-
-const (
-	ReasoningItemFormatUnknown                ReasoningItemFormat = "unknown"
-	ReasoningItemFormatOpenaiResponsesV1      ReasoningItemFormat = "openai-responses-v1"
-	ReasoningItemFormatAzureOpenaiResponsesV1 ReasoningItemFormat = "azure-openai-responses-v1"
-	ReasoningItemFormatXaiResponsesV1         ReasoningItemFormat = "xai-responses-v1"
-	ReasoningItemFormatAnthropicClaudeV1      ReasoningItemFormat = "anthropic-claude-v1"
-	ReasoningItemFormatGoogleGeminiV1         ReasoningItemFormat = "google-gemini-v1"
-)
-
-func (e ReasoningItemFormat) ToPointer() *ReasoningItemFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ReasoningItemFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "unknown", "openai-responses-v1", "azure-openai-responses-v1", "xai-responses-v1", "anthropic-claude-v1", "google-gemini-v1":
-			return true
-		}
-	}
-	return false
-}
-
 // ReasoningItem - Reasoning output item with signature and format extensions
 type ReasoningItem struct {
 	Type             ReasoningItemType                                         `json:"type"`
@@ -252,7 +226,7 @@ type ReasoningItem struct {
 	EncryptedContent optionalnullable.OptionalNullable[string]                 `json:"encrypted_content,omitzero"`
 	Status           *ReasoningItemStatusUnion                                 `json:"status,omitzero"`
 	Signature        optionalnullable.OptionalNullable[string]                 `json:"signature,omitzero"`
-	Format           optionalnullable.OptionalNullable[ReasoningItemFormat]    `json:"format,omitzero"`
+	Format           optionalnullable.OptionalNullable[ReasoningFormat]        `json:"format,omitzero"`
 }
 
 func (r ReasoningItem) MarshalJSON() ([]byte, error) {
@@ -315,7 +289,7 @@ func (r *ReasoningItem) GetSignature() optionalnullable.OptionalNullable[string]
 	return r.Signature
 }
 
-func (r *ReasoningItem) GetFormat() optionalnullable.OptionalNullable[ReasoningItemFormat] {
+func (r *ReasoningItem) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
 	if r == nil {
 		return nil
 	}

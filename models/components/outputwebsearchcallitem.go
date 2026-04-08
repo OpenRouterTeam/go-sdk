@@ -170,64 +170,11 @@ func (e *TypeSearch) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type TypeURL string
-
-const (
-	TypeURLURL TypeURL = "url"
-)
-
-func (e TypeURL) ToPointer() *TypeURL {
-	return &e
-}
-func (e *TypeURL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "url":
-		*e = TypeURL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeURL: %v", v)
-	}
-}
-
-type Source struct {
-	Type TypeURL `json:"type"`
-	URL  string  `json:"url"`
-}
-
-func (s Source) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *Source) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *Source) GetType() TypeURL {
-	if s == nil {
-		return TypeURL("")
-	}
-	return s.Type
-}
-
-func (s *Source) GetURL() string {
-	if s == nil {
-		return ""
-	}
-	return s.URL
-}
-
 type ActionSearch struct {
-	Type    TypeSearch `json:"type"`
-	Query   string     `json:"query"`
-	Queries []string   `json:"queries,omitzero"`
-	Sources []Source   `json:"sources,omitzero"`
+	Type    TypeSearch        `json:"type"`
+	Query   string            `json:"query"`
+	Queries []string          `json:"queries,omitzero"`
+	Sources []WebSearchSource `json:"sources,omitzero"`
 }
 
 func (a ActionSearch) MarshalJSON() ([]byte, error) {
@@ -262,7 +209,7 @@ func (a *ActionSearch) GetQueries() []string {
 	return a.Queries
 }
 
-func (a *ActionSearch) GetSources() []Source {
+func (a *ActionSearch) GetSources() []WebSearchSource {
 	if a == nil {
 		return nil
 	}

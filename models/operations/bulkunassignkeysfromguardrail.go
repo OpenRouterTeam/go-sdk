@@ -2,22 +2,14 @@
 
 package operations
 
-type BulkUnassignKeysFromGuardrailRequestBody struct {
-	// Array of API key hashes to unassign from the guardrail
-	KeyHashes []string `json:"key_hashes"`
-}
-
-func (b *BulkUnassignKeysFromGuardrailRequestBody) GetKeyHashes() []string {
-	if b == nil {
-		return []string{}
-	}
-	return b.KeyHashes
-}
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
 
 type BulkUnassignKeysFromGuardrailRequest struct {
 	// The unique identifier of the guardrail
-	ID          string                                   `pathParam:"style=simple,explode=false,name=id"`
-	RequestBody BulkUnassignKeysFromGuardrailRequestBody `request:"mediaType=application/json"`
+	ID                      string                             `pathParam:"style=simple,explode=false,name=id"`
+	BulkUnassignKeysRequest components.BulkUnassignKeysRequest `request:"mediaType=application/json"`
 }
 
 func (b *BulkUnassignKeysFromGuardrailRequest) GetID() string {
@@ -27,22 +19,9 @@ func (b *BulkUnassignKeysFromGuardrailRequest) GetID() string {
 	return b.ID
 }
 
-func (b *BulkUnassignKeysFromGuardrailRequest) GetRequestBody() BulkUnassignKeysFromGuardrailRequestBody {
+func (b *BulkUnassignKeysFromGuardrailRequest) GetBulkUnassignKeysRequest() components.BulkUnassignKeysRequest {
 	if b == nil {
-		return BulkUnassignKeysFromGuardrailRequestBody{}
+		return components.BulkUnassignKeysRequest{}
 	}
-	return b.RequestBody
-}
-
-// BulkUnassignKeysFromGuardrailResponse - Unassignment result
-type BulkUnassignKeysFromGuardrailResponse struct {
-	// Number of keys successfully unassigned
-	UnassignedCount int64 `json:"unassigned_count"`
-}
-
-func (b *BulkUnassignKeysFromGuardrailResponse) GetUnassignedCount() int64 {
-	if b == nil {
-		return 0
-	}
-	return b.UnassignedCount
+	return b.BulkUnassignKeysRequest
 }

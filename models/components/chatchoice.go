@@ -9,7 +9,7 @@ import (
 
 // ChatChoice - Chat completion choice
 type ChatChoice struct {
-	FinishReason any `json:"finish_reason"`
+	FinishReason *ChatFinishReasonEnum `json:"finish_reason"`
 	// Choice index
 	Index int64 `json:"index"`
 	// Assistant message for requests and responses
@@ -29,7 +29,7 @@ func (c *ChatChoice) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatChoice) GetFinishReason() any {
+func (c *ChatChoice) GetFinishReason() *ChatFinishReasonEnum {
 	if c == nil {
 		return nil
 	}

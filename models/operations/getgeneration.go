@@ -3,10 +3,12 @@
 package operations
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type GetGenerationRequest struct {
+	// The generation ID
 	ID string `queryParam:"style=form,explode=true,name=id"`
 }
 
@@ -23,6 +25,7 @@ type APIType string
 const (
 	APITypeCompletions APIType = "completions"
 	APITypeEmbeddings  APIType = "embeddings"
+	APITypeRerank      APIType = "rerank"
 	APITypeVideo       APIType = "video"
 )
 
@@ -34,194 +37,11 @@ func (e APIType) ToPointer() *APIType {
 func (e *APIType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "completions", "embeddings", "video":
+		case "completions", "embeddings", "rerank", "video":
 			return true
 		}
 	}
 	return false
-}
-
-type ProviderName string
-
-const (
-	ProviderNameAnyScale        ProviderName = "AnyScale"
-	ProviderNameAtoma           ProviderName = "Atoma"
-	ProviderNameCentMl          ProviderName = "Cent-ML"
-	ProviderNameCrofAi          ProviderName = "CrofAI"
-	ProviderNameEnfer           ProviderName = "Enfer"
-	ProviderNameGoPomelo        ProviderName = "GoPomelo"
-	ProviderNameHuggingFace     ProviderName = "HuggingFace"
-	ProviderNameHyperbolic2     ProviderName = "Hyperbolic 2"
-	ProviderNameInoCloud        ProviderName = "InoCloud"
-	ProviderNameKluster         ProviderName = "Kluster"
-	ProviderNameLambda          ProviderName = "Lambda"
-	ProviderNameLepton          ProviderName = "Lepton"
-	ProviderNameLynn2           ProviderName = "Lynn 2"
-	ProviderNameLynn            ProviderName = "Lynn"
-	ProviderNameMancer          ProviderName = "Mancer"
-	ProviderNameMeta            ProviderName = "Meta"
-	ProviderNameModal           ProviderName = "Modal"
-	ProviderNameNineteen        ProviderName = "Nineteen"
-	ProviderNameOctoAi          ProviderName = "OctoAI"
-	ProviderNameRecursal        ProviderName = "Recursal"
-	ProviderNameReflection      ProviderName = "Reflection"
-	ProviderNameReplicate       ProviderName = "Replicate"
-	ProviderNameSambaNova2      ProviderName = "SambaNova 2"
-	ProviderNameSfCompute       ProviderName = "SF Compute"
-	ProviderNameTargon          ProviderName = "Targon"
-	ProviderNameTogether2       ProviderName = "Together 2"
-	ProviderNameUbicloud        ProviderName = "Ubicloud"
-	ProviderNameOneDotAi        ProviderName = "01.AI"
-	ProviderNameAkashMl         ProviderName = "AkashML"
-	ProviderNameAi21            ProviderName = "AI21"
-	ProviderNameAionLabs        ProviderName = "AionLabs"
-	ProviderNameAlibaba         ProviderName = "Alibaba"
-	ProviderNameAmbient         ProviderName = "Ambient"
-	ProviderNameAmazonBedrock   ProviderName = "Amazon Bedrock"
-	ProviderNameAmazonNova      ProviderName = "Amazon Nova"
-	ProviderNameAnthropic       ProviderName = "Anthropic"
-	ProviderNameArceeAi         ProviderName = "Arcee AI"
-	ProviderNameAtlasCloud      ProviderName = "AtlasCloud"
-	ProviderNameAvian           ProviderName = "Avian"
-	ProviderNameAzure           ProviderName = "Azure"
-	ProviderNameBaseTen         ProviderName = "BaseTen"
-	ProviderNameBytePlus        ProviderName = "BytePlus"
-	ProviderNameBlackForestLabs ProviderName = "Black Forest Labs"
-	ProviderNameCerebras        ProviderName = "Cerebras"
-	ProviderNameChutes          ProviderName = "Chutes"
-	ProviderNameCirrascale      ProviderName = "Cirrascale"
-	ProviderNameClarifai        ProviderName = "Clarifai"
-	ProviderNameCloudflare      ProviderName = "Cloudflare"
-	ProviderNameCohere          ProviderName = "Cohere"
-	ProviderNameCrusoe          ProviderName = "Crusoe"
-	ProviderNameDeepInfra       ProviderName = "DeepInfra"
-	ProviderNameDeepSeek        ProviderName = "DeepSeek"
-	ProviderNameFeatherless     ProviderName = "Featherless"
-	ProviderNameFireworks       ProviderName = "Fireworks"
-	ProviderNameFriendli        ProviderName = "Friendli"
-	ProviderNameGmiCloud        ProviderName = "GMICloud"
-	ProviderNameGoogle          ProviderName = "Google"
-	ProviderNameGoogleAiStudio  ProviderName = "Google AI Studio"
-	ProviderNameGroq            ProviderName = "Groq"
-	ProviderNameHyperbolic      ProviderName = "Hyperbolic"
-	ProviderNameInception       ProviderName = "Inception"
-	ProviderNameInceptron       ProviderName = "Inceptron"
-	ProviderNameInferenceNet    ProviderName = "InferenceNet"
-	ProviderNameIonstream       ProviderName = "Ionstream"
-	ProviderNameInfermatic      ProviderName = "Infermatic"
-	ProviderNameIoNet           ProviderName = "Io Net"
-	ProviderNameInflection      ProviderName = "Inflection"
-	ProviderNameLiquid          ProviderName = "Liquid"
-	ProviderNameMara            ProviderName = "Mara"
-	ProviderNameMancer2         ProviderName = "Mancer 2"
-	ProviderNameMinimax         ProviderName = "Minimax"
-	ProviderNameModelRun        ProviderName = "ModelRun"
-	ProviderNameMistral         ProviderName = "Mistral"
-	ProviderNameModular         ProviderName = "Modular"
-	ProviderNameMoonshotAi      ProviderName = "Moonshot AI"
-	ProviderNameMorph           ProviderName = "Morph"
-	ProviderNameNCompass        ProviderName = "NCompass"
-	ProviderNameNebius          ProviderName = "Nebius"
-	ProviderNameNextBit         ProviderName = "NextBit"
-	ProviderNameNovita          ProviderName = "Novita"
-	ProviderNameNvidia          ProviderName = "Nvidia"
-	ProviderNameOpenAi          ProviderName = "OpenAI"
-	ProviderNameOpenInference   ProviderName = "OpenInference"
-	ProviderNameParasail        ProviderName = "Parasail"
-	ProviderNamePerplexity      ProviderName = "Perplexity"
-	ProviderNamePhala           ProviderName = "Phala"
-	ProviderNameReka            ProviderName = "Reka"
-	ProviderNameRelace          ProviderName = "Relace"
-	ProviderNameSambaNova       ProviderName = "SambaNova"
-	ProviderNameSeed            ProviderName = "Seed"
-	ProviderNameSiliconFlow     ProviderName = "SiliconFlow"
-	ProviderNameSourceful       ProviderName = "Sourceful"
-	ProviderNameStepFun         ProviderName = "StepFun"
-	ProviderNameStealth         ProviderName = "Stealth"
-	ProviderNameStreamLake      ProviderName = "StreamLake"
-	ProviderNameSwitchpoint     ProviderName = "Switchpoint"
-	ProviderNameTogether        ProviderName = "Together"
-	ProviderNameUpstage         ProviderName = "Upstage"
-	ProviderNameVenice          ProviderName = "Venice"
-	ProviderNameWandB           ProviderName = "WandB"
-	ProviderNameXiaomi          ProviderName = "Xiaomi"
-	ProviderNameXAi             ProviderName = "xAI"
-	ProviderNameZAi             ProviderName = "Z.AI"
-	ProviderNameFakeProvider    ProviderName = "FakeProvider"
-)
-
-func (e ProviderName) ToPointer() *ProviderName {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ProviderName) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Meta", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crusoe", "DeepInfra", "DeepSeek", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "Hyperbolic", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Perplexity", "Phala", "Reka", "Relace", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Together", "Upstage", "Venice", "WandB", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
-			return true
-		}
-	}
-	return false
-}
-
-type ProviderResponse struct {
-	ID             *string       `json:"id,omitzero"`
-	EndpointID     *string       `json:"endpoint_id,omitzero"`
-	ModelPermaslug *string       `json:"model_permaslug,omitzero"`
-	ProviderName   *ProviderName `json:"provider_name,omitzero"`
-	Status         *float64      `json:"status"`
-	Latency        *float64      `json:"latency,omitzero"`
-	IsByok         *bool         `json:"is_byok,omitzero"`
-}
-
-func (p *ProviderResponse) GetID() *string {
-	if p == nil {
-		return nil
-	}
-	return p.ID
-}
-
-func (p *ProviderResponse) GetEndpointID() *string {
-	if p == nil {
-		return nil
-	}
-	return p.EndpointID
-}
-
-func (p *ProviderResponse) GetModelPermaslug() *string {
-	if p == nil {
-		return nil
-	}
-	return p.ModelPermaslug
-}
-
-func (p *ProviderResponse) GetProviderName() *ProviderName {
-	if p == nil {
-		return nil
-	}
-	return p.ProviderName
-}
-
-func (p *ProviderResponse) GetStatus() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.Status
-}
-
-func (p *ProviderResponse) GetLatency() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.Latency
-}
-
-func (p *ProviderResponse) GetIsByok() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IsByok
 }
 
 // GetGenerationData - Generation data
@@ -293,13 +113,15 @@ type GetGenerationData struct {
 	// Router used for the request (e.g., openrouter/auto)
 	Router *string `json:"router"`
 	// List of provider responses for this generation, including fallback attempts
-	ProviderResponses []ProviderResponse `json:"provider_responses"`
+	ProviderResponses []components.ProviderResponse `json:"provider_responses"`
 	// User-Agent header from the request
 	UserAgent *string `json:"user_agent"`
 	// Referer header from the request
 	HTTPReferer *string `json:"http_referer"`
 	// Unique identifier grouping all generations from a single API request
 	RequestID optionalnullable.OptionalNullable[string] `json:"request_id,omitzero"`
+	// Session identifier grouping multiple generations in the same session
+	SessionID optionalnullable.OptionalNullable[string] `json:"session_id,omitzero"`
 }
 
 func (g *GetGenerationData) GetID() string {
@@ -533,7 +355,7 @@ func (g *GetGenerationData) GetRouter() *string {
 	return g.Router
 }
 
-func (g *GetGenerationData) GetProviderResponses() []ProviderResponse {
+func (g *GetGenerationData) GetProviderResponses() []components.ProviderResponse {
 	if g == nil {
 		return nil
 	}
@@ -559,6 +381,13 @@ func (g *GetGenerationData) GetRequestID() optionalnullable.OptionalNullable[str
 		return nil
 	}
 	return g.RequestID
+}
+
+func (g *GetGenerationData) GetSessionID() optionalnullable.OptionalNullable[string] {
+	if g == nil {
+		return nil
+	}
+	return g.SessionID
 }
 
 // GetGenerationResponse - Generation response

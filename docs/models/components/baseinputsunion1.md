@@ -3,28 +3,28 @@
 
 ## Supported Types
 
-### BaseInputsMessage1
+### BaseInputsMessage
 
 ```go
-baseInputsUnion1 := components.CreateBaseInputsUnion1BaseInputsMessage1(components.BaseInputsMessage1{/* values here */})
+baseInputsUnion1 := components.CreateBaseInputsUnion1BaseInputsMessage(components.BaseInputsMessage{/* values here */})
 ```
 
-### BaseInputsMessage2
+### OpenAIResponseInputMessageItem
 
 ```go
-baseInputsUnion1 := components.CreateBaseInputsUnion1BaseInputsMessage2(components.BaseInputsMessage2{/* values here */})
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseInputMessageItem(components.OpenAIResponseInputMessageItem{/* values here */})
 ```
 
-### BaseInputsFunctionCallOutput
+### OpenAIResponseFunctionToolCallOutput
 
 ```go
-baseInputsUnion1 := components.CreateBaseInputsUnion1BaseInputsFunctionCallOutput(components.BaseInputsFunctionCallOutput{/* values here */})
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseFunctionToolCallOutput(components.OpenAIResponseFunctionToolCallOutput{/* values here */})
 ```
 
-### BaseInputsFunctionCall
+### OpenAIResponseFunctionToolCall
 
 ```go
-baseInputsUnion1 := components.CreateBaseInputsUnion1BaseInputsFunctionCall(components.BaseInputsFunctionCall{/* values here */})
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseFunctionToolCall(components.OpenAIResponseFunctionToolCall{/* values here */})
 ```
 
 ### OutputItemImageGenerationCall
@@ -45,14 +45,14 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch baseInputsUnion1.Type {
-	case components.BaseInputsUnion1TypeBaseInputsMessage1:
-		// baseInputsUnion1.BaseInputsMessage1 is populated
-	case components.BaseInputsUnion1TypeBaseInputsMessage2:
-		// baseInputsUnion1.BaseInputsMessage2 is populated
-	case components.BaseInputsUnion1TypeBaseInputsFunctionCallOutput:
-		// baseInputsUnion1.BaseInputsFunctionCallOutput is populated
-	case components.BaseInputsUnion1TypeBaseInputsFunctionCall:
-		// baseInputsUnion1.BaseInputsFunctionCall is populated
+	case components.BaseInputsUnion1TypeBaseInputsMessage:
+		// baseInputsUnion1.BaseInputsMessage is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseInputMessageItem:
+		// baseInputsUnion1.OpenAIResponseInputMessageItem is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseFunctionToolCallOutput:
+		// baseInputsUnion1.OpenAIResponseFunctionToolCallOutput is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseFunctionToolCall:
+		// baseInputsUnion1.OpenAIResponseFunctionToolCall is populated
 	case components.BaseInputsUnion1TypeOutputItemImageGenerationCall:
 		// baseInputsUnion1.OutputItemImageGenerationCall is populated
 	case components.BaseInputsUnion1TypeOutputMessage:

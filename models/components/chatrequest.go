@@ -10,1328 +10,101 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ChatRequestOrderType string
+type ChatRequestPluginType string
 
 const (
-	ChatRequestOrderTypeProviderName ChatRequestOrderType = "ProviderName"
-	ChatRequestOrderTypeStr          ChatRequestOrderType = "str"
+	ChatRequestPluginTypeAutoRouter         ChatRequestPluginType = "auto-router"
+	ChatRequestPluginTypeModeration         ChatRequestPluginType = "moderation"
+	ChatRequestPluginTypeWeb                ChatRequestPluginType = "web"
+	ChatRequestPluginTypeFileParser         ChatRequestPluginType = "file-parser"
+	ChatRequestPluginTypeResponseHealing    ChatRequestPluginType = "response-healing"
+	ChatRequestPluginTypeContextCompression ChatRequestPluginType = "context-compression"
 )
 
-type ChatRequestOrder struct {
-	ProviderName *ProviderName `queryParam:"inline" union:"member"`
-	Str          *string       `queryParam:"inline" union:"member"`
+type ChatRequestPlugin struct {
+	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
+	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
+	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
+	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
+	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
+	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
 
-	Type ChatRequestOrderType
+	Type ChatRequestPluginType
 }
 
-func CreateChatRequestOrderProviderName(providerName ProviderName) ChatRequestOrder {
-	typ := ChatRequestOrderTypeProviderName
+func CreateChatRequestPluginAutoRouter(autoRouter AutoRouterPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeAutoRouter
 
-	return ChatRequestOrder{
-		ProviderName: &providerName,
-		Type:         typ,
-	}
-}
-
-func CreateChatRequestOrderStr(str string) ChatRequestOrder {
-	typ := ChatRequestOrderTypeStr
-
-	return ChatRequestOrder{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *ChatRequestOrder) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var providerName ProviderName = ProviderName("")
-	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestOrderTypeProviderName,
-			Value: &providerName,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestOrderTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestOrder", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestOrder", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChatRequestOrderType)
-	switch best.Type {
-	case ChatRequestOrderTypeProviderName:
-		u.ProviderName = best.Value.(*ProviderName)
-		return nil
-	case ChatRequestOrderTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestOrder", string(data))
-}
-
-func (u ChatRequestOrder) MarshalJSON() ([]byte, error) {
-	if u.ProviderName != nil {
-		return utils.MarshalJSON(u.ProviderName, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ChatRequestOrder: all fields are null")
-}
-
-type ChatRequestOnlyType string
-
-const (
-	ChatRequestOnlyTypeProviderName ChatRequestOnlyType = "ProviderName"
-	ChatRequestOnlyTypeStr          ChatRequestOnlyType = "str"
-)
-
-type ChatRequestOnly struct {
-	ProviderName *ProviderName `queryParam:"inline" union:"member"`
-	Str          *string       `queryParam:"inline" union:"member"`
-
-	Type ChatRequestOnlyType
-}
-
-func CreateChatRequestOnlyProviderName(providerName ProviderName) ChatRequestOnly {
-	typ := ChatRequestOnlyTypeProviderName
-
-	return ChatRequestOnly{
-		ProviderName: &providerName,
-		Type:         typ,
-	}
-}
-
-func CreateChatRequestOnlyStr(str string) ChatRequestOnly {
-	typ := ChatRequestOnlyTypeStr
-
-	return ChatRequestOnly{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *ChatRequestOnly) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var providerName ProviderName = ProviderName("")
-	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestOnlyTypeProviderName,
-			Value: &providerName,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestOnlyTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestOnly", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestOnly", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChatRequestOnlyType)
-	switch best.Type {
-	case ChatRequestOnlyTypeProviderName:
-		u.ProviderName = best.Value.(*ProviderName)
-		return nil
-	case ChatRequestOnlyTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestOnly", string(data))
-}
-
-func (u ChatRequestOnly) MarshalJSON() ([]byte, error) {
-	if u.ProviderName != nil {
-		return utils.MarshalJSON(u.ProviderName, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ChatRequestOnly: all fields are null")
-}
-
-type ChatRequestIgnoreType string
-
-const (
-	ChatRequestIgnoreTypeProviderName ChatRequestIgnoreType = "ProviderName"
-	ChatRequestIgnoreTypeStr          ChatRequestIgnoreType = "str"
-)
-
-type ChatRequestIgnore struct {
-	ProviderName *ProviderName `queryParam:"inline" union:"member"`
-	Str          *string       `queryParam:"inline" union:"member"`
-
-	Type ChatRequestIgnoreType
-}
-
-func CreateChatRequestIgnoreProviderName(providerName ProviderName) ChatRequestIgnore {
-	typ := ChatRequestIgnoreTypeProviderName
-
-	return ChatRequestIgnore{
-		ProviderName: &providerName,
-		Type:         typ,
-	}
-}
-
-func CreateChatRequestIgnoreStr(str string) ChatRequestIgnore {
-	typ := ChatRequestIgnoreTypeStr
-
-	return ChatRequestIgnore{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *ChatRequestIgnore) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var providerName ProviderName = ProviderName("")
-	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestIgnoreTypeProviderName,
-			Value: &providerName,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestIgnoreTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestIgnore", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestIgnore", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChatRequestIgnoreType)
-	switch best.Type {
-	case ChatRequestIgnoreTypeProviderName:
-		u.ProviderName = best.Value.(*ProviderName)
-		return nil
-	case ChatRequestIgnoreTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestIgnore", string(data))
-}
-
-func (u ChatRequestIgnore) MarshalJSON() ([]byte, error) {
-	if u.ProviderName != nil {
-		return utils.MarshalJSON(u.ProviderName, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ChatRequestIgnore: all fields are null")
-}
-
-type ChatRequestSortEnum string
-
-const (
-	ChatRequestSortEnumPrice      ChatRequestSortEnum = "price"
-	ChatRequestSortEnumThroughput ChatRequestSortEnum = "throughput"
-	ChatRequestSortEnumLatency    ChatRequestSortEnum = "latency"
-	ChatRequestSortEnumExacto     ChatRequestSortEnum = "exacto"
-)
-
-func (e ChatRequestSortEnum) ToPointer() *ChatRequestSortEnum {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatRequestSortEnum) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "price", "throughput", "latency", "exacto":
-			return true
-		}
-	}
-	return false
-}
-
-type ChatRequestProviderSortConfigEnum string
-
-const (
-	ChatRequestProviderSortConfigEnumPrice      ChatRequestProviderSortConfigEnum = "price"
-	ChatRequestProviderSortConfigEnumThroughput ChatRequestProviderSortConfigEnum = "throughput"
-	ChatRequestProviderSortConfigEnumLatency    ChatRequestProviderSortConfigEnum = "latency"
-	ChatRequestProviderSortConfigEnumExacto     ChatRequestProviderSortConfigEnum = "exacto"
-)
-
-func (e ChatRequestProviderSortConfigEnum) ToPointer() *ChatRequestProviderSortConfigEnum {
-	return &e
-}
-func (e *ChatRequestProviderSortConfigEnum) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "price":
-		fallthrough
-	case "throughput":
-		fallthrough
-	case "latency":
-		fallthrough
-	case "exacto":
-		*e = ChatRequestProviderSortConfigEnum(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestProviderSortConfigEnum: %v", v)
-	}
-}
-
-// ChatRequestBy - The provider sorting strategy (price, throughput, latency)
-type ChatRequestBy string
-
-const (
-	ChatRequestByPrice      ChatRequestBy = "price"
-	ChatRequestByThroughput ChatRequestBy = "throughput"
-	ChatRequestByLatency    ChatRequestBy = "latency"
-	ChatRequestByExacto     ChatRequestBy = "exacto"
-)
-
-func (e ChatRequestBy) ToPointer() *ChatRequestBy {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatRequestBy) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "price", "throughput", "latency", "exacto":
-			return true
-		}
-	}
-	return false
-}
-
-// ChatRequestPartition - Partitioning strategy for sorting: "model" (default) groups endpoints by model before sorting (fallback models remain fallbacks), "none" sorts all endpoints together regardless of model.
-type ChatRequestPartition string
-
-const (
-	ChatRequestPartitionModel ChatRequestPartition = "model"
-	ChatRequestPartitionNone  ChatRequestPartition = "none"
-)
-
-func (e ChatRequestPartition) ToPointer() *ChatRequestPartition {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatRequestPartition) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "model", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type ChatRequestProviderSortConfig struct {
-	// The provider sorting strategy (price, throughput, latency)
-	By optionalnullable.OptionalNullable[ChatRequestBy] `json:"by,omitzero"`
-	// Partitioning strategy for sorting: "model" (default) groups endpoints by model before sorting (fallback models remain fallbacks), "none" sorts all endpoints together regardless of model.
-	Partition optionalnullable.OptionalNullable[ChatRequestPartition] `json:"partition,omitzero"`
-}
-
-func (c ChatRequestProviderSortConfig) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestProviderSortConfig) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestProviderSortConfig) GetBy() optionalnullable.OptionalNullable[ChatRequestBy] {
-	if c == nil {
-		return nil
-	}
-	return c.By
-}
-
-func (c *ChatRequestProviderSortConfig) GetPartition() optionalnullable.OptionalNullable[ChatRequestPartition] {
-	if c == nil {
-		return nil
-	}
-	return c.Partition
-}
-
-type ChatRequestProviderSortConfigUnionType string
-
-const (
-	ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfig     ChatRequestProviderSortConfigUnionType = "ChatRequest_ProviderSortConfig"
-	ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfigEnum ChatRequestProviderSortConfigUnionType = "ChatRequest_ProviderSortConfig_enum"
-)
-
-// ChatRequestProviderSortConfigUnion - The provider sorting strategy (price, throughput, latency)
-type ChatRequestProviderSortConfigUnion struct {
-	ChatRequestProviderSortConfig     *ChatRequestProviderSortConfig     `queryParam:"inline" union:"member"`
-	ChatRequestProviderSortConfigEnum *ChatRequestProviderSortConfigEnum `queryParam:"inline" union:"member"`
-
-	Type ChatRequestProviderSortConfigUnionType
-}
-
-func CreateChatRequestProviderSortConfigUnionChatRequestProviderSortConfig(chatRequestProviderSortConfig ChatRequestProviderSortConfig) ChatRequestProviderSortConfigUnion {
-	typ := ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfig
-
-	return ChatRequestProviderSortConfigUnion{
-		ChatRequestProviderSortConfig: &chatRequestProviderSortConfig,
-		Type:                          typ,
-	}
-}
-
-func CreateChatRequestProviderSortConfigUnionChatRequestProviderSortConfigEnum(chatRequestProviderSortConfigEnum ChatRequestProviderSortConfigEnum) ChatRequestProviderSortConfigUnion {
-	typ := ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfigEnum
-
-	return ChatRequestProviderSortConfigUnion{
-		ChatRequestProviderSortConfigEnum: &chatRequestProviderSortConfigEnum,
-		Type:                              typ,
-	}
-}
-
-func (u *ChatRequestProviderSortConfigUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var chatRequestProviderSortConfig ChatRequestProviderSortConfig = ChatRequestProviderSortConfig{}
-	if err := utils.UnmarshalJSON(data, &chatRequestProviderSortConfig, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfig,
-			Value: &chatRequestProviderSortConfig,
-		})
-	}
-
-	var chatRequestProviderSortConfigEnum ChatRequestProviderSortConfigEnum = ChatRequestProviderSortConfigEnum("")
-	if err := utils.UnmarshalJSON(data, &chatRequestProviderSortConfigEnum, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfigEnum,
-			Value: &chatRequestProviderSortConfigEnum,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestProviderSortConfigUnion", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestProviderSortConfigUnion", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChatRequestProviderSortConfigUnionType)
-	switch best.Type {
-	case ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfig:
-		u.ChatRequestProviderSortConfig = best.Value.(*ChatRequestProviderSortConfig)
-		return nil
-	case ChatRequestProviderSortConfigUnionTypeChatRequestProviderSortConfigEnum:
-		u.ChatRequestProviderSortConfigEnum = best.Value.(*ChatRequestProviderSortConfigEnum)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestProviderSortConfigUnion", string(data))
-}
-
-func (u ChatRequestProviderSortConfigUnion) MarshalJSON() ([]byte, error) {
-	if u.ChatRequestProviderSortConfig != nil {
-		return utils.MarshalJSON(u.ChatRequestProviderSortConfig, "", true)
-	}
-
-	if u.ChatRequestProviderSortConfigEnum != nil {
-		return utils.MarshalJSON(u.ChatRequestProviderSortConfigEnum, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ChatRequestProviderSortConfigUnion: all fields are null")
-}
-
-// ChatRequestProviderSort - The provider sorting strategy (price, throughput, latency)
-type ChatRequestProviderSort string
-
-const (
-	ChatRequestProviderSortPrice      ChatRequestProviderSort = "price"
-	ChatRequestProviderSortThroughput ChatRequestProviderSort = "throughput"
-	ChatRequestProviderSortLatency    ChatRequestProviderSort = "latency"
-	ChatRequestProviderSortExacto     ChatRequestProviderSort = "exacto"
-)
-
-func (e ChatRequestProviderSort) ToPointer() *ChatRequestProviderSort {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatRequestProviderSort) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "price", "throughput", "latency", "exacto":
-			return true
-		}
-	}
-	return false
-}
-
-type ChatRequestSortUnionType string
-
-const (
-	ChatRequestSortUnionTypeChatRequestProviderSort            ChatRequestSortUnionType = "ChatRequest_ProviderSort"
-	ChatRequestSortUnionTypeChatRequestProviderSortConfigUnion ChatRequestSortUnionType = "ChatRequest_ProviderSortConfig_union"
-	ChatRequestSortUnionTypeChatRequestSortEnum                ChatRequestSortUnionType = "ChatRequest_sort_enum"
-	ChatRequestSortUnionTypeUnknown                            ChatRequestSortUnionType = "Unknown"
-)
-
-// ChatRequestSortUnion - The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
-type ChatRequestSortUnion struct {
-	ChatRequestProviderSort            *ChatRequestProviderSort            `queryParam:"inline" union:"member"`
-	ChatRequestProviderSortConfigUnion *ChatRequestProviderSortConfigUnion `queryParam:"inline" union:"member"`
-	ChatRequestSortEnum                *ChatRequestSortEnum                `queryParam:"inline" union:"member"`
-	UnknownRaw                         json.RawMessage                     `json:"-" union:"unknown"`
-
-	Type ChatRequestSortUnionType
-}
-
-func CreateChatRequestSortUnionChatRequestProviderSort(chatRequestProviderSort ChatRequestProviderSort) ChatRequestSortUnion {
-	typ := ChatRequestSortUnionTypeChatRequestProviderSort
-
-	return ChatRequestSortUnion{
-		ChatRequestProviderSort: &chatRequestProviderSort,
-		Type:                    typ,
-	}
-}
-
-func CreateChatRequestSortUnionChatRequestProviderSortConfigUnion(chatRequestProviderSortConfigUnion ChatRequestProviderSortConfigUnion) ChatRequestSortUnion {
-	typ := ChatRequestSortUnionTypeChatRequestProviderSortConfigUnion
-
-	return ChatRequestSortUnion{
-		ChatRequestProviderSortConfigUnion: &chatRequestProviderSortConfigUnion,
-		Type:                               typ,
-	}
-}
-
-func CreateChatRequestSortUnionChatRequestSortEnum(chatRequestSortEnum ChatRequestSortEnum) ChatRequestSortUnion {
-	typ := ChatRequestSortUnionTypeChatRequestSortEnum
-
-	return ChatRequestSortUnion{
-		ChatRequestSortEnum: &chatRequestSortEnum,
-		Type:                typ,
-	}
-}
-
-func CreateChatRequestSortUnionUnknown(raw json.RawMessage) ChatRequestSortUnion {
-	return ChatRequestSortUnion{
-		UnknownRaw: raw,
-		Type:       ChatRequestSortUnionTypeUnknown,
-	}
-}
-
-func (u ChatRequestSortUnion) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u ChatRequestSortUnion) IsUnknown() bool {
-	return u.Type == ChatRequestSortUnionTypeUnknown
-}
-
-func (u *ChatRequestSortUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var chatRequestProviderSort ChatRequestProviderSort = ChatRequestProviderSort("")
-	if err := utils.UnmarshalJSON(data, &chatRequestProviderSort, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestSortUnionTypeChatRequestProviderSort,
-			Value: &chatRequestProviderSort,
-		})
-	}
-
-	var chatRequestProviderSortConfigUnion ChatRequestProviderSortConfigUnion = ChatRequestProviderSortConfigUnion{}
-	if err := utils.UnmarshalJSON(data, &chatRequestProviderSortConfigUnion, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestSortUnionTypeChatRequestProviderSortConfigUnion,
-			Value: &chatRequestProviderSortConfigUnion,
-		})
-	}
-
-	var chatRequestSortEnum ChatRequestSortEnum = ChatRequestSortEnum("")
-	if err := utils.UnmarshalJSON(data, &chatRequestSortEnum, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestSortUnionTypeChatRequestSortEnum,
-			Value: &chatRequestSortEnum,
-		})
-	}
-
-	if len(candidates) == 0 {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ChatRequestSortUnionTypeUnknown
-		return nil
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = ChatRequestSortUnionTypeUnknown
-		return nil
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChatRequestSortUnionType)
-	switch best.Type {
-	case ChatRequestSortUnionTypeChatRequestProviderSort:
-		u.ChatRequestProviderSort = best.Value.(*ChatRequestProviderSort)
-		return nil
-	case ChatRequestSortUnionTypeChatRequestProviderSortConfigUnion:
-		u.ChatRequestProviderSortConfigUnion = best.Value.(*ChatRequestProviderSortConfigUnion)
-		return nil
-	case ChatRequestSortUnionTypeChatRequestSortEnum:
-		u.ChatRequestSortEnum = best.Value.(*ChatRequestSortEnum)
-		return nil
-	}
-
-	u.UnknownRaw = json.RawMessage(data)
-	u.Type = ChatRequestSortUnionTypeUnknown
-	return nil
-}
-
-func (u ChatRequestSortUnion) MarshalJSON() ([]byte, error) {
-	if u.ChatRequestProviderSort != nil {
-		return utils.MarshalJSON(u.ChatRequestProviderSort, "", true)
-	}
-
-	if u.ChatRequestProviderSortConfigUnion != nil {
-		return utils.MarshalJSON(u.ChatRequestProviderSortConfigUnion, "", true)
-	}
-
-	if u.ChatRequestSortEnum != nil {
-		return utils.MarshalJSON(u.ChatRequestSortEnum, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type ChatRequestSortUnion: all fields are null")
-}
-
-// ChatRequestMaxPrice - The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
-type ChatRequestMaxPrice struct {
-	// Price per million prompt tokens
-	Prompt     *string `json:"prompt,omitzero"`
-	Completion *string `json:"completion,omitzero"`
-	Image      *string `json:"image,omitzero"`
-	Audio      *string `json:"audio,omitzero"`
-	Request    *string `json:"request,omitzero"`
-}
-
-func (c *ChatRequestMaxPrice) GetPrompt() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Prompt
-}
-
-func (c *ChatRequestMaxPrice) GetCompletion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Completion
-}
-
-func (c *ChatRequestMaxPrice) GetImage() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Image
-}
-
-func (c *ChatRequestMaxPrice) GetAudio() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Audio
-}
-
-func (c *ChatRequestMaxPrice) GetRequest() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Request
-}
-
-// ChatRequestProvider - When multiple model providers are available, optionally indicate your routing preference.
-type ChatRequestProvider struct {
-	// Whether to allow backup providers to serve requests
-	// - true: (default) when the primary provider (or your custom providers in "order") is unavailable, use the next best provider.
-	// - false: use only the primary/custom provider, and return the upstream error if it's unavailable.
-	//
-	AllowFallbacks optionalnullable.OptionalNullable[bool] `json:"allow_fallbacks,omitzero"`
-	// Whether to filter providers to only those that support the parameters you've provided. If this setting is omitted or set to false, then providers will receive only the parameters they support, and ignore the rest.
-	RequireParameters optionalnullable.OptionalNullable[bool] `json:"require_parameters,omitzero"`
-	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
-	// - allow: (default) allow providers which store user data non-transiently and may train on it
-	//
-	// - deny: use only providers which do not collect user data.
-	DataCollection optionalnullable.OptionalNullable[DataCollection] `json:"data_collection,omitzero"`
-	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
-	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
-	// Whether to restrict routing to only models that allow text distillation. When true, only models where the author has allowed distillation will be used.
-	EnforceDistillableText optionalnullable.OptionalNullable[bool] `json:"enforce_distillable_text,omitzero"`
-	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
-	Order optionalnullable.OptionalNullable[[]ChatRequestOrder] `json:"order,omitzero"`
-	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
-	Only optionalnullable.OptionalNullable[[]ChatRequestOnly] `json:"only,omitzero"`
-	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
-	Ignore optionalnullable.OptionalNullable[[]ChatRequestIgnore] `json:"ignore,omitzero"`
-	// A list of quantization levels to filter the provider by.
-	Quantizations optionalnullable.OptionalNullable[[]Quantization]       `json:"quantizations,omitzero"`
-	Sort          optionalnullable.OptionalNullable[ChatRequestSortUnion] `json:"sort,omitzero"`
-	// The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
-	MaxPrice *ChatRequestMaxPrice `json:"max_price,omitzero"`
-	// Preferred minimum throughput (in tokens per second). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints below the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
-	PreferredMinThroughput optionalnullable.OptionalNullable[PreferredMinThroughput] `json:"preferred_min_throughput,omitzero"`
-	// Preferred maximum latency (in seconds). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints above the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
-	PreferredMaxLatency optionalnullable.OptionalNullable[PreferredMaxLatency] `json:"preferred_max_latency,omitzero"`
-}
-
-func (c ChatRequestProvider) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestProvider) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestProvider) GetAllowFallbacks() optionalnullable.OptionalNullable[bool] {
-	if c == nil {
-		return nil
-	}
-	return c.AllowFallbacks
-}
-
-func (c *ChatRequestProvider) GetRequireParameters() optionalnullable.OptionalNullable[bool] {
-	if c == nil {
-		return nil
-	}
-	return c.RequireParameters
-}
-
-func (c *ChatRequestProvider) GetDataCollection() optionalnullable.OptionalNullable[DataCollection] {
-	if c == nil {
-		return nil
-	}
-	return c.DataCollection
-}
-
-func (c *ChatRequestProvider) GetZdr() optionalnullable.OptionalNullable[bool] {
-	if c == nil {
-		return nil
-	}
-	return c.Zdr
-}
-
-func (c *ChatRequestProvider) GetEnforceDistillableText() optionalnullable.OptionalNullable[bool] {
-	if c == nil {
-		return nil
-	}
-	return c.EnforceDistillableText
-}
-
-func (c *ChatRequestProvider) GetOrder() optionalnullable.OptionalNullable[[]ChatRequestOrder] {
-	if c == nil {
-		return nil
-	}
-	return c.Order
-}
-
-func (c *ChatRequestProvider) GetOnly() optionalnullable.OptionalNullable[[]ChatRequestOnly] {
-	if c == nil {
-		return nil
-	}
-	return c.Only
-}
-
-func (c *ChatRequestProvider) GetIgnore() optionalnullable.OptionalNullable[[]ChatRequestIgnore] {
-	if c == nil {
-		return nil
-	}
-	return c.Ignore
-}
-
-func (c *ChatRequestProvider) GetQuantizations() optionalnullable.OptionalNullable[[]Quantization] {
-	if c == nil {
-		return nil
-	}
-	return c.Quantizations
-}
-
-func (c *ChatRequestProvider) GetSort() optionalnullable.OptionalNullable[ChatRequestSortUnion] {
-	if c == nil {
-		return nil
-	}
-	return c.Sort
-}
-
-func (c *ChatRequestProvider) GetMaxPrice() *ChatRequestMaxPrice {
-	if c == nil {
-		return nil
-	}
-	return c.MaxPrice
-}
-
-func (c *ChatRequestProvider) GetPreferredMinThroughput() optionalnullable.OptionalNullable[PreferredMinThroughput] {
-	if c == nil {
-		return nil
-	}
-	return c.PreferredMinThroughput
-}
-
-func (c *ChatRequestProvider) GetPreferredMaxLatency() optionalnullable.OptionalNullable[PreferredMaxLatency] {
-	if c == nil {
-		return nil
-	}
-	return c.PreferredMaxLatency
-}
-
-type ChatRequestIDContextCompression string
-
-const (
-	ChatRequestIDContextCompressionContextCompression ChatRequestIDContextCompression = "context-compression"
-)
-
-func (e ChatRequestIDContextCompression) ToPointer() *ChatRequestIDContextCompression {
-	return &e
-}
-func (e *ChatRequestIDContextCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "context-compression":
-		*e = ChatRequestIDContextCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestIDContextCompression: %v", v)
-	}
-}
-
-type ChatRequestPluginContextCompression struct {
-	ID ChatRequestIDContextCompression `json:"id"`
-	// Set to false to disable the context-compression plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-	// The compression engine to use. Defaults to "middle-out".
-	Engine *ContextCompressionEngine `json:"engine,omitzero"`
-}
-
-func (c ChatRequestPluginContextCompression) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestPluginContextCompression) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestPluginContextCompression) GetID() ChatRequestIDContextCompression {
-	if c == nil {
-		return ChatRequestIDContextCompression("")
-	}
-	return c.ID
-}
-
-func (c *ChatRequestPluginContextCompression) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-func (c *ChatRequestPluginContextCompression) GetEngine() *ContextCompressionEngine {
-	if c == nil {
-		return nil
-	}
-	return c.Engine
-}
-
-type ChatRequestIDResponseHealing string
-
-const (
-	ChatRequestIDResponseHealingResponseHealing ChatRequestIDResponseHealing = "response-healing"
-)
-
-func (e ChatRequestIDResponseHealing) ToPointer() *ChatRequestIDResponseHealing {
-	return &e
-}
-func (e *ChatRequestIDResponseHealing) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response-healing":
-		*e = ChatRequestIDResponseHealing(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestIDResponseHealing: %v", v)
-	}
-}
-
-type ChatRequestPluginResponseHealing struct {
-	ID ChatRequestIDResponseHealing `json:"id"`
-	// Set to false to disable the response-healing plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-}
-
-func (c ChatRequestPluginResponseHealing) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestPluginResponseHealing) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestPluginResponseHealing) GetID() ChatRequestIDResponseHealing {
-	if c == nil {
-		return ChatRequestIDResponseHealing("")
-	}
-	return c.ID
-}
-
-func (c *ChatRequestPluginResponseHealing) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-type ChatRequestIDFileParser string
-
-const (
-	ChatRequestIDFileParserFileParser ChatRequestIDFileParser = "file-parser"
-)
-
-func (e ChatRequestIDFileParser) ToPointer() *ChatRequestIDFileParser {
-	return &e
-}
-func (e *ChatRequestIDFileParser) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file-parser":
-		*e = ChatRequestIDFileParser(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestIDFileParser: %v", v)
-	}
-}
-
-type ChatRequestPluginFileParser struct {
-	ID ChatRequestIDFileParser `json:"id"`
-	// Set to false to disable the file-parser plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-	// Options for PDF parsing.
-	Pdf *PDFParserOptions `json:"pdf,omitzero"`
-}
-
-func (c ChatRequestPluginFileParser) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestPluginFileParser) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestPluginFileParser) GetID() ChatRequestIDFileParser {
-	if c == nil {
-		return ChatRequestIDFileParser("")
-	}
-	return c.ID
-}
-
-func (c *ChatRequestPluginFileParser) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-func (c *ChatRequestPluginFileParser) GetPdf() *PDFParserOptions {
-	if c == nil {
-		return nil
-	}
-	return c.Pdf
-}
-
-type ChatRequestIDWeb string
-
-const (
-	ChatRequestIDWebWeb ChatRequestIDWeb = "web"
-)
-
-func (e ChatRequestIDWeb) ToPointer() *ChatRequestIDWeb {
-	return &e
-}
-func (e *ChatRequestIDWeb) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "web":
-		*e = ChatRequestIDWeb(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestIDWeb: %v", v)
-	}
-}
-
-type ChatRequestPluginWeb struct {
-	ID ChatRequestIDWeb `json:"id"`
-	// Set to false to disable the web-search plugin for this request. Defaults to true.
-	Enabled      *bool    `json:"enabled,omitzero"`
-	MaxResults   *float64 `json:"max_results,omitzero"`
-	SearchPrompt *string  `json:"search_prompt,omitzero"`
-	// The search engine to use for web search.
-	Engine *WebSearchEngine `json:"engine,omitzero"`
-	// A list of domains to restrict web search results to. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
-	IncludeDomains []string `json:"include_domains,omitzero"`
-	// A list of domains to exclude from web search results. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
-	ExcludeDomains []string `json:"exclude_domains,omitzero"`
-}
-
-func (c ChatRequestPluginWeb) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestPluginWeb) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestPluginWeb) GetID() ChatRequestIDWeb {
-	if c == nil {
-		return ChatRequestIDWeb("")
-	}
-	return c.ID
-}
-
-func (c *ChatRequestPluginWeb) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-func (c *ChatRequestPluginWeb) GetMaxResults() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxResults
-}
-
-func (c *ChatRequestPluginWeb) GetSearchPrompt() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SearchPrompt
-}
-
-func (c *ChatRequestPluginWeb) GetEngine() *WebSearchEngine {
-	if c == nil {
-		return nil
-	}
-	return c.Engine
-}
-
-func (c *ChatRequestPluginWeb) GetIncludeDomains() []string {
-	if c == nil {
-		return nil
-	}
-	return c.IncludeDomains
-}
-
-func (c *ChatRequestPluginWeb) GetExcludeDomains() []string {
-	if c == nil {
-		return nil
-	}
-	return c.ExcludeDomains
-}
-
-type ChatRequestIDModeration string
-
-const (
-	ChatRequestIDModerationModeration ChatRequestIDModeration = "moderation"
-)
-
-func (e ChatRequestIDModeration) ToPointer() *ChatRequestIDModeration {
-	return &e
-}
-func (e *ChatRequestIDModeration) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "moderation":
-		*e = ChatRequestIDModeration(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestIDModeration: %v", v)
-	}
-}
-
-type ChatRequestPluginModeration struct {
-	ID ChatRequestIDModeration `json:"id"`
-}
-
-func (c ChatRequestPluginModeration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestPluginModeration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestPluginModeration) GetID() ChatRequestIDModeration {
-	if c == nil {
-		return ChatRequestIDModeration("")
-	}
-	return c.ID
-}
-
-type ChatRequestIDAutoRouter string
-
-const (
-	ChatRequestIDAutoRouterAutoRouter ChatRequestIDAutoRouter = "auto-router"
-)
-
-func (e ChatRequestIDAutoRouter) ToPointer() *ChatRequestIDAutoRouter {
-	return &e
-}
-func (e *ChatRequestIDAutoRouter) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto-router":
-		*e = ChatRequestIDAutoRouter(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestIDAutoRouter: %v", v)
-	}
-}
-
-type ChatRequestPluginAutoRouter struct {
-	ID ChatRequestIDAutoRouter `json:"id"`
-	// Set to false to disable the auto-router plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-	// List of model patterns to filter which models the auto-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, uses the default supported models list.
-	AllowedModels []string `json:"allowed_models,omitzero"`
-}
-
-func (c ChatRequestPluginAutoRouter) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestPluginAutoRouter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestPluginAutoRouter) GetID() ChatRequestIDAutoRouter {
-	if c == nil {
-		return ChatRequestIDAutoRouter("")
-	}
-	return c.ID
-}
-
-func (c *ChatRequestPluginAutoRouter) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-func (c *ChatRequestPluginAutoRouter) GetAllowedModels() []string {
-	if c == nil {
-		return nil
-	}
-	return c.AllowedModels
-}
-
-type ChatRequestPluginUnionType string
-
-const (
-	ChatRequestPluginUnionTypeAutoRouter         ChatRequestPluginUnionType = "auto-router"
-	ChatRequestPluginUnionTypeModeration         ChatRequestPluginUnionType = "moderation"
-	ChatRequestPluginUnionTypeWeb                ChatRequestPluginUnionType = "web"
-	ChatRequestPluginUnionTypeFileParser         ChatRequestPluginUnionType = "file-parser"
-	ChatRequestPluginUnionTypeResponseHealing    ChatRequestPluginUnionType = "response-healing"
-	ChatRequestPluginUnionTypeContextCompression ChatRequestPluginUnionType = "context-compression"
-)
-
-type ChatRequestPluginUnion struct {
-	ChatRequestPluginAutoRouter         *ChatRequestPluginAutoRouter         `queryParam:"inline" union:"member"`
-	ChatRequestPluginModeration         *ChatRequestPluginModeration         `queryParam:"inline" union:"member"`
-	ChatRequestPluginWeb                *ChatRequestPluginWeb                `queryParam:"inline" union:"member"`
-	ChatRequestPluginFileParser         *ChatRequestPluginFileParser         `queryParam:"inline" union:"member"`
-	ChatRequestPluginResponseHealing    *ChatRequestPluginResponseHealing    `queryParam:"inline" union:"member"`
-	ChatRequestPluginContextCompression *ChatRequestPluginContextCompression `queryParam:"inline" union:"member"`
-
-	Type ChatRequestPluginUnionType
-}
-
-func CreateChatRequestPluginUnionAutoRouter(autoRouter ChatRequestPluginAutoRouter) ChatRequestPluginUnion {
-	typ := ChatRequestPluginUnionTypeAutoRouter
-
-	typStr := ChatRequestIDAutoRouter(typ)
+	typStr := AutoRouterPluginID(typ)
 	autoRouter.ID = typStr
 
-	return ChatRequestPluginUnion{
-		ChatRequestPluginAutoRouter: &autoRouter,
-		Type:                        typ,
+	return ChatRequestPlugin{
+		AutoRouterPlugin: &autoRouter,
+		Type:             typ,
 	}
 }
 
-func CreateChatRequestPluginUnionModeration(moderation ChatRequestPluginModeration) ChatRequestPluginUnion {
-	typ := ChatRequestPluginUnionTypeModeration
+func CreateChatRequestPluginModeration(moderation ModerationPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeModeration
 
-	typStr := ChatRequestIDModeration(typ)
+	typStr := ModerationPluginID(typ)
 	moderation.ID = typStr
 
-	return ChatRequestPluginUnion{
-		ChatRequestPluginModeration: &moderation,
-		Type:                        typ,
+	return ChatRequestPlugin{
+		ModerationPlugin: &moderation,
+		Type:             typ,
 	}
 }
 
-func CreateChatRequestPluginUnionWeb(web ChatRequestPluginWeb) ChatRequestPluginUnion {
-	typ := ChatRequestPluginUnionTypeWeb
+func CreateChatRequestPluginWeb(web WebSearchPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeWeb
 
-	typStr := ChatRequestIDWeb(typ)
+	typStr := WebSearchPluginID(typ)
 	web.ID = typStr
 
-	return ChatRequestPluginUnion{
-		ChatRequestPluginWeb: &web,
-		Type:                 typ,
+	return ChatRequestPlugin{
+		WebSearchPlugin: &web,
+		Type:            typ,
 	}
 }
 
-func CreateChatRequestPluginUnionFileParser(fileParser ChatRequestPluginFileParser) ChatRequestPluginUnion {
-	typ := ChatRequestPluginUnionTypeFileParser
+func CreateChatRequestPluginFileParser(fileParser FileParserPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeFileParser
 
-	typStr := ChatRequestIDFileParser(typ)
+	typStr := FileParserPluginID(typ)
 	fileParser.ID = typStr
 
-	return ChatRequestPluginUnion{
-		ChatRequestPluginFileParser: &fileParser,
-		Type:                        typ,
+	return ChatRequestPlugin{
+		FileParserPlugin: &fileParser,
+		Type:             typ,
 	}
 }
 
-func CreateChatRequestPluginUnionResponseHealing(responseHealing ChatRequestPluginResponseHealing) ChatRequestPluginUnion {
-	typ := ChatRequestPluginUnionTypeResponseHealing
+func CreateChatRequestPluginResponseHealing(responseHealing ResponseHealingPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeResponseHealing
 
-	typStr := ChatRequestIDResponseHealing(typ)
+	typStr := ResponseHealingPluginID(typ)
 	responseHealing.ID = typStr
 
-	return ChatRequestPluginUnion{
-		ChatRequestPluginResponseHealing: &responseHealing,
-		Type:                             typ,
+	return ChatRequestPlugin{
+		ResponseHealingPlugin: &responseHealing,
+		Type:                  typ,
 	}
 }
 
-func CreateChatRequestPluginUnionContextCompression(contextCompression ChatRequestPluginContextCompression) ChatRequestPluginUnion {
-	typ := ChatRequestPluginUnionTypeContextCompression
+func CreateChatRequestPluginContextCompression(contextCompression ContextCompressionPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeContextCompression
 
-	typStr := ChatRequestIDContextCompression(typ)
+	typStr := ContextCompressionPluginID(typ)
 	contextCompression.ID = typStr
 
-	return ChatRequestPluginUnion{
-		ChatRequestPluginContextCompression: &contextCompression,
-		Type:                                typ,
+	return ChatRequestPlugin{
+		ContextCompressionPlugin: &contextCompression,
+		Type:                     typ,
 	}
 }
 
-func (u *ChatRequestPluginUnion) UnmarshalJSON(data []byte) error {
+func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		ID string `json:"id"`
@@ -1344,153 +117,90 @@ func (u *ChatRequestPluginUnion) UnmarshalJSON(data []byte) error {
 
 	switch dis.ID {
 	case "auto-router":
-		chatRequestPluginAutoRouter := new(ChatRequestPluginAutoRouter)
-		if err := utils.UnmarshalJSON(data, &chatRequestPluginAutoRouter, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-router) type ChatRequestPluginAutoRouter within ChatRequestPluginUnion: %w", string(data), err)
+		autoRouterPlugin := new(AutoRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &autoRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-router) type AutoRouterPlugin within ChatRequestPlugin: %w", string(data), err)
 		}
 
-		u.ChatRequestPluginAutoRouter = chatRequestPluginAutoRouter
-		u.Type = ChatRequestPluginUnionTypeAutoRouter
+		u.AutoRouterPlugin = autoRouterPlugin
+		u.Type = ChatRequestPluginTypeAutoRouter
 		return nil
 	case "moderation":
-		chatRequestPluginModeration := new(ChatRequestPluginModeration)
-		if err := utils.UnmarshalJSON(data, &chatRequestPluginModeration, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == moderation) type ChatRequestPluginModeration within ChatRequestPluginUnion: %w", string(data), err)
+		moderationPlugin := new(ModerationPlugin)
+		if err := utils.UnmarshalJSON(data, &moderationPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == moderation) type ModerationPlugin within ChatRequestPlugin: %w", string(data), err)
 		}
 
-		u.ChatRequestPluginModeration = chatRequestPluginModeration
-		u.Type = ChatRequestPluginUnionTypeModeration
+		u.ModerationPlugin = moderationPlugin
+		u.Type = ChatRequestPluginTypeModeration
 		return nil
 	case "web":
-		chatRequestPluginWeb := new(ChatRequestPluginWeb)
-		if err := utils.UnmarshalJSON(data, &chatRequestPluginWeb, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web) type ChatRequestPluginWeb within ChatRequestPluginUnion: %w", string(data), err)
+		webSearchPlugin := new(WebSearchPlugin)
+		if err := utils.UnmarshalJSON(data, &webSearchPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web) type WebSearchPlugin within ChatRequestPlugin: %w", string(data), err)
 		}
 
-		u.ChatRequestPluginWeb = chatRequestPluginWeb
-		u.Type = ChatRequestPluginUnionTypeWeb
+		u.WebSearchPlugin = webSearchPlugin
+		u.Type = ChatRequestPluginTypeWeb
 		return nil
 	case "file-parser":
-		chatRequestPluginFileParser := new(ChatRequestPluginFileParser)
-		if err := utils.UnmarshalJSON(data, &chatRequestPluginFileParser, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == file-parser) type ChatRequestPluginFileParser within ChatRequestPluginUnion: %w", string(data), err)
+		fileParserPlugin := new(FileParserPlugin)
+		if err := utils.UnmarshalJSON(data, &fileParserPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == file-parser) type FileParserPlugin within ChatRequestPlugin: %w", string(data), err)
 		}
 
-		u.ChatRequestPluginFileParser = chatRequestPluginFileParser
-		u.Type = ChatRequestPluginUnionTypeFileParser
+		u.FileParserPlugin = fileParserPlugin
+		u.Type = ChatRequestPluginTypeFileParser
 		return nil
 	case "response-healing":
-		chatRequestPluginResponseHealing := new(ChatRequestPluginResponseHealing)
-		if err := utils.UnmarshalJSON(data, &chatRequestPluginResponseHealing, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == response-healing) type ChatRequestPluginResponseHealing within ChatRequestPluginUnion: %w", string(data), err)
+		responseHealingPlugin := new(ResponseHealingPlugin)
+		if err := utils.UnmarshalJSON(data, &responseHealingPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == response-healing) type ResponseHealingPlugin within ChatRequestPlugin: %w", string(data), err)
 		}
 
-		u.ChatRequestPluginResponseHealing = chatRequestPluginResponseHealing
-		u.Type = ChatRequestPluginUnionTypeResponseHealing
+		u.ResponseHealingPlugin = responseHealingPlugin
+		u.Type = ChatRequestPluginTypeResponseHealing
 		return nil
 	case "context-compression":
-		chatRequestPluginContextCompression := new(ChatRequestPluginContextCompression)
-		if err := utils.UnmarshalJSON(data, &chatRequestPluginContextCompression, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == context-compression) type ChatRequestPluginContextCompression within ChatRequestPluginUnion: %w", string(data), err)
+		contextCompressionPlugin := new(ContextCompressionPlugin)
+		if err := utils.UnmarshalJSON(data, &contextCompressionPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == context-compression) type ContextCompressionPlugin within ChatRequestPlugin: %w", string(data), err)
 		}
 
-		u.ChatRequestPluginContextCompression = chatRequestPluginContextCompression
-		u.Type = ChatRequestPluginUnionTypeContextCompression
+		u.ContextCompressionPlugin = contextCompressionPlugin
+		u.Type = ChatRequestPluginTypeContextCompression
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestPluginUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestPlugin", string(data))
 }
 
-func (u ChatRequestPluginUnion) MarshalJSON() ([]byte, error) {
-	if u.ChatRequestPluginAutoRouter != nil {
-		return utils.MarshalJSON(u.ChatRequestPluginAutoRouter, "", true)
+func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
+	if u.AutoRouterPlugin != nil {
+		return utils.MarshalJSON(u.AutoRouterPlugin, "", true)
 	}
 
-	if u.ChatRequestPluginModeration != nil {
-		return utils.MarshalJSON(u.ChatRequestPluginModeration, "", true)
+	if u.ModerationPlugin != nil {
+		return utils.MarshalJSON(u.ModerationPlugin, "", true)
 	}
 
-	if u.ChatRequestPluginWeb != nil {
-		return utils.MarshalJSON(u.ChatRequestPluginWeb, "", true)
+	if u.WebSearchPlugin != nil {
+		return utils.MarshalJSON(u.WebSearchPlugin, "", true)
 	}
 
-	if u.ChatRequestPluginFileParser != nil {
-		return utils.MarshalJSON(u.ChatRequestPluginFileParser, "", true)
+	if u.FileParserPlugin != nil {
+		return utils.MarshalJSON(u.FileParserPlugin, "", true)
 	}
 
-	if u.ChatRequestPluginResponseHealing != nil {
-		return utils.MarshalJSON(u.ChatRequestPluginResponseHealing, "", true)
+	if u.ResponseHealingPlugin != nil {
+		return utils.MarshalJSON(u.ResponseHealingPlugin, "", true)
 	}
 
-	if u.ChatRequestPluginContextCompression != nil {
-		return utils.MarshalJSON(u.ChatRequestPluginContextCompression, "", true)
+	if u.ContextCompressionPlugin != nil {
+		return utils.MarshalJSON(u.ContextCompressionPlugin, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type ChatRequestPluginUnion: all fields are null")
-}
-
-// ChatRequestTrace - Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
-type ChatRequestTrace struct {
-	TraceID              *string        `json:"trace_id,omitzero"`
-	TraceName            *string        `json:"trace_name,omitzero"`
-	SpanName             *string        `json:"span_name,omitzero"`
-	GenerationName       *string        `json:"generation_name,omitzero"`
-	ParentSpanID         *string        `json:"parent_span_id,omitzero"`
-	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
-}
-
-func (c ChatRequestTrace) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatRequestTrace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatRequestTrace) GetTraceID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TraceID
-}
-
-func (c *ChatRequestTrace) GetTraceName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TraceName
-}
-
-func (c *ChatRequestTrace) GetSpanName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SpanName
-}
-
-func (c *ChatRequestTrace) GetGenerationName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.GenerationName
-}
-
-func (c *ChatRequestTrace) GetParentSpanID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ParentSpanID
-}
-
-func (c *ChatRequestTrace) GetAdditionalProperties() map[string]any {
-	if c == nil {
-		return nil
-	}
-	return c.AdditionalProperties
+	return nil, errors.New("could not marshal union type ChatRequestPlugin: all fields are null")
 }
 
 // Effort - Constrains effort on reasoning for reasoning models
@@ -1523,8 +233,8 @@ func (e *Effort) IsExact() bool {
 // Reasoning - Configuration options for reasoning models
 type Reasoning struct {
 	// Constrains effort on reasoning for reasoning models
-	Effort  optionalnullable.OptionalNullable[Effort] `json:"effort,omitzero"`
-	Summary optionalnullable.OptionalNullable[any]    `json:"summary,omitzero"`
+	Effort  optionalnullable.OptionalNullable[Effort]                            `json:"effort,omitzero"`
+	Summary optionalnullable.OptionalNullable[ChatReasoningSummaryVerbosityEnum] `json:"summary,omitzero"`
 }
 
 func (r *Reasoning) GetEffort() optionalnullable.OptionalNullable[Effort] {
@@ -1534,7 +244,7 @@ func (r *Reasoning) GetEffort() optionalnullable.OptionalNullable[Effort] {
 	return r.Effort
 }
 
-func (r *Reasoning) GetSummary() optionalnullable.OptionalNullable[any] {
+func (r *Reasoning) GetSummary() optionalnullable.OptionalNullable[ChatReasoningSummaryVerbosityEnum] {
 	if r == nil {
 		return nil
 	}
@@ -1962,71 +672,6 @@ func (e *Modality) IsExact() bool {
 	return false
 }
 
-type ChatRequestType string
-
-const (
-	ChatRequestTypeEphemeral ChatRequestType = "ephemeral"
-)
-
-func (e ChatRequestType) ToPointer() *ChatRequestType {
-	return &e
-}
-func (e *ChatRequestType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "ephemeral":
-		*e = ChatRequestType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatRequestType: %v", v)
-	}
-}
-
-type ChatRequestTTL string
-
-const (
-	ChatRequestTTLFivem ChatRequestTTL = "5m"
-	ChatRequestTTLOneh  ChatRequestTTL = "1h"
-)
-
-func (e ChatRequestTTL) ToPointer() *ChatRequestTTL {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatRequestTTL) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "5m", "1h":
-			return true
-		}
-	}
-	return false
-}
-
-// CacheControl - Enable automatic prompt caching. When set, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-type CacheControl struct {
-	Type ChatRequestType `json:"type"`
-	TTL  *ChatRequestTTL `json:"ttl,omitzero"`
-}
-
-func (c *CacheControl) GetType() ChatRequestType {
-	if c == nil {
-		return ChatRequestType("")
-	}
-	return c.Type
-}
-
-func (c *CacheControl) GetTTL() *ChatRequestTTL {
-	if c == nil {
-		return nil
-	}
-	return c.TTL
-}
-
 // ChatRequestServiceTier - The service tier to use for processing this request.
 type ChatRequestServiceTier string
 
@@ -2056,15 +701,15 @@ func (e *ChatRequestServiceTier) IsExact() bool {
 // ChatRequest - Chat completion request parameters
 type ChatRequest struct {
 	// When multiple model providers are available, optionally indicate your routing preference.
-	Provider optionalnullable.OptionalNullable[ChatRequestProvider] `json:"provider,omitzero"`
+	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Plugins you want to enable for this request, including their settings.
-	Plugins []ChatRequestPluginUnion `json:"plugins,omitzero"`
+	Plugins []ChatRequestPlugin `json:"plugins,omitzero"`
 	// Unique user identifier
 	User *string `json:"user,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow) for observability. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
-	Trace *ChatRequestTrace `json:"trace,omitzero"`
+	Trace *TraceConfig `json:"trace,omitzero"`
 	// List of messages for the conversation
 	Messages []ChatMessages `json:"messages"`
 	// Model to use for completion
@@ -2114,9 +759,8 @@ type ChatRequest struct {
 	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
 	ImageConfig map[string]ChatRequestImageConfig `json:"image_config,omitzero"`
 	// Output modalities for the response. Supported values are "text", "image", and "audio".
-	Modalities []Modality `json:"modalities,omitzero"`
-	// Enable automatic prompt caching. When set, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl *CacheControl `json:"cache_control,omitzero"`
+	Modalities   []Modality                      `json:"modalities,omitzero"`
+	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// The service tier to use for processing this request.
 	ServiceTier optionalnullable.OptionalNullable[ChatRequestServiceTier] `json:"service_tier,omitzero"`
 }
@@ -2132,14 +776,14 @@ func (c *ChatRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatRequest) GetProvider() optionalnullable.OptionalNullable[ChatRequestProvider] {
+func (c *ChatRequest) GetProvider() optionalnullable.OptionalNullable[ProviderPreferences] {
 	if c == nil {
 		return nil
 	}
 	return c.Provider
 }
 
-func (c *ChatRequest) GetPlugins() []ChatRequestPluginUnion {
+func (c *ChatRequest) GetPlugins() []ChatRequestPlugin {
 	if c == nil {
 		return nil
 	}
@@ -2160,7 +804,7 @@ func (c *ChatRequest) GetSessionID() *string {
 	return c.SessionID
 }
 
-func (c *ChatRequest) GetTrace() *ChatRequestTrace {
+func (c *ChatRequest) GetTrace() *TraceConfig {
 	if c == nil {
 		return nil
 	}
@@ -2377,7 +1021,7 @@ func (c *ChatRequest) GetModalities() []Modality {
 	return c.Modalities
 }
 
-func (c *ChatRequest) GetCacheControl() *CacheControl {
+func (c *ChatRequest) GetCacheControl() *AnthropicCacheControlDirective {
 	if c == nil {
 		return nil
 	}

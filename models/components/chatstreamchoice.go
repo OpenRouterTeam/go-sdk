@@ -10,8 +10,8 @@ import (
 // ChatStreamChoice - Streaming completion choice chunk
 type ChatStreamChoice struct {
 	// Delta changes in streaming response
-	Delta        ChatStreamDelta `json:"delta"`
-	FinishReason any             `json:"finish_reason"`
+	Delta        ChatStreamDelta       `json:"delta"`
+	FinishReason *ChatFinishReasonEnum `json:"finish_reason"`
 	// Choice index
 	Index int64 `json:"index"`
 	// Log probabilities for the completion
@@ -36,7 +36,7 @@ func (c *ChatStreamChoice) GetDelta() ChatStreamDelta {
 	return c.Delta
 }
 
-func (c *ChatStreamChoice) GetFinishReason() any {
+func (c *ChatStreamChoice) GetFinishReason() *ChatFinishReasonEnum {
 	if c == nil {
 		return nil
 	}

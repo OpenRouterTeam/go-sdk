@@ -35,8 +35,8 @@ type URLCitation struct {
 	Type       URLCitationType `json:"type"`
 	URL        string          `json:"url"`
 	Title      string          `json:"title"`
-	StartIndex float64         `json:"start_index"`
-	EndIndex   float64         `json:"end_index"`
+	StartIndex int64           `json:"start_index"`
+	EndIndex   int64           `json:"end_index"`
 }
 
 func (u URLCitation) MarshalJSON() ([]byte, error) {
@@ -71,16 +71,16 @@ func (u *URLCitation) GetTitle() string {
 	return u.Title
 }
 
-func (u *URLCitation) GetStartIndex() float64 {
+func (u *URLCitation) GetStartIndex() int64 {
 	if u == nil {
-		return 0.0
+		return 0
 	}
 	return u.StartIndex
 }
 
-func (u *URLCitation) GetEndIndex() float64 {
+func (u *URLCitation) GetEndIndex() int64 {
 	if u == nil {
-		return 0.0
+		return 0
 	}
 	return u.EndIndex
 }

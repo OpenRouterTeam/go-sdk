@@ -7,8 +7,10 @@ import (
 )
 
 type ListEndpointsRequest struct {
+	// The author/organization of the model
 	Author string `pathParam:"style=simple,explode=false,name=author"`
-	Slug   string `pathParam:"style=simple,explode=false,name=slug"`
+	// The model slug
+	Slug string `pathParam:"style=simple,explode=false,name=slug"`
 }
 
 func (l *ListEndpointsRequest) GetAuthor() string {

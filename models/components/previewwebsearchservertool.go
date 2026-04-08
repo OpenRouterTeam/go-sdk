@@ -32,62 +32,6 @@ func (e *PreviewWebSearchServerToolType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PreviewWebSearchServerToolEngine - Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-type PreviewWebSearchServerToolEngine string
-
-const (
-	PreviewWebSearchServerToolEngineAuto      PreviewWebSearchServerToolEngine = "auto"
-	PreviewWebSearchServerToolEngineNative    PreviewWebSearchServerToolEngine = "native"
-	PreviewWebSearchServerToolEngineExa       PreviewWebSearchServerToolEngine = "exa"
-	PreviewWebSearchServerToolEngineFirecrawl PreviewWebSearchServerToolEngine = "firecrawl"
-	PreviewWebSearchServerToolEngineParallel  PreviewWebSearchServerToolEngine = "parallel"
-)
-
-func (e PreviewWebSearchServerToolEngine) ToPointer() *PreviewWebSearchServerToolEngine {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PreviewWebSearchServerToolEngine) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "native", "exa", "firecrawl", "parallel":
-			return true
-		}
-	}
-	return false
-}
-
-type PreviewWebSearchServerToolFilters struct {
-	AllowedDomains  optionalnullable.OptionalNullable[[]string] `json:"allowed_domains,omitzero"`
-	ExcludedDomains optionalnullable.OptionalNullable[[]string] `json:"excluded_domains,omitzero"`
-}
-
-func (p PreviewWebSearchServerToolFilters) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PreviewWebSearchServerToolFilters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *PreviewWebSearchServerToolFilters) GetAllowedDomains() optionalnullable.OptionalNullable[[]string] {
-	if p == nil {
-		return nil
-	}
-	return p.AllowedDomains
-}
-
-func (p *PreviewWebSearchServerToolFilters) GetExcludedDomains() optionalnullable.OptionalNullable[[]string] {
-	if p == nil {
-		return nil
-	}
-	return p.ExcludedDomains
-}
-
 // PreviewWebSearchServerTool - Web search preview tool configuration
 type PreviewWebSearchServerTool struct {
 	Type PreviewWebSearchServerToolType `json:"type"`
@@ -95,10 +39,10 @@ type PreviewWebSearchServerTool struct {
 	SearchContextSize *SearchContextSizeEnum                                          `json:"search_context_size,omitzero"`
 	UserLocation      optionalnullable.OptionalNullable[PreviewWebSearchUserLocation] `json:"user_location,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-	Engine *PreviewWebSearchServerToolEngine `json:"engine,omitzero"`
+	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
-	MaxResults *float64                                                             `json:"max_results,omitzero"`
-	Filters    optionalnullable.OptionalNullable[PreviewWebSearchServerToolFilters] `json:"filters,omitzero"`
+	MaxResults *int64                                                   `json:"max_results,omitzero"`
+	Filters    optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
 }
 
 func (p PreviewWebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -133,21 +77,21 @@ func (p *PreviewWebSearchServerTool) GetUserLocation() optionalnullable.Optional
 	return p.UserLocation
 }
 
-func (p *PreviewWebSearchServerTool) GetEngine() *PreviewWebSearchServerToolEngine {
+func (p *PreviewWebSearchServerTool) GetEngine() *WebSearchEngineEnum {
 	if p == nil {
 		return nil
 	}
 	return p.Engine
 }
 
-func (p *PreviewWebSearchServerTool) GetMaxResults() *float64 {
+func (p *PreviewWebSearchServerTool) GetMaxResults() *int64 {
 	if p == nil {
 		return nil
 	}
 	return p.MaxResults
 }
 
-func (p *PreviewWebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[PreviewWebSearchServerToolFilters] {
+func (p *PreviewWebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchDomainFilter] {
 	if p == nil {
 		return nil
 	}

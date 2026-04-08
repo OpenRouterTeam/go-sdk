@@ -2,22 +2,14 @@
 
 package operations
 
-type BulkUnassignMembersFromGuardrailRequestBody struct {
-	// Array of member user IDs to unassign from the guardrail
-	MemberUserIds []string `json:"member_user_ids"`
-}
-
-func (b *BulkUnassignMembersFromGuardrailRequestBody) GetMemberUserIds() []string {
-	if b == nil {
-		return []string{}
-	}
-	return b.MemberUserIds
-}
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
 
 type BulkUnassignMembersFromGuardrailRequest struct {
 	// The unique identifier of the guardrail
-	ID          string                                      `pathParam:"style=simple,explode=false,name=id"`
-	RequestBody BulkUnassignMembersFromGuardrailRequestBody `request:"mediaType=application/json"`
+	ID                         string                                `pathParam:"style=simple,explode=false,name=id"`
+	BulkUnassignMembersRequest components.BulkUnassignMembersRequest `request:"mediaType=application/json"`
 }
 
 func (b *BulkUnassignMembersFromGuardrailRequest) GetID() string {
@@ -27,22 +19,9 @@ func (b *BulkUnassignMembersFromGuardrailRequest) GetID() string {
 	return b.ID
 }
 
-func (b *BulkUnassignMembersFromGuardrailRequest) GetRequestBody() BulkUnassignMembersFromGuardrailRequestBody {
+func (b *BulkUnassignMembersFromGuardrailRequest) GetBulkUnassignMembersRequest() components.BulkUnassignMembersRequest {
 	if b == nil {
-		return BulkUnassignMembersFromGuardrailRequestBody{}
+		return components.BulkUnassignMembersRequest{}
 	}
-	return b.RequestBody
-}
-
-// BulkUnassignMembersFromGuardrailResponse - Unassignment result
-type BulkUnassignMembersFromGuardrailResponse struct {
-	// Number of members successfully unassigned
-	UnassignedCount int64 `json:"unassigned_count"`
-}
-
-func (b *BulkUnassignMembersFromGuardrailResponse) GetUnassignedCount() int64 {
-	if b == nil {
-		return 0
-	}
-	return b.UnassignedCount
+	return b.BulkUnassignMembersRequest
 }

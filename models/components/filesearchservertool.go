@@ -289,38 +289,38 @@ func (u Value2) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Value2: all fields are null")
 }
 
-type FileSearchServerToolFilters struct {
+type Filters struct {
 	Key   string      `json:"key"`
 	Type  FiltersType `json:"type"`
 	Value Value2      `json:"value"`
 }
 
-func (f FileSearchServerToolFilters) MarshalJSON() ([]byte, error) {
+func (f Filters) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FileSearchServerToolFilters) UnmarshalJSON(data []byte) error {
+func (f *Filters) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *FileSearchServerToolFilters) GetKey() string {
+func (f *Filters) GetKey() string {
 	if f == nil {
 		return ""
 	}
 	return f.Key
 }
 
-func (f *FileSearchServerToolFilters) GetType() FiltersType {
+func (f *Filters) GetType() FiltersType {
 	if f == nil {
 		return FiltersType("")
 	}
 	return f.Type
 }
 
-func (f *FileSearchServerToolFilters) GetValue() Value2 {
+func (f *Filters) GetValue() Value2 {
 	if f == nil {
 		return Value2{}
 	}
@@ -330,56 +330,56 @@ func (f *FileSearchServerToolFilters) GetValue() Value2 {
 type FiltersUnionType string
 
 const (
-	FiltersUnionTypeFileSearchServerToolFilters FiltersUnionType = "FileSearchServerTool_filters"
-	FiltersUnionTypeCompoundFilter              FiltersUnionType = "CompoundFilter"
-	FiltersUnionTypeAny                         FiltersUnionType = "any"
+	FiltersUnionTypeFilters        FiltersUnionType = "filters"
+	FiltersUnionTypeCompoundFilter FiltersUnionType = "CompoundFilter"
+	FiltersUnionTypeAny            FiltersUnionType = "any"
 )
 
-type Filters struct {
-	FileSearchServerToolFilters *FileSearchServerToolFilters `queryParam:"inline" union:"member"`
-	CompoundFilter              *CompoundFilter              `queryParam:"inline" union:"member"`
-	Any                         any                          `queryParam:"inline" union:"member"`
+type FiltersUnion struct {
+	Filters        *Filters        `queryParam:"inline" union:"member"`
+	CompoundFilter *CompoundFilter `queryParam:"inline" union:"member"`
+	Any            any             `queryParam:"inline" union:"member"`
 
 	Type FiltersUnionType
 }
 
-func CreateFiltersFileSearchServerToolFilters(fileSearchServerToolFilters FileSearchServerToolFilters) Filters {
-	typ := FiltersUnionTypeFileSearchServerToolFilters
+func CreateFiltersUnionFilters(filters Filters) FiltersUnion {
+	typ := FiltersUnionTypeFilters
 
-	return Filters{
-		FileSearchServerToolFilters: &fileSearchServerToolFilters,
-		Type:                        typ,
+	return FiltersUnion{
+		Filters: &filters,
+		Type:    typ,
 	}
 }
 
-func CreateFiltersCompoundFilter(compoundFilter CompoundFilter) Filters {
+func CreateFiltersUnionCompoundFilter(compoundFilter CompoundFilter) FiltersUnion {
 	typ := FiltersUnionTypeCompoundFilter
 
-	return Filters{
+	return FiltersUnion{
 		CompoundFilter: &compoundFilter,
 		Type:           typ,
 	}
 }
 
-func CreateFiltersAny(anyT any) Filters {
+func CreateFiltersUnionAny(anyT any) FiltersUnion {
 	typ := FiltersUnionTypeAny
 
-	return Filters{
+	return FiltersUnion{
 		Any:  anyT,
 		Type: typ,
 	}
 }
 
-func (u *Filters) UnmarshalJSON(data []byte) error {
+func (u *FiltersUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var fileSearchServerToolFilters FileSearchServerToolFilters = FileSearchServerToolFilters{}
-	if err := utils.UnmarshalJSON(data, &fileSearchServerToolFilters, "", true, nil); err == nil {
+	var filters Filters = Filters{}
+	if err := utils.UnmarshalJSON(data, &filters, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  FiltersUnionTypeFileSearchServerToolFilters,
-			Value: &fileSearchServerToolFilters,
+			Type:  FiltersUnionTypeFilters,
+			Value: &filters,
 		})
 	}
 
@@ -400,20 +400,20 @@ func (u *Filters) UnmarshalJSON(data []byte) error {
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Filters", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FiltersUnion", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Filters", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FiltersUnion", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(FiltersUnionType)
 	switch best.Type {
-	case FiltersUnionTypeFileSearchServerToolFilters:
-		u.FileSearchServerToolFilters = best.Value.(*FileSearchServerToolFilters)
+	case FiltersUnionTypeFilters:
+		u.Filters = best.Value.(*Filters)
 		return nil
 	case FiltersUnionTypeCompoundFilter:
 		u.CompoundFilter = best.Value.(*CompoundFilter)
@@ -423,12 +423,12 @@ func (u *Filters) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Filters", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FiltersUnion", string(data))
 }
 
-func (u Filters) MarshalJSON() ([]byte, error) {
-	if u.FileSearchServerToolFilters != nil {
-		return utils.MarshalJSON(u.FileSearchServerToolFilters, "", true)
+func (u FiltersUnion) MarshalJSON() ([]byte, error) {
+	if u.Filters != nil {
+		return utils.MarshalJSON(u.Filters, "", true)
 	}
 
 	if u.CompoundFilter != nil {
@@ -439,7 +439,7 @@ func (u Filters) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Any, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Filters: all fields are null")
+	return nil, errors.New("could not marshal union type FiltersUnion: all fields are null")
 }
 
 type Ranker string
@@ -496,11 +496,11 @@ func (r *RankingOptions) GetScoreThreshold() *float64 {
 
 // FileSearchServerTool - File search tool configuration
 type FileSearchServerTool struct {
-	Type           TypeFileSearch                             `json:"type"`
-	VectorStoreIds []string                                   `json:"vector_store_ids"`
-	Filters        optionalnullable.OptionalNullable[Filters] `json:"filters,omitzero"`
-	MaxNumResults  *int64                                     `json:"max_num_results,omitzero"`
-	RankingOptions *RankingOptions                            `json:"ranking_options,omitzero"`
+	Type           TypeFileSearch                                  `json:"type"`
+	VectorStoreIds []string                                        `json:"vector_store_ids"`
+	Filters        optionalnullable.OptionalNullable[FiltersUnion] `json:"filters,omitzero"`
+	MaxNumResults  *int64                                          `json:"max_num_results,omitzero"`
+	RankingOptions *RankingOptions                                 `json:"ranking_options,omitzero"`
 }
 
 func (f FileSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -528,7 +528,7 @@ func (f *FileSearchServerTool) GetVectorStoreIds() []string {
 	return f.VectorStoreIds
 }
 
-func (f *FileSearchServerTool) GetFilters() optionalnullable.OptionalNullable[Filters] {
+func (f *FileSearchServerTool) GetFilters() optionalnullable.OptionalNullable[FiltersUnion] {
 	if f == nil {
 		return nil
 	}

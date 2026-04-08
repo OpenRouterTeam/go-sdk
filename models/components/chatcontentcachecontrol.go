@@ -31,32 +31,10 @@ func (e *ChatContentCacheControlType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type ChatContentCacheControlTTL string
-
-const (
-	ChatContentCacheControlTTLFivem ChatContentCacheControlTTL = "5m"
-	ChatContentCacheControlTTLOneh  ChatContentCacheControlTTL = "1h"
-)
-
-func (e ChatContentCacheControlTTL) ToPointer() *ChatContentCacheControlTTL {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatContentCacheControlTTL) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "5m", "1h":
-			return true
-		}
-	}
-	return false
-}
-
 // ChatContentCacheControl - Cache control for the content part
 type ChatContentCacheControl struct {
 	Type ChatContentCacheControlType `json:"type"`
-	TTL  *ChatContentCacheControlTTL `json:"ttl,omitzero"`
+	TTL  *AnthropicCacheControlTTL   `json:"ttl,omitzero"`
 }
 
 func (c ChatContentCacheControl) MarshalJSON() ([]byte, error) {
@@ -77,7 +55,7 @@ func (c *ChatContentCacheControl) GetType() ChatContentCacheControlType {
 	return c.Type
 }
 
-func (c *ChatContentCacheControl) GetTTL() *ChatContentCacheControlTTL {
+func (c *ChatContentCacheControl) GetTTL() *AnthropicCacheControlTTL {
 	if c == nil {
 		return nil
 	}

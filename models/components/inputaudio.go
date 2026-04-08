@@ -31,19 +31,19 @@ func (e *InputAudioType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputAudioFormat string
+type FormatEnum string
 
 const (
-	InputAudioFormatMp3 InputAudioFormat = "mp3"
-	InputAudioFormatWav InputAudioFormat = "wav"
+	FormatEnumMp3 FormatEnum = "mp3"
+	FormatEnumWav FormatEnum = "wav"
 )
 
-func (e InputAudioFormat) ToPointer() *InputAudioFormat {
+func (e FormatEnum) ToPointer() *FormatEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputAudioFormat) IsExact() bool {
+func (e *FormatEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "mp3", "wav":
@@ -54,8 +54,8 @@ func (e *InputAudioFormat) IsExact() bool {
 }
 
 type InputAudioInputAudio struct {
-	Data   string           `json:"data"`
-	Format InputAudioFormat `json:"format"`
+	Data   string     `json:"data"`
+	Format FormatEnum `json:"format"`
 }
 
 func (i InputAudioInputAudio) MarshalJSON() ([]byte, error) {
@@ -76,9 +76,9 @@ func (i *InputAudioInputAudio) GetData() string {
 	return i.Data
 }
 
-func (i *InputAudioInputAudio) GetFormat() InputAudioFormat {
+func (i *InputAudioInputAudio) GetFormat() FormatEnum {
 	if i == nil {
-		return InputAudioFormat("")
+		return FormatEnum("")
 	}
 	return i.Format
 }

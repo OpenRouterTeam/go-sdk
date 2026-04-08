@@ -35,10 +35,10 @@ func (e *ImageGenCallPartialImageEventType) UnmarshalJSON(data []byte) error {
 type ImageGenCallPartialImageEvent struct {
 	Type              ImageGenCallPartialImageEventType `json:"type"`
 	ItemID            string                            `json:"item_id"`
-	OutputIndex       float64                           `json:"output_index"`
-	SequenceNumber    float64                           `json:"sequence_number"`
+	OutputIndex       int64                             `json:"output_index"`
+	SequenceNumber    int64                             `json:"sequence_number"`
 	PartialImageB64   string                            `json:"partial_image_b64"`
-	PartialImageIndex float64                           `json:"partial_image_index"`
+	PartialImageIndex int64                             `json:"partial_image_index"`
 }
 
 func (i ImageGenCallPartialImageEvent) MarshalJSON() ([]byte, error) {
@@ -66,16 +66,16 @@ func (i *ImageGenCallPartialImageEvent) GetItemID() string {
 	return i.ItemID
 }
 
-func (i *ImageGenCallPartialImageEvent) GetOutputIndex() float64 {
+func (i *ImageGenCallPartialImageEvent) GetOutputIndex() int64 {
 	if i == nil {
-		return 0.0
+		return 0
 	}
 	return i.OutputIndex
 }
 
-func (i *ImageGenCallPartialImageEvent) GetSequenceNumber() float64 {
+func (i *ImageGenCallPartialImageEvent) GetSequenceNumber() int64 {
 	if i == nil {
-		return 0.0
+		return 0
 	}
 	return i.SequenceNumber
 }
@@ -87,9 +87,9 @@ func (i *ImageGenCallPartialImageEvent) GetPartialImageB64() string {
 	return i.PartialImageB64
 }
 
-func (i *ImageGenCallPartialImageEvent) GetPartialImageIndex() float64 {
+func (i *ImageGenCallPartialImageEvent) GetPartialImageIndex() int64 {
 	if i == nil {
-		return 0.0
+		return 0
 	}
 	return i.PartialImageIndex
 }

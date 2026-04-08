@@ -32,65 +32,6 @@ func (e *Preview20250311WebSearchServerToolType) UnmarshalJSON(data []byte) erro
 	}
 }
 
-// Preview20250311WebSearchServerToolEngine - Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-type Preview20250311WebSearchServerToolEngine string
-
-const (
-	Preview20250311WebSearchServerToolEngineAuto      Preview20250311WebSearchServerToolEngine = "auto"
-	Preview20250311WebSearchServerToolEngineNative    Preview20250311WebSearchServerToolEngine = "native"
-	Preview20250311WebSearchServerToolEngineExa       Preview20250311WebSearchServerToolEngine = "exa"
-	Preview20250311WebSearchServerToolEngineFirecrawl Preview20250311WebSearchServerToolEngine = "firecrawl"
-	Preview20250311WebSearchServerToolEngineParallel  Preview20250311WebSearchServerToolEngine = "parallel"
-)
-
-func (e Preview20250311WebSearchServerToolEngine) ToPointer() *Preview20250311WebSearchServerToolEngine {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Preview20250311WebSearchServerToolEngine) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "native", "exa", "firecrawl", "parallel":
-			return true
-		}
-	}
-	return false
-}
-
-type Preview20250311WebSearchServerToolFilters struct {
-	AllowedDomains  optionalnullable.OptionalNullable[[]string] `json:"allowed_domains,omitzero"`
-	ExcludedDomains optionalnullable.OptionalNullable[[]string] `json:"excluded_domains,omitzero"`
-}
-
-func (p Preview20250311WebSearchServerToolFilters) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *Preview20250311WebSearchServerToolFilters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *Preview20250311WebSearchServerToolFilters) GetAllowedDomains() optionalnullable.OptionalNullable[[]string] {
-	if p == nil {
-		return nil
-	}
-	return p.AllowedDomains
-}
-
-func (p *Preview20250311WebSearchServerToolFilters) GetExcludedDomains() optionalnullable.OptionalNullable[[]string] {
-	if p == nil {
-		return nil
-	}
-	return p.ExcludedDomains
-}
-
-// #region class-body-preview20250311websearchservertoolfilters
-// #endregion class-body-preview20250311websearchservertoolfilters
-
 // Preview20250311WebSearchServerTool - Web search preview tool configuration (2025-03-11 version)
 type Preview20250311WebSearchServerTool struct {
 	Type Preview20250311WebSearchServerToolType `json:"type"`
@@ -98,10 +39,10 @@ type Preview20250311WebSearchServerTool struct {
 	SearchContextSize *SearchContextSizeEnum                                          `json:"search_context_size,omitzero"`
 	UserLocation      optionalnullable.OptionalNullable[PreviewWebSearchUserLocation] `json:"user_location,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-	Engine *Preview20250311WebSearchServerToolEngine `json:"engine,omitzero"`
+	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
-	MaxResults *float64                                                                     `json:"max_results,omitzero"`
-	Filters    optionalnullable.OptionalNullable[Preview20250311WebSearchServerToolFilters] `json:"filters,omitzero"`
+	MaxResults *int64                                                   `json:"max_results,omitzero"`
+	Filters    optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
 }
 
 func (p Preview20250311WebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -136,21 +77,21 @@ func (p *Preview20250311WebSearchServerTool) GetUserLocation() optionalnullable.
 	return p.UserLocation
 }
 
-func (p *Preview20250311WebSearchServerTool) GetEngine() *Preview20250311WebSearchServerToolEngine {
+func (p *Preview20250311WebSearchServerTool) GetEngine() *WebSearchEngineEnum {
 	if p == nil {
 		return nil
 	}
 	return p.Engine
 }
 
-func (p *Preview20250311WebSearchServerTool) GetMaxResults() *float64 {
+func (p *Preview20250311WebSearchServerTool) GetMaxResults() *int64 {
 	if p == nil {
 		return nil
 	}
 	return p.MaxResults
 }
 
-func (p *Preview20250311WebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[Preview20250311WebSearchServerToolFilters] {
+func (p *Preview20250311WebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchDomainFilter] {
 	if p == nil {
 		return nil
 	}

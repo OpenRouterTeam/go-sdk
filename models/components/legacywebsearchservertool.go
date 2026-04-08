@@ -32,74 +32,18 @@ func (e *LegacyWebSearchServerToolType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type LegacyWebSearchServerToolFilters struct {
-	AllowedDomains  optionalnullable.OptionalNullable[[]string] `json:"allowed_domains,omitzero"`
-	ExcludedDomains optionalnullable.OptionalNullable[[]string] `json:"excluded_domains,omitzero"`
-}
-
-func (l LegacyWebSearchServerToolFilters) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *LegacyWebSearchServerToolFilters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *LegacyWebSearchServerToolFilters) GetAllowedDomains() optionalnullable.OptionalNullable[[]string] {
-	if l == nil {
-		return nil
-	}
-	return l.AllowedDomains
-}
-
-func (l *LegacyWebSearchServerToolFilters) GetExcludedDomains() optionalnullable.OptionalNullable[[]string] {
-	if l == nil {
-		return nil
-	}
-	return l.ExcludedDomains
-}
-
-// LegacyWebSearchServerToolEngine - Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-type LegacyWebSearchServerToolEngine string
-
-const (
-	LegacyWebSearchServerToolEngineAuto      LegacyWebSearchServerToolEngine = "auto"
-	LegacyWebSearchServerToolEngineNative    LegacyWebSearchServerToolEngine = "native"
-	LegacyWebSearchServerToolEngineExa       LegacyWebSearchServerToolEngine = "exa"
-	LegacyWebSearchServerToolEngineFirecrawl LegacyWebSearchServerToolEngine = "firecrawl"
-	LegacyWebSearchServerToolEngineParallel  LegacyWebSearchServerToolEngine = "parallel"
-)
-
-func (e LegacyWebSearchServerToolEngine) ToPointer() *LegacyWebSearchServerToolEngine {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LegacyWebSearchServerToolEngine) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "native", "exa", "firecrawl", "parallel":
-			return true
-		}
-	}
-	return false
-}
-
 // LegacyWebSearchServerTool - Web search tool configuration
 type LegacyWebSearchServerTool struct {
-	Type    LegacyWebSearchServerToolType                                       `json:"type"`
-	Filters optionalnullable.OptionalNullable[LegacyWebSearchServerToolFilters] `json:"filters,omitzero"`
+	Type    LegacyWebSearchServerToolType                            `json:"type"`
+	Filters optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
 	// Size of the search context for web search tools
 	SearchContextSize *SearchContextSizeEnum `json:"search_context_size,omitzero"`
 	// User location information for web search
 	UserLocation optionalnullable.OptionalNullable[WebSearchUserLocation] `json:"user_location,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-	Engine *LegacyWebSearchServerToolEngine `json:"engine,omitzero"`
+	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
-	MaxResults *float64 `json:"max_results,omitzero"`
+	MaxResults *int64 `json:"max_results,omitzero"`
 }
 
 func (l LegacyWebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -120,7 +64,7 @@ func (l *LegacyWebSearchServerTool) GetType() LegacyWebSearchServerToolType {
 	return l.Type
 }
 
-func (l *LegacyWebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[LegacyWebSearchServerToolFilters] {
+func (l *LegacyWebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchDomainFilter] {
 	if l == nil {
 		return nil
 	}
@@ -141,14 +85,14 @@ func (l *LegacyWebSearchServerTool) GetUserLocation() optionalnullable.OptionalN
 	return l.UserLocation
 }
 
-func (l *LegacyWebSearchServerTool) GetEngine() *LegacyWebSearchServerToolEngine {
+func (l *LegacyWebSearchServerTool) GetEngine() *WebSearchEngineEnum {
 	if l == nil {
 		return nil
 	}
 	return l.Engine
 }
 
-func (l *LegacyWebSearchServerTool) GetMaxResults() *float64 {
+func (l *LegacyWebSearchServerTool) GetMaxResults() *int64 {
 	if l == nil {
 		return nil
 	}

@@ -1,10 +1,12 @@
 # CreateEmbeddingsData
 
+A single embedding object
+
 
 ## Fields
 
-| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `Object`                                                                 | [operations.ObjectEmbedding](../../models/operations/objectembedding.md) | :heavy_check_mark:                                                       | N/A                                                                      |
-| `Embedding`                                                              | [operations.Embedding](../../models/operations/embedding.md)             | :heavy_check_mark:                                                       | N/A                                                                      |
-| `Index`                                                                  | `*float64`                                                               | :heavy_minus_sign:                                                       | N/A                                                                      |
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              | Example                                                                  |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `Object`                                                                 | [operations.ObjectEmbedding](../../models/operations/objectembedding.md) | :heavy_check_mark:                                                       | N/A                                                                      |                                                                          |
+| `Embedding`                                                              | [operations.Embedding](../../models/operations/embedding.md)             | :heavy_check_mark:                                                       | Embedding vector as an array of floats or a base64 string                | [<br/>0.0023064255,<br/>-0.009327292,<br/>0.015797347<br/>]              |
+| `Index`                                                                  | `*int64`                                                                 | :heavy_minus_sign:                                                       | Index of the embedding in the input list                                 | 0                                                                        |

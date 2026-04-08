@@ -6,36 +6,13 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type OutputServerToolItemStatus string
-
-const (
-	OutputServerToolItemStatusCompleted  OutputServerToolItemStatus = "completed"
-	OutputServerToolItemStatusInProgress OutputServerToolItemStatus = "in_progress"
-	OutputServerToolItemStatusIncomplete OutputServerToolItemStatus = "incomplete"
-)
-
-func (e OutputServerToolItemStatus) ToPointer() *OutputServerToolItemStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputServerToolItemStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "completed", "in_progress", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputServerToolItem - A generic OpenRouter server tool output item
 type OutputServerToolItem struct {
 	// Server tool type (e.g. openrouter:datetime, openrouter:web_search)
-	Type                 string                     `json:"type"`
-	ID                   *string                    `json:"id,omitzero"`
-	Status               OutputServerToolItemStatus `json:"status"`
-	AdditionalProperties map[string]any             `additionalProperties:"true" json:"-"`
+	Type                 string         `json:"type"`
+	ID                   *string        `json:"id,omitzero"`
+	Status               ToolCallStatus `json:"status"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
 func (o OutputServerToolItem) MarshalJSON() ([]byte, error) {
@@ -63,9 +40,9 @@ func (o *OutputServerToolItem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputServerToolItem) GetStatus() OutputServerToolItemStatus {
+func (o *OutputServerToolItem) GetStatus() ToolCallStatus {
 	if o == nil {
-		return OutputServerToolItemStatus("")
+		return ToolCallStatus("")
 	}
 	return o.Status
 }

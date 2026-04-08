@@ -37,8 +37,9 @@ func (e *Category) IsExact() bool {
 
 type GetModelsRequest struct {
 	// Filter models by use case category
-	Category            *Category `queryParam:"style=form,explode=true,name=category"`
-	SupportedParameters *string   `queryParam:"style=form,explode=true,name=supported_parameters"`
+	Category *Category `queryParam:"style=form,explode=true,name=category"`
+	// Filter models by supported parameter (comma-separated)
+	SupportedParameters *string `queryParam:"style=form,explode=true,name=supported_parameters"`
 	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, audio, embeddings) or "all" to include all models. Defaults to "text".
 	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
 }

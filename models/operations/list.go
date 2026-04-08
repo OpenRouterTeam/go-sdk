@@ -12,7 +12,7 @@ type ListRequest struct {
 	// Whether to include disabled API keys in the response
 	IncludeDisabled *string `queryParam:"style=form,explode=true,name=include_disabled"`
 	// Number of API keys to skip for pagination
-	Offset *string `queryParam:"style=form,explode=true,name=offset"`
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 }
 
 func (l *ListRequest) GetIncludeDisabled() *string {
@@ -22,7 +22,7 @@ func (l *ListRequest) GetIncludeDisabled() *string {
 	return l.IncludeDisabled
 }
 
-func (l *ListRequest) GetOffset() *string {
+func (l *ListRequest) GetOffset() *int64 {
 	if l == nil {
 		return nil
 	}

@@ -217,33 +217,6 @@ func (u OutputReasoningItemStatusUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type OutputReasoningItemStatusUnion: all fields are null")
 }
 
-// OutputReasoningItemFormat - The format of the reasoning content
-type OutputReasoningItemFormat string
-
-const (
-	OutputReasoningItemFormatUnknown                OutputReasoningItemFormat = "unknown"
-	OutputReasoningItemFormatOpenaiResponsesV1      OutputReasoningItemFormat = "openai-responses-v1"
-	OutputReasoningItemFormatAzureOpenaiResponsesV1 OutputReasoningItemFormat = "azure-openai-responses-v1"
-	OutputReasoningItemFormatXaiResponsesV1         OutputReasoningItemFormat = "xai-responses-v1"
-	OutputReasoningItemFormatAnthropicClaudeV1      OutputReasoningItemFormat = "anthropic-claude-v1"
-	OutputReasoningItemFormatGoogleGeminiV1         OutputReasoningItemFormat = "google-gemini-v1"
-)
-
-func (e OutputReasoningItemFormat) ToPointer() *OutputReasoningItemFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputReasoningItemFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "unknown", "openai-responses-v1", "azure-openai-responses-v1", "xai-responses-v1", "anthropic-claude-v1", "google-gemini-v1":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputReasoningItem - An output item containing reasoning
 type OutputReasoningItem struct {
 	Type             OutputReasoningItemType                                   `json:"type"`
@@ -253,9 +226,8 @@ type OutputReasoningItem struct {
 	EncryptedContent optionalnullable.OptionalNullable[string]                 `json:"encrypted_content,omitzero"`
 	Status           *OutputReasoningItemStatusUnion                           `json:"status,omitzero"`
 	// A signature for the reasoning content, used for verification
-	Signature optionalnullable.OptionalNullable[string] `json:"signature,omitzero"`
-	// The format of the reasoning content
-	Format optionalnullable.OptionalNullable[OutputReasoningItemFormat] `json:"format,omitzero"`
+	Signature optionalnullable.OptionalNullable[string]          `json:"signature,omitzero"`
+	Format    optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
 }
 
 func (o OutputReasoningItem) MarshalJSON() ([]byte, error) {
@@ -318,7 +290,7 @@ func (o *OutputReasoningItem) GetSignature() optionalnullable.OptionalNullable[s
 	return o.Signature
 }
 
-func (o *OutputReasoningItem) GetFormat() optionalnullable.OptionalNullable[OutputReasoningItemFormat] {
+func (o *OutputReasoningItem) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
 	if o == nil {
 		return nil
 	}

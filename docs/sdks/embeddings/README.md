@@ -36,9 +36,9 @@ func main() {
 
     res, err := s.Embeddings.Generate(ctx, operations.CreateEmbeddingsRequest{
         Input: operations.CreateInputUnionStr(
-            "<value>",
+            "The quick brown fox jumps over the lazy dog",
         ),
-        Model: "Taurus",
+        Model: "openai/text-embedding-3-small",
     })
     if err != nil {
         log.Fatal(err)

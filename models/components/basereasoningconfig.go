@@ -8,8 +8,8 @@ import (
 )
 
 type BaseReasoningConfig struct {
-	Effort  optionalnullable.OptionalNullable[ReasoningEffortEnum]           `json:"effort,omitzero"`
-	Summary optionalnullable.OptionalNullable[ReasoningSummaryVerbosityEnum] `json:"summary,omitzero"`
+	Effort  optionalnullable.OptionalNullable[ReasoningEffort]           `json:"effort,omitzero"`
+	Summary optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] `json:"summary,omitzero"`
 }
 
 func (b BaseReasoningConfig) MarshalJSON() ([]byte, error) {
@@ -23,14 +23,14 @@ func (b *BaseReasoningConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (b *BaseReasoningConfig) GetEffort() optionalnullable.OptionalNullable[ReasoningEffortEnum] {
+func (b *BaseReasoningConfig) GetEffort() optionalnullable.OptionalNullable[ReasoningEffort] {
 	if b == nil {
 		return nil
 	}
 	return b.Effort
 }
 
-func (b *BaseReasoningConfig) GetSummary() optionalnullable.OptionalNullable[ReasoningSummaryVerbosityEnum] {
+func (b *BaseReasoningConfig) GetSummary() optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] {
 	if b == nil {
 		return nil
 	}

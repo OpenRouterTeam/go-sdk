@@ -32,39 +32,13 @@ func (e *ReasoningDetailEncryptedType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type ReasoningDetailEncryptedFormat string
-
-const (
-	ReasoningDetailEncryptedFormatUnknown                ReasoningDetailEncryptedFormat = "unknown"
-	ReasoningDetailEncryptedFormatOpenaiResponsesV1      ReasoningDetailEncryptedFormat = "openai-responses-v1"
-	ReasoningDetailEncryptedFormatAzureOpenaiResponsesV1 ReasoningDetailEncryptedFormat = "azure-openai-responses-v1"
-	ReasoningDetailEncryptedFormatXaiResponsesV1         ReasoningDetailEncryptedFormat = "xai-responses-v1"
-	ReasoningDetailEncryptedFormatAnthropicClaudeV1      ReasoningDetailEncryptedFormat = "anthropic-claude-v1"
-	ReasoningDetailEncryptedFormatGoogleGeminiV1         ReasoningDetailEncryptedFormat = "google-gemini-v1"
-)
-
-func (e ReasoningDetailEncryptedFormat) ToPointer() *ReasoningDetailEncryptedFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ReasoningDetailEncryptedFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "unknown", "openai-responses-v1", "azure-openai-responses-v1", "xai-responses-v1", "anthropic-claude-v1", "google-gemini-v1":
-			return true
-		}
-	}
-	return false
-}
-
 // ReasoningDetailEncrypted - Reasoning detail encrypted schema
 type ReasoningDetailEncrypted struct {
-	Type   ReasoningDetailEncryptedType                                      `json:"type"`
-	Data   string                                                            `json:"data"`
-	ID     optionalnullable.OptionalNullable[string]                         `json:"id,omitzero"`
-	Format optionalnullable.OptionalNullable[ReasoningDetailEncryptedFormat] `json:"format,omitzero"`
-	Index  *float64                                                          `json:"index,omitzero"`
+	Type   ReasoningDetailEncryptedType                       `json:"type"`
+	Data   string                                             `json:"data"`
+	ID     optionalnullable.OptionalNullable[string]          `json:"id,omitzero"`
+	Format optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
+	Index  *int64                                             `json:"index,omitzero"`
 }
 
 func (r ReasoningDetailEncrypted) MarshalJSON() ([]byte, error) {
@@ -99,14 +73,14 @@ func (r *ReasoningDetailEncrypted) GetID() optionalnullable.OptionalNullable[str
 	return r.ID
 }
 
-func (r *ReasoningDetailEncrypted) GetFormat() optionalnullable.OptionalNullable[ReasoningDetailEncryptedFormat] {
+func (r *ReasoningDetailEncrypted) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
 	if r == nil {
 		return nil
 	}
 	return r.Format
 }
 
-func (r *ReasoningDetailEncrypted) GetIndex() *float64 {
+func (r *ReasoningDetailEncrypted) GetIndex() *int64 {
 	if r == nil {
 		return nil
 	}

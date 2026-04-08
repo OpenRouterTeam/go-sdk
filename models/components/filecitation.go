@@ -35,7 +35,7 @@ type FileCitation struct {
 	Type     FileCitationType `json:"type"`
 	FileID   string           `json:"file_id"`
 	Filename string           `json:"filename"`
-	Index    float64          `json:"index"`
+	Index    int64            `json:"index"`
 }
 
 func (f FileCitation) MarshalJSON() ([]byte, error) {
@@ -70,9 +70,9 @@ func (f *FileCitation) GetFilename() string {
 	return f.Filename
 }
 
-func (f *FileCitation) GetIndex() float64 {
+func (f *FileCitation) GetIndex() int64 {
 	if f == nil {
-		return 0.0
+		return 0
 	}
 	return f.Index
 }

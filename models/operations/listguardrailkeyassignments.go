@@ -2,13 +2,17 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type ListGuardrailKeyAssignmentsRequest struct {
 	// The unique identifier of the guardrail
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Number of records to skip for pagination
-	Offset *string `queryParam:"style=form,explode=true,name=offset"`
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *string `queryParam:"style=form,explode=true,name=limit"`
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (l *ListGuardrailKeyAssignmentsRequest) GetID() string {
@@ -18,104 +22,29 @@ func (l *ListGuardrailKeyAssignmentsRequest) GetID() string {
 	return l.ID
 }
 
-func (l *ListGuardrailKeyAssignmentsRequest) GetOffset() *string {
+func (l *ListGuardrailKeyAssignmentsRequest) GetOffset() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Offset
 }
 
-func (l *ListGuardrailKeyAssignmentsRequest) GetLimit() *string {
+func (l *ListGuardrailKeyAssignmentsRequest) GetLimit() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Limit
 }
 
-type ListGuardrailKeyAssignmentsData struct {
-	// Unique identifier for the assignment
-	ID string `json:"id"`
-	// Hash of the assigned API key
-	KeyHash string `json:"key_hash"`
-	// ID of the guardrail
-	GuardrailID string `json:"guardrail_id"`
-	// Name of the API key
-	KeyName string `json:"key_name"`
-	// Label of the API key
-	KeyLabel string `json:"key_label"`
-	// User ID of who made the assignment
-	AssignedBy *string `json:"assigned_by"`
-	// ISO 8601 timestamp of when the assignment was created
-	CreatedAt string `json:"created_at"`
-}
-
-func (l *ListGuardrailKeyAssignmentsData) GetID() string {
-	if l == nil {
-		return ""
-	}
-	return l.ID
-}
-
-func (l *ListGuardrailKeyAssignmentsData) GetKeyHash() string {
-	if l == nil {
-		return ""
-	}
-	return l.KeyHash
-}
-
-func (l *ListGuardrailKeyAssignmentsData) GetGuardrailID() string {
-	if l == nil {
-		return ""
-	}
-	return l.GuardrailID
-}
-
-func (l *ListGuardrailKeyAssignmentsData) GetKeyName() string {
-	if l == nil {
-		return ""
-	}
-	return l.KeyName
-}
-
-func (l *ListGuardrailKeyAssignmentsData) GetKeyLabel() string {
-	if l == nil {
-		return ""
-	}
-	return l.KeyLabel
-}
-
-func (l *ListGuardrailKeyAssignmentsData) GetAssignedBy() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AssignedBy
-}
-
-func (l *ListGuardrailKeyAssignmentsData) GetCreatedAt() string {
-	if l == nil {
-		return ""
-	}
-	return l.CreatedAt
-}
-
-// ListGuardrailKeyAssignmentsResponse - List of key assignments
 type ListGuardrailKeyAssignmentsResponse struct {
-	// List of key assignments
-	Data []ListGuardrailKeyAssignmentsData `json:"data"`
-	// Total number of key assignments for this guardrail
-	TotalCount int64 `json:"total_count"`
+	Result components.ListKeyAssignmentsResponse
+
+	Next func() (*ListGuardrailKeyAssignmentsResponse, error)
 }
 
-func (l *ListGuardrailKeyAssignmentsResponse) GetData() []ListGuardrailKeyAssignmentsData {
+func (l *ListGuardrailKeyAssignmentsResponse) GetResult() components.ListKeyAssignmentsResponse {
 	if l == nil {
-		return []ListGuardrailKeyAssignmentsData{}
+		return components.ListKeyAssignmentsResponse{}
 	}
-	return l.Data
-}
-
-func (l *ListGuardrailKeyAssignmentsResponse) GetTotalCount() int64 {
-	if l == nil {
-		return 0
-	}
-	return l.TotalCount
+	return l.Result
 }

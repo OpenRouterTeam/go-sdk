@@ -2,22 +2,14 @@
 
 package operations
 
-type BulkAssignKeysToGuardrailRequestBody struct {
-	// Array of API key hashes to assign to the guardrail
-	KeyHashes []string `json:"key_hashes"`
-}
-
-func (b *BulkAssignKeysToGuardrailRequestBody) GetKeyHashes() []string {
-	if b == nil {
-		return []string{}
-	}
-	return b.KeyHashes
-}
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
 
 type BulkAssignKeysToGuardrailRequest struct {
 	// The unique identifier of the guardrail
-	ID          string                               `pathParam:"style=simple,explode=false,name=id"`
-	RequestBody BulkAssignKeysToGuardrailRequestBody `request:"mediaType=application/json"`
+	ID                    string                           `pathParam:"style=simple,explode=false,name=id"`
+	BulkAssignKeysRequest components.BulkAssignKeysRequest `request:"mediaType=application/json"`
 }
 
 func (b *BulkAssignKeysToGuardrailRequest) GetID() string {
@@ -27,22 +19,9 @@ func (b *BulkAssignKeysToGuardrailRequest) GetID() string {
 	return b.ID
 }
 
-func (b *BulkAssignKeysToGuardrailRequest) GetRequestBody() BulkAssignKeysToGuardrailRequestBody {
+func (b *BulkAssignKeysToGuardrailRequest) GetBulkAssignKeysRequest() components.BulkAssignKeysRequest {
 	if b == nil {
-		return BulkAssignKeysToGuardrailRequestBody{}
+		return components.BulkAssignKeysRequest{}
 	}
-	return b.RequestBody
-}
-
-// BulkAssignKeysToGuardrailResponse - Assignment result
-type BulkAssignKeysToGuardrailResponse struct {
-	// Number of keys successfully assigned
-	AssignedCount int64 `json:"assigned_count"`
-}
-
-func (b *BulkAssignKeysToGuardrailResponse) GetAssignedCount() int64 {
-	if b == nil {
-		return 0
-	}
-	return b.AssignedCount
+	return b.BulkAssignKeysRequest
 }

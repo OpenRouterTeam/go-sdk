@@ -1,9 +1,0 @@
-# ChatRequestPluginResponseHealing
-
-
-## Fields
-
-| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `ID`                                                                                               | [components.ChatRequestIDResponseHealing](../../models/components/chatrequestidresponsehealing.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `Enabled`                                                                                          | `*bool`                                                                                            | :heavy_minus_sign:                                                                                 | Set to false to disable the response-healing plugin for this request. Defaults to true.            |

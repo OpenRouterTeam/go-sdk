@@ -8,31 +8,37 @@ Content part for chat completion messages
 ### ChatContentText
 
 ```go
-chatContentItems := components.CreateChatContentItemsChatContentText(components.ChatContentText{/* values here */})
+chatContentItems := components.CreateChatContentItemsText(components.ChatContentText{/* values here */})
 ```
 
 ### ChatContentImage
 
 ```go
-chatContentItems := components.CreateChatContentItemsChatContentImage(components.ChatContentImage{/* values here */})
+chatContentItems := components.CreateChatContentItemsImageURL(components.ChatContentImage{/* values here */})
 ```
 
 ### ChatContentAudio
 
 ```go
-chatContentItems := components.CreateChatContentItemsChatContentAudio(components.ChatContentAudio{/* values here */})
+chatContentItems := components.CreateChatContentItemsInputAudio(components.ChatContentAudio{/* values here */})
 ```
 
-### ChatContentItems1
+### LegacyChatContentVideo
 
 ```go
-chatContentItems := components.CreateChatContentItemsChatContentItems1(components.ChatContentItems1{/* values here */})
+chatContentItems := components.CreateChatContentItemsInputVideo(components.LegacyChatContentVideo{/* values here */})
+```
+
+### ChatContentVideo
+
+```go
+chatContentItems := components.CreateChatContentItemsVideoURL(components.ChatContentVideo{/* values here */})
 ```
 
 ### ChatContentFile
 
 ```go
-chatContentItems := components.CreateChatContentItemsChatContentFile(components.ChatContentFile{/* values here */})
+chatContentItems := components.CreateChatContentItemsFile(components.ChatContentFile{/* values here */})
 ```
 
 ## Union Discrimination
@@ -41,15 +47,17 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch chatContentItems.Type {
-	case components.ChatContentItemsTypeChatContentText:
+	case components.ChatContentItemsTypeText:
 		// chatContentItems.ChatContentText is populated
-	case components.ChatContentItemsTypeChatContentImage:
+	case components.ChatContentItemsTypeImageURL:
 		// chatContentItems.ChatContentImage is populated
-	case components.ChatContentItemsTypeChatContentAudio:
+	case components.ChatContentItemsTypeInputAudio:
 		// chatContentItems.ChatContentAudio is populated
-	case components.ChatContentItemsTypeChatContentItems1:
-		// chatContentItems.ChatContentItems1 is populated
-	case components.ChatContentItemsTypeChatContentFile:
+	case components.ChatContentItemsTypeInputVideo:
+		// chatContentItems.LegacyChatContentVideo is populated
+	case components.ChatContentItemsTypeVideoURL:
+		// chatContentItems.ChatContentVideo is populated
+	case components.ChatContentItemsTypeFile:
 		// chatContentItems.ChatContentFile is populated
 }
 ```

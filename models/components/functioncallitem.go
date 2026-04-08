@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type FunctionCallItemType string
@@ -34,12 +33,12 @@ func (e *FunctionCallItemType) UnmarshalJSON(data []byte) error {
 
 // FunctionCallItem - A function call initiated by the model
 type FunctionCallItem struct {
-	Type      FunctionCallItemType                                  `json:"type"`
-	CallID    string                                                `json:"call_id"`
-	Name      string                                                `json:"name"`
-	Arguments string                                                `json:"arguments"`
-	ID        string                                                `json:"id"`
-	Status    optionalnullable.OptionalNullable[ToolCallStatusEnum] `json:"status,omitzero"`
+	Type      FunctionCallItemType `json:"type"`
+	CallID    string               `json:"call_id"`
+	Name      string               `json:"name"`
+	Arguments string               `json:"arguments"`
+	ID        string               `json:"id"`
+	Status    *ToolCallStatus      `json:"status,omitzero"`
 }
 
 func (f FunctionCallItem) MarshalJSON() ([]byte, error) {
@@ -88,7 +87,7 @@ func (f *FunctionCallItem) GetID() string {
 	return f.ID
 }
 
-func (f *FunctionCallItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatusEnum] {
+func (f *FunctionCallItem) GetStatus() *ToolCallStatus {
 	if f == nil {
 		return nil
 	}

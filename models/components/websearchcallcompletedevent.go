@@ -35,8 +35,8 @@ func (e *WebSearchCallCompletedEventType) UnmarshalJSON(data []byte) error {
 type WebSearchCallCompletedEvent struct {
 	Type           WebSearchCallCompletedEventType `json:"type"`
 	ItemID         string                          `json:"item_id"`
-	OutputIndex    float64                         `json:"output_index"`
-	SequenceNumber float64                         `json:"sequence_number"`
+	OutputIndex    int64                           `json:"output_index"`
+	SequenceNumber int64                           `json:"sequence_number"`
 }
 
 func (w WebSearchCallCompletedEvent) MarshalJSON() ([]byte, error) {
@@ -64,16 +64,16 @@ func (w *WebSearchCallCompletedEvent) GetItemID() string {
 	return w.ItemID
 }
 
-func (w *WebSearchCallCompletedEvent) GetOutputIndex() float64 {
+func (w *WebSearchCallCompletedEvent) GetOutputIndex() int64 {
 	if w == nil {
-		return 0.0
+		return 0
 	}
 	return w.OutputIndex
 }
 
-func (w *WebSearchCallCompletedEvent) GetSequenceNumber() float64 {
+func (w *WebSearchCallCompletedEvent) GetSequenceNumber() int64 {
 	if w == nil {
-		return 0.0
+		return 0
 	}
 	return w.SequenceNumber
 }

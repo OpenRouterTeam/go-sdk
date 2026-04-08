@@ -3,186 +3,39 @@
 package operations
 
 import (
-	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
 type ListGuardrailsRequest struct {
 	// Number of records to skip for pagination
-	Offset *string `queryParam:"style=form,explode=true,name=offset"`
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *string `queryParam:"style=form,explode=true,name=limit"`
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
-func (l *ListGuardrailsRequest) GetOffset() *string {
+func (l *ListGuardrailsRequest) GetOffset() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Offset
 }
 
-func (l *ListGuardrailsRequest) GetLimit() *string {
+func (l *ListGuardrailsRequest) GetLimit() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Limit
 }
 
-// ListGuardrailsResetInterval - Interval at which the limit resets (daily, weekly, monthly)
-type ListGuardrailsResetInterval string
-
-const (
-	ListGuardrailsResetIntervalDaily   ListGuardrailsResetInterval = "daily"
-	ListGuardrailsResetIntervalWeekly  ListGuardrailsResetInterval = "weekly"
-	ListGuardrailsResetIntervalMonthly ListGuardrailsResetInterval = "monthly"
-)
-
-func (e ListGuardrailsResetInterval) ToPointer() *ListGuardrailsResetInterval {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ListGuardrailsResetInterval) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "daily", "weekly", "monthly":
-			return true
-		}
-	}
-	return false
-}
-
-type ListGuardrailsData struct {
-	// Unique identifier for the guardrail
-	ID string `json:"id"`
-	// Name of the guardrail
-	Name string `json:"name"`
-	// Description of the guardrail
-	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// Spending limit in USD
-	LimitUsd *float64 `json:"limit_usd,omitzero"`
-	// Interval at which the limit resets (daily, weekly, monthly)
-	ResetInterval optionalnullable.OptionalNullable[ListGuardrailsResetInterval] `json:"reset_interval,omitzero"`
-	// List of allowed provider IDs
-	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
-	// List of provider IDs to exclude from routing
-	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
-	// Array of model canonical_slugs (immutable identifiers)
-	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
-	// Whether to enforce zero data retention
-	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
-	// ISO 8601 timestamp of when the guardrail was created
-	CreatedAt string `json:"created_at"`
-	// ISO 8601 timestamp of when the guardrail was last updated
-	UpdatedAt optionalnullable.OptionalNullable[string] `json:"updated_at,omitzero"`
-}
-
-func (l ListGuardrailsData) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *ListGuardrailsData) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (l *ListGuardrailsData) GetID() string {
-	if l == nil {
-		return ""
-	}
-	return l.ID
-}
-
-func (l *ListGuardrailsData) GetName() string {
-	if l == nil {
-		return ""
-	}
-	return l.Name
-}
-
-func (l *ListGuardrailsData) GetDescription() optionalnullable.OptionalNullable[string] {
-	if l == nil {
-		return nil
-	}
-	return l.Description
-}
-
-func (l *ListGuardrailsData) GetLimitUsd() *float64 {
-	if l == nil {
-		return nil
-	}
-	return l.LimitUsd
-}
-
-func (l *ListGuardrailsData) GetResetInterval() optionalnullable.OptionalNullable[ListGuardrailsResetInterval] {
-	if l == nil {
-		return nil
-	}
-	return l.ResetInterval
-}
-
-func (l *ListGuardrailsData) GetAllowedProviders() optionalnullable.OptionalNullable[[]string] {
-	if l == nil {
-		return nil
-	}
-	return l.AllowedProviders
-}
-
-func (l *ListGuardrailsData) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
-	if l == nil {
-		return nil
-	}
-	return l.IgnoredProviders
-}
-
-func (l *ListGuardrailsData) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
-	if l == nil {
-		return nil
-	}
-	return l.AllowedModels
-}
-
-func (l *ListGuardrailsData) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
-	if l == nil {
-		return nil
-	}
-	return l.EnforceZdr
-}
-
-func (l *ListGuardrailsData) GetCreatedAt() string {
-	if l == nil {
-		return ""
-	}
-	return l.CreatedAt
-}
-
-func (l *ListGuardrailsData) GetUpdatedAt() optionalnullable.OptionalNullable[string] {
-	if l == nil {
-		return nil
-	}
-	return l.UpdatedAt
-}
-
-// ListGuardrailsResponse - List of guardrails
 type ListGuardrailsResponse struct {
-	// List of guardrails
-	Data []ListGuardrailsData `json:"data"`
-	// Total number of guardrails
-	TotalCount int64 `json:"total_count"`
+	Result components.ListGuardrailsResponse
+
+	Next func() (*ListGuardrailsResponse, error)
 }
 
-func (l *ListGuardrailsResponse) GetData() []ListGuardrailsData {
+func (l *ListGuardrailsResponse) GetResult() components.ListGuardrailsResponse {
 	if l == nil {
-		return []ListGuardrailsData{}
+		return components.ListGuardrailsResponse{}
 	}
-	return l.Data
-}
-
-func (l *ListGuardrailsResponse) GetTotalCount() int64 {
-	if l == nil {
-		return 0
-	}
-	return l.TotalCount
+	return l.Result
 }

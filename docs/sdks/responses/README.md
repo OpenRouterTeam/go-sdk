@@ -33,7 +33,12 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+    res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+        Input: openrouter.Pointer(components.CreateInputsUnionStr(
+            "Tell me a joke",
+        )),
+        Model: openrouter.Pointer("openai/gpt-4o"),
+    })
     if err != nil {
         log.Fatal(err)
     }

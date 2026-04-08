@@ -2,10 +2,6 @@
 
 package operations
 
-import (
-	"github.com/OpenRouterTeam/go-sdk/models/components"
-)
-
 type GetUserActivityRequest struct {
 	// Filter by a single UTC date in the last 30 days (YYYY-MM-DD format).
 	Date *string `queryParam:"style=form,explode=true,name=date"`
@@ -34,17 +30,4 @@ func (g *GetUserActivityRequest) GetUserID() *string {
 		return nil
 	}
 	return g.UserID
-}
-
-// GetUserActivityResponse - Returns user activity data grouped by endpoint
-type GetUserActivityResponse struct {
-	// List of activity items
-	Data []components.ActivityItem `json:"data"`
-}
-
-func (g *GetUserActivityResponse) GetData() []components.ActivityItem {
-	if g == nil {
-		return []components.ActivityItem{}
-	}
-	return g.Data
 }
