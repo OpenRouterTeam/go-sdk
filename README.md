@@ -13,7 +13,7 @@ Developer-friendly & type-safe Go SDK specifically catered to leverage *openrout
 <!-- Start Summary [summary] -->
 ## Summary
 
-OpenRouter API: OpenAI-compatible API with additional OpenRouter features.
+OpenRouter API: OpenAI-compatible API with additional OpenRouter features
 
 For more information about the API: [OpenRouter Documentation](https://openrouter.ai/docs)
 <!-- End Summary [summary] -->
@@ -27,6 +27,7 @@ For more information about the API: [OpenRouter Documentation](https://openroute
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Server-sent event streaming](#server-sent-event-streaming)
+  * [Pagination](#pagination)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -69,7 +70,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -117,7 +123,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -197,7 +208,6 @@ func main() {
 ### [Credits](docs/sdks/credits/README.md)
 
 * [GetCredits](docs/sdks/credits/README.md#getcredits) - Get remaining credits
-* [~~CreateCoinbaseCharge~~](docs/sdks/credits/README.md#createcoinbasecharge) - Deprecated Coinbase Commerce charge endpoint :warning: **Deprecated**
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 
@@ -248,6 +258,10 @@ func main() {
 
 * [List](docs/sdks/providers/README.md#list) - List all providers
 
+### [Rerank](docs/sdks/rerank/README.md)
+
+* [Rerank](docs/sdks/rerank/README.md#rerank) - Submit a rerank request
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
@@ -278,7 +292,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -297,6 +316,55 @@ func main() {
 
 [mdn-sse]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
 <!-- End Server-sent event streaming [eventstream] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some of the endpoints in this SDK support pagination. To use pagination, you make your SDK calls as usual, but the
+returned response object will have a `Next` method that can be called to pull down the next group of results. If the
+return value of `Next` is `nil`, then there are no more pages to be fetched.
+
+Here's an example of one such pagination call:
+```go
+package main
+
+import (
+	"context"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := openrouter.New(
+		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+	)
+
+	res, err := s.Organization.ListMembers(ctx, nil, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res != nil {
+		for {
+			// handle items
+
+			res, err = res.Next()
+
+			if err != nil {
+				// handle error
+			}
+
+			if res == nil {
+				break
+			}
+		}
+	}
+}
+
+```
+<!-- End Pagination [pagination] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
@@ -324,7 +392,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{}, operations.WithRetries(
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	}, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -382,7 +455,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -448,7 +526,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	})
 	if err != nil {
 
 		var e *sdkerrors.BadRequestResponseError
@@ -572,7 +655,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -611,7 +699,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	})
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -34,7 +34,7 @@ func (e *FilePathType) UnmarshalJSON(data []byte) error {
 type FilePath struct {
 	Type   FilePathType `json:"type"`
 	FileID string       `json:"file_id"`
-	Index  float64      `json:"index"`
+	Index  int64        `json:"index"`
 }
 
 func (f FilePath) MarshalJSON() ([]byte, error) {
@@ -62,9 +62,9 @@ func (f *FilePath) GetFileID() string {
 	return f.FileID
 }
 
-func (f *FilePath) GetIndex() float64 {
+func (f *FilePath) GetIndex() int64 {
 	if f == nil {
-		return 0.0
+		return 0
 	}
 	return f.Index
 }

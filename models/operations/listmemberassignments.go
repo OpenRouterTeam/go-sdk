@@ -2,102 +2,40 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type ListMemberAssignmentsRequest struct {
 	// Number of records to skip for pagination
-	Offset *string `queryParam:"style=form,explode=true,name=offset"`
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *string `queryParam:"style=form,explode=true,name=limit"`
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
-func (l *ListMemberAssignmentsRequest) GetOffset() *string {
+func (l *ListMemberAssignmentsRequest) GetOffset() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Offset
 }
 
-func (l *ListMemberAssignmentsRequest) GetLimit() *string {
+func (l *ListMemberAssignmentsRequest) GetLimit() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Limit
 }
 
-type ListMemberAssignmentsData struct {
-	// Unique identifier for the assignment
-	ID string `json:"id"`
-	// Clerk user ID of the assigned member
-	UserID string `json:"user_id"`
-	// Organization ID
-	OrganizationID string `json:"organization_id"`
-	// ID of the guardrail
-	GuardrailID string `json:"guardrail_id"`
-	// User ID of who made the assignment
-	AssignedBy *string `json:"assigned_by"`
-	// ISO 8601 timestamp of when the assignment was created
-	CreatedAt string `json:"created_at"`
-}
-
-func (l *ListMemberAssignmentsData) GetID() string {
-	if l == nil {
-		return ""
-	}
-	return l.ID
-}
-
-func (l *ListMemberAssignmentsData) GetUserID() string {
-	if l == nil {
-		return ""
-	}
-	return l.UserID
-}
-
-func (l *ListMemberAssignmentsData) GetOrganizationID() string {
-	if l == nil {
-		return ""
-	}
-	return l.OrganizationID
-}
-
-func (l *ListMemberAssignmentsData) GetGuardrailID() string {
-	if l == nil {
-		return ""
-	}
-	return l.GuardrailID
-}
-
-func (l *ListMemberAssignmentsData) GetAssignedBy() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AssignedBy
-}
-
-func (l *ListMemberAssignmentsData) GetCreatedAt() string {
-	if l == nil {
-		return ""
-	}
-	return l.CreatedAt
-}
-
-// ListMemberAssignmentsResponse - List of member assignments
 type ListMemberAssignmentsResponse struct {
-	// List of member assignments
-	Data []ListMemberAssignmentsData `json:"data"`
-	// Total number of member assignments
-	TotalCount int64 `json:"total_count"`
+	Result components.ListMemberAssignmentsResponse
+
+	Next func() (*ListMemberAssignmentsResponse, error)
 }
 
-func (l *ListMemberAssignmentsResponse) GetData() []ListMemberAssignmentsData {
+func (l *ListMemberAssignmentsResponse) GetResult() components.ListMemberAssignmentsResponse {
 	if l == nil {
-		return []ListMemberAssignmentsData{}
+		return components.ListMemberAssignmentsResponse{}
 	}
-	return l.Data
-}
-
-func (l *ListMemberAssignmentsResponse) GetTotalCount() int64 {
-	if l == nil {
-		return 0
-	}
-	return l.TotalCount
+	return l.Result
 }

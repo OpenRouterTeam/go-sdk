@@ -8,238 +8,33 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatWebSearchServerToolTypeOpenrouterWebSearch string
+type ChatWebSearchServerToolType string
 
 const (
-	ChatWebSearchServerToolTypeOpenrouterWebSearchOpenrouterWebSearch ChatWebSearchServerToolTypeOpenrouterWebSearch = "openrouter:web_search"
+	ChatWebSearchServerToolTypeOpenrouterWebSearch ChatWebSearchServerToolType = "openrouter:web_search"
 )
 
-func (e ChatWebSearchServerToolTypeOpenrouterWebSearch) ToPointer() *ChatWebSearchServerToolTypeOpenrouterWebSearch {
+func (e ChatWebSearchServerToolType) ToPointer() *ChatWebSearchServerToolType {
 	return &e
 }
-func (e *ChatWebSearchServerToolTypeOpenrouterWebSearch) UnmarshalJSON(data []byte) error {
+func (e *ChatWebSearchServerToolType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openrouter:web_search":
-		*e = ChatWebSearchServerToolTypeOpenrouterWebSearch(v)
+		*e = ChatWebSearchServerToolType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for ChatWebSearchServerToolTypeOpenrouterWebSearch: %v", v)
+		return fmt.Errorf("invalid value for ChatWebSearchServerToolType: %v", v)
 	}
-}
-
-// ChatWebSearchServerToolEngine - Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-type ChatWebSearchServerToolEngine string
-
-const (
-	ChatWebSearchServerToolEngineAuto      ChatWebSearchServerToolEngine = "auto"
-	ChatWebSearchServerToolEngineNative    ChatWebSearchServerToolEngine = "native"
-	ChatWebSearchServerToolEngineExa       ChatWebSearchServerToolEngine = "exa"
-	ChatWebSearchServerToolEngineFirecrawl ChatWebSearchServerToolEngine = "firecrawl"
-	ChatWebSearchServerToolEngineParallel  ChatWebSearchServerToolEngine = "parallel"
-)
-
-func (e ChatWebSearchServerToolEngine) ToPointer() *ChatWebSearchServerToolEngine {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatWebSearchServerToolEngine) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "native", "exa", "firecrawl", "parallel":
-			return true
-		}
-	}
-	return false
-}
-
-// ChatWebSearchServerToolSearchContextSize - How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
-type ChatWebSearchServerToolSearchContextSize string
-
-const (
-	ChatWebSearchServerToolSearchContextSizeLow    ChatWebSearchServerToolSearchContextSize = "low"
-	ChatWebSearchServerToolSearchContextSizeMedium ChatWebSearchServerToolSearchContextSize = "medium"
-	ChatWebSearchServerToolSearchContextSizeHigh   ChatWebSearchServerToolSearchContextSize = "high"
-)
-
-func (e ChatWebSearchServerToolSearchContextSize) ToPointer() *ChatWebSearchServerToolSearchContextSize {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ChatWebSearchServerToolSearchContextSize) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "low", "medium", "high":
-			return true
-		}
-	}
-	return false
-}
-
-type ChatWebSearchServerToolParametersType string
-
-const (
-	ChatWebSearchServerToolParametersTypeApproximate ChatWebSearchServerToolParametersType = "approximate"
-)
-
-func (e ChatWebSearchServerToolParametersType) ToPointer() *ChatWebSearchServerToolParametersType {
-	return &e
-}
-func (e *ChatWebSearchServerToolParametersType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "approximate":
-		*e = ChatWebSearchServerToolParametersType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatWebSearchServerToolParametersType: %v", v)
-	}
-}
-
-// ChatWebSearchServerToolUserLocation - Approximate user location for location-biased results.
-type ChatWebSearchServerToolUserLocation struct {
-	Type     *ChatWebSearchServerToolParametersType `json:"type,omitzero"`
-	City     *string                                `json:"city,omitzero"`
-	Region   *string                                `json:"region,omitzero"`
-	Country  *string                                `json:"country,omitzero"`
-	Timezone *string                                `json:"timezone,omitzero"`
-}
-
-func (c ChatWebSearchServerToolUserLocation) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatWebSearchServerToolUserLocation) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatWebSearchServerToolUserLocation) GetType() *ChatWebSearchServerToolParametersType {
-	if c == nil {
-		return nil
-	}
-	return c.Type
-}
-
-func (c *ChatWebSearchServerToolUserLocation) GetCity() *string {
-	if c == nil {
-		return nil
-	}
-	return c.City
-}
-
-func (c *ChatWebSearchServerToolUserLocation) GetRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Region
-}
-
-func (c *ChatWebSearchServerToolUserLocation) GetCountry() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Country
-}
-
-func (c *ChatWebSearchServerToolUserLocation) GetTimezone() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Timezone
-}
-
-type ChatWebSearchServerToolParameters struct {
-	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-	Engine *ChatWebSearchServerToolEngine `json:"engine,omitzero"`
-	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
-	MaxResults *float64 `json:"max_results,omitzero"`
-	// Maximum total number of search results across all search calls in a single request. Once this limit is reached, the tool will stop returning new results. Useful for controlling cost and context size in agentic loops.
-	MaxTotalResults *float64 `json:"max_total_results,omitzero"`
-	// How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
-	SearchContextSize *ChatWebSearchServerToolSearchContextSize `json:"search_context_size,omitzero"`
-	// Approximate user location for location-biased results.
-	UserLocation *ChatWebSearchServerToolUserLocation `json:"user_location,omitzero"`
-	// Limit search results to these domains. Supported by Exa, Parallel, and most native providers (Anthropic, OpenAI, xAI). Not supported with Firecrawl or Perplexity.
-	AllowedDomains []string `json:"allowed_domains,omitzero"`
-	// Exclude search results from these domains. Supported by Exa, Parallel, Anthropic, and xAI. Not supported with Firecrawl, OpenAI (silently ignored), or Perplexity.
-	ExcludedDomains []string `json:"excluded_domains,omitzero"`
-}
-
-func (c ChatWebSearchServerToolParameters) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatWebSearchServerToolParameters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatWebSearchServerToolParameters) GetEngine() *ChatWebSearchServerToolEngine {
-	if c == nil {
-		return nil
-	}
-	return c.Engine
-}
-
-func (c *ChatWebSearchServerToolParameters) GetMaxResults() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxResults
-}
-
-func (c *ChatWebSearchServerToolParameters) GetMaxTotalResults() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxTotalResults
-}
-
-func (c *ChatWebSearchServerToolParameters) GetSearchContextSize() *ChatWebSearchServerToolSearchContextSize {
-	if c == nil {
-		return nil
-	}
-	return c.SearchContextSize
-}
-
-func (c *ChatWebSearchServerToolParameters) GetUserLocation() *ChatWebSearchServerToolUserLocation {
-	if c == nil {
-		return nil
-	}
-	return c.UserLocation
-}
-
-func (c *ChatWebSearchServerToolParameters) GetAllowedDomains() []string {
-	if c == nil {
-		return nil
-	}
-	return c.AllowedDomains
-}
-
-func (c *ChatWebSearchServerToolParameters) GetExcludedDomains() []string {
-	if c == nil {
-		return nil
-	}
-	return c.ExcludedDomains
 }
 
 // ChatWebSearchServerTool - OpenRouter built-in server tool: searches the web for current information
 type ChatWebSearchServerTool struct {
-	Type       ChatWebSearchServerToolTypeOpenrouterWebSearch `json:"type"`
-	Parameters *ChatWebSearchServerToolParameters             `json:"parameters,omitzero"`
+	Type       ChatWebSearchServerToolType `json:"type"`
+	Parameters *WebSearchConfig            `json:"parameters,omitzero"`
 }
 
 func (c ChatWebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -253,14 +48,14 @@ func (c *ChatWebSearchServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatWebSearchServerTool) GetType() ChatWebSearchServerToolTypeOpenrouterWebSearch {
+func (c *ChatWebSearchServerTool) GetType() ChatWebSearchServerToolType {
 	if c == nil {
-		return ChatWebSearchServerToolTypeOpenrouterWebSearch("")
+		return ChatWebSearchServerToolType("")
 	}
 	return c.Type
 }
 
-func (c *ChatWebSearchServerTool) GetParameters() *ChatWebSearchServerToolParameters {
+func (c *ChatWebSearchServerTool) GetParameters() *WebSearchConfig {
 	if c == nil {
 		return nil
 	}

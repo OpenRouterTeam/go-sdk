@@ -35,7 +35,7 @@ generation:
     skipResponseBodyAssertions: false
   preApplyUnionDiscriminators: true
 go:
-  version: 0.2.0
+  version: 0.3.0
   additionalDependencies: {}
   baseErrorName: OpenRouterError
   clientServerStatusCodesAsErrors: true

@@ -666,1052 +666,101 @@ func (e *ResponsesRequestServiceTier) IsExact() bool {
 	return false
 }
 
-type ResponsesRequestOrderType string
+type ResponsesRequestPluginType string
 
 const (
-	ResponsesRequestOrderTypeProviderName ResponsesRequestOrderType = "ProviderName"
-	ResponsesRequestOrderTypeStr          ResponsesRequestOrderType = "str"
+	ResponsesRequestPluginTypeAutoRouter         ResponsesRequestPluginType = "auto-router"
+	ResponsesRequestPluginTypeModeration         ResponsesRequestPluginType = "moderation"
+	ResponsesRequestPluginTypeWeb                ResponsesRequestPluginType = "web"
+	ResponsesRequestPluginTypeFileParser         ResponsesRequestPluginType = "file-parser"
+	ResponsesRequestPluginTypeResponseHealing    ResponsesRequestPluginType = "response-healing"
+	ResponsesRequestPluginTypeContextCompression ResponsesRequestPluginType = "context-compression"
 )
 
-type ResponsesRequestOrder struct {
-	ProviderName *ProviderName `queryParam:"inline" union:"member"`
-	Str          *string       `queryParam:"inline" union:"member"`
+type ResponsesRequestPlugin struct {
+	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
+	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
+	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
+	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
+	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
+	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
 
-	Type ResponsesRequestOrderType
+	Type ResponsesRequestPluginType
 }
 
-func CreateResponsesRequestOrderProviderName(providerName ProviderName) ResponsesRequestOrder {
-	typ := ResponsesRequestOrderTypeProviderName
+func CreateResponsesRequestPluginAutoRouter(autoRouter AutoRouterPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeAutoRouter
 
-	return ResponsesRequestOrder{
-		ProviderName: &providerName,
-		Type:         typ,
-	}
-}
-
-func CreateResponsesRequestOrderStr(str string) ResponsesRequestOrder {
-	typ := ResponsesRequestOrderTypeStr
-
-	return ResponsesRequestOrder{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *ResponsesRequestOrder) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var providerName ProviderName = ProviderName("")
-	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestOrderTypeProviderName,
-			Value: &providerName,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestOrderTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestOrder", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestOrder", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ResponsesRequestOrderType)
-	switch best.Type {
-	case ResponsesRequestOrderTypeProviderName:
-		u.ProviderName = best.Value.(*ProviderName)
-		return nil
-	case ResponsesRequestOrderTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestOrder", string(data))
-}
-
-func (u ResponsesRequestOrder) MarshalJSON() ([]byte, error) {
-	if u.ProviderName != nil {
-		return utils.MarshalJSON(u.ProviderName, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ResponsesRequestOrder: all fields are null")
-}
-
-type ResponsesRequestOnlyType string
-
-const (
-	ResponsesRequestOnlyTypeProviderName ResponsesRequestOnlyType = "ProviderName"
-	ResponsesRequestOnlyTypeStr          ResponsesRequestOnlyType = "str"
-)
-
-type ResponsesRequestOnly struct {
-	ProviderName *ProviderName `queryParam:"inline" union:"member"`
-	Str          *string       `queryParam:"inline" union:"member"`
-
-	Type ResponsesRequestOnlyType
-}
-
-func CreateResponsesRequestOnlyProviderName(providerName ProviderName) ResponsesRequestOnly {
-	typ := ResponsesRequestOnlyTypeProviderName
-
-	return ResponsesRequestOnly{
-		ProviderName: &providerName,
-		Type:         typ,
-	}
-}
-
-func CreateResponsesRequestOnlyStr(str string) ResponsesRequestOnly {
-	typ := ResponsesRequestOnlyTypeStr
-
-	return ResponsesRequestOnly{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *ResponsesRequestOnly) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var providerName ProviderName = ProviderName("")
-	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestOnlyTypeProviderName,
-			Value: &providerName,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestOnlyTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestOnly", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestOnly", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ResponsesRequestOnlyType)
-	switch best.Type {
-	case ResponsesRequestOnlyTypeProviderName:
-		u.ProviderName = best.Value.(*ProviderName)
-		return nil
-	case ResponsesRequestOnlyTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestOnly", string(data))
-}
-
-func (u ResponsesRequestOnly) MarshalJSON() ([]byte, error) {
-	if u.ProviderName != nil {
-		return utils.MarshalJSON(u.ProviderName, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ResponsesRequestOnly: all fields are null")
-}
-
-type ResponsesRequestIgnoreType string
-
-const (
-	ResponsesRequestIgnoreTypeProviderName ResponsesRequestIgnoreType = "ProviderName"
-	ResponsesRequestIgnoreTypeStr          ResponsesRequestIgnoreType = "str"
-)
-
-type ResponsesRequestIgnore struct {
-	ProviderName *ProviderName `queryParam:"inline" union:"member"`
-	Str          *string       `queryParam:"inline" union:"member"`
-
-	Type ResponsesRequestIgnoreType
-}
-
-func CreateResponsesRequestIgnoreProviderName(providerName ProviderName) ResponsesRequestIgnore {
-	typ := ResponsesRequestIgnoreTypeProviderName
-
-	return ResponsesRequestIgnore{
-		ProviderName: &providerName,
-		Type:         typ,
-	}
-}
-
-func CreateResponsesRequestIgnoreStr(str string) ResponsesRequestIgnore {
-	typ := ResponsesRequestIgnoreTypeStr
-
-	return ResponsesRequestIgnore{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *ResponsesRequestIgnore) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var providerName ProviderName = ProviderName("")
-	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestIgnoreTypeProviderName,
-			Value: &providerName,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestIgnoreTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestIgnore", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestIgnore", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ResponsesRequestIgnoreType)
-	switch best.Type {
-	case ResponsesRequestIgnoreTypeProviderName:
-		u.ProviderName = best.Value.(*ProviderName)
-		return nil
-	case ResponsesRequestIgnoreTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestIgnore", string(data))
-}
-
-func (u ResponsesRequestIgnore) MarshalJSON() ([]byte, error) {
-	if u.ProviderName != nil {
-		return utils.MarshalJSON(u.ProviderName, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ResponsesRequestIgnore: all fields are null")
-}
-
-type ResponsesRequestSortType string
-
-const (
-	ResponsesRequestSortTypeProviderSort       ResponsesRequestSortType = "ProviderSort"
-	ResponsesRequestSortTypeProviderSortConfig ResponsesRequestSortType = "ProviderSortConfig"
-	ResponsesRequestSortTypeAny                ResponsesRequestSortType = "any"
-)
-
-// ResponsesRequestSort - The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
-type ResponsesRequestSort struct {
-	ProviderSort       *ProviderSort       `queryParam:"inline" union:"member"`
-	ProviderSortConfig *ProviderSortConfig `queryParam:"inline" union:"member"`
-	Any                any                 `queryParam:"inline" union:"member"`
-
-	Type ResponsesRequestSortType
-}
-
-func CreateResponsesRequestSortProviderSort(providerSort ProviderSort) ResponsesRequestSort {
-	typ := ResponsesRequestSortTypeProviderSort
-
-	return ResponsesRequestSort{
-		ProviderSort: &providerSort,
-		Type:         typ,
-	}
-}
-
-func CreateResponsesRequestSortProviderSortConfig(providerSortConfig ProviderSortConfig) ResponsesRequestSort {
-	typ := ResponsesRequestSortTypeProviderSortConfig
-
-	return ResponsesRequestSort{
-		ProviderSortConfig: &providerSortConfig,
-		Type:               typ,
-	}
-}
-
-func CreateResponsesRequestSortAny(anyT any) ResponsesRequestSort {
-	typ := ResponsesRequestSortTypeAny
-
-	return ResponsesRequestSort{
-		Any:  anyT,
-		Type: typ,
-	}
-}
-
-func (u *ResponsesRequestSort) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var providerSort ProviderSort = ProviderSort("")
-	if err := utils.UnmarshalJSON(data, &providerSort, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestSortTypeProviderSort,
-			Value: &providerSort,
-		})
-	}
-
-	var providerSortConfig ProviderSortConfig = ProviderSortConfig{}
-	if err := utils.UnmarshalJSON(data, &providerSortConfig, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestSortTypeProviderSortConfig,
-			Value: &providerSortConfig,
-		})
-	}
-
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestSortTypeAny,
-			Value: anyVar,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestSort", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestSort", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ResponsesRequestSortType)
-	switch best.Type {
-	case ResponsesRequestSortTypeProviderSort:
-		u.ProviderSort = best.Value.(*ProviderSort)
-		return nil
-	case ResponsesRequestSortTypeProviderSortConfig:
-		u.ProviderSortConfig = best.Value.(*ProviderSortConfig)
-		return nil
-	case ResponsesRequestSortTypeAny:
-		u.Any = best.Value.(any)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestSort", string(data))
-}
-
-func (u ResponsesRequestSort) MarshalJSON() ([]byte, error) {
-	if u.ProviderSort != nil {
-		return utils.MarshalJSON(u.ProviderSort, "", true)
-	}
-
-	if u.ProviderSortConfig != nil {
-		return utils.MarshalJSON(u.ProviderSortConfig, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ResponsesRequestSort: all fields are null")
-}
-
-// ResponsesRequestMaxPrice - The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
-type ResponsesRequestMaxPrice struct {
-	// Price per million prompt tokens
-	Prompt     *string `json:"prompt,omitzero"`
-	Completion *string `json:"completion,omitzero"`
-	Image      *string `json:"image,omitzero"`
-	Audio      *string `json:"audio,omitzero"`
-	Request    *string `json:"request,omitzero"`
-}
-
-func (r *ResponsesRequestMaxPrice) GetPrompt() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Prompt
-}
-
-func (r *ResponsesRequestMaxPrice) GetCompletion() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Completion
-}
-
-func (r *ResponsesRequestMaxPrice) GetImage() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Image
-}
-
-func (r *ResponsesRequestMaxPrice) GetAudio() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Audio
-}
-
-func (r *ResponsesRequestMaxPrice) GetRequest() *string {
-	if r == nil {
-		return nil
-	}
-	return r.Request
-}
-
-// ResponsesRequestProvider - When multiple model providers are available, optionally indicate your routing preference.
-type ResponsesRequestProvider struct {
-	// Whether to allow backup providers to serve requests
-	// - true: (default) when the primary provider (or your custom providers in "order") is unavailable, use the next best provider.
-	// - false: use only the primary/custom provider, and return the upstream error if it's unavailable.
-	//
-	AllowFallbacks optionalnullable.OptionalNullable[bool] `json:"allow_fallbacks,omitzero"`
-	// Whether to filter providers to only those that support the parameters you've provided. If this setting is omitted or set to false, then providers will receive only the parameters they support, and ignore the rest.
-	RequireParameters optionalnullable.OptionalNullable[bool] `json:"require_parameters,omitzero"`
-	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
-	// - allow: (default) allow providers which store user data non-transiently and may train on it
-	//
-	// - deny: use only providers which do not collect user data.
-	DataCollection optionalnullable.OptionalNullable[DataCollection] `json:"data_collection,omitzero"`
-	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
-	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
-	// Whether to restrict routing to only models that allow text distillation. When true, only models where the author has allowed distillation will be used.
-	EnforceDistillableText optionalnullable.OptionalNullable[bool] `json:"enforce_distillable_text,omitzero"`
-	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
-	Order optionalnullable.OptionalNullable[[]ResponsesRequestOrder] `json:"order,omitzero"`
-	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
-	Only optionalnullable.OptionalNullable[[]ResponsesRequestOnly] `json:"only,omitzero"`
-	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
-	Ignore optionalnullable.OptionalNullable[[]ResponsesRequestIgnore] `json:"ignore,omitzero"`
-	// A list of quantization levels to filter the provider by.
-	Quantizations optionalnullable.OptionalNullable[[]Quantization] `json:"quantizations,omitzero"`
-	// The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
-	Sort optionalnullable.OptionalNullable[ResponsesRequestSort] `json:"sort,omitzero"`
-	// The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
-	MaxPrice *ResponsesRequestMaxPrice `json:"max_price,omitzero"`
-	// Preferred minimum throughput (in tokens per second). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints below the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
-	PreferredMinThroughput optionalnullable.OptionalNullable[PreferredMinThroughput] `json:"preferred_min_throughput,omitzero"`
-	// Preferred maximum latency (in seconds). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints above the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
-	PreferredMaxLatency optionalnullable.OptionalNullable[PreferredMaxLatency] `json:"preferred_max_latency,omitzero"`
-}
-
-func (r ResponsesRequestProvider) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestProvider) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestProvider) GetAllowFallbacks() optionalnullable.OptionalNullable[bool] {
-	if r == nil {
-		return nil
-	}
-	return r.AllowFallbacks
-}
-
-func (r *ResponsesRequestProvider) GetRequireParameters() optionalnullable.OptionalNullable[bool] {
-	if r == nil {
-		return nil
-	}
-	return r.RequireParameters
-}
-
-func (r *ResponsesRequestProvider) GetDataCollection() optionalnullable.OptionalNullable[DataCollection] {
-	if r == nil {
-		return nil
-	}
-	return r.DataCollection
-}
-
-func (r *ResponsesRequestProvider) GetZdr() optionalnullable.OptionalNullable[bool] {
-	if r == nil {
-		return nil
-	}
-	return r.Zdr
-}
-
-func (r *ResponsesRequestProvider) GetEnforceDistillableText() optionalnullable.OptionalNullable[bool] {
-	if r == nil {
-		return nil
-	}
-	return r.EnforceDistillableText
-}
-
-func (r *ResponsesRequestProvider) GetOrder() optionalnullable.OptionalNullable[[]ResponsesRequestOrder] {
-	if r == nil {
-		return nil
-	}
-	return r.Order
-}
-
-func (r *ResponsesRequestProvider) GetOnly() optionalnullable.OptionalNullable[[]ResponsesRequestOnly] {
-	if r == nil {
-		return nil
-	}
-	return r.Only
-}
-
-func (r *ResponsesRequestProvider) GetIgnore() optionalnullable.OptionalNullable[[]ResponsesRequestIgnore] {
-	if r == nil {
-		return nil
-	}
-	return r.Ignore
-}
-
-func (r *ResponsesRequestProvider) GetQuantizations() optionalnullable.OptionalNullable[[]Quantization] {
-	if r == nil {
-		return nil
-	}
-	return r.Quantizations
-}
-
-func (r *ResponsesRequestProvider) GetSort() optionalnullable.OptionalNullable[ResponsesRequestSort] {
-	if r == nil {
-		return nil
-	}
-	return r.Sort
-}
-
-func (r *ResponsesRequestProvider) GetMaxPrice() *ResponsesRequestMaxPrice {
-	if r == nil {
-		return nil
-	}
-	return r.MaxPrice
-}
-
-func (r *ResponsesRequestProvider) GetPreferredMinThroughput() optionalnullable.OptionalNullable[PreferredMinThroughput] {
-	if r == nil {
-		return nil
-	}
-	return r.PreferredMinThroughput
-}
-
-func (r *ResponsesRequestProvider) GetPreferredMaxLatency() optionalnullable.OptionalNullable[PreferredMaxLatency] {
-	if r == nil {
-		return nil
-	}
-	return r.PreferredMaxLatency
-}
-
-type ResponsesRequestIDContextCompression string
-
-const (
-	ResponsesRequestIDContextCompressionContextCompression ResponsesRequestIDContextCompression = "context-compression"
-)
-
-func (e ResponsesRequestIDContextCompression) ToPointer() *ResponsesRequestIDContextCompression {
-	return &e
-}
-func (e *ResponsesRequestIDContextCompression) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "context-compression":
-		*e = ResponsesRequestIDContextCompression(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ResponsesRequestIDContextCompression: %v", v)
-	}
-}
-
-type ResponsesRequestPluginContextCompression struct {
-	ID ResponsesRequestIDContextCompression `json:"id"`
-	// Set to false to disable the context-compression plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-	// The compression engine to use. Defaults to "middle-out".
-	Engine *ContextCompressionEngine `json:"engine,omitzero"`
-}
-
-func (r ResponsesRequestPluginContextCompression) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestPluginContextCompression) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestPluginContextCompression) GetID() ResponsesRequestIDContextCompression {
-	if r == nil {
-		return ResponsesRequestIDContextCompression("")
-	}
-	return r.ID
-}
-
-func (r *ResponsesRequestPluginContextCompression) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-func (r *ResponsesRequestPluginContextCompression) GetEngine() *ContextCompressionEngine {
-	if r == nil {
-		return nil
-	}
-	return r.Engine
-}
-
-type ResponsesRequestIDResponseHealing string
-
-const (
-	ResponsesRequestIDResponseHealingResponseHealing ResponsesRequestIDResponseHealing = "response-healing"
-)
-
-func (e ResponsesRequestIDResponseHealing) ToPointer() *ResponsesRequestIDResponseHealing {
-	return &e
-}
-func (e *ResponsesRequestIDResponseHealing) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response-healing":
-		*e = ResponsesRequestIDResponseHealing(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ResponsesRequestIDResponseHealing: %v", v)
-	}
-}
-
-type ResponsesRequestPluginResponseHealing struct {
-	ID ResponsesRequestIDResponseHealing `json:"id"`
-	// Set to false to disable the response-healing plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-}
-
-func (r ResponsesRequestPluginResponseHealing) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestPluginResponseHealing) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestPluginResponseHealing) GetID() ResponsesRequestIDResponseHealing {
-	if r == nil {
-		return ResponsesRequestIDResponseHealing("")
-	}
-	return r.ID
-}
-
-func (r *ResponsesRequestPluginResponseHealing) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-type ResponsesRequestIDFileParser string
-
-const (
-	ResponsesRequestIDFileParserFileParser ResponsesRequestIDFileParser = "file-parser"
-)
-
-func (e ResponsesRequestIDFileParser) ToPointer() *ResponsesRequestIDFileParser {
-	return &e
-}
-func (e *ResponsesRequestIDFileParser) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file-parser":
-		*e = ResponsesRequestIDFileParser(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ResponsesRequestIDFileParser: %v", v)
-	}
-}
-
-type ResponsesRequestPluginFileParser struct {
-	ID ResponsesRequestIDFileParser `json:"id"`
-	// Set to false to disable the file-parser plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-	// Options for PDF parsing.
-	Pdf *PDFParserOptions `json:"pdf,omitzero"`
-}
-
-func (r ResponsesRequestPluginFileParser) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestPluginFileParser) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestPluginFileParser) GetID() ResponsesRequestIDFileParser {
-	if r == nil {
-		return ResponsesRequestIDFileParser("")
-	}
-	return r.ID
-}
-
-func (r *ResponsesRequestPluginFileParser) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-func (r *ResponsesRequestPluginFileParser) GetPdf() *PDFParserOptions {
-	if r == nil {
-		return nil
-	}
-	return r.Pdf
-}
-
-type ResponsesRequestIDWeb string
-
-const (
-	ResponsesRequestIDWebWeb ResponsesRequestIDWeb = "web"
-)
-
-func (e ResponsesRequestIDWeb) ToPointer() *ResponsesRequestIDWeb {
-	return &e
-}
-func (e *ResponsesRequestIDWeb) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "web":
-		*e = ResponsesRequestIDWeb(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ResponsesRequestIDWeb: %v", v)
-	}
-}
-
-type ResponsesRequestPluginWeb struct {
-	ID ResponsesRequestIDWeb `json:"id"`
-	// Set to false to disable the web-search plugin for this request. Defaults to true.
-	Enabled      *bool    `json:"enabled,omitzero"`
-	MaxResults   *float64 `json:"max_results,omitzero"`
-	SearchPrompt *string  `json:"search_prompt,omitzero"`
-	// The search engine to use for web search.
-	Engine *WebSearchEngine `json:"engine,omitzero"`
-	// A list of domains to restrict web search results to. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
-	IncludeDomains []string `json:"include_domains,omitzero"`
-	// A list of domains to exclude from web search results. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
-	ExcludeDomains []string `json:"exclude_domains,omitzero"`
-}
-
-func (r ResponsesRequestPluginWeb) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestPluginWeb) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestPluginWeb) GetID() ResponsesRequestIDWeb {
-	if r == nil {
-		return ResponsesRequestIDWeb("")
-	}
-	return r.ID
-}
-
-func (r *ResponsesRequestPluginWeb) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-func (r *ResponsesRequestPluginWeb) GetMaxResults() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxResults
-}
-
-func (r *ResponsesRequestPluginWeb) GetSearchPrompt() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SearchPrompt
-}
-
-func (r *ResponsesRequestPluginWeb) GetEngine() *WebSearchEngine {
-	if r == nil {
-		return nil
-	}
-	return r.Engine
-}
-
-func (r *ResponsesRequestPluginWeb) GetIncludeDomains() []string {
-	if r == nil {
-		return nil
-	}
-	return r.IncludeDomains
-}
-
-func (r *ResponsesRequestPluginWeb) GetExcludeDomains() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ExcludeDomains
-}
-
-type ResponsesRequestIDModeration string
-
-const (
-	ResponsesRequestIDModerationModeration ResponsesRequestIDModeration = "moderation"
-)
-
-func (e ResponsesRequestIDModeration) ToPointer() *ResponsesRequestIDModeration {
-	return &e
-}
-func (e *ResponsesRequestIDModeration) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "moderation":
-		*e = ResponsesRequestIDModeration(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ResponsesRequestIDModeration: %v", v)
-	}
-}
-
-type ResponsesRequestPluginModeration struct {
-	ID ResponsesRequestIDModeration `json:"id"`
-}
-
-func (r ResponsesRequestPluginModeration) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestPluginModeration) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestPluginModeration) GetID() ResponsesRequestIDModeration {
-	if r == nil {
-		return ResponsesRequestIDModeration("")
-	}
-	return r.ID
-}
-
-type ResponsesRequestIDAutoRouter string
-
-const (
-	ResponsesRequestIDAutoRouterAutoRouter ResponsesRequestIDAutoRouter = "auto-router"
-)
-
-func (e ResponsesRequestIDAutoRouter) ToPointer() *ResponsesRequestIDAutoRouter {
-	return &e
-}
-func (e *ResponsesRequestIDAutoRouter) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "auto-router":
-		*e = ResponsesRequestIDAutoRouter(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ResponsesRequestIDAutoRouter: %v", v)
-	}
-}
-
-type ResponsesRequestPluginAutoRouter struct {
-	ID ResponsesRequestIDAutoRouter `json:"id"`
-	// Set to false to disable the auto-router plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
-	// List of model patterns to filter which models the auto-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, uses the default supported models list.
-	AllowedModels []string `json:"allowed_models,omitzero"`
-}
-
-func (r ResponsesRequestPluginAutoRouter) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestPluginAutoRouter) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestPluginAutoRouter) GetID() ResponsesRequestIDAutoRouter {
-	if r == nil {
-		return ResponsesRequestIDAutoRouter("")
-	}
-	return r.ID
-}
-
-func (r *ResponsesRequestPluginAutoRouter) GetEnabled() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Enabled
-}
-
-func (r *ResponsesRequestPluginAutoRouter) GetAllowedModels() []string {
-	if r == nil {
-		return nil
-	}
-	return r.AllowedModels
-}
-
-type ResponsesRequestPluginUnionType string
-
-const (
-	ResponsesRequestPluginUnionTypeAutoRouter         ResponsesRequestPluginUnionType = "auto-router"
-	ResponsesRequestPluginUnionTypeModeration         ResponsesRequestPluginUnionType = "moderation"
-	ResponsesRequestPluginUnionTypeWeb                ResponsesRequestPluginUnionType = "web"
-	ResponsesRequestPluginUnionTypeFileParser         ResponsesRequestPluginUnionType = "file-parser"
-	ResponsesRequestPluginUnionTypeResponseHealing    ResponsesRequestPluginUnionType = "response-healing"
-	ResponsesRequestPluginUnionTypeContextCompression ResponsesRequestPluginUnionType = "context-compression"
-)
-
-type ResponsesRequestPluginUnion struct {
-	ResponsesRequestPluginAutoRouter         *ResponsesRequestPluginAutoRouter         `queryParam:"inline" union:"member"`
-	ResponsesRequestPluginModeration         *ResponsesRequestPluginModeration         `queryParam:"inline" union:"member"`
-	ResponsesRequestPluginWeb                *ResponsesRequestPluginWeb                `queryParam:"inline" union:"member"`
-	ResponsesRequestPluginFileParser         *ResponsesRequestPluginFileParser         `queryParam:"inline" union:"member"`
-	ResponsesRequestPluginResponseHealing    *ResponsesRequestPluginResponseHealing    `queryParam:"inline" union:"member"`
-	ResponsesRequestPluginContextCompression *ResponsesRequestPluginContextCompression `queryParam:"inline" union:"member"`
-
-	Type ResponsesRequestPluginUnionType
-}
-
-func CreateResponsesRequestPluginUnionAutoRouter(autoRouter ResponsesRequestPluginAutoRouter) ResponsesRequestPluginUnion {
-	typ := ResponsesRequestPluginUnionTypeAutoRouter
-
-	typStr := ResponsesRequestIDAutoRouter(typ)
+	typStr := AutoRouterPluginID(typ)
 	autoRouter.ID = typStr
 
-	return ResponsesRequestPluginUnion{
-		ResponsesRequestPluginAutoRouter: &autoRouter,
-		Type:                             typ,
+	return ResponsesRequestPlugin{
+		AutoRouterPlugin: &autoRouter,
+		Type:             typ,
 	}
 }
 
-func CreateResponsesRequestPluginUnionModeration(moderation ResponsesRequestPluginModeration) ResponsesRequestPluginUnion {
-	typ := ResponsesRequestPluginUnionTypeModeration
+func CreateResponsesRequestPluginModeration(moderation ModerationPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeModeration
 
-	typStr := ResponsesRequestIDModeration(typ)
+	typStr := ModerationPluginID(typ)
 	moderation.ID = typStr
 
-	return ResponsesRequestPluginUnion{
-		ResponsesRequestPluginModeration: &moderation,
-		Type:                             typ,
+	return ResponsesRequestPlugin{
+		ModerationPlugin: &moderation,
+		Type:             typ,
 	}
 }
 
-func CreateResponsesRequestPluginUnionWeb(web ResponsesRequestPluginWeb) ResponsesRequestPluginUnion {
-	typ := ResponsesRequestPluginUnionTypeWeb
+func CreateResponsesRequestPluginWeb(web WebSearchPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeWeb
 
-	typStr := ResponsesRequestIDWeb(typ)
+	typStr := WebSearchPluginID(typ)
 	web.ID = typStr
 
-	return ResponsesRequestPluginUnion{
-		ResponsesRequestPluginWeb: &web,
-		Type:                      typ,
+	return ResponsesRequestPlugin{
+		WebSearchPlugin: &web,
+		Type:            typ,
 	}
 }
 
-func CreateResponsesRequestPluginUnionFileParser(fileParser ResponsesRequestPluginFileParser) ResponsesRequestPluginUnion {
-	typ := ResponsesRequestPluginUnionTypeFileParser
+func CreateResponsesRequestPluginFileParser(fileParser FileParserPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeFileParser
 
-	typStr := ResponsesRequestIDFileParser(typ)
+	typStr := FileParserPluginID(typ)
 	fileParser.ID = typStr
 
-	return ResponsesRequestPluginUnion{
-		ResponsesRequestPluginFileParser: &fileParser,
-		Type:                             typ,
+	return ResponsesRequestPlugin{
+		FileParserPlugin: &fileParser,
+		Type:             typ,
 	}
 }
 
-func CreateResponsesRequestPluginUnionResponseHealing(responseHealing ResponsesRequestPluginResponseHealing) ResponsesRequestPluginUnion {
-	typ := ResponsesRequestPluginUnionTypeResponseHealing
+func CreateResponsesRequestPluginResponseHealing(responseHealing ResponseHealingPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeResponseHealing
 
-	typStr := ResponsesRequestIDResponseHealing(typ)
+	typStr := ResponseHealingPluginID(typ)
 	responseHealing.ID = typStr
 
-	return ResponsesRequestPluginUnion{
-		ResponsesRequestPluginResponseHealing: &responseHealing,
-		Type:                                  typ,
+	return ResponsesRequestPlugin{
+		ResponseHealingPlugin: &responseHealing,
+		Type:                  typ,
 	}
 }
 
-func CreateResponsesRequestPluginUnionContextCompression(contextCompression ResponsesRequestPluginContextCompression) ResponsesRequestPluginUnion {
-	typ := ResponsesRequestPluginUnionTypeContextCompression
+func CreateResponsesRequestPluginContextCompression(contextCompression ContextCompressionPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeContextCompression
 
-	typStr := ResponsesRequestIDContextCompression(typ)
+	typStr := ContextCompressionPluginID(typ)
 	contextCompression.ID = typStr
 
-	return ResponsesRequestPluginUnion{
-		ResponsesRequestPluginContextCompression: &contextCompression,
-		Type:                                     typ,
+	return ResponsesRequestPlugin{
+		ContextCompressionPlugin: &contextCompression,
+		Type:                     typ,
 	}
 }
 
-func (u *ResponsesRequestPluginUnion) UnmarshalJSON(data []byte) error {
+func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		ID string `json:"id"`
@@ -1724,153 +773,90 @@ func (u *ResponsesRequestPluginUnion) UnmarshalJSON(data []byte) error {
 
 	switch dis.ID {
 	case "auto-router":
-		responsesRequestPluginAutoRouter := new(ResponsesRequestPluginAutoRouter)
-		if err := utils.UnmarshalJSON(data, &responsesRequestPluginAutoRouter, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-router) type ResponsesRequestPluginAutoRouter within ResponsesRequestPluginUnion: %w", string(data), err)
+		autoRouterPlugin := new(AutoRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &autoRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-router) type AutoRouterPlugin within ResponsesRequestPlugin: %w", string(data), err)
 		}
 
-		u.ResponsesRequestPluginAutoRouter = responsesRequestPluginAutoRouter
-		u.Type = ResponsesRequestPluginUnionTypeAutoRouter
+		u.AutoRouterPlugin = autoRouterPlugin
+		u.Type = ResponsesRequestPluginTypeAutoRouter
 		return nil
 	case "moderation":
-		responsesRequestPluginModeration := new(ResponsesRequestPluginModeration)
-		if err := utils.UnmarshalJSON(data, &responsesRequestPluginModeration, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == moderation) type ResponsesRequestPluginModeration within ResponsesRequestPluginUnion: %w", string(data), err)
+		moderationPlugin := new(ModerationPlugin)
+		if err := utils.UnmarshalJSON(data, &moderationPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == moderation) type ModerationPlugin within ResponsesRequestPlugin: %w", string(data), err)
 		}
 
-		u.ResponsesRequestPluginModeration = responsesRequestPluginModeration
-		u.Type = ResponsesRequestPluginUnionTypeModeration
+		u.ModerationPlugin = moderationPlugin
+		u.Type = ResponsesRequestPluginTypeModeration
 		return nil
 	case "web":
-		responsesRequestPluginWeb := new(ResponsesRequestPluginWeb)
-		if err := utils.UnmarshalJSON(data, &responsesRequestPluginWeb, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web) type ResponsesRequestPluginWeb within ResponsesRequestPluginUnion: %w", string(data), err)
+		webSearchPlugin := new(WebSearchPlugin)
+		if err := utils.UnmarshalJSON(data, &webSearchPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web) type WebSearchPlugin within ResponsesRequestPlugin: %w", string(data), err)
 		}
 
-		u.ResponsesRequestPluginWeb = responsesRequestPluginWeb
-		u.Type = ResponsesRequestPluginUnionTypeWeb
+		u.WebSearchPlugin = webSearchPlugin
+		u.Type = ResponsesRequestPluginTypeWeb
 		return nil
 	case "file-parser":
-		responsesRequestPluginFileParser := new(ResponsesRequestPluginFileParser)
-		if err := utils.UnmarshalJSON(data, &responsesRequestPluginFileParser, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == file-parser) type ResponsesRequestPluginFileParser within ResponsesRequestPluginUnion: %w", string(data), err)
+		fileParserPlugin := new(FileParserPlugin)
+		if err := utils.UnmarshalJSON(data, &fileParserPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == file-parser) type FileParserPlugin within ResponsesRequestPlugin: %w", string(data), err)
 		}
 
-		u.ResponsesRequestPluginFileParser = responsesRequestPluginFileParser
-		u.Type = ResponsesRequestPluginUnionTypeFileParser
+		u.FileParserPlugin = fileParserPlugin
+		u.Type = ResponsesRequestPluginTypeFileParser
 		return nil
 	case "response-healing":
-		responsesRequestPluginResponseHealing := new(ResponsesRequestPluginResponseHealing)
-		if err := utils.UnmarshalJSON(data, &responsesRequestPluginResponseHealing, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == response-healing) type ResponsesRequestPluginResponseHealing within ResponsesRequestPluginUnion: %w", string(data), err)
+		responseHealingPlugin := new(ResponseHealingPlugin)
+		if err := utils.UnmarshalJSON(data, &responseHealingPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == response-healing) type ResponseHealingPlugin within ResponsesRequestPlugin: %w", string(data), err)
 		}
 
-		u.ResponsesRequestPluginResponseHealing = responsesRequestPluginResponseHealing
-		u.Type = ResponsesRequestPluginUnionTypeResponseHealing
+		u.ResponseHealingPlugin = responseHealingPlugin
+		u.Type = ResponsesRequestPluginTypeResponseHealing
 		return nil
 	case "context-compression":
-		responsesRequestPluginContextCompression := new(ResponsesRequestPluginContextCompression)
-		if err := utils.UnmarshalJSON(data, &responsesRequestPluginContextCompression, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == context-compression) type ResponsesRequestPluginContextCompression within ResponsesRequestPluginUnion: %w", string(data), err)
+		contextCompressionPlugin := new(ContextCompressionPlugin)
+		if err := utils.UnmarshalJSON(data, &contextCompressionPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == context-compression) type ContextCompressionPlugin within ResponsesRequestPlugin: %w", string(data), err)
 		}
 
-		u.ResponsesRequestPluginContextCompression = responsesRequestPluginContextCompression
-		u.Type = ResponsesRequestPluginUnionTypeContextCompression
+		u.ContextCompressionPlugin = contextCompressionPlugin
+		u.Type = ResponsesRequestPluginTypeContextCompression
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestPluginUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestPlugin", string(data))
 }
 
-func (u ResponsesRequestPluginUnion) MarshalJSON() ([]byte, error) {
-	if u.ResponsesRequestPluginAutoRouter != nil {
-		return utils.MarshalJSON(u.ResponsesRequestPluginAutoRouter, "", true)
+func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
+	if u.AutoRouterPlugin != nil {
+		return utils.MarshalJSON(u.AutoRouterPlugin, "", true)
 	}
 
-	if u.ResponsesRequestPluginModeration != nil {
-		return utils.MarshalJSON(u.ResponsesRequestPluginModeration, "", true)
+	if u.ModerationPlugin != nil {
+		return utils.MarshalJSON(u.ModerationPlugin, "", true)
 	}
 
-	if u.ResponsesRequestPluginWeb != nil {
-		return utils.MarshalJSON(u.ResponsesRequestPluginWeb, "", true)
+	if u.WebSearchPlugin != nil {
+		return utils.MarshalJSON(u.WebSearchPlugin, "", true)
 	}
 
-	if u.ResponsesRequestPluginFileParser != nil {
-		return utils.MarshalJSON(u.ResponsesRequestPluginFileParser, "", true)
+	if u.FileParserPlugin != nil {
+		return utils.MarshalJSON(u.FileParserPlugin, "", true)
 	}
 
-	if u.ResponsesRequestPluginResponseHealing != nil {
-		return utils.MarshalJSON(u.ResponsesRequestPluginResponseHealing, "", true)
+	if u.ResponseHealingPlugin != nil {
+		return utils.MarshalJSON(u.ResponseHealingPlugin, "", true)
 	}
 
-	if u.ResponsesRequestPluginContextCompression != nil {
-		return utils.MarshalJSON(u.ResponsesRequestPluginContextCompression, "", true)
+	if u.ContextCompressionPlugin != nil {
+		return utils.MarshalJSON(u.ContextCompressionPlugin, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type ResponsesRequestPluginUnion: all fields are null")
-}
-
-// ResponsesRequestTrace - Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
-type ResponsesRequestTrace struct {
-	TraceID              *string        `json:"trace_id,omitzero"`
-	TraceName            *string        `json:"trace_name,omitzero"`
-	SpanName             *string        `json:"span_name,omitzero"`
-	GenerationName       *string        `json:"generation_name,omitzero"`
-	ParentSpanID         *string        `json:"parent_span_id,omitzero"`
-	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
-}
-
-func (r ResponsesRequestTrace) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *ResponsesRequestTrace) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *ResponsesRequestTrace) GetTraceID() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TraceID
-}
-
-func (r *ResponsesRequestTrace) GetTraceName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TraceName
-}
-
-func (r *ResponsesRequestTrace) GetSpanName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SpanName
-}
-
-func (r *ResponsesRequestTrace) GetGenerationName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.GenerationName
-}
-
-func (r *ResponsesRequestTrace) GetParentSpanID() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ParentSpanID
-}
-
-func (r *ResponsesRequestTrace) GetAdditionalProperties() map[string]any {
-	if r == nil {
-		return nil
-	}
-	return r.AdditionalProperties
+	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")
 }
 
 // ResponsesRequest - Request schema for Responses endpoint
@@ -1913,15 +899,15 @@ type ResponsesRequest struct {
 	Truncation  optionalnullable.OptionalNullable[OpenAIResponsesTruncation]   `json:"truncation,omitzero"`
 	Stream      *bool                                                          `default:"false" json:"stream"`
 	// When multiple model providers are available, optionally indicate your routing preference.
-	Provider optionalnullable.OptionalNullable[ResponsesRequestProvider] `json:"provider,omitzero"`
+	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Plugins you want to enable for this request, including their settings.
-	Plugins []ResponsesRequestPluginUnion `json:"plugins,omitzero"`
+	Plugins []ResponsesRequestPlugin `json:"plugins,omitzero"`
 	// A unique identifier representing your end-user, which helps distinguish between different users of your app. This allows your app to identify specific users in case of abuse reports, preventing your entire app from being affected by the actions of individual users. Maximum of 256 characters.
 	User *string `json:"user,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow) for observability. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
-	Trace *ResponsesRequestTrace `json:"trace,omitzero"`
+	Trace *TraceConfig `json:"trace,omitzero"`
 }
 
 func (r ResponsesRequest) MarshalJSON() ([]byte, error) {
@@ -2142,14 +1128,14 @@ func (r *ResponsesRequest) GetStream() *bool {
 	return r.Stream
 }
 
-func (r *ResponsesRequest) GetProvider() optionalnullable.OptionalNullable[ResponsesRequestProvider] {
+func (r *ResponsesRequest) GetProvider() optionalnullable.OptionalNullable[ProviderPreferences] {
 	if r == nil {
 		return nil
 	}
 	return r.Provider
 }
 
-func (r *ResponsesRequest) GetPlugins() []ResponsesRequestPluginUnion {
+func (r *ResponsesRequest) GetPlugins() []ResponsesRequestPlugin {
 	if r == nil {
 		return nil
 	}
@@ -2170,7 +1156,7 @@ func (r *ResponsesRequest) GetSessionID() *string {
 	return r.SessionID
 }
 
-func (r *ResponsesRequest) GetTrace() *ResponsesRequestTrace {
+func (r *ResponsesRequest) GetTrace() *TraceConfig {
 	if r == nil {
 		return nil
 	}

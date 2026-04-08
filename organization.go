@@ -12,6 +12,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
 	"github.com/OpenRouterTeam/go-sdk/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -33,7 +34,7 @@ func newOrganization(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hoo
 
 // ListMembers - List organization members
 // List all members of the organization associated with the authenticated management key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Organization) ListMembers(ctx context.Context, offset *string, limit *string, opts ...operations.Option) (*operations.ListOrganizationMembersResponse, error) {
+func (s *Organization) ListMembers(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListOrganizationMembersResponse, error) {
 	request := operations.ListOrganizationMembersRequest{
 		Offset: offset,
 		Limit:  limit,
@@ -107,6 +108,16 @@ func (s *Organization) ListMembers(ctx context.Context, offset *string, limit *s
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -115,11 +126,7 @@ func (s *Organization) ListMembers(ctx context.Context, offset *string, limit *s
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -193,6 +200,54 @@ func (s *Organization) ListMembers(ctx context.Context, offset *string, limit *s
 		}
 	}
 
+	res := &operations.ListOrganizationMembersResponse{}
+	res.Next = func() (*operations.ListOrganizationMembersResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.ListMembers(
+			ctx,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -202,12 +257,12 @@ func (s *Organization) ListMembers(ctx context.Context, offset *string, limit *s
 				return nil, err
 			}
 
-			var out operations.ListOrganizationMembersResponse
+			var out operations.ListOrganizationMembersResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -298,6 +353,6 @@ func (s *Organization) ListMembers(ctx context.Context, offset *string, limit *s
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }

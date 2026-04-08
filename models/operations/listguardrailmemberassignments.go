@@ -2,13 +2,17 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type ListGuardrailMemberAssignmentsRequest struct {
 	// The unique identifier of the guardrail
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Number of records to skip for pagination
-	Offset *string `queryParam:"style=form,explode=true,name=offset"`
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *string `queryParam:"style=form,explode=true,name=limit"`
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (l *ListGuardrailMemberAssignmentsRequest) GetID() string {
@@ -18,95 +22,29 @@ func (l *ListGuardrailMemberAssignmentsRequest) GetID() string {
 	return l.ID
 }
 
-func (l *ListGuardrailMemberAssignmentsRequest) GetOffset() *string {
+func (l *ListGuardrailMemberAssignmentsRequest) GetOffset() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Offset
 }
 
-func (l *ListGuardrailMemberAssignmentsRequest) GetLimit() *string {
+func (l *ListGuardrailMemberAssignmentsRequest) GetLimit() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Limit
 }
 
-type ListGuardrailMemberAssignmentsData struct {
-	// Unique identifier for the assignment
-	ID string `json:"id"`
-	// Clerk user ID of the assigned member
-	UserID string `json:"user_id"`
-	// Organization ID
-	OrganizationID string `json:"organization_id"`
-	// ID of the guardrail
-	GuardrailID string `json:"guardrail_id"`
-	// User ID of who made the assignment
-	AssignedBy *string `json:"assigned_by"`
-	// ISO 8601 timestamp of when the assignment was created
-	CreatedAt string `json:"created_at"`
-}
-
-func (l *ListGuardrailMemberAssignmentsData) GetID() string {
-	if l == nil {
-		return ""
-	}
-	return l.ID
-}
-
-func (l *ListGuardrailMemberAssignmentsData) GetUserID() string {
-	if l == nil {
-		return ""
-	}
-	return l.UserID
-}
-
-func (l *ListGuardrailMemberAssignmentsData) GetOrganizationID() string {
-	if l == nil {
-		return ""
-	}
-	return l.OrganizationID
-}
-
-func (l *ListGuardrailMemberAssignmentsData) GetGuardrailID() string {
-	if l == nil {
-		return ""
-	}
-	return l.GuardrailID
-}
-
-func (l *ListGuardrailMemberAssignmentsData) GetAssignedBy() *string {
-	if l == nil {
-		return nil
-	}
-	return l.AssignedBy
-}
-
-func (l *ListGuardrailMemberAssignmentsData) GetCreatedAt() string {
-	if l == nil {
-		return ""
-	}
-	return l.CreatedAt
-}
-
-// ListGuardrailMemberAssignmentsResponse - List of member assignments
 type ListGuardrailMemberAssignmentsResponse struct {
-	// List of member assignments
-	Data []ListGuardrailMemberAssignmentsData `json:"data"`
-	// Total number of member assignments
-	TotalCount int64 `json:"total_count"`
+	Result components.ListMemberAssignmentsResponse
+
+	Next func() (*ListGuardrailMemberAssignmentsResponse, error)
 }
 
-func (l *ListGuardrailMemberAssignmentsResponse) GetData() []ListGuardrailMemberAssignmentsData {
+func (l *ListGuardrailMemberAssignmentsResponse) GetResult() components.ListMemberAssignmentsResponse {
 	if l == nil {
-		return []ListGuardrailMemberAssignmentsData{}
+		return components.ListMemberAssignmentsResponse{}
 	}
-	return l.Data
-}
-
-func (l *ListGuardrailMemberAssignmentsResponse) GetTotalCount() int64 {
-	if l == nil {
-		return 0
-	}
-	return l.TotalCount
+	return l.Result
 }

@@ -1,0 +1,9 @@
+# ListMemberAssignmentsResponse
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `Data`                                                                       | [][components.MemberAssignment](../../models/components/memberassignment.md) | :heavy_check_mark:                                                           | List of member assignments                                                   |                                                                              |
+| `TotalCount`                                                                 | `int64`                                                                      | :heavy_check_mark:                                                           | Total number of member assignments                                           | 10                                                                           |

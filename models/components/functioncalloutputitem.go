@@ -319,13 +319,36 @@ func (u FunctionCallOutputItemOutputUnion2) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type FunctionCallOutputItemOutputUnion2: all fields are null")
 }
 
+type FunctionCallOutputItemStatus string
+
+const (
+	FunctionCallOutputItemStatusInProgress FunctionCallOutputItemStatus = "in_progress"
+	FunctionCallOutputItemStatusCompleted  FunctionCallOutputItemStatus = "completed"
+	FunctionCallOutputItemStatusIncomplete FunctionCallOutputItemStatus = "incomplete"
+)
+
+func (e FunctionCallOutputItemStatus) ToPointer() *FunctionCallOutputItemStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *FunctionCallOutputItemStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "in_progress", "completed", "incomplete":
+			return true
+		}
+	}
+	return false
+}
+
 // FunctionCallOutputItem - The output from a function call execution
 type FunctionCallOutputItem struct {
-	Type   FunctionCallOutputItemTypeFunctionCallOutput          `json:"type"`
-	ID     optionalnullable.OptionalNullable[string]             `json:"id,omitzero"`
-	CallID string                                                `json:"call_id"`
-	Output FunctionCallOutputItemOutputUnion2                    `json:"output"`
-	Status optionalnullable.OptionalNullable[ToolCallStatusEnum] `json:"status,omitzero"`
+	Type   FunctionCallOutputItemTypeFunctionCallOutput                    `json:"type"`
+	ID     optionalnullable.OptionalNullable[string]                       `json:"id,omitzero"`
+	CallID string                                                          `json:"call_id"`
+	Output FunctionCallOutputItemOutputUnion2                              `json:"output"`
+	Status optionalnullable.OptionalNullable[FunctionCallOutputItemStatus] `json:"status,omitzero"`
 }
 
 func (f FunctionCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -367,7 +390,7 @@ func (f *FunctionCallOutputItem) GetOutput() FunctionCallOutputItemOutputUnion2 
 	return f.Output
 }
 
-func (f *FunctionCallOutputItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatusEnum] {
+func (f *FunctionCallOutputItem) GetStatus() optionalnullable.OptionalNullable[FunctionCallOutputItemStatus] {
 	if f == nil {
 		return nil
 	}

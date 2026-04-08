@@ -31,101 +31,15 @@ func (e *TextDoneEventType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TextDoneEventTopLogprob - Alternative token with its log probability
-type TextDoneEventTopLogprob struct {
-	Token   *string  `json:"token,omitzero"`
-	Logprob *float64 `json:"logprob,omitzero"`
-	Bytes   []int64  `json:"bytes,omitzero"`
-}
-
-func (t TextDoneEventTopLogprob) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TextDoneEventTopLogprob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *TextDoneEventTopLogprob) GetToken() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Token
-}
-
-func (t *TextDoneEventTopLogprob) GetLogprob() *float64 {
-	if t == nil {
-		return nil
-	}
-	return t.Logprob
-}
-
-func (t *TextDoneEventTopLogprob) GetBytes() []int64 {
-	if t == nil {
-		return nil
-	}
-	return t.Bytes
-}
-
-// TextDoneEventLogprob - Log probability information for a token
-type TextDoneEventLogprob struct {
-	Logprob     float64                   `json:"logprob"`
-	Token       string                    `json:"token"`
-	TopLogprobs []TextDoneEventTopLogprob `json:"top_logprobs,omitzero"`
-	Bytes       []int64                   `json:"bytes,omitzero"`
-}
-
-func (t TextDoneEventLogprob) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *TextDoneEventLogprob) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *TextDoneEventLogprob) GetLogprob() float64 {
-	if t == nil {
-		return 0.0
-	}
-	return t.Logprob
-}
-
-func (t *TextDoneEventLogprob) GetToken() string {
-	if t == nil {
-		return ""
-	}
-	return t.Token
-}
-
-func (t *TextDoneEventLogprob) GetTopLogprobs() []TextDoneEventTopLogprob {
-	if t == nil {
-		return nil
-	}
-	return t.TopLogprobs
-}
-
-func (t *TextDoneEventLogprob) GetBytes() []int64 {
-	if t == nil {
-		return nil
-	}
-	return t.Bytes
-}
-
 // TextDoneEvent - Event emitted when text streaming is complete
 type TextDoneEvent struct {
-	Type           TextDoneEventType      `json:"type"`
-	OutputIndex    int64                  `json:"output_index"`
-	ItemID         string                 `json:"item_id"`
-	ContentIndex   int64                  `json:"content_index"`
-	Text           string                 `json:"text"`
-	SequenceNumber int64                  `json:"sequence_number"`
-	Logprobs       []TextDoneEventLogprob `json:"logprobs"`
+	Type           TextDoneEventType `json:"type"`
+	OutputIndex    int64             `json:"output_index"`
+	ItemID         string            `json:"item_id"`
+	ContentIndex   int64             `json:"content_index"`
+	Text           string            `json:"text"`
+	SequenceNumber int64             `json:"sequence_number"`
+	Logprobs       []StreamLogprob   `json:"logprobs"`
 }
 
 func (t TextDoneEvent) MarshalJSON() ([]byte, error) {
@@ -181,9 +95,9 @@ func (t *TextDoneEvent) GetSequenceNumber() int64 {
 	return t.SequenceNumber
 }
 
-func (t *TextDoneEvent) GetLogprobs() []TextDoneEventLogprob {
+func (t *TextDoneEvent) GetLogprobs() []StreamLogprob {
 	if t == nil {
-		return []TextDoneEventLogprob{}
+		return []StreamLogprob{}
 	}
 	return t.Logprobs
 }

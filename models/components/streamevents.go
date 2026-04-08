@@ -9,463 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type TypeResponseOutputItemDone string
-
-const (
-	TypeResponseOutputItemDoneResponseOutputItemDone TypeResponseOutputItemDone = "response.output_item.done"
-)
-
-func (e TypeResponseOutputItemDone) ToPointer() *TypeResponseOutputItemDone {
-	return &e
-}
-func (e *TypeResponseOutputItemDone) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.output_item.done":
-		*e = TypeResponseOutputItemDone(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeResponseOutputItemDone: %v", v)
-	}
-}
-
-// StreamEventsResponseOutputItemDone - Event emitted when an output item is complete
-type StreamEventsResponseOutputItemDone struct {
-	Type        TypeResponseOutputItemDone `json:"type"`
-	OutputIndex int64                      `json:"output_index"`
-	// An output item from the response
-	Item           OutputItems `json:"item"`
-	SequenceNumber int64       `json:"sequence_number"`
-}
-
-func (s StreamEventsResponseOutputItemDone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamEventsResponseOutputItemDone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StreamEventsResponseOutputItemDone) GetType() TypeResponseOutputItemDone {
-	if s == nil {
-		return TypeResponseOutputItemDone("")
-	}
-	return s.Type
-}
-
-func (s *StreamEventsResponseOutputItemDone) GetOutputIndex() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.OutputIndex
-}
-
-func (s *StreamEventsResponseOutputItemDone) GetItem() OutputItems {
-	if s == nil {
-		return OutputItems{}
-	}
-	return s.Item
-}
-
-func (s *StreamEventsResponseOutputItemDone) GetSequenceNumber() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.SequenceNumber
-}
-
-type TypeResponseOutputItemAdded string
-
-const (
-	TypeResponseOutputItemAddedResponseOutputItemAdded TypeResponseOutputItemAdded = "response.output_item.added"
-)
-
-func (e TypeResponseOutputItemAdded) ToPointer() *TypeResponseOutputItemAdded {
-	return &e
-}
-func (e *TypeResponseOutputItemAdded) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.output_item.added":
-		*e = TypeResponseOutputItemAdded(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeResponseOutputItemAdded: %v", v)
-	}
-}
-
-// StreamEventsResponseOutputItemAdded - Event emitted when a new output item is added to the response
-type StreamEventsResponseOutputItemAdded struct {
-	Type        TypeResponseOutputItemAdded `json:"type"`
-	OutputIndex int64                       `json:"output_index"`
-	// An output item from the response
-	Item           OutputItems `json:"item"`
-	SequenceNumber int64       `json:"sequence_number"`
-}
-
-func (s StreamEventsResponseOutputItemAdded) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamEventsResponseOutputItemAdded) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StreamEventsResponseOutputItemAdded) GetType() TypeResponseOutputItemAdded {
-	if s == nil {
-		return TypeResponseOutputItemAdded("")
-	}
-	return s.Type
-}
-
-func (s *StreamEventsResponseOutputItemAdded) GetOutputIndex() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.OutputIndex
-}
-
-func (s *StreamEventsResponseOutputItemAdded) GetItem() OutputItems {
-	if s == nil {
-		return OutputItems{}
-	}
-	return s.Item
-}
-
-func (s *StreamEventsResponseOutputItemAdded) GetSequenceNumber() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.SequenceNumber
-}
-
-type TypeResponseFailed string
-
-const (
-	TypeResponseFailedResponseFailed TypeResponseFailed = "response.failed"
-)
-
-func (e TypeResponseFailed) ToPointer() *TypeResponseFailed {
-	return &e
-}
-func (e *TypeResponseFailed) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.failed":
-		*e = TypeResponseFailed(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeResponseFailed: %v", v)
-	}
-}
-
-// StreamEventsResponseFailed - Event emitted when a response has failed
-type StreamEventsResponseFailed struct {
-	Type TypeResponseFailed `json:"type"`
-	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
-}
-
-func (s StreamEventsResponseFailed) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamEventsResponseFailed) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StreamEventsResponseFailed) GetType() TypeResponseFailed {
-	if s == nil {
-		return TypeResponseFailed("")
-	}
-	return s.Type
-}
-
-func (s *StreamEventsResponseFailed) GetResponse() OpenResponsesResult {
-	if s == nil {
-		return OpenResponsesResult{}
-	}
-	return s.Response
-}
-
-func (s *StreamEventsResponseFailed) GetSequenceNumber() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.SequenceNumber
-}
-
-type TypeResponseIncomplete string
-
-const (
-	TypeResponseIncompleteResponseIncomplete TypeResponseIncomplete = "response.incomplete"
-)
-
-func (e TypeResponseIncomplete) ToPointer() *TypeResponseIncomplete {
-	return &e
-}
-func (e *TypeResponseIncomplete) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.incomplete":
-		*e = TypeResponseIncomplete(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeResponseIncomplete: %v", v)
-	}
-}
-
-// StreamEventsResponseIncomplete - Event emitted when a response is incomplete
-type StreamEventsResponseIncomplete struct {
-	Type TypeResponseIncomplete `json:"type"`
-	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
-}
-
-func (s StreamEventsResponseIncomplete) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamEventsResponseIncomplete) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StreamEventsResponseIncomplete) GetType() TypeResponseIncomplete {
-	if s == nil {
-		return TypeResponseIncomplete("")
-	}
-	return s.Type
-}
-
-func (s *StreamEventsResponseIncomplete) GetResponse() OpenResponsesResult {
-	if s == nil {
-		return OpenResponsesResult{}
-	}
-	return s.Response
-}
-
-func (s *StreamEventsResponseIncomplete) GetSequenceNumber() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.SequenceNumber
-}
-
-type TypeResponseCompleted string
-
-const (
-	TypeResponseCompletedResponseCompleted TypeResponseCompleted = "response.completed"
-)
-
-func (e TypeResponseCompleted) ToPointer() *TypeResponseCompleted {
-	return &e
-}
-func (e *TypeResponseCompleted) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.completed":
-		*e = TypeResponseCompleted(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeResponseCompleted: %v", v)
-	}
-}
-
-// StreamEventsResponseCompleted - Event emitted when a response has completed successfully
-type StreamEventsResponseCompleted struct {
-	Type TypeResponseCompleted `json:"type"`
-	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
-}
-
-func (s StreamEventsResponseCompleted) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamEventsResponseCompleted) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StreamEventsResponseCompleted) GetType() TypeResponseCompleted {
-	if s == nil {
-		return TypeResponseCompleted("")
-	}
-	return s.Type
-}
-
-func (s *StreamEventsResponseCompleted) GetResponse() OpenResponsesResult {
-	if s == nil {
-		return OpenResponsesResult{}
-	}
-	return s.Response
-}
-
-func (s *StreamEventsResponseCompleted) GetSequenceNumber() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.SequenceNumber
-}
-
-type TypeResponseInProgress string
-
-const (
-	TypeResponseInProgressResponseInProgress TypeResponseInProgress = "response.in_progress"
-)
-
-func (e TypeResponseInProgress) ToPointer() *TypeResponseInProgress {
-	return &e
-}
-func (e *TypeResponseInProgress) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.in_progress":
-		*e = TypeResponseInProgress(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeResponseInProgress: %v", v)
-	}
-}
-
-// StreamEventsResponseInProgress - Event emitted when a response is in progress
-type StreamEventsResponseInProgress struct {
-	Type TypeResponseInProgress `json:"type"`
-	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
-}
-
-func (s StreamEventsResponseInProgress) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamEventsResponseInProgress) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StreamEventsResponseInProgress) GetType() TypeResponseInProgress {
-	if s == nil {
-		return TypeResponseInProgress("")
-	}
-	return s.Type
-}
-
-func (s *StreamEventsResponseInProgress) GetResponse() OpenResponsesResult {
-	if s == nil {
-		return OpenResponsesResult{}
-	}
-	return s.Response
-}
-
-func (s *StreamEventsResponseInProgress) GetSequenceNumber() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.SequenceNumber
-}
-
-type TypeResponseCreated string
-
-const (
-	TypeResponseCreatedResponseCreated TypeResponseCreated = "response.created"
-)
-
-func (e TypeResponseCreated) ToPointer() *TypeResponseCreated {
-	return &e
-}
-func (e *TypeResponseCreated) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.created":
-		*e = TypeResponseCreated(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeResponseCreated: %v", v)
-	}
-}
-
-// StreamEventsResponseCreated - Event emitted when a response is created
-type StreamEventsResponseCreated struct {
-	Type TypeResponseCreated `json:"type"`
-	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
-}
-
-func (s StreamEventsResponseCreated) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *StreamEventsResponseCreated) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *StreamEventsResponseCreated) GetType() TypeResponseCreated {
-	if s == nil {
-		return TypeResponseCreated("")
-	}
-	return s.Type
-}
-
-func (s *StreamEventsResponseCreated) GetResponse() OpenResponsesResult {
-	if s == nil {
-		return OpenResponsesResult{}
-	}
-	return s.Response
-}
-
-func (s *StreamEventsResponseCreated) GetSequenceNumber() int64 {
-	if s == nil {
-		return 0
-	}
-	return s.SequenceNumber
-}
-
 type StreamEventsType string
 
 const (
@@ -503,8 +46,8 @@ const (
 
 // StreamEvents - Union of all possible event types emitted during response streaming
 type StreamEvents struct {
-	StreamEventsResponseCreated         *StreamEventsResponseCreated         `queryParam:"inline" union:"member"`
-	StreamEventsResponseInProgress      *StreamEventsResponseInProgress      `queryParam:"inline" union:"member"`
+	OpenResponsesCreatedEvent           *OpenResponsesCreatedEvent           `queryParam:"inline" union:"member"`
+	OpenResponsesInProgressEvent        *OpenResponsesInProgressEvent        `queryParam:"inline" union:"member"`
 	StreamEventsResponseCompleted       *StreamEventsResponseCompleted       `queryParam:"inline" union:"member"`
 	StreamEventsResponseIncomplete      *StreamEventsResponseIncomplete      `queryParam:"inline" union:"member"`
 	StreamEventsResponseFailed          *StreamEventsResponseFailed          `queryParam:"inline" union:"member"`
@@ -537,34 +80,34 @@ type StreamEvents struct {
 	Type StreamEventsType
 }
 
-func CreateStreamEventsResponseCreated(responseCreated StreamEventsResponseCreated) StreamEvents {
+func CreateStreamEventsResponseCreated(responseCreated OpenResponsesCreatedEvent) StreamEvents {
 	typ := StreamEventsTypeResponseCreated
 
-	typStr := TypeResponseCreated(typ)
+	typStr := OpenResponsesCreatedEventType(typ)
 	responseCreated.Type = typStr
 
 	return StreamEvents{
-		StreamEventsResponseCreated: &responseCreated,
-		Type:                        typ,
+		OpenResponsesCreatedEvent: &responseCreated,
+		Type:                      typ,
 	}
 }
 
-func CreateStreamEventsResponseInProgress(responseInProgress StreamEventsResponseInProgress) StreamEvents {
+func CreateStreamEventsResponseInProgress(responseInProgress OpenResponsesInProgressEvent) StreamEvents {
 	typ := StreamEventsTypeResponseInProgress
 
-	typStr := TypeResponseInProgress(typ)
+	typStr := OpenResponsesInProgressEventType(typ)
 	responseInProgress.Type = typStr
 
 	return StreamEvents{
-		StreamEventsResponseInProgress: &responseInProgress,
-		Type:                           typ,
+		OpenResponsesInProgressEvent: &responseInProgress,
+		Type:                         typ,
 	}
 }
 
 func CreateStreamEventsResponseCompleted(responseCompleted StreamEventsResponseCompleted) StreamEvents {
 	typ := StreamEventsTypeResponseCompleted
 
-	typStr := TypeResponseCompleted(typ)
+	typStr := StreamEventsResponseCompletedType(typ)
 	responseCompleted.Type = typStr
 
 	return StreamEvents{
@@ -576,7 +119,7 @@ func CreateStreamEventsResponseCompleted(responseCompleted StreamEventsResponseC
 func CreateStreamEventsResponseIncomplete(responseIncomplete StreamEventsResponseIncomplete) StreamEvents {
 	typ := StreamEventsTypeResponseIncomplete
 
-	typStr := TypeResponseIncomplete(typ)
+	typStr := StreamEventsResponseIncompleteType(typ)
 	responseIncomplete.Type = typStr
 
 	return StreamEvents{
@@ -588,7 +131,7 @@ func CreateStreamEventsResponseIncomplete(responseIncomplete StreamEventsRespons
 func CreateStreamEventsResponseFailed(responseFailed StreamEventsResponseFailed) StreamEvents {
 	typ := StreamEventsTypeResponseFailed
 
-	typStr := TypeResponseFailed(typ)
+	typStr := StreamEventsResponseFailedType(typ)
 	responseFailed.Type = typStr
 
 	return StreamEvents{
@@ -612,7 +155,7 @@ func CreateStreamEventsError(errorT ErrorEvent) StreamEvents {
 func CreateStreamEventsResponseOutputItemAdded(responseOutputItemAdded StreamEventsResponseOutputItemAdded) StreamEvents {
 	typ := StreamEventsTypeResponseOutputItemAdded
 
-	typStr := TypeResponseOutputItemAdded(typ)
+	typStr := StreamEventsResponseOutputItemAddedType(typ)
 	responseOutputItemAdded.Type = typStr
 
 	return StreamEvents{
@@ -624,7 +167,7 @@ func CreateStreamEventsResponseOutputItemAdded(responseOutputItemAdded StreamEve
 func CreateStreamEventsResponseOutputItemDone(responseOutputItemDone StreamEventsResponseOutputItemDone) StreamEvents {
 	typ := StreamEventsTypeResponseOutputItemDone
 
-	typStr := TypeResponseOutputItemDone(typ)
+	typStr := StreamEventsResponseOutputItemDoneType(typ)
 	responseOutputItemDone.Type = typStr
 
 	return StreamEvents{
@@ -910,21 +453,21 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 
 	switch dis.Type {
 	case "response.created":
-		streamEventsResponseCreated := new(StreamEventsResponseCreated)
-		if err := utils.UnmarshalJSON(data, &streamEventsResponseCreated, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.created) type StreamEventsResponseCreated within StreamEvents: %w", string(data), err)
+		openResponsesCreatedEvent := new(OpenResponsesCreatedEvent)
+		if err := utils.UnmarshalJSON(data, &openResponsesCreatedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.created) type OpenResponsesCreatedEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.StreamEventsResponseCreated = streamEventsResponseCreated
+		u.OpenResponsesCreatedEvent = openResponsesCreatedEvent
 		u.Type = StreamEventsTypeResponseCreated
 		return nil
 	case "response.in_progress":
-		streamEventsResponseInProgress := new(StreamEventsResponseInProgress)
-		if err := utils.UnmarshalJSON(data, &streamEventsResponseInProgress, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.in_progress) type StreamEventsResponseInProgress within StreamEvents: %w", string(data), err)
+		openResponsesInProgressEvent := new(OpenResponsesInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &openResponsesInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.in_progress) type OpenResponsesInProgressEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.StreamEventsResponseInProgress = streamEventsResponseInProgress
+		u.OpenResponsesInProgressEvent = openResponsesInProgressEvent
 		u.Type = StreamEventsTypeResponseInProgress
 		return nil
 	case "response.completed":
@@ -1185,12 +728,12 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 }
 
 func (u StreamEvents) MarshalJSON() ([]byte, error) {
-	if u.StreamEventsResponseCreated != nil {
-		return utils.MarshalJSON(u.StreamEventsResponseCreated, "", true)
+	if u.OpenResponsesCreatedEvent != nil {
+		return utils.MarshalJSON(u.OpenResponsesCreatedEvent, "", true)
 	}
 
-	if u.StreamEventsResponseInProgress != nil {
-		return utils.MarshalJSON(u.StreamEventsResponseInProgress, "", true)
+	if u.OpenResponsesInProgressEvent != nil {
+		return utils.MarshalJSON(u.OpenResponsesInProgressEvent, "", true)
 	}
 
 	if u.StreamEventsResponseCompleted != nil {

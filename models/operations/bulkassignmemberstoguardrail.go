@@ -2,22 +2,14 @@
 
 package operations
 
-type BulkAssignMembersToGuardrailRequestBody struct {
-	// Array of member user IDs to assign to the guardrail
-	MemberUserIds []string `json:"member_user_ids"`
-}
-
-func (b *BulkAssignMembersToGuardrailRequestBody) GetMemberUserIds() []string {
-	if b == nil {
-		return []string{}
-	}
-	return b.MemberUserIds
-}
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
 
 type BulkAssignMembersToGuardrailRequest struct {
 	// The unique identifier of the guardrail
-	ID          string                                  `pathParam:"style=simple,explode=false,name=id"`
-	RequestBody BulkAssignMembersToGuardrailRequestBody `request:"mediaType=application/json"`
+	ID                       string                              `pathParam:"style=simple,explode=false,name=id"`
+	BulkAssignMembersRequest components.BulkAssignMembersRequest `request:"mediaType=application/json"`
 }
 
 func (b *BulkAssignMembersToGuardrailRequest) GetID() string {
@@ -27,22 +19,9 @@ func (b *BulkAssignMembersToGuardrailRequest) GetID() string {
 	return b.ID
 }
 
-func (b *BulkAssignMembersToGuardrailRequest) GetRequestBody() BulkAssignMembersToGuardrailRequestBody {
+func (b *BulkAssignMembersToGuardrailRequest) GetBulkAssignMembersRequest() components.BulkAssignMembersRequest {
 	if b == nil {
-		return BulkAssignMembersToGuardrailRequestBody{}
+		return components.BulkAssignMembersRequest{}
 	}
-	return b.RequestBody
-}
-
-// BulkAssignMembersToGuardrailResponse - Assignment result
-type BulkAssignMembersToGuardrailResponse struct {
-	// Number of members successfully assigned
-	AssignedCount int64 `json:"assigned_count"`
-}
-
-func (b *BulkAssignMembersToGuardrailResponse) GetAssignedCount() int64 {
-	if b == nil {
-		return 0
-	}
-	return b.AssignedCount
+	return b.BulkAssignMembersRequest
 }

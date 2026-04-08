@@ -49,7 +49,19 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -59,8 +71,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -89,7 +101,8 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
 
@@ -100,8 +113,19 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.Create(ctx, operations.CreateGuardrailRequest{
+    res, err := s.Guardrails.Create(ctx, components.CreateGuardrailRequest{
         Name: "My New Guardrail",
+        Description: optionalnullable.From(openrouter.Pointer("A guardrail for limiting API usage")),
+        LimitUsd: openrouter.Pointer[float64](50.0),
+        ResetInterval: optionalnullable.From(openrouter.Pointer(components.GuardrailIntervalMonthly)),
+        AllowedProviders: optionalnullable.From(openrouter.Pointer([]string{
+            "openai",
+            "anthropic",
+            "deepseek",
+        })),
+        IgnoredProviders: optionalnullable.From[[]string](nil),
+        AllowedModels: optionalnullable.From[[]string](nil),
+        EnforceZdr: optionalnullable.From(openrouter.Pointer(false)),
     })
     if err != nil {
         log.Fatal(err)
@@ -117,12 +141,12 @@ func main() {
 | Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
-| `request`                                                                              | [operations.CreateGuardrailRequest](../../models/operations/createguardrailrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `request`                                                                              | [components.CreateGuardrailRequest](../../models/components/createguardrailrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
 | `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
 ### Response
 
-**[*operations.CreateGuardrailResponse](../../models/operations/createguardrailresponse.md), error**
+**[*components.CreateGuardrailResponse](../../models/components/createguardrailresponse.md), error**
 
 ### Errors
 
@@ -177,7 +201,7 @@ func main() {
 
 ### Response
 
-**[*operations.GetGuardrailResponse](../../models/operations/getguardrailresponse.md), error**
+**[*components.GetGuardrailResponse](../../models/components/getguardrailresponse.md), error**
 
 ### Errors
 
@@ -202,7 +226,8 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
 
@@ -213,7 +238,12 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.Update(ctx, "550e8400-e29b-41d4-a716-446655440000", operations.UpdateGuardrailRequestBody{})
+    res, err := s.Guardrails.Update(ctx, "550e8400-e29b-41d4-a716-446655440000", components.UpdateGuardrailRequest{
+        Name: openrouter.Pointer("Updated Guardrail Name"),
+        Description: optionalnullable.From(openrouter.Pointer("Updated description")),
+        LimitUsd: openrouter.Pointer[float64](75.0),
+        ResetInterval: optionalnullable.From(openrouter.Pointer(components.GuardrailIntervalWeekly)),
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -229,12 +259,12 @@ func main() {
 | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                                                   | :heavy_check_mark:                                                                                                      | The context to use for the request.                                                                                     |                                                                                                                         |
 | `id`                                                                                                                    | `string`                                                                                                                | :heavy_check_mark:                                                                                                      | The unique identifier of the guardrail to update                                                                        | 550e8400-e29b-41d4-a716-446655440000                                                                                    |
-| `requestBody`                                                                                                           | [operations.UpdateGuardrailRequestBody](../../models/operations/updateguardrailrequestbody.md)                          | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | {<br/>"name": "Updated Guardrail Name",<br/>"description": "Updated description",<br/>"limit_usd": 75,<br/>"reset_interval": "weekly"<br/>} |
+| `updateGuardrailRequest`                                                                                                | [components.UpdateGuardrailRequest](../../models/components/updateguardrailrequest.md)                                  | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | {<br/>"name": "Updated Guardrail Name",<br/>"description": "Updated description",<br/>"limit_usd": 75,<br/>"reset_interval": "weekly"<br/>} |
 | `opts`                                                                                                                  | [][operations.Option](../../models/operations/option.md)                                                                | :heavy_minus_sign:                                                                                                      | The options for this request.                                                                                           |                                                                                                                         |
 
 ### Response
 
-**[*operations.UpdateGuardrailResponse](../../models/operations/updateguardrailresponse.md), error**
+**[*components.UpdateGuardrailResponse](../../models/components/updateguardrailresponse.md), error**
 
 ### Errors
 
@@ -290,7 +320,7 @@ func main() {
 
 ### Response
 
-**[*operations.DeleteGuardrailResponse](../../models/operations/deleteguardrailresponse.md), error**
+**[*components.DeleteGuardrailResponse](../../models/components/deleteguardrailresponse.md), error**
 
 ### Errors
 
@@ -330,7 +360,19 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -340,8 +382,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -385,7 +427,19 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -395,8 +449,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -440,7 +494,19 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -451,8 +517,8 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
-| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -482,7 +548,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
 
@@ -493,7 +559,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.BulkAssignKeys(ctx, "550e8400-e29b-41d4-a716-446655440000", operations.BulkAssignKeysToGuardrailRequestBody{
+    res, err := s.Guardrails.BulkAssignKeys(ctx, "550e8400-e29b-41d4-a716-446655440000", components.BulkAssignKeysRequest{
         KeyHashes: []string{
             "c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93",
         },
@@ -509,16 +575,16 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        | Example                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                                              | :heavy_check_mark:                                                                                                 | The context to use for the request.                                                                                |                                                                                                                    |
-| `id`                                                                                                               | `string`                                                                                                           | :heavy_check_mark:                                                                                                 | The unique identifier of the guardrail                                                                             | 550e8400-e29b-41d4-a716-446655440000                                                                               |
-| `requestBody`                                                                                                      | [operations.BulkAssignKeysToGuardrailRequestBody](../../models/operations/bulkassignkeystoguardrailrequestbody.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |                                                                                                                    |
-| `opts`                                                                                                             | [][operations.Option](../../models/operations/option.md)                                                           | :heavy_minus_sign:                                                                                                 | The options for this request.                                                                                      |                                                                                                                    |
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `id`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The unique identifier of the guardrail                                                   | 550e8400-e29b-41d4-a716-446655440000                                                     |
+| `bulkAssignKeysRequest`                                                                  | [components.BulkAssignKeysRequest](../../models/components/bulkassignkeysrequest.md)     | :heavy_check_mark:                                                                       | N/A                                                                                      | {<br/>"key_hashes": [<br/>"c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93"<br/>]<br/>} |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.md)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
 
 ### Response
 
-**[*operations.BulkAssignKeysToGuardrailResponse](../../models/operations/bulkassignkeystoguardrailresponse.md), error**
+**[*components.BulkAssignKeysResponse](../../models/components/bulkassignkeysresponse.md), error**
 
 ### Errors
 
@@ -559,7 +625,19 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -570,8 +648,8 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
-| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -601,7 +679,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
 
@@ -612,7 +690,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.BulkAssignMembers(ctx, "550e8400-e29b-41d4-a716-446655440000", operations.BulkAssignMembersToGuardrailRequestBody{
+    res, err := s.Guardrails.BulkAssignMembers(ctx, "550e8400-e29b-41d4-a716-446655440000", components.BulkAssignMembersRequest{
         MemberUserIds: []string{
             "user_abc123",
             "user_def456",
@@ -629,16 +707,16 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              | Example                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                                    | :heavy_check_mark:                                                                                                       | The context to use for the request.                                                                                      |                                                                                                                          |
-| `id`                                                                                                                     | `string`                                                                                                                 | :heavy_check_mark:                                                                                                       | The unique identifier of the guardrail                                                                                   | 550e8400-e29b-41d4-a716-446655440000                                                                                     |
-| `requestBody`                                                                                                            | [operations.BulkAssignMembersToGuardrailRequestBody](../../models/operations/bulkassignmemberstoguardrailrequestbody.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |                                                                                                                          |
-| `opts`                                                                                                                   | [][operations.Option](../../models/operations/option.md)                                                                 | :heavy_minus_sign:                                                                                                       | The options for this request.                                                                                            |                                                                                                                          |
+| Parameter                                                                                  | Type                                                                                       | Required                                                                                   | Description                                                                                | Example                                                                                    |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                      | :heavy_check_mark:                                                                         | The context to use for the request.                                                        |                                                                                            |
+| `id`                                                                                       | `string`                                                                                   | :heavy_check_mark:                                                                         | The unique identifier of the guardrail                                                     | 550e8400-e29b-41d4-a716-446655440000                                                       |
+| `bulkAssignMembersRequest`                                                                 | [components.BulkAssignMembersRequest](../../models/components/bulkassignmembersrequest.md) | :heavy_check_mark:                                                                         | N/A                                                                                        | {<br/>"member_user_ids": [<br/>"user_abc123",<br/>"user_def456"<br/>]<br/>}                |
+| `opts`                                                                                     | [][operations.Option](../../models/operations/option.md)                                   | :heavy_minus_sign:                                                                         | The options for this request.                                                              |                                                                                            |
 
 ### Response
 
-**[*operations.BulkAssignMembersToGuardrailResponse](../../models/operations/bulkassignmemberstoguardrailresponse.md), error**
+**[*components.BulkAssignMembersResponse](../../models/components/bulkassignmembersresponse.md), error**
 
 ### Errors
 
@@ -664,7 +742,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
 
@@ -675,7 +753,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.BulkUnassignKeys(ctx, "550e8400-e29b-41d4-a716-446655440000", operations.BulkUnassignKeysFromGuardrailRequestBody{
+    res, err := s.Guardrails.BulkUnassignKeys(ctx, "550e8400-e29b-41d4-a716-446655440000", components.BulkUnassignKeysRequest{
         KeyHashes: []string{
             "c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93",
         },
@@ -691,16 +769,16 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                | Example                                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                                      | :heavy_check_mark:                                                                                                         | The context to use for the request.                                                                                        |                                                                                                                            |
-| `id`                                                                                                                       | `string`                                                                                                                   | :heavy_check_mark:                                                                                                         | The unique identifier of the guardrail                                                                                     | 550e8400-e29b-41d4-a716-446655440000                                                                                       |
-| `requestBody`                                                                                                              | [operations.BulkUnassignKeysFromGuardrailRequestBody](../../models/operations/bulkunassignkeysfromguardrailrequestbody.md) | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |                                                                                                                            |
-| `opts`                                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                                   | :heavy_minus_sign:                                                                                                         | The options for this request.                                                                                              |                                                                                                                            |
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `id`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The unique identifier of the guardrail                                                   | 550e8400-e29b-41d4-a716-446655440000                                                     |
+| `bulkUnassignKeysRequest`                                                                | [components.BulkUnassignKeysRequest](../../models/components/bulkunassignkeysrequest.md) | :heavy_check_mark:                                                                       | N/A                                                                                      | {<br/>"key_hashes": [<br/>"c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93"<br/>]<br/>} |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.md)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
 
 ### Response
 
-**[*operations.BulkUnassignKeysFromGuardrailResponse](../../models/operations/bulkunassignkeysfromguardrailresponse.md), error**
+**[*components.BulkUnassignKeysResponse](../../models/components/bulkunassignkeysresponse.md), error**
 
 ### Errors
 
@@ -726,7 +804,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
 
@@ -737,7 +815,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.BulkUnassignMembers(ctx, "550e8400-e29b-41d4-a716-446655440000", operations.BulkUnassignMembersFromGuardrailRequestBody{
+    res, err := s.Guardrails.BulkUnassignMembers(ctx, "550e8400-e29b-41d4-a716-446655440000", components.BulkUnassignMembersRequest{
         MemberUserIds: []string{
             "user_abc123",
             "user_def456",
@@ -754,16 +832,16 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                        | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      | Example                                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                            | :heavy_check_mark:                                                                                                               | The context to use for the request.                                                                                              |                                                                                                                                  |
-| `id`                                                                                                                             | `string`                                                                                                                         | :heavy_check_mark:                                                                                                               | The unique identifier of the guardrail                                                                                           | 550e8400-e29b-41d4-a716-446655440000                                                                                             |
-| `requestBody`                                                                                                                    | [operations.BulkUnassignMembersFromGuardrailRequestBody](../../models/operations/bulkunassignmembersfromguardrailrequestbody.md) | :heavy_check_mark:                                                                                                               | N/A                                                                                                                              |                                                                                                                                  |
-| `opts`                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                         | :heavy_minus_sign:                                                                                                               | The options for this request.                                                                                                    |                                                                                                                                  |
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    | Example                                                                                        |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                          | :heavy_check_mark:                                                                             | The context to use for the request.                                                            |                                                                                                |
+| `id`                                                                                           | `string`                                                                                       | :heavy_check_mark:                                                                             | The unique identifier of the guardrail                                                         | 550e8400-e29b-41d4-a716-446655440000                                                           |
+| `bulkUnassignMembersRequest`                                                                   | [components.BulkUnassignMembersRequest](../../models/components/bulkunassignmembersrequest.md) | :heavy_check_mark:                                                                             | N/A                                                                                            | {<br/>"member_user_ids": [<br/>"user_abc123",<br/>"user_def456"<br/>]<br/>}                    |
+| `opts`                                                                                         | [][operations.Option](../../models/operations/option.md)                                       | :heavy_minus_sign:                                                                             | The options for this request.                                                                  |                                                                                                |
 
 ### Response
 
-**[*operations.BulkUnassignMembersFromGuardrailResponse](../../models/operations/bulkunassignmembersfromguardrailresponse.md), error**
+**[*components.BulkUnassignMembersResponse](../../models/components/bulkunassignmembersresponse.md), error**
 
 ### Errors
 

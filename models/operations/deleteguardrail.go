@@ -2,10 +2,6 @@
 
 package operations
 
-import (
-	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-)
-
 type DeleteGuardrailRequest struct {
 	// The unique identifier of the guardrail to delete
 	ID string `pathParam:"style=simple,explode=false,name=id"`
@@ -16,26 +12,4 @@ func (d *DeleteGuardrailRequest) GetID() string {
 		return ""
 	}
 	return d.ID
-}
-
-// DeleteGuardrailResponse - Guardrail deleted successfully
-type DeleteGuardrailResponse struct {
-	// Confirmation that the guardrail was deleted
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	deleted bool `const:"true" json:"deleted"`
-}
-
-func (d DeleteGuardrailResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(d, "", false)
-}
-
-func (d *DeleteGuardrailResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (d *DeleteGuardrailResponse) GetDeleted() bool {
-	return true
 }

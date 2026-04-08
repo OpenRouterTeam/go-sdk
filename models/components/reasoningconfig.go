@@ -8,20 +8,20 @@ import (
 
 // ReasoningConfig - Configuration for reasoning mode in the response
 type ReasoningConfig struct {
-	Effort    optionalnullable.OptionalNullable[ReasoningEffortEnum]           `json:"effort,omitzero"`
-	Summary   optionalnullable.OptionalNullable[ReasoningSummaryVerbosityEnum] `json:"summary,omitzero"`
-	MaxTokens *int64                                                           `json:"max_tokens,omitzero"`
-	Enabled   optionalnullable.OptionalNullable[bool]                          `json:"enabled,omitzero"`
+	Effort    optionalnullable.OptionalNullable[ReasoningEffort]           `json:"effort,omitzero"`
+	Summary   optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] `json:"summary,omitzero"`
+	MaxTokens *int64                                                       `json:"max_tokens,omitzero"`
+	Enabled   optionalnullable.OptionalNullable[bool]                      `json:"enabled,omitzero"`
 }
 
-func (r *ReasoningConfig) GetEffort() optionalnullable.OptionalNullable[ReasoningEffortEnum] {
+func (r *ReasoningConfig) GetEffort() optionalnullable.OptionalNullable[ReasoningEffort] {
 	if r == nil {
 		return nil
 	}
 	return r.Effort
 }
 
-func (r *ReasoningConfig) GetSummary() optionalnullable.OptionalNullable[ReasoningSummaryVerbosityEnum] {
+func (r *ReasoningConfig) GetSummary() optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] {
 	if r == nil {
 		return nil
 	}

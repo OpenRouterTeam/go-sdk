@@ -23,3 +23,4 @@ custom := components.OutputModality("custom_value")
 | `OutputModalityEmbeddings` | embeddings                 |
 | `OutputModalityAudio`      | audio                      |
 | `OutputModalityVideo`      | video                      |
+| `OutputModalityRerank`     | rerank                     |

@@ -38,6 +38,8 @@ type Model struct {
 	KnowledgeCutoff optionalnullable.OptionalNullable[string] `json:"knowledge_cutoff,omitzero"`
 	// The date after which the model may be removed. ISO 8601 date string (YYYY-MM-DD) or null if no expiration.
 	ExpirationDate optionalnullable.OptionalNullable[string] `json:"expiration_date,omitzero"`
+	// Related API endpoints and resources for this model.
+	Links ModelLinks `json:"links"`
 }
 
 func (m *Model) GetID() string {
@@ -143,4 +145,11 @@ func (m *Model) GetExpirationDate() optionalnullable.OptionalNullable[string] {
 		return nil
 	}
 	return m.ExpirationDate
+}
+
+func (m *Model) GetLinks() ModelLinks {
+	if m == nil {
+		return ModelLinks{}
+	}
+	return m.Links
 }

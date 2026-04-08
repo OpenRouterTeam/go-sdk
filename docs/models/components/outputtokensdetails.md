@@ -5,4 +5,4 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `ReasoningTokens`  | `float64`          | :heavy_check_mark: | N/A                |
+| `ReasoningTokens`  | `int64`            | :heavy_check_mark: | N/A                |

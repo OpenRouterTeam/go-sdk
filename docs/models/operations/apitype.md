@@ -22,4 +22,5 @@ custom := operations.APIType("custom_value")
 | -------------------- | -------------------- |
 | `APITypeCompletions` | completions          |
 | `APITypeEmbeddings`  | embeddings           |
+| `APITypeRerank`      | rerank               |
 | `APITypeVideo`       | video                |

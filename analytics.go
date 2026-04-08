@@ -9,6 +9,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/config"
 	"github.com/OpenRouterTeam/go-sdk/internal/hooks"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
 	"github.com/OpenRouterTeam/go-sdk/retry"
@@ -33,7 +34,7 @@ func newAnalytics(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks 
 
 // GetUserActivity - Get user activity grouped by endpoint
 // Returns user activity data grouped by endpoint for the last 30 (completed) UTC days. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHash *string, userID *string, opts ...operations.Option) (*operations.GetUserActivityResponse, error) {
+func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHash *string, userID *string, opts ...operations.Option) (*components.ActivityResponse, error) {
 	request := operations.GetUserActivityRequest{
 		Date:       date,
 		APIKeyHash: apiKeyHash,
@@ -108,6 +109,16 @@ func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHas
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -116,11 +127,7 @@ func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHas
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -203,7 +210,7 @@ func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHas
 				return nil, err
 			}
 
-			var out operations.GetUserActivityResponse
+			var out components.ActivityResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

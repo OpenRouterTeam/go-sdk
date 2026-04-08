@@ -50,6 +50,9 @@ func main() {
                 },
             ),
         },
+        Model: openrouter.Pointer("openai/gpt-4"),
+        MaxTokens: openrouter.Pointer[int64](150),
+        Temperature: openrouter.Pointer[float64](0.7),
     })
     if err != nil {
         log.Fatal(err)

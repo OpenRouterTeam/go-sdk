@@ -24,6 +24,7 @@ import(
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -36,6 +37,8 @@ func main() {
 
     res, err := s.OAuth.ExchangeAuthCodeForAPIKey(ctx, operations.ExchangeAuthCodeForAPIKeyRequest{
         Code: "auth_code_abc123def456",
+        CodeVerifier: openrouter.Pointer("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"),
+        CodeChallengeMethod: optionalnullable.From(openrouter.Pointer(operations.ExchangeAuthCodeForAPIKeyCodeChallengeMethodS256)),
     })
     if err != nil {
         log.Fatal(err)
@@ -94,6 +97,9 @@ func main() {
 
     res, err := s.OAuth.CreateAuthCode(ctx, operations.CreateAuthKeysCodeRequest{
         CallbackURL: "https://myapp.com/auth/callback",
+        CodeChallenge: openrouter.Pointer("E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM"),
+        CodeChallengeMethod: operations.CreateAuthKeysCodeCodeChallengeMethodS256.ToPointer(),
+        Limit: openrouter.Pointer[float64](100.0),
     })
     if err != nil {
         log.Fatal(err)

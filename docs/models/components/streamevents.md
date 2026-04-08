@@ -5,16 +5,16 @@ Union of all possible event types emitted during response streaming
 
 ## Supported Types
 
-### StreamEventsResponseCreated
+### OpenResponsesCreatedEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseCreated(components.StreamEventsResponseCreated{/* values here */})
+streamEvents := components.CreateStreamEventsResponseCreated(components.OpenResponsesCreatedEvent{/* values here */})
 ```
 
-### StreamEventsResponseInProgress
+### OpenResponsesInProgressEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseInProgress(components.StreamEventsResponseInProgress{/* values here */})
+streamEvents := components.CreateStreamEventsResponseInProgress(components.OpenResponsesInProgressEvent{/* values here */})
 ```
 
 ### StreamEventsResponseCompleted
@@ -192,9 +192,9 @@ Use the `Type` field to determine which variant is active, then access the corre
 ```go
 switch streamEvents.Type {
 	case components.StreamEventsTypeResponseCreated:
-		// streamEvents.StreamEventsResponseCreated is populated
+		// streamEvents.OpenResponsesCreatedEvent is populated
 	case components.StreamEventsTypeResponseInProgress:
-		// streamEvents.StreamEventsResponseInProgress is populated
+		// streamEvents.OpenResponsesInProgressEvent is populated
 	case components.StreamEventsTypeResponseCompleted:
 		// streamEvents.StreamEventsResponseCompleted is populated
 	case components.StreamEventsTypeResponseIncomplete:

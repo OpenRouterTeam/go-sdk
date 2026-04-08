@@ -9,9 +9,11 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/config"
 	"github.com/OpenRouterTeam/go-sdk/internal/hooks"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
 	"github.com/OpenRouterTeam/go-sdk/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -33,7 +35,7 @@ func newGuardrails(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks
 
 // List guardrails
 // List all guardrails for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, opts ...operations.Option) (*operations.ListGuardrailsResponse, error) {
+func (s *Guardrails) List(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListGuardrailsResponse, error) {
 	request := operations.ListGuardrailsRequest{
 		Offset: offset,
 		Limit:  limit,
@@ -107,6 +109,16 @@ func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, op
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -115,11 +127,7 @@ func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, op
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -193,6 +201,54 @@ func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, op
 		}
 	}
 
+	res := &operations.ListGuardrailsResponse{}
+	res.Next = func() (*operations.ListGuardrailsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			ctx,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -202,12 +258,12 @@ func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, op
 				return nil, err
 			}
 
-			var out operations.ListGuardrailsResponse
+			var out components.ListGuardrailsResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -277,13 +333,13 @@ func (s *Guardrails) List(ctx context.Context, offset *string, limit *string, op
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
 
 // Create a guardrail
 // Create a new guardrail for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) Create(ctx context.Context, request operations.CreateGuardrailRequest, opts ...operations.Option) (*operations.CreateGuardrailResponse, error) {
+func (s *Guardrails) Create(ctx context.Context, request components.CreateGuardrailRequest, opts ...operations.Option) (*components.CreateGuardrailResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -355,6 +411,16 @@ func (s *Guardrails) Create(ctx context.Context, request operations.CreateGuardr
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -363,11 +429,7 @@ func (s *Guardrails) Create(ctx context.Context, request operations.CreateGuardr
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -450,7 +512,7 @@ func (s *Guardrails) Create(ctx context.Context, request operations.CreateGuardr
 				return nil, err
 			}
 
-			var out operations.CreateGuardrailResponse
+			var out components.CreateGuardrailResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -552,7 +614,7 @@ func (s *Guardrails) Create(ctx context.Context, request operations.CreateGuardr
 
 // Get a guardrail
 // Get a single guardrail by ID. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Option) (*operations.GetGuardrailResponse, error) {
+func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Option) (*components.GetGuardrailResponse, error) {
 	request := operations.GetGuardrailRequest{
 		ID: id,
 	}
@@ -621,6 +683,16 @@ func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Opti
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -629,11 +701,7 @@ func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Opti
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -716,7 +784,7 @@ func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Opti
 				return nil, err
 			}
 
-			var out operations.GetGuardrailResponse
+			var out components.GetGuardrailResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -818,10 +886,10 @@ func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Opti
 
 // Update a guardrail
 // Update an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) Update(ctx context.Context, id string, requestBody operations.UpdateGuardrailRequestBody, opts ...operations.Option) (*operations.UpdateGuardrailResponse, error) {
+func (s *Guardrails) Update(ctx context.Context, id string, updateGuardrailRequest components.UpdateGuardrailRequest, opts ...operations.Option) (*components.UpdateGuardrailResponse, error) {
 	request := operations.UpdateGuardrailRequest{
-		ID:          id,
-		RequestBody: requestBody,
+		ID:                     id,
+		UpdateGuardrailRequest: updateGuardrailRequest,
 	}
 
 	o := operations.Options{}
@@ -856,7 +924,7 @@ func (s *Guardrails) Update(ctx context.Context, id string, requestBody operatio
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateGuardrailRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -895,6 +963,16 @@ func (s *Guardrails) Update(ctx context.Context, id string, requestBody operatio
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -903,11 +981,7 @@ func (s *Guardrails) Update(ctx context.Context, id string, requestBody operatio
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -990,7 +1064,7 @@ func (s *Guardrails) Update(ctx context.Context, id string, requestBody operatio
 				return nil, err
 			}
 
-			var out operations.UpdateGuardrailResponse
+			var out components.UpdateGuardrailResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -1113,7 +1187,7 @@ func (s *Guardrails) Update(ctx context.Context, id string, requestBody operatio
 
 // Delete a guardrail
 // Delete an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.Option) (*operations.DeleteGuardrailResponse, error) {
+func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.Option) (*components.DeleteGuardrailResponse, error) {
 	request := operations.DeleteGuardrailRequest{
 		ID: id,
 	}
@@ -1182,6 +1256,16 @@ func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.O
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1190,11 +1274,7 @@ func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.O
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1277,7 +1357,7 @@ func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.O
 				return nil, err
 			}
 
-			var out operations.DeleteGuardrailResponse
+			var out components.DeleteGuardrailResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -1379,7 +1459,7 @@ func (s *Guardrails) Delete(ctx context.Context, id string, opts ...operations.O
 
 // ListKeyAssignments - List all key assignments
 // List all API key guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, limit *string, opts ...operations.Option) (*operations.ListKeyAssignmentsResponse, error) {
+func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListKeyAssignmentsResponse, error) {
 	request := operations.ListKeyAssignmentsRequest{
 		Offset: offset,
 		Limit:  limit,
@@ -1453,6 +1533,16 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, lim
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1461,11 +1551,7 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, lim
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1539,6 +1625,54 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, lim
 		}
 	}
 
+	res := &operations.ListKeyAssignmentsResponse{}
+	res.Next = func() (*operations.ListKeyAssignmentsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.ListKeyAssignments(
+			ctx,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -1548,12 +1682,12 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, lim
 				return nil, err
 			}
 
-			var out operations.ListKeyAssignmentsResponse
+			var out components.ListKeyAssignmentsResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1623,13 +1757,13 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *string, lim
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
 
 // ListMemberAssignments - List all member assignments
 // List all organization member guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, limit *string, opts ...operations.Option) (*operations.ListMemberAssignmentsResponse, error) {
+func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListMemberAssignmentsResponse, error) {
 	request := operations.ListMemberAssignmentsRequest{
 		Offset: offset,
 		Limit:  limit,
@@ -1703,6 +1837,16 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, 
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1711,11 +1855,7 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, 
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1789,6 +1929,54 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, 
 		}
 	}
 
+	res := &operations.ListMemberAssignmentsResponse{}
+	res.Next = func() (*operations.ListMemberAssignmentsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.ListMemberAssignments(
+			ctx,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -1798,12 +1986,12 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, 
 				return nil, err
 			}
 
-			var out operations.ListMemberAssignmentsResponse
+			var out components.ListMemberAssignmentsResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1873,13 +2061,13 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *string, 
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
 
 // ListGuardrailKeyAssignments - List key assignments for a guardrail
 // List all API key assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string, offset *string, limit *string, opts ...operations.Option) (*operations.ListGuardrailKeyAssignmentsResponse, error) {
+func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListGuardrailKeyAssignmentsResponse, error) {
 	request := operations.ListGuardrailKeyAssignmentsRequest{
 		ID:     id,
 		Offset: offset,
@@ -1954,6 +2142,16 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -1962,11 +2160,7 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -2040,6 +2234,55 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 		}
 	}
 
+	res := &operations.ListGuardrailKeyAssignmentsResponse{}
+	res.Next = func() (*operations.ListGuardrailKeyAssignmentsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.ListGuardrailKeyAssignments(
+			ctx,
+			id,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -2049,12 +2292,12 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 				return nil, err
 			}
 
-			var out operations.ListGuardrailKeyAssignmentsResponse
+			var out components.ListKeyAssignmentsResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2145,16 +2388,16 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
 
 // BulkAssignKeys - Bulk assign keys to a guardrail
 // Assign multiple API keys to a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody operations.BulkAssignKeysToGuardrailRequestBody, opts ...operations.Option) (*operations.BulkAssignKeysToGuardrailResponse, error) {
+func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, bulkAssignKeysRequest components.BulkAssignKeysRequest, opts ...operations.Option) (*components.BulkAssignKeysResponse, error) {
 	request := operations.BulkAssignKeysToGuardrailRequest{
-		ID:          id,
-		RequestBody: requestBody,
+		ID:                    id,
+		BulkAssignKeysRequest: bulkAssignKeysRequest,
 	}
 
 	o := operations.Options{}
@@ -2189,7 +2432,7 @@ func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody 
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "BulkAssignKeysRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -2228,6 +2471,16 @@ func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody 
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -2236,11 +2489,7 @@ func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody 
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -2323,7 +2572,7 @@ func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody 
 				return nil, err
 			}
 
-			var out operations.BulkAssignKeysToGuardrailResponse
+			var out components.BulkAssignKeysResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -2446,7 +2695,7 @@ func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, requestBody 
 
 // ListGuardrailMemberAssignments - List member assignments for a guardrail
 // List all organization member assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id string, offset *string, limit *string, opts ...operations.Option) (*operations.ListGuardrailMemberAssignmentsResponse, error) {
+func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id string, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListGuardrailMemberAssignmentsResponse, error) {
 	request := operations.ListGuardrailMemberAssignmentsRequest{
 		ID:     id,
 		Offset: offset,
@@ -2521,6 +2770,16 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -2529,11 +2788,7 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -2607,6 +2862,55 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 		}
 	}
 
+	res := &operations.ListGuardrailMemberAssignmentsResponse{}
+	res.Next = func() (*operations.ListGuardrailMemberAssignmentsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.ListGuardrailMemberAssignments(
+			ctx,
+			id,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -2616,12 +2920,12 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 				return nil, err
 			}
 
-			var out operations.ListGuardrailMemberAssignmentsResponse
+			var out components.ListMemberAssignmentsResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2712,16 +3016,16 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
 
 // BulkAssignMembers - Bulk assign members to a guardrail
 // Assign multiple organization members to a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBody operations.BulkAssignMembersToGuardrailRequestBody, opts ...operations.Option) (*operations.BulkAssignMembersToGuardrailResponse, error) {
+func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, bulkAssignMembersRequest components.BulkAssignMembersRequest, opts ...operations.Option) (*components.BulkAssignMembersResponse, error) {
 	request := operations.BulkAssignMembersToGuardrailRequest{
-		ID:          id,
-		RequestBody: requestBody,
+		ID:                       id,
+		BulkAssignMembersRequest: bulkAssignMembersRequest,
 	}
 
 	o := operations.Options{}
@@ -2756,7 +3060,7 @@ func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBo
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "BulkAssignMembersRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -2795,6 +3099,16 @@ func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBo
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -2803,11 +3117,7 @@ func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBo
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -2890,7 +3200,7 @@ func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBo
 				return nil, err
 			}
 
-			var out operations.BulkAssignMembersToGuardrailResponse
+			var out components.BulkAssignMembersResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -3013,10 +3323,10 @@ func (s *Guardrails) BulkAssignMembers(ctx context.Context, id string, requestBo
 
 // BulkUnassignKeys - Bulk unassign keys from a guardrail
 // Unassign multiple API keys from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBody operations.BulkUnassignKeysFromGuardrailRequestBody, opts ...operations.Option) (*operations.BulkUnassignKeysFromGuardrailResponse, error) {
+func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, bulkUnassignKeysRequest components.BulkUnassignKeysRequest, opts ...operations.Option) (*components.BulkUnassignKeysResponse, error) {
 	request := operations.BulkUnassignKeysFromGuardrailRequest{
-		ID:          id,
-		RequestBody: requestBody,
+		ID:                      id,
+		BulkUnassignKeysRequest: bulkUnassignKeysRequest,
 	}
 
 	o := operations.Options{}
@@ -3051,7 +3361,7 @@ func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBod
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "BulkUnassignKeysRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -3090,6 +3400,16 @@ func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBod
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -3098,11 +3418,7 @@ func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBod
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -3185,7 +3501,7 @@ func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBod
 				return nil, err
 			}
 
-			var out operations.BulkUnassignKeysFromGuardrailResponse
+			var out components.BulkUnassignKeysResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -3308,10 +3624,10 @@ func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, requestBod
 
 // BulkUnassignMembers - Bulk unassign members from a guardrail
 // Unassign multiple organization members from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, requestBody operations.BulkUnassignMembersFromGuardrailRequestBody, opts ...operations.Option) (*operations.BulkUnassignMembersFromGuardrailResponse, error) {
+func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, bulkUnassignMembersRequest components.BulkUnassignMembersRequest, opts ...operations.Option) (*components.BulkUnassignMembersResponse, error) {
 	request := operations.BulkUnassignMembersFromGuardrailRequest{
-		ID:          id,
-		RequestBody: requestBody,
+		ID:                         id,
+		BulkUnassignMembersRequest: bulkUnassignMembersRequest,
 	}
 
 	o := operations.Options{}
@@ -3346,7 +3662,7 @@ func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, request
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "BulkUnassignMembersRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -3385,6 +3701,16 @@ func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, request
 	if retryConfig == nil {
 		if globalRetryConfig != nil {
 			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
 		}
 	}
 
@@ -3393,11 +3719,7 @@ func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, request
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"429",
-				"500",
-				"502",
-				"503",
-				"504",
+				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -3480,7 +3802,7 @@ func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, request
 				return nil, err
 			}
 
-			var out operations.BulkUnassignMembersFromGuardrailResponse
+			var out components.BulkUnassignMembersResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

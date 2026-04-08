@@ -10,6 +10,7 @@ const (
 	OutputModalityEmbeddings OutputModality = "embeddings"
 	OutputModalityAudio      OutputModality = "audio"
 	OutputModalityVideo      OutputModality = "video"
+	OutputModalityRerank     OutputModality = "rerank"
 )
 
 func (e OutputModality) ToPointer() *OutputModality {
@@ -20,7 +21,7 @@ func (e OutputModality) ToPointer() *OutputModality {
 func (e *OutputModality) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "text", "image", "embeddings", "audio", "video":
+		case "text", "image", "embeddings", "audio", "video", "rerank":
 			return true
 		}
 	}

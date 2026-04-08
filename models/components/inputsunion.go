@@ -217,33 +217,6 @@ func (u InputsStatusUnion2) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type InputsStatusUnion2: all fields are null")
 }
 
-// InputsFormat - The format of the reasoning content
-type InputsFormat string
-
-const (
-	InputsFormatUnknown                InputsFormat = "unknown"
-	InputsFormatOpenaiResponsesV1      InputsFormat = "openai-responses-v1"
-	InputsFormatAzureOpenaiResponsesV1 InputsFormat = "azure-openai-responses-v1"
-	InputsFormatXaiResponsesV1         InputsFormat = "xai-responses-v1"
-	InputsFormatAnthropicClaudeV1      InputsFormat = "anthropic-claude-v1"
-	InputsFormatGoogleGeminiV1         InputsFormat = "google-gemini-v1"
-)
-
-func (e InputsFormat) ToPointer() *InputsFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputsFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "unknown", "openai-responses-v1", "azure-openai-responses-v1", "xai-responses-v1", "anthropic-claude-v1", "google-gemini-v1":
-			return true
-		}
-	}
-	return false
-}
-
 // InputsReasoning - An output item containing reasoning
 type InputsReasoning struct {
 	Type             InputsTypeReasoning                                       `json:"type"`
@@ -253,9 +226,8 @@ type InputsReasoning struct {
 	EncryptedContent optionalnullable.OptionalNullable[string]                 `json:"encrypted_content,omitzero"`
 	Status           *InputsStatusUnion2                                       `json:"status,omitzero"`
 	// A signature for the reasoning content, used for verification
-	Signature optionalnullable.OptionalNullable[string] `json:"signature,omitzero"`
-	// The format of the reasoning content
-	Format optionalnullable.OptionalNullable[InputsFormat] `json:"format,omitzero"`
+	Signature optionalnullable.OptionalNullable[string]          `json:"signature,omitzero"`
+	Format    optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
 }
 
 func (i InputsReasoning) MarshalJSON() ([]byte, error) {
@@ -318,7 +290,7 @@ func (i *InputsReasoning) GetSignature() optionalnullable.OptionalNullable[strin
 	return i.Signature
 }
 
-func (i *InputsReasoning) GetFormat() optionalnullable.OptionalNullable[InputsFormat] {
+func (i *InputsReasoning) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
 	if i == nil {
 		return nil
 	}

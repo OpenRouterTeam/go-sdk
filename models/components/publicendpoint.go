@@ -152,21 +152,21 @@ type PublicEndpoint struct {
 	// The unique identifier for the model (permaslug)
 	ModelID             string                      `json:"model_id"`
 	ModelName           string                      `json:"model_name"`
-	ContextLength       float64                     `json:"context_length"`
+	ContextLength       int64                       `json:"context_length"`
 	Pricing             Pricing                     `json:"pricing"`
 	ProviderName        ProviderName                `json:"provider_name"`
 	Tag                 string                      `json:"tag"`
 	Quantization        *PublicEndpointQuantization `json:"quantization"`
-	MaxCompletionTokens *float64                    `json:"max_completion_tokens"`
-	MaxPromptTokens     *float64                    `json:"max_prompt_tokens"`
+	MaxCompletionTokens int64                       `json:"max_completion_tokens"`
+	MaxPromptTokens     int64                       `json:"max_prompt_tokens"`
 	SupportedParameters []Parameter                 `json:"supported_parameters"`
 	Status              *EndpointStatus             `json:"status,omitzero"`
-	UptimeLast30m       *float64                    `json:"uptime_last_30m"`
+	UptimeLast30m       float64                     `json:"uptime_last_30m"`
 	// Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
-	UptimeLast5m *float64 `json:"uptime_last_5m"`
+	UptimeLast5m float64 `json:"uptime_last_5m"`
 	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
-	UptimeLast1d            *float64 `json:"uptime_last_1d"`
-	SupportsImplicitCaching bool     `json:"supports_implicit_caching"`
+	UptimeLast1d            float64 `json:"uptime_last_1d"`
+	SupportsImplicitCaching bool    `json:"supports_implicit_caching"`
 	// Latency percentiles in milliseconds over the last 30 minutes. Latency measures time to first token. Only visible when authenticated with an API key or cookie; returns null for unauthenticated requests.
 	LatencyLast30m    *PercentileStats `json:"latency_last_30m"`
 	ThroughputLast30m *PercentileStats `json:"throughput_last_30m"`
@@ -193,9 +193,9 @@ func (p *PublicEndpoint) GetModelName() string {
 	return p.ModelName
 }
 
-func (p *PublicEndpoint) GetContextLength() float64 {
+func (p *PublicEndpoint) GetContextLength() int64 {
 	if p == nil {
-		return 0.0
+		return 0
 	}
 	return p.ContextLength
 }
@@ -228,16 +228,16 @@ func (p *PublicEndpoint) GetQuantization() *PublicEndpointQuantization {
 	return p.Quantization
 }
 
-func (p *PublicEndpoint) GetMaxCompletionTokens() *float64 {
+func (p *PublicEndpoint) GetMaxCompletionTokens() int64 {
 	if p == nil {
-		return nil
+		return 0
 	}
 	return p.MaxCompletionTokens
 }
 
-func (p *PublicEndpoint) GetMaxPromptTokens() *float64 {
+func (p *PublicEndpoint) GetMaxPromptTokens() int64 {
 	if p == nil {
-		return nil
+		return 0
 	}
 	return p.MaxPromptTokens
 }
@@ -256,23 +256,23 @@ func (p *PublicEndpoint) GetStatus() *EndpointStatus {
 	return p.Status
 }
 
-func (p *PublicEndpoint) GetUptimeLast30m() *float64 {
+func (p *PublicEndpoint) GetUptimeLast30m() float64 {
 	if p == nil {
-		return nil
+		return 0.0
 	}
 	return p.UptimeLast30m
 }
 
-func (p *PublicEndpoint) GetUptimeLast5m() *float64 {
+func (p *PublicEndpoint) GetUptimeLast5m() float64 {
 	if p == nil {
-		return nil
+		return 0.0
 	}
 	return p.UptimeLast5m
 }
 
-func (p *PublicEndpoint) GetUptimeLast1d() *float64 {
+func (p *PublicEndpoint) GetUptimeLast1d() float64 {
 	if p == nil {
-		return nil
+		return 0.0
 	}
 	return p.UptimeLast1d
 }

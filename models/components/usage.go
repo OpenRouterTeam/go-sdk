@@ -4,11 +4,10 @@ package components
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type InputTokensDetails struct {
-	CachedTokens float64 `json:"cached_tokens"`
+	CachedTokens int64 `json:"cached_tokens"`
 }
 
 func (i InputTokensDetails) MarshalJSON() ([]byte, error) {
@@ -22,15 +21,15 @@ func (i *InputTokensDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputTokensDetails) GetCachedTokens() float64 {
+func (i *InputTokensDetails) GetCachedTokens() int64 {
 	if i == nil {
-		return 0.0
+		return 0
 	}
 	return i.CachedTokens
 }
 
 type OutputTokensDetails struct {
-	ReasoningTokens float64 `json:"reasoning_tokens"`
+	ReasoningTokens int64 `json:"reasoning_tokens"`
 }
 
 func (o OutputTokensDetails) MarshalJSON() ([]byte, error) {
@@ -44,9 +43,9 @@ func (o *OutputTokensDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputTokensDetails) GetReasoningTokens() float64 {
+func (o *OutputTokensDetails) GetReasoningTokens() int64 {
 	if o == nil {
-		return 0.0
+		return 0
 	}
 	return o.ReasoningTokens
 }
@@ -91,13 +90,13 @@ func (c *CostDetails) GetUpstreamInferenceOutputCost() float64 {
 
 // Usage - Token usage information for the response
 type Usage struct {
-	InputTokens         float64             `json:"input_tokens"`
+	InputTokens         int64               `json:"input_tokens"`
 	InputTokensDetails  InputTokensDetails  `json:"input_tokens_details"`
-	OutputTokens        float64             `json:"output_tokens"`
+	OutputTokens        int64               `json:"output_tokens"`
 	OutputTokensDetails OutputTokensDetails `json:"output_tokens_details"`
-	TotalTokens         float64             `json:"total_tokens"`
+	TotalTokens         int64               `json:"total_tokens"`
 	// Cost of the completion
-	Cost optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
+	Cost *float64 `json:"cost,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
 	IsByok      *bool        `json:"is_byok,omitzero"`
 	CostDetails *CostDetails `json:"cost_details,omitzero"`
@@ -114,9 +113,9 @@ func (u *Usage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (u *Usage) GetInputTokens() float64 {
+func (u *Usage) GetInputTokens() int64 {
 	if u == nil {
-		return 0.0
+		return 0
 	}
 	return u.InputTokens
 }
@@ -128,9 +127,9 @@ func (u *Usage) GetInputTokensDetails() InputTokensDetails {
 	return u.InputTokensDetails
 }
 
-func (u *Usage) GetOutputTokens() float64 {
+func (u *Usage) GetOutputTokens() int64 {
 	if u == nil {
-		return 0.0
+		return 0
 	}
 	return u.OutputTokens
 }
@@ -142,14 +141,14 @@ func (u *Usage) GetOutputTokensDetails() OutputTokensDetails {
 	return u.OutputTokensDetails
 }
 
-func (u *Usage) GetTotalTokens() float64 {
+func (u *Usage) GetTotalTokens() int64 {
 	if u == nil {
-		return 0.0
+		return 0
 	}
 	return u.TotalTokens
 }
 
-func (u *Usage) GetCost() optionalnullable.OptionalNullable[float64] {
+func (u *Usage) GetCost() *float64 {
 	if u == nil {
 		return nil
 	}

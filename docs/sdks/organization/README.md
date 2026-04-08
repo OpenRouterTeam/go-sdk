@@ -37,7 +37,19 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -47,8 +59,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response

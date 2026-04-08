@@ -54,7 +54,7 @@ func main() {
 
 ### Response
 
-**[*operations.GetUserActivityResponse](../../models/operations/getuseractivityresponse.md), error**
+**[*components.ActivityResponse](../../models/components/activityresponse.md), error**
 
 ### Errors
 

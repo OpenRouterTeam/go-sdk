@@ -9,45 +9,102 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatContentItems1Type string
+type ChatContentItemsType string
 
 const (
-	ChatContentItems1TypeInputVideo ChatContentItems1Type = "input_video"
-	ChatContentItems1TypeVideoURL   ChatContentItems1Type = "video_url"
+	ChatContentItemsTypeText       ChatContentItemsType = "text"
+	ChatContentItemsTypeImageURL   ChatContentItemsType = "image_url"
+	ChatContentItemsTypeInputAudio ChatContentItemsType = "input_audio"
+	ChatContentItemsTypeInputVideo ChatContentItemsType = "input_video"
+	ChatContentItemsTypeVideoURL   ChatContentItemsType = "video_url"
+	ChatContentItemsTypeFile       ChatContentItemsType = "file"
 )
 
-type ChatContentItems1 struct {
+// ChatContentItems - Content part for chat completion messages
+type ChatContentItems struct {
+	ChatContentText        *ChatContentText        `queryParam:"inline" union:"member"`
+	ChatContentImage       *ChatContentImage       `queryParam:"inline" union:"member"`
+	ChatContentAudio       *ChatContentAudio       `queryParam:"inline" union:"member"`
 	LegacyChatContentVideo *LegacyChatContentVideo `queryParam:"inline" union:"member"`
 	ChatContentVideo       *ChatContentVideo       `queryParam:"inline" union:"member"`
+	ChatContentFile        *ChatContentFile        `queryParam:"inline" union:"member"`
 
-	Type ChatContentItems1Type
+	Type ChatContentItemsType
 }
 
-func CreateChatContentItems1InputVideo(inputVideo LegacyChatContentVideo) ChatContentItems1 {
-	typ := ChatContentItems1TypeInputVideo
+func CreateChatContentItemsText(text ChatContentText) ChatContentItems {
+	typ := ChatContentItemsTypeText
+
+	typStr := ChatContentTextType(typ)
+	text.Type = typStr
+
+	return ChatContentItems{
+		ChatContentText: &text,
+		Type:            typ,
+	}
+}
+
+func CreateChatContentItemsImageURL(imageURL ChatContentImage) ChatContentItems {
+	typ := ChatContentItemsTypeImageURL
+
+	typStr := ChatContentImageType(typ)
+	imageURL.Type = typStr
+
+	return ChatContentItems{
+		ChatContentImage: &imageURL,
+		Type:             typ,
+	}
+}
+
+func CreateChatContentItemsInputAudio(inputAudio ChatContentAudio) ChatContentItems {
+	typ := ChatContentItemsTypeInputAudio
+
+	typStr := ChatContentAudioType(typ)
+	inputAudio.Type = typStr
+
+	return ChatContentItems{
+		ChatContentAudio: &inputAudio,
+		Type:             typ,
+	}
+}
+
+func CreateChatContentItemsInputVideo(inputVideo LegacyChatContentVideo) ChatContentItems {
+	typ := ChatContentItemsTypeInputVideo
 
 	typStr := LegacyChatContentVideoType(typ)
 	inputVideo.Type = typStr
 
-	return ChatContentItems1{
+	return ChatContentItems{
 		LegacyChatContentVideo: &inputVideo,
 		Type:                   typ,
 	}
 }
 
-func CreateChatContentItems1VideoURL(videoURL ChatContentVideo) ChatContentItems1 {
-	typ := ChatContentItems1TypeVideoURL
+func CreateChatContentItemsVideoURL(videoURL ChatContentVideo) ChatContentItems {
+	typ := ChatContentItemsTypeVideoURL
 
 	typStr := ChatContentVideoType(typ)
 	videoURL.Type = typStr
 
-	return ChatContentItems1{
+	return ChatContentItems{
 		ChatContentVideo: &videoURL,
 		Type:             typ,
 	}
 }
 
-func (u *ChatContentItems1) UnmarshalJSON(data []byte) error {
+func CreateChatContentItemsFile(file ChatContentFile) ChatContentItems {
+	typ := ChatContentItemsTypeFile
+
+	typStr := ChatContentFileType(typ)
+	file.Type = typStr
+
+	return ChatContentItems{
+		ChatContentFile: &file,
+		Type:            typ,
+	}
+}
+
+func (u *ChatContentItems) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -59,179 +116,59 @@ func (u *ChatContentItems1) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.Type {
+	case "text":
+		chatContentText := new(ChatContentText)
+		if err := utils.UnmarshalJSON(data, &chatContentText, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == text) type ChatContentText within ChatContentItems: %w", string(data), err)
+		}
+
+		u.ChatContentText = chatContentText
+		u.Type = ChatContentItemsTypeText
+		return nil
+	case "image_url":
+		chatContentImage := new(ChatContentImage)
+		if err := utils.UnmarshalJSON(data, &chatContentImage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == image_url) type ChatContentImage within ChatContentItems: %w", string(data), err)
+		}
+
+		u.ChatContentImage = chatContentImage
+		u.Type = ChatContentItemsTypeImageURL
+		return nil
+	case "input_audio":
+		chatContentAudio := new(ChatContentAudio)
+		if err := utils.UnmarshalJSON(data, &chatContentAudio, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type ChatContentAudio within ChatContentItems: %w", string(data), err)
+		}
+
+		u.ChatContentAudio = chatContentAudio
+		u.Type = ChatContentItemsTypeInputAudio
+		return nil
 	case "input_video":
 		legacyChatContentVideo := new(LegacyChatContentVideo)
 		if err := utils.UnmarshalJSON(data, &legacyChatContentVideo, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_video) type LegacyChatContentVideo within ChatContentItems1: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_video) type LegacyChatContentVideo within ChatContentItems: %w", string(data), err)
 		}
 
 		u.LegacyChatContentVideo = legacyChatContentVideo
-		u.Type = ChatContentItems1TypeInputVideo
+		u.Type = ChatContentItemsTypeInputVideo
 		return nil
 	case "video_url":
 		chatContentVideo := new(ChatContentVideo)
 		if err := utils.UnmarshalJSON(data, &chatContentVideo, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == video_url) type ChatContentVideo within ChatContentItems1: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == video_url) type ChatContentVideo within ChatContentItems: %w", string(data), err)
 		}
 
 		u.ChatContentVideo = chatContentVideo
-		u.Type = ChatContentItems1TypeVideoURL
+		u.Type = ChatContentItemsTypeVideoURL
 		return nil
-	}
+	case "file":
+		chatContentFile := new(ChatContentFile)
+		if err := utils.UnmarshalJSON(data, &chatContentFile, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type ChatContentFile within ChatContentItems: %w", string(data), err)
+		}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatContentItems1", string(data))
-}
-
-func (u ChatContentItems1) MarshalJSON() ([]byte, error) {
-	if u.LegacyChatContentVideo != nil {
-		return utils.MarshalJSON(u.LegacyChatContentVideo, "", true)
-	}
-
-	if u.ChatContentVideo != nil {
-		return utils.MarshalJSON(u.ChatContentVideo, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ChatContentItems1: all fields are null")
-}
-
-type ChatContentItemsType string
-
-const (
-	ChatContentItemsTypeChatContentText   ChatContentItemsType = "ChatContentText"
-	ChatContentItemsTypeChatContentImage  ChatContentItemsType = "ChatContentImage"
-	ChatContentItemsTypeChatContentAudio  ChatContentItemsType = "ChatContentAudio"
-	ChatContentItemsTypeChatContentItems1 ChatContentItemsType = "ChatContentItems_1"
-	ChatContentItemsTypeChatContentFile   ChatContentItemsType = "ChatContentFile"
-)
-
-// ChatContentItems - Content part for chat completion messages
-type ChatContentItems struct {
-	ChatContentText   *ChatContentText   `queryParam:"inline" union:"member"`
-	ChatContentImage  *ChatContentImage  `queryParam:"inline" union:"member"`
-	ChatContentAudio  *ChatContentAudio  `queryParam:"inline" union:"member"`
-	ChatContentItems1 *ChatContentItems1 `queryParam:"inline" union:"member"`
-	ChatContentFile   *ChatContentFile   `queryParam:"inline" union:"member"`
-
-	Type ChatContentItemsType
-}
-
-func CreateChatContentItemsChatContentText(chatContentText ChatContentText) ChatContentItems {
-	typ := ChatContentItemsTypeChatContentText
-
-	return ChatContentItems{
-		ChatContentText: &chatContentText,
-		Type:            typ,
-	}
-}
-
-func CreateChatContentItemsChatContentImage(chatContentImage ChatContentImage) ChatContentItems {
-	typ := ChatContentItemsTypeChatContentImage
-
-	return ChatContentItems{
-		ChatContentImage: &chatContentImage,
-		Type:             typ,
-	}
-}
-
-func CreateChatContentItemsChatContentAudio(chatContentAudio ChatContentAudio) ChatContentItems {
-	typ := ChatContentItemsTypeChatContentAudio
-
-	return ChatContentItems{
-		ChatContentAudio: &chatContentAudio,
-		Type:             typ,
-	}
-}
-
-func CreateChatContentItemsChatContentItems1(chatContentItems1 ChatContentItems1) ChatContentItems {
-	typ := ChatContentItemsTypeChatContentItems1
-
-	return ChatContentItems{
-		ChatContentItems1: &chatContentItems1,
-		Type:              typ,
-	}
-}
-
-func CreateChatContentItemsChatContentFile(chatContentFile ChatContentFile) ChatContentItems {
-	typ := ChatContentItemsTypeChatContentFile
-
-	return ChatContentItems{
-		ChatContentFile: &chatContentFile,
-		Type:            typ,
-	}
-}
-
-func (u *ChatContentItems) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var chatContentText ChatContentText = ChatContentText{}
-	if err := utils.UnmarshalJSON(data, &chatContentText, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatContentItemsTypeChatContentText,
-			Value: &chatContentText,
-		})
-	}
-
-	var chatContentImage ChatContentImage = ChatContentImage{}
-	if err := utils.UnmarshalJSON(data, &chatContentImage, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatContentItemsTypeChatContentImage,
-			Value: &chatContentImage,
-		})
-	}
-
-	var chatContentAudio ChatContentAudio = ChatContentAudio{}
-	if err := utils.UnmarshalJSON(data, &chatContentAudio, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatContentItemsTypeChatContentAudio,
-			Value: &chatContentAudio,
-		})
-	}
-
-	var chatContentItems1 ChatContentItems1 = ChatContentItems1{}
-	if err := utils.UnmarshalJSON(data, &chatContentItems1, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatContentItemsTypeChatContentItems1,
-			Value: &chatContentItems1,
-		})
-	}
-
-	var chatContentFile ChatContentFile = ChatContentFile{}
-	if err := utils.UnmarshalJSON(data, &chatContentFile, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatContentItemsTypeChatContentFile,
-			Value: &chatContentFile,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatContentItems", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatContentItems", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChatContentItemsType)
-	switch best.Type {
-	case ChatContentItemsTypeChatContentText:
-		u.ChatContentText = best.Value.(*ChatContentText)
-		return nil
-	case ChatContentItemsTypeChatContentImage:
-		u.ChatContentImage = best.Value.(*ChatContentImage)
-		return nil
-	case ChatContentItemsTypeChatContentAudio:
-		u.ChatContentAudio = best.Value.(*ChatContentAudio)
-		return nil
-	case ChatContentItemsTypeChatContentItems1:
-		u.ChatContentItems1 = best.Value.(*ChatContentItems1)
-		return nil
-	case ChatContentItemsTypeChatContentFile:
-		u.ChatContentFile = best.Value.(*ChatContentFile)
+		u.ChatContentFile = chatContentFile
+		u.Type = ChatContentItemsTypeFile
 		return nil
 	}
 
@@ -251,8 +188,12 @@ func (u ChatContentItems) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ChatContentAudio, "", true)
 	}
 
-	if u.ChatContentItems1 != nil {
-		return utils.MarshalJSON(u.ChatContentItems1, "", true)
+	if u.LegacyChatContentVideo != nil {
+		return utils.MarshalJSON(u.LegacyChatContentVideo, "", true)
+	}
+
+	if u.ChatContentVideo != nil {
+		return utils.MarshalJSON(u.ChatContentVideo, "", true)
 	}
 
 	if u.ChatContentFile != nil {

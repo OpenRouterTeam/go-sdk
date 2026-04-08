@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type TypeImageURL string
@@ -255,6 +256,7 @@ const (
 	InputUnionTypeArrayOfInput         InputUnionType = "arrayOfInput"
 )
 
+// InputUnion - Text, token, or multimodal input(s) to embed
 type InputUnion struct {
 	Str                  *string     `queryParam:"inline" union:"member"`
 	ArrayOfStr           []string    `queryParam:"inline" union:"member"`
@@ -412,6 +414,7 @@ func (u InputUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type InputUnion: all fields are null")
 }
 
+// EncodingFormat - The format of the output embeddings
 type EncodingFormat string
 
 const (
@@ -434,15 +437,21 @@ func (e *EncodingFormat) IsExact() bool {
 	return false
 }
 
+// CreateEmbeddingsRequest - Embeddings request input
 type CreateEmbeddingsRequest struct {
-	Input          InputUnion      `json:"input"`
-	Model          string          `json:"model"`
+	// Text, token, or multimodal input(s) to embed
+	Input InputUnion `json:"input"`
+	// The model to use for embeddings
+	Model string `json:"model"`
+	// The format of the output embeddings
 	EncodingFormat *EncodingFormat `json:"encoding_format,omitzero"`
-	Dimensions     *int64          `json:"dimensions,omitzero"`
-	User           *string         `json:"user,omitzero"`
-	// Provider routing preferences for the request.
-	Provider  *components.ProviderPreferences `json:"provider,omitzero"`
-	InputType *string                         `json:"input_type,omitzero"`
+	// The number of dimensions for the output embeddings
+	Dimensions *int64 `json:"dimensions,omitzero"`
+	// A unique identifier for the end-user
+	User     *string                                                           `json:"user,omitzero"`
+	Provider optionalnullable.OptionalNullable[components.ProviderPreferences] `json:"provider,omitzero"`
+	// The type of input (e.g. search_query, search_document)
+	InputType *string `json:"input_type,omitzero"`
 }
 
 func (c CreateEmbeddingsRequest) MarshalJSON() ([]byte, error) {
@@ -491,7 +500,7 @@ func (c *CreateEmbeddingsRequest) GetUser() *string {
 	return c.User
 }
 
-func (c *CreateEmbeddingsRequest) GetProvider() *components.ProviderPreferences {
+func (c *CreateEmbeddingsRequest) GetProvider() optionalnullable.OptionalNullable[components.ProviderPreferences] {
 	if c == nil {
 		return nil
 	}
@@ -558,6 +567,7 @@ const (
 	EmbeddingTypeStr           EmbeddingType = "str"
 )
 
+// Embedding vector as an array of floats or a base64 string
 type Embedding struct {
 	ArrayOfNumber []float64 `queryParam:"inline" union:"member"`
 	Str           *string   `queryParam:"inline" union:"member"`
@@ -640,10 +650,13 @@ func (u Embedding) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Embedding: all fields are null")
 }
 
+// CreateEmbeddingsData - A single embedding object
 type CreateEmbeddingsData struct {
-	Object    ObjectEmbedding `json:"object"`
-	Embedding Embedding       `json:"embedding"`
-	Index     *float64        `json:"index,omitzero"`
+	Object ObjectEmbedding `json:"object"`
+	// Embedding vector as an array of floats or a base64 string
+	Embedding Embedding `json:"embedding"`
+	// Index of the embedding in the input list
+	Index *int64 `json:"index,omitzero"`
 }
 
 func (c *CreateEmbeddingsData) GetObject() ObjectEmbedding {
@@ -660,47 +673,55 @@ func (c *CreateEmbeddingsData) GetEmbedding() Embedding {
 	return c.Embedding
 }
 
-func (c *CreateEmbeddingsData) GetIndex() *float64 {
+func (c *CreateEmbeddingsData) GetIndex() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.Index
 }
 
-type Usage struct {
-	PromptTokens float64  `json:"prompt_tokens"`
-	TotalTokens  float64  `json:"total_tokens"`
-	Cost         *float64 `json:"cost,omitzero"`
+// CreateEmbeddingsUsage - Token usage statistics
+type CreateEmbeddingsUsage struct {
+	// Number of tokens in the input
+	PromptTokens int64 `json:"prompt_tokens"`
+	// Total number of tokens used
+	TotalTokens int64 `json:"total_tokens"`
+	// Cost of the request in credits
+	Cost *float64 `json:"cost,omitzero"`
 }
 
-func (u *Usage) GetPromptTokens() float64 {
-	if u == nil {
-		return 0.0
+func (c *CreateEmbeddingsUsage) GetPromptTokens() int64 {
+	if c == nil {
+		return 0
 	}
-	return u.PromptTokens
+	return c.PromptTokens
 }
 
-func (u *Usage) GetTotalTokens() float64 {
-	if u == nil {
-		return 0.0
+func (c *CreateEmbeddingsUsage) GetTotalTokens() int64 {
+	if c == nil {
+		return 0
 	}
-	return u.TotalTokens
+	return c.TotalTokens
 }
 
-func (u *Usage) GetCost() *float64 {
-	if u == nil {
+func (c *CreateEmbeddingsUsage) GetCost() *float64 {
+	if c == nil {
 		return nil
 	}
-	return u.Cost
+	return c.Cost
 }
 
-// CreateEmbeddingsResponseBody - Embedding response
+// CreateEmbeddingsResponseBody - Embeddings response containing embedding vectors
 type CreateEmbeddingsResponseBody struct {
-	ID     *string                `json:"id,omitzero"`
-	Object Object                 `json:"object"`
-	Data   []CreateEmbeddingsData `json:"data"`
-	Model  string                 `json:"model"`
-	Usage  *Usage                 `json:"usage,omitzero"`
+	// Unique identifier for the embeddings response
+	ID     *string `json:"id,omitzero"`
+	Object Object  `json:"object"`
+	// List of embedding objects
+	Data []CreateEmbeddingsData `json:"data"`
+	// The model used for embeddings
+	Model string `json:"model"`
+	// Token usage statistics
+	Usage *CreateEmbeddingsUsage `json:"usage,omitzero"`
 }
 
 func (c CreateEmbeddingsResponseBody) MarshalJSON() ([]byte, error) {
@@ -742,7 +763,7 @@ func (c *CreateEmbeddingsResponseBody) GetModel() string {
 	return c.Model
 }
 
-func (c *CreateEmbeddingsResponseBody) GetUsage() *Usage {
+func (c *CreateEmbeddingsResponseBody) GetUsage() *CreateEmbeddingsUsage {
 	if c == nil {
 		return nil
 	}

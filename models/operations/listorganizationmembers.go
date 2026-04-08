@@ -4,19 +4,19 @@ package operations
 
 type ListOrganizationMembersRequest struct {
 	// Number of records to skip for pagination
-	Offset *string `queryParam:"style=form,explode=true,name=offset"`
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *string `queryParam:"style=form,explode=true,name=limit"`
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
-func (l *ListOrganizationMembersRequest) GetOffset() *string {
+func (l *ListOrganizationMembersRequest) GetOffset() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Offset
 }
 
-func (l *ListOrganizationMembersRequest) GetLimit() *string {
+func (l *ListOrganizationMembersRequest) GetLimit() *int64 {
 	if l == nil {
 		return nil
 	}
@@ -94,24 +94,37 @@ func (l *ListOrganizationMembersData) GetRole() Role {
 	return l.Role
 }
 
-// ListOrganizationMembersResponse - List of organization members
-type ListOrganizationMembersResponse struct {
+// ListOrganizationMembersResponseBody - List of organization members
+type ListOrganizationMembersResponseBody struct {
 	// List of organization members
 	Data []ListOrganizationMembersData `json:"data"`
 	// Total number of members in the organization
 	TotalCount int64 `json:"total_count"`
 }
 
-func (l *ListOrganizationMembersResponse) GetData() []ListOrganizationMembersData {
+func (l *ListOrganizationMembersResponseBody) GetData() []ListOrganizationMembersData {
 	if l == nil {
 		return []ListOrganizationMembersData{}
 	}
 	return l.Data
 }
 
-func (l *ListOrganizationMembersResponse) GetTotalCount() int64 {
+func (l *ListOrganizationMembersResponseBody) GetTotalCount() int64 {
 	if l == nil {
 		return 0
 	}
 	return l.TotalCount
+}
+
+type ListOrganizationMembersResponse struct {
+	Result ListOrganizationMembersResponseBody
+
+	Next func() (*ListOrganizationMembersResponse, error)
+}
+
+func (l *ListOrganizationMembersResponse) GetResult() ListOrganizationMembersResponseBody {
+	if l == nil {
+		return ListOrganizationMembersResponseBody{}
+	}
+	return l.Result
 }

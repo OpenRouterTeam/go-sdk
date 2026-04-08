@@ -557,7 +557,7 @@ type OpenResponsesResult struct {
 	Reasoning          optionalnullable.OptionalNullable[BaseReasoningConfig]  `json:"reasoning,omitzero"`
 	ServiceTier        optionalnullable.OptionalNullable[string]               `json:"service_tier,omitzero"`
 	Store              *bool                                                   `json:"store,omitzero"`
-	Truncation         optionalnullable.OptionalNullable[TruncationEnum]       `json:"truncation,omitzero"`
+	Truncation         optionalnullable.OptionalNullable[Truncation]           `json:"truncation,omitzero"`
 	// Text output configuration including format and verbosity
 	Text *TextConfig `json:"text,omitzero"`
 }
@@ -797,7 +797,7 @@ func (o *OpenResponsesResult) GetStore() *bool {
 	return o.Store
 }
 
-func (o *OpenResponsesResult) GetTruncation() optionalnullable.OptionalNullable[TruncationEnum] {
+func (o *OpenResponsesResult) GetTruncation() optionalnullable.OptionalNullable[Truncation] {
 	if o == nil {
 		return nil
 	}

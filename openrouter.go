@@ -53,7 +53,7 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-// OpenRouter API: OpenAI-compatible API with additional OpenRouter features.
+// OpenRouter API: OpenAI-compatible API with additional OpenRouter features
 //
 // https://openrouter.ai/docs - OpenRouter Documentation
 type OpenRouter struct {
@@ -82,6 +82,8 @@ type OpenRouter struct {
 	OAuth *OAuth
 	// Text embedding endpoints
 	Embeddings *Embeddings
+	// Reranking endpoints
+	Rerank *Rerank
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -173,9 +175,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.2.0",
+		SDKVersion: "0.3.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.2.0 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.3.0 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -214,6 +216,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Rerank = newRerank(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

@@ -23,12 +23,12 @@ func (c *CreateResponsesResponseBody) GetData() components.StreamEvents {
 	return c.Data
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseCreated() *components.StreamEventsResponseCreated {
-	return c.GetData().StreamEventsResponseCreated
+func (c *CreateResponsesResponseBody) GetDataResponseCreated() *components.OpenResponsesCreatedEvent {
+	return c.GetData().OpenResponsesCreatedEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseInProgress() *components.StreamEventsResponseInProgress {
-	return c.GetData().StreamEventsResponseInProgress
+func (c *CreateResponsesResponseBody) GetDataResponseInProgress() *components.OpenResponsesInProgressEvent {
+	return c.GetData().OpenResponsesInProgressEvent
 }
 
 func (c *CreateResponsesResponseBody) GetDataResponseCompleted() *components.StreamEventsResponseCompleted {

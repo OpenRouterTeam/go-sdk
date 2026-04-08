@@ -53,7 +53,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `includeDisabled`                                        | `*string`                                                | :heavy_minus_sign:                                       | Whether to include disabled API keys in the response     | false                                                    |
-| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of API keys to skip for pagination                | 0                                                        |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of API keys to skip for pagination                | 0                                                        |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
@@ -84,6 +84,8 @@ import(
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"github.com/OpenRouterTeam/go-sdk/types"
 	"log"
 )
 
@@ -96,6 +98,10 @@ func main() {
 
     res, err := s.APIKeys.Create(ctx, operations.CreateKeysRequest{
         Name: "My New API Key",
+        Limit: openrouter.Pointer[float64](50.0),
+        LimitReset: optionalnullable.From(openrouter.Pointer(operations.CreateKeysLimitResetMonthly)),
+        IncludeByokInLimit: openrouter.Pointer(true),
+        ExpiresAt: optionalnullable.From(openrouter.Pointer(types.MustNewTimeFromString("2027-12-31T23:59:59Z"))),
     })
     if err != nil {
         log.Fatal(err)
@@ -143,6 +149,7 @@ import(
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -153,7 +160,13 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.APIKeys.Update(ctx, "f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943", operations.UpdateKeysRequestBody{})
+    res, err := s.APIKeys.Update(ctx, "f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943", operations.UpdateKeysRequestBody{
+        Name: openrouter.Pointer("Updated API Key Name"),
+        Disabled: openrouter.Pointer(false),
+        Limit: openrouter.Pointer[float64](75.0),
+        LimitReset: optionalnullable.From(openrouter.Pointer(operations.UpdateKeysLimitResetDaily)),
+        IncludeByokInLimit: openrouter.Pointer(true),
+    })
     if err != nil {
         log.Fatal(err)
     }
