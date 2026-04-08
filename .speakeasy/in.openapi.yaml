@@ -609,36 +609,75 @@ components:
         - completed
         - incomplete
       example: completed
-    OutputServerToolItem:
+    OutputDatetimeItem:
       type: object
       properties:
-        type:
-          type: string
-          pattern: '^openrouter:'
-          description: Server tool type (e.g. openrouter:datetime, openrouter:web_search)
         id:
           type: string
         status:
           $ref: '#/components/schemas/ToolCallStatus'
+        type:
+          type: string
+          enum:
+            - openrouter:datetime
+        datetime:
+          type: string
+          description: ISO 8601 datetime string
+        timezone:
+          type: string
+          description: IANA timezone name
       required:
-        - type
         - status
-      additionalProperties:
-        nullable: true
-      description: A generic OpenRouter server tool output item
+        - type
+        - datetime
+        - timezone
+      description: An openrouter:datetime server tool output item
+      example:
+        type: openrouter:datetime
+        id: dt_tmp_abc123
+        status: completed
+        datetime: '2026-03-12T14:30:00.000Z'
+        timezone: UTC
+    OutputWebSearchServerToolItem:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/ToolCallStatus'
+        type:
+          type: string
+          enum:
+            - openrouter:web_search
+      required:
+        - status
+        - type
+      description: An openrouter:web_search server tool output item
       example:
         type: openrouter:web_search
         id: ws_tmp_abc123
         status: completed
     OutputItems:
-      anyOf:
+      oneOf:
         - $ref: '#/components/schemas/OutputMessageItem'
         - $ref: '#/components/schemas/OutputReasoningItem'
         - $ref: '#/components/schemas/OutputFunctionCallItem'
         - $ref: '#/components/schemas/OutputWebSearchCallItem'
         - $ref: '#/components/schemas/OutputFileSearchCallItem'
         - $ref: '#/components/schemas/OutputImageGenerationCallItem'
-        - $ref: '#/components/schemas/OutputServerToolItem'
+        - $ref: '#/components/schemas/OutputDatetimeItem'
+        - $ref: '#/components/schemas/OutputWebSearchServerToolItem'
+      discriminator:
+        propertyName: type
+        mapping:
+          message: '#/components/schemas/OutputMessageItem'
+          reasoning: '#/components/schemas/OutputReasoningItem'
+          function_call: '#/components/schemas/OutputFunctionCallItem'
+          web_search_call: '#/components/schemas/OutputWebSearchCallItem'
+          file_search_call: '#/components/schemas/OutputFileSearchCallItem'
+          image_generation_call: '#/components/schemas/OutputImageGenerationCallItem'
+          openrouter:datetime: '#/components/schemas/OutputDatetimeItem'
+          openrouter:web_search: '#/components/schemas/OutputWebSearchServerToolItem'
       description: An output item from the response
       example:
         id: msg-abc123
@@ -4417,35 +4456,6 @@ components:
         output: '{"temperature":72,"conditions":"sunny"}'
         status: completed
       description: The output from a function call execution
-    OutputDatetimeItem:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - openrouter:datetime
-        id:
-          type: string
-        status:
-          $ref: '#/components/schemas/ToolCallStatus'
-        datetime:
-          type: string
-          description: ISO 8601 datetime string
-        timezone:
-          type: string
-          description: IANA timezone name
-      required:
-        - type
-        - status
-        - datetime
-        - timezone
-      description: An openrouter:datetime server tool output item
-      example:
-        type: openrouter:datetime
-        id: dt_tmp_abc123
-        status: completed
-        datetime: '2026-03-12T14:30:00.000Z'
-        timezone: UTC
     Inputs:
       anyOf:
         - type: string
@@ -4507,7 +4517,7 @@ components:
               - $ref: '#/components/schemas/OutputFileSearchCallItem'
               - $ref: '#/components/schemas/OutputImageGenerationCallItem'
               - $ref: '#/components/schemas/OutputDatetimeItem'
-              - $ref: '#/components/schemas/OutputServerToolItem'
+              - $ref: '#/components/schemas/OutputWebSearchServerToolItem'
       description: Input for a response request - can be a string or array of items
       example:
         - role: user
@@ -5863,48 +5873,48 @@ components:
         - enabled
       example:
         enabled: true
-    AnthropicBase64PDFSource:
+    AnthropicBase64PdfSource:
       type: object
       properties:
-        data:
-          type: string
-        media_type:
-          type: string
-          enum:
-            - application/pdf
         type:
           type: string
           enum:
             - base64
-      required:
-        - data
-        - media_type
-        - type
-      example:
-        data: JVBERi0x...
-        media_type: application/pdf
-        type: base64
-    AnthropicPlainTextSourceResponse:
-      type: object
-      properties:
-        data:
-          type: string
         media_type:
           type: string
           enum:
-            - text/plain
+            - application/pdf
+        data:
+          type: string
+      required:
+        - type
+        - media_type
+        - data
+      example:
+        type: base64
+        media_type: application/pdf
+        data: JVBERi0x...
+    AnthropicPlainTextSource:
+      type: object
+      properties:
         type:
           type: string
           enum:
             - text
+        media_type:
+          type: string
+          enum:
+            - text/plain
+        data:
+          type: string
       required:
-        - data
-        - media_type
         - type
+        - media_type
+        - data
       example:
-        data: Hello, world!
-        media_type: text/plain
         type: text
+        media_type: text/plain
+        data: Hello, world!
     AnthropicDocumentBlock:
       type: object
       properties:
@@ -5912,8 +5922,8 @@ components:
           $ref: '#/components/schemas/AnthropicCitationsConfig'
         source:
           anyOf:
-            - $ref: '#/components/schemas/AnthropicBase64PDFSource'
-            - $ref: '#/components/schemas/AnthropicPlainTextSourceResponse'
+            - $ref: '#/components/schemas/AnthropicBase64PdfSource'
+            - $ref: '#/components/schemas/AnthropicPlainTextSource'
         title:
           type: string
           nullable: true
@@ -7688,7 +7698,7 @@ components:
       example:
         max_results: 5
         search_context_size: medium
-    MessagesWebSearchServerTool:
+    OpenRouterWebSearchServerTool:
       type: object
       properties:
         type:
@@ -7810,48 +7820,6 @@ components:
           type: base64
           media_type: image/jpeg
           data: /9j/4AAQ...
-    AnthropicBase64PdfSource:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - base64
-        media_type:
-          type: string
-          enum:
-            - application/pdf
-        data:
-          type: string
-      required:
-        - type
-        - media_type
-        - data
-      example:
-        type: base64
-        media_type: application/pdf
-        data: JVBERi0x...
-    AnthropicPlainTextSource:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - text
-        media_type:
-          type: string
-          enum:
-            - text/plain
-        data:
-          type: string
-      required:
-        - type
-        - media_type
-        - data
-      example:
-        type: text
-        media_type: text/plain
-        data: Hello, world!
     AnthropicUrlPdfSource:
       type: object
       properties:
@@ -8394,7 +8362,7 @@ components:
                   - type
                   - name
               - $ref: '#/components/schemas/DatetimeServerTool'
-              - $ref: '#/components/schemas/MessagesWebSearchServerTool'
+              - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
         tool_choice:
           oneOf:
             - type: object
@@ -9876,23 +9844,6 @@ components:
         - $ref: '#/components/schemas/ChatNamedToolChoice'
       description: Tool choice configuration
       example: auto
-    ChatWebSearchServerTool:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - openrouter:web_search
-        parameters:
-          $ref: '#/components/schemas/WebSearchConfig'
-      required:
-        - type
-      description: 'OpenRouter built-in server tool: searches the web for current information'
-      example:
-        type: openrouter:web_search
-        parameters:
-          engine: auto
-          max_results: 5
     ChatWebSearchShorthand:
       type: object
       properties:
@@ -10001,7 +9952,7 @@ components:
             - type
             - function
         - $ref: '#/components/schemas/DatetimeServerTool'
-        - $ref: '#/components/schemas/ChatWebSearchServerTool'
+        - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
         - $ref: '#/components/schemas/ChatWebSearchShorthand'
       description: Tool definition for function calling (regular function or OpenRouter built-in server tool)
       example:
@@ -10714,6 +10665,7 @@ components:
         - presence_penalty
         - repetition_penalty
         - max_tokens
+        - max_completion_tokens
         - logit_bias
         - logprobs
         - top_logprobs
@@ -13274,10 +13226,10 @@ paths:
       x-speakeasy-name-override: listForUser
       description: >-
         List models filtered by user provider preferences, [privacy
-        settings](https://openrouter.ai/docs/guides/privacy/logging), and
+        settings](https://openrouter.ai/docs/guides/privacy/provider-logging), and
         [guardrails](https://openrouter.ai/docs/guides/features/guardrails). If requesting through
         `eu.openrouter.ai/api/v1/...` the results will be filtered to models that satisfy [EU in-region
-        routing](https://openrouter.ai/docs/guides/privacy/logging#enterprise-eu-in-region-routing).
+        routing](https://openrouter.ai/docs/guides/privacy/provider-logging#enterprise-eu-in-region-routing).
       summary: List models filtered by user provider preferences, privacy settings, and guardrails
       security:
         - bearer: []
@@ -14195,6 +14147,7 @@ paths:
             type: string
             description: Whether to include disabled API keys in the response
             example: 'false'
+            x-openrouter-type: boolean
           required: false
           description: Whether to include disabled API keys in the response
           name: include_disabled
