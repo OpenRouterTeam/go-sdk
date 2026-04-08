@@ -46,7 +46,7 @@ go:
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   forwardCompatibleEnumsByDefault: true
-  forwardCompatibleUnionsByDefault: "false"
+  forwardCompatibleUnionsByDefault: "tagged-only"
   imports:
     option: openapi
     paths:
