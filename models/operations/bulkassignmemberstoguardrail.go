@@ -37,12 +37,12 @@ func (b *BulkAssignMembersToGuardrailRequest) GetRequestBody() BulkAssignMembers
 // BulkAssignMembersToGuardrailResponse - Assignment result
 type BulkAssignMembersToGuardrailResponse struct {
 	// Number of members successfully assigned
-	AssignedCount float64 `json:"assigned_count"`
+	AssignedCount int64 `json:"assigned_count"`
 }
 
-func (b *BulkAssignMembersToGuardrailResponse) GetAssignedCount() float64 {
+func (b *BulkAssignMembersToGuardrailResponse) GetAssignedCount() int64 {
 	if b == nil {
-		return 0.0
+		return 0
 	}
 	return b.AssignedCount
 }

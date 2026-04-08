@@ -13,16 +13,16 @@ import (
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type RateLimit struct {
 	// Number of requests allowed per interval
-	Requests float64 `json:"requests"`
+	Requests int64 `json:"requests"`
 	// Rate limit interval
 	Interval string `json:"interval"`
 	// Note about the rate limit
 	Note string `json:"note"`
 }
 
-func (r *RateLimit) GetRequests() float64 {
+func (r *RateLimit) GetRequests() int64 {
 	if r == nil {
-		return 0.0
+		return 0
 	}
 	return r.Requests
 }
@@ -46,7 +46,7 @@ type GetCurrentKeyData struct {
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
-	Limit *float64 `json:"limit"`
+	Limit float64 `json:"limit"`
 	// Total OpenRouter credit usage (in USD) for the API key
 	Usage float64 `json:"usage"`
 	// OpenRouter credit usage (in USD) for the current UTC day
@@ -65,16 +65,22 @@ type GetCurrentKeyData struct {
 	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
 	// Whether this is a free tier API key
 	IsFreeTier bool `json:"is_free_tier"`
-	// Whether this is a provisioning key
+	// Whether this is a management key
+	IsManagementKey bool `json:"is_management_key"`
+	// Whether this is a management key
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	IsProvisioningKey bool `json:"is_provisioning_key"`
 	// Remaining spending limit in USD
-	LimitRemaining *float64 `json:"limit_remaining"`
+	LimitRemaining float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Whether to include external BYOK usage in the credit limit
 	IncludeByokInLimit bool `json:"include_byok_in_limit"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
+	CreatorUserID *string `json:"creator_user_id"`
 	// Legacy rate limit information about a key. Will always return -1.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -99,9 +105,9 @@ func (g *GetCurrentKeyData) GetLabel() string {
 	return g.Label
 }
 
-func (g *GetCurrentKeyData) GetLimit() *float64 {
+func (g *GetCurrentKeyData) GetLimit() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
 	return g.Limit
 }
@@ -169,6 +175,13 @@ func (g *GetCurrentKeyData) GetIsFreeTier() bool {
 	return g.IsFreeTier
 }
 
+func (g *GetCurrentKeyData) GetIsManagementKey() bool {
+	if g == nil {
+		return false
+	}
+	return g.IsManagementKey
+}
+
 func (g *GetCurrentKeyData) GetIsProvisioningKey() bool {
 	if g == nil {
 		return false
@@ -176,9 +189,9 @@ func (g *GetCurrentKeyData) GetIsProvisioningKey() bool {
 	return g.IsProvisioningKey
 }
 
-func (g *GetCurrentKeyData) GetLimitRemaining() *float64 {
+func (g *GetCurrentKeyData) GetLimitRemaining() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
 	return g.LimitRemaining
 }
@@ -202,6 +215,13 @@ func (g *GetCurrentKeyData) GetExpiresAt() optionalnullable.OptionalNullable[tim
 		return nil
 	}
 	return g.ExpiresAt
+}
+
+func (g *GetCurrentKeyData) GetCreatorUserID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.CreatorUserID
 }
 
 func (g *GetCurrentKeyData) GetRateLimit() RateLimit {

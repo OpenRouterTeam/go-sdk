@@ -21,3 +21,17 @@ outputMessageStatusUnion := components.CreateOutputMessageStatusUnionOutputMessa
 outputMessageStatusUnion := components.CreateOutputMessageStatusUnionOutputMessageStatusInProgress(components.OutputMessageStatusInProgress{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch outputMessageStatusUnion.Type {
+	case components.OutputMessageStatusUnionTypeOutputMessageStatusCompleted:
+		// outputMessageStatusUnion.OutputMessageStatusCompleted is populated
+	case components.OutputMessageStatusUnionTypeOutputMessageStatusIncomplete:
+		// outputMessageStatusUnion.OutputMessageStatusIncomplete is populated
+	case components.OutputMessageStatusUnionTypeOutputMessageStatusInProgress:
+		// outputMessageStatusUnion.OutputMessageStatusInProgress is populated
+}
+```

@@ -1,0 +1,12 @@
+# ChatSystemMessage
+
+System message for setting behavior
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                | Example                                                                                    |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `Role`                                                                                     | [components.ChatSystemMessageRole](../../models/components/chatsystemmessagerole.md)       | :heavy_check_mark:                                                                         | N/A                                                                                        |                                                                                            |
+| `Content`                                                                                  | [components.ChatSystemMessageContent](../../models/components/chatsystemmessagecontent.md) | :heavy_check_mark:                                                                         | System message content                                                                     | You are a helpful assistant.                                                               |
+| `Name`                                                                                     | `*string`                                                                                  | :heavy_minus_sign:                                                                         | Optional name for the system message                                                       | Assistant Config                                                                           |

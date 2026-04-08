@@ -1,0 +1,13 @@
+# WebSearchCallSearchingEvent
+
+Web search call is searching
+
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `Type`                                                                                                   | [components.WebSearchCallSearchingEventType](../../models/components/websearchcallsearchingeventtype.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `ItemID`                                                                                                 | `string`                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `OutputIndex`                                                                                            | `float64`                                                                                                | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `SequenceNumber`                                                                                         | `float64`                                                                                                | :heavy_check_mark:                                                                                       | N/A                                                                                                      |

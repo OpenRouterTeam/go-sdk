@@ -2,26 +2,145 @@
 
 package components
 
-// PDFParserEngine - The engine to use for parsing PDF files.
-type PDFParserEngine string
-
-const (
-	PDFParserEngineMistralOcr PDFParserEngine = "mistral-ocr"
-	PDFParserEnginePdfText    PDFParserEngine = "pdf-text"
-	PDFParserEngineNative     PDFParserEngine = "native"
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-func (e PDFParserEngine) ToPointer() *PDFParserEngine {
+type PDFParserEnginePDFText string
+
+const (
+	PDFParserEnginePDFTextPdfText PDFParserEnginePDFText = "pdf-text"
+)
+
+func (e PDFParserEnginePDFText) ToPointer() *PDFParserEnginePDFText {
+	return &e
+}
+func (e *PDFParserEnginePDFText) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "pdf-text":
+		*e = PDFParserEnginePDFText(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PDFParserEnginePDFText: %v", v)
+	}
+}
+
+type PDFParserEngineEnum string
+
+const (
+	PDFParserEngineEnumMistralOcr   PDFParserEngineEnum = "mistral-ocr"
+	PDFParserEngineEnumNative       PDFParserEngineEnum = "native"
+	PDFParserEngineEnumCloudflareAi PDFParserEngineEnum = "cloudflare-ai"
+)
+
+func (e PDFParserEngineEnum) ToPointer() *PDFParserEngineEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PDFParserEngine) IsExact() bool {
+func (e *PDFParserEngineEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "mistral-ocr", "pdf-text", "native":
+		case "mistral-ocr", "native", "cloudflare-ai":
 			return true
 		}
 	}
 	return false
+}
+
+type PDFParserEngineType string
+
+const (
+	PDFParserEngineTypePDFParserEngineEnum    PDFParserEngineType = "PDFParserEngine_enum"
+	PDFParserEngineTypePDFParserEnginePDFText PDFParserEngineType = "PDFParserEngine_PdfText"
+)
+
+// PDFParserEngine - The engine to use for parsing PDF files. "pdf-text" is deprecated and automatically redirected to "cloudflare-ai".
+type PDFParserEngine struct {
+	PDFParserEngineEnum    *PDFParserEngineEnum    `queryParam:"inline" union:"member"`
+	PDFParserEnginePDFText *PDFParserEnginePDFText `queryParam:"inline" union:"member"`
+
+	Type PDFParserEngineType
+}
+
+func CreatePDFParserEnginePDFParserEngineEnum(pdfParserEngineEnum PDFParserEngineEnum) PDFParserEngine {
+	typ := PDFParserEngineTypePDFParserEngineEnum
+
+	return PDFParserEngine{
+		PDFParserEngineEnum: &pdfParserEngineEnum,
+		Type:                typ,
+	}
+}
+
+func CreatePDFParserEnginePDFParserEnginePDFText(pdfParserEnginePDFText PDFParserEnginePDFText) PDFParserEngine {
+	typ := PDFParserEngineTypePDFParserEnginePDFText
+
+	return PDFParserEngine{
+		PDFParserEnginePDFText: &pdfParserEnginePDFText,
+		Type:                   typ,
+	}
+}
+
+func (u *PDFParserEngine) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var pdfParserEngineEnum PDFParserEngineEnum = PDFParserEngineEnum("")
+	if err := utils.UnmarshalJSON(data, &pdfParserEngineEnum, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PDFParserEngineTypePDFParserEngineEnum,
+			Value: &pdfParserEngineEnum,
+		})
+	}
+
+	var pdfParserEnginePDFText PDFParserEnginePDFText = PDFParserEnginePDFText("")
+	if err := utils.UnmarshalJSON(data, &pdfParserEnginePDFText, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  PDFParserEngineTypePDFParserEnginePDFText,
+			Value: &pdfParserEnginePDFText,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PDFParserEngine", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PDFParserEngine", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(PDFParserEngineType)
+	switch best.Type {
+	case PDFParserEngineTypePDFParserEngineEnum:
+		u.PDFParserEngineEnum = best.Value.(*PDFParserEngineEnum)
+		return nil
+	case PDFParserEngineTypePDFParserEnginePDFText:
+		u.PDFParserEnginePDFText = best.Value.(*PDFParserEnginePDFText)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PDFParserEngine", string(data))
+}
+
+func (u PDFParserEngine) MarshalJSON() ([]byte, error) {
+	if u.PDFParserEngineEnum != nil {
+		return utils.MarshalJSON(u.PDFParserEngineEnum, "", true)
+	}
+
+	if u.PDFParserEnginePDFText != nil {
+		return utils.MarshalJSON(u.PDFParserEnginePDFText, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PDFParserEngine: all fields are null")
 }

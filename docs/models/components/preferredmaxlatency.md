@@ -23,3 +23,17 @@ preferredMaxLatency := components.CreatePreferredMaxLatencyPercentileLatencyCuto
 preferredMaxLatency := components.CreatePreferredMaxLatencyAny(any{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch preferredMaxLatency.Type {
+	case components.PreferredMaxLatencyTypeNumber:
+		// preferredMaxLatency.Number is populated
+	case components.PreferredMaxLatencyTypePercentileLatencyCutoffs:
+		// preferredMaxLatency.PercentileLatencyCutoffs is populated
+	case components.PreferredMaxLatencyTypeAny:
+		// preferredMaxLatency.Any is populated
+}
+```

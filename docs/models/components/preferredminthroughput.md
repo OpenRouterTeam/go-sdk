@@ -23,3 +23,17 @@ preferredMinThroughput := components.CreatePreferredMinThroughputPercentileThrou
 preferredMinThroughput := components.CreatePreferredMinThroughputAny(any{/* values here */})
 ```
 
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch preferredMinThroughput.Type {
+	case components.PreferredMinThroughputTypeNumber:
+		// preferredMinThroughput.Number is populated
+	case components.PreferredMinThroughputTypePercentileThroughputCutoffs:
+		// preferredMinThroughput.PercentileThroughputCutoffs is populated
+	case components.PreferredMinThroughputTypeAny:
+		// preferredMinThroughput.Any is populated
+}
+```

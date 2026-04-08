@@ -1,0 +1,12 @@
+# ChatDeveloperMessage
+
+Developer message
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      | Example                                                                                          |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `Role`                                                                                           | [components.ChatDeveloperMessageRole](../../models/components/chatdevelopermessagerole.md)       | :heavy_check_mark:                                                                               | N/A                                                                                              |                                                                                                  |
+| `Content`                                                                                        | [components.ChatDeveloperMessageContent](../../models/components/chatdevelopermessagecontent.md) | :heavy_check_mark:                                                                               | Developer message content                                                                        | This is a message from the developer.                                                            |
+| `Name`                                                                                           | `*string`                                                                                        | :heavy_minus_sign:                                                                               | Optional name for the developer message                                                          | Developer                                                                                        |

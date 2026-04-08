@@ -18,9 +18,9 @@ const (
 
 // PreferredMaxLatency - Preferred maximum latency (in seconds). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints above the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
 type PreferredMaxLatency struct {
-	Number                   *float64                  `queryParam:"inline,name=PreferredMaxLatency" union:"member"`
-	PercentileLatencyCutoffs *PercentileLatencyCutoffs `queryParam:"inline,name=PreferredMaxLatency" union:"member"`
-	Any                      any                       `queryParam:"inline,name=PreferredMaxLatency" union:"member"`
+	Number                   *float64                  `queryParam:"inline" union:"member"`
+	PercentileLatencyCutoffs *PercentileLatencyCutoffs `queryParam:"inline" union:"member"`
+	Any                      any                       `queryParam:"inline" union:"member"`
 
 	Type PreferredMaxLatencyType
 }

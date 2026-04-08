@@ -1,0 +1,15 @@
+# RefusalDeltaEvent
+
+Event emitted when a refusal delta is streamed
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `Type`                                                                               | [components.RefusalDeltaEventType](../../models/components/refusaldeltaeventtype.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `OutputIndex`                                                                        | `int64`                                                                              | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `ItemID`                                                                             | `string`                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `ContentIndex`                                                                       | `int64`                                                                              | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `Delta`                                                                              | `string`                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `SequenceNumber`                                                                     | `int64`                                                                              | :heavy_check_mark:                                                                   | N/A                                                                                  |

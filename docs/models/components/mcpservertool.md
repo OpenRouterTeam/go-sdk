@@ -1,0 +1,18 @@
+# McpServerTool
+
+MCP (Model Context Protocol) tool configuration
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `Type`                                                                       | [components.McpServerToolType](../../models/components/mcpservertooltype.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+| `ServerLabel`                                                                | `string`                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `AllowedTools`                                                               | optionalnullable.OptionalNullable[`any`]                                     | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `Authorization`                                                              | `*string`                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `ConnectorID`                                                                | [*components.ConnectorID](../../models/components/connectorid.md)            | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `Headers`                                                                    | optionalnullable.OptionalNullable[map[string]`string`]                       | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `RequireApproval`                                                            | optionalnullable.OptionalNullable[`any`]                                     | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `ServerDescription`                                                          | `*string`                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `ServerURL`                                                                  | `*string`                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |

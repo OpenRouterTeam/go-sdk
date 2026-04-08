@@ -4,33 +4,20 @@ package components
 
 // PublicPricing - Pricing information for the model
 type PublicPricing struct {
-	// A value in string format that is a large number
-	Prompt string `json:"prompt"`
-	// A value in string format that is a large number
-	Completion string `json:"completion"`
-	// A value in string format that is a large number
-	Request *string `json:"request,omitzero"`
-	// A value in string format that is a large number
-	Image *string `json:"image,omitzero"`
-	// A value in string format that is a large number
-	ImageToken *string `json:"image_token,omitzero"`
-	// A value in string format that is a large number
-	ImageOutput *string `json:"image_output,omitzero"`
-	// A value in string format that is a large number
-	Audio *string `json:"audio,omitzero"`
-	// A value in string format that is a large number
-	AudioOutput *string `json:"audio_output,omitzero"`
-	// A value in string format that is a large number
-	InputAudioCache *string `json:"input_audio_cache,omitzero"`
-	// A value in string format that is a large number
-	WebSearch *string `json:"web_search,omitzero"`
-	// A value in string format that is a large number
-	InternalReasoning *string `json:"internal_reasoning,omitzero"`
-	// A value in string format that is a large number
-	InputCacheRead *string `json:"input_cache_read,omitzero"`
-	// A value in string format that is a large number
-	InputCacheWrite *string  `json:"input_cache_write,omitzero"`
-	Discount        *float64 `json:"discount,omitzero"`
+	Prompt            string   `json:"prompt"`
+	Completion        string   `json:"completion"`
+	Request           *string  `json:"request,omitzero"`
+	Image             *string  `json:"image,omitzero"`
+	ImageToken        *string  `json:"image_token,omitzero"`
+	ImageOutput       *string  `json:"image_output,omitzero"`
+	Audio             *string  `json:"audio,omitzero"`
+	AudioOutput       *string  `json:"audio_output,omitzero"`
+	InputAudioCache   *string  `json:"input_audio_cache,omitzero"`
+	WebSearch         *string  `json:"web_search,omitzero"`
+	InternalReasoning *string  `json:"internal_reasoning,omitzero"`
+	InputCacheRead    *string  `json:"input_cache_read,omitzero"`
+	InputCacheWrite   *string  `json:"input_cache_write,omitzero"`
+	Discount          *float64 `json:"discount,omitzero"`
 }
 
 func (p *PublicPricing) GetPrompt() string {

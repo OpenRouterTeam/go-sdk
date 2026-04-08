@@ -21,6 +21,7 @@ func (d *DeleteGuardrailRequest) GetID() string {
 // DeleteGuardrailResponse - Guardrail deleted successfully
 type DeleteGuardrailResponse struct {
 	// Confirmation that the guardrail was deleted
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	deleted bool `const:"true" json:"deleted"`
 }
 

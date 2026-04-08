@@ -9,6 +9,6 @@ Legacy rate limit information about a key. Will always return -1.
 
 | Field                                        | Type                                         | Required                                     | Description                                  | Example                                      |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| `Requests`                                   | *float64*                                    | :heavy_check_mark:                           | Number of requests allowed per interval      | 1000                                         |
-| `Interval`                                   | *string*                                     | :heavy_check_mark:                           | Rate limit interval                          | 1h                                           |
-| `Note`                                       | *string*                                     | :heavy_check_mark:                           | Note about the rate limit                    | This field is deprecated and safe to ignore. |
+| `Requests`                                   | `int64`                                      | :heavy_check_mark:                           | Number of requests allowed per interval      | 1000                                         |
+| `Interval`                                   | `string`                                     | :heavy_check_mark:                           | Rate limit interval                          | 1h                                           |
+| `Note`                                       | `string`                                     | :heavy_check_mark:                           | Note about the rate limit                    | This field is deprecated and safe to ignore. |

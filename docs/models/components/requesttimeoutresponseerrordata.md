@@ -5,8 +5,8 @@ Error data for RequestTimeoutResponse
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `Code`             | *int64*            | :heavy_check_mark: | N/A                |
-| `Message`          | *string*           | :heavy_check_mark: | N/A                |
-| `Metadata`         | map[string]*any*   | :heavy_minus_sign: | N/A                |
+| Field                                               | Type                                                | Required                                            | Description                                         |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `Code`                                              | `int64`                                             | :heavy_check_mark:                                  | N/A                                                 |
+| `Message`                                           | `string`                                            | :heavy_check_mark:                                  | N/A                                                 |
+| `Metadata`                                          | optionalnullable.OptionalNullable[map[string]`any`] | :heavy_minus_sign:                                  | N/A                                                 |

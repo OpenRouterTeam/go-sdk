@@ -63,8 +63,8 @@ const (
 )
 
 type Type struct {
-	OpenAIResponsesToolChoiceTypeWebSearchPreview20250311 *OpenAIResponsesToolChoiceTypeWebSearchPreview20250311 `queryParam:"inline,name=type" union:"member"`
-	OpenAIResponsesToolChoiceTypeWebSearchPreview         *OpenAIResponsesToolChoiceTypeWebSearchPreview         `queryParam:"inline,name=type" union:"member"`
+	OpenAIResponsesToolChoiceTypeWebSearchPreview20250311 *OpenAIResponsesToolChoiceTypeWebSearchPreview20250311 `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceTypeWebSearchPreview         *OpenAIResponsesToolChoiceTypeWebSearchPreview         `queryParam:"inline" union:"member"`
 
 	Type TypeType
 }
@@ -296,14 +296,16 @@ const (
 	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceRequired OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Required"
 	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceFunction OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Function"
 	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoice         OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice"
+	OpenAIResponsesToolChoiceUnionTypeToolChoiceAllowed                 OpenAIResponsesToolChoiceUnionType = "ToolChoiceAllowed"
 )
 
 type OpenAIResponsesToolChoiceUnion struct {
-	OpenAIResponsesToolChoiceAuto     *OpenAIResponsesToolChoiceAuto     `queryParam:"inline,name=OpenAIResponsesToolChoice" union:"member"`
-	OpenAIResponsesToolChoiceNone     *OpenAIResponsesToolChoiceNone     `queryParam:"inline,name=OpenAIResponsesToolChoice" union:"member"`
-	OpenAIResponsesToolChoiceRequired *OpenAIResponsesToolChoiceRequired `queryParam:"inline,name=OpenAIResponsesToolChoice" union:"member"`
-	OpenAIResponsesToolChoiceFunction *OpenAIResponsesToolChoiceFunction `queryParam:"inline,name=OpenAIResponsesToolChoice" union:"member"`
-	OpenAIResponsesToolChoice         *OpenAIResponsesToolChoice         `queryParam:"inline,name=OpenAIResponsesToolChoice" union:"member"`
+	OpenAIResponsesToolChoiceAuto     *OpenAIResponsesToolChoiceAuto     `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceNone     *OpenAIResponsesToolChoiceNone     `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceRequired *OpenAIResponsesToolChoiceRequired `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceFunction *OpenAIResponsesToolChoiceFunction `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoice         *OpenAIResponsesToolChoice         `queryParam:"inline" union:"member"`
+	ToolChoiceAllowed                 *ToolChoiceAllowed                 `queryParam:"inline" union:"member"`
 
 	Type OpenAIResponsesToolChoiceUnionType
 }
@@ -353,6 +355,15 @@ func CreateOpenAIResponsesToolChoiceUnionOpenAIResponsesToolChoice(openAIRespons
 	}
 }
 
+func CreateOpenAIResponsesToolChoiceUnionToolChoiceAllowed(toolChoiceAllowed ToolChoiceAllowed) OpenAIResponsesToolChoiceUnion {
+	typ := OpenAIResponsesToolChoiceUnionTypeToolChoiceAllowed
+
+	return OpenAIResponsesToolChoiceUnion{
+		ToolChoiceAllowed: &toolChoiceAllowed,
+		Type:              typ,
+	}
+}
+
 func (u *OpenAIResponsesToolChoiceUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -398,6 +409,14 @@ func (u *OpenAIResponsesToolChoiceUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var toolChoiceAllowed ToolChoiceAllowed = ToolChoiceAllowed{}
+	if err := utils.UnmarshalJSON(data, &toolChoiceAllowed, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OpenAIResponsesToolChoiceUnionTypeToolChoiceAllowed,
+			Value: &toolChoiceAllowed,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenAIResponsesToolChoiceUnion", string(data))
 	}
@@ -426,6 +445,9 @@ func (u *OpenAIResponsesToolChoiceUnion) UnmarshalJSON(data []byte) error {
 	case OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoice:
 		u.OpenAIResponsesToolChoice = best.Value.(*OpenAIResponsesToolChoice)
 		return nil
+	case OpenAIResponsesToolChoiceUnionTypeToolChoiceAllowed:
+		u.ToolChoiceAllowed = best.Value.(*ToolChoiceAllowed)
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenAIResponsesToolChoiceUnion", string(data))
@@ -450,6 +472,10 @@ func (u OpenAIResponsesToolChoiceUnion) MarshalJSON() ([]byte, error) {
 
 	if u.OpenAIResponsesToolChoice != nil {
 		return utils.MarshalJSON(u.OpenAIResponsesToolChoice, "", true)
+	}
+
+	if u.ToolChoiceAllowed != nil {
+		return utils.MarshalJSON(u.ToolChoiceAllowed, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type OpenAIResponsesToolChoiceUnion: all fields are null")

@@ -21,6 +21,7 @@ func (d *DeleteKeysRequest) GetHash() string {
 // DeleteKeysResponse - API key deleted successfully
 type DeleteKeysResponse struct {
 	// Confirmation that the API key was deleted
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	deleted bool `const:"true" json:"deleted"`
 }
 

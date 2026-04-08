@@ -1,0 +1,15 @@
+# RefusalDoneEvent
+
+Event emitted when refusal streaming is complete
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `Type`                                                                             | [components.RefusalDoneEventType](../../models/components/refusaldoneeventtype.md) | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `OutputIndex`                                                                      | `int64`                                                                            | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `ItemID`                                                                           | `string`                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `ContentIndex`                                                                     | `int64`                                                                            | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `Refusal`                                                                          | `string`                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `SequenceNumber`                                                                   | `int64`                                                                            | :heavy_check_mark:                                                                 | N/A                                                                                |

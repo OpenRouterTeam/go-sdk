@@ -38,7 +38,7 @@ type UpdateKeysRequestBody struct {
 	// Whether to disable the API key
 	Disabled *bool `json:"disabled,omitzero"`
 	// New spending limit for the API key in USD
-	Limit optionalnullable.OptionalNullable[float64] `json:"limit,omitzero"`
+	Limit *float64 `json:"limit,omitzero"`
 	// New limit reset type for the API key (daily, weekly, monthly, or null for no reset). Resets happen automatically at midnight UTC, and weeks are Monday through Sunday.
 	LimitReset optionalnullable.OptionalNullable[UpdateKeysLimitReset] `json:"limit_reset,omitzero"`
 	// Whether to include BYOK usage in the limit
@@ -59,7 +59,7 @@ func (u *UpdateKeysRequestBody) GetDisabled() *bool {
 	return u.Disabled
 }
 
-func (u *UpdateKeysRequestBody) GetLimit() optionalnullable.OptionalNullable[float64] {
+func (u *UpdateKeysRequestBody) GetLimit() *float64 {
 	if u == nil {
 		return nil
 	}
@@ -111,9 +111,9 @@ type UpdateKeysData struct {
 	// Whether the API key is disabled
 	Disabled bool `json:"disabled"`
 	// Spending limit for the API key in USD
-	Limit *float64 `json:"limit"`
+	Limit float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining *float64 `json:"limit_remaining"`
+	LimitRemaining float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Whether to include external BYOK usage in the credit limit
@@ -140,6 +140,8 @@ type UpdateKeysData struct {
 	UpdatedAt *string `json:"updated_at"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
+	CreatorUserID *string `json:"creator_user_id"`
 }
 
 func (u UpdateKeysData) MarshalJSON() ([]byte, error) {
@@ -181,16 +183,16 @@ func (u *UpdateKeysData) GetDisabled() bool {
 	return u.Disabled
 }
 
-func (u *UpdateKeysData) GetLimit() *float64 {
+func (u *UpdateKeysData) GetLimit() float64 {
 	if u == nil {
-		return nil
+		return 0.0
 	}
 	return u.Limit
 }
 
-func (u *UpdateKeysData) GetLimitRemaining() *float64 {
+func (u *UpdateKeysData) GetLimitRemaining() float64 {
 	if u == nil {
-		return nil
+		return 0.0
 	}
 	return u.LimitRemaining
 }
@@ -284,6 +286,13 @@ func (u *UpdateKeysData) GetExpiresAt() optionalnullable.OptionalNullable[time.T
 		return nil
 	}
 	return u.ExpiresAt
+}
+
+func (u *UpdateKeysData) GetCreatorUserID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.CreatorUserID
 }
 
 // UpdateKeysResponse - API key updated successfully

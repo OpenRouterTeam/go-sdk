@@ -1,0 +1,11 @@
+# BaseInputsMessage2
+
+
+## Fields
+
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `ID`                                                                                    | `string`                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `Type`                                                                                  | [*components.BaseInputsTypeMessage2](../../models/components/baseinputstypemessage2.md) | :heavy_minus_sign:                                                                      | N/A                                                                                     |
+| `Role`                                                                                  | [components.BaseInputsRoleUnion2](../../models/components/baseinputsroleunion2.md)      | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| `Content`                                                                               | [][components.BaseInputsContent3](../../models/components/baseinputscontent3.md)        | :heavy_check_mark:                                                                      | N/A                                                                                     |

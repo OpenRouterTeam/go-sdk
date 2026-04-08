@@ -1,0 +1,14 @@
+# WebSearchUserLocation
+
+User location information for web search
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `Type`                                                                                        | [*components.WebSearchUserLocationType](../../models/components/websearchuserlocationtype.md) | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `City`                                                                                        | optionalnullable.OptionalNullable[`string`]                                                   | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `Country`                                                                                     | optionalnullable.OptionalNullable[`string`]                                                   | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `Region`                                                                                      | optionalnullable.OptionalNullable[`string`]                                                   | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `Timezone`                                                                                    | optionalnullable.OptionalNullable[`string`]                                                   | :heavy_minus_sign:                                                                            | N/A                                                                                           |

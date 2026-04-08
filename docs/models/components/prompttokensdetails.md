@@ -1,11 +1,13 @@
 # PromptTokensDetails
 
+Detailed prompt token usage
+
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `CachedTokens`     | **float64*         | :heavy_minus_sign: | N/A                |
-| `CacheWriteTokens` | **float64*         | :heavy_minus_sign: | N/A                |
-| `AudioTokens`      | **float64*         | :heavy_minus_sign: | N/A                |
-| `VideoTokens`      | **float64*         | :heavy_minus_sign: | N/A                |
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `CachedTokens`                                                                                   | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Cached prompt tokens                                                                             |
+| `CacheWriteTokens`                                                                               | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Tokens written to cache. Only returned for models with explicit caching and cache write pricing. |
+| `AudioTokens`                                                                                    | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Audio input tokens                                                                               |
+| `VideoTokens`                                                                                    | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Video input tokens                                                                               |

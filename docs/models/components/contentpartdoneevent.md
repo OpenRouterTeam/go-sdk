@@ -1,0 +1,15 @@
+# ContentPartDoneEvent
+
+Event emitted when a content part is complete
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `Type`                                                                                     | [components.ContentPartDoneEventType](../../models/components/contentpartdoneeventtype.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `OutputIndex`                                                                              | `int64`                                                                                    | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `ItemID`                                                                                   | `string`                                                                                   | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `ContentIndex`                                                                             | `int64`                                                                                    | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `Part`                                                                                     | [components.ContentPartDoneEventPart](../../models/components/contentpartdoneeventpart.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `SequenceNumber`                                                                           | `int64`                                                                                    | :heavy_check_mark:                                                                         | N/A                                                                                        |
