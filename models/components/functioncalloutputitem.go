@@ -10,52 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type FunctionCallOutputItemTypeFunctionCallOutput string
-
-const (
-	FunctionCallOutputItemTypeFunctionCallOutputFunctionCallOutput FunctionCallOutputItemTypeFunctionCallOutput = "function_call_output"
-)
-
-func (e FunctionCallOutputItemTypeFunctionCallOutput) ToPointer() *FunctionCallOutputItemTypeFunctionCallOutput {
-	return &e
-}
-func (e *FunctionCallOutputItemTypeFunctionCallOutput) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "function_call_output":
-		*e = FunctionCallOutputItemTypeFunctionCallOutput(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for FunctionCallOutputItemTypeFunctionCallOutput: %v", v)
-	}
-}
-
-type OutputType string
-
-const (
-	OutputTypeInputImage OutputType = "input_image"
-)
-
-func (e OutputType) ToPointer() *OutputType {
-	return &e
-}
-func (e *OutputType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "input_image":
-		*e = OutputType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputType: %v", v)
-	}
-}
-
 type FunctionCallOutputItemDetail string
 
 const (
@@ -79,11 +33,34 @@ func (e *FunctionCallOutputItemDetail) IsExact() bool {
 	return false
 }
 
+type FunctionCallOutputItemOutputType string
+
+const (
+	FunctionCallOutputItemOutputTypeInputImage FunctionCallOutputItemOutputType = "input_image"
+)
+
+func (e FunctionCallOutputItemOutputType) ToPointer() *FunctionCallOutputItemOutputType {
+	return &e
+}
+func (e *FunctionCallOutputItemOutputType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "input_image":
+		*e = FunctionCallOutputItemOutputType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for FunctionCallOutputItemOutputType: %v", v)
+	}
+}
+
 // OutputInputImage - Image input content item
 type OutputInputImage struct {
-	Type     OutputType                                `json:"type"`
 	Detail   FunctionCallOutputItemDetail              `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
+	Type     FunctionCallOutputItemOutputType          `json:"type"`
 }
 
 func (o OutputInputImage) MarshalJSON() ([]byte, error) {
@@ -95,13 +72,6 @@ func (o *OutputInputImage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OutputInputImage) GetType() OutputType {
-	if o == nil {
-		return OutputType("")
-	}
-	return o.Type
 }
 
 func (o *OutputInputImage) GetDetail() FunctionCallOutputItemDetail {
@@ -116,6 +86,13 @@ func (o *OutputInputImage) GetImageURL() optionalnullable.OptionalNullable[strin
 		return nil
 	}
 	return o.ImageURL
+}
+
+func (o *OutputInputImage) GetType() FunctionCallOutputItemOutputType {
+	if o == nil {
+		return FunctionCallOutputItemOutputType("")
+	}
+	return o.Type
 }
 
 type FunctionCallOutputItemOutputUnion1Type string
@@ -149,7 +126,7 @@ func CreateFunctionCallOutputItemOutputUnion1InputText(inputText InputText) Func
 func CreateFunctionCallOutputItemOutputUnion1InputImage(inputImage OutputInputImage) FunctionCallOutputItemOutputUnion1 {
 	typ := FunctionCallOutputItemOutputUnion1TypeInputImage
 
-	typStr := OutputType(typ)
+	typStr := FunctionCallOutputItemOutputType(typ)
 	inputImage.Type = typStr
 
 	return FunctionCallOutputItemOutputUnion1{
@@ -342,13 +319,36 @@ func (e *FunctionCallOutputItemStatus) IsExact() bool {
 	return false
 }
 
+type FunctionCallOutputItemTypeFunctionCallOutput string
+
+const (
+	FunctionCallOutputItemTypeFunctionCallOutputFunctionCallOutput FunctionCallOutputItemTypeFunctionCallOutput = "function_call_output"
+)
+
+func (e FunctionCallOutputItemTypeFunctionCallOutput) ToPointer() *FunctionCallOutputItemTypeFunctionCallOutput {
+	return &e
+}
+func (e *FunctionCallOutputItemTypeFunctionCallOutput) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "function_call_output":
+		*e = FunctionCallOutputItemTypeFunctionCallOutput(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for FunctionCallOutputItemTypeFunctionCallOutput: %v", v)
+	}
+}
+
 // FunctionCallOutputItem - The output from a function call execution
 type FunctionCallOutputItem struct {
-	Type   FunctionCallOutputItemTypeFunctionCallOutput                    `json:"type"`
-	ID     optionalnullable.OptionalNullable[string]                       `json:"id,omitzero"`
 	CallID string                                                          `json:"call_id"`
+	ID     optionalnullable.OptionalNullable[string]                       `json:"id,omitzero"`
 	Output FunctionCallOutputItemOutputUnion2                              `json:"output"`
 	Status optionalnullable.OptionalNullable[FunctionCallOutputItemStatus] `json:"status,omitzero"`
+	Type   FunctionCallOutputItemTypeFunctionCallOutput                    `json:"type"`
 }
 
 func (f FunctionCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -362,11 +362,11 @@ func (f *FunctionCallOutputItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionCallOutputItem) GetType() FunctionCallOutputItemTypeFunctionCallOutput {
+func (f *FunctionCallOutputItem) GetCallID() string {
 	if f == nil {
-		return FunctionCallOutputItemTypeFunctionCallOutput("")
+		return ""
 	}
-	return f.Type
+	return f.CallID
 }
 
 func (f *FunctionCallOutputItem) GetID() optionalnullable.OptionalNullable[string] {
@@ -374,13 +374,6 @@ func (f *FunctionCallOutputItem) GetID() optionalnullable.OptionalNullable[strin
 		return nil
 	}
 	return f.ID
-}
-
-func (f *FunctionCallOutputItem) GetCallID() string {
-	if f == nil {
-		return ""
-	}
-	return f.CallID
 }
 
 func (f *FunctionCallOutputItem) GetOutput() FunctionCallOutputItemOutputUnion2 {
@@ -395,4 +388,11 @@ func (f *FunctionCallOutputItem) GetStatus() optionalnullable.OptionalNullable[F
 		return nil
 	}
 	return f.Status
+}
+
+func (f *FunctionCallOutputItem) GetType() FunctionCallOutputItemTypeFunctionCallOutput {
+	if f == nil {
+		return FunctionCallOutputItemTypeFunctionCallOutput("")
+	}
+	return f.Type
 }

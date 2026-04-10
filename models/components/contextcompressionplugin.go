@@ -32,11 +32,11 @@ func (e *ContextCompressionPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type ContextCompressionPlugin struct {
-	ID ContextCompressionPluginID `json:"id"`
 	// Set to false to disable the context-compression plugin for this request. Defaults to true.
 	Enabled *bool `json:"enabled,omitzero"`
 	// The compression engine to use. Defaults to "middle-out".
-	Engine *ContextCompressionEngine `json:"engine,omitzero"`
+	Engine *ContextCompressionEngine  `json:"engine,omitzero"`
+	ID     ContextCompressionPluginID `json:"id"`
 }
 
 func (c ContextCompressionPlugin) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (c *ContextCompressionPlugin) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ContextCompressionPlugin) GetID() ContextCompressionPluginID {
-	if c == nil {
-		return ContextCompressionPluginID("")
-	}
-	return c.ID
 }
 
 func (c *ContextCompressionPlugin) GetEnabled() *bool {
@@ -69,4 +62,11 @@ func (c *ContextCompressionPlugin) GetEngine() *ContextCompressionEngine {
 		return nil
 	}
 	return c.Engine
+}
+
+func (c *ContextCompressionPlugin) GetID() ContextCompressionPluginID {
+	if c == nil {
+		return ContextCompressionPluginID("")
+	}
+	return c.ID
 }

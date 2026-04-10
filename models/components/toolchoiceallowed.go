@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ToolChoiceAllowedType string
-
-const (
-	ToolChoiceAllowedTypeAllowedTools ToolChoiceAllowedType = "allowed_tools"
-)
-
-func (e ToolChoiceAllowedType) ToPointer() *ToolChoiceAllowedType {
-	return &e
-}
-func (e *ToolChoiceAllowedType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "allowed_tools":
-		*e = ToolChoiceAllowedType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ToolChoiceAllowedType: %v", v)
-	}
-}
-
 type ModeRequired string
 
 const (
@@ -167,11 +144,34 @@ func (u Mode) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Mode: all fields are null")
 }
 
+type ToolChoiceAllowedType string
+
+const (
+	ToolChoiceAllowedTypeAllowedTools ToolChoiceAllowedType = "allowed_tools"
+)
+
+func (e ToolChoiceAllowedType) ToPointer() *ToolChoiceAllowedType {
+	return &e
+}
+func (e *ToolChoiceAllowedType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "allowed_tools":
+		*e = ToolChoiceAllowedType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ToolChoiceAllowedType: %v", v)
+	}
+}
+
 // ToolChoiceAllowed - Constrains the model to a pre-defined set of allowed tools
 type ToolChoiceAllowed struct {
-	Type  ToolChoiceAllowedType `json:"type"`
 	Mode  Mode                  `json:"mode"`
 	Tools []map[string]any      `json:"tools"`
+	Type  ToolChoiceAllowedType `json:"type"`
 }
 
 func (t ToolChoiceAllowed) MarshalJSON() ([]byte, error) {
@@ -183,13 +183,6 @@ func (t *ToolChoiceAllowed) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (t *ToolChoiceAllowed) GetType() ToolChoiceAllowedType {
-	if t == nil {
-		return ToolChoiceAllowedType("")
-	}
-	return t.Type
 }
 
 func (t *ToolChoiceAllowed) GetMode() Mode {
@@ -204,4 +197,11 @@ func (t *ToolChoiceAllowed) GetTools() []map[string]any {
 		return []map[string]any{}
 	}
 	return t.Tools
+}
+
+func (t *ToolChoiceAllowed) GetType() ToolChoiceAllowedType {
+	if t == nil {
+		return ToolChoiceAllowedType("")
+	}
+	return t.Type
 }

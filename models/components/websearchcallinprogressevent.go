@@ -33,10 +33,10 @@ func (e *WebSearchCallInProgressEventType) UnmarshalJSON(data []byte) error {
 
 // WebSearchCallInProgressEvent - Web search call in progress
 type WebSearchCallInProgressEvent struct {
-	Type           WebSearchCallInProgressEventType `json:"type"`
 	ItemID         string                           `json:"item_id"`
 	OutputIndex    int64                            `json:"output_index"`
 	SequenceNumber int64                            `json:"sequence_number"`
+	Type           WebSearchCallInProgressEventType `json:"type"`
 }
 
 func (w WebSearchCallInProgressEvent) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (w *WebSearchCallInProgressEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (w *WebSearchCallInProgressEvent) GetType() WebSearchCallInProgressEventType {
-	if w == nil {
-		return WebSearchCallInProgressEventType("")
-	}
-	return w.Type
 }
 
 func (w *WebSearchCallInProgressEvent) GetItemID() string {
@@ -76,4 +69,11 @@ func (w *WebSearchCallInProgressEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return w.SequenceNumber
+}
+
+func (w *WebSearchCallInProgressEvent) GetType() WebSearchCallInProgressEventType {
+	if w == nil {
+		return WebSearchCallInProgressEventType("")
+	}
+	return w.Type
 }

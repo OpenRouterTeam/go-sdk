@@ -12,15 +12,15 @@ import (
 
 // CreateRerankRequest - Rerank request input
 type CreateRerankRequest struct {
-	// The rerank model to use
-	Model string `json:"model"`
-	// The search query to rerank documents against
-	Query string `json:"query"`
 	// The list of documents to rerank
 	Documents []string `json:"documents"`
-	// Number of most relevant documents to return
-	TopN     *int64                                                            `json:"top_n,omitzero"`
+	// The rerank model to use
+	Model    string                                                            `json:"model"`
 	Provider optionalnullable.OptionalNullable[components.ProviderPreferences] `json:"provider,omitzero"`
+	// The search query to rerank documents against
+	Query string `json:"query"`
+	// Number of most relevant documents to return
+	TopN *int64 `json:"top_n,omitzero"`
 }
 
 func (c CreateRerankRequest) MarshalJSON() ([]byte, error) {
@@ -34,11 +34,25 @@ func (c *CreateRerankRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (c *CreateRerankRequest) GetDocuments() []string {
+	if c == nil {
+		return []string{}
+	}
+	return c.Documents
+}
+
 func (c *CreateRerankRequest) GetModel() string {
 	if c == nil {
 		return ""
 	}
 	return c.Model
+}
+
+func (c *CreateRerankRequest) GetProvider() optionalnullable.OptionalNullable[components.ProviderPreferences] {
+	if c == nil {
+		return nil
+	}
+	return c.Provider
 }
 
 func (c *CreateRerankRequest) GetQuery() string {
@@ -48,25 +62,11 @@ func (c *CreateRerankRequest) GetQuery() string {
 	return c.Query
 }
 
-func (c *CreateRerankRequest) GetDocuments() []string {
-	if c == nil {
-		return []string{}
-	}
-	return c.Documents
-}
-
 func (c *CreateRerankRequest) GetTopN() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.TopN
-}
-
-func (c *CreateRerankRequest) GetProvider() optionalnullable.OptionalNullable[components.ProviderPreferences] {
-	if c == nil {
-		return nil
-	}
-	return c.Provider
 }
 
 // Document - The document object containing the original text
@@ -84,12 +84,19 @@ func (d *Document) GetText() string {
 
 // Result - A single rerank result
 type Result struct {
+	// The document object containing the original text
+	Document Document `json:"document"`
 	// Index of the document in the original input list
 	Index int64 `json:"index"`
 	// Relevance score of the document to the query
 	RelevanceScore float64 `json:"relevance_score"`
-	// The document object containing the original text
-	Document Document `json:"document"`
+}
+
+func (r *Result) GetDocument() Document {
+	if r == nil {
+		return Document{}
+	}
+	return r.Document
 }
 
 func (r *Result) GetIndex() int64 {
@@ -106,28 +113,21 @@ func (r *Result) GetRelevanceScore() float64 {
 	return r.RelevanceScore
 }
 
-func (r *Result) GetDocument() Document {
-	if r == nil {
-		return Document{}
-	}
-	return r.Document
-}
-
 // CreateRerankUsage - Usage statistics
 type CreateRerankUsage struct {
-	// Total number of tokens used
-	TotalTokens *int64 `json:"total_tokens,omitzero"`
-	// Number of search units consumed (Cohere billing)
-	SearchUnits *int64 `json:"search_units,omitzero"`
 	// Cost of the request in credits
 	Cost *float64 `json:"cost,omitzero"`
+	// Number of search units consumed (Cohere billing)
+	SearchUnits *int64 `json:"search_units,omitzero"`
+	// Total number of tokens used
+	TotalTokens *int64 `json:"total_tokens,omitzero"`
 }
 
-func (c *CreateRerankUsage) GetTotalTokens() *int64 {
+func (c *CreateRerankUsage) GetCost() *float64 {
 	if c == nil {
 		return nil
 	}
-	return c.TotalTokens
+	return c.Cost
 }
 
 func (c *CreateRerankUsage) GetSearchUnits() *int64 {
@@ -137,11 +137,11 @@ func (c *CreateRerankUsage) GetSearchUnits() *int64 {
 	return c.SearchUnits
 }
 
-func (c *CreateRerankUsage) GetCost() *float64 {
+func (c *CreateRerankUsage) GetTotalTokens() *int64 {
 	if c == nil {
 		return nil
 	}
-	return c.Cost
+	return c.TotalTokens
 }
 
 // CreateRerankResponseBody - Rerank response containing ranked results

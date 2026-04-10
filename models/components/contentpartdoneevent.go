@@ -9,41 +9,20 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ContentPartDoneEventType string
-
-const (
-	ContentPartDoneEventTypeResponseContentPartDone ContentPartDoneEventType = "response.content_part.done"
-)
-
-func (e ContentPartDoneEventType) ToPointer() *ContentPartDoneEventType {
-	return &e
-}
-func (e *ContentPartDoneEventType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "response.content_part.done":
-		*e = ContentPartDoneEventType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ContentPartDoneEventType: %v", v)
-	}
-}
-
 type ContentPartDoneEventPartType string
 
 const (
 	ContentPartDoneEventPartTypeOutputText    ContentPartDoneEventPartType = "output_text"
 	ContentPartDoneEventPartTypeReasoningText ContentPartDoneEventPartType = "reasoning_text"
 	ContentPartDoneEventPartTypeRefusal       ContentPartDoneEventPartType = "refusal"
+	ContentPartDoneEventPartTypeUnknown       ContentPartDoneEventPartType = "UNKNOWN"
 )
 
 type ContentPartDoneEventPart struct {
 	ResponseOutputText            *ResponseOutputText            `queryParam:"inline" union:"member"`
 	ReasoningTextContent          *ReasoningTextContent          `queryParam:"inline" union:"member"`
 	OpenAIResponsesRefusalContent *OpenAIResponsesRefusalContent `queryParam:"inline" union:"member"`
+	UnknownRaw                    json.RawMessage                `json:"-" union:"unknown"`
 
 	Type ContentPartDoneEventPartType
 }
@@ -84,6 +63,21 @@ func CreateContentPartDoneEventPartRefusal(refusal OpenAIResponsesRefusalContent
 	}
 }
 
+func CreateContentPartDoneEventPartUnknown(raw json.RawMessage) ContentPartDoneEventPart {
+	return ContentPartDoneEventPart{
+		UnknownRaw: raw,
+		Type:       ContentPartDoneEventPartTypeUnknown,
+	}
+}
+
+func (u ContentPartDoneEventPart) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u ContentPartDoneEventPart) IsUnknown() bool {
+	return u.Type == ContentPartDoneEventPartTypeUnknown
+}
+
 func (u *ContentPartDoneEventPart) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -92,7 +86,14 @@ func (u *ContentPartDoneEventPart) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = ContentPartDoneEventPartTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = ContentPartDoneEventPartTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -123,9 +124,12 @@ func (u *ContentPartDoneEventPart) UnmarshalJSON(data []byte) error {
 		u.OpenAIResponsesRefusalContent = openAIResponsesRefusalContent
 		u.Type = ContentPartDoneEventPartTypeRefusal
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = ContentPartDoneEventPartTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ContentPartDoneEventPart", string(data))
 }
 
 func (u ContentPartDoneEventPart) MarshalJSON() ([]byte, error) {
@@ -141,17 +145,43 @@ func (u ContentPartDoneEventPart) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OpenAIResponsesRefusalContent, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type ContentPartDoneEventPart: all fields are null")
+}
+
+type ContentPartDoneEventType string
+
+const (
+	ContentPartDoneEventTypeResponseContentPartDone ContentPartDoneEventType = "response.content_part.done"
+)
+
+func (e ContentPartDoneEventType) ToPointer() *ContentPartDoneEventType {
+	return &e
+}
+func (e *ContentPartDoneEventType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "response.content_part.done":
+		*e = ContentPartDoneEventType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ContentPartDoneEventType: %v", v)
+	}
 }
 
 // ContentPartDoneEvent - Event emitted when a content part is complete
 type ContentPartDoneEvent struct {
-	Type           ContentPartDoneEventType `json:"type"`
-	OutputIndex    int64                    `json:"output_index"`
-	ItemID         string                   `json:"item_id"`
 	ContentIndex   int64                    `json:"content_index"`
+	ItemID         string                   `json:"item_id"`
+	OutputIndex    int64                    `json:"output_index"`
 	Part           ContentPartDoneEventPart `json:"part"`
 	SequenceNumber int64                    `json:"sequence_number"`
+	Type           ContentPartDoneEventType `json:"type"`
 }
 
 func (c ContentPartDoneEvent) MarshalJSON() ([]byte, error) {
@@ -165,18 +195,11 @@ func (c *ContentPartDoneEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ContentPartDoneEvent) GetType() ContentPartDoneEventType {
-	if c == nil {
-		return ContentPartDoneEventType("")
-	}
-	return c.Type
-}
-
-func (c *ContentPartDoneEvent) GetOutputIndex() int64 {
+func (c *ContentPartDoneEvent) GetContentIndex() int64 {
 	if c == nil {
 		return 0
 	}
-	return c.OutputIndex
+	return c.ContentIndex
 }
 
 func (c *ContentPartDoneEvent) GetItemID() string {
@@ -186,11 +209,11 @@ func (c *ContentPartDoneEvent) GetItemID() string {
 	return c.ItemID
 }
 
-func (c *ContentPartDoneEvent) GetContentIndex() int64 {
+func (c *ContentPartDoneEvent) GetOutputIndex() int64 {
 	if c == nil {
 		return 0
 	}
-	return c.ContentIndex
+	return c.OutputIndex
 }
 
 func (c *ContentPartDoneEvent) GetPart() ContentPartDoneEventPart {
@@ -217,4 +240,11 @@ func (c *ContentPartDoneEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return c.SequenceNumber
+}
+
+func (c *ContentPartDoneEvent) GetType() ContentPartDoneEventType {
+	if c == nil {
+		return ContentPartDoneEventType("")
+	}
+	return c.Type
 }

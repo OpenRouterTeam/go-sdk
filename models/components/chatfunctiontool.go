@@ -10,6 +10,57 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// ChatFunctionToolFunctionFunction - Function definition for tool calling
+type ChatFunctionToolFunctionFunction struct {
+	// Function description for the model
+	Description *string `json:"description,omitzero"`
+	// Function name (a-z, A-Z, 0-9, underscores, dashes, max 64 chars)
+	Name string `json:"name"`
+	// Function parameters as JSON Schema object
+	Parameters map[string]any `json:"parameters,omitzero"`
+	// Enable strict schema adherence
+	Strict optionalnullable.OptionalNullable[bool] `json:"strict,omitzero"`
+}
+
+func (c ChatFunctionToolFunctionFunction) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ChatFunctionToolFunctionFunction) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ChatFunctionToolFunctionFunction) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *ChatFunctionToolFunctionFunction) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
+func (c *ChatFunctionToolFunctionFunction) GetParameters() map[string]any {
+	if c == nil {
+		return nil
+	}
+	return c.Parameters
+}
+
+func (c *ChatFunctionToolFunctionFunction) GetStrict() optionalnullable.OptionalNullable[bool] {
+	if c == nil {
+		return nil
+	}
+	return c.Strict
+}
+
 type ChatFunctionToolType string
 
 const (
@@ -33,63 +84,12 @@ func (e *ChatFunctionToolType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// ChatFunctionToolFunctionFunction - Function definition for tool calling
-type ChatFunctionToolFunctionFunction struct {
-	// Function name (a-z, A-Z, 0-9, underscores, dashes, max 64 chars)
-	Name string `json:"name"`
-	// Function description for the model
-	Description *string `json:"description,omitzero"`
-	// Function parameters as JSON Schema object
-	Parameters map[string]any `json:"parameters,omitzero"`
-	// Enable strict schema adherence
-	Strict optionalnullable.OptionalNullable[bool] `json:"strict,omitzero"`
-}
-
-func (c ChatFunctionToolFunctionFunction) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatFunctionToolFunctionFunction) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatFunctionToolFunctionFunction) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChatFunctionToolFunctionFunction) GetDescription() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Description
-}
-
-func (c *ChatFunctionToolFunctionFunction) GetParameters() map[string]any {
-	if c == nil {
-		return nil
-	}
-	return c.Parameters
-}
-
-func (c *ChatFunctionToolFunctionFunction) GetStrict() optionalnullable.OptionalNullable[bool] {
-	if c == nil {
-		return nil
-	}
-	return c.Strict
-}
-
 type ChatFunctionToolFunction struct {
-	Type ChatFunctionToolType `json:"type"`
-	// Function definition for tool calling
-	Function ChatFunctionToolFunctionFunction `json:"function"`
 	// Cache control for the content part
 	CacheControl *ChatContentCacheControl `json:"cache_control,omitzero"`
+	// Function definition for tool calling
+	Function ChatFunctionToolFunctionFunction `json:"function"`
+	Type     ChatFunctionToolType             `json:"type"`
 }
 
 func (c ChatFunctionToolFunction) MarshalJSON() ([]byte, error) {
@@ -103,11 +103,11 @@ func (c *ChatFunctionToolFunction) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatFunctionToolFunction) GetType() ChatFunctionToolType {
+func (c *ChatFunctionToolFunction) GetCacheControl() *ChatContentCacheControl {
 	if c == nil {
-		return ChatFunctionToolType("")
+		return nil
 	}
-	return c.Type
+	return c.CacheControl
 }
 
 func (c *ChatFunctionToolFunction) GetFunction() ChatFunctionToolFunctionFunction {
@@ -117,28 +117,28 @@ func (c *ChatFunctionToolFunction) GetFunction() ChatFunctionToolFunctionFunctio
 	return c.Function
 }
 
-func (c *ChatFunctionToolFunction) GetCacheControl() *ChatContentCacheControl {
+func (c *ChatFunctionToolFunction) GetType() ChatFunctionToolType {
 	if c == nil {
-		return nil
+		return ChatFunctionToolType("")
 	}
-	return c.CacheControl
+	return c.Type
 }
 
 type ChatFunctionToolUnionType string
 
 const (
-	ChatFunctionToolUnionTypeChatFunctionToolFunction ChatFunctionToolUnionType = "ChatFunctionTool_Function"
-	ChatFunctionToolUnionTypeDatetimeServerTool       ChatFunctionToolUnionType = "DatetimeServerTool"
-	ChatFunctionToolUnionTypeChatWebSearchServerTool  ChatFunctionToolUnionType = "ChatWebSearchServerTool"
-	ChatFunctionToolUnionTypeChatWebSearchShorthand   ChatFunctionToolUnionType = "ChatWebSearchShorthand"
+	ChatFunctionToolUnionTypeChatFunctionToolFunction      ChatFunctionToolUnionType = "ChatFunctionTool_Function"
+	ChatFunctionToolUnionTypeDatetimeServerTool            ChatFunctionToolUnionType = "DatetimeServerTool"
+	ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool ChatFunctionToolUnionType = "OpenRouterWebSearchServerTool"
+	ChatFunctionToolUnionTypeChatWebSearchShorthand        ChatFunctionToolUnionType = "ChatWebSearchShorthand"
 )
 
 // ChatFunctionTool - Tool definition for function calling (regular function or OpenRouter built-in server tool)
 type ChatFunctionTool struct {
-	ChatFunctionToolFunction *ChatFunctionToolFunction `queryParam:"inline" union:"member"`
-	DatetimeServerTool       *DatetimeServerTool       `queryParam:"inline" union:"member"`
-	ChatWebSearchServerTool  *ChatWebSearchServerTool  `queryParam:"inline" union:"member"`
-	ChatWebSearchShorthand   *ChatWebSearchShorthand   `queryParam:"inline" union:"member"`
+	ChatFunctionToolFunction      *ChatFunctionToolFunction      `queryParam:"inline" union:"member"`
+	DatetimeServerTool            *DatetimeServerTool            `queryParam:"inline" union:"member"`
+	OpenRouterWebSearchServerTool *OpenRouterWebSearchServerTool `queryParam:"inline" union:"member"`
+	ChatWebSearchShorthand        *ChatWebSearchShorthand        `queryParam:"inline" union:"member"`
 
 	Type ChatFunctionToolUnionType
 }
@@ -161,12 +161,12 @@ func CreateChatFunctionToolDatetimeServerTool(datetimeServerTool DatetimeServerT
 	}
 }
 
-func CreateChatFunctionToolChatWebSearchServerTool(chatWebSearchServerTool ChatWebSearchServerTool) ChatFunctionTool {
-	typ := ChatFunctionToolUnionTypeChatWebSearchServerTool
+func CreateChatFunctionToolOpenRouterWebSearchServerTool(openRouterWebSearchServerTool OpenRouterWebSearchServerTool) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool
 
 	return ChatFunctionTool{
-		ChatWebSearchServerTool: &chatWebSearchServerTool,
-		Type:                    typ,
+		OpenRouterWebSearchServerTool: &openRouterWebSearchServerTool,
+		Type:                          typ,
 	}
 }
 
@@ -200,11 +200,11 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var chatWebSearchServerTool ChatWebSearchServerTool = ChatWebSearchServerTool{}
-	if err := utils.UnmarshalJSON(data, &chatWebSearchServerTool, "", true, nil); err == nil {
+	var openRouterWebSearchServerTool OpenRouterWebSearchServerTool = OpenRouterWebSearchServerTool{}
+	if err := utils.UnmarshalJSON(data, &openRouterWebSearchServerTool, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatFunctionToolUnionTypeChatWebSearchServerTool,
-			Value: &chatWebSearchServerTool,
+			Type:  ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool,
+			Value: &openRouterWebSearchServerTool,
 		})
 	}
 
@@ -235,8 +235,8 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 	case ChatFunctionToolUnionTypeDatetimeServerTool:
 		u.DatetimeServerTool = best.Value.(*DatetimeServerTool)
 		return nil
-	case ChatFunctionToolUnionTypeChatWebSearchServerTool:
-		u.ChatWebSearchServerTool = best.Value.(*ChatWebSearchServerTool)
+	case ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool:
+		u.OpenRouterWebSearchServerTool = best.Value.(*OpenRouterWebSearchServerTool)
 		return nil
 	case ChatFunctionToolUnionTypeChatWebSearchShorthand:
 		u.ChatWebSearchShorthand = best.Value.(*ChatWebSearchShorthand)
@@ -255,8 +255,8 @@ func (u ChatFunctionTool) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
 	}
 
-	if u.ChatWebSearchServerTool != nil {
-		return utils.MarshalJSON(u.ChatWebSearchServerTool, "", true)
+	if u.OpenRouterWebSearchServerTool != nil {
+		return utils.MarshalJSON(u.OpenRouterWebSearchServerTool, "", true)
 	}
 
 	if u.ChatWebSearchShorthand != nil {

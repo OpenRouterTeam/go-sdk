@@ -10,29 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type OutputReasoningItemType string
-
-const (
-	OutputReasoningItemTypeReasoning OutputReasoningItemType = "reasoning"
-)
-
-func (e OutputReasoningItemType) ToPointer() *OutputReasoningItemType {
-	return &e
-}
-func (e *OutputReasoningItemType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "reasoning":
-		*e = OutputReasoningItemType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputReasoningItemType: %v", v)
-	}
-}
-
 type OutputReasoningItemStatusInProgress string
 
 const (
@@ -217,17 +194,40 @@ func (u OutputReasoningItemStatusUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type OutputReasoningItemStatusUnion: all fields are null")
 }
 
+type OutputReasoningItemType string
+
+const (
+	OutputReasoningItemTypeReasoning OutputReasoningItemType = "reasoning"
+)
+
+func (e OutputReasoningItemType) ToPointer() *OutputReasoningItemType {
+	return &e
+}
+func (e *OutputReasoningItemType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "reasoning":
+		*e = OutputReasoningItemType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputReasoningItemType: %v", v)
+	}
+}
+
 // OutputReasoningItem - An output item containing reasoning
 type OutputReasoningItem struct {
-	Type             OutputReasoningItemType                                   `json:"type"`
-	ID               string                                                    `json:"id"`
 	Content          optionalnullable.OptionalNullable[[]ReasoningTextContent] `json:"content,omitzero"`
-	Summary          []ReasoningSummaryText                                    `json:"summary"`
 	EncryptedContent optionalnullable.OptionalNullable[string]                 `json:"encrypted_content,omitzero"`
+	ID               string                                                    `json:"id"`
 	Status           *OutputReasoningItemStatusUnion                           `json:"status,omitzero"`
+	Summary          []ReasoningSummaryText                                    `json:"summary"`
+	Type             OutputReasoningItemType                                   `json:"type"`
+	Format           optionalnullable.OptionalNullable[ReasoningFormat]        `json:"format,omitzero"`
 	// A signature for the reasoning content, used for verification
-	Signature optionalnullable.OptionalNullable[string]          `json:"signature,omitzero"`
-	Format    optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
+	Signature optionalnullable.OptionalNullable[string] `json:"signature,omitzero"`
 }
 
 func (o OutputReasoningItem) MarshalJSON() ([]byte, error) {
@@ -241,32 +241,11 @@ func (o *OutputReasoningItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputReasoningItem) GetType() OutputReasoningItemType {
-	if o == nil {
-		return OutputReasoningItemType("")
-	}
-	return o.Type
-}
-
-func (o *OutputReasoningItem) GetID() string {
-	if o == nil {
-		return ""
-	}
-	return o.ID
-}
-
 func (o *OutputReasoningItem) GetContent() optionalnullable.OptionalNullable[[]ReasoningTextContent] {
 	if o == nil {
 		return nil
 	}
 	return o.Content
-}
-
-func (o *OutputReasoningItem) GetSummary() []ReasoningSummaryText {
-	if o == nil {
-		return []ReasoningSummaryText{}
-	}
-	return o.Summary
 }
 
 func (o *OutputReasoningItem) GetEncryptedContent() optionalnullable.OptionalNullable[string] {
@@ -276,6 +255,13 @@ func (o *OutputReasoningItem) GetEncryptedContent() optionalnullable.OptionalNul
 	return o.EncryptedContent
 }
 
+func (o *OutputReasoningItem) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
+}
+
 func (o *OutputReasoningItem) GetStatus() *OutputReasoningItemStatusUnion {
 	if o == nil {
 		return nil
@@ -283,11 +269,18 @@ func (o *OutputReasoningItem) GetStatus() *OutputReasoningItemStatusUnion {
 	return o.Status
 }
 
-func (o *OutputReasoningItem) GetSignature() optionalnullable.OptionalNullable[string] {
+func (o *OutputReasoningItem) GetSummary() []ReasoningSummaryText {
 	if o == nil {
-		return nil
+		return []ReasoningSummaryText{}
 	}
-	return o.Signature
+	return o.Summary
+}
+
+func (o *OutputReasoningItem) GetType() OutputReasoningItemType {
+	if o == nil {
+		return OutputReasoningItemType("")
+	}
+	return o.Type
 }
 
 func (o *OutputReasoningItem) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
@@ -295,4 +288,11 @@ func (o *OutputReasoningItem) GetFormat() optionalnullable.OptionalNullable[Reas
 		return nil
 	}
 	return o.Format
+}
+
+func (o *OutputReasoningItem) GetSignature() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Signature
 }

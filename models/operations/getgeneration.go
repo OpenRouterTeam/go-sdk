@@ -46,131 +46,89 @@ func (e *APIType) IsExact() bool {
 
 // GetGenerationData - Generation data
 type GetGenerationData struct {
-	// Unique identifier for the generation
-	ID string `json:"id"`
-	// Upstream provider's identifier for this generation
-	UpstreamID *string `json:"upstream_id"`
-	// Total cost of the generation in USD
-	TotalCost float64 `json:"total_cost"`
-	// Discount applied due to caching
-	CacheDiscount float64 `json:"cache_discount"`
-	// Cost charged by the upstream provider
-	UpstreamInferenceCost float64 `json:"upstream_inference_cost"`
-	// ISO 8601 timestamp of when the generation was created
-	CreatedAt string `json:"created_at"`
-	// Model used for the generation
-	Model string `json:"model"`
+	// Type of API used for the generation
+	APIType *APIType `json:"api_type"`
 	// ID of the app that made the request
 	AppID int64 `json:"app_id"`
-	// Whether the response was streamed
-	Streamed *bool `json:"streamed"`
+	// Discount applied due to caching
+	CacheDiscount float64 `json:"cache_discount"`
 	// Whether the generation was cancelled
 	Cancelled *bool `json:"cancelled"`
-	// Name of the provider that served the request
-	ProviderName *string `json:"provider_name"`
-	// Total latency in milliseconds
-	Latency float64 `json:"latency"`
-	// Moderation latency in milliseconds
-	ModerationLatency float64 `json:"moderation_latency"`
-	// Time taken for generation in milliseconds
-	GenerationTime float64 `json:"generation_time"`
+	// ISO 8601 timestamp of when the generation was created
+	CreatedAt string `json:"created_at"`
+	// External user identifier
+	ExternalUser *string `json:"external_user"`
 	// Reason the generation finished
 	FinishReason *string `json:"finish_reason"`
-	// Number of tokens in the prompt
-	TokensPrompt int64 `json:"tokens_prompt"`
-	// Number of tokens in the completion
-	TokensCompletion int64 `json:"tokens_completion"`
-	// Native prompt tokens as reported by provider
-	NativeTokensPrompt int64 `json:"native_tokens_prompt"`
+	// Time taken for generation in milliseconds
+	GenerationTime float64 `json:"generation_time"`
+	// Referer header from the request
+	HTTPReferer *string `json:"http_referer"`
+	// Unique identifier for the generation
+	ID string `json:"id"`
+	// Whether this used bring-your-own-key
+	IsByok bool `json:"is_byok"`
+	// Total latency in milliseconds
+	Latency float64 `json:"latency"`
+	// Model used for the generation
+	Model string `json:"model"`
+	// Moderation latency in milliseconds
+	ModerationLatency float64 `json:"moderation_latency"`
+	// Native finish reason as reported by provider
+	NativeFinishReason *string `json:"native_finish_reason"`
+	// Native cached tokens as reported by provider
+	NativeTokensCached int64 `json:"native_tokens_cached"`
 	// Native completion tokens as reported by provider
 	NativeTokensCompletion int64 `json:"native_tokens_completion"`
 	// Native completion image tokens as reported by provider
 	NativeTokensCompletionImages int64 `json:"native_tokens_completion_images"`
+	// Native prompt tokens as reported by provider
+	NativeTokensPrompt int64 `json:"native_tokens_prompt"`
 	// Native reasoning tokens as reported by provider
 	NativeTokensReasoning int64 `json:"native_tokens_reasoning"`
-	// Native cached tokens as reported by provider
-	NativeTokensCached int64 `json:"native_tokens_cached"`
-	// Number of media items in the prompt
-	NumMediaPrompt int64 `json:"num_media_prompt"`
 	// Number of audio inputs in the prompt
 	NumInputAudioPrompt int64 `json:"num_input_audio_prompt"`
 	// Number of media items in the completion
 	NumMediaCompletion int64 `json:"num_media_completion"`
+	// Number of media items in the prompt
+	NumMediaPrompt int64 `json:"num_media_prompt"`
 	// Number of search results included
 	NumSearchResults int64 `json:"num_search_results"`
 	// Origin URL of the request
 	Origin string `json:"origin"`
-	// Usage amount in USD
-	Usage float64 `json:"usage"`
-	// Whether this used bring-your-own-key
-	IsByok bool `json:"is_byok"`
-	// Native finish reason as reported by provider
-	NativeFinishReason *string `json:"native_finish_reason"`
-	// External user identifier
-	ExternalUser *string `json:"external_user"`
-	// Type of API used for the generation
-	APIType *APIType `json:"api_type"`
-	// Router used for the request (e.g., openrouter/auto)
-	Router *string `json:"router"`
+	// Name of the provider that served the request
+	ProviderName *string `json:"provider_name"`
 	// List of provider responses for this generation, including fallback attempts
 	ProviderResponses []components.ProviderResponse `json:"provider_responses"`
-	// User-Agent header from the request
-	UserAgent *string `json:"user_agent"`
-	// Referer header from the request
-	HTTPReferer *string `json:"http_referer"`
 	// Unique identifier grouping all generations from a single API request
 	RequestID optionalnullable.OptionalNullable[string] `json:"request_id,omitzero"`
+	// Router used for the request (e.g., openrouter/auto)
+	Router *string `json:"router"`
 	// Session identifier grouping multiple generations in the same session
 	SessionID optionalnullable.OptionalNullable[string] `json:"session_id,omitzero"`
+	// Whether the response was streamed
+	Streamed *bool `json:"streamed"`
+	// Number of tokens in the completion
+	TokensCompletion int64 `json:"tokens_completion"`
+	// Number of tokens in the prompt
+	TokensPrompt int64 `json:"tokens_prompt"`
+	// Total cost of the generation in USD
+	TotalCost float64 `json:"total_cost"`
+	// Upstream provider's identifier for this generation
+	UpstreamID *string `json:"upstream_id"`
+	// Cost charged by the upstream provider
+	UpstreamInferenceCost float64 `json:"upstream_inference_cost"`
+	// Usage amount in USD
+	Usage float64 `json:"usage"`
+	// User-Agent header from the request
+	UserAgent *string `json:"user_agent"`
 }
 
-func (g *GetGenerationData) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GetGenerationData) GetUpstreamID() *string {
+func (g *GetGenerationData) GetAPIType() *APIType {
 	if g == nil {
 		return nil
 	}
-	return g.UpstreamID
-}
-
-func (g *GetGenerationData) GetTotalCost() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.TotalCost
-}
-
-func (g *GetGenerationData) GetCacheDiscount() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.CacheDiscount
-}
-
-func (g *GetGenerationData) GetUpstreamInferenceCost() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.UpstreamInferenceCost
-}
-
-func (g *GetGenerationData) GetCreatedAt() string {
-	if g == nil {
-		return ""
-	}
-	return g.CreatedAt
-}
-
-func (g *GetGenerationData) GetModel() string {
-	if g == nil {
-		return ""
-	}
-	return g.Model
+	return g.APIType
 }
 
 func (g *GetGenerationData) GetAppID() int64 {
@@ -180,11 +138,11 @@ func (g *GetGenerationData) GetAppID() int64 {
 	return g.AppID
 }
 
-func (g *GetGenerationData) GetStreamed() *bool {
+func (g *GetGenerationData) GetCacheDiscount() float64 {
 	if g == nil {
-		return nil
+		return 0.0
 	}
-	return g.Streamed
+	return g.CacheDiscount
 }
 
 func (g *GetGenerationData) GetCancelled() *bool {
@@ -194,32 +152,18 @@ func (g *GetGenerationData) GetCancelled() *bool {
 	return g.Cancelled
 }
 
-func (g *GetGenerationData) GetProviderName() *string {
+func (g *GetGenerationData) GetCreatedAt() string {
+	if g == nil {
+		return ""
+	}
+	return g.CreatedAt
+}
+
+func (g *GetGenerationData) GetExternalUser() *string {
 	if g == nil {
 		return nil
 	}
-	return g.ProviderName
-}
-
-func (g *GetGenerationData) GetLatency() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.Latency
-}
-
-func (g *GetGenerationData) GetModerationLatency() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.ModerationLatency
-}
-
-func (g *GetGenerationData) GetGenerationTime() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.GenerationTime
+	return g.ExternalUser
 }
 
 func (g *GetGenerationData) GetFinishReason() *string {
@@ -229,25 +173,67 @@ func (g *GetGenerationData) GetFinishReason() *string {
 	return g.FinishReason
 }
 
-func (g *GetGenerationData) GetTokensPrompt() int64 {
+func (g *GetGenerationData) GetGenerationTime() float64 {
 	if g == nil {
-		return 0
+		return 0.0
 	}
-	return g.TokensPrompt
+	return g.GenerationTime
 }
 
-func (g *GetGenerationData) GetTokensCompletion() int64 {
+func (g *GetGenerationData) GetHTTPReferer() *string {
 	if g == nil {
-		return 0
+		return nil
 	}
-	return g.TokensCompletion
+	return g.HTTPReferer
 }
 
-func (g *GetGenerationData) GetNativeTokensPrompt() int64 {
+func (g *GetGenerationData) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *GetGenerationData) GetIsByok() bool {
+	if g == nil {
+		return false
+	}
+	return g.IsByok
+}
+
+func (g *GetGenerationData) GetLatency() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.Latency
+}
+
+func (g *GetGenerationData) GetModel() string {
+	if g == nil {
+		return ""
+	}
+	return g.Model
+}
+
+func (g *GetGenerationData) GetModerationLatency() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.ModerationLatency
+}
+
+func (g *GetGenerationData) GetNativeFinishReason() *string {
+	if g == nil {
+		return nil
+	}
+	return g.NativeFinishReason
+}
+
+func (g *GetGenerationData) GetNativeTokensCached() int64 {
 	if g == nil {
 		return 0
 	}
-	return g.NativeTokensPrompt
+	return g.NativeTokensCached
 }
 
 func (g *GetGenerationData) GetNativeTokensCompletion() int64 {
@@ -264,25 +250,18 @@ func (g *GetGenerationData) GetNativeTokensCompletionImages() int64 {
 	return g.NativeTokensCompletionImages
 }
 
+func (g *GetGenerationData) GetNativeTokensPrompt() int64 {
+	if g == nil {
+		return 0
+	}
+	return g.NativeTokensPrompt
+}
+
 func (g *GetGenerationData) GetNativeTokensReasoning() int64 {
 	if g == nil {
 		return 0
 	}
 	return g.NativeTokensReasoning
-}
-
-func (g *GetGenerationData) GetNativeTokensCached() int64 {
-	if g == nil {
-		return 0
-	}
-	return g.NativeTokensCached
-}
-
-func (g *GetGenerationData) GetNumMediaPrompt() int64 {
-	if g == nil {
-		return 0
-	}
-	return g.NumMediaPrompt
 }
 
 func (g *GetGenerationData) GetNumInputAudioPrompt() int64 {
@@ -299,6 +278,13 @@ func (g *GetGenerationData) GetNumMediaCompletion() int64 {
 	return g.NumMediaCompletion
 }
 
+func (g *GetGenerationData) GetNumMediaPrompt() int64 {
+	if g == nil {
+		return 0
+	}
+	return g.NumMediaPrompt
+}
+
 func (g *GetGenerationData) GetNumSearchResults() int64 {
 	if g == nil {
 		return 0
@@ -313,46 +299,11 @@ func (g *GetGenerationData) GetOrigin() string {
 	return g.Origin
 }
 
-func (g *GetGenerationData) GetUsage() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.Usage
-}
-
-func (g *GetGenerationData) GetIsByok() bool {
-	if g == nil {
-		return false
-	}
-	return g.IsByok
-}
-
-func (g *GetGenerationData) GetNativeFinishReason() *string {
+func (g *GetGenerationData) GetProviderName() *string {
 	if g == nil {
 		return nil
 	}
-	return g.NativeFinishReason
-}
-
-func (g *GetGenerationData) GetExternalUser() *string {
-	if g == nil {
-		return nil
-	}
-	return g.ExternalUser
-}
-
-func (g *GetGenerationData) GetAPIType() *APIType {
-	if g == nil {
-		return nil
-	}
-	return g.APIType
-}
-
-func (g *GetGenerationData) GetRouter() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Router
+	return g.ProviderName
 }
 
 func (g *GetGenerationData) GetProviderResponses() []components.ProviderResponse {
@@ -362,20 +313,6 @@ func (g *GetGenerationData) GetProviderResponses() []components.ProviderResponse
 	return g.ProviderResponses
 }
 
-func (g *GetGenerationData) GetUserAgent() *string {
-	if g == nil {
-		return nil
-	}
-	return g.UserAgent
-}
-
-func (g *GetGenerationData) GetHTTPReferer() *string {
-	if g == nil {
-		return nil
-	}
-	return g.HTTPReferer
-}
-
 func (g *GetGenerationData) GetRequestID() optionalnullable.OptionalNullable[string] {
 	if g == nil {
 		return nil
@@ -383,11 +320,74 @@ func (g *GetGenerationData) GetRequestID() optionalnullable.OptionalNullable[str
 	return g.RequestID
 }
 
+func (g *GetGenerationData) GetRouter() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Router
+}
+
 func (g *GetGenerationData) GetSessionID() optionalnullable.OptionalNullable[string] {
 	if g == nil {
 		return nil
 	}
 	return g.SessionID
+}
+
+func (g *GetGenerationData) GetStreamed() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Streamed
+}
+
+func (g *GetGenerationData) GetTokensCompletion() int64 {
+	if g == nil {
+		return 0
+	}
+	return g.TokensCompletion
+}
+
+func (g *GetGenerationData) GetTokensPrompt() int64 {
+	if g == nil {
+		return 0
+	}
+	return g.TokensPrompt
+}
+
+func (g *GetGenerationData) GetTotalCost() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.TotalCost
+}
+
+func (g *GetGenerationData) GetUpstreamID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.UpstreamID
+}
+
+func (g *GetGenerationData) GetUpstreamInferenceCost() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.UpstreamInferenceCost
+}
+
+func (g *GetGenerationData) GetUsage() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.Usage
+}
+
+func (g *GetGenerationData) GetUserAgent() *string {
+	if g == nil {
+		return nil
+	}
+	return g.UserAgent
 }
 
 // GetGenerationResponse - Generation response

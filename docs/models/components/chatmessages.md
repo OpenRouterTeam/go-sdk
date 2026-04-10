@@ -5,16 +5,10 @@ Chat completion message with role-based discrimination
 
 ## Supported Types
 
-### ChatSystemMessage
+### ChatAssistantMessage
 
 ```go
-chatMessages := components.CreateChatMessagesSystem(components.ChatSystemMessage{/* values here */})
-```
-
-### ChatUserMessage
-
-```go
-chatMessages := components.CreateChatMessagesUser(components.ChatUserMessage{/* values here */})
+chatMessages := components.CreateChatMessagesAssistant(components.ChatAssistantMessage{/* values here */})
 ```
 
 ### ChatDeveloperMessage
@@ -23,10 +17,10 @@ chatMessages := components.CreateChatMessagesUser(components.ChatUserMessage{/* 
 chatMessages := components.CreateChatMessagesDeveloper(components.ChatDeveloperMessage{/* values here */})
 ```
 
-### ChatAssistantMessage
+### ChatSystemMessage
 
 ```go
-chatMessages := components.CreateChatMessagesAssistant(components.ChatAssistantMessage{/* values here */})
+chatMessages := components.CreateChatMessagesSystem(components.ChatSystemMessage{/* values here */})
 ```
 
 ### ChatToolMessage
@@ -35,21 +29,27 @@ chatMessages := components.CreateChatMessagesAssistant(components.ChatAssistantM
 chatMessages := components.CreateChatMessagesTool(components.ChatToolMessage{/* values here */})
 ```
 
+### ChatUserMessage
+
+```go
+chatMessages := components.CreateChatMessagesUser(components.ChatUserMessage{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
 
 ```go
 switch chatMessages.Type {
-	case components.ChatMessagesTypeSystem:
-		// chatMessages.ChatSystemMessage is populated
-	case components.ChatMessagesTypeUser:
-		// chatMessages.ChatUserMessage is populated
-	case components.ChatMessagesTypeDeveloper:
-		// chatMessages.ChatDeveloperMessage is populated
 	case components.ChatMessagesTypeAssistant:
 		// chatMessages.ChatAssistantMessage is populated
+	case components.ChatMessagesTypeDeveloper:
+		// chatMessages.ChatDeveloperMessage is populated
+	case components.ChatMessagesTypeSystem:
+		// chatMessages.ChatSystemMessage is populated
 	case components.ChatMessagesTypeTool:
 		// chatMessages.ChatToolMessage is populated
+	case components.ChatMessagesTypeUser:
+		// chatMessages.ChatUserMessage is populated
 }
 ```

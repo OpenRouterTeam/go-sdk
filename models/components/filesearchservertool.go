@@ -10,29 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type TypeFileSearch string
-
-const (
-	TypeFileSearchFileSearch TypeFileSearch = "file_search"
-)
-
-func (e TypeFileSearch) ToPointer() *TypeFileSearch {
-	return &e
-}
-func (e *TypeFileSearch) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file_search":
-		*e = TypeFileSearch(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeFileSearch: %v", v)
-	}
-}
-
 type FiltersType string
 
 const (
@@ -494,13 +471,36 @@ func (r *RankingOptions) GetScoreThreshold() *float64 {
 	return r.ScoreThreshold
 }
 
+type TypeFileSearch string
+
+const (
+	TypeFileSearchFileSearch TypeFileSearch = "file_search"
+)
+
+func (e TypeFileSearch) ToPointer() *TypeFileSearch {
+	return &e
+}
+func (e *TypeFileSearch) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "file_search":
+		*e = TypeFileSearch(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeFileSearch: %v", v)
+	}
+}
+
 // FileSearchServerTool - File search tool configuration
 type FileSearchServerTool struct {
-	Type           TypeFileSearch                                  `json:"type"`
-	VectorStoreIds []string                                        `json:"vector_store_ids"`
 	Filters        optionalnullable.OptionalNullable[FiltersUnion] `json:"filters,omitzero"`
 	MaxNumResults  *int64                                          `json:"max_num_results,omitzero"`
 	RankingOptions *RankingOptions                                 `json:"ranking_options,omitzero"`
+	Type           TypeFileSearch                                  `json:"type"`
+	VectorStoreIds []string                                        `json:"vector_store_ids"`
 }
 
 func (f FileSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -512,20 +512,6 @@ func (f *FileSearchServerTool) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (f *FileSearchServerTool) GetType() TypeFileSearch {
-	if f == nil {
-		return TypeFileSearch("")
-	}
-	return f.Type
-}
-
-func (f *FileSearchServerTool) GetVectorStoreIds() []string {
-	if f == nil {
-		return []string{}
-	}
-	return f.VectorStoreIds
 }
 
 func (f *FileSearchServerTool) GetFilters() optionalnullable.OptionalNullable[FiltersUnion] {
@@ -547,4 +533,18 @@ func (f *FileSearchServerTool) GetRankingOptions() *RankingOptions {
 		return nil
 	}
 	return f.RankingOptions
+}
+
+func (f *FileSearchServerTool) GetType() TypeFileSearch {
+	if f == nil {
+		return TypeFileSearch("")
+	}
+	return f.Type
+}
+
+func (f *FileSearchServerTool) GetVectorStoreIds() []string {
+	if f == nil {
+		return []string{}
+	}
+	return f.VectorStoreIds
 }

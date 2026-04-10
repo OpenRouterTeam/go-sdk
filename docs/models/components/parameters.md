@@ -1,4 +1,4 @@
-# WebSearchServerToolOpenRouterParameters
+# Parameters
 
 
 ## Fields

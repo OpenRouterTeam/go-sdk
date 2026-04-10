@@ -33,12 +33,12 @@ func (e *FunctionCallArgsDoneEventType) UnmarshalJSON(data []byte) error {
 
 // FunctionCallArgsDoneEvent - Event emitted when function call arguments streaming is complete
 type FunctionCallArgsDoneEvent struct {
-	Type           FunctionCallArgsDoneEventType `json:"type"`
-	ItemID         string                        `json:"item_id"`
-	OutputIndex    int64                         `json:"output_index"`
-	Name           string                        `json:"name"`
 	Arguments      string                        `json:"arguments"`
+	ItemID         string                        `json:"item_id"`
+	Name           string                        `json:"name"`
+	OutputIndex    int64                         `json:"output_index"`
 	SequenceNumber int64                         `json:"sequence_number"`
+	Type           FunctionCallArgsDoneEventType `json:"type"`
 }
 
 func (f FunctionCallArgsDoneEvent) MarshalJSON() ([]byte, error) {
@@ -52,11 +52,11 @@ func (f *FunctionCallArgsDoneEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionCallArgsDoneEvent) GetType() FunctionCallArgsDoneEventType {
+func (f *FunctionCallArgsDoneEvent) GetArguments() string {
 	if f == nil {
-		return FunctionCallArgsDoneEventType("")
+		return ""
 	}
-	return f.Type
+	return f.Arguments
 }
 
 func (f *FunctionCallArgsDoneEvent) GetItemID() string {
@@ -66,13 +66,6 @@ func (f *FunctionCallArgsDoneEvent) GetItemID() string {
 	return f.ItemID
 }
 
-func (f *FunctionCallArgsDoneEvent) GetOutputIndex() int64 {
-	if f == nil {
-		return 0
-	}
-	return f.OutputIndex
-}
-
 func (f *FunctionCallArgsDoneEvent) GetName() string {
 	if f == nil {
 		return ""
@@ -80,11 +73,11 @@ func (f *FunctionCallArgsDoneEvent) GetName() string {
 	return f.Name
 }
 
-func (f *FunctionCallArgsDoneEvent) GetArguments() string {
+func (f *FunctionCallArgsDoneEvent) GetOutputIndex() int64 {
 	if f == nil {
-		return ""
+		return 0
 	}
-	return f.Arguments
+	return f.OutputIndex
 }
 
 func (f *FunctionCallArgsDoneEvent) GetSequenceNumber() int64 {
@@ -92,4 +85,11 @@ func (f *FunctionCallArgsDoneEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return f.SequenceNumber
+}
+
+func (f *FunctionCallArgsDoneEvent) GetType() FunctionCallArgsDoneEventType {
+	if f == nil {
+		return FunctionCallArgsDoneEventType("")
+	}
+	return f.Type
 }

@@ -33,11 +33,11 @@ func (e *WebSearchUserLocationServerToolType) UnmarshalJSON(data []byte) error {
 
 // WebSearchUserLocationServerTool - Approximate user location for location-biased results.
 type WebSearchUserLocationServerTool struct {
-	Type     *WebSearchUserLocationServerToolType `json:"type,omitzero"`
 	City     *string                              `json:"city,omitzero"`
-	Region   *string                              `json:"region,omitzero"`
 	Country  *string                              `json:"country,omitzero"`
+	Region   *string                              `json:"region,omitzero"`
 	Timezone *string                              `json:"timezone,omitzero"`
+	Type     *WebSearchUserLocationServerToolType `json:"type,omitzero"`
 }
 
 func (w WebSearchUserLocationServerTool) MarshalJSON() ([]byte, error) {
@@ -51,25 +51,11 @@ func (w *WebSearchUserLocationServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (w *WebSearchUserLocationServerTool) GetType() *WebSearchUserLocationServerToolType {
-	if w == nil {
-		return nil
-	}
-	return w.Type
-}
-
 func (w *WebSearchUserLocationServerTool) GetCity() *string {
 	if w == nil {
 		return nil
 	}
 	return w.City
-}
-
-func (w *WebSearchUserLocationServerTool) GetRegion() *string {
-	if w == nil {
-		return nil
-	}
-	return w.Region
 }
 
 func (w *WebSearchUserLocationServerTool) GetCountry() *string {
@@ -79,9 +65,23 @@ func (w *WebSearchUserLocationServerTool) GetCountry() *string {
 	return w.Country
 }
 
+func (w *WebSearchUserLocationServerTool) GetRegion() *string {
+	if w == nil {
+		return nil
+	}
+	return w.Region
+}
+
 func (w *WebSearchUserLocationServerTool) GetTimezone() *string {
 	if w == nil {
 		return nil
 	}
 	return w.Timezone
+}
+
+func (w *WebSearchUserLocationServerTool) GetType() *WebSearchUserLocationServerToolType {
+	if w == nil {
+		return nil
+	}
+	return w.Type
 }

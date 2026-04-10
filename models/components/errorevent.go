@@ -33,11 +33,11 @@ func (e *ErrorEventType) UnmarshalJSON(data []byte) error {
 
 // ErrorEvent - Event emitted when an error occurs during streaming
 type ErrorEvent struct {
-	Type           ErrorEventType `json:"type"`
 	Code           *string        `json:"code"`
 	Message        string         `json:"message"`
 	Param          *string        `json:"param"`
 	SequenceNumber int64          `json:"sequence_number"`
+	Type           ErrorEventType `json:"type"`
 }
 
 func (e ErrorEvent) MarshalJSON() ([]byte, error) {
@@ -49,13 +49,6 @@ func (e *ErrorEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (e *ErrorEvent) GetType() ErrorEventType {
-	if e == nil {
-		return ErrorEventType("")
-	}
-	return e.Type
 }
 
 func (e *ErrorEvent) GetCode() *string {
@@ -84,4 +77,11 @@ func (e *ErrorEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return e.SequenceNumber
+}
+
+func (e *ErrorEvent) GetType() ErrorEventType {
+	if e == nil {
+		return ErrorEventType("")
+	}
+	return e.Type
 }

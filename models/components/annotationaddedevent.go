@@ -33,13 +33,13 @@ func (e *AnnotationAddedEventType) UnmarshalJSON(data []byte) error {
 
 // AnnotationAddedEvent - Event emitted when a text annotation is added to output
 type AnnotationAddedEvent struct {
-	Type            AnnotationAddedEventType  `json:"type"`
-	OutputIndex     int64                     `json:"output_index"`
-	ItemID          string                    `json:"item_id"`
-	ContentIndex    int64                     `json:"content_index"`
-	SequenceNumber  int64                     `json:"sequence_number"`
-	AnnotationIndex int64                     `json:"annotation_index"`
 	Annotation      OpenAIResponsesAnnotation `json:"annotation"`
+	AnnotationIndex int64                     `json:"annotation_index"`
+	ContentIndex    int64                     `json:"content_index"`
+	ItemID          string                    `json:"item_id"`
+	OutputIndex     int64                     `json:"output_index"`
+	SequenceNumber  int64                     `json:"sequence_number"`
+	Type            AnnotationAddedEventType  `json:"type"`
 }
 
 func (a AnnotationAddedEvent) MarshalJSON() ([]byte, error) {
@@ -51,48 +51,6 @@ func (a *AnnotationAddedEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (a *AnnotationAddedEvent) GetType() AnnotationAddedEventType {
-	if a == nil {
-		return AnnotationAddedEventType("")
-	}
-	return a.Type
-}
-
-func (a *AnnotationAddedEvent) GetOutputIndex() int64 {
-	if a == nil {
-		return 0
-	}
-	return a.OutputIndex
-}
-
-func (a *AnnotationAddedEvent) GetItemID() string {
-	if a == nil {
-		return ""
-	}
-	return a.ItemID
-}
-
-func (a *AnnotationAddedEvent) GetContentIndex() int64 {
-	if a == nil {
-		return 0
-	}
-	return a.ContentIndex
-}
-
-func (a *AnnotationAddedEvent) GetSequenceNumber() int64 {
-	if a == nil {
-		return 0
-	}
-	return a.SequenceNumber
-}
-
-func (a *AnnotationAddedEvent) GetAnnotationIndex() int64 {
-	if a == nil {
-		return 0
-	}
-	return a.AnnotationIndex
 }
 
 func (a *AnnotationAddedEvent) GetAnnotation() OpenAIResponsesAnnotation {
@@ -112,4 +70,46 @@ func (a *AnnotationAddedEvent) GetAnnotationURLCitation() *URLCitation {
 
 func (a *AnnotationAddedEvent) GetAnnotationFilePath() *FilePath {
 	return a.GetAnnotation().FilePath
+}
+
+func (a *AnnotationAddedEvent) GetAnnotationIndex() int64 {
+	if a == nil {
+		return 0
+	}
+	return a.AnnotationIndex
+}
+
+func (a *AnnotationAddedEvent) GetContentIndex() int64 {
+	if a == nil {
+		return 0
+	}
+	return a.ContentIndex
+}
+
+func (a *AnnotationAddedEvent) GetItemID() string {
+	if a == nil {
+		return ""
+	}
+	return a.ItemID
+}
+
+func (a *AnnotationAddedEvent) GetOutputIndex() int64 {
+	if a == nil {
+		return 0
+	}
+	return a.OutputIndex
+}
+
+func (a *AnnotationAddedEvent) GetSequenceNumber() int64 {
+	if a == nil {
+		return 0
+	}
+	return a.SequenceNumber
+}
+
+func (a *AnnotationAddedEvent) GetType() AnnotationAddedEventType {
+	if a == nil {
+		return AnnotationAddedEventType("")
+	}
+	return a.Type
 }

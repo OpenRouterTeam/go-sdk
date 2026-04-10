@@ -25,5 +25,7 @@ switch format.Type {
 		// format.FormatText is populated
 	case components.FormatTypeGrammarValue:
 		// format.FormatGrammar is populated
+	default:
+		// Unknown type - use format.GetUnknownRaw() for raw JSON
 }
 ```

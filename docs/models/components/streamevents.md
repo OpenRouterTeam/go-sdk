@@ -5,52 +5,16 @@ Union of all possible event types emitted during response streaming
 
 ## Supported Types
 
-### OpenResponsesCreatedEvent
-
-```go
-streamEvents := components.CreateStreamEventsResponseCreated(components.OpenResponsesCreatedEvent{/* values here */})
-```
-
-### OpenResponsesInProgressEvent
-
-```go
-streamEvents := components.CreateStreamEventsResponseInProgress(components.OpenResponsesInProgressEvent{/* values here */})
-```
-
-### StreamEventsResponseCompleted
-
-```go
-streamEvents := components.CreateStreamEventsResponseCompleted(components.StreamEventsResponseCompleted{/* values here */})
-```
-
-### StreamEventsResponseIncomplete
-
-```go
-streamEvents := components.CreateStreamEventsResponseIncomplete(components.StreamEventsResponseIncomplete{/* values here */})
-```
-
-### StreamEventsResponseFailed
-
-```go
-streamEvents := components.CreateStreamEventsResponseFailed(components.StreamEventsResponseFailed{/* values here */})
-```
-
 ### ErrorEvent
 
 ```go
 streamEvents := components.CreateStreamEventsError(components.ErrorEvent{/* values here */})
 ```
 
-### StreamEventsResponseOutputItemAdded
+### StreamEventsResponseCompleted
 
 ```go
-streamEvents := components.CreateStreamEventsResponseOutputItemAdded(components.StreamEventsResponseOutputItemAdded{/* values here */})
-```
-
-### StreamEventsResponseOutputItemDone
-
-```go
-streamEvents := components.CreateStreamEventsResponseOutputItemDone(components.StreamEventsResponseOutputItemDone{/* values here */})
+streamEvents := components.CreateStreamEventsResponseCompleted(components.StreamEventsResponseCompleted{/* values here */})
 ```
 
 ### ContentPartAddedEvent
@@ -65,34 +29,16 @@ streamEvents := components.CreateStreamEventsResponseContentPartAdded(components
 streamEvents := components.CreateStreamEventsResponseContentPartDone(components.ContentPartDoneEvent{/* values here */})
 ```
 
-### TextDeltaEvent
+### OpenResponsesCreatedEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseOutputTextDelta(components.TextDeltaEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseCreated(components.OpenResponsesCreatedEvent{/* values here */})
 ```
 
-### TextDoneEvent
+### StreamEventsResponseFailed
 
 ```go
-streamEvents := components.CreateStreamEventsResponseOutputTextDone(components.TextDoneEvent{/* values here */})
-```
-
-### RefusalDeltaEvent
-
-```go
-streamEvents := components.CreateStreamEventsResponseRefusalDelta(components.RefusalDeltaEvent{/* values here */})
-```
-
-### RefusalDoneEvent
-
-```go
-streamEvents := components.CreateStreamEventsResponseRefusalDone(components.RefusalDoneEvent{/* values here */})
-```
-
-### AnnotationAddedEvent
-
-```go
-streamEvents := components.CreateStreamEventsResponseOutputTextAnnotationAdded(components.AnnotationAddedEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseFailed(components.StreamEventsResponseFailed{/* values here */})
 ```
 
 ### FunctionCallArgsDeltaEvent
@@ -107,16 +53,70 @@ streamEvents := components.CreateStreamEventsResponseFunctionCallArgumentsDelta(
 streamEvents := components.CreateStreamEventsResponseFunctionCallArgumentsDone(components.FunctionCallArgsDoneEvent{/* values here */})
 ```
 
-### ReasoningDeltaEvent
+### ImageGenCallCompletedEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseReasoningTextDelta(components.ReasoningDeltaEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseImageGenerationCallCompleted(components.ImageGenCallCompletedEvent{/* values here */})
 ```
 
-### ReasoningDoneEvent
+### ImageGenCallGeneratingEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseReasoningTextDone(components.ReasoningDoneEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseImageGenerationCallGenerating(components.ImageGenCallGeneratingEvent{/* values here */})
+```
+
+### ImageGenCallInProgressEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseImageGenerationCallInProgress(components.ImageGenCallInProgressEvent{/* values here */})
+```
+
+### ImageGenCallPartialImageEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseImageGenerationCallPartialImage(components.ImageGenCallPartialImageEvent{/* values here */})
+```
+
+### OpenResponsesInProgressEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseInProgress(components.OpenResponsesInProgressEvent{/* values here */})
+```
+
+### StreamEventsResponseIncomplete
+
+```go
+streamEvents := components.CreateStreamEventsResponseIncomplete(components.StreamEventsResponseIncomplete{/* values here */})
+```
+
+### StreamEventsResponseOutputItemAdded
+
+```go
+streamEvents := components.CreateStreamEventsResponseOutputItemAdded(components.StreamEventsResponseOutputItemAdded{/* values here */})
+```
+
+### StreamEventsResponseOutputItemDone
+
+```go
+streamEvents := components.CreateStreamEventsResponseOutputItemDone(components.StreamEventsResponseOutputItemDone{/* values here */})
+```
+
+### AnnotationAddedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseOutputTextAnnotationAdded(components.AnnotationAddedEvent{/* values here */})
+```
+
+### TextDeltaEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseOutputTextDelta(components.TextDeltaEvent{/* values here */})
+```
+
+### TextDoneEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseOutputTextDone(components.TextDoneEvent{/* values here */})
 ```
 
 ### ReasoningSummaryPartAddedEvent
@@ -143,28 +143,34 @@ streamEvents := components.CreateStreamEventsResponseReasoningSummaryTextDelta(c
 streamEvents := components.CreateStreamEventsResponseReasoningSummaryTextDone(components.ReasoningSummaryTextDoneEvent{/* values here */})
 ```
 
-### ImageGenCallInProgressEvent
+### ReasoningDeltaEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseImageGenerationCallInProgress(components.ImageGenCallInProgressEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseReasoningTextDelta(components.ReasoningDeltaEvent{/* values here */})
 ```
 
-### ImageGenCallGeneratingEvent
+### ReasoningDoneEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseImageGenerationCallGenerating(components.ImageGenCallGeneratingEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseReasoningTextDone(components.ReasoningDoneEvent{/* values here */})
 ```
 
-### ImageGenCallPartialImageEvent
+### RefusalDeltaEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseImageGenerationCallPartialImage(components.ImageGenCallPartialImageEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseRefusalDelta(components.RefusalDeltaEvent{/* values here */})
 ```
 
-### ImageGenCallCompletedEvent
+### RefusalDoneEvent
 
 ```go
-streamEvents := components.CreateStreamEventsResponseImageGenerationCallCompleted(components.ImageGenCallCompletedEvent{/* values here */})
+streamEvents := components.CreateStreamEventsResponseRefusalDone(components.RefusalDoneEvent{/* values here */})
+```
+
+### WebSearchCallCompletedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseWebSearchCallCompleted(components.WebSearchCallCompletedEvent{/* values here */})
 ```
 
 ### WebSearchCallInProgressEvent
@@ -179,56 +185,50 @@ streamEvents := components.CreateStreamEventsResponseWebSearchCallInProgress(com
 streamEvents := components.CreateStreamEventsResponseWebSearchCallSearching(components.WebSearchCallSearchingEvent{/* values here */})
 ```
 
-### WebSearchCallCompletedEvent
-
-```go
-streamEvents := components.CreateStreamEventsResponseWebSearchCallCompleted(components.WebSearchCallCompletedEvent{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
 
 ```go
 switch streamEvents.Type {
-	case components.StreamEventsTypeResponseCreated:
-		// streamEvents.OpenResponsesCreatedEvent is populated
-	case components.StreamEventsTypeResponseInProgress:
-		// streamEvents.OpenResponsesInProgressEvent is populated
-	case components.StreamEventsTypeResponseCompleted:
-		// streamEvents.StreamEventsResponseCompleted is populated
-	case components.StreamEventsTypeResponseIncomplete:
-		// streamEvents.StreamEventsResponseIncomplete is populated
-	case components.StreamEventsTypeResponseFailed:
-		// streamEvents.StreamEventsResponseFailed is populated
 	case components.StreamEventsTypeError:
 		// streamEvents.ErrorEvent is populated
-	case components.StreamEventsTypeResponseOutputItemAdded:
-		// streamEvents.StreamEventsResponseOutputItemAdded is populated
-	case components.StreamEventsTypeResponseOutputItemDone:
-		// streamEvents.StreamEventsResponseOutputItemDone is populated
+	case components.StreamEventsTypeResponseCompleted:
+		// streamEvents.StreamEventsResponseCompleted is populated
 	case components.StreamEventsTypeResponseContentPartAdded:
 		// streamEvents.ContentPartAddedEvent is populated
 	case components.StreamEventsTypeResponseContentPartDone:
 		// streamEvents.ContentPartDoneEvent is populated
-	case components.StreamEventsTypeResponseOutputTextDelta:
-		// streamEvents.TextDeltaEvent is populated
-	case components.StreamEventsTypeResponseOutputTextDone:
-		// streamEvents.TextDoneEvent is populated
-	case components.StreamEventsTypeResponseRefusalDelta:
-		// streamEvents.RefusalDeltaEvent is populated
-	case components.StreamEventsTypeResponseRefusalDone:
-		// streamEvents.RefusalDoneEvent is populated
-	case components.StreamEventsTypeResponseOutputTextAnnotationAdded:
-		// streamEvents.AnnotationAddedEvent is populated
+	case components.StreamEventsTypeResponseCreated:
+		// streamEvents.OpenResponsesCreatedEvent is populated
+	case components.StreamEventsTypeResponseFailed:
+		// streamEvents.StreamEventsResponseFailed is populated
 	case components.StreamEventsTypeResponseFunctionCallArgumentsDelta:
 		// streamEvents.FunctionCallArgsDeltaEvent is populated
 	case components.StreamEventsTypeResponseFunctionCallArgumentsDone:
 		// streamEvents.FunctionCallArgsDoneEvent is populated
-	case components.StreamEventsTypeResponseReasoningTextDelta:
-		// streamEvents.ReasoningDeltaEvent is populated
-	case components.StreamEventsTypeResponseReasoningTextDone:
-		// streamEvents.ReasoningDoneEvent is populated
+	case components.StreamEventsTypeResponseImageGenerationCallCompleted:
+		// streamEvents.ImageGenCallCompletedEvent is populated
+	case components.StreamEventsTypeResponseImageGenerationCallGenerating:
+		// streamEvents.ImageGenCallGeneratingEvent is populated
+	case components.StreamEventsTypeResponseImageGenerationCallInProgress:
+		// streamEvents.ImageGenCallInProgressEvent is populated
+	case components.StreamEventsTypeResponseImageGenerationCallPartialImage:
+		// streamEvents.ImageGenCallPartialImageEvent is populated
+	case components.StreamEventsTypeResponseInProgress:
+		// streamEvents.OpenResponsesInProgressEvent is populated
+	case components.StreamEventsTypeResponseIncomplete:
+		// streamEvents.StreamEventsResponseIncomplete is populated
+	case components.StreamEventsTypeResponseOutputItemAdded:
+		// streamEvents.StreamEventsResponseOutputItemAdded is populated
+	case components.StreamEventsTypeResponseOutputItemDone:
+		// streamEvents.StreamEventsResponseOutputItemDone is populated
+	case components.StreamEventsTypeResponseOutputTextAnnotationAdded:
+		// streamEvents.AnnotationAddedEvent is populated
+	case components.StreamEventsTypeResponseOutputTextDelta:
+		// streamEvents.TextDeltaEvent is populated
+	case components.StreamEventsTypeResponseOutputTextDone:
+		// streamEvents.TextDoneEvent is populated
 	case components.StreamEventsTypeResponseReasoningSummaryPartAdded:
 		// streamEvents.ReasoningSummaryPartAddedEvent is populated
 	case components.StreamEventsTypeResponseReasoningSummaryPartDone:
@@ -237,19 +237,21 @@ switch streamEvents.Type {
 		// streamEvents.ReasoningSummaryTextDeltaEvent is populated
 	case components.StreamEventsTypeResponseReasoningSummaryTextDone:
 		// streamEvents.ReasoningSummaryTextDoneEvent is populated
-	case components.StreamEventsTypeResponseImageGenerationCallInProgress:
-		// streamEvents.ImageGenCallInProgressEvent is populated
-	case components.StreamEventsTypeResponseImageGenerationCallGenerating:
-		// streamEvents.ImageGenCallGeneratingEvent is populated
-	case components.StreamEventsTypeResponseImageGenerationCallPartialImage:
-		// streamEvents.ImageGenCallPartialImageEvent is populated
-	case components.StreamEventsTypeResponseImageGenerationCallCompleted:
-		// streamEvents.ImageGenCallCompletedEvent is populated
+	case components.StreamEventsTypeResponseReasoningTextDelta:
+		// streamEvents.ReasoningDeltaEvent is populated
+	case components.StreamEventsTypeResponseReasoningTextDone:
+		// streamEvents.ReasoningDoneEvent is populated
+	case components.StreamEventsTypeResponseRefusalDelta:
+		// streamEvents.RefusalDeltaEvent is populated
+	case components.StreamEventsTypeResponseRefusalDone:
+		// streamEvents.RefusalDoneEvent is populated
+	case components.StreamEventsTypeResponseWebSearchCallCompleted:
+		// streamEvents.WebSearchCallCompletedEvent is populated
 	case components.StreamEventsTypeResponseWebSearchCallInProgress:
 		// streamEvents.WebSearchCallInProgressEvent is populated
 	case components.StreamEventsTypeResponseWebSearchCallSearching:
 		// streamEvents.WebSearchCallSearchingEvent is populated
-	case components.StreamEventsTypeResponseWebSearchCallCompleted:
-		// streamEvents.WebSearchCallCompletedEvent is populated
+	default:
+		// Unknown type - use streamEvents.GetUnknownRaw() for raw JSON
 }
 ```

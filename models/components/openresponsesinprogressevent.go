@@ -33,10 +33,10 @@ func (e *OpenResponsesInProgressEventType) UnmarshalJSON(data []byte) error {
 
 // OpenResponsesInProgressEvent - Event emitted when a response is in progress
 type OpenResponsesInProgressEvent struct {
-	Type OpenResponsesInProgressEventType `json:"type"`
 	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
+	Response       OpenResponsesResult              `json:"response"`
+	SequenceNumber int64                            `json:"sequence_number"`
+	Type           OpenResponsesInProgressEventType `json:"type"`
 }
 
 func (o OpenResponsesInProgressEvent) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (o *OpenResponsesInProgressEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OpenResponsesInProgressEvent) GetType() OpenResponsesInProgressEventType {
-	if o == nil {
-		return OpenResponsesInProgressEventType("")
-	}
-	return o.Type
 }
 
 func (o *OpenResponsesInProgressEvent) GetResponse() OpenResponsesResult {
@@ -69,4 +62,11 @@ func (o *OpenResponsesInProgressEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return o.SequenceNumber
+}
+
+func (o *OpenResponsesInProgressEvent) GetType() OpenResponsesInProgressEventType {
+	if o == nil {
+		return OpenResponsesInProgressEventType("")
+	}
+	return o.Type
 }

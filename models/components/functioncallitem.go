@@ -33,12 +33,12 @@ func (e *FunctionCallItemType) UnmarshalJSON(data []byte) error {
 
 // FunctionCallItem - A function call initiated by the model
 type FunctionCallItem struct {
-	Type      FunctionCallItemType `json:"type"`
-	CallID    string               `json:"call_id"`
-	Name      string               `json:"name"`
 	Arguments string               `json:"arguments"`
+	CallID    string               `json:"call_id"`
 	ID        string               `json:"id"`
+	Name      string               `json:"name"`
 	Status    *ToolCallStatus      `json:"status,omitzero"`
+	Type      FunctionCallItemType `json:"type"`
 }
 
 func (f FunctionCallItem) MarshalJSON() ([]byte, error) {
@@ -52,11 +52,11 @@ func (f *FunctionCallItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionCallItem) GetType() FunctionCallItemType {
+func (f *FunctionCallItem) GetArguments() string {
 	if f == nil {
-		return FunctionCallItemType("")
+		return ""
 	}
-	return f.Type
+	return f.Arguments
 }
 
 func (f *FunctionCallItem) GetCallID() string {
@@ -66,20 +66,6 @@ func (f *FunctionCallItem) GetCallID() string {
 	return f.CallID
 }
 
-func (f *FunctionCallItem) GetName() string {
-	if f == nil {
-		return ""
-	}
-	return f.Name
-}
-
-func (f *FunctionCallItem) GetArguments() string {
-	if f == nil {
-		return ""
-	}
-	return f.Arguments
-}
-
 func (f *FunctionCallItem) GetID() string {
 	if f == nil {
 		return ""
@@ -87,9 +73,23 @@ func (f *FunctionCallItem) GetID() string {
 	return f.ID
 }
 
+func (f *FunctionCallItem) GetName() string {
+	if f == nil {
+		return ""
+	}
+	return f.Name
+}
+
 func (f *FunctionCallItem) GetStatus() *ToolCallStatus {
 	if f == nil {
 		return nil
 	}
 	return f.Status
+}
+
+func (f *FunctionCallItem) GetType() FunctionCallItemType {
+	if f == nil {
+		return FunctionCallItemType("")
+	}
+	return f.Type
 }

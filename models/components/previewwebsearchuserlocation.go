@@ -33,11 +33,11 @@ func (e *PreviewWebSearchUserLocationType) UnmarshalJSON(data []byte) error {
 }
 
 type PreviewWebSearchUserLocation struct {
-	Type     PreviewWebSearchUserLocationType          `json:"type"`
 	City     optionalnullable.OptionalNullable[string] `json:"city,omitzero"`
 	Country  optionalnullable.OptionalNullable[string] `json:"country,omitzero"`
 	Region   optionalnullable.OptionalNullable[string] `json:"region,omitzero"`
 	Timezone optionalnullable.OptionalNullable[string] `json:"timezone,omitzero"`
+	Type     PreviewWebSearchUserLocationType          `json:"type"`
 }
 
 func (p PreviewWebSearchUserLocation) MarshalJSON() ([]byte, error) {
@@ -49,13 +49,6 @@ func (p *PreviewWebSearchUserLocation) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (p *PreviewWebSearchUserLocation) GetType() PreviewWebSearchUserLocationType {
-	if p == nil {
-		return PreviewWebSearchUserLocationType("")
-	}
-	return p.Type
 }
 
 func (p *PreviewWebSearchUserLocation) GetCity() optionalnullable.OptionalNullable[string] {
@@ -84,4 +77,11 @@ func (p *PreviewWebSearchUserLocation) GetTimezone() optionalnullable.OptionalNu
 		return nil
 	}
 	return p.Timezone
+}
+
+func (p *PreviewWebSearchUserLocation) GetType() PreviewWebSearchUserLocationType {
+	if p == nil {
+		return PreviewWebSearchUserLocationType("")
+	}
+	return p.Type
 }

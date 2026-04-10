@@ -51,23 +51,23 @@ func (e *ModelArchitectureInstructType) IsExact() bool {
 
 // ModelArchitecture - Model architecture information
 type ModelArchitecture struct {
-	// Tokenizer type used by the model
-	Tokenizer *ModelGroup `json:"tokenizer,omitzero"`
+	// Supported input modalities
+	InputModalities []InputModality `json:"input_modalities"`
 	// Instruction format type
 	InstructType optionalnullable.OptionalNullable[ModelArchitectureInstructType] `json:"instruct_type,omitzero"`
 	// Primary modality of the model
 	Modality *string `json:"modality"`
-	// Supported input modalities
-	InputModalities []InputModality `json:"input_modalities"`
 	// Supported output modalities
 	OutputModalities []OutputModality `json:"output_modalities"`
+	// Tokenizer type used by the model
+	Tokenizer *ModelGroup `json:"tokenizer,omitzero"`
 }
 
-func (m *ModelArchitecture) GetTokenizer() *ModelGroup {
+func (m *ModelArchitecture) GetInputModalities() []InputModality {
 	if m == nil {
-		return nil
+		return []InputModality{}
 	}
-	return m.Tokenizer
+	return m.InputModalities
 }
 
 func (m *ModelArchitecture) GetInstructType() optionalnullable.OptionalNullable[ModelArchitectureInstructType] {
@@ -84,16 +84,16 @@ func (m *ModelArchitecture) GetModality() *string {
 	return m.Modality
 }
 
-func (m *ModelArchitecture) GetInputModalities() []InputModality {
-	if m == nil {
-		return []InputModality{}
-	}
-	return m.InputModalities
-}
-
 func (m *ModelArchitecture) GetOutputModalities() []OutputModality {
 	if m == nil {
 		return []OutputModality{}
 	}
 	return m.OutputModalities
+}
+
+func (m *ModelArchitecture) GetTokenizer() *ModelGroup {
+	if m == nil {
+		return nil
+	}
+	return m.Tokenizer
 }

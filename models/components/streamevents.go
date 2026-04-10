@@ -12,36 +12,37 @@ import (
 type StreamEventsType string
 
 const (
-	StreamEventsTypeResponseCreated                         StreamEventsType = "response.created"
-	StreamEventsTypeResponseInProgress                      StreamEventsType = "response.in_progress"
-	StreamEventsTypeResponseCompleted                       StreamEventsType = "response.completed"
-	StreamEventsTypeResponseIncomplete                      StreamEventsType = "response.incomplete"
-	StreamEventsTypeResponseFailed                          StreamEventsType = "response.failed"
 	StreamEventsTypeError                                   StreamEventsType = "error"
-	StreamEventsTypeResponseOutputItemAdded                 StreamEventsType = "response.output_item.added"
-	StreamEventsTypeResponseOutputItemDone                  StreamEventsType = "response.output_item.done"
+	StreamEventsTypeResponseCompleted                       StreamEventsType = "response.completed"
 	StreamEventsTypeResponseContentPartAdded                StreamEventsType = "response.content_part.added"
 	StreamEventsTypeResponseContentPartDone                 StreamEventsType = "response.content_part.done"
-	StreamEventsTypeResponseOutputTextDelta                 StreamEventsType = "response.output_text.delta"
-	StreamEventsTypeResponseOutputTextDone                  StreamEventsType = "response.output_text.done"
-	StreamEventsTypeResponseRefusalDelta                    StreamEventsType = "response.refusal.delta"
-	StreamEventsTypeResponseRefusalDone                     StreamEventsType = "response.refusal.done"
-	StreamEventsTypeResponseOutputTextAnnotationAdded       StreamEventsType = "response.output_text.annotation.added"
+	StreamEventsTypeResponseCreated                         StreamEventsType = "response.created"
+	StreamEventsTypeResponseFailed                          StreamEventsType = "response.failed"
 	StreamEventsTypeResponseFunctionCallArgumentsDelta      StreamEventsType = "response.function_call_arguments.delta"
 	StreamEventsTypeResponseFunctionCallArgumentsDone       StreamEventsType = "response.function_call_arguments.done"
-	StreamEventsTypeResponseReasoningTextDelta              StreamEventsType = "response.reasoning_text.delta"
-	StreamEventsTypeResponseReasoningTextDone               StreamEventsType = "response.reasoning_text.done"
+	StreamEventsTypeResponseImageGenerationCallCompleted    StreamEventsType = "response.image_generation_call.completed"
+	StreamEventsTypeResponseImageGenerationCallGenerating   StreamEventsType = "response.image_generation_call.generating"
+	StreamEventsTypeResponseImageGenerationCallInProgress   StreamEventsType = "response.image_generation_call.in_progress"
+	StreamEventsTypeResponseImageGenerationCallPartialImage StreamEventsType = "response.image_generation_call.partial_image"
+	StreamEventsTypeResponseInProgress                      StreamEventsType = "response.in_progress"
+	StreamEventsTypeResponseIncomplete                      StreamEventsType = "response.incomplete"
+	StreamEventsTypeResponseOutputItemAdded                 StreamEventsType = "response.output_item.added"
+	StreamEventsTypeResponseOutputItemDone                  StreamEventsType = "response.output_item.done"
+	StreamEventsTypeResponseOutputTextAnnotationAdded       StreamEventsType = "response.output_text.annotation.added"
+	StreamEventsTypeResponseOutputTextDelta                 StreamEventsType = "response.output_text.delta"
+	StreamEventsTypeResponseOutputTextDone                  StreamEventsType = "response.output_text.done"
 	StreamEventsTypeResponseReasoningSummaryPartAdded       StreamEventsType = "response.reasoning_summary_part.added"
 	StreamEventsTypeResponseReasoningSummaryPartDone        StreamEventsType = "response.reasoning_summary_part.done"
 	StreamEventsTypeResponseReasoningSummaryTextDelta       StreamEventsType = "response.reasoning_summary_text.delta"
 	StreamEventsTypeResponseReasoningSummaryTextDone        StreamEventsType = "response.reasoning_summary_text.done"
-	StreamEventsTypeResponseImageGenerationCallInProgress   StreamEventsType = "response.image_generation_call.in_progress"
-	StreamEventsTypeResponseImageGenerationCallGenerating   StreamEventsType = "response.image_generation_call.generating"
-	StreamEventsTypeResponseImageGenerationCallPartialImage StreamEventsType = "response.image_generation_call.partial_image"
-	StreamEventsTypeResponseImageGenerationCallCompleted    StreamEventsType = "response.image_generation_call.completed"
+	StreamEventsTypeResponseReasoningTextDelta              StreamEventsType = "response.reasoning_text.delta"
+	StreamEventsTypeResponseReasoningTextDone               StreamEventsType = "response.reasoning_text.done"
+	StreamEventsTypeResponseRefusalDelta                    StreamEventsType = "response.refusal.delta"
+	StreamEventsTypeResponseRefusalDone                     StreamEventsType = "response.refusal.done"
+	StreamEventsTypeResponseWebSearchCallCompleted          StreamEventsType = "response.web_search_call.completed"
 	StreamEventsTypeResponseWebSearchCallInProgress         StreamEventsType = "response.web_search_call.in_progress"
 	StreamEventsTypeResponseWebSearchCallSearching          StreamEventsType = "response.web_search_call.searching"
-	StreamEventsTypeResponseWebSearchCallCompleted          StreamEventsType = "response.web_search_call.completed"
+	StreamEventsTypeUnknown                                 StreamEventsType = "UNKNOWN"
 )
 
 // StreamEvents - Union of all possible event types emitted during response streaming
@@ -76,68 +77,9 @@ type StreamEvents struct {
 	WebSearchCallInProgressEvent        *WebSearchCallInProgressEvent        `queryParam:"inline" union:"member"`
 	WebSearchCallSearchingEvent         *WebSearchCallSearchingEvent         `queryParam:"inline" union:"member"`
 	WebSearchCallCompletedEvent         *WebSearchCallCompletedEvent         `queryParam:"inline" union:"member"`
+	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
 
 	Type StreamEventsType
-}
-
-func CreateStreamEventsResponseCreated(responseCreated OpenResponsesCreatedEvent) StreamEvents {
-	typ := StreamEventsTypeResponseCreated
-
-	typStr := OpenResponsesCreatedEventType(typ)
-	responseCreated.Type = typStr
-
-	return StreamEvents{
-		OpenResponsesCreatedEvent: &responseCreated,
-		Type:                      typ,
-	}
-}
-
-func CreateStreamEventsResponseInProgress(responseInProgress OpenResponsesInProgressEvent) StreamEvents {
-	typ := StreamEventsTypeResponseInProgress
-
-	typStr := OpenResponsesInProgressEventType(typ)
-	responseInProgress.Type = typStr
-
-	return StreamEvents{
-		OpenResponsesInProgressEvent: &responseInProgress,
-		Type:                         typ,
-	}
-}
-
-func CreateStreamEventsResponseCompleted(responseCompleted StreamEventsResponseCompleted) StreamEvents {
-	typ := StreamEventsTypeResponseCompleted
-
-	typStr := StreamEventsResponseCompletedType(typ)
-	responseCompleted.Type = typStr
-
-	return StreamEvents{
-		StreamEventsResponseCompleted: &responseCompleted,
-		Type:                          typ,
-	}
-}
-
-func CreateStreamEventsResponseIncomplete(responseIncomplete StreamEventsResponseIncomplete) StreamEvents {
-	typ := StreamEventsTypeResponseIncomplete
-
-	typStr := StreamEventsResponseIncompleteType(typ)
-	responseIncomplete.Type = typStr
-
-	return StreamEvents{
-		StreamEventsResponseIncomplete: &responseIncomplete,
-		Type:                           typ,
-	}
-}
-
-func CreateStreamEventsResponseFailed(responseFailed StreamEventsResponseFailed) StreamEvents {
-	typ := StreamEventsTypeResponseFailed
-
-	typStr := StreamEventsResponseFailedType(typ)
-	responseFailed.Type = typStr
-
-	return StreamEvents{
-		StreamEventsResponseFailed: &responseFailed,
-		Type:                       typ,
-	}
 }
 
 func CreateStreamEventsError(errorT ErrorEvent) StreamEvents {
@@ -152,27 +94,15 @@ func CreateStreamEventsError(errorT ErrorEvent) StreamEvents {
 	}
 }
 
-func CreateStreamEventsResponseOutputItemAdded(responseOutputItemAdded StreamEventsResponseOutputItemAdded) StreamEvents {
-	typ := StreamEventsTypeResponseOutputItemAdded
+func CreateStreamEventsResponseCompleted(responseCompleted StreamEventsResponseCompleted) StreamEvents {
+	typ := StreamEventsTypeResponseCompleted
 
-	typStr := StreamEventsResponseOutputItemAddedType(typ)
-	responseOutputItemAdded.Type = typStr
-
-	return StreamEvents{
-		StreamEventsResponseOutputItemAdded: &responseOutputItemAdded,
-		Type:                                typ,
-	}
-}
-
-func CreateStreamEventsResponseOutputItemDone(responseOutputItemDone StreamEventsResponseOutputItemDone) StreamEvents {
-	typ := StreamEventsTypeResponseOutputItemDone
-
-	typStr := StreamEventsResponseOutputItemDoneType(typ)
-	responseOutputItemDone.Type = typStr
+	typStr := StreamEventsResponseCompletedType(typ)
+	responseCompleted.Type = typStr
 
 	return StreamEvents{
-		StreamEventsResponseOutputItemDone: &responseOutputItemDone,
-		Type:                               typ,
+		StreamEventsResponseCompleted: &responseCompleted,
+		Type:                          typ,
 	}
 }
 
@@ -200,63 +130,27 @@ func CreateStreamEventsResponseContentPartDone(responseContentPartDone ContentPa
 	}
 }
 
-func CreateStreamEventsResponseOutputTextDelta(responseOutputTextDelta TextDeltaEvent) StreamEvents {
-	typ := StreamEventsTypeResponseOutputTextDelta
+func CreateStreamEventsResponseCreated(responseCreated OpenResponsesCreatedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCreated
 
-	typStr := TextDeltaEventType(typ)
-	responseOutputTextDelta.Type = typStr
+	typStr := OpenResponsesCreatedEventType(typ)
+	responseCreated.Type = typStr
 
 	return StreamEvents{
-		TextDeltaEvent: &responseOutputTextDelta,
-		Type:           typ,
+		OpenResponsesCreatedEvent: &responseCreated,
+		Type:                      typ,
 	}
 }
 
-func CreateStreamEventsResponseOutputTextDone(responseOutputTextDone TextDoneEvent) StreamEvents {
-	typ := StreamEventsTypeResponseOutputTextDone
+func CreateStreamEventsResponseFailed(responseFailed StreamEventsResponseFailed) StreamEvents {
+	typ := StreamEventsTypeResponseFailed
 
-	typStr := TextDoneEventType(typ)
-	responseOutputTextDone.Type = typStr
-
-	return StreamEvents{
-		TextDoneEvent: &responseOutputTextDone,
-		Type:          typ,
-	}
-}
-
-func CreateStreamEventsResponseRefusalDelta(responseRefusalDelta RefusalDeltaEvent) StreamEvents {
-	typ := StreamEventsTypeResponseRefusalDelta
-
-	typStr := RefusalDeltaEventType(typ)
-	responseRefusalDelta.Type = typStr
+	typStr := StreamEventsResponseFailedType(typ)
+	responseFailed.Type = typStr
 
 	return StreamEvents{
-		RefusalDeltaEvent: &responseRefusalDelta,
-		Type:              typ,
-	}
-}
-
-func CreateStreamEventsResponseRefusalDone(responseRefusalDone RefusalDoneEvent) StreamEvents {
-	typ := StreamEventsTypeResponseRefusalDone
-
-	typStr := RefusalDoneEventType(typ)
-	responseRefusalDone.Type = typStr
-
-	return StreamEvents{
-		RefusalDoneEvent: &responseRefusalDone,
-		Type:             typ,
-	}
-}
-
-func CreateStreamEventsResponseOutputTextAnnotationAdded(responseOutputTextAnnotationAdded AnnotationAddedEvent) StreamEvents {
-	typ := StreamEventsTypeResponseOutputTextAnnotationAdded
-
-	typStr := AnnotationAddedEventType(typ)
-	responseOutputTextAnnotationAdded.Type = typStr
-
-	return StreamEvents{
-		AnnotationAddedEvent: &responseOutputTextAnnotationAdded,
-		Type:                 typ,
+		StreamEventsResponseFailed: &responseFailed,
+		Type:                       typ,
 	}
 }
 
@@ -284,27 +178,135 @@ func CreateStreamEventsResponseFunctionCallArgumentsDone(responseFunctionCallArg
 	}
 }
 
-func CreateStreamEventsResponseReasoningTextDelta(responseReasoningTextDelta ReasoningDeltaEvent) StreamEvents {
-	typ := StreamEventsTypeResponseReasoningTextDelta
+func CreateStreamEventsResponseImageGenerationCallCompleted(responseImageGenerationCallCompleted ImageGenCallCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseImageGenerationCallCompleted
 
-	typStr := ReasoningDeltaEventType(typ)
-	responseReasoningTextDelta.Type = typStr
+	typStr := ImageGenCallCompletedEventType(typ)
+	responseImageGenerationCallCompleted.Type = typStr
 
 	return StreamEvents{
-		ReasoningDeltaEvent: &responseReasoningTextDelta,
-		Type:                typ,
+		ImageGenCallCompletedEvent: &responseImageGenerationCallCompleted,
+		Type:                       typ,
 	}
 }
 
-func CreateStreamEventsResponseReasoningTextDone(responseReasoningTextDone ReasoningDoneEvent) StreamEvents {
-	typ := StreamEventsTypeResponseReasoningTextDone
+func CreateStreamEventsResponseImageGenerationCallGenerating(responseImageGenerationCallGenerating ImageGenCallGeneratingEvent) StreamEvents {
+	typ := StreamEventsTypeResponseImageGenerationCallGenerating
 
-	typStr := ReasoningDoneEventType(typ)
-	responseReasoningTextDone.Type = typStr
+	typStr := ImageGenCallGeneratingEventType(typ)
+	responseImageGenerationCallGenerating.Type = typStr
 
 	return StreamEvents{
-		ReasoningDoneEvent: &responseReasoningTextDone,
-		Type:               typ,
+		ImageGenCallGeneratingEvent: &responseImageGenerationCallGenerating,
+		Type:                        typ,
+	}
+}
+
+func CreateStreamEventsResponseImageGenerationCallInProgress(responseImageGenerationCallInProgress ImageGenCallInProgressEvent) StreamEvents {
+	typ := StreamEventsTypeResponseImageGenerationCallInProgress
+
+	typStr := ImageGenCallInProgressEventType(typ)
+	responseImageGenerationCallInProgress.Type = typStr
+
+	return StreamEvents{
+		ImageGenCallInProgressEvent: &responseImageGenerationCallInProgress,
+		Type:                        typ,
+	}
+}
+
+func CreateStreamEventsResponseImageGenerationCallPartialImage(responseImageGenerationCallPartialImage ImageGenCallPartialImageEvent) StreamEvents {
+	typ := StreamEventsTypeResponseImageGenerationCallPartialImage
+
+	typStr := ImageGenCallPartialImageEventType(typ)
+	responseImageGenerationCallPartialImage.Type = typStr
+
+	return StreamEvents{
+		ImageGenCallPartialImageEvent: &responseImageGenerationCallPartialImage,
+		Type:                          typ,
+	}
+}
+
+func CreateStreamEventsResponseInProgress(responseInProgress OpenResponsesInProgressEvent) StreamEvents {
+	typ := StreamEventsTypeResponseInProgress
+
+	typStr := OpenResponsesInProgressEventType(typ)
+	responseInProgress.Type = typStr
+
+	return StreamEvents{
+		OpenResponsesInProgressEvent: &responseInProgress,
+		Type:                         typ,
+	}
+}
+
+func CreateStreamEventsResponseIncomplete(responseIncomplete StreamEventsResponseIncomplete) StreamEvents {
+	typ := StreamEventsTypeResponseIncomplete
+
+	typStr := StreamEventsResponseIncompleteType(typ)
+	responseIncomplete.Type = typStr
+
+	return StreamEvents{
+		StreamEventsResponseIncomplete: &responseIncomplete,
+		Type:                           typ,
+	}
+}
+
+func CreateStreamEventsResponseOutputItemAdded(responseOutputItemAdded StreamEventsResponseOutputItemAdded) StreamEvents {
+	typ := StreamEventsTypeResponseOutputItemAdded
+
+	typStr := StreamEventsResponseOutputItemAddedType(typ)
+	responseOutputItemAdded.Type = typStr
+
+	return StreamEvents{
+		StreamEventsResponseOutputItemAdded: &responseOutputItemAdded,
+		Type:                                typ,
+	}
+}
+
+func CreateStreamEventsResponseOutputItemDone(responseOutputItemDone StreamEventsResponseOutputItemDone) StreamEvents {
+	typ := StreamEventsTypeResponseOutputItemDone
+
+	typStr := StreamEventsResponseOutputItemDoneType(typ)
+	responseOutputItemDone.Type = typStr
+
+	return StreamEvents{
+		StreamEventsResponseOutputItemDone: &responseOutputItemDone,
+		Type:                               typ,
+	}
+}
+
+func CreateStreamEventsResponseOutputTextAnnotationAdded(responseOutputTextAnnotationAdded AnnotationAddedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseOutputTextAnnotationAdded
+
+	typStr := AnnotationAddedEventType(typ)
+	responseOutputTextAnnotationAdded.Type = typStr
+
+	return StreamEvents{
+		AnnotationAddedEvent: &responseOutputTextAnnotationAdded,
+		Type:                 typ,
+	}
+}
+
+func CreateStreamEventsResponseOutputTextDelta(responseOutputTextDelta TextDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseOutputTextDelta
+
+	typStr := TextDeltaEventType(typ)
+	responseOutputTextDelta.Type = typStr
+
+	return StreamEvents{
+		TextDeltaEvent: &responseOutputTextDelta,
+		Type:           typ,
+	}
+}
+
+func CreateStreamEventsResponseOutputTextDone(responseOutputTextDone TextDoneEvent) StreamEvents {
+	typ := StreamEventsTypeResponseOutputTextDone
+
+	typStr := TextDoneEventType(typ)
+	responseOutputTextDone.Type = typStr
+
+	return StreamEvents{
+		TextDoneEvent: &responseOutputTextDone,
+		Type:          typ,
 	}
 }
 
@@ -356,51 +358,63 @@ func CreateStreamEventsResponseReasoningSummaryTextDone(responseReasoningSummary
 	}
 }
 
-func CreateStreamEventsResponseImageGenerationCallInProgress(responseImageGenerationCallInProgress ImageGenCallInProgressEvent) StreamEvents {
-	typ := StreamEventsTypeResponseImageGenerationCallInProgress
+func CreateStreamEventsResponseReasoningTextDelta(responseReasoningTextDelta ReasoningDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseReasoningTextDelta
 
-	typStr := ImageGenCallInProgressEventType(typ)
-	responseImageGenerationCallInProgress.Type = typStr
+	typStr := ReasoningDeltaEventType(typ)
+	responseReasoningTextDelta.Type = typStr
 
 	return StreamEvents{
-		ImageGenCallInProgressEvent: &responseImageGenerationCallInProgress,
+		ReasoningDeltaEvent: &responseReasoningTextDelta,
+		Type:                typ,
+	}
+}
+
+func CreateStreamEventsResponseReasoningTextDone(responseReasoningTextDone ReasoningDoneEvent) StreamEvents {
+	typ := StreamEventsTypeResponseReasoningTextDone
+
+	typStr := ReasoningDoneEventType(typ)
+	responseReasoningTextDone.Type = typStr
+
+	return StreamEvents{
+		ReasoningDoneEvent: &responseReasoningTextDone,
+		Type:               typ,
+	}
+}
+
+func CreateStreamEventsResponseRefusalDelta(responseRefusalDelta RefusalDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseRefusalDelta
+
+	typStr := RefusalDeltaEventType(typ)
+	responseRefusalDelta.Type = typStr
+
+	return StreamEvents{
+		RefusalDeltaEvent: &responseRefusalDelta,
+		Type:              typ,
+	}
+}
+
+func CreateStreamEventsResponseRefusalDone(responseRefusalDone RefusalDoneEvent) StreamEvents {
+	typ := StreamEventsTypeResponseRefusalDone
+
+	typStr := RefusalDoneEventType(typ)
+	responseRefusalDone.Type = typStr
+
+	return StreamEvents{
+		RefusalDoneEvent: &responseRefusalDone,
+		Type:             typ,
+	}
+}
+
+func CreateStreamEventsResponseWebSearchCallCompleted(responseWebSearchCallCompleted WebSearchCallCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseWebSearchCallCompleted
+
+	typStr := WebSearchCallCompletedEventType(typ)
+	responseWebSearchCallCompleted.Type = typStr
+
+	return StreamEvents{
+		WebSearchCallCompletedEvent: &responseWebSearchCallCompleted,
 		Type:                        typ,
-	}
-}
-
-func CreateStreamEventsResponseImageGenerationCallGenerating(responseImageGenerationCallGenerating ImageGenCallGeneratingEvent) StreamEvents {
-	typ := StreamEventsTypeResponseImageGenerationCallGenerating
-
-	typStr := ImageGenCallGeneratingEventType(typ)
-	responseImageGenerationCallGenerating.Type = typStr
-
-	return StreamEvents{
-		ImageGenCallGeneratingEvent: &responseImageGenerationCallGenerating,
-		Type:                        typ,
-	}
-}
-
-func CreateStreamEventsResponseImageGenerationCallPartialImage(responseImageGenerationCallPartialImage ImageGenCallPartialImageEvent) StreamEvents {
-	typ := StreamEventsTypeResponseImageGenerationCallPartialImage
-
-	typStr := ImageGenCallPartialImageEventType(typ)
-	responseImageGenerationCallPartialImage.Type = typStr
-
-	return StreamEvents{
-		ImageGenCallPartialImageEvent: &responseImageGenerationCallPartialImage,
-		Type:                          typ,
-	}
-}
-
-func CreateStreamEventsResponseImageGenerationCallCompleted(responseImageGenerationCallCompleted ImageGenCallCompletedEvent) StreamEvents {
-	typ := StreamEventsTypeResponseImageGenerationCallCompleted
-
-	typStr := ImageGenCallCompletedEventType(typ)
-	responseImageGenerationCallCompleted.Type = typStr
-
-	return StreamEvents{
-		ImageGenCallCompletedEvent: &responseImageGenerationCallCompleted,
-		Type:                       typ,
 	}
 }
 
@@ -428,16 +442,19 @@ func CreateStreamEventsResponseWebSearchCallSearching(responseWebSearchCallSearc
 	}
 }
 
-func CreateStreamEventsResponseWebSearchCallCompleted(responseWebSearchCallCompleted WebSearchCallCompletedEvent) StreamEvents {
-	typ := StreamEventsTypeResponseWebSearchCallCompleted
-
-	typStr := WebSearchCallCompletedEventType(typ)
-	responseWebSearchCallCompleted.Type = typStr
-
+func CreateStreamEventsUnknown(raw json.RawMessage) StreamEvents {
 	return StreamEvents{
-		WebSearchCallCompletedEvent: &responseWebSearchCallCompleted,
-		Type:                        typ,
+		UnknownRaw: raw,
+		Type:       StreamEventsTypeUnknown,
 	}
+}
+
+func (u StreamEvents) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u StreamEvents) IsUnknown() bool {
+	return u.Type == StreamEventsTypeUnknown
 }
 
 func (u *StreamEvents) UnmarshalJSON(data []byte) error {
@@ -448,55 +465,17 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = StreamEventsTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = StreamEventsTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
-	case "response.created":
-		openResponsesCreatedEvent := new(OpenResponsesCreatedEvent)
-		if err := utils.UnmarshalJSON(data, &openResponsesCreatedEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.created) type OpenResponsesCreatedEvent within StreamEvents: %w", string(data), err)
-		}
-
-		u.OpenResponsesCreatedEvent = openResponsesCreatedEvent
-		u.Type = StreamEventsTypeResponseCreated
-		return nil
-	case "response.in_progress":
-		openResponsesInProgressEvent := new(OpenResponsesInProgressEvent)
-		if err := utils.UnmarshalJSON(data, &openResponsesInProgressEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.in_progress) type OpenResponsesInProgressEvent within StreamEvents: %w", string(data), err)
-		}
-
-		u.OpenResponsesInProgressEvent = openResponsesInProgressEvent
-		u.Type = StreamEventsTypeResponseInProgress
-		return nil
-	case "response.completed":
-		streamEventsResponseCompleted := new(StreamEventsResponseCompleted)
-		if err := utils.UnmarshalJSON(data, &streamEventsResponseCompleted, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.completed) type StreamEventsResponseCompleted within StreamEvents: %w", string(data), err)
-		}
-
-		u.StreamEventsResponseCompleted = streamEventsResponseCompleted
-		u.Type = StreamEventsTypeResponseCompleted
-		return nil
-	case "response.incomplete":
-		streamEventsResponseIncomplete := new(StreamEventsResponseIncomplete)
-		if err := utils.UnmarshalJSON(data, &streamEventsResponseIncomplete, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.incomplete) type StreamEventsResponseIncomplete within StreamEvents: %w", string(data), err)
-		}
-
-		u.StreamEventsResponseIncomplete = streamEventsResponseIncomplete
-		u.Type = StreamEventsTypeResponseIncomplete
-		return nil
-	case "response.failed":
-		streamEventsResponseFailed := new(StreamEventsResponseFailed)
-		if err := utils.UnmarshalJSON(data, &streamEventsResponseFailed, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.failed) type StreamEventsResponseFailed within StreamEvents: %w", string(data), err)
-		}
-
-		u.StreamEventsResponseFailed = streamEventsResponseFailed
-		u.Type = StreamEventsTypeResponseFailed
-		return nil
 	case "error":
 		errorEvent := new(ErrorEvent)
 		if err := utils.UnmarshalJSON(data, &errorEvent, "", true, nil); err != nil {
@@ -506,23 +485,14 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.ErrorEvent = errorEvent
 		u.Type = StreamEventsTypeError
 		return nil
-	case "response.output_item.added":
-		streamEventsResponseOutputItemAdded := new(StreamEventsResponseOutputItemAdded)
-		if err := utils.UnmarshalJSON(data, &streamEventsResponseOutputItemAdded, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_item.added) type StreamEventsResponseOutputItemAdded within StreamEvents: %w", string(data), err)
+	case "response.completed":
+		streamEventsResponseCompleted := new(StreamEventsResponseCompleted)
+		if err := utils.UnmarshalJSON(data, &streamEventsResponseCompleted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.completed) type StreamEventsResponseCompleted within StreamEvents: %w", string(data), err)
 		}
 
-		u.StreamEventsResponseOutputItemAdded = streamEventsResponseOutputItemAdded
-		u.Type = StreamEventsTypeResponseOutputItemAdded
-		return nil
-	case "response.output_item.done":
-		streamEventsResponseOutputItemDone := new(StreamEventsResponseOutputItemDone)
-		if err := utils.UnmarshalJSON(data, &streamEventsResponseOutputItemDone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_item.done) type StreamEventsResponseOutputItemDone within StreamEvents: %w", string(data), err)
-		}
-
-		u.StreamEventsResponseOutputItemDone = streamEventsResponseOutputItemDone
-		u.Type = StreamEventsTypeResponseOutputItemDone
+		u.StreamEventsResponseCompleted = streamEventsResponseCompleted
+		u.Type = StreamEventsTypeResponseCompleted
 		return nil
 	case "response.content_part.added":
 		contentPartAddedEvent := new(ContentPartAddedEvent)
@@ -542,50 +512,23 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.ContentPartDoneEvent = contentPartDoneEvent
 		u.Type = StreamEventsTypeResponseContentPartDone
 		return nil
-	case "response.output_text.delta":
-		textDeltaEvent := new(TextDeltaEvent)
-		if err := utils.UnmarshalJSON(data, &textDeltaEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_text.delta) type TextDeltaEvent within StreamEvents: %w", string(data), err)
+	case "response.created":
+		openResponsesCreatedEvent := new(OpenResponsesCreatedEvent)
+		if err := utils.UnmarshalJSON(data, &openResponsesCreatedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.created) type OpenResponsesCreatedEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.TextDeltaEvent = textDeltaEvent
-		u.Type = StreamEventsTypeResponseOutputTextDelta
+		u.OpenResponsesCreatedEvent = openResponsesCreatedEvent
+		u.Type = StreamEventsTypeResponseCreated
 		return nil
-	case "response.output_text.done":
-		textDoneEvent := new(TextDoneEvent)
-		if err := utils.UnmarshalJSON(data, &textDoneEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_text.done) type TextDoneEvent within StreamEvents: %w", string(data), err)
+	case "response.failed":
+		streamEventsResponseFailed := new(StreamEventsResponseFailed)
+		if err := utils.UnmarshalJSON(data, &streamEventsResponseFailed, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.failed) type StreamEventsResponseFailed within StreamEvents: %w", string(data), err)
 		}
 
-		u.TextDoneEvent = textDoneEvent
-		u.Type = StreamEventsTypeResponseOutputTextDone
-		return nil
-	case "response.refusal.delta":
-		refusalDeltaEvent := new(RefusalDeltaEvent)
-		if err := utils.UnmarshalJSON(data, &refusalDeltaEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.refusal.delta) type RefusalDeltaEvent within StreamEvents: %w", string(data), err)
-		}
-
-		u.RefusalDeltaEvent = refusalDeltaEvent
-		u.Type = StreamEventsTypeResponseRefusalDelta
-		return nil
-	case "response.refusal.done":
-		refusalDoneEvent := new(RefusalDoneEvent)
-		if err := utils.UnmarshalJSON(data, &refusalDoneEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.refusal.done) type RefusalDoneEvent within StreamEvents: %w", string(data), err)
-		}
-
-		u.RefusalDoneEvent = refusalDoneEvent
-		u.Type = StreamEventsTypeResponseRefusalDone
-		return nil
-	case "response.output_text.annotation.added":
-		annotationAddedEvent := new(AnnotationAddedEvent)
-		if err := utils.UnmarshalJSON(data, &annotationAddedEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_text.annotation.added) type AnnotationAddedEvent within StreamEvents: %w", string(data), err)
-		}
-
-		u.AnnotationAddedEvent = annotationAddedEvent
-		u.Type = StreamEventsTypeResponseOutputTextAnnotationAdded
+		u.StreamEventsResponseFailed = streamEventsResponseFailed
+		u.Type = StreamEventsTypeResponseFailed
 		return nil
 	case "response.function_call_arguments.delta":
 		functionCallArgsDeltaEvent := new(FunctionCallArgsDeltaEvent)
@@ -605,23 +548,104 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.FunctionCallArgsDoneEvent = functionCallArgsDoneEvent
 		u.Type = StreamEventsTypeResponseFunctionCallArgumentsDone
 		return nil
-	case "response.reasoning_text.delta":
-		reasoningDeltaEvent := new(ReasoningDeltaEvent)
-		if err := utils.UnmarshalJSON(data, &reasoningDeltaEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.reasoning_text.delta) type ReasoningDeltaEvent within StreamEvents: %w", string(data), err)
+	case "response.image_generation_call.completed":
+		imageGenCallCompletedEvent := new(ImageGenCallCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &imageGenCallCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.completed) type ImageGenCallCompletedEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.ReasoningDeltaEvent = reasoningDeltaEvent
-		u.Type = StreamEventsTypeResponseReasoningTextDelta
+		u.ImageGenCallCompletedEvent = imageGenCallCompletedEvent
+		u.Type = StreamEventsTypeResponseImageGenerationCallCompleted
 		return nil
-	case "response.reasoning_text.done":
-		reasoningDoneEvent := new(ReasoningDoneEvent)
-		if err := utils.UnmarshalJSON(data, &reasoningDoneEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.reasoning_text.done) type ReasoningDoneEvent within StreamEvents: %w", string(data), err)
+	case "response.image_generation_call.generating":
+		imageGenCallGeneratingEvent := new(ImageGenCallGeneratingEvent)
+		if err := utils.UnmarshalJSON(data, &imageGenCallGeneratingEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.generating) type ImageGenCallGeneratingEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.ReasoningDoneEvent = reasoningDoneEvent
-		u.Type = StreamEventsTypeResponseReasoningTextDone
+		u.ImageGenCallGeneratingEvent = imageGenCallGeneratingEvent
+		u.Type = StreamEventsTypeResponseImageGenerationCallGenerating
+		return nil
+	case "response.image_generation_call.in_progress":
+		imageGenCallInProgressEvent := new(ImageGenCallInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &imageGenCallInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.in_progress) type ImageGenCallInProgressEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.ImageGenCallInProgressEvent = imageGenCallInProgressEvent
+		u.Type = StreamEventsTypeResponseImageGenerationCallInProgress
+		return nil
+	case "response.image_generation_call.partial_image":
+		imageGenCallPartialImageEvent := new(ImageGenCallPartialImageEvent)
+		if err := utils.UnmarshalJSON(data, &imageGenCallPartialImageEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.partial_image) type ImageGenCallPartialImageEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.ImageGenCallPartialImageEvent = imageGenCallPartialImageEvent
+		u.Type = StreamEventsTypeResponseImageGenerationCallPartialImage
+		return nil
+	case "response.in_progress":
+		openResponsesInProgressEvent := new(OpenResponsesInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &openResponsesInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.in_progress) type OpenResponsesInProgressEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.OpenResponsesInProgressEvent = openResponsesInProgressEvent
+		u.Type = StreamEventsTypeResponseInProgress
+		return nil
+	case "response.incomplete":
+		streamEventsResponseIncomplete := new(StreamEventsResponseIncomplete)
+		if err := utils.UnmarshalJSON(data, &streamEventsResponseIncomplete, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.incomplete) type StreamEventsResponseIncomplete within StreamEvents: %w", string(data), err)
+		}
+
+		u.StreamEventsResponseIncomplete = streamEventsResponseIncomplete
+		u.Type = StreamEventsTypeResponseIncomplete
+		return nil
+	case "response.output_item.added":
+		streamEventsResponseOutputItemAdded := new(StreamEventsResponseOutputItemAdded)
+		if err := utils.UnmarshalJSON(data, &streamEventsResponseOutputItemAdded, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_item.added) type StreamEventsResponseOutputItemAdded within StreamEvents: %w", string(data), err)
+		}
+
+		u.StreamEventsResponseOutputItemAdded = streamEventsResponseOutputItemAdded
+		u.Type = StreamEventsTypeResponseOutputItemAdded
+		return nil
+	case "response.output_item.done":
+		streamEventsResponseOutputItemDone := new(StreamEventsResponseOutputItemDone)
+		if err := utils.UnmarshalJSON(data, &streamEventsResponseOutputItemDone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_item.done) type StreamEventsResponseOutputItemDone within StreamEvents: %w", string(data), err)
+		}
+
+		u.StreamEventsResponseOutputItemDone = streamEventsResponseOutputItemDone
+		u.Type = StreamEventsTypeResponseOutputItemDone
+		return nil
+	case "response.output_text.annotation.added":
+		annotationAddedEvent := new(AnnotationAddedEvent)
+		if err := utils.UnmarshalJSON(data, &annotationAddedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_text.annotation.added) type AnnotationAddedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.AnnotationAddedEvent = annotationAddedEvent
+		u.Type = StreamEventsTypeResponseOutputTextAnnotationAdded
+		return nil
+	case "response.output_text.delta":
+		textDeltaEvent := new(TextDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &textDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_text.delta) type TextDeltaEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.TextDeltaEvent = textDeltaEvent
+		u.Type = StreamEventsTypeResponseOutputTextDelta
+		return nil
+	case "response.output_text.done":
+		textDoneEvent := new(TextDoneEvent)
+		if err := utils.UnmarshalJSON(data, &textDoneEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.output_text.done) type TextDoneEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.TextDoneEvent = textDoneEvent
+		u.Type = StreamEventsTypeResponseOutputTextDone
 		return nil
 	case "response.reasoning_summary_part.added":
 		reasoningSummaryPartAddedEvent := new(ReasoningSummaryPartAddedEvent)
@@ -659,41 +683,50 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.ReasoningSummaryTextDoneEvent = reasoningSummaryTextDoneEvent
 		u.Type = StreamEventsTypeResponseReasoningSummaryTextDone
 		return nil
-	case "response.image_generation_call.in_progress":
-		imageGenCallInProgressEvent := new(ImageGenCallInProgressEvent)
-		if err := utils.UnmarshalJSON(data, &imageGenCallInProgressEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.in_progress) type ImageGenCallInProgressEvent within StreamEvents: %w", string(data), err)
+	case "response.reasoning_text.delta":
+		reasoningDeltaEvent := new(ReasoningDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &reasoningDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.reasoning_text.delta) type ReasoningDeltaEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.ImageGenCallInProgressEvent = imageGenCallInProgressEvent
-		u.Type = StreamEventsTypeResponseImageGenerationCallInProgress
+		u.ReasoningDeltaEvent = reasoningDeltaEvent
+		u.Type = StreamEventsTypeResponseReasoningTextDelta
 		return nil
-	case "response.image_generation_call.generating":
-		imageGenCallGeneratingEvent := new(ImageGenCallGeneratingEvent)
-		if err := utils.UnmarshalJSON(data, &imageGenCallGeneratingEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.generating) type ImageGenCallGeneratingEvent within StreamEvents: %w", string(data), err)
+	case "response.reasoning_text.done":
+		reasoningDoneEvent := new(ReasoningDoneEvent)
+		if err := utils.UnmarshalJSON(data, &reasoningDoneEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.reasoning_text.done) type ReasoningDoneEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.ImageGenCallGeneratingEvent = imageGenCallGeneratingEvent
-		u.Type = StreamEventsTypeResponseImageGenerationCallGenerating
+		u.ReasoningDoneEvent = reasoningDoneEvent
+		u.Type = StreamEventsTypeResponseReasoningTextDone
 		return nil
-	case "response.image_generation_call.partial_image":
-		imageGenCallPartialImageEvent := new(ImageGenCallPartialImageEvent)
-		if err := utils.UnmarshalJSON(data, &imageGenCallPartialImageEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.partial_image) type ImageGenCallPartialImageEvent within StreamEvents: %w", string(data), err)
+	case "response.refusal.delta":
+		refusalDeltaEvent := new(RefusalDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &refusalDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.refusal.delta) type RefusalDeltaEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.ImageGenCallPartialImageEvent = imageGenCallPartialImageEvent
-		u.Type = StreamEventsTypeResponseImageGenerationCallPartialImage
+		u.RefusalDeltaEvent = refusalDeltaEvent
+		u.Type = StreamEventsTypeResponseRefusalDelta
 		return nil
-	case "response.image_generation_call.completed":
-		imageGenCallCompletedEvent := new(ImageGenCallCompletedEvent)
-		if err := utils.UnmarshalJSON(data, &imageGenCallCompletedEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.image_generation_call.completed) type ImageGenCallCompletedEvent within StreamEvents: %w", string(data), err)
+	case "response.refusal.done":
+		refusalDoneEvent := new(RefusalDoneEvent)
+		if err := utils.UnmarshalJSON(data, &refusalDoneEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.refusal.done) type RefusalDoneEvent within StreamEvents: %w", string(data), err)
 		}
 
-		u.ImageGenCallCompletedEvent = imageGenCallCompletedEvent
-		u.Type = StreamEventsTypeResponseImageGenerationCallCompleted
+		u.RefusalDoneEvent = refusalDoneEvent
+		u.Type = StreamEventsTypeResponseRefusalDone
+		return nil
+	case "response.web_search_call.completed":
+		webSearchCallCompletedEvent := new(WebSearchCallCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &webSearchCallCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.web_search_call.completed) type WebSearchCallCompletedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.WebSearchCallCompletedEvent = webSearchCallCompletedEvent
+		u.Type = StreamEventsTypeResponseWebSearchCallCompleted
 		return nil
 	case "response.web_search_call.in_progress":
 		webSearchCallInProgressEvent := new(WebSearchCallInProgressEvent)
@@ -713,18 +746,12 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.WebSearchCallSearchingEvent = webSearchCallSearchingEvent
 		u.Type = StreamEventsTypeResponseWebSearchCallSearching
 		return nil
-	case "response.web_search_call.completed":
-		webSearchCallCompletedEvent := new(WebSearchCallCompletedEvent)
-		if err := utils.UnmarshalJSON(data, &webSearchCallCompletedEvent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.web_search_call.completed) type WebSearchCallCompletedEvent within StreamEvents: %w", string(data), err)
-		}
-
-		u.WebSearchCallCompletedEvent = webSearchCallCompletedEvent
-		u.Type = StreamEventsTypeResponseWebSearchCallCompleted
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = StreamEventsTypeUnknown
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for StreamEvents", string(data))
 }
 
 func (u StreamEvents) MarshalJSON() ([]byte, error) {
@@ -848,5 +875,8 @@ func (u StreamEvents) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.WebSearchCallCompletedEvent, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type StreamEvents: all fields are null")
 }

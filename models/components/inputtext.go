@@ -33,8 +33,8 @@ func (e *InputTextType) UnmarshalJSON(data []byte) error {
 
 // InputText - Text input content item
 type InputText struct {
-	Type InputTextType `json:"type"`
 	Text string        `json:"text"`
+	Type InputTextType `json:"type"`
 }
 
 func (i InputText) MarshalJSON() ([]byte, error) {
@@ -48,16 +48,16 @@ func (i *InputText) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputText) GetType() InputTextType {
-	if i == nil {
-		return InputTextType("")
-	}
-	return i.Type
-}
-
 func (i *InputText) GetText() string {
 	if i == nil {
 		return ""
 	}
 	return i.Text
+}
+
+func (i *InputText) GetType() InputTextType {
+	if i == nil {
+		return InputTextType("")
+	}
+	return i.Type
 }

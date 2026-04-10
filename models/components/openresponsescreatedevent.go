@@ -33,10 +33,10 @@ func (e *OpenResponsesCreatedEventType) UnmarshalJSON(data []byte) error {
 
 // OpenResponsesCreatedEvent - Event emitted when a response is created
 type OpenResponsesCreatedEvent struct {
-	Type OpenResponsesCreatedEventType `json:"type"`
 	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
+	Response       OpenResponsesResult           `json:"response"`
+	SequenceNumber int64                         `json:"sequence_number"`
+	Type           OpenResponsesCreatedEventType `json:"type"`
 }
 
 func (o OpenResponsesCreatedEvent) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (o *OpenResponsesCreatedEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OpenResponsesCreatedEvent) GetType() OpenResponsesCreatedEventType {
-	if o == nil {
-		return OpenResponsesCreatedEventType("")
-	}
-	return o.Type
 }
 
 func (o *OpenResponsesCreatedEvent) GetResponse() OpenResponsesResult {
@@ -69,4 +62,11 @@ func (o *OpenResponsesCreatedEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return o.SequenceNumber
+}
+
+func (o *OpenResponsesCreatedEvent) GetType() OpenResponsesCreatedEventType {
+	if o == nil {
+		return OpenResponsesCreatedEventType("")
+	}
+	return o.Type
 }

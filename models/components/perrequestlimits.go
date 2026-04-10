@@ -4,17 +4,10 @@ package components
 
 // PerRequestLimits - Per-request token limits
 type PerRequestLimits struct {
-	// Maximum prompt tokens per request
-	PromptTokens float64 `json:"prompt_tokens"`
 	// Maximum completion tokens per request
 	CompletionTokens float64 `json:"completion_tokens"`
-}
-
-func (p *PerRequestLimits) GetPromptTokens() float64 {
-	if p == nil {
-		return 0.0
-	}
-	return p.PromptTokens
+	// Maximum prompt tokens per request
+	PromptTokens float64 `json:"prompt_tokens"`
 }
 
 func (p *PerRequestLimits) GetCompletionTokens() float64 {
@@ -22,4 +15,11 @@ func (p *PerRequestLimits) GetCompletionTokens() float64 {
 		return 0.0
 	}
 	return p.CompletionTokens
+}
+
+func (p *PerRequestLimits) GetPromptTokens() float64 {
+	if p == nil {
+		return 0.0
+	}
+	return p.PromptTokens
 }

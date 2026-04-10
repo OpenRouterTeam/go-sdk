@@ -129,20 +129,27 @@ func (e *ProviderResponseProviderName) IsExact() bool {
 
 // ProviderResponse - Details of a provider response for a generation attempt
 type ProviderResponse struct {
-	// Upstream provider response identifier
-	ID *string `json:"id,omitzero"`
 	// Internal endpoint identifier
 	EndpointID *string `json:"endpoint_id,omitzero"`
+	// Upstream provider response identifier
+	ID *string `json:"id,omitzero"`
+	// Whether the request used a bring-your-own-key
+	IsByok *bool `json:"is_byok,omitzero"`
+	// Response latency in milliseconds
+	Latency *float64 `json:"latency,omitzero"`
 	// Canonical model slug
 	ModelPermaslug *string `json:"model_permaslug,omitzero"`
 	// Name of the provider
 	ProviderName *ProviderResponseProviderName `json:"provider_name,omitzero"`
 	// HTTP status code from the provider
 	Status *float64 `json:"status"`
-	// Response latency in milliseconds
-	Latency *float64 `json:"latency,omitzero"`
-	// Whether the request used a bring-your-own-key
-	IsByok *bool `json:"is_byok,omitzero"`
+}
+
+func (p *ProviderResponse) GetEndpointID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.EndpointID
 }
 
 func (p *ProviderResponse) GetID() *string {
@@ -152,11 +159,18 @@ func (p *ProviderResponse) GetID() *string {
 	return p.ID
 }
 
-func (p *ProviderResponse) GetEndpointID() *string {
+func (p *ProviderResponse) GetIsByok() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.EndpointID
+	return p.IsByok
+}
+
+func (p *ProviderResponse) GetLatency() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.Latency
 }
 
 func (p *ProviderResponse) GetModelPermaslug() *string {
@@ -178,18 +192,4 @@ func (p *ProviderResponse) GetStatus() *float64 {
 		return nil
 	}
 	return p.Status
-}
-
-func (p *ProviderResponse) GetLatency() *float64 {
-	if p == nil {
-		return nil
-	}
-	return p.Latency
-}
-
-func (p *ProviderResponse) GetIsByok() *bool {
-	if p == nil {
-		return nil
-	}
-	return p.IsByok
 }

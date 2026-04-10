@@ -35,39 +35,39 @@ func (e *DataCollection) IsExact() bool {
 	return false
 }
 
-type OrderType string
+type IgnoreType string
 
 const (
-	OrderTypeProviderName OrderType = "ProviderName"
-	OrderTypeStr          OrderType = "str"
+	IgnoreTypeProviderName IgnoreType = "ProviderName"
+	IgnoreTypeStr          IgnoreType = "str"
 )
 
-type Order struct {
+type Ignore struct {
 	ProviderName *ProviderName `queryParam:"inline" union:"member"`
 	Str          *string       `queryParam:"inline" union:"member"`
 
-	Type OrderType
+	Type IgnoreType
 }
 
-func CreateOrderProviderName(providerName ProviderName) Order {
-	typ := OrderTypeProviderName
+func CreateIgnoreProviderName(providerName ProviderName) Ignore {
+	typ := IgnoreTypeProviderName
 
-	return Order{
+	return Ignore{
 		ProviderName: &providerName,
 		Type:         typ,
 	}
 }
 
-func CreateOrderStr(str string) Order {
-	typ := OrderTypeStr
+func CreateIgnoreStr(str string) Ignore {
+	typ := IgnoreTypeStr
 
-	return Order{
+	return Ignore{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func (u *Order) UnmarshalJSON(data []byte) error {
+func (u *Ignore) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -75,7 +75,7 @@ func (u *Order) UnmarshalJSON(data []byte) error {
 	var providerName ProviderName = ProviderName("")
 	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OrderTypeProviderName,
+			Type:  IgnoreTypeProviderName,
 			Value: &providerName,
 		})
 	}
@@ -83,36 +83,36 @@ func (u *Order) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OrderTypeStr,
+			Type:  IgnoreTypeStr,
 			Value: &str,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(OrderType)
+	u.Type = best.Type.(IgnoreType)
 	switch best.Type {
-	case OrderTypeProviderName:
+	case IgnoreTypeProviderName:
 		u.ProviderName = best.Value.(*ProviderName)
 		return nil
-	case OrderTypeStr:
+	case IgnoreTypeStr:
 		u.Str = best.Value.(*string)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
 }
 
-func (u Order) MarshalJSON() ([]byte, error) {
+func (u Ignore) MarshalJSON() ([]byte, error) {
 	if u.ProviderName != nil {
 		return utils.MarshalJSON(u.ProviderName, "", true)
 	}
@@ -121,7 +121,52 @@ func (u Order) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Order: all fields are null")
+	return nil, errors.New("could not marshal union type Ignore: all fields are null")
+}
+
+// MaxPrice - The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
+type MaxPrice struct {
+	Audio      *string `json:"audio,omitzero"`
+	Completion *string `json:"completion,omitzero"`
+	Image      *string `json:"image,omitzero"`
+	// Price per million prompt tokens
+	Prompt  *string `json:"prompt,omitzero"`
+	Request *string `json:"request,omitzero"`
+}
+
+func (m *MaxPrice) GetAudio() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Audio
+}
+
+func (m *MaxPrice) GetCompletion() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Completion
+}
+
+func (m *MaxPrice) GetImage() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Image
+}
+
+func (m *MaxPrice) GetPrompt() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Prompt
+}
+
+func (m *MaxPrice) GetRequest() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Request
 }
 
 type OnlyType string
@@ -213,39 +258,39 @@ func (u Only) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Only: all fields are null")
 }
 
-type IgnoreType string
+type OrderType string
 
 const (
-	IgnoreTypeProviderName IgnoreType = "ProviderName"
-	IgnoreTypeStr          IgnoreType = "str"
+	OrderTypeProviderName OrderType = "ProviderName"
+	OrderTypeStr          OrderType = "str"
 )
 
-type Ignore struct {
+type Order struct {
 	ProviderName *ProviderName `queryParam:"inline" union:"member"`
 	Str          *string       `queryParam:"inline" union:"member"`
 
-	Type IgnoreType
+	Type OrderType
 }
 
-func CreateIgnoreProviderName(providerName ProviderName) Ignore {
-	typ := IgnoreTypeProviderName
+func CreateOrderProviderName(providerName ProviderName) Order {
+	typ := OrderTypeProviderName
 
-	return Ignore{
+	return Order{
 		ProviderName: &providerName,
 		Type:         typ,
 	}
 }
 
-func CreateIgnoreStr(str string) Ignore {
-	typ := IgnoreTypeStr
+func CreateOrderStr(str string) Order {
+	typ := OrderTypeStr
 
-	return Ignore{
+	return Order{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func (u *Ignore) UnmarshalJSON(data []byte) error {
+func (u *Order) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -253,7 +298,7 @@ func (u *Ignore) UnmarshalJSON(data []byte) error {
 	var providerName ProviderName = ProviderName("")
 	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  IgnoreTypeProviderName,
+			Type:  OrderTypeProviderName,
 			Value: &providerName,
 		})
 	}
@@ -261,36 +306,36 @@ func (u *Ignore) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  IgnoreTypeStr,
+			Type:  OrderTypeStr,
 			Value: &str,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(IgnoreType)
+	u.Type = best.Type.(OrderType)
 	switch best.Type {
-	case IgnoreTypeProviderName:
+	case OrderTypeProviderName:
 		u.ProviderName = best.Value.(*ProviderName)
 		return nil
-	case IgnoreTypeStr:
+	case OrderTypeStr:
 		u.Str = best.Value.(*string)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
 }
 
-func (u Ignore) MarshalJSON() ([]byte, error) {
+func (u Order) MarshalJSON() ([]byte, error) {
 	if u.ProviderName != nil {
 		return utils.MarshalJSON(u.ProviderName, "", true)
 	}
@@ -299,7 +344,7 @@ func (u Ignore) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Ignore: all fields are null")
+	return nil, errors.New("could not marshal union type Order: all fields are null")
 }
 
 type SortType string
@@ -418,51 +463,6 @@ func (u Sort) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Sort: all fields are null")
 }
 
-// MaxPrice - The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
-type MaxPrice struct {
-	// Price per million prompt tokens
-	Prompt     *string `json:"prompt,omitzero"`
-	Completion *string `json:"completion,omitzero"`
-	Image      *string `json:"image,omitzero"`
-	Audio      *string `json:"audio,omitzero"`
-	Request    *string `json:"request,omitzero"`
-}
-
-func (m *MaxPrice) GetPrompt() *string {
-	if m == nil {
-		return nil
-	}
-	return m.Prompt
-}
-
-func (m *MaxPrice) GetCompletion() *string {
-	if m == nil {
-		return nil
-	}
-	return m.Completion
-}
-
-func (m *MaxPrice) GetImage() *string {
-	if m == nil {
-		return nil
-	}
-	return m.Image
-}
-
-func (m *MaxPrice) GetAudio() *string {
-	if m == nil {
-		return nil
-	}
-	return m.Audio
-}
-
-func (m *MaxPrice) GetRequest() *string {
-	if m == nil {
-		return nil
-	}
-	return m.Request
-}
-
 // ProviderPreferences - When multiple model providers are available, optionally indicate your routing preference.
 type ProviderPreferences struct {
 	// Whether to allow backup providers to serve requests
@@ -470,33 +470,33 @@ type ProviderPreferences struct {
 	// - false: use only the primary/custom provider, and return the upstream error if it's unavailable.
 	//
 	AllowFallbacks optionalnullable.OptionalNullable[bool] `json:"allow_fallbacks,omitzero"`
-	// Whether to filter providers to only those that support the parameters you've provided. If this setting is omitted or set to false, then providers will receive only the parameters they support, and ignore the rest.
-	RequireParameters optionalnullable.OptionalNullable[bool] `json:"require_parameters,omitzero"`
 	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
 	// - allow: (default) allow providers which store user data non-transiently and may train on it
 	//
 	// - deny: use only providers which do not collect user data.
 	DataCollection optionalnullable.OptionalNullable[DataCollection] `json:"data_collection,omitzero"`
-	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
-	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 	// Whether to restrict routing to only models that allow text distillation. When true, only models where the author has allowed distillation will be used.
 	EnforceDistillableText optionalnullable.OptionalNullable[bool] `json:"enforce_distillable_text,omitzero"`
-	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
-	Order optionalnullable.OptionalNullable[[]Order] `json:"order,omitzero"`
-	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
-	Only optionalnullable.OptionalNullable[[]Only] `json:"only,omitzero"`
 	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
 	Ignore optionalnullable.OptionalNullable[[]Ignore] `json:"ignore,omitzero"`
-	// A list of quantization levels to filter the provider by.
-	Quantizations optionalnullable.OptionalNullable[[]Quantization] `json:"quantizations,omitzero"`
-	// The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
-	Sort optionalnullable.OptionalNullable[Sort] `json:"sort,omitzero"`
 	// The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
 	MaxPrice *MaxPrice `json:"max_price,omitzero"`
-	// Preferred minimum throughput (in tokens per second). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints below the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
-	PreferredMinThroughput optionalnullable.OptionalNullable[PreferredMinThroughput] `json:"preferred_min_throughput,omitzero"`
+	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
+	Only optionalnullable.OptionalNullable[[]Only] `json:"only,omitzero"`
+	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
+	Order optionalnullable.OptionalNullable[[]Order] `json:"order,omitzero"`
 	// Preferred maximum latency (in seconds). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints above the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
 	PreferredMaxLatency optionalnullable.OptionalNullable[PreferredMaxLatency] `json:"preferred_max_latency,omitzero"`
+	// Preferred minimum throughput (in tokens per second). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints below the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
+	PreferredMinThroughput optionalnullable.OptionalNullable[PreferredMinThroughput] `json:"preferred_min_throughput,omitzero"`
+	// A list of quantization levels to filter the provider by.
+	Quantizations optionalnullable.OptionalNullable[[]Quantization] `json:"quantizations,omitzero"`
+	// Whether to filter providers to only those that support the parameters you've provided. If this setting is omitted or set to false, then providers will receive only the parameters they support, and ignore the rest.
+	RequireParameters optionalnullable.OptionalNullable[bool] `json:"require_parameters,omitzero"`
+	// The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
+	Sort optionalnullable.OptionalNullable[Sort] `json:"sort,omitzero"`
+	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
+	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 }
 
 func (p ProviderPreferences) MarshalJSON() ([]byte, error) {
@@ -517,25 +517,11 @@ func (p *ProviderPreferences) GetAllowFallbacks() optionalnullable.OptionalNulla
 	return p.AllowFallbacks
 }
 
-func (p *ProviderPreferences) GetRequireParameters() optionalnullable.OptionalNullable[bool] {
-	if p == nil {
-		return nil
-	}
-	return p.RequireParameters
-}
-
 func (p *ProviderPreferences) GetDataCollection() optionalnullable.OptionalNullable[DataCollection] {
 	if p == nil {
 		return nil
 	}
 	return p.DataCollection
-}
-
-func (p *ProviderPreferences) GetZdr() optionalnullable.OptionalNullable[bool] {
-	if p == nil {
-		return nil
-	}
-	return p.Zdr
 }
 
 func (p *ProviderPreferences) GetEnforceDistillableText() optionalnullable.OptionalNullable[bool] {
@@ -545,39 +531,11 @@ func (p *ProviderPreferences) GetEnforceDistillableText() optionalnullable.Optio
 	return p.EnforceDistillableText
 }
 
-func (p *ProviderPreferences) GetOrder() optionalnullable.OptionalNullable[[]Order] {
-	if p == nil {
-		return nil
-	}
-	return p.Order
-}
-
-func (p *ProviderPreferences) GetOnly() optionalnullable.OptionalNullable[[]Only] {
-	if p == nil {
-		return nil
-	}
-	return p.Only
-}
-
 func (p *ProviderPreferences) GetIgnore() optionalnullable.OptionalNullable[[]Ignore] {
 	if p == nil {
 		return nil
 	}
 	return p.Ignore
-}
-
-func (p *ProviderPreferences) GetQuantizations() optionalnullable.OptionalNullable[[]Quantization] {
-	if p == nil {
-		return nil
-	}
-	return p.Quantizations
-}
-
-func (p *ProviderPreferences) GetSort() optionalnullable.OptionalNullable[Sort] {
-	if p == nil {
-		return nil
-	}
-	return p.Sort
 }
 
 func (p *ProviderPreferences) GetMaxPrice() *MaxPrice {
@@ -587,11 +545,18 @@ func (p *ProviderPreferences) GetMaxPrice() *MaxPrice {
 	return p.MaxPrice
 }
 
-func (p *ProviderPreferences) GetPreferredMinThroughput() optionalnullable.OptionalNullable[PreferredMinThroughput] {
+func (p *ProviderPreferences) GetOnly() optionalnullable.OptionalNullable[[]Only] {
 	if p == nil {
 		return nil
 	}
-	return p.PreferredMinThroughput
+	return p.Only
+}
+
+func (p *ProviderPreferences) GetOrder() optionalnullable.OptionalNullable[[]Order] {
+	if p == nil {
+		return nil
+	}
+	return p.Order
 }
 
 func (p *ProviderPreferences) GetPreferredMaxLatency() optionalnullable.OptionalNullable[PreferredMaxLatency] {
@@ -599,4 +564,39 @@ func (p *ProviderPreferences) GetPreferredMaxLatency() optionalnullable.Optional
 		return nil
 	}
 	return p.PreferredMaxLatency
+}
+
+func (p *ProviderPreferences) GetPreferredMinThroughput() optionalnullable.OptionalNullable[PreferredMinThroughput] {
+	if p == nil {
+		return nil
+	}
+	return p.PreferredMinThroughput
+}
+
+func (p *ProviderPreferences) GetQuantizations() optionalnullable.OptionalNullable[[]Quantization] {
+	if p == nil {
+		return nil
+	}
+	return p.Quantizations
+}
+
+func (p *ProviderPreferences) GetRequireParameters() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.RequireParameters
+}
+
+func (p *ProviderPreferences) GetSort() optionalnullable.OptionalNullable[Sort] {
+	if p == nil {
+		return nil
+	}
+	return p.Sort
+}
+
+func (p *ProviderPreferences) GetZdr() optionalnullable.OptionalNullable[bool] {
+	if p == nil {
+		return nil
+	}
+	return p.Zdr
 }

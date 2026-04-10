@@ -58,11 +58,11 @@ func (e *OpenResponsesResultType) UnmarshalJSON(data []byte) error {
 
 // OpenResponsesResultToolFunction - Function tool definition
 type OpenResponsesResultToolFunction struct {
-	Type        OpenResponsesResultType                   `json:"type"`
-	Name        string                                    `json:"name"`
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
+	Name        string                                    `json:"name"`
 	Parameters  map[string]any                            `json:"parameters"`
+	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
+	Type        OpenResponsesResultType                   `json:"type"`
 }
 
 func (o OpenResponsesResultToolFunction) MarshalJSON() ([]byte, error) {
@@ -76,11 +76,11 @@ func (o *OpenResponsesResultToolFunction) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OpenResponsesResultToolFunction) GetType() OpenResponsesResultType {
+func (o *OpenResponsesResultToolFunction) GetDescription() optionalnullable.OptionalNullable[string] {
 	if o == nil {
-		return OpenResponsesResultType("")
+		return nil
 	}
-	return o.Type
+	return o.Description
 }
 
 func (o *OpenResponsesResultToolFunction) GetName() string {
@@ -90,11 +90,11 @@ func (o *OpenResponsesResultToolFunction) GetName() string {
 	return o.Name
 }
 
-func (o *OpenResponsesResultToolFunction) GetDescription() optionalnullable.OptionalNullable[string] {
+func (o *OpenResponsesResultToolFunction) GetParameters() map[string]any {
 	if o == nil {
 		return nil
 	}
-	return o.Description
+	return o.Parameters
 }
 
 func (o *OpenResponsesResultToolFunction) GetStrict() optionalnullable.OptionalNullable[bool] {
@@ -104,11 +104,11 @@ func (o *OpenResponsesResultToolFunction) GetStrict() optionalnullable.OptionalN
 	return o.Strict
 }
 
-func (o *OpenResponsesResultToolFunction) GetParameters() map[string]any {
+func (o *OpenResponsesResultToolFunction) GetType() OpenResponsesResultType {
 	if o == nil {
-		return nil
+		return OpenResponsesResultType("")
 	}
-	return o.Parameters
+	return o.Type
 }
 
 type OpenResponsesResultToolUnionType string
@@ -128,6 +128,7 @@ const (
 	OpenResponsesResultToolUnionTypeShell                    OpenResponsesResultToolUnionType = "shell"
 	OpenResponsesResultToolUnionTypeApplyPatch               OpenResponsesResultToolUnionType = "apply_patch"
 	OpenResponsesResultToolUnionTypeCustom                   OpenResponsesResultToolUnionType = "custom"
+	OpenResponsesResultToolUnionTypeUnknown                  OpenResponsesResultToolUnionType = "UNKNOWN"
 )
 
 type OpenResponsesResultToolUnion struct {
@@ -145,6 +146,7 @@ type OpenResponsesResultToolUnion struct {
 	ShellServerTool                    *ShellServerTool                    `queryParam:"inline" union:"member"`
 	ApplyPatchServerTool               *ApplyPatchServerTool               `queryParam:"inline" union:"member"`
 	CustomTool                         *CustomTool                         `queryParam:"inline" union:"member"`
+	UnknownRaw                         json.RawMessage                     `json:"-" union:"unknown"`
 
 	Type OpenResponsesResultToolUnionType
 }
@@ -317,6 +319,21 @@ func CreateOpenResponsesResultToolUnionCustom(custom CustomTool) OpenResponsesRe
 	}
 }
 
+func CreateOpenResponsesResultToolUnionUnknown(raw json.RawMessage) OpenResponsesResultToolUnion {
+	return OpenResponsesResultToolUnion{
+		UnknownRaw: raw,
+		Type:       OpenResponsesResultToolUnionTypeUnknown,
+	}
+}
+
+func (u OpenResponsesResultToolUnion) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u OpenResponsesResultToolUnion) IsUnknown() bool {
+	return u.Type == OpenResponsesResultToolUnionTypeUnknown
+}
+
 func (u *OpenResponsesResultToolUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -325,7 +342,14 @@ func (u *OpenResponsesResultToolUnion) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenResponsesResultToolUnionTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenResponsesResultToolUnionTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -455,9 +479,12 @@ func (u *OpenResponsesResultToolUnion) UnmarshalJSON(data []byte) error {
 		u.CustomTool = customTool
 		u.Type = OpenResponsesResultToolUnionTypeCustom
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenResponsesResultToolUnionTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenResponsesResultToolUnion", string(data))
 }
 
 func (u OpenResponsesResultToolUnion) MarshalJSON() ([]byte, error) {
@@ -517,49 +544,52 @@ func (u OpenResponsesResultToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CustomTool, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type OpenResponsesResultToolUnion: all fields are null")
 }
 
 // OpenResponsesResult - Complete non-streaming response from the Responses API
 type OpenResponsesResult struct {
-	ID               string                                    `json:"id"`
-	Object           OpenResponsesResultObject                 `json:"object"`
-	CreatedAt        int64                                     `json:"created_at"`
-	Model            string                                    `json:"model"`
-	Status           OpenAIResponsesResponseStatus             `json:"status"`
-	CompletedAt      int64                                     `json:"completed_at"`
-	Output           []OutputItems                             `json:"output"`
-	User             optionalnullable.OptionalNullable[string] `json:"user,omitzero"`
-	OutputText       *string                                   `json:"output_text,omitzero"`
-	PromptCacheKey   optionalnullable.OptionalNullable[string] `json:"prompt_cache_key,omitzero"`
-	SafetyIdentifier optionalnullable.OptionalNullable[string] `json:"safety_identifier,omitzero"`
+	Background  optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
+	CompletedAt int64                                   `json:"completed_at"`
+	CreatedAt   int64                                   `json:"created_at"`
 	// Error information returned from the API
 	Error             *ResponsesErrorField `json:"error"`
+	FrequencyPenalty  float64              `json:"frequency_penalty"`
+	ID                string               `json:"id"`
 	IncompleteDetails *IncompleteDetails   `json:"incomplete_details"`
-	// Token usage information for the response
-	Usage            optionalnullable.OptionalNullable[Usage] `json:"usage,omitzero"`
-	MaxToolCalls     *int64                                   `json:"max_tool_calls,omitzero"`
-	TopLogprobs      *int64                                   `json:"top_logprobs,omitzero"`
-	MaxOutputTokens  *int64                                   `json:"max_output_tokens,omitzero"`
-	Temperature      float64                                  `json:"temperature"`
-	TopP             float64                                  `json:"top_p"`
-	PresencePenalty  float64                                  `json:"presence_penalty"`
-	FrequencyPenalty float64                                  `json:"frequency_penalty"`
-	Instructions     *BaseInputsUnion                         `json:"instructions"`
+	Instructions      *BaseInputsUnion     `json:"instructions"`
+	MaxOutputTokens   *int64               `json:"max_output_tokens,omitzero"`
+	MaxToolCalls      *int64               `json:"max_tool_calls,omitzero"`
 	// Metadata key-value pairs for the request. Keys must be ≤64 characters and cannot contain brackets. Values must be ≤512 characters. Maximum 16 pairs allowed.
 	Metadata           map[string]string                                       `json:"metadata"`
-	Tools              []OpenResponsesResultToolUnion                          `json:"tools"`
-	ToolChoice         OpenAIResponsesToolChoiceUnion                          `json:"tool_choice"`
+	Model              string                                                  `json:"model"`
+	Object             OpenResponsesResultObject                               `json:"object"`
+	Output             []OutputItems                                           `json:"output"`
+	OutputText         *string                                                 `json:"output_text,omitzero"`
 	ParallelToolCalls  bool                                                    `json:"parallel_tool_calls"`
-	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
-	Background         optionalnullable.OptionalNullable[bool]                 `json:"background,omitzero"`
+	PresencePenalty    float64                                                 `json:"presence_penalty"`
 	PreviousResponseID optionalnullable.OptionalNullable[string]               `json:"previous_response_id,omitzero"`
+	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
+	PromptCacheKey     optionalnullable.OptionalNullable[string]               `json:"prompt_cache_key,omitzero"`
 	Reasoning          optionalnullable.OptionalNullable[BaseReasoningConfig]  `json:"reasoning,omitzero"`
+	SafetyIdentifier   optionalnullable.OptionalNullable[string]               `json:"safety_identifier,omitzero"`
 	ServiceTier        optionalnullable.OptionalNullable[string]               `json:"service_tier,omitzero"`
+	Status             OpenAIResponsesResponseStatus                           `json:"status"`
 	Store              *bool                                                   `json:"store,omitzero"`
-	Truncation         optionalnullable.OptionalNullable[Truncation]           `json:"truncation,omitzero"`
+	Temperature        float64                                                 `json:"temperature"`
 	// Text output configuration including format and verbosity
-	Text *TextConfig `json:"text,omitzero"`
+	Text        *TextConfig                                   `json:"text,omitzero"`
+	ToolChoice  OpenAIResponsesToolChoiceUnion                `json:"tool_choice"`
+	Tools       []OpenResponsesResultToolUnion                `json:"tools"`
+	TopLogprobs *int64                                        `json:"top_logprobs,omitzero"`
+	TopP        float64                                       `json:"top_p"`
+	Truncation  optionalnullable.OptionalNullable[Truncation] `json:"truncation,omitzero"`
+	// Token usage information for the response
+	Usage optionalnullable.OptionalNullable[Usage]  `json:"usage,omitzero"`
+	User  optionalnullable.OptionalNullable[string] `json:"user,omitzero"`
 }
 
 func (o OpenResponsesResult) MarshalJSON() ([]byte, error) {
@@ -573,39 +603,11 @@ func (o *OpenResponsesResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OpenResponsesResult) GetID() string {
+func (o *OpenResponsesResult) GetBackground() optionalnullable.OptionalNullable[bool] {
 	if o == nil {
-		return ""
+		return nil
 	}
-	return o.ID
-}
-
-func (o *OpenResponsesResult) GetObject() OpenResponsesResultObject {
-	if o == nil {
-		return OpenResponsesResultObject("")
-	}
-	return o.Object
-}
-
-func (o *OpenResponsesResult) GetCreatedAt() int64 {
-	if o == nil {
-		return 0
-	}
-	return o.CreatedAt
-}
-
-func (o *OpenResponsesResult) GetModel() string {
-	if o == nil {
-		return ""
-	}
-	return o.Model
-}
-
-func (o *OpenResponsesResult) GetStatus() OpenAIResponsesResponseStatus {
-	if o == nil {
-		return OpenAIResponsesResponseStatus("")
-	}
-	return o.Status
+	return o.Background
 }
 
 func (o *OpenResponsesResult) GetCompletedAt() int64 {
@@ -615,39 +617,11 @@ func (o *OpenResponsesResult) GetCompletedAt() int64 {
 	return o.CompletedAt
 }
 
-func (o *OpenResponsesResult) GetOutput() []OutputItems {
+func (o *OpenResponsesResult) GetCreatedAt() int64 {
 	if o == nil {
-		return []OutputItems{}
+		return 0
 	}
-	return o.Output
-}
-
-func (o *OpenResponsesResult) GetUser() optionalnullable.OptionalNullable[string] {
-	if o == nil {
-		return nil
-	}
-	return o.User
-}
-
-func (o *OpenResponsesResult) GetOutputText() *string {
-	if o == nil {
-		return nil
-	}
-	return o.OutputText
-}
-
-func (o *OpenResponsesResult) GetPromptCacheKey() optionalnullable.OptionalNullable[string] {
-	if o == nil {
-		return nil
-	}
-	return o.PromptCacheKey
-}
-
-func (o *OpenResponsesResult) GetSafetyIdentifier() optionalnullable.OptionalNullable[string] {
-	if o == nil {
-		return nil
-	}
-	return o.SafetyIdentifier
+	return o.CreatedAt
 }
 
 func (o *OpenResponsesResult) GetError() *ResponsesErrorField {
@@ -657,67 +631,25 @@ func (o *OpenResponsesResult) GetError() *ResponsesErrorField {
 	return o.Error
 }
 
-func (o *OpenResponsesResult) GetIncompleteDetails() *IncompleteDetails {
-	if o == nil {
-		return nil
-	}
-	return o.IncompleteDetails
-}
-
-func (o *OpenResponsesResult) GetUsage() optionalnullable.OptionalNullable[Usage] {
-	if o == nil {
-		return nil
-	}
-	return o.Usage
-}
-
-func (o *OpenResponsesResult) GetMaxToolCalls() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxToolCalls
-}
-
-func (o *OpenResponsesResult) GetTopLogprobs() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.TopLogprobs
-}
-
-func (o *OpenResponsesResult) GetMaxOutputTokens() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxOutputTokens
-}
-
-func (o *OpenResponsesResult) GetTemperature() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.Temperature
-}
-
-func (o *OpenResponsesResult) GetTopP() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.TopP
-}
-
-func (o *OpenResponsesResult) GetPresencePenalty() float64 {
-	if o == nil {
-		return 0.0
-	}
-	return o.PresencePenalty
-}
-
 func (o *OpenResponsesResult) GetFrequencyPenalty() float64 {
 	if o == nil {
 		return 0.0
 	}
 	return o.FrequencyPenalty
+}
+
+func (o *OpenResponsesResult) GetID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ID
+}
+
+func (o *OpenResponsesResult) GetIncompleteDetails() *IncompleteDetails {
+	if o == nil {
+		return nil
+	}
+	return o.IncompleteDetails
 }
 
 func (o *OpenResponsesResult) GetInstructions() *BaseInputsUnion {
@@ -727,6 +659,20 @@ func (o *OpenResponsesResult) GetInstructions() *BaseInputsUnion {
 	return o.Instructions
 }
 
+func (o *OpenResponsesResult) GetMaxOutputTokens() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxOutputTokens
+}
+
+func (o *OpenResponsesResult) GetMaxToolCalls() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxToolCalls
+}
+
 func (o *OpenResponsesResult) GetMetadata() map[string]string {
 	if o == nil {
 		return nil
@@ -734,18 +680,32 @@ func (o *OpenResponsesResult) GetMetadata() map[string]string {
 	return o.Metadata
 }
 
-func (o *OpenResponsesResult) GetTools() []OpenResponsesResultToolUnion {
+func (o *OpenResponsesResult) GetModel() string {
 	if o == nil {
-		return []OpenResponsesResultToolUnion{}
+		return ""
 	}
-	return o.Tools
+	return o.Model
 }
 
-func (o *OpenResponsesResult) GetToolChoice() OpenAIResponsesToolChoiceUnion {
+func (o *OpenResponsesResult) GetObject() OpenResponsesResultObject {
 	if o == nil {
-		return OpenAIResponsesToolChoiceUnion{}
+		return OpenResponsesResultObject("")
 	}
-	return o.ToolChoice
+	return o.Object
+}
+
+func (o *OpenResponsesResult) GetOutput() []OutputItems {
+	if o == nil {
+		return []OutputItems{}
+	}
+	return o.Output
+}
+
+func (o *OpenResponsesResult) GetOutputText() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OutputText
 }
 
 func (o *OpenResponsesResult) GetParallelToolCalls() bool {
@@ -755,18 +715,11 @@ func (o *OpenResponsesResult) GetParallelToolCalls() bool {
 	return o.ParallelToolCalls
 }
 
-func (o *OpenResponsesResult) GetPrompt() optionalnullable.OptionalNullable[StoredPromptTemplate] {
+func (o *OpenResponsesResult) GetPresencePenalty() float64 {
 	if o == nil {
-		return nil
+		return 0.0
 	}
-	return o.Prompt
-}
-
-func (o *OpenResponsesResult) GetBackground() optionalnullable.OptionalNullable[bool] {
-	if o == nil {
-		return nil
-	}
-	return o.Background
+	return o.PresencePenalty
 }
 
 func (o *OpenResponsesResult) GetPreviousResponseID() optionalnullable.OptionalNullable[string] {
@@ -776,11 +729,32 @@ func (o *OpenResponsesResult) GetPreviousResponseID() optionalnullable.OptionalN
 	return o.PreviousResponseID
 }
 
+func (o *OpenResponsesResult) GetPrompt() optionalnullable.OptionalNullable[StoredPromptTemplate] {
+	if o == nil {
+		return nil
+	}
+	return o.Prompt
+}
+
+func (o *OpenResponsesResult) GetPromptCacheKey() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.PromptCacheKey
+}
+
 func (o *OpenResponsesResult) GetReasoning() optionalnullable.OptionalNullable[BaseReasoningConfig] {
 	if o == nil {
 		return nil
 	}
 	return o.Reasoning
+}
+
+func (o *OpenResponsesResult) GetSafetyIdentifier() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.SafetyIdentifier
 }
 
 func (o *OpenResponsesResult) GetServiceTier() optionalnullable.OptionalNullable[string] {
@@ -790,11 +764,60 @@ func (o *OpenResponsesResult) GetServiceTier() optionalnullable.OptionalNullable
 	return o.ServiceTier
 }
 
+func (o *OpenResponsesResult) GetStatus() OpenAIResponsesResponseStatus {
+	if o == nil {
+		return OpenAIResponsesResponseStatus("")
+	}
+	return o.Status
+}
+
 func (o *OpenResponsesResult) GetStore() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Store
+}
+
+func (o *OpenResponsesResult) GetTemperature() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Temperature
+}
+
+func (o *OpenResponsesResult) GetText() *TextConfig {
+	if o == nil {
+		return nil
+	}
+	return o.Text
+}
+
+func (o *OpenResponsesResult) GetToolChoice() OpenAIResponsesToolChoiceUnion {
+	if o == nil {
+		return OpenAIResponsesToolChoiceUnion{}
+	}
+	return o.ToolChoice
+}
+
+func (o *OpenResponsesResult) GetTools() []OpenResponsesResultToolUnion {
+	if o == nil {
+		return []OpenResponsesResultToolUnion{}
+	}
+	return o.Tools
+}
+
+func (o *OpenResponsesResult) GetTopLogprobs() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.TopLogprobs
+}
+
+func (o *OpenResponsesResult) GetTopP() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.TopP
 }
 
 func (o *OpenResponsesResult) GetTruncation() optionalnullable.OptionalNullable[Truncation] {
@@ -804,9 +827,16 @@ func (o *OpenResponsesResult) GetTruncation() optionalnullable.OptionalNullable[
 	return o.Truncation
 }
 
-func (o *OpenResponsesResult) GetText() *TextConfig {
+func (o *OpenResponsesResult) GetUsage() optionalnullable.OptionalNullable[Usage] {
 	if o == nil {
 		return nil
 	}
-	return o.Text
+	return o.Usage
+}
+
+func (o *OpenResponsesResult) GetUser() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.User
 }

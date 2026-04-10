@@ -33,12 +33,12 @@ func (e *ReasoningSummaryTextDoneEventType) UnmarshalJSON(data []byte) error {
 
 // ReasoningSummaryTextDoneEvent - Event emitted when reasoning summary text streaming is complete
 type ReasoningSummaryTextDoneEvent struct {
-	Type           ReasoningSummaryTextDoneEventType `json:"type"`
 	ItemID         string                            `json:"item_id"`
 	OutputIndex    int64                             `json:"output_index"`
+	SequenceNumber int64                             `json:"sequence_number"`
 	SummaryIndex   int64                             `json:"summary_index"`
 	Text           string                            `json:"text"`
-	SequenceNumber int64                             `json:"sequence_number"`
+	Type           ReasoningSummaryTextDoneEventType `json:"type"`
 }
 
 func (r ReasoningSummaryTextDoneEvent) MarshalJSON() ([]byte, error) {
@@ -50,13 +50,6 @@ func (r *ReasoningSummaryTextDoneEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (r *ReasoningSummaryTextDoneEvent) GetType() ReasoningSummaryTextDoneEventType {
-	if r == nil {
-		return ReasoningSummaryTextDoneEventType("")
-	}
-	return r.Type
 }
 
 func (r *ReasoningSummaryTextDoneEvent) GetItemID() string {
@@ -73,6 +66,13 @@ func (r *ReasoningSummaryTextDoneEvent) GetOutputIndex() int64 {
 	return r.OutputIndex
 }
 
+func (r *ReasoningSummaryTextDoneEvent) GetSequenceNumber() int64 {
+	if r == nil {
+		return 0
+	}
+	return r.SequenceNumber
+}
+
 func (r *ReasoningSummaryTextDoneEvent) GetSummaryIndex() int64 {
 	if r == nil {
 		return 0
@@ -87,9 +87,9 @@ func (r *ReasoningSummaryTextDoneEvent) GetText() string {
 	return r.Text
 }
 
-func (r *ReasoningSummaryTextDoneEvent) GetSequenceNumber() int64 {
+func (r *ReasoningSummaryTextDoneEvent) GetType() ReasoningSummaryTextDoneEventType {
 	if r == nil {
-		return 0
+		return ReasoningSummaryTextDoneEventType("")
 	}
-	return r.SequenceNumber
+	return r.Type
 }

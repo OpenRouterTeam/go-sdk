@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type InputImageType string
-
-const (
-	InputImageTypeInputImage InputImageType = "input_image"
-)
-
-func (e InputImageType) ToPointer() *InputImageType {
-	return &e
-}
-func (e *InputImageType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "input_image":
-		*e = InputImageType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputImageType: %v", v)
-	}
-}
-
 type InputImageDetail string
 
 const (
@@ -55,11 +32,34 @@ func (e *InputImageDetail) IsExact() bool {
 	return false
 }
 
+type InputImageType string
+
+const (
+	InputImageTypeInputImage InputImageType = "input_image"
+)
+
+func (e InputImageType) ToPointer() *InputImageType {
+	return &e
+}
+func (e *InputImageType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "input_image":
+		*e = InputImageType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputImageType: %v", v)
+	}
+}
+
 // InputImage - Image input content item
 type InputImage struct {
-	Type     InputImageType                            `json:"type"`
 	Detail   InputImageDetail                          `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
+	Type     InputImageType                            `json:"type"`
 }
 
 func (i InputImage) MarshalJSON() ([]byte, error) {
@@ -71,13 +71,6 @@ func (i *InputImage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (i *InputImage) GetType() InputImageType {
-	if i == nil {
-		return InputImageType("")
-	}
-	return i.Type
 }
 
 func (i *InputImage) GetDetail() InputImageDetail {
@@ -92,4 +85,11 @@ func (i *InputImage) GetImageURL() optionalnullable.OptionalNullable[string] {
 		return nil
 	}
 	return i.ImageURL
+}
+
+func (i *InputImage) GetType() InputImageType {
+	if i == nil {
+		return InputImageType("")
+	}
+	return i.Type
 }

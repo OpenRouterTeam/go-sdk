@@ -34,16 +34,16 @@ func (e *LegacyWebSearchServerToolType) UnmarshalJSON(data []byte) error {
 
 // LegacyWebSearchServerTool - Web search tool configuration
 type LegacyWebSearchServerTool struct {
-	Type    LegacyWebSearchServerToolType                            `json:"type"`
-	Filters optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
-	// Size of the search context for web search tools
-	SearchContextSize *SearchContextSizeEnum `json:"search_context_size,omitzero"`
-	// User location information for web search
-	UserLocation optionalnullable.OptionalNullable[WebSearchUserLocation] `json:"user_location,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
+	Engine  *WebSearchEngineEnum                                     `json:"engine,omitzero"`
+	Filters optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
 	MaxResults *int64 `json:"max_results,omitzero"`
+	// Size of the search context for web search tools
+	SearchContextSize *SearchContextSizeEnum        `json:"search_context_size,omitzero"`
+	Type              LegacyWebSearchServerToolType `json:"type"`
+	// User location information for web search
+	UserLocation optionalnullable.OptionalNullable[WebSearchUserLocation] `json:"user_location,omitzero"`
 }
 
 func (l LegacyWebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -57,11 +57,11 @@ func (l *LegacyWebSearchServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (l *LegacyWebSearchServerTool) GetType() LegacyWebSearchServerToolType {
+func (l *LegacyWebSearchServerTool) GetEngine() *WebSearchEngineEnum {
 	if l == nil {
-		return LegacyWebSearchServerToolType("")
+		return nil
 	}
-	return l.Type
+	return l.Engine
 }
 
 func (l *LegacyWebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchDomainFilter] {
@@ -71,6 +71,13 @@ func (l *LegacyWebSearchServerTool) GetFilters() optionalnullable.OptionalNullab
 	return l.Filters
 }
 
+func (l *LegacyWebSearchServerTool) GetMaxResults() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.MaxResults
+}
+
 func (l *LegacyWebSearchServerTool) GetSearchContextSize() *SearchContextSizeEnum {
 	if l == nil {
 		return nil
@@ -78,23 +85,16 @@ func (l *LegacyWebSearchServerTool) GetSearchContextSize() *SearchContextSizeEnu
 	return l.SearchContextSize
 }
 
+func (l *LegacyWebSearchServerTool) GetType() LegacyWebSearchServerToolType {
+	if l == nil {
+		return LegacyWebSearchServerToolType("")
+	}
+	return l.Type
+}
+
 func (l *LegacyWebSearchServerTool) GetUserLocation() optionalnullable.OptionalNullable[WebSearchUserLocation] {
 	if l == nil {
 		return nil
 	}
 	return l.UserLocation
-}
-
-func (l *LegacyWebSearchServerTool) GetEngine() *WebSearchEngineEnum {
-	if l == nil {
-		return nil
-	}
-	return l.Engine
-}
-
-func (l *LegacyWebSearchServerTool) GetMaxResults() *int64 {
-	if l == nil {
-		return nil
-	}
-	return l.MaxResults
 }

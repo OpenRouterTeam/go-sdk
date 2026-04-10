@@ -32,17 +32,17 @@ func (e *WebSearchPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type WebSearchPlugin struct {
-	ID WebSearchPluginID `json:"id"`
 	// Set to false to disable the web-search plugin for this request. Defaults to true.
-	Enabled      *bool   `json:"enabled,omitzero"`
-	MaxResults   *int64  `json:"max_results,omitzero"`
-	SearchPrompt *string `json:"search_prompt,omitzero"`
+	Enabled *bool `json:"enabled,omitzero"`
 	// The search engine to use for web search.
 	Engine *WebSearchEngine `json:"engine,omitzero"`
+	// A list of domains to exclude from web search results. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
+	ExcludeDomains []string          `json:"exclude_domains,omitzero"`
+	ID             WebSearchPluginID `json:"id"`
 	// A list of domains to restrict web search results to. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
 	IncludeDomains []string `json:"include_domains,omitzero"`
-	// A list of domains to exclude from web search results. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
-	ExcludeDomains []string `json:"exclude_domains,omitzero"`
+	MaxResults     *int64   `json:"max_results,omitzero"`
+	SearchPrompt   *string  `json:"search_prompt,omitzero"`
 }
 
 func (w WebSearchPlugin) MarshalJSON() ([]byte, error) {
@@ -56,6 +56,27 @@ func (w *WebSearchPlugin) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (w *WebSearchPlugin) GetEnabled() *bool {
+	if w == nil {
+		return nil
+	}
+	return w.Enabled
+}
+
+func (w *WebSearchPlugin) GetEngine() *WebSearchEngine {
+	if w == nil {
+		return nil
+	}
+	return w.Engine
+}
+
+func (w *WebSearchPlugin) GetExcludeDomains() []string {
+	if w == nil {
+		return nil
+	}
+	return w.ExcludeDomains
+}
+
 func (w *WebSearchPlugin) GetID() WebSearchPluginID {
 	if w == nil {
 		return WebSearchPluginID("")
@@ -63,11 +84,11 @@ func (w *WebSearchPlugin) GetID() WebSearchPluginID {
 	return w.ID
 }
 
-func (w *WebSearchPlugin) GetEnabled() *bool {
+func (w *WebSearchPlugin) GetIncludeDomains() []string {
 	if w == nil {
 		return nil
 	}
-	return w.Enabled
+	return w.IncludeDomains
 }
 
 func (w *WebSearchPlugin) GetMaxResults() *int64 {
@@ -82,25 +103,4 @@ func (w *WebSearchPlugin) GetSearchPrompt() *string {
 		return nil
 	}
 	return w.SearchPrompt
-}
-
-func (w *WebSearchPlugin) GetEngine() *WebSearchEngine {
-	if w == nil {
-		return nil
-	}
-	return w.Engine
-}
-
-func (w *WebSearchPlugin) GetIncludeDomains() []string {
-	if w == nil {
-		return nil
-	}
-	return w.IncludeDomains
-}
-
-func (w *WebSearchPlugin) GetExcludeDomains() []string {
-	if w == nil {
-		return nil
-	}
-	return w.ExcludeDomains
 }

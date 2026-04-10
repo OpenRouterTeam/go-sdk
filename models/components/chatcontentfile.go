@@ -8,29 +8,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatContentFileType string
-
-const (
-	ChatContentFileTypeFile ChatContentFileType = "file"
-)
-
-func (e ChatContentFileType) ToPointer() *ChatContentFileType {
-	return &e
-}
-func (e *ChatContentFileType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "file":
-		*e = ChatContentFileType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatContentFileType: %v", v)
-	}
-}
-
 type File struct {
 	// File content as base64 data URL or URL
 	FileData *string `json:"file_data,omitzero"`
@@ -72,10 +49,33 @@ func (f *File) GetFilename() *string {
 	return f.Filename
 }
 
+type ChatContentFileType string
+
+const (
+	ChatContentFileTypeFile ChatContentFileType = "file"
+)
+
+func (e ChatContentFileType) ToPointer() *ChatContentFileType {
+	return &e
+}
+func (e *ChatContentFileType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "file":
+		*e = ChatContentFileType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatContentFileType: %v", v)
+	}
+}
+
 // ChatContentFile - File content part for document processing
 type ChatContentFile struct {
-	Type ChatContentFileType `json:"type"`
 	File File                `json:"file"`
+	Type ChatContentFileType `json:"type"`
 }
 
 func (c ChatContentFile) MarshalJSON() ([]byte, error) {
@@ -89,16 +89,16 @@ func (c *ChatContentFile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatContentFile) GetType() ChatContentFileType {
-	if c == nil {
-		return ChatContentFileType("")
-	}
-	return c.Type
-}
-
 func (c *ChatContentFile) GetFile() File {
 	if c == nil {
 		return File{}
 	}
 	return c.File
+}
+
+func (c *ChatContentFile) GetType() ChatContentFileType {
+	if c == nil {
+		return ChatContentFileType("")
+	}
+	return c.Type
 }

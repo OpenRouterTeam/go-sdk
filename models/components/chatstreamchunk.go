@@ -9,6 +9,28 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// Error information
+type Error struct {
+	// Error code
+	Code int `json:"code"`
+	// Error message
+	Message string `json:"message"`
+}
+
+func (e *Error) GetCode() int {
+	if e == nil {
+		return 0
+	}
+	return e.Code
+}
+
+func (e *Error) GetMessage() string {
+	if e == nil {
+		return ""
+	}
+	return e.Message
+}
+
 type ChatStreamChunkObject string
 
 const (
@@ -32,45 +54,23 @@ func (e *ChatStreamChunkObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Error information
-type Error struct {
-	// Error message
-	Message string `json:"message"`
-	// Error code
-	Code int `json:"code"`
-}
-
-func (e *Error) GetMessage() string {
-	if e == nil {
-		return ""
-	}
-	return e.Message
-}
-
-func (e *Error) GetCode() int {
-	if e == nil {
-		return 0
-	}
-	return e.Code
-}
-
 // ChatStreamChunk - Streaming chat completion chunk
 type ChatStreamChunk struct {
-	// Unique chunk identifier
-	ID string `json:"id"`
 	// List of streaming chunk choices
 	Choices []ChatStreamChoice `json:"choices"`
 	// Unix timestamp of creation
 	Created int64 `json:"created"`
+	// Error information
+	Error *Error `json:"error,omitzero"`
+	// Unique chunk identifier
+	ID string `json:"id"`
 	// Model used for completion
 	Model  string                `json:"model"`
 	Object ChatStreamChunkObject `json:"object"`
-	// System fingerprint
-	SystemFingerprint *string `json:"system_fingerprint,omitzero"`
 	// The service tier used by the upstream provider for this request
 	ServiceTier optionalnullable.OptionalNullable[string] `json:"service_tier,omitzero"`
-	// Error information
-	Error *Error `json:"error,omitzero"`
+	// System fingerprint
+	SystemFingerprint *string `json:"system_fingerprint,omitzero"`
 	// Token usage statistics
 	Usage *ChatUsage `json:"usage,omitzero"`
 }
@@ -84,13 +84,6 @@ func (c *ChatStreamChunk) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ChatStreamChunk) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
 }
 
 func (c *ChatStreamChunk) GetChoices() []ChatStreamChoice {
@@ -107,6 +100,20 @@ func (c *ChatStreamChunk) GetCreated() int64 {
 	return c.Created
 }
 
+func (c *ChatStreamChunk) GetError() *Error {
+	if c == nil {
+		return nil
+	}
+	return c.Error
+}
+
+func (c *ChatStreamChunk) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
 func (c *ChatStreamChunk) GetModel() string {
 	if c == nil {
 		return ""
@@ -121,13 +128,6 @@ func (c *ChatStreamChunk) GetObject() ChatStreamChunkObject {
 	return c.Object
 }
 
-func (c *ChatStreamChunk) GetSystemFingerprint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SystemFingerprint
-}
-
 func (c *ChatStreamChunk) GetServiceTier() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
@@ -135,11 +135,11 @@ func (c *ChatStreamChunk) GetServiceTier() optionalnullable.OptionalNullable[str
 	return c.ServiceTier
 }
 
-func (c *ChatStreamChunk) GetError() *Error {
+func (c *ChatStreamChunk) GetSystemFingerprint() *string {
 	if c == nil {
 		return nil
 	}
-	return c.Error
+	return c.SystemFingerprint
 }
 
 func (c *ChatStreamChunk) GetUsage() *ChatUsage {

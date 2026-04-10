@@ -33,18 +33,18 @@ func (e *CreateKeysLimitReset) IsExact() bool {
 }
 
 type CreateKeysRequest struct {
-	// Name for the new API key
-	Name string `json:"name"`
+	// Optional user ID of the key creator. Only meaningful for organization-owned keys where a specific member is creating the key.
+	CreatorUserID optionalnullable.OptionalNullable[string] `json:"creator_user_id,omitzero"`
+	// Optional ISO 8601 UTC timestamp when the API key should expire. Must be UTC, other timezones will be rejected
+	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Whether to include BYOK usage in the limit
+	IncludeByokInLimit *bool `json:"include_byok_in_limit,omitzero"`
 	// Optional spending limit for the API key in USD
 	Limit *float64 `json:"limit,omitzero"`
 	// Type of limit reset for the API key (daily, weekly, monthly, or null for no reset). Resets happen automatically at midnight UTC, and weeks are Monday through Sunday.
 	LimitReset optionalnullable.OptionalNullable[CreateKeysLimitReset] `json:"limit_reset,omitzero"`
-	// Whether to include BYOK usage in the limit
-	IncludeByokInLimit *bool `json:"include_byok_in_limit,omitzero"`
-	// Optional ISO 8601 UTC timestamp when the API key should expire. Must be UTC, other timezones will be rejected
-	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
-	// Optional user ID of the key creator. Only meaningful for organization-owned keys where a specific member is creating the key.
-	CreatorUserID optionalnullable.OptionalNullable[string] `json:"creator_user_id,omitzero"`
+	// Name for the new API key
+	Name string `json:"name"`
 }
 
 func (c CreateKeysRequest) MarshalJSON() ([]byte, error) {
@@ -58,11 +58,25 @@ func (c *CreateKeysRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateKeysRequest) GetName() string {
+func (c *CreateKeysRequest) GetCreatorUserID() optionalnullable.OptionalNullable[string] {
 	if c == nil {
-		return ""
+		return nil
 	}
-	return c.Name
+	return c.CreatorUserID
+}
+
+func (c *CreateKeysRequest) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
+	if c == nil {
+		return nil
+	}
+	return c.ExpiresAt
+}
+
+func (c *CreateKeysRequest) GetIncludeByokInLimit() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeByokInLimit
 }
 
 func (c *CreateKeysRequest) GetLimit() *float64 {
@@ -79,69 +93,55 @@ func (c *CreateKeysRequest) GetLimitReset() optionalnullable.OptionalNullable[Cr
 	return c.LimitReset
 }
 
-func (c *CreateKeysRequest) GetIncludeByokInLimit() *bool {
+func (c *CreateKeysRequest) GetName() string {
 	if c == nil {
-		return nil
+		return ""
 	}
-	return c.IncludeByokInLimit
-}
-
-func (c *CreateKeysRequest) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
-	if c == nil {
-		return nil
-	}
-	return c.ExpiresAt
-}
-
-func (c *CreateKeysRequest) GetCreatorUserID() optionalnullable.OptionalNullable[string] {
-	if c == nil {
-		return nil
-	}
-	return c.CreatorUserID
+	return c.Name
 }
 
 // CreateKeysData - The created API key information
 type CreateKeysData struct {
-	// Unique hash identifier for the API key
-	Hash string `json:"hash"`
-	// Name of the API key
-	Name string `json:"name"`
-	// Human-readable label for the API key
-	Label string `json:"label"`
+	// Total external BYOK usage (in USD) for the API key
+	ByokUsage float64 `json:"byok_usage"`
+	// External BYOK usage (in USD) for the current UTC day
+	ByokUsageDaily float64 `json:"byok_usage_daily"`
+	// External BYOK usage (in USD) for current UTC month
+	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
+	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
+	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
+	// ISO 8601 timestamp of when the API key was created
+	CreatedAt string `json:"created_at"`
+	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
+	CreatorUserID *string `json:"creator_user_id"`
 	// Whether the API key is disabled
 	Disabled bool `json:"disabled"`
+	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
+	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Unique hash identifier for the API key
+	Hash string `json:"hash"`
+	// Whether to include external BYOK usage in the credit limit
+	IncludeByokInLimit bool `json:"include_byok_in_limit"`
+	// Human-readable label for the API key
+	Label string `json:"label"`
 	// Spending limit for the API key in USD
 	Limit float64 `json:"limit"`
 	// Remaining spending limit in USD
 	LimitRemaining float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
-	// Whether to include external BYOK usage in the credit limit
-	IncludeByokInLimit bool `json:"include_byok_in_limit"`
+	// Name of the API key
+	Name string `json:"name"`
+	// ISO 8601 timestamp of when the API key was last updated
+	UpdatedAt *string `json:"updated_at"`
 	// Total OpenRouter credit usage (in USD) for the API key
 	Usage float64 `json:"usage"`
 	// OpenRouter credit usage (in USD) for the current UTC day
 	UsageDaily float64 `json:"usage_daily"`
-	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
-	UsageWeekly float64 `json:"usage_weekly"`
 	// OpenRouter credit usage (in USD) for the current UTC month
 	UsageMonthly float64 `json:"usage_monthly"`
-	// Total external BYOK usage (in USD) for the API key
-	ByokUsage float64 `json:"byok_usage"`
-	// External BYOK usage (in USD) for the current UTC day
-	ByokUsageDaily float64 `json:"byok_usage_daily"`
-	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
-	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
-	// External BYOK usage (in USD) for current UTC month
-	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
-	// ISO 8601 timestamp of when the API key was created
-	CreatedAt string `json:"created_at"`
-	// ISO 8601 timestamp of when the API key was last updated
-	UpdatedAt *string `json:"updated_at"`
-	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
-	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
-	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
-	CreatorUserID *string `json:"creator_user_id"`
+	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
+	UsageWeekly float64 `json:"usage_weekly"`
 }
 
 func (c CreateKeysData) MarshalJSON() ([]byte, error) {
@@ -155,25 +155,46 @@ func (c *CreateKeysData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateKeysData) GetHash() string {
+func (c *CreateKeysData) GetByokUsage() float64 {
 	if c == nil {
-		return ""
+		return 0.0
 	}
-	return c.Hash
+	return c.ByokUsage
 }
 
-func (c *CreateKeysData) GetName() string {
+func (c *CreateKeysData) GetByokUsageDaily() float64 {
 	if c == nil {
-		return ""
+		return 0.0
 	}
-	return c.Name
+	return c.ByokUsageDaily
 }
 
-func (c *CreateKeysData) GetLabel() string {
+func (c *CreateKeysData) GetByokUsageMonthly() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.ByokUsageMonthly
+}
+
+func (c *CreateKeysData) GetByokUsageWeekly() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.ByokUsageWeekly
+}
+
+func (c *CreateKeysData) GetCreatedAt() string {
 	if c == nil {
 		return ""
 	}
-	return c.Label
+	return c.CreatedAt
+}
+
+func (c *CreateKeysData) GetCreatorUserID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CreatorUserID
 }
 
 func (c *CreateKeysData) GetDisabled() bool {
@@ -181,6 +202,34 @@ func (c *CreateKeysData) GetDisabled() bool {
 		return false
 	}
 	return c.Disabled
+}
+
+func (c *CreateKeysData) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
+	if c == nil {
+		return nil
+	}
+	return c.ExpiresAt
+}
+
+func (c *CreateKeysData) GetHash() string {
+	if c == nil {
+		return ""
+	}
+	return c.Hash
+}
+
+func (c *CreateKeysData) GetIncludeByokInLimit() bool {
+	if c == nil {
+		return false
+	}
+	return c.IncludeByokInLimit
+}
+
+func (c *CreateKeysData) GetLabel() string {
+	if c == nil {
+		return ""
+	}
+	return c.Label
 }
 
 func (c *CreateKeysData) GetLimit() float64 {
@@ -204,11 +253,18 @@ func (c *CreateKeysData) GetLimitReset() *string {
 	return c.LimitReset
 }
 
-func (c *CreateKeysData) GetIncludeByokInLimit() bool {
+func (c *CreateKeysData) GetName() string {
 	if c == nil {
-		return false
+		return ""
 	}
-	return c.IncludeByokInLimit
+	return c.Name
+}
+
+func (c *CreateKeysData) GetUpdatedAt() *string {
+	if c == nil {
+		return nil
+	}
+	return c.UpdatedAt
 }
 
 func (c *CreateKeysData) GetUsage() float64 {
@@ -225,13 +281,6 @@ func (c *CreateKeysData) GetUsageDaily() float64 {
 	return c.UsageDaily
 }
 
-func (c *CreateKeysData) GetUsageWeekly() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.UsageWeekly
-}
-
 func (c *CreateKeysData) GetUsageMonthly() float64 {
 	if c == nil {
 		return 0.0
@@ -239,60 +288,11 @@ func (c *CreateKeysData) GetUsageMonthly() float64 {
 	return c.UsageMonthly
 }
 
-func (c *CreateKeysData) GetByokUsage() float64 {
+func (c *CreateKeysData) GetUsageWeekly() float64 {
 	if c == nil {
 		return 0.0
 	}
-	return c.ByokUsage
-}
-
-func (c *CreateKeysData) GetByokUsageDaily() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.ByokUsageDaily
-}
-
-func (c *CreateKeysData) GetByokUsageWeekly() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.ByokUsageWeekly
-}
-
-func (c *CreateKeysData) GetByokUsageMonthly() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.ByokUsageMonthly
-}
-
-func (c *CreateKeysData) GetCreatedAt() string {
-	if c == nil {
-		return ""
-	}
-	return c.CreatedAt
-}
-
-func (c *CreateKeysData) GetUpdatedAt() *string {
-	if c == nil {
-		return nil
-	}
-	return c.UpdatedAt
-}
-
-func (c *CreateKeysData) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
-	if c == nil {
-		return nil
-	}
-	return c.ExpiresAt
-}
-
-func (c *CreateKeysData) GetCreatorUserID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CreatorUserID
+	return c.UsageWeekly
 }
 
 // CreateKeysResponse - API key created successfully
