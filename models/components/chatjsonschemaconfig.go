@@ -9,10 +9,10 @@ import (
 
 // ChatJSONSchemaConfig - JSON Schema configuration object
 type ChatJSONSchemaConfig struct {
-	// Schema name (a-z, A-Z, 0-9, underscores, dashes, max 64 chars)
-	Name string `json:"name"`
 	// Schema description for the model
 	Description *string `json:"description,omitzero"`
+	// Schema name (a-z, A-Z, 0-9, underscores, dashes, max 64 chars)
+	Name string `json:"name"`
 	// JSON Schema object
 	Schema map[string]any `json:"schema,omitzero"`
 	// Enable strict schema adherence
@@ -30,18 +30,18 @@ func (c *ChatJSONSchemaConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatJSONSchemaConfig) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
 func (c *ChatJSONSchemaConfig) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
+}
+
+func (c *ChatJSONSchemaConfig) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
 }
 
 func (c *ChatJSONSchemaConfig) GetSchema() map[string]any {

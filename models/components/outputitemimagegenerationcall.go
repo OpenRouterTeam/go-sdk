@@ -33,10 +33,10 @@ func (e *OutputItemImageGenerationCallType) UnmarshalJSON(data []byte) error {
 }
 
 type OutputItemImageGenerationCall struct {
-	Type   OutputItemImageGenerationCallType         `json:"type"`
 	ID     string                                    `json:"id"`
 	Result optionalnullable.OptionalNullable[string] `default:"null" json:"result"`
 	Status ImageGenerationStatus                     `json:"status"`
+	Type   OutputItemImageGenerationCallType         `json:"type"`
 }
 
 func (o OutputItemImageGenerationCall) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (o *OutputItemImageGenerationCall) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OutputItemImageGenerationCall) GetType() OutputItemImageGenerationCallType {
-	if o == nil {
-		return OutputItemImageGenerationCallType("")
-	}
-	return o.Type
 }
 
 func (o *OutputItemImageGenerationCall) GetID() string {
@@ -76,4 +69,11 @@ func (o *OutputItemImageGenerationCall) GetStatus() ImageGenerationStatus {
 		return ImageGenerationStatus("")
 	}
 	return o.Status
+}
+
+func (o *OutputItemImageGenerationCall) GetType() OutputItemImageGenerationCallType {
+	if o == nil {
+		return OutputItemImageGenerationCallType("")
+	}
+	return o.Type
 }

@@ -34,11 +34,11 @@ func (e *ReasoningDetailEncryptedType) UnmarshalJSON(data []byte) error {
 
 // ReasoningDetailEncrypted - Reasoning detail encrypted schema
 type ReasoningDetailEncrypted struct {
-	Type   ReasoningDetailEncryptedType                       `json:"type"`
 	Data   string                                             `json:"data"`
-	ID     optionalnullable.OptionalNullable[string]          `json:"id,omitzero"`
 	Format optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
+	ID     optionalnullable.OptionalNullable[string]          `json:"id,omitzero"`
 	Index  *int64                                             `json:"index,omitzero"`
+	Type   ReasoningDetailEncryptedType                       `json:"type"`
 }
 
 func (r ReasoningDetailEncrypted) MarshalJSON() ([]byte, error) {
@@ -52,25 +52,11 @@ func (r *ReasoningDetailEncrypted) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningDetailEncrypted) GetType() ReasoningDetailEncryptedType {
-	if r == nil {
-		return ReasoningDetailEncryptedType("")
-	}
-	return r.Type
-}
-
 func (r *ReasoningDetailEncrypted) GetData() string {
 	if r == nil {
 		return ""
 	}
 	return r.Data
-}
-
-func (r *ReasoningDetailEncrypted) GetID() optionalnullable.OptionalNullable[string] {
-	if r == nil {
-		return nil
-	}
-	return r.ID
 }
 
 func (r *ReasoningDetailEncrypted) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
@@ -80,9 +66,23 @@ func (r *ReasoningDetailEncrypted) GetFormat() optionalnullable.OptionalNullable
 	return r.Format
 }
 
+func (r *ReasoningDetailEncrypted) GetID() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.ID
+}
+
 func (r *ReasoningDetailEncrypted) GetIndex() *int64 {
 	if r == nil {
 		return nil
 	}
 	return r.Index
+}
+
+func (r *ReasoningDetailEncrypted) GetType() ReasoningDetailEncryptedType {
+	if r == nil {
+		return ReasoningDetailEncryptedType("")
+	}
+	return r.Type
 }

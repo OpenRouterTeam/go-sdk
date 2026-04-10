@@ -3,6 +3,7 @@
 package components
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
@@ -11,189 +12,539 @@ import (
 type OutputItemsType string
 
 const (
-	OutputItemsTypeOutputMessageItem             OutputItemsType = "OutputMessageItem"
-	OutputItemsTypeOutputReasoningItem           OutputItemsType = "OutputReasoningItem"
-	OutputItemsTypeOutputFunctionCallItem        OutputItemsType = "OutputFunctionCallItem"
-	OutputItemsTypeOutputWebSearchCallItem       OutputItemsType = "OutputWebSearchCallItem"
-	OutputItemsTypeOutputFileSearchCallItem      OutputItemsType = "OutputFileSearchCallItem"
-	OutputItemsTypeOutputImageGenerationCallItem OutputItemsType = "OutputImageGenerationCallItem"
-	OutputItemsTypeOutputServerToolItem          OutputItemsType = "OutputServerToolItem"
+	OutputItemsTypeCodeInterpreterCall       OutputItemsType = "code_interpreter_call"
+	OutputItemsTypeComputerCall              OutputItemsType = "computer_call"
+	OutputItemsTypeFileSearchCall            OutputItemsType = "file_search_call"
+	OutputItemsTypeFunctionCall              OutputItemsType = "function_call"
+	OutputItemsTypeImageGenerationCall       OutputItemsType = "image_generation_call"
+	OutputItemsTypeMessage                   OutputItemsType = "message"
+	OutputItemsTypeOpenrouterApplyPatch      OutputItemsType = "openrouter:apply_patch"
+	OutputItemsTypeOpenrouterBash            OutputItemsType = "openrouter:bash"
+	OutputItemsTypeOpenrouterBrowserUse      OutputItemsType = "openrouter:browser_use"
+	OutputItemsTypeOpenrouterCodeInterpreter OutputItemsType = "openrouter:code_interpreter"
+	OutputItemsTypeOpenrouterDatetime        OutputItemsType = "openrouter:datetime"
+	OutputItemsTypeOpenrouterFileSearch      OutputItemsType = "openrouter:file_search"
+	OutputItemsTypeOpenrouterImageGeneration OutputItemsType = "openrouter:image_generation"
+	OutputItemsTypeOpenrouterMcp             OutputItemsType = "openrouter:mcp"
+	OutputItemsTypeOpenrouterMemory          OutputItemsType = "openrouter:memory"
+	OutputItemsTypeOpenrouterTextEditor      OutputItemsType = "openrouter:text_editor"
+	OutputItemsTypeOpenrouterToolSearch      OutputItemsType = "openrouter:tool_search"
+	OutputItemsTypeOpenrouterWebFetch        OutputItemsType = "openrouter:web_fetch"
+	OutputItemsTypeOpenrouterWebSearch       OutputItemsType = "openrouter:web_search"
+	OutputItemsTypeReasoning                 OutputItemsType = "reasoning"
+	OutputItemsTypeWebSearchCall             OutputItemsType = "web_search_call"
+	OutputItemsTypeUnknown                   OutputItemsType = "UNKNOWN"
 )
 
 // OutputItems - An output item from the response
 type OutputItems struct {
-	OutputMessageItem             *OutputMessageItem             `queryParam:"inline" union:"member"`
-	OutputReasoningItem           *OutputReasoningItem           `queryParam:"inline" union:"member"`
-	OutputFunctionCallItem        *OutputFunctionCallItem        `queryParam:"inline" union:"member"`
-	OutputWebSearchCallItem       *OutputWebSearchCallItem       `queryParam:"inline" union:"member"`
-	OutputFileSearchCallItem      *OutputFileSearchCallItem      `queryParam:"inline" union:"member"`
-	OutputImageGenerationCallItem *OutputImageGenerationCallItem `queryParam:"inline" union:"member"`
-	OutputServerToolItem          *OutputServerToolItem          `queryParam:"inline" union:"member"`
+	OutputMessageItem                   *OutputMessageItem                   `queryParam:"inline" union:"member"`
+	OutputReasoningItem                 *OutputReasoningItem                 `queryParam:"inline" union:"member"`
+	OutputFunctionCallItem              *OutputFunctionCallItem              `queryParam:"inline" union:"member"`
+	OutputWebSearchCallItem             *OutputWebSearchCallItem             `queryParam:"inline" union:"member"`
+	OutputFileSearchCallItem            *OutputFileSearchCallItem            `queryParam:"inline" union:"member"`
+	OutputImageGenerationCallItem       *OutputImageGenerationCallItem       `queryParam:"inline" union:"member"`
+	OutputCodeInterpreterCallItem       *OutputCodeInterpreterCallItem       `queryParam:"inline" union:"member"`
+	OutputComputerCallItem              *OutputComputerCallItem              `queryParam:"inline" union:"member"`
+	OutputDatetimeItem                  *OutputDatetimeItem                  `queryParam:"inline" union:"member"`
+	OutputWebSearchServerToolItem       *OutputWebSearchServerToolItem       `queryParam:"inline" union:"member"`
+	OutputCodeInterpreterServerToolItem *OutputCodeInterpreterServerToolItem `queryParam:"inline" union:"member"`
+	OutputFileSearchServerToolItem      *OutputFileSearchServerToolItem      `queryParam:"inline" union:"member"`
+	OutputImageGenerationServerToolItem *OutputImageGenerationServerToolItem `queryParam:"inline" union:"member"`
+	OutputBrowserUseServerToolItem      *OutputBrowserUseServerToolItem      `queryParam:"inline" union:"member"`
+	OutputBashServerToolItem            *OutputBashServerToolItem            `queryParam:"inline" union:"member"`
+	OutputTextEditorServerToolItem      *OutputTextEditorServerToolItem      `queryParam:"inline" union:"member"`
+	OutputApplyPatchServerToolItem      *OutputApplyPatchServerToolItem      `queryParam:"inline" union:"member"`
+	OutputWebFetchServerToolItem        *OutputWebFetchServerToolItem        `queryParam:"inline" union:"member"`
+	OutputToolSearchServerToolItem      *OutputToolSearchServerToolItem      `queryParam:"inline" union:"member"`
+	OutputMemoryServerToolItem          *OutputMemoryServerToolItem          `queryParam:"inline" union:"member"`
+	OutputMcpServerToolItem             *OutputMcpServerToolItem             `queryParam:"inline" union:"member"`
+	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
 
 	Type OutputItemsType
 }
 
-func CreateOutputItemsOutputMessageItem(outputMessageItem OutputMessageItem) OutputItems {
-	typ := OutputItemsTypeOutputMessageItem
+func CreateOutputItemsCodeInterpreterCall(codeInterpreterCall OutputCodeInterpreterCallItem) OutputItems {
+	typ := OutputItemsTypeCodeInterpreterCall
+
+	typStr := TypeCodeInterpreterCall(typ)
+	codeInterpreterCall.Type = typStr
 
 	return OutputItems{
-		OutputMessageItem: &outputMessageItem,
-		Type:              typ,
-	}
-}
-
-func CreateOutputItemsOutputReasoningItem(outputReasoningItem OutputReasoningItem) OutputItems {
-	typ := OutputItemsTypeOutputReasoningItem
-
-	return OutputItems{
-		OutputReasoningItem: &outputReasoningItem,
-		Type:                typ,
-	}
-}
-
-func CreateOutputItemsOutputFunctionCallItem(outputFunctionCallItem OutputFunctionCallItem) OutputItems {
-	typ := OutputItemsTypeOutputFunctionCallItem
-
-	return OutputItems{
-		OutputFunctionCallItem: &outputFunctionCallItem,
-		Type:                   typ,
-	}
-}
-
-func CreateOutputItemsOutputWebSearchCallItem(outputWebSearchCallItem OutputWebSearchCallItem) OutputItems {
-	typ := OutputItemsTypeOutputWebSearchCallItem
-
-	return OutputItems{
-		OutputWebSearchCallItem: &outputWebSearchCallItem,
-		Type:                    typ,
-	}
-}
-
-func CreateOutputItemsOutputFileSearchCallItem(outputFileSearchCallItem OutputFileSearchCallItem) OutputItems {
-	typ := OutputItemsTypeOutputFileSearchCallItem
-
-	return OutputItems{
-		OutputFileSearchCallItem: &outputFileSearchCallItem,
-		Type:                     typ,
-	}
-}
-
-func CreateOutputItemsOutputImageGenerationCallItem(outputImageGenerationCallItem OutputImageGenerationCallItem) OutputItems {
-	typ := OutputItemsTypeOutputImageGenerationCallItem
-
-	return OutputItems{
-		OutputImageGenerationCallItem: &outputImageGenerationCallItem,
+		OutputCodeInterpreterCallItem: &codeInterpreterCall,
 		Type:                          typ,
 	}
 }
 
-func CreateOutputItemsOutputServerToolItem(outputServerToolItem OutputServerToolItem) OutputItems {
-	typ := OutputItemsTypeOutputServerToolItem
+func CreateOutputItemsComputerCall(computerCall OutputComputerCallItem) OutputItems {
+	typ := OutputItemsTypeComputerCall
+
+	typStr := OutputComputerCallItemType(typ)
+	computerCall.Type = typStr
 
 	return OutputItems{
-		OutputServerToolItem: &outputServerToolItem,
-		Type:                 typ,
+		OutputComputerCallItem: &computerCall,
+		Type:                   typ,
 	}
+}
+
+func CreateOutputItemsFileSearchCall(fileSearchCall OutputFileSearchCallItem) OutputItems {
+	typ := OutputItemsTypeFileSearchCall
+
+	typStr := OutputFileSearchCallItemType(typ)
+	fileSearchCall.Type = typStr
+
+	return OutputItems{
+		OutputFileSearchCallItem: &fileSearchCall,
+		Type:                     typ,
+	}
+}
+
+func CreateOutputItemsFunctionCall(functionCall OutputFunctionCallItem) OutputItems {
+	typ := OutputItemsTypeFunctionCall
+
+	typStr := OutputFunctionCallItemType(typ)
+	functionCall.Type = typStr
+
+	return OutputItems{
+		OutputFunctionCallItem: &functionCall,
+		Type:                   typ,
+	}
+}
+
+func CreateOutputItemsImageGenerationCall(imageGenerationCall OutputImageGenerationCallItem) OutputItems {
+	typ := OutputItemsTypeImageGenerationCall
+
+	typStr := OutputImageGenerationCallItemType(typ)
+	imageGenerationCall.Type = typStr
+
+	return OutputItems{
+		OutputImageGenerationCallItem: &imageGenerationCall,
+		Type:                          typ,
+	}
+}
+
+func CreateOutputItemsMessage(message OutputMessageItem) OutputItems {
+	typ := OutputItemsTypeMessage
+
+	typStr := OutputMessageItemType(typ)
+	message.Type = typStr
+
+	return OutputItems{
+		OutputMessageItem: &message,
+		Type:              typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterApplyPatch(openrouterApplyPatch OutputApplyPatchServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterApplyPatch
+
+	typStr := OutputApplyPatchServerToolItemType(typ)
+	openrouterApplyPatch.Type = typStr
+
+	return OutputItems{
+		OutputApplyPatchServerToolItem: &openrouterApplyPatch,
+		Type:                           typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterBash(openrouterBash OutputBashServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterBash
+
+	typStr := OutputBashServerToolItemType(typ)
+	openrouterBash.Type = typStr
+
+	return OutputItems{
+		OutputBashServerToolItem: &openrouterBash,
+		Type:                     typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterBrowserUse(openrouterBrowserUse OutputBrowserUseServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterBrowserUse
+
+	typStr := OutputBrowserUseServerToolItemType(typ)
+	openrouterBrowserUse.Type = typStr
+
+	return OutputItems{
+		OutputBrowserUseServerToolItem: &openrouterBrowserUse,
+		Type:                           typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterCodeInterpreter(openrouterCodeInterpreter OutputCodeInterpreterServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterCodeInterpreter
+
+	typStr := OutputCodeInterpreterServerToolItemType(typ)
+	openrouterCodeInterpreter.Type = typStr
+
+	return OutputItems{
+		OutputCodeInterpreterServerToolItem: &openrouterCodeInterpreter,
+		Type:                                typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterDatetime(openrouterDatetime OutputDatetimeItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterDatetime
+
+	typStr := OutputDatetimeItemType(typ)
+	openrouterDatetime.Type = typStr
+
+	return OutputItems{
+		OutputDatetimeItem: &openrouterDatetime,
+		Type:               typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterFileSearch(openrouterFileSearch OutputFileSearchServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterFileSearch
+
+	typStr := OutputFileSearchServerToolItemType(typ)
+	openrouterFileSearch.Type = typStr
+
+	return OutputItems{
+		OutputFileSearchServerToolItem: &openrouterFileSearch,
+		Type:                           typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterImageGeneration(openrouterImageGeneration OutputImageGenerationServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterImageGeneration
+
+	typStr := OutputImageGenerationServerToolItemType(typ)
+	openrouterImageGeneration.Type = typStr
+
+	return OutputItems{
+		OutputImageGenerationServerToolItem: &openrouterImageGeneration,
+		Type:                                typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterMcp(openrouterMcp OutputMcpServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterMcp
+
+	typStr := OutputMcpServerToolItemType(typ)
+	openrouterMcp.Type = typStr
+
+	return OutputItems{
+		OutputMcpServerToolItem: &openrouterMcp,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterMemory(openrouterMemory OutputMemoryServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterMemory
+
+	typStr := OutputMemoryServerToolItemType(typ)
+	openrouterMemory.Type = typStr
+
+	return OutputItems{
+		OutputMemoryServerToolItem: &openrouterMemory,
+		Type:                       typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterTextEditor(openrouterTextEditor OutputTextEditorServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterTextEditor
+
+	typStr := OutputTextEditorServerToolItemType(typ)
+	openrouterTextEditor.Type = typStr
+
+	return OutputItems{
+		OutputTextEditorServerToolItem: &openrouterTextEditor,
+		Type:                           typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterToolSearch(openrouterToolSearch OutputToolSearchServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterToolSearch
+
+	typStr := OutputToolSearchServerToolItemType(typ)
+	openrouterToolSearch.Type = typStr
+
+	return OutputItems{
+		OutputToolSearchServerToolItem: &openrouterToolSearch,
+		Type:                           typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterWebFetch(openrouterWebFetch OutputWebFetchServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterWebFetch
+
+	typStr := OutputWebFetchServerToolItemType(typ)
+	openrouterWebFetch.Type = typStr
+
+	return OutputItems{
+		OutputWebFetchServerToolItem: &openrouterWebFetch,
+		Type:                         typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterWebSearch(openrouterWebSearch OutputWebSearchServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterWebSearch
+
+	typStr := OutputWebSearchServerToolItemType(typ)
+	openrouterWebSearch.Type = typStr
+
+	return OutputItems{
+		OutputWebSearchServerToolItem: &openrouterWebSearch,
+		Type:                          typ,
+	}
+}
+
+func CreateOutputItemsReasoning(reasoning OutputReasoningItem) OutputItems {
+	typ := OutputItemsTypeReasoning
+
+	typStr := OutputReasoningItemType(typ)
+	reasoning.Type = typStr
+
+	return OutputItems{
+		OutputReasoningItem: &reasoning,
+		Type:                typ,
+	}
+}
+
+func CreateOutputItemsWebSearchCall(webSearchCall OutputWebSearchCallItem) OutputItems {
+	typ := OutputItemsTypeWebSearchCall
+
+	typStr := TypeWebSearchCall(typ)
+	webSearchCall.Type = typStr
+
+	return OutputItems{
+		OutputWebSearchCallItem: &webSearchCall,
+		Type:                    typ,
+	}
+}
+
+func CreateOutputItemsUnknown(raw json.RawMessage) OutputItems {
+	return OutputItems{
+		UnknownRaw: raw,
+		Type:       OutputItemsTypeUnknown,
+	}
+}
+
+func (u OutputItems) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u OutputItems) IsUnknown() bool {
+	return u.Type == OutputItemsTypeUnknown
 }
 
 func (u *OutputItems) UnmarshalJSON(data []byte) error {
 
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var outputMessageItem OutputMessageItem = OutputMessageItem{}
-	if err := utils.UnmarshalJSON(data, &outputMessageItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputItemsTypeOutputMessageItem,
-			Value: &outputMessageItem,
-		})
+	type discriminator struct {
+		Type string `json:"type"`
 	}
 
-	var outputReasoningItem OutputReasoningItem = OutputReasoningItem{}
-	if err := utils.UnmarshalJSON(data, &outputReasoningItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputItemsTypeOutputReasoningItem,
-			Value: &outputReasoningItem,
-		})
-	}
-
-	var outputFunctionCallItem OutputFunctionCallItem = OutputFunctionCallItem{}
-	if err := utils.UnmarshalJSON(data, &outputFunctionCallItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputItemsTypeOutputFunctionCallItem,
-			Value: &outputFunctionCallItem,
-		})
-	}
-
-	var outputWebSearchCallItem OutputWebSearchCallItem = OutputWebSearchCallItem{}
-	if err := utils.UnmarshalJSON(data, &outputWebSearchCallItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputItemsTypeOutputWebSearchCallItem,
-			Value: &outputWebSearchCallItem,
-		})
-	}
-
-	var outputFileSearchCallItem OutputFileSearchCallItem = OutputFileSearchCallItem{}
-	if err := utils.UnmarshalJSON(data, &outputFileSearchCallItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputItemsTypeOutputFileSearchCallItem,
-			Value: &outputFileSearchCallItem,
-		})
-	}
-
-	var outputImageGenerationCallItem OutputImageGenerationCallItem = OutputImageGenerationCallItem{}
-	if err := utils.UnmarshalJSON(data, &outputImageGenerationCallItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputItemsTypeOutputImageGenerationCallItem,
-			Value: &outputImageGenerationCallItem,
-		})
-	}
-
-	var outputServerToolItem OutputServerToolItem = OutputServerToolItem{}
-	if err := utils.UnmarshalJSON(data, &outputServerToolItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputItemsTypeOutputServerToolItem,
-			Value: &outputServerToolItem,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputItems", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputItems", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(OutputItemsType)
-	switch best.Type {
-	case OutputItemsTypeOutputMessageItem:
-		u.OutputMessageItem = best.Value.(*OutputMessageItem)
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputItemsTypeUnknown
 		return nil
-	case OutputItemsTypeOutputReasoningItem:
-		u.OutputReasoningItem = best.Value.(*OutputReasoningItem)
-		return nil
-	case OutputItemsTypeOutputFunctionCallItem:
-		u.OutputFunctionCallItem = best.Value.(*OutputFunctionCallItem)
-		return nil
-	case OutputItemsTypeOutputWebSearchCallItem:
-		u.OutputWebSearchCallItem = best.Value.(*OutputWebSearchCallItem)
-		return nil
-	case OutputItemsTypeOutputFileSearchCallItem:
-		u.OutputFileSearchCallItem = best.Value.(*OutputFileSearchCallItem)
-		return nil
-	case OutputItemsTypeOutputImageGenerationCallItem:
-		u.OutputImageGenerationCallItem = best.Value.(*OutputImageGenerationCallItem)
-		return nil
-	case OutputItemsTypeOutputServerToolItem:
-		u.OutputServerToolItem = best.Value.(*OutputServerToolItem)
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputItemsTypeUnknown
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputItems", string(data))
+	switch dis.Type {
+	case "code_interpreter_call":
+		outputCodeInterpreterCallItem := new(OutputCodeInterpreterCallItem)
+		if err := utils.UnmarshalJSON(data, &outputCodeInterpreterCallItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == code_interpreter_call) type OutputCodeInterpreterCallItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputCodeInterpreterCallItem = outputCodeInterpreterCallItem
+		u.Type = OutputItemsTypeCodeInterpreterCall
+		return nil
+	case "computer_call":
+		outputComputerCallItem := new(OutputComputerCallItem)
+		if err := utils.UnmarshalJSON(data, &outputComputerCallItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == computer_call) type OutputComputerCallItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputComputerCallItem = outputComputerCallItem
+		u.Type = OutputItemsTypeComputerCall
+		return nil
+	case "file_search_call":
+		outputFileSearchCallItem := new(OutputFileSearchCallItem)
+		if err := utils.UnmarshalJSON(data, &outputFileSearchCallItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file_search_call) type OutputFileSearchCallItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputFileSearchCallItem = outputFileSearchCallItem
+		u.Type = OutputItemsTypeFileSearchCall
+		return nil
+	case "function_call":
+		outputFunctionCallItem := new(OutputFunctionCallItem)
+		if err := utils.UnmarshalJSON(data, &outputFunctionCallItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == function_call) type OutputFunctionCallItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputFunctionCallItem = outputFunctionCallItem
+		u.Type = OutputItemsTypeFunctionCall
+		return nil
+	case "image_generation_call":
+		outputImageGenerationCallItem := new(OutputImageGenerationCallItem)
+		if err := utils.UnmarshalJSON(data, &outputImageGenerationCallItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == image_generation_call) type OutputImageGenerationCallItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputImageGenerationCallItem = outputImageGenerationCallItem
+		u.Type = OutputItemsTypeImageGenerationCall
+		return nil
+	case "message":
+		outputMessageItem := new(OutputMessageItem)
+		if err := utils.UnmarshalJSON(data, &outputMessageItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == message) type OutputMessageItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputMessageItem = outputMessageItem
+		u.Type = OutputItemsTypeMessage
+		return nil
+	case "openrouter:apply_patch":
+		outputApplyPatchServerToolItem := new(OutputApplyPatchServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputApplyPatchServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:apply_patch) type OutputApplyPatchServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputApplyPatchServerToolItem = outputApplyPatchServerToolItem
+		u.Type = OutputItemsTypeOpenrouterApplyPatch
+		return nil
+	case "openrouter:bash":
+		outputBashServerToolItem := new(OutputBashServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputBashServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:bash) type OutputBashServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputBashServerToolItem = outputBashServerToolItem
+		u.Type = OutputItemsTypeOpenrouterBash
+		return nil
+	case "openrouter:browser_use":
+		outputBrowserUseServerToolItem := new(OutputBrowserUseServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputBrowserUseServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:browser_use) type OutputBrowserUseServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputBrowserUseServerToolItem = outputBrowserUseServerToolItem
+		u.Type = OutputItemsTypeOpenrouterBrowserUse
+		return nil
+	case "openrouter:code_interpreter":
+		outputCodeInterpreterServerToolItem := new(OutputCodeInterpreterServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputCodeInterpreterServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:code_interpreter) type OutputCodeInterpreterServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputCodeInterpreterServerToolItem = outputCodeInterpreterServerToolItem
+		u.Type = OutputItemsTypeOpenrouterCodeInterpreter
+		return nil
+	case "openrouter:datetime":
+		outputDatetimeItem := new(OutputDatetimeItem)
+		if err := utils.UnmarshalJSON(data, &outputDatetimeItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:datetime) type OutputDatetimeItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputDatetimeItem = outputDatetimeItem
+		u.Type = OutputItemsTypeOpenrouterDatetime
+		return nil
+	case "openrouter:file_search":
+		outputFileSearchServerToolItem := new(OutputFileSearchServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputFileSearchServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:file_search) type OutputFileSearchServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputFileSearchServerToolItem = outputFileSearchServerToolItem
+		u.Type = OutputItemsTypeOpenrouterFileSearch
+		return nil
+	case "openrouter:image_generation":
+		outputImageGenerationServerToolItem := new(OutputImageGenerationServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputImageGenerationServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:image_generation) type OutputImageGenerationServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputImageGenerationServerToolItem = outputImageGenerationServerToolItem
+		u.Type = OutputItemsTypeOpenrouterImageGeneration
+		return nil
+	case "openrouter:mcp":
+		outputMcpServerToolItem := new(OutputMcpServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputMcpServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:mcp) type OutputMcpServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputMcpServerToolItem = outputMcpServerToolItem
+		u.Type = OutputItemsTypeOpenrouterMcp
+		return nil
+	case "openrouter:memory":
+		outputMemoryServerToolItem := new(OutputMemoryServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputMemoryServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:memory) type OutputMemoryServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputMemoryServerToolItem = outputMemoryServerToolItem
+		u.Type = OutputItemsTypeOpenrouterMemory
+		return nil
+	case "openrouter:text_editor":
+		outputTextEditorServerToolItem := new(OutputTextEditorServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputTextEditorServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:text_editor) type OutputTextEditorServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputTextEditorServerToolItem = outputTextEditorServerToolItem
+		u.Type = OutputItemsTypeOpenrouterTextEditor
+		return nil
+	case "openrouter:tool_search":
+		outputToolSearchServerToolItem := new(OutputToolSearchServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputToolSearchServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:tool_search) type OutputToolSearchServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputToolSearchServerToolItem = outputToolSearchServerToolItem
+		u.Type = OutputItemsTypeOpenrouterToolSearch
+		return nil
+	case "openrouter:web_fetch":
+		outputWebFetchServerToolItem := new(OutputWebFetchServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputWebFetchServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:web_fetch) type OutputWebFetchServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputWebFetchServerToolItem = outputWebFetchServerToolItem
+		u.Type = OutputItemsTypeOpenrouterWebFetch
+		return nil
+	case "openrouter:web_search":
+		outputWebSearchServerToolItem := new(OutputWebSearchServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputWebSearchServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:web_search) type OutputWebSearchServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputWebSearchServerToolItem = outputWebSearchServerToolItem
+		u.Type = OutputItemsTypeOpenrouterWebSearch
+		return nil
+	case "reasoning":
+		outputReasoningItem := new(OutputReasoningItem)
+		if err := utils.UnmarshalJSON(data, &outputReasoningItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == reasoning) type OutputReasoningItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputReasoningItem = outputReasoningItem
+		u.Type = OutputItemsTypeReasoning
+		return nil
+	case "web_search_call":
+		outputWebSearchCallItem := new(OutputWebSearchCallItem)
+		if err := utils.UnmarshalJSON(data, &outputWebSearchCallItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == web_search_call) type OutputWebSearchCallItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputWebSearchCallItem = outputWebSearchCallItem
+		u.Type = OutputItemsTypeWebSearchCall
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputItemsTypeUnknown
+		return nil
+	}
+
 }
 
 func (u OutputItems) MarshalJSON() ([]byte, error) {
@@ -221,9 +572,68 @@ func (u OutputItems) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputImageGenerationCallItem, "", true)
 	}
 
-	if u.OutputServerToolItem != nil {
-		return utils.MarshalJSON(u.OutputServerToolItem, "", true)
+	if u.OutputCodeInterpreterCallItem != nil {
+		return utils.MarshalJSON(u.OutputCodeInterpreterCallItem, "", true)
 	}
 
+	if u.OutputComputerCallItem != nil {
+		return utils.MarshalJSON(u.OutputComputerCallItem, "", true)
+	}
+
+	if u.OutputDatetimeItem != nil {
+		return utils.MarshalJSON(u.OutputDatetimeItem, "", true)
+	}
+
+	if u.OutputWebSearchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputWebSearchServerToolItem, "", true)
+	}
+
+	if u.OutputCodeInterpreterServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputCodeInterpreterServerToolItem, "", true)
+	}
+
+	if u.OutputFileSearchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputFileSearchServerToolItem, "", true)
+	}
+
+	if u.OutputImageGenerationServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputImageGenerationServerToolItem, "", true)
+	}
+
+	if u.OutputBrowserUseServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputBrowserUseServerToolItem, "", true)
+	}
+
+	if u.OutputBashServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputBashServerToolItem, "", true)
+	}
+
+	if u.OutputTextEditorServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputTextEditorServerToolItem, "", true)
+	}
+
+	if u.OutputApplyPatchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputApplyPatchServerToolItem, "", true)
+	}
+
+	if u.OutputWebFetchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputWebFetchServerToolItem, "", true)
+	}
+
+	if u.OutputToolSearchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputToolSearchServerToolItem, "", true)
+	}
+
+	if u.OutputMemoryServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputMemoryServerToolItem, "", true)
+	}
+
+	if u.OutputMcpServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputMcpServerToolItem, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type OutputItems: all fields are null")
 }

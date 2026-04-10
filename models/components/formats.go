@@ -15,6 +15,7 @@ const (
 	FormatsTypeText       FormatsType = "text"
 	FormatsTypeJSONObject FormatsType = "json_object"
 	FormatsTypeJSONSchema FormatsType = "json_schema"
+	FormatsTypeUnknown    FormatsType = "UNKNOWN"
 )
 
 // Formats - Text response format configuration
@@ -22,6 +23,7 @@ type Formats struct {
 	FormatTextConfig       *FormatTextConfig       `queryParam:"inline" union:"member"`
 	FormatJSONObjectConfig *FormatJSONObjectConfig `queryParam:"inline" union:"member"`
 	FormatJSONSchemaConfig *FormatJSONSchemaConfig `queryParam:"inline" union:"member"`
+	UnknownRaw             json.RawMessage         `json:"-" union:"unknown"`
 
 	Type FormatsType
 }
@@ -62,6 +64,21 @@ func CreateFormatsJSONSchema(jsonSchema FormatJSONSchemaConfig) Formats {
 	}
 }
 
+func CreateFormatsUnknown(raw json.RawMessage) Formats {
+	return Formats{
+		UnknownRaw: raw,
+		Type:       FormatsTypeUnknown,
+	}
+}
+
+func (u Formats) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u Formats) IsUnknown() bool {
+	return u.Type == FormatsTypeUnknown
+}
+
 func (u *Formats) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -70,7 +87,14 @@ func (u *Formats) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FormatsTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FormatsTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -101,9 +125,12 @@ func (u *Formats) UnmarshalJSON(data []byte) error {
 		u.FormatJSONSchemaConfig = formatJSONSchemaConfig
 		u.Type = FormatsTypeJSONSchema
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FormatsTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Formats", string(data))
 }
 
 func (u Formats) MarshalJSON() ([]byte, error) {
@@ -119,5 +146,8 @@ func (u Formats) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.FormatJSONSchemaConfig, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type Formats: all fields are null")
 }

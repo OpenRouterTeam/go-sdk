@@ -12,11 +12,11 @@ import (
 type ChatMessagesType string
 
 const (
-	ChatMessagesTypeSystem    ChatMessagesType = "system"
-	ChatMessagesTypeUser      ChatMessagesType = "user"
-	ChatMessagesTypeDeveloper ChatMessagesType = "developer"
 	ChatMessagesTypeAssistant ChatMessagesType = "assistant"
+	ChatMessagesTypeDeveloper ChatMessagesType = "developer"
+	ChatMessagesTypeSystem    ChatMessagesType = "system"
 	ChatMessagesTypeTool      ChatMessagesType = "tool"
+	ChatMessagesTypeUser      ChatMessagesType = "user"
 )
 
 // ChatMessages - Chat completion message with role-based discrimination
@@ -30,27 +30,15 @@ type ChatMessages struct {
 	Type ChatMessagesType
 }
 
-func CreateChatMessagesSystem(system ChatSystemMessage) ChatMessages {
-	typ := ChatMessagesTypeSystem
+func CreateChatMessagesAssistant(assistant ChatAssistantMessage) ChatMessages {
+	typ := ChatMessagesTypeAssistant
 
-	typStr := ChatSystemMessageRole(typ)
-	system.Role = typStr
-
-	return ChatMessages{
-		ChatSystemMessage: &system,
-		Type:              typ,
-	}
-}
-
-func CreateChatMessagesUser(user ChatUserMessage) ChatMessages {
-	typ := ChatMessagesTypeUser
-
-	typStr := ChatUserMessageRole(typ)
-	user.Role = typStr
+	typStr := ChatAssistantMessageRole(typ)
+	assistant.Role = typStr
 
 	return ChatMessages{
-		ChatUserMessage: &user,
-		Type:            typ,
+		ChatAssistantMessage: &assistant,
+		Type:                 typ,
 	}
 }
 
@@ -66,15 +54,15 @@ func CreateChatMessagesDeveloper(developer ChatDeveloperMessage) ChatMessages {
 	}
 }
 
-func CreateChatMessagesAssistant(assistant ChatAssistantMessage) ChatMessages {
-	typ := ChatMessagesTypeAssistant
+func CreateChatMessagesSystem(system ChatSystemMessage) ChatMessages {
+	typ := ChatMessagesTypeSystem
 
-	typStr := ChatAssistantMessageRole(typ)
-	assistant.Role = typStr
+	typStr := ChatSystemMessageRole(typ)
+	system.Role = typStr
 
 	return ChatMessages{
-		ChatAssistantMessage: &assistant,
-		Type:                 typ,
+		ChatSystemMessage: &system,
+		Type:              typ,
 	}
 }
 
@@ -86,6 +74,18 @@ func CreateChatMessagesTool(tool ChatToolMessage) ChatMessages {
 
 	return ChatMessages{
 		ChatToolMessage: &tool,
+		Type:            typ,
+	}
+}
+
+func CreateChatMessagesUser(user ChatUserMessage) ChatMessages {
+	typ := ChatMessagesTypeUser
+
+	typStr := ChatUserMessageRole(typ)
+	user.Role = typStr
+
+	return ChatMessages{
+		ChatUserMessage: &user,
 		Type:            typ,
 	}
 }
@@ -102,23 +102,14 @@ func (u *ChatMessages) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.Role {
-	case "system":
-		chatSystemMessage := new(ChatSystemMessage)
-		if err := utils.UnmarshalJSON(data, &chatSystemMessage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Role == system) type ChatSystemMessage within ChatMessages: %w", string(data), err)
+	case "assistant":
+		chatAssistantMessage := new(ChatAssistantMessage)
+		if err := utils.UnmarshalJSON(data, &chatAssistantMessage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Role == assistant) type ChatAssistantMessage within ChatMessages: %w", string(data), err)
 		}
 
-		u.ChatSystemMessage = chatSystemMessage
-		u.Type = ChatMessagesTypeSystem
-		return nil
-	case "user":
-		chatUserMessage := new(ChatUserMessage)
-		if err := utils.UnmarshalJSON(data, &chatUserMessage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Role == user) type ChatUserMessage within ChatMessages: %w", string(data), err)
-		}
-
-		u.ChatUserMessage = chatUserMessage
-		u.Type = ChatMessagesTypeUser
+		u.ChatAssistantMessage = chatAssistantMessage
+		u.Type = ChatMessagesTypeAssistant
 		return nil
 	case "developer":
 		chatDeveloperMessage := new(ChatDeveloperMessage)
@@ -129,14 +120,14 @@ func (u *ChatMessages) UnmarshalJSON(data []byte) error {
 		u.ChatDeveloperMessage = chatDeveloperMessage
 		u.Type = ChatMessagesTypeDeveloper
 		return nil
-	case "assistant":
-		chatAssistantMessage := new(ChatAssistantMessage)
-		if err := utils.UnmarshalJSON(data, &chatAssistantMessage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Role == assistant) type ChatAssistantMessage within ChatMessages: %w", string(data), err)
+	case "system":
+		chatSystemMessage := new(ChatSystemMessage)
+		if err := utils.UnmarshalJSON(data, &chatSystemMessage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Role == system) type ChatSystemMessage within ChatMessages: %w", string(data), err)
 		}
 
-		u.ChatAssistantMessage = chatAssistantMessage
-		u.Type = ChatMessagesTypeAssistant
+		u.ChatSystemMessage = chatSystemMessage
+		u.Type = ChatMessagesTypeSystem
 		return nil
 	case "tool":
 		chatToolMessage := new(ChatToolMessage)
@@ -146,6 +137,15 @@ func (u *ChatMessages) UnmarshalJSON(data []byte) error {
 
 		u.ChatToolMessage = chatToolMessage
 		u.Type = ChatMessagesTypeTool
+		return nil
+	case "user":
+		chatUserMessage := new(ChatUserMessage)
+		if err := utils.UnmarshalJSON(data, &chatUserMessage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Role == user) type ChatUserMessage within ChatMessages: %w", string(data), err)
+		}
+
+		u.ChatUserMessage = chatUserMessage
+		u.Type = ChatMessagesTypeUser
 		return nil
 	}
 

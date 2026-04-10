@@ -96,10 +96,10 @@ type Usage struct {
 	OutputTokensDetails OutputTokensDetails `json:"output_tokens_details"`
 	TotalTokens         int64               `json:"total_tokens"`
 	// Cost of the completion
-	Cost *float64 `json:"cost,omitzero"`
-	// Whether a request was made using a Bring Your Own Key configuration
-	IsByok      *bool        `json:"is_byok,omitzero"`
+	Cost        *float64     `json:"cost,omitzero"`
 	CostDetails *CostDetails `json:"cost_details,omitzero"`
+	// Whether a request was made using a Bring Your Own Key configuration
+	IsByok *bool `json:"is_byok,omitzero"`
 }
 
 func (u Usage) MarshalJSON() ([]byte, error) {
@@ -155,16 +155,16 @@ func (u *Usage) GetCost() *float64 {
 	return u.Cost
 }
 
-func (u *Usage) GetIsByok() *bool {
-	if u == nil {
-		return nil
-	}
-	return u.IsByok
-}
-
 func (u *Usage) GetCostDetails() *CostDetails {
 	if u == nil {
 		return nil
 	}
 	return u.CostDetails
+}
+
+func (u *Usage) GetIsByok() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IsByok
 }

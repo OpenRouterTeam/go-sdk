@@ -33,12 +33,12 @@ func (e *RefusalDoneEventType) UnmarshalJSON(data []byte) error {
 
 // RefusalDoneEvent - Event emitted when refusal streaming is complete
 type RefusalDoneEvent struct {
-	Type           RefusalDoneEventType `json:"type"`
-	OutputIndex    int64                `json:"output_index"`
-	ItemID         string               `json:"item_id"`
 	ContentIndex   int64                `json:"content_index"`
+	ItemID         string               `json:"item_id"`
+	OutputIndex    int64                `json:"output_index"`
 	Refusal        string               `json:"refusal"`
 	SequenceNumber int64                `json:"sequence_number"`
+	Type           RefusalDoneEventType `json:"type"`
 }
 
 func (r RefusalDoneEvent) MarshalJSON() ([]byte, error) {
@@ -52,18 +52,11 @@ func (r *RefusalDoneEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *RefusalDoneEvent) GetType() RefusalDoneEventType {
-	if r == nil {
-		return RefusalDoneEventType("")
-	}
-	return r.Type
-}
-
-func (r *RefusalDoneEvent) GetOutputIndex() int64 {
+func (r *RefusalDoneEvent) GetContentIndex() int64 {
 	if r == nil {
 		return 0
 	}
-	return r.OutputIndex
+	return r.ContentIndex
 }
 
 func (r *RefusalDoneEvent) GetItemID() string {
@@ -73,11 +66,11 @@ func (r *RefusalDoneEvent) GetItemID() string {
 	return r.ItemID
 }
 
-func (r *RefusalDoneEvent) GetContentIndex() int64 {
+func (r *RefusalDoneEvent) GetOutputIndex() int64 {
 	if r == nil {
 		return 0
 	}
-	return r.ContentIndex
+	return r.OutputIndex
 }
 
 func (r *RefusalDoneEvent) GetRefusal() string {
@@ -92,4 +85,11 @@ func (r *RefusalDoneEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return r.SequenceNumber
+}
+
+func (r *RefusalDoneEvent) GetType() RefusalDoneEventType {
+	if r == nil {
+		return RefusalDoneEventType("")
+	}
+	return r.Type
 }

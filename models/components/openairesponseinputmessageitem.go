@@ -9,27 +9,173 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type OpenAIResponseInputMessageItemType string
+type OpenAIResponseInputMessageItemContentType string
 
 const (
-	OpenAIResponseInputMessageItemTypeMessage OpenAIResponseInputMessageItemType = "message"
+	OpenAIResponseInputMessageItemContentTypeInputAudio OpenAIResponseInputMessageItemContentType = "input_audio"
+	OpenAIResponseInputMessageItemContentTypeInputFile  OpenAIResponseInputMessageItemContentType = "input_file"
+	OpenAIResponseInputMessageItemContentTypeInputImage OpenAIResponseInputMessageItemContentType = "input_image"
+	OpenAIResponseInputMessageItemContentTypeInputText  OpenAIResponseInputMessageItemContentType = "input_text"
+	OpenAIResponseInputMessageItemContentTypeUnknown    OpenAIResponseInputMessageItemContentType = "UNKNOWN"
 )
 
-func (e OpenAIResponseInputMessageItemType) ToPointer() *OpenAIResponseInputMessageItemType {
-	return &e
+type OpenAIResponseInputMessageItemContent struct {
+	InputText  *InputText      `queryParam:"inline" union:"member"`
+	InputImage *InputImage     `queryParam:"inline" union:"member"`
+	InputFile  *InputFile      `queryParam:"inline" union:"member"`
+	InputAudio *InputAudio     `queryParam:"inline" union:"member"`
+	UnknownRaw json.RawMessage `json:"-" union:"unknown"`
+
+	Type OpenAIResponseInputMessageItemContentType
 }
-func (e *OpenAIResponseInputMessageItemType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+func CreateOpenAIResponseInputMessageItemContentInputAudio(inputAudio InputAudio) OpenAIResponseInputMessageItemContent {
+	typ := OpenAIResponseInputMessageItemContentTypeInputAudio
+
+	typStr := InputAudioType(typ)
+	inputAudio.Type = typStr
+
+	return OpenAIResponseInputMessageItemContent{
+		InputAudio: &inputAudio,
+		Type:       typ,
 	}
-	switch v {
-	case "message":
-		*e = OpenAIResponseInputMessageItemType(v)
+}
+
+func CreateOpenAIResponseInputMessageItemContentInputFile(inputFile InputFile) OpenAIResponseInputMessageItemContent {
+	typ := OpenAIResponseInputMessageItemContentTypeInputFile
+
+	typStr := InputFileType(typ)
+	inputFile.Type = typStr
+
+	return OpenAIResponseInputMessageItemContent{
+		InputFile: &inputFile,
+		Type:      typ,
+	}
+}
+
+func CreateOpenAIResponseInputMessageItemContentInputImage(inputImage InputImage) OpenAIResponseInputMessageItemContent {
+	typ := OpenAIResponseInputMessageItemContentTypeInputImage
+
+	typStr := InputImageType(typ)
+	inputImage.Type = typStr
+
+	return OpenAIResponseInputMessageItemContent{
+		InputImage: &inputImage,
+		Type:       typ,
+	}
+}
+
+func CreateOpenAIResponseInputMessageItemContentInputText(inputText InputText) OpenAIResponseInputMessageItemContent {
+	typ := OpenAIResponseInputMessageItemContentTypeInputText
+
+	typStr := InputTextType(typ)
+	inputText.Type = typStr
+
+	return OpenAIResponseInputMessageItemContent{
+		InputText: &inputText,
+		Type:      typ,
+	}
+}
+
+func CreateOpenAIResponseInputMessageItemContentUnknown(raw json.RawMessage) OpenAIResponseInputMessageItemContent {
+	return OpenAIResponseInputMessageItemContent{
+		UnknownRaw: raw,
+		Type:       OpenAIResponseInputMessageItemContentTypeUnknown,
+	}
+}
+
+func (u OpenAIResponseInputMessageItemContent) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u OpenAIResponseInputMessageItemContent) IsUnknown() bool {
+	return u.Type == OpenAIResponseInputMessageItemContentTypeUnknown
+}
+
+func (u *OpenAIResponseInputMessageItemContent) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponseInputMessageItemContentTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponseInputMessageItemContentTypeUnknown
+		return nil
+	}
+
+	switch dis.Type {
+	case "input_audio":
+		inputAudio := new(InputAudio)
+		if err := utils.UnmarshalJSON(data, &inputAudio, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type InputAudio within OpenAIResponseInputMessageItemContent: %w", string(data), err)
+		}
+
+		u.InputAudio = inputAudio
+		u.Type = OpenAIResponseInputMessageItemContentTypeInputAudio
+		return nil
+	case "input_file":
+		inputFile := new(InputFile)
+		if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_file) type InputFile within OpenAIResponseInputMessageItemContent: %w", string(data), err)
+		}
+
+		u.InputFile = inputFile
+		u.Type = OpenAIResponseInputMessageItemContentTypeInputFile
+		return nil
+	case "input_image":
+		inputImage := new(InputImage)
+		if err := utils.UnmarshalJSON(data, &inputImage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type InputImage within OpenAIResponseInputMessageItemContent: %w", string(data), err)
+		}
+
+		u.InputImage = inputImage
+		u.Type = OpenAIResponseInputMessageItemContentTypeInputImage
+		return nil
+	case "input_text":
+		inputText := new(InputText)
+		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within OpenAIResponseInputMessageItemContent: %w", string(data), err)
+		}
+
+		u.InputText = inputText
+		u.Type = OpenAIResponseInputMessageItemContentTypeInputText
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OpenAIResponseInputMessageItemType: %v", v)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponseInputMessageItemContentTypeUnknown
+		return nil
 	}
+
+}
+
+func (u OpenAIResponseInputMessageItemContent) MarshalJSON() ([]byte, error) {
+	if u.InputText != nil {
+		return utils.MarshalJSON(u.InputText, "", true)
+	}
+
+	if u.InputImage != nil {
+		return utils.MarshalJSON(u.InputImage, "", true)
+	}
+
+	if u.InputFile != nil {
+		return utils.MarshalJSON(u.InputFile, "", true)
+	}
+
+	if u.InputAudio != nil {
+		return utils.MarshalJSON(u.InputAudio, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type OpenAIResponseInputMessageItemContent: all fields are null")
 }
 
 type OpenAIResponseInputMessageItemRoleDeveloper string
@@ -216,150 +362,34 @@ func (u OpenAIResponseInputMessageItemRoleUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type OpenAIResponseInputMessageItemRoleUnion: all fields are null")
 }
 
-type OpenAIResponseInputMessageItemContentType string
+type OpenAIResponseInputMessageItemType string
 
 const (
-	OpenAIResponseInputMessageItemContentTypeInputText  OpenAIResponseInputMessageItemContentType = "input_text"
-	OpenAIResponseInputMessageItemContentTypeInputImage OpenAIResponseInputMessageItemContentType = "input_image"
-	OpenAIResponseInputMessageItemContentTypeInputFile  OpenAIResponseInputMessageItemContentType = "input_file"
-	OpenAIResponseInputMessageItemContentTypeInputAudio OpenAIResponseInputMessageItemContentType = "input_audio"
+	OpenAIResponseInputMessageItemTypeMessage OpenAIResponseInputMessageItemType = "message"
 )
 
-type OpenAIResponseInputMessageItemContent struct {
-	InputText  *InputText  `queryParam:"inline" union:"member"`
-	InputImage *InputImage `queryParam:"inline" union:"member"`
-	InputFile  *InputFile  `queryParam:"inline" union:"member"`
-	InputAudio *InputAudio `queryParam:"inline" union:"member"`
-
-	Type OpenAIResponseInputMessageItemContentType
+func (e OpenAIResponseInputMessageItemType) ToPointer() *OpenAIResponseInputMessageItemType {
+	return &e
 }
-
-func CreateOpenAIResponseInputMessageItemContentInputText(inputText InputText) OpenAIResponseInputMessageItemContent {
-	typ := OpenAIResponseInputMessageItemContentTypeInputText
-
-	typStr := InputTextType(typ)
-	inputText.Type = typStr
-
-	return OpenAIResponseInputMessageItemContent{
-		InputText: &inputText,
-		Type:      typ,
+func (e *OpenAIResponseInputMessageItemType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-}
-
-func CreateOpenAIResponseInputMessageItemContentInputImage(inputImage InputImage) OpenAIResponseInputMessageItemContent {
-	typ := OpenAIResponseInputMessageItemContentTypeInputImage
-
-	typStr := InputImageType(typ)
-	inputImage.Type = typStr
-
-	return OpenAIResponseInputMessageItemContent{
-		InputImage: &inputImage,
-		Type:       typ,
-	}
-}
-
-func CreateOpenAIResponseInputMessageItemContentInputFile(inputFile InputFile) OpenAIResponseInputMessageItemContent {
-	typ := OpenAIResponseInputMessageItemContentTypeInputFile
-
-	typStr := InputFileType(typ)
-	inputFile.Type = typStr
-
-	return OpenAIResponseInputMessageItemContent{
-		InputFile: &inputFile,
-		Type:      typ,
-	}
-}
-
-func CreateOpenAIResponseInputMessageItemContentInputAudio(inputAudio InputAudio) OpenAIResponseInputMessageItemContent {
-	typ := OpenAIResponseInputMessageItemContentTypeInputAudio
-
-	typStr := InputAudioType(typ)
-	inputAudio.Type = typStr
-
-	return OpenAIResponseInputMessageItemContent{
-		InputAudio: &inputAudio,
-		Type:       typ,
-	}
-}
-
-func (u *OpenAIResponseInputMessageItemContent) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
-	}
-
-	switch dis.Type {
-	case "input_text":
-		inputText := new(InputText)
-		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within OpenAIResponseInputMessageItemContent: %w", string(data), err)
-		}
-
-		u.InputText = inputText
-		u.Type = OpenAIResponseInputMessageItemContentTypeInputText
+	switch v {
+	case "message":
+		*e = OpenAIResponseInputMessageItemType(v)
 		return nil
-	case "input_image":
-		inputImage := new(InputImage)
-		if err := utils.UnmarshalJSON(data, &inputImage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type InputImage within OpenAIResponseInputMessageItemContent: %w", string(data), err)
-		}
-
-		u.InputImage = inputImage
-		u.Type = OpenAIResponseInputMessageItemContentTypeInputImage
-		return nil
-	case "input_file":
-		inputFile := new(InputFile)
-		if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_file) type InputFile within OpenAIResponseInputMessageItemContent: %w", string(data), err)
-		}
-
-		u.InputFile = inputFile
-		u.Type = OpenAIResponseInputMessageItemContentTypeInputFile
-		return nil
-	case "input_audio":
-		inputAudio := new(InputAudio)
-		if err := utils.UnmarshalJSON(data, &inputAudio, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type InputAudio within OpenAIResponseInputMessageItemContent: %w", string(data), err)
-		}
-
-		u.InputAudio = inputAudio
-		u.Type = OpenAIResponseInputMessageItemContentTypeInputAudio
-		return nil
+	default:
+		return fmt.Errorf("invalid value for OpenAIResponseInputMessageItemType: %v", v)
 	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenAIResponseInputMessageItemContent", string(data))
-}
-
-func (u OpenAIResponseInputMessageItemContent) MarshalJSON() ([]byte, error) {
-	if u.InputText != nil {
-		return utils.MarshalJSON(u.InputText, "", true)
-	}
-
-	if u.InputImage != nil {
-		return utils.MarshalJSON(u.InputImage, "", true)
-	}
-
-	if u.InputFile != nil {
-		return utils.MarshalJSON(u.InputFile, "", true)
-	}
-
-	if u.InputAudio != nil {
-		return utils.MarshalJSON(u.InputAudio, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type OpenAIResponseInputMessageItemContent: all fields are null")
 }
 
 type OpenAIResponseInputMessageItem struct {
-	ID      string                                  `json:"id"`
-	Type    *OpenAIResponseInputMessageItemType     `json:"type,omitzero"`
-	Role    OpenAIResponseInputMessageItemRoleUnion `json:"role"`
 	Content []OpenAIResponseInputMessageItemContent `json:"content"`
+	ID      string                                  `json:"id"`
+	Role    OpenAIResponseInputMessageItemRoleUnion `json:"role"`
+	Type    *OpenAIResponseInputMessageItemType     `json:"type,omitzero"`
 }
 
 func (o OpenAIResponseInputMessageItem) MarshalJSON() ([]byte, error) {
@@ -373,18 +403,18 @@ func (o *OpenAIResponseInputMessageItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (o *OpenAIResponseInputMessageItem) GetContent() []OpenAIResponseInputMessageItemContent {
+	if o == nil {
+		return []OpenAIResponseInputMessageItemContent{}
+	}
+	return o.Content
+}
+
 func (o *OpenAIResponseInputMessageItem) GetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ID
-}
-
-func (o *OpenAIResponseInputMessageItem) GetType() *OpenAIResponseInputMessageItemType {
-	if o == nil {
-		return nil
-	}
-	return o.Type
 }
 
 func (o *OpenAIResponseInputMessageItem) GetRole() OpenAIResponseInputMessageItemRoleUnion {
@@ -394,9 +424,9 @@ func (o *OpenAIResponseInputMessageItem) GetRole() OpenAIResponseInputMessageIte
 	return o.Role
 }
 
-func (o *OpenAIResponseInputMessageItem) GetContent() []OpenAIResponseInputMessageItemContent {
+func (o *OpenAIResponseInputMessageItem) GetType() *OpenAIResponseInputMessageItemType {
 	if o == nil {
-		return []OpenAIResponseInputMessageItemContent{}
+		return nil
 	}
-	return o.Content
+	return o.Type
 }

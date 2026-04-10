@@ -121,5 +121,7 @@ switch openResponsesResultToolUnion.Type {
 		// openResponsesResultToolUnion.ApplyPatchServerTool is populated
 	case components.OpenResponsesResultToolUnionTypeCustom:
 		// openResponsesResultToolUnion.CustomTool is populated
+	default:
+		// Unknown type - use openResponsesResultToolUnion.GetUnknownRaw() for raw JSON
 }
 ```

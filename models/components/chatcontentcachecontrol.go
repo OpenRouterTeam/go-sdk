@@ -33,8 +33,8 @@ func (e *ChatContentCacheControlType) UnmarshalJSON(data []byte) error {
 
 // ChatContentCacheControl - Cache control for the content part
 type ChatContentCacheControl struct {
-	Type ChatContentCacheControlType `json:"type"`
 	TTL  *AnthropicCacheControlTTL   `json:"ttl,omitzero"`
+	Type ChatContentCacheControlType `json:"type"`
 }
 
 func (c ChatContentCacheControl) MarshalJSON() ([]byte, error) {
@@ -48,16 +48,16 @@ func (c *ChatContentCacheControl) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatContentCacheControl) GetType() ChatContentCacheControlType {
-	if c == nil {
-		return ChatContentCacheControlType("")
-	}
-	return c.Type
-}
-
 func (c *ChatContentCacheControl) GetTTL() *AnthropicCacheControlTTL {
 	if c == nil {
 		return nil
 	}
 	return c.TTL
+}
+
+func (c *ChatContentCacheControl) GetType() ChatContentCacheControlType {
+	if c == nil {
+		return ChatContentCacheControlType("")
+	}
+	return c.Type
 }

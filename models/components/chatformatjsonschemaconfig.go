@@ -33,9 +33,9 @@ func (e *ChatFormatJSONSchemaConfigType) UnmarshalJSON(data []byte) error {
 
 // ChatFormatJSONSchemaConfig - JSON Schema response format for structured outputs
 type ChatFormatJSONSchemaConfig struct {
-	Type ChatFormatJSONSchemaConfigType `json:"type"`
 	// JSON Schema configuration object
-	JSONSchema ChatJSONSchemaConfig `json:"json_schema"`
+	JSONSchema ChatJSONSchemaConfig           `json:"json_schema"`
+	Type       ChatFormatJSONSchemaConfigType `json:"type"`
 }
 
 func (c ChatFormatJSONSchemaConfig) MarshalJSON() ([]byte, error) {
@@ -49,16 +49,16 @@ func (c *ChatFormatJSONSchemaConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatFormatJSONSchemaConfig) GetType() ChatFormatJSONSchemaConfigType {
-	if c == nil {
-		return ChatFormatJSONSchemaConfigType("")
-	}
-	return c.Type
-}
-
 func (c *ChatFormatJSONSchemaConfig) GetJSONSchema() ChatJSONSchemaConfig {
 	if c == nil {
 		return ChatJSONSchemaConfig{}
 	}
 	return c.JSONSchema
+}
+
+func (c *ChatFormatJSONSchemaConfig) GetType() ChatFormatJSONSchemaConfigType {
+	if c == nil {
+		return ChatFormatJSONSchemaConfigType("")
+	}
+	return c.Type
 }

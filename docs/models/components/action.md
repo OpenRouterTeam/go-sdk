@@ -33,5 +33,7 @@ switch action.Type {
 		// action.ActionOpenPage is populated
 	case components.ActionTypeFindInPage:
 		// action.ActionFindInPage is populated
+	default:
+		// Unknown type - use action.GetUnknownRaw() for raw JSON
 }
 ```

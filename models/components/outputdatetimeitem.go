@@ -33,13 +33,13 @@ func (e *OutputDatetimeItemType) UnmarshalJSON(data []byte) error {
 
 // OutputDatetimeItem - An openrouter:datetime server tool output item
 type OutputDatetimeItem struct {
-	Type   OutputDatetimeItemType `json:"type"`
-	ID     *string                `json:"id,omitzero"`
-	Status ToolCallStatus         `json:"status"`
 	// ISO 8601 datetime string
-	Datetime string `json:"datetime"`
+	Datetime string         `json:"datetime"`
+	ID       *string        `json:"id,omitzero"`
+	Status   ToolCallStatus `json:"status"`
 	// IANA timezone name
-	Timezone string `json:"timezone"`
+	Timezone string                 `json:"timezone"`
+	Type     OutputDatetimeItemType `json:"type"`
 }
 
 func (o OutputDatetimeItem) MarshalJSON() ([]byte, error) {
@@ -53,11 +53,11 @@ func (o *OutputDatetimeItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputDatetimeItem) GetType() OutputDatetimeItemType {
+func (o *OutputDatetimeItem) GetDatetime() string {
 	if o == nil {
-		return OutputDatetimeItemType("")
+		return ""
 	}
-	return o.Type
+	return o.Datetime
 }
 
 func (o *OutputDatetimeItem) GetID() *string {
@@ -74,16 +74,16 @@ func (o *OutputDatetimeItem) GetStatus() ToolCallStatus {
 	return o.Status
 }
 
-func (o *OutputDatetimeItem) GetDatetime() string {
-	if o == nil {
-		return ""
-	}
-	return o.Datetime
-}
-
 func (o *OutputDatetimeItem) GetTimezone() string {
 	if o == nil {
 		return ""
 	}
 	return o.Timezone
+}
+
+func (o *OutputDatetimeItem) GetType() OutputDatetimeItemType {
+	if o == nil {
+		return OutputDatetimeItemType("")
+	}
+	return o.Type
 }

@@ -32,9 +32,9 @@ func (e *FileParserPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type FileParserPlugin struct {
-	ID FileParserPluginID `json:"id"`
 	// Set to false to disable the file-parser plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
+	Enabled *bool              `json:"enabled,omitzero"`
+	ID      FileParserPluginID `json:"id"`
 	// Options for PDF parsing.
 	Pdf *PDFParserOptions `json:"pdf,omitzero"`
 }
@@ -50,18 +50,18 @@ func (f *FileParserPlugin) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FileParserPlugin) GetID() FileParserPluginID {
-	if f == nil {
-		return FileParserPluginID("")
-	}
-	return f.ID
-}
-
 func (f *FileParserPlugin) GetEnabled() *bool {
 	if f == nil {
 		return nil
 	}
 	return f.Enabled
+}
+
+func (f *FileParserPlugin) GetID() FileParserPluginID {
+	if f == nil {
+		return FileParserPluginID("")
+	}
+	return f.ID
 }
 
 func (f *FileParserPlugin) GetPdf() *PDFParserOptions {

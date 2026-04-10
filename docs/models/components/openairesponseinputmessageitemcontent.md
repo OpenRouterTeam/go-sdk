@@ -3,16 +3,10 @@
 
 ## Supported Types
 
-### InputText
+### InputAudio
 
 ```go
-openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMessageItemContentInputText(components.InputText{/* values here */})
-```
-
-### InputImage
-
-```go
-openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMessageItemContentInputImage(components.InputImage{/* values here */})
+openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMessageItemContentInputAudio(components.InputAudio{/* values here */})
 ```
 
 ### InputFile
@@ -21,10 +15,16 @@ openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMes
 openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMessageItemContentInputFile(components.InputFile{/* values here */})
 ```
 
-### InputAudio
+### InputImage
 
 ```go
-openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMessageItemContentInputAudio(components.InputAudio{/* values here */})
+openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMessageItemContentInputImage(components.InputImage{/* values here */})
+```
+
+### InputText
+
+```go
+openAIResponseInputMessageItemContent := components.CreateOpenAIResponseInputMessageItemContentInputText(components.InputText{/* values here */})
 ```
 
 ## Union Discrimination
@@ -33,13 +33,15 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch openAIResponseInputMessageItemContent.Type {
-	case components.OpenAIResponseInputMessageItemContentTypeInputText:
-		// openAIResponseInputMessageItemContent.InputText is populated
-	case components.OpenAIResponseInputMessageItemContentTypeInputImage:
-		// openAIResponseInputMessageItemContent.InputImage is populated
-	case components.OpenAIResponseInputMessageItemContentTypeInputFile:
-		// openAIResponseInputMessageItemContent.InputFile is populated
 	case components.OpenAIResponseInputMessageItemContentTypeInputAudio:
 		// openAIResponseInputMessageItemContent.InputAudio is populated
+	case components.OpenAIResponseInputMessageItemContentTypeInputFile:
+		// openAIResponseInputMessageItemContent.InputFile is populated
+	case components.OpenAIResponseInputMessageItemContentTypeInputImage:
+		// openAIResponseInputMessageItemContent.InputImage is populated
+	case components.OpenAIResponseInputMessageItemContentTypeInputText:
+		// openAIResponseInputMessageItemContent.InputText is populated
+	default:
+		// Unknown type - use openAIResponseInputMessageItemContent.GetUnknownRaw() for raw JSON
 }
 ```

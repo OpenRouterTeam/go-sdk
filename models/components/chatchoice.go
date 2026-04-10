@@ -12,10 +12,10 @@ type ChatChoice struct {
 	FinishReason *ChatFinishReasonEnum `json:"finish_reason"`
 	// Choice index
 	Index int64 `json:"index"`
-	// Assistant message for requests and responses
-	Message ChatAssistantMessage `json:"message"`
 	// Log probabilities for the completion
 	Logprobs optionalnullable.OptionalNullable[ChatTokenLogprobs] `json:"logprobs,omitzero"`
+	// Assistant message for requests and responses
+	Message ChatAssistantMessage `json:"message"`
 }
 
 func (c ChatChoice) MarshalJSON() ([]byte, error) {
@@ -43,16 +43,16 @@ func (c *ChatChoice) GetIndex() int64 {
 	return c.Index
 }
 
-func (c *ChatChoice) GetMessage() ChatAssistantMessage {
-	if c == nil {
-		return ChatAssistantMessage{}
-	}
-	return c.Message
-}
-
 func (c *ChatChoice) GetLogprobs() optionalnullable.OptionalNullable[ChatTokenLogprobs] {
 	if c == nil {
 		return nil
 	}
 	return c.Logprobs
+}
+
+func (c *ChatChoice) GetMessage() ChatAssistantMessage {
+	if c == nil {
+		return ChatAssistantMessage{}
+	}
+	return c.Message
 }

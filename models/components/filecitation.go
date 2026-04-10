@@ -32,10 +32,10 @@ func (e *FileCitationType) UnmarshalJSON(data []byte) error {
 }
 
 type FileCitation struct {
-	Type     FileCitationType `json:"type"`
 	FileID   string           `json:"file_id"`
 	Filename string           `json:"filename"`
 	Index    int64            `json:"index"`
+	Type     FileCitationType `json:"type"`
 }
 
 func (f FileCitation) MarshalJSON() ([]byte, error) {
@@ -47,13 +47,6 @@ func (f *FileCitation) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (f *FileCitation) GetType() FileCitationType {
-	if f == nil {
-		return FileCitationType("")
-	}
-	return f.Type
 }
 
 func (f *FileCitation) GetFileID() string {
@@ -75,4 +68,11 @@ func (f *FileCitation) GetIndex() int64 {
 		return 0
 	}
 	return f.Index
+}
+
+func (f *FileCitation) GetType() FileCitationType {
+	if f == nil {
+		return FileCitationType("")
+	}
+	return f.Type
 }

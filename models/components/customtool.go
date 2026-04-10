@@ -9,27 +9,26 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type TypeCustom string
+type Syntax string
 
 const (
-	TypeCustomCustom TypeCustom = "custom"
+	SyntaxLark  Syntax = "lark"
+	SyntaxRegex Syntax = "regex"
 )
 
-func (e TypeCustom) ToPointer() *TypeCustom {
+func (e Syntax) ToPointer() *Syntax {
 	return &e
 }
-func (e *TypeCustom) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Syntax) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "lark", "regex":
+			return true
+		}
 	}
-	switch v {
-	case "custom":
-		*e = TypeCustom(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeCustom: %v", v)
-	}
+	return false
 }
 
 type FormatTypeGrammar string
@@ -55,32 +54,10 @@ func (e *FormatTypeGrammar) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Syntax string
-
-const (
-	SyntaxLark  Syntax = "lark"
-	SyntaxRegex Syntax = "regex"
-)
-
-func (e Syntax) ToPointer() *Syntax {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Syntax) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "lark", "regex":
-			return true
-		}
-	}
-	return false
-}
-
 type FormatGrammar struct {
-	Type       FormatTypeGrammar `json:"type"`
 	Definition string            `json:"definition"`
 	Syntax     Syntax            `json:"syntax"`
+	Type       FormatTypeGrammar `json:"type"`
 }
 
 func (f FormatGrammar) MarshalJSON() ([]byte, error) {
@@ -92,13 +69,6 @@ func (f *FormatGrammar) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (f *FormatGrammar) GetType() FormatTypeGrammar {
-	if f == nil {
-		return FormatTypeGrammar("")
-	}
-	return f.Type
 }
 
 func (f *FormatGrammar) GetDefinition() string {
@@ -113,6 +83,13 @@ func (f *FormatGrammar) GetSyntax() Syntax {
 		return Syntax("")
 	}
 	return f.Syntax
+}
+
+func (f *FormatGrammar) GetType() FormatTypeGrammar {
+	if f == nil {
+		return FormatTypeGrammar("")
+	}
+	return f.Type
 }
 
 type FormatTypeText string
@@ -165,11 +142,13 @@ type FormatType string
 const (
 	FormatTypeTextValue    FormatType = "text"
 	FormatTypeGrammarValue FormatType = "grammar"
+	FormatTypeUnknown      FormatType = "UNKNOWN"
 )
 
 type Format struct {
-	FormatText    *FormatText    `queryParam:"inline" union:"member"`
-	FormatGrammar *FormatGrammar `queryParam:"inline" union:"member"`
+	FormatText    *FormatText     `queryParam:"inline" union:"member"`
+	FormatGrammar *FormatGrammar  `queryParam:"inline" union:"member"`
+	UnknownRaw    json.RawMessage `json:"-" union:"unknown"`
 
 	Type FormatType
 }
@@ -198,6 +177,21 @@ func CreateFormatGrammar(grammar FormatGrammar) Format {
 	}
 }
 
+func CreateFormatUnknown(raw json.RawMessage) Format {
+	return Format{
+		UnknownRaw: raw,
+		Type:       FormatTypeUnknown,
+	}
+}
+
+func (u Format) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u Format) IsUnknown() bool {
+	return u.Type == FormatTypeUnknown
+}
+
 func (u *Format) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -206,7 +200,14 @@ func (u *Format) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FormatTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FormatTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -228,9 +229,12 @@ func (u *Format) UnmarshalJSON(data []byte) error {
 		u.FormatGrammar = formatGrammar
 		u.Type = FormatTypeGrammarValue
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FormatTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Format", string(data))
 }
 
 func (u Format) MarshalJSON() ([]byte, error) {
@@ -242,15 +246,41 @@ func (u Format) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.FormatGrammar, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type Format: all fields are null")
+}
+
+type TypeCustom string
+
+const (
+	TypeCustomCustom TypeCustom = "custom"
+)
+
+func (e TypeCustom) ToPointer() *TypeCustom {
+	return &e
+}
+func (e *TypeCustom) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "custom":
+		*e = TypeCustom(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeCustom: %v", v)
+	}
 }
 
 // CustomTool - Custom tool configuration
 type CustomTool struct {
-	Type        TypeCustom `json:"type"`
-	Name        string     `json:"name"`
 	Description *string    `json:"description,omitzero"`
 	Format      *Format    `json:"format,omitzero"`
+	Name        string     `json:"name"`
+	Type        TypeCustom `json:"type"`
 }
 
 func (c CustomTool) MarshalJSON() ([]byte, error) {
@@ -262,20 +292,6 @@ func (c *CustomTool) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *CustomTool) GetType() TypeCustom {
-	if c == nil {
-		return TypeCustom("")
-	}
-	return c.Type
-}
-
-func (c *CustomTool) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
 }
 
 func (c *CustomTool) GetDescription() *string {
@@ -304,4 +320,18 @@ func (c *CustomTool) GetFormatGrammar() *FormatGrammar {
 		return v.FormatGrammar
 	}
 	return nil
+}
+
+func (c *CustomTool) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
+func (c *CustomTool) GetType() TypeCustom {
+	if c == nil {
+		return TypeCustom("")
+	}
+	return c.Type
 }

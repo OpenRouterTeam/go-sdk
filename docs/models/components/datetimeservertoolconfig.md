@@ -1,4 +1,6 @@
-# DatetimeServerToolParameters
+# DatetimeServerToolConfig
+
+Configuration for the openrouter:datetime server tool
 
 
 ## Fields

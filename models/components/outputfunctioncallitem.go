@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type OutputFunctionCallItemType string
-
-const (
-	OutputFunctionCallItemTypeFunctionCall OutputFunctionCallItemType = "function_call"
-)
-
-func (e OutputFunctionCallItemType) ToPointer() *OutputFunctionCallItemType {
-	return &e
-}
-func (e *OutputFunctionCallItemType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "function_call":
-		*e = OutputFunctionCallItemType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputFunctionCallItemType: %v", v)
-	}
-}
-
 type OutputFunctionCallItemStatusInProgress string
 
 const (
@@ -216,13 +193,36 @@ func (u OutputFunctionCallItemStatusUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type OutputFunctionCallItemStatusUnion: all fields are null")
 }
 
+type OutputFunctionCallItemType string
+
+const (
+	OutputFunctionCallItemTypeFunctionCall OutputFunctionCallItemType = "function_call"
+)
+
+func (e OutputFunctionCallItemType) ToPointer() *OutputFunctionCallItemType {
+	return &e
+}
+func (e *OutputFunctionCallItemType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "function_call":
+		*e = OutputFunctionCallItemType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputFunctionCallItemType: %v", v)
+	}
+}
+
 type OutputFunctionCallItem struct {
-	Type      OutputFunctionCallItemType         `json:"type"`
-	ID        *string                            `json:"id,omitzero"`
-	Name      string                             `json:"name"`
 	Arguments string                             `json:"arguments"`
 	CallID    string                             `json:"call_id"`
+	ID        *string                            `json:"id,omitzero"`
+	Name      string                             `json:"name"`
 	Status    *OutputFunctionCallItemStatusUnion `json:"status,omitzero"`
+	Type      OutputFunctionCallItemType         `json:"type"`
 }
 
 func (o OutputFunctionCallItem) MarshalJSON() ([]byte, error) {
@@ -234,27 +234,6 @@ func (o *OutputFunctionCallItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OutputFunctionCallItem) GetType() OutputFunctionCallItemType {
-	if o == nil {
-		return OutputFunctionCallItemType("")
-	}
-	return o.Type
-}
-
-func (o *OutputFunctionCallItem) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *OutputFunctionCallItem) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
 }
 
 func (o *OutputFunctionCallItem) GetArguments() string {
@@ -271,9 +250,30 @@ func (o *OutputFunctionCallItem) GetCallID() string {
 	return o.CallID
 }
 
+func (o *OutputFunctionCallItem) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputFunctionCallItem) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
 func (o *OutputFunctionCallItem) GetStatus() *OutputFunctionCallItemStatusUnion {
 	if o == nil {
 		return nil
 	}
 	return o.Status
+}
+
+func (o *OutputFunctionCallItem) GetType() OutputFunctionCallItemType {
+	if o == nil {
+		return OutputFunctionCallItemType("")
+	}
+	return o.Type
 }

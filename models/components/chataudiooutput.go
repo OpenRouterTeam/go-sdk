@@ -8,12 +8,12 @@ import (
 
 // ChatAudioOutput - Audio output data or reference
 type ChatAudioOutput struct {
-	// Audio output identifier
-	ID *string `json:"id,omitzero"`
-	// Audio expiration timestamp
-	ExpiresAt *int64 `json:"expires_at,omitzero"`
 	// Base64 encoded audio data
 	Data *string `json:"data,omitzero"`
+	// Audio expiration timestamp
+	ExpiresAt *int64 `json:"expires_at,omitzero"`
+	// Audio output identifier
+	ID *string `json:"id,omitzero"`
 	// Audio transcript
 	Transcript *string `json:"transcript,omitzero"`
 }
@@ -29,11 +29,11 @@ func (c *ChatAudioOutput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatAudioOutput) GetID() *string {
+func (c *ChatAudioOutput) GetData() *string {
 	if c == nil {
 		return nil
 	}
-	return c.ID
+	return c.Data
 }
 
 func (c *ChatAudioOutput) GetExpiresAt() *int64 {
@@ -43,11 +43,11 @@ func (c *ChatAudioOutput) GetExpiresAt() *int64 {
 	return c.ExpiresAt
 }
 
-func (c *ChatAudioOutput) GetData() *string {
+func (c *ChatAudioOutput) GetID() *string {
 	if c == nil {
 		return nil
 	}
-	return c.Data
+	return c.ID
 }
 
 func (c *ChatAudioOutput) GetTranscript() *string {

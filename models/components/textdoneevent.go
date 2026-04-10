@@ -33,13 +33,13 @@ func (e *TextDoneEventType) UnmarshalJSON(data []byte) error {
 
 // TextDoneEvent - Event emitted when text streaming is complete
 type TextDoneEvent struct {
-	Type           TextDoneEventType `json:"type"`
-	OutputIndex    int64             `json:"output_index"`
-	ItemID         string            `json:"item_id"`
 	ContentIndex   int64             `json:"content_index"`
-	Text           string            `json:"text"`
-	SequenceNumber int64             `json:"sequence_number"`
+	ItemID         string            `json:"item_id"`
 	Logprobs       []StreamLogprob   `json:"logprobs"`
+	OutputIndex    int64             `json:"output_index"`
+	SequenceNumber int64             `json:"sequence_number"`
+	Text           string            `json:"text"`
+	Type           TextDoneEventType `json:"type"`
 }
 
 func (t TextDoneEvent) MarshalJSON() ([]byte, error) {
@@ -53,18 +53,11 @@ func (t *TextDoneEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TextDoneEvent) GetType() TextDoneEventType {
-	if t == nil {
-		return TextDoneEventType("")
-	}
-	return t.Type
-}
-
-func (t *TextDoneEvent) GetOutputIndex() int64 {
+func (t *TextDoneEvent) GetContentIndex() int64 {
 	if t == nil {
 		return 0
 	}
-	return t.OutputIndex
+	return t.ContentIndex
 }
 
 func (t *TextDoneEvent) GetItemID() string {
@@ -74,18 +67,18 @@ func (t *TextDoneEvent) GetItemID() string {
 	return t.ItemID
 }
 
-func (t *TextDoneEvent) GetContentIndex() int64 {
+func (t *TextDoneEvent) GetLogprobs() []StreamLogprob {
+	if t == nil {
+		return []StreamLogprob{}
+	}
+	return t.Logprobs
+}
+
+func (t *TextDoneEvent) GetOutputIndex() int64 {
 	if t == nil {
 		return 0
 	}
-	return t.ContentIndex
-}
-
-func (t *TextDoneEvent) GetText() string {
-	if t == nil {
-		return ""
-	}
-	return t.Text
+	return t.OutputIndex
 }
 
 func (t *TextDoneEvent) GetSequenceNumber() int64 {
@@ -95,9 +88,16 @@ func (t *TextDoneEvent) GetSequenceNumber() int64 {
 	return t.SequenceNumber
 }
 
-func (t *TextDoneEvent) GetLogprobs() []StreamLogprob {
+func (t *TextDoneEvent) GetText() string {
 	if t == nil {
-		return []StreamLogprob{}
+		return ""
 	}
-	return t.Logprobs
+	return t.Text
+}
+
+func (t *TextDoneEvent) GetType() TextDoneEventType {
+	if t == nil {
+		return TextDoneEventType("")
+	}
+	return t.Type
 }

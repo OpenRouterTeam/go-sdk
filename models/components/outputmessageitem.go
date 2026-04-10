@@ -10,6 +10,283 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+type OutputMessageItemContentType string
+
+const (
+	OutputMessageItemContentTypeOutputText OutputMessageItemContentType = "output_text"
+	OutputMessageItemContentTypeRefusal    OutputMessageItemContentType = "refusal"
+	OutputMessageItemContentTypeUnknown    OutputMessageItemContentType = "UNKNOWN"
+)
+
+type OutputMessageItemContent struct {
+	ResponseOutputText            *ResponseOutputText            `queryParam:"inline" union:"member"`
+	OpenAIResponsesRefusalContent *OpenAIResponsesRefusalContent `queryParam:"inline" union:"member"`
+	UnknownRaw                    json.RawMessage                `json:"-" union:"unknown"`
+
+	Type OutputMessageItemContentType
+}
+
+func CreateOutputMessageItemContentOutputText(outputText ResponseOutputText) OutputMessageItemContent {
+	typ := OutputMessageItemContentTypeOutputText
+
+	typStr := ResponseOutputTextType(typ)
+	outputText.Type = typStr
+
+	return OutputMessageItemContent{
+		ResponseOutputText: &outputText,
+		Type:               typ,
+	}
+}
+
+func CreateOutputMessageItemContentRefusal(refusal OpenAIResponsesRefusalContent) OutputMessageItemContent {
+	typ := OutputMessageItemContentTypeRefusal
+
+	typStr := OpenAIResponsesRefusalContentType(typ)
+	refusal.Type = typStr
+
+	return OutputMessageItemContent{
+		OpenAIResponsesRefusalContent: &refusal,
+		Type:                          typ,
+	}
+}
+
+func CreateOutputMessageItemContentUnknown(raw json.RawMessage) OutputMessageItemContent {
+	return OutputMessageItemContent{
+		UnknownRaw: raw,
+		Type:       OutputMessageItemContentTypeUnknown,
+	}
+}
+
+func (u OutputMessageItemContent) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u OutputMessageItemContent) IsUnknown() bool {
+	return u.Type == OutputMessageItemContentTypeUnknown
+}
+
+func (u *OutputMessageItemContent) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputMessageItemContentTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputMessageItemContentTypeUnknown
+		return nil
+	}
+
+	switch dis.Type {
+	case "output_text":
+		responseOutputText := new(ResponseOutputText)
+		if err := utils.UnmarshalJSON(data, &responseOutputText, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == output_text) type ResponseOutputText within OutputMessageItemContent: %w", string(data), err)
+		}
+
+		u.ResponseOutputText = responseOutputText
+		u.Type = OutputMessageItemContentTypeOutputText
+		return nil
+	case "refusal":
+		openAIResponsesRefusalContent := new(OpenAIResponsesRefusalContent)
+		if err := utils.UnmarshalJSON(data, &openAIResponsesRefusalContent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == refusal) type OpenAIResponsesRefusalContent within OutputMessageItemContent: %w", string(data), err)
+		}
+
+		u.OpenAIResponsesRefusalContent = openAIResponsesRefusalContent
+		u.Type = OutputMessageItemContentTypeRefusal
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OutputMessageItemContentTypeUnknown
+		return nil
+	}
+
+}
+
+func (u OutputMessageItemContent) MarshalJSON() ([]byte, error) {
+	if u.ResponseOutputText != nil {
+		return utils.MarshalJSON(u.ResponseOutputText, "", true)
+	}
+
+	if u.OpenAIResponsesRefusalContent != nil {
+		return utils.MarshalJSON(u.OpenAIResponsesRefusalContent, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type OutputMessageItemContent: all fields are null")
+}
+
+type OutputMessageItemPhaseFinalAnswer string
+
+const (
+	OutputMessageItemPhaseFinalAnswerFinalAnswer OutputMessageItemPhaseFinalAnswer = "final_answer"
+)
+
+func (e OutputMessageItemPhaseFinalAnswer) ToPointer() *OutputMessageItemPhaseFinalAnswer {
+	return &e
+}
+func (e *OutputMessageItemPhaseFinalAnswer) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "final_answer":
+		*e = OutputMessageItemPhaseFinalAnswer(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMessageItemPhaseFinalAnswer: %v", v)
+	}
+}
+
+type OutputMessageItemPhaseCommentary string
+
+const (
+	OutputMessageItemPhaseCommentaryCommentary OutputMessageItemPhaseCommentary = "commentary"
+)
+
+func (e OutputMessageItemPhaseCommentary) ToPointer() *OutputMessageItemPhaseCommentary {
+	return &e
+}
+func (e *OutputMessageItemPhaseCommentary) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "commentary":
+		*e = OutputMessageItemPhaseCommentary(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputMessageItemPhaseCommentary: %v", v)
+	}
+}
+
+type OutputMessageItemPhaseUnionType string
+
+const (
+	OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary  OutputMessageItemPhaseUnionType = "OutputMessageItem_phase_Commentary"
+	OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer OutputMessageItemPhaseUnionType = "OutputMessageItem_phase_FinalAnswer"
+	OutputMessageItemPhaseUnionTypeAny                               OutputMessageItemPhaseUnionType = "any"
+)
+
+// OutputMessageItemPhaseUnion - The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
+type OutputMessageItemPhaseUnion struct {
+	OutputMessageItemPhaseCommentary  *OutputMessageItemPhaseCommentary  `queryParam:"inline" union:"member"`
+	OutputMessageItemPhaseFinalAnswer *OutputMessageItemPhaseFinalAnswer `queryParam:"inline" union:"member"`
+	Any                               any                                `queryParam:"inline" union:"member"`
+
+	Type OutputMessageItemPhaseUnionType
+}
+
+func CreateOutputMessageItemPhaseUnionOutputMessageItemPhaseCommentary(outputMessageItemPhaseCommentary OutputMessageItemPhaseCommentary) OutputMessageItemPhaseUnion {
+	typ := OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary
+
+	return OutputMessageItemPhaseUnion{
+		OutputMessageItemPhaseCommentary: &outputMessageItemPhaseCommentary,
+		Type:                             typ,
+	}
+}
+
+func CreateOutputMessageItemPhaseUnionOutputMessageItemPhaseFinalAnswer(outputMessageItemPhaseFinalAnswer OutputMessageItemPhaseFinalAnswer) OutputMessageItemPhaseUnion {
+	typ := OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer
+
+	return OutputMessageItemPhaseUnion{
+		OutputMessageItemPhaseFinalAnswer: &outputMessageItemPhaseFinalAnswer,
+		Type:                              typ,
+	}
+}
+
+func CreateOutputMessageItemPhaseUnionAny(anyT any) OutputMessageItemPhaseUnion {
+	typ := OutputMessageItemPhaseUnionTypeAny
+
+	return OutputMessageItemPhaseUnion{
+		Any:  anyT,
+		Type: typ,
+	}
+}
+
+func (u *OutputMessageItemPhaseUnion) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var outputMessageItemPhaseCommentary OutputMessageItemPhaseCommentary = OutputMessageItemPhaseCommentary("")
+	if err := utils.UnmarshalJSON(data, &outputMessageItemPhaseCommentary, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary,
+			Value: &outputMessageItemPhaseCommentary,
+		})
+	}
+
+	var outputMessageItemPhaseFinalAnswer OutputMessageItemPhaseFinalAnswer = OutputMessageItemPhaseFinalAnswer("")
+	if err := utils.UnmarshalJSON(data, &outputMessageItemPhaseFinalAnswer, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer,
+			Value: &outputMessageItemPhaseFinalAnswer,
+		})
+	}
+
+	var anyVar any = nil
+	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OutputMessageItemPhaseUnionTypeAny,
+			Value: anyVar,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(OutputMessageItemPhaseUnionType)
+	switch best.Type {
+	case OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary:
+		u.OutputMessageItemPhaseCommentary = best.Value.(*OutputMessageItemPhaseCommentary)
+		return nil
+	case OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer:
+		u.OutputMessageItemPhaseFinalAnswer = best.Value.(*OutputMessageItemPhaseFinalAnswer)
+		return nil
+	case OutputMessageItemPhaseUnionTypeAny:
+		u.Any = best.Value.(any)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
+}
+
+func (u OutputMessageItemPhaseUnion) MarshalJSON() ([]byte, error) {
+	if u.OutputMessageItemPhaseCommentary != nil {
+		return utils.MarshalJSON(u.OutputMessageItemPhaseCommentary, "", true)
+	}
+
+	if u.OutputMessageItemPhaseFinalAnswer != nil {
+		return utils.MarshalJSON(u.OutputMessageItemPhaseFinalAnswer, "", true)
+	}
+
+	if u.Any != nil {
+		return utils.MarshalJSON(u.Any, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OutputMessageItemPhaseUnion: all fields are null")
+}
+
 type OutputMessageItemRole string
 
 const (
@@ -30,29 +307,6 @@ func (e *OutputMessageItemRole) UnmarshalJSON(data []byte) error {
 		return nil
 	default:
 		return fmt.Errorf("invalid value for OutputMessageItemRole: %v", v)
-	}
-}
-
-type OutputMessageItemType string
-
-const (
-	OutputMessageItemTypeMessage OutputMessageItemType = "message"
-)
-
-func (e OutputMessageItemType) ToPointer() *OutputMessageItemType {
-	return &e
-}
-func (e *OutputMessageItemType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "message":
-		*e = OutputMessageItemType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMessageItemType: %v", v)
 	}
 }
 
@@ -240,262 +494,38 @@ func (u OutputMessageItemStatusUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type OutputMessageItemStatusUnion: all fields are null")
 }
 
-type OutputMessageItemContentType string
+type OutputMessageItemType string
 
 const (
-	OutputMessageItemContentTypeOutputText OutputMessageItemContentType = "output_text"
-	OutputMessageItemContentTypeRefusal    OutputMessageItemContentType = "refusal"
+	OutputMessageItemTypeMessage OutputMessageItemType = "message"
 )
 
-type OutputMessageItemContent struct {
-	ResponseOutputText            *ResponseOutputText            `queryParam:"inline" union:"member"`
-	OpenAIResponsesRefusalContent *OpenAIResponsesRefusalContent `queryParam:"inline" union:"member"`
-
-	Type OutputMessageItemContentType
-}
-
-func CreateOutputMessageItemContentOutputText(outputText ResponseOutputText) OutputMessageItemContent {
-	typ := OutputMessageItemContentTypeOutputText
-
-	typStr := ResponseOutputTextType(typ)
-	outputText.Type = typStr
-
-	return OutputMessageItemContent{
-		ResponseOutputText: &outputText,
-		Type:               typ,
-	}
-}
-
-func CreateOutputMessageItemContentRefusal(refusal OpenAIResponsesRefusalContent) OutputMessageItemContent {
-	typ := OutputMessageItemContentTypeRefusal
-
-	typStr := OpenAIResponsesRefusalContentType(typ)
-	refusal.Type = typStr
-
-	return OutputMessageItemContent{
-		OpenAIResponsesRefusalContent: &refusal,
-		Type:                          typ,
-	}
-}
-
-func (u *OutputMessageItemContent) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
-	}
-
-	switch dis.Type {
-	case "output_text":
-		responseOutputText := new(ResponseOutputText)
-		if err := utils.UnmarshalJSON(data, &responseOutputText, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == output_text) type ResponseOutputText within OutputMessageItemContent: %w", string(data), err)
-		}
-
-		u.ResponseOutputText = responseOutputText
-		u.Type = OutputMessageItemContentTypeOutputText
-		return nil
-	case "refusal":
-		openAIResponsesRefusalContent := new(OpenAIResponsesRefusalContent)
-		if err := utils.UnmarshalJSON(data, &openAIResponsesRefusalContent, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == refusal) type OpenAIResponsesRefusalContent within OutputMessageItemContent: %w", string(data), err)
-		}
-
-		u.OpenAIResponsesRefusalContent = openAIResponsesRefusalContent
-		u.Type = OutputMessageItemContentTypeRefusal
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemContent", string(data))
-}
-
-func (u OutputMessageItemContent) MarshalJSON() ([]byte, error) {
-	if u.ResponseOutputText != nil {
-		return utils.MarshalJSON(u.ResponseOutputText, "", true)
-	}
-
-	if u.OpenAIResponsesRefusalContent != nil {
-		return utils.MarshalJSON(u.OpenAIResponsesRefusalContent, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type OutputMessageItemContent: all fields are null")
-}
-
-type OutputMessageItemPhaseFinalAnswer string
-
-const (
-	OutputMessageItemPhaseFinalAnswerFinalAnswer OutputMessageItemPhaseFinalAnswer = "final_answer"
-)
-
-func (e OutputMessageItemPhaseFinalAnswer) ToPointer() *OutputMessageItemPhaseFinalAnswer {
+func (e OutputMessageItemType) ToPointer() *OutputMessageItemType {
 	return &e
 }
-func (e *OutputMessageItemPhaseFinalAnswer) UnmarshalJSON(data []byte) error {
+func (e *OutputMessageItemType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "final_answer":
-		*e = OutputMessageItemPhaseFinalAnswer(v)
+	case "message":
+		*e = OutputMessageItemType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputMessageItemPhaseFinalAnswer: %v", v)
+		return fmt.Errorf("invalid value for OutputMessageItemType: %v", v)
 	}
-}
-
-type OutputMessageItemPhaseCommentary string
-
-const (
-	OutputMessageItemPhaseCommentaryCommentary OutputMessageItemPhaseCommentary = "commentary"
-)
-
-func (e OutputMessageItemPhaseCommentary) ToPointer() *OutputMessageItemPhaseCommentary {
-	return &e
-}
-func (e *OutputMessageItemPhaseCommentary) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "commentary":
-		*e = OutputMessageItemPhaseCommentary(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMessageItemPhaseCommentary: %v", v)
-	}
-}
-
-type OutputMessageItemPhaseUnionType string
-
-const (
-	OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary  OutputMessageItemPhaseUnionType = "OutputMessageItem_phase_Commentary"
-	OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer OutputMessageItemPhaseUnionType = "OutputMessageItem_phase_FinalAnswer"
-	OutputMessageItemPhaseUnionTypeAny                               OutputMessageItemPhaseUnionType = "any"
-)
-
-// OutputMessageItemPhaseUnion - The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
-type OutputMessageItemPhaseUnion struct {
-	OutputMessageItemPhaseCommentary  *OutputMessageItemPhaseCommentary  `queryParam:"inline" union:"member"`
-	OutputMessageItemPhaseFinalAnswer *OutputMessageItemPhaseFinalAnswer `queryParam:"inline" union:"member"`
-	Any                               any                                `queryParam:"inline" union:"member"`
-
-	Type OutputMessageItemPhaseUnionType
-}
-
-func CreateOutputMessageItemPhaseUnionOutputMessageItemPhaseCommentary(outputMessageItemPhaseCommentary OutputMessageItemPhaseCommentary) OutputMessageItemPhaseUnion {
-	typ := OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary
-
-	return OutputMessageItemPhaseUnion{
-		OutputMessageItemPhaseCommentary: &outputMessageItemPhaseCommentary,
-		Type:                             typ,
-	}
-}
-
-func CreateOutputMessageItemPhaseUnionOutputMessageItemPhaseFinalAnswer(outputMessageItemPhaseFinalAnswer OutputMessageItemPhaseFinalAnswer) OutputMessageItemPhaseUnion {
-	typ := OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer
-
-	return OutputMessageItemPhaseUnion{
-		OutputMessageItemPhaseFinalAnswer: &outputMessageItemPhaseFinalAnswer,
-		Type:                              typ,
-	}
-}
-
-func CreateOutputMessageItemPhaseUnionAny(anyT any) OutputMessageItemPhaseUnion {
-	typ := OutputMessageItemPhaseUnionTypeAny
-
-	return OutputMessageItemPhaseUnion{
-		Any:  anyT,
-		Type: typ,
-	}
-}
-
-func (u *OutputMessageItemPhaseUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var outputMessageItemPhaseCommentary OutputMessageItemPhaseCommentary = OutputMessageItemPhaseCommentary("")
-	if err := utils.UnmarshalJSON(data, &outputMessageItemPhaseCommentary, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary,
-			Value: &outputMessageItemPhaseCommentary,
-		})
-	}
-
-	var outputMessageItemPhaseFinalAnswer OutputMessageItemPhaseFinalAnswer = OutputMessageItemPhaseFinalAnswer("")
-	if err := utils.UnmarshalJSON(data, &outputMessageItemPhaseFinalAnswer, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer,
-			Value: &outputMessageItemPhaseFinalAnswer,
-		})
-	}
-
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputMessageItemPhaseUnionTypeAny,
-			Value: anyVar,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(OutputMessageItemPhaseUnionType)
-	switch best.Type {
-	case OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary:
-		u.OutputMessageItemPhaseCommentary = best.Value.(*OutputMessageItemPhaseCommentary)
-		return nil
-	case OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer:
-		u.OutputMessageItemPhaseFinalAnswer = best.Value.(*OutputMessageItemPhaseFinalAnswer)
-		return nil
-	case OutputMessageItemPhaseUnionTypeAny:
-		u.Any = best.Value.(any)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
-}
-
-func (u OutputMessageItemPhaseUnion) MarshalJSON() ([]byte, error) {
-	if u.OutputMessageItemPhaseCommentary != nil {
-		return utils.MarshalJSON(u.OutputMessageItemPhaseCommentary, "", true)
-	}
-
-	if u.OutputMessageItemPhaseFinalAnswer != nil {
-		return utils.MarshalJSON(u.OutputMessageItemPhaseFinalAnswer, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type OutputMessageItemPhaseUnion: all fields are null")
 }
 
 // OutputMessageItem - An output message item
 type OutputMessageItem struct {
-	ID      string                        `json:"id"`
-	Role    OutputMessageItemRole         `json:"role"`
-	Type    OutputMessageItemType         `json:"type"`
-	Status  *OutputMessageItemStatusUnion `json:"status,omitzero"`
-	Content []OutputMessageItemContent    `json:"content"`
+	Content []OutputMessageItemContent `json:"content"`
+	ID      string                     `json:"id"`
 	// The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
-	Phase optionalnullable.OptionalNullable[OutputMessageItemPhaseUnion] `json:"phase,omitzero"`
+	Phase  optionalnullable.OptionalNullable[OutputMessageItemPhaseUnion] `json:"phase,omitzero"`
+	Role   OutputMessageItemRole                                          `json:"role"`
+	Status *OutputMessageItemStatusUnion                                  `json:"status,omitzero"`
+	Type   OutputMessageItemType                                          `json:"type"`
 }
 
 func (o OutputMessageItem) MarshalJSON() ([]byte, error) {
@@ -509,11 +539,25 @@ func (o *OutputMessageItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (o *OutputMessageItem) GetContent() []OutputMessageItemContent {
+	if o == nil {
+		return []OutputMessageItemContent{}
+	}
+	return o.Content
+}
+
 func (o *OutputMessageItem) GetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ID
+}
+
+func (o *OutputMessageItem) GetPhase() optionalnullable.OptionalNullable[OutputMessageItemPhaseUnion] {
+	if o == nil {
+		return nil
+	}
+	return o.Phase
 }
 
 func (o *OutputMessageItem) GetRole() OutputMessageItemRole {
@@ -523,13 +567,6 @@ func (o *OutputMessageItem) GetRole() OutputMessageItemRole {
 	return o.Role
 }
 
-func (o *OutputMessageItem) GetType() OutputMessageItemType {
-	if o == nil {
-		return OutputMessageItemType("")
-	}
-	return o.Type
-}
-
 func (o *OutputMessageItem) GetStatus() *OutputMessageItemStatusUnion {
 	if o == nil {
 		return nil
@@ -537,16 +574,9 @@ func (o *OutputMessageItem) GetStatus() *OutputMessageItemStatusUnion {
 	return o.Status
 }
 
-func (o *OutputMessageItem) GetContent() []OutputMessageItemContent {
+func (o *OutputMessageItem) GetType() OutputMessageItemType {
 	if o == nil {
-		return []OutputMessageItemContent{}
+		return OutputMessageItemType("")
 	}
-	return o.Content
-}
-
-func (o *OutputMessageItem) GetPhase() optionalnullable.OptionalNullable[OutputMessageItemPhaseUnion] {
-	if o == nil {
-		return nil
-	}
-	return o.Phase
+	return o.Type
 }

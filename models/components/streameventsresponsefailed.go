@@ -33,10 +33,10 @@ func (e *StreamEventsResponseFailedType) UnmarshalJSON(data []byte) error {
 
 // StreamEventsResponseFailed - Event emitted when a response has failed
 type StreamEventsResponseFailed struct {
-	Type StreamEventsResponseFailedType `json:"type"`
 	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
+	Response       OpenResponsesResult            `json:"response"`
+	SequenceNumber int64                          `json:"sequence_number"`
+	Type           StreamEventsResponseFailedType `json:"type"`
 }
 
 func (s StreamEventsResponseFailed) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (s *StreamEventsResponseFailed) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (s *StreamEventsResponseFailed) GetType() StreamEventsResponseFailedType {
-	if s == nil {
-		return StreamEventsResponseFailedType("")
-	}
-	return s.Type
 }
 
 func (s *StreamEventsResponseFailed) GetResponse() OpenResponsesResult {
@@ -69,4 +62,11 @@ func (s *StreamEventsResponseFailed) GetSequenceNumber() int64 {
 		return 0
 	}
 	return s.SequenceNumber
+}
+
+func (s *StreamEventsResponseFailed) GetType() StreamEventsResponseFailedType {
+	if s == nil {
+		return StreamEventsResponseFailedType("")
+	}
+	return s.Type
 }

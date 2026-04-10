@@ -32,11 +32,11 @@ func (e *AutoRouterPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type AutoRouterPlugin struct {
-	ID AutoRouterPluginID `json:"id"`
-	// Set to false to disable the auto-router plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
 	// List of model patterns to filter which models the auto-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, uses the default supported models list.
 	AllowedModels []string `json:"allowed_models,omitzero"`
+	// Set to false to disable the auto-router plugin for this request. Defaults to true.
+	Enabled *bool              `json:"enabled,omitzero"`
+	ID      AutoRouterPluginID `json:"id"`
 }
 
 func (a AutoRouterPlugin) MarshalJSON() ([]byte, error) {
@@ -50,11 +50,11 @@ func (a *AutoRouterPlugin) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (a *AutoRouterPlugin) GetID() AutoRouterPluginID {
+func (a *AutoRouterPlugin) GetAllowedModels() []string {
 	if a == nil {
-		return AutoRouterPluginID("")
+		return nil
 	}
-	return a.ID
+	return a.AllowedModels
 }
 
 func (a *AutoRouterPlugin) GetEnabled() *bool {
@@ -64,9 +64,9 @@ func (a *AutoRouterPlugin) GetEnabled() *bool {
 	return a.Enabled
 }
 
-func (a *AutoRouterPlugin) GetAllowedModels() []string {
+func (a *AutoRouterPlugin) GetID() AutoRouterPluginID {
 	if a == nil {
-		return nil
+		return AutoRouterPluginID("")
 	}
-	return a.AllowedModels
+	return a.ID
 }

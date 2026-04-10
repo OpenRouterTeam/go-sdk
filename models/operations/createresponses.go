@@ -23,36 +23,12 @@ func (c *CreateResponsesResponseBody) GetData() components.StreamEvents {
 	return c.Data
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseCreated() *components.OpenResponsesCreatedEvent {
-	return c.GetData().OpenResponsesCreatedEvent
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseInProgress() *components.OpenResponsesInProgressEvent {
-	return c.GetData().OpenResponsesInProgressEvent
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseCompleted() *components.StreamEventsResponseCompleted {
-	return c.GetData().StreamEventsResponseCompleted
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseIncomplete() *components.StreamEventsResponseIncomplete {
-	return c.GetData().StreamEventsResponseIncomplete
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseFailed() *components.StreamEventsResponseFailed {
-	return c.GetData().StreamEventsResponseFailed
-}
-
 func (c *CreateResponsesResponseBody) GetDataError() *components.ErrorEvent {
 	return c.GetData().ErrorEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputItemAdded() *components.StreamEventsResponseOutputItemAdded {
-	return c.GetData().StreamEventsResponseOutputItemAdded
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseOutputItemDone() *components.StreamEventsResponseOutputItemDone {
-	return c.GetData().StreamEventsResponseOutputItemDone
+func (c *CreateResponsesResponseBody) GetDataResponseCompleted() *components.StreamEventsResponseCompleted {
+	return c.GetData().StreamEventsResponseCompleted
 }
 
 func (c *CreateResponsesResponseBody) GetDataResponseContentPartAdded() *components.ContentPartAddedEvent {
@@ -63,24 +39,12 @@ func (c *CreateResponsesResponseBody) GetDataResponseContentPartDone() *componen
 	return c.GetData().ContentPartDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDelta() *components.TextDeltaEvent {
-	return c.GetData().TextDeltaEvent
+func (c *CreateResponsesResponseBody) GetDataResponseCreated() *components.OpenResponsesCreatedEvent {
+	return c.GetData().OpenResponsesCreatedEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDone() *components.TextDoneEvent {
-	return c.GetData().TextDoneEvent
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseRefusalDelta() *components.RefusalDeltaEvent {
-	return c.GetData().RefusalDeltaEvent
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseRefusalDone() *components.RefusalDoneEvent {
-	return c.GetData().RefusalDoneEvent
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseOutputTextAnnotationAdded() *components.AnnotationAddedEvent {
-	return c.GetData().AnnotationAddedEvent
+func (c *CreateResponsesResponseBody) GetDataResponseFailed() *components.StreamEventsResponseFailed {
+	return c.GetData().StreamEventsResponseFailed
 }
 
 func (c *CreateResponsesResponseBody) GetDataResponseFunctionCallArgumentsDelta() *components.FunctionCallArgsDeltaEvent {
@@ -91,12 +55,48 @@ func (c *CreateResponsesResponseBody) GetDataResponseFunctionCallArgumentsDone()
 	return c.GetData().FunctionCallArgsDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDelta() *components.ReasoningDeltaEvent {
-	return c.GetData().ReasoningDeltaEvent
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallCompleted() *components.ImageGenCallCompletedEvent {
+	return c.GetData().ImageGenCallCompletedEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDone() *components.ReasoningDoneEvent {
-	return c.GetData().ReasoningDoneEvent
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallGenerating() *components.ImageGenCallGeneratingEvent {
+	return c.GetData().ImageGenCallGeneratingEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallInProgress() *components.ImageGenCallInProgressEvent {
+	return c.GetData().ImageGenCallInProgressEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallPartialImage() *components.ImageGenCallPartialImageEvent {
+	return c.GetData().ImageGenCallPartialImageEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseInProgress() *components.OpenResponsesInProgressEvent {
+	return c.GetData().OpenResponsesInProgressEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseIncomplete() *components.StreamEventsResponseIncomplete {
+	return c.GetData().StreamEventsResponseIncomplete
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseOutputItemAdded() *components.StreamEventsResponseOutputItemAdded {
+	return c.GetData().StreamEventsResponseOutputItemAdded
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseOutputItemDone() *components.StreamEventsResponseOutputItemDone {
+	return c.GetData().StreamEventsResponseOutputItemDone
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseOutputTextAnnotationAdded() *components.AnnotationAddedEvent {
+	return c.GetData().AnnotationAddedEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDelta() *components.TextDeltaEvent {
+	return c.GetData().TextDeltaEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseOutputTextDone() *components.TextDoneEvent {
+	return c.GetData().TextDoneEvent
 }
 
 func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryPartAdded() *components.ReasoningSummaryPartAddedEvent {
@@ -115,20 +115,24 @@ func (c *CreateResponsesResponseBody) GetDataResponseReasoningSummaryTextDone() 
 	return c.GetData().ReasoningSummaryTextDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallInProgress() *components.ImageGenCallInProgressEvent {
-	return c.GetData().ImageGenCallInProgressEvent
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDelta() *components.ReasoningDeltaEvent {
+	return c.GetData().ReasoningDeltaEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallGenerating() *components.ImageGenCallGeneratingEvent {
-	return c.GetData().ImageGenCallGeneratingEvent
+func (c *CreateResponsesResponseBody) GetDataResponseReasoningTextDone() *components.ReasoningDoneEvent {
+	return c.GetData().ReasoningDoneEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallPartialImage() *components.ImageGenCallPartialImageEvent {
-	return c.GetData().ImageGenCallPartialImageEvent
+func (c *CreateResponsesResponseBody) GetDataResponseRefusalDelta() *components.RefusalDeltaEvent {
+	return c.GetData().RefusalDeltaEvent
 }
 
-func (c *CreateResponsesResponseBody) GetDataResponseImageGenerationCallCompleted() *components.ImageGenCallCompletedEvent {
-	return c.GetData().ImageGenCallCompletedEvent
+func (c *CreateResponsesResponseBody) GetDataResponseRefusalDone() *components.RefusalDoneEvent {
+	return c.GetData().RefusalDoneEvent
+}
+
+func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallCompleted() *components.WebSearchCallCompletedEvent {
+	return c.GetData().WebSearchCallCompletedEvent
 }
 
 func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallInProgress() *components.WebSearchCallInProgressEvent {
@@ -137,10 +141,6 @@ func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallInProgress() *
 
 func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallSearching() *components.WebSearchCallSearchingEvent {
 	return c.GetData().WebSearchCallSearchingEvent
-}
-
-func (c *CreateResponsesResponseBody) GetDataResponseWebSearchCallCompleted() *components.WebSearchCallCompletedEvent {
-	return c.GetData().WebSearchCallCompletedEvent
 }
 
 func (c CreateResponsesResponseBody) GetEventEncoding(event string) (string, error) {

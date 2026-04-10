@@ -17,10 +17,10 @@ chatFunctionTool := components.CreateChatFunctionToolChatFunctionToolFunction(co
 chatFunctionTool := components.CreateChatFunctionToolDatetimeServerTool(components.DatetimeServerTool{/* values here */})
 ```
 
-### ChatWebSearchServerTool
+### OpenRouterWebSearchServerTool
 
 ```go
-chatFunctionTool := components.CreateChatFunctionToolChatWebSearchServerTool(components.ChatWebSearchServerTool{/* values here */})
+chatFunctionTool := components.CreateChatFunctionToolOpenRouterWebSearchServerTool(components.OpenRouterWebSearchServerTool{/* values here */})
 ```
 
 ### ChatWebSearchShorthand
@@ -39,8 +39,8 @@ switch chatFunctionTool.Type {
 		// chatFunctionTool.ChatFunctionToolFunction is populated
 	case components.ChatFunctionToolUnionTypeDatetimeServerTool:
 		// chatFunctionTool.DatetimeServerTool is populated
-	case components.ChatFunctionToolUnionTypeChatWebSearchServerTool:
-		// chatFunctionTool.ChatWebSearchServerTool is populated
+	case components.ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool:
+		// chatFunctionTool.OpenRouterWebSearchServerTool is populated
 	case components.ChatFunctionToolUnionTypeChatWebSearchShorthand:
 		// chatFunctionTool.ChatWebSearchShorthand is populated
 }

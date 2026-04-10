@@ -16,7 +16,7 @@ import (
 	"net/url"
 )
 
-// Rerank - Reranking endpoints
+// Rerank endpoints
 type Rerank struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration

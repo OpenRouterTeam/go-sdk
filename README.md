@@ -58,7 +58,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 	"os"
 )
@@ -70,23 +69,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
-	})
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		defer res.Object.Close()
-
-		for res.Object.Next() {
-			event := res.Object.Value()
-			log.Print(event)
-			// Handle the event
-		}
+		// handle response
 	}
 }
 
@@ -111,7 +99,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 	"os"
 )
@@ -123,23 +110,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
-	})
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		defer res.Object.Close()
-
-		for res.Object.Next() {
-			event := res.Object.Value()
-			log.Print(event)
-			// Handle the event
-		}
+		// handle response
 	}
 }
 
@@ -190,12 +166,12 @@ func main() {
 
 ### [APIKeys](docs/sdks/apikeys/README.md)
 
+* [GetCurrentKeyMetadata](docs/sdks/apikeys/README.md#getcurrentkeymetadata) - Get current API key
 * [List](docs/sdks/apikeys/README.md#list) - List API keys
 * [Create](docs/sdks/apikeys/README.md#create) - Create a new API key
-* [Update](docs/sdks/apikeys/README.md#update) - Update an API key
 * [Delete](docs/sdks/apikeys/README.md#delete) - Delete an API key
 * [Get](docs/sdks/apikeys/README.md#get) - Get a single API key
-* [GetCurrentKeyMetadata](docs/sdks/apikeys/README.md#getcurrentkeymetadata) - Get current API key
+* [Update](docs/sdks/apikeys/README.md#update) - Update an API key
 
 ### [Beta.Responses](docs/sdks/responses/README.md)
 
@@ -216,8 +192,8 @@ func main() {
 
 ### [Endpoints](docs/sdks/endpoints/README.md)
 
-* [List](docs/sdks/endpoints/README.md#list) - List all endpoints for a model
 * [ListZdrEndpoints](docs/sdks/endpoints/README.md#listzdrendpoints) - Preview the impact of ZDR on the available endpoints
+* [List](docs/sdks/endpoints/README.md#list) - List all endpoints for a model
 
 ### [Generations](docs/sdks/generations/README.md)
 
@@ -227,22 +203,22 @@ func main() {
 
 * [List](docs/sdks/guardrails/README.md#list) - List guardrails
 * [Create](docs/sdks/guardrails/README.md#create) - Create a guardrail
+* [Delete](docs/sdks/guardrails/README.md#delete) - Delete a guardrail
 * [Get](docs/sdks/guardrails/README.md#get) - Get a guardrail
 * [Update](docs/sdks/guardrails/README.md#update) - Update a guardrail
-* [Delete](docs/sdks/guardrails/README.md#delete) - Delete a guardrail
-* [ListKeyAssignments](docs/sdks/guardrails/README.md#listkeyassignments) - List all key assignments
-* [ListMemberAssignments](docs/sdks/guardrails/README.md#listmemberassignments) - List all member assignments
 * [ListGuardrailKeyAssignments](docs/sdks/guardrails/README.md#listguardrailkeyassignments) - List key assignments for a guardrail
 * [BulkAssignKeys](docs/sdks/guardrails/README.md#bulkassignkeys) - Bulk assign keys to a guardrail
+* [BulkUnassignKeys](docs/sdks/guardrails/README.md#bulkunassignkeys) - Bulk unassign keys from a guardrail
 * [ListGuardrailMemberAssignments](docs/sdks/guardrails/README.md#listguardrailmemberassignments) - List member assignments for a guardrail
 * [BulkAssignMembers](docs/sdks/guardrails/README.md#bulkassignmembers) - Bulk assign members to a guardrail
-* [BulkUnassignKeys](docs/sdks/guardrails/README.md#bulkunassignkeys) - Bulk unassign keys from a guardrail
 * [BulkUnassignMembers](docs/sdks/guardrails/README.md#bulkunassignmembers) - Bulk unassign members from a guardrail
+* [ListKeyAssignments](docs/sdks/guardrails/README.md#listkeyassignments) - List all key assignments
+* [ListMemberAssignments](docs/sdks/guardrails/README.md#listmemberassignments) - List all member assignments
 
 ### [Models](docs/sdks/models/README.md)
 
-* [Count](docs/sdks/models/README.md#count) - Get total count of available models
 * [List](docs/sdks/models/README.md#list) - List all models and their properties
+* [Count](docs/sdks/models/README.md#count) - Get total count of available models
 * [ListForUser](docs/sdks/models/README.md#listforuser) - List models filtered by user provider preferences, privacy settings, and guardrails
 
 ### [OAuth](docs/sdks/oauth/README.md)
@@ -261,6 +237,13 @@ func main() {
 ### [Rerank](docs/sdks/rerank/README.md)
 
 * [Rerank](docs/sdks/rerank/README.md#rerank) - Submit a rerank request
+
+### [VideoGeneration](docs/sdks/videogeneration/README.md)
+
+* [Generate](docs/sdks/videogeneration/README.md#generate) - Submit a video generation request
+* [GetGeneration](docs/sdks/videogeneration/README.md#getgeneration) - Poll video generation status
+* [GetVideoContent](docs/sdks/videogeneration/README.md#getvideocontent) - Download generated video content
+* [ListVideosModels](docs/sdks/videogeneration/README.md#listvideosmodels) - List all video generation models
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -292,11 +275,28 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
+	res, err := s.Chat.Send(ctx, components.ChatRequest{
+		MaxTokens: openrouter.Pointer[int64](150),
+		Messages: []components.ChatMessages{
+			components.CreateChatMessagesSystem(
+				components.ChatSystemMessage{
+					Content: components.CreateChatSystemMessageContentStr(
+						"You are a helpful assistant.",
+					),
+					Role: components.ChatSystemMessageRoleSystem,
+				},
+			),
+			components.CreateChatMessagesUser(
+				components.ChatUserMessage{
+					Content: components.CreateChatUserMessageContentStr(
+						"What is the capital of France?",
+					),
+					Role: components.ChatUserMessageRoleUser,
+				},
+			),
+		},
+		Model:       openrouter.Pointer("openai/gpt-4"),
+		Temperature: openrouter.Pointer[float64](0.7),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -342,7 +342,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Organization.ListMembers(ctx, nil, nil)
+	res, err := s.Guardrails.List(ctx, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -378,7 +378,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"log"
 	"models/operations"
@@ -392,12 +391,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
-	}, operations.WithRetries(
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -412,13 +406,7 @@ func main() {
 		log.Fatal(err)
 	}
 	if res != nil {
-		defer res.Object.Close()
-
-		for res.Object.Next() {
-			event := res.Object.Value()
-			log.Print(event)
-			// Handle the event
-		}
+		// handle response
 	}
 }
 
@@ -431,7 +419,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"log"
 	"os"
@@ -455,23 +442,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
-	})
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		defer res.Object.Close()
-
-		for res.Object.Next() {
-			event := res.Object.Value()
-			log.Print(event)
-			// Handle the event
-		}
+		// handle response
 	}
 }
 
@@ -485,24 +461,16 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By Default, an API error will return `sdkerrors.APIError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
 
-For example, the `Send` function may return the following errors:
+For example, the `GetUserActivity` function may return the following errors:
 
-| Error Type                                 | Status Code | Content Type     |
-| ------------------------------------------ | ----------- | ---------------- |
-| sdkerrors.BadRequestResponseError          | 400         | application/json |
-| sdkerrors.UnauthorizedResponseError        | 401         | application/json |
-| sdkerrors.PaymentRequiredResponseError     | 402         | application/json |
-| sdkerrors.NotFoundResponseError            | 404         | application/json |
-| sdkerrors.RequestTimeoutResponseError      | 408         | application/json |
-| sdkerrors.PayloadTooLargeResponseError     | 413         | application/json |
-| sdkerrors.UnprocessableEntityResponseError | 422         | application/json |
-| sdkerrors.TooManyRequestsResponseError     | 429         | application/json |
-| sdkerrors.InternalServerResponseError      | 500         | application/json |
-| sdkerrors.BadGatewayResponseError          | 502         | application/json |
-| sdkerrors.ServiceUnavailableResponseError  | 503         | application/json |
-| sdkerrors.EdgeNetworkTimeoutResponseError  | 524         | application/json |
-| sdkerrors.ProviderOverloadedResponseError  | 529         | application/json |
-| sdkerrors.APIError                         | 4XX, 5XX    | \*/\*            |
+| Error Type                            | Status Code | Content Type     |
+| ------------------------------------- | ----------- | ---------------- |
+| sdkerrors.BadRequestResponseError     | 400         | application/json |
+| sdkerrors.UnauthorizedResponseError   | 401         | application/json |
+| sdkerrors.ForbiddenResponseError      | 403         | application/json |
+| sdkerrors.NotFoundResponseError       | 404         | application/json |
+| sdkerrors.InternalServerResponseError | 500         | application/json |
+| sdkerrors.APIError                    | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -513,7 +481,6 @@ import (
 	"context"
 	"errors"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
 	"log"
 	"os"
@@ -526,12 +493,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
-	})
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
 	if err != nil {
 
 		var e *sdkerrors.BadRequestResponseError
@@ -546,7 +508,7 @@ func main() {
 			log.Fatal(e.Error())
 		}
 
-		var e *sdkerrors.PaymentRequiredResponseError
+		var e *sdkerrors.ForbiddenResponseError
 		if errors.As(err, &e) {
 			// handle error
 			log.Fatal(e.Error())
@@ -558,55 +520,7 @@ func main() {
 			log.Fatal(e.Error())
 		}
 
-		var e *sdkerrors.RequestTimeoutResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *sdkerrors.PayloadTooLargeResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *sdkerrors.UnprocessableEntityResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *sdkerrors.TooManyRequestsResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
 		var e *sdkerrors.InternalServerResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *sdkerrors.BadGatewayResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *sdkerrors.ServiceUnavailableResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *sdkerrors.EdgeNetworkTimeoutResponseError
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *sdkerrors.ProviderOverloadedResponseError
 		if errors.As(err, &e) {
 			// handle error
 			log.Fatal(e.Error())
@@ -642,7 +556,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 	"os"
 )
@@ -655,23 +568,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
-	})
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		defer res.Object.Close()
-
-		for res.Object.Next() {
-			event := res.Object.Value()
-			log.Print(event)
-			// Handle the event
-		}
+		// handle response
 	}
 }
 
@@ -686,7 +588,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 	"os"
 )
@@ -699,23 +600,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
-		Input: openrouter.Pointer(components.CreateInputsUnionStr(
-			"Tell me a joke",
-		)),
-		Model: openrouter.Pointer("openai/gpt-4o"),
-	})
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		defer res.Object.Close()
-
-		for res.Object.Next() {
-			event := res.Object.Value()
-			log.Print(event)
-			// Handle the event
-		}
+		// handle response
 	}
 }
 

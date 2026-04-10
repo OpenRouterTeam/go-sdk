@@ -6,10 +6,10 @@ package components
 type TopProviderInfo struct {
 	// Context length from the top provider
 	ContextLength *int64 `json:"context_length,omitzero"`
-	// Maximum completion tokens from the top provider
-	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
 	// Whether the top provider moderates content
 	IsModerated bool `json:"is_moderated"`
+	// Maximum completion tokens from the top provider
+	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
 }
 
 func (t *TopProviderInfo) GetContextLength() *int64 {
@@ -19,16 +19,16 @@ func (t *TopProviderInfo) GetContextLength() *int64 {
 	return t.ContextLength
 }
 
-func (t *TopProviderInfo) GetMaxCompletionTokens() *int64 {
-	if t == nil {
-		return nil
-	}
-	return t.MaxCompletionTokens
-}
-
 func (t *TopProviderInfo) GetIsModerated() bool {
 	if t == nil {
 		return false
 	}
 	return t.IsModerated
+}
+
+func (t *TopProviderInfo) GetMaxCompletionTokens() *int64 {
+	if t == nil {
+		return nil
+	}
+	return t.MaxCompletionTokens
 }

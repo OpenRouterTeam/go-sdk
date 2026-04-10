@@ -31,33 +31,11 @@ func (e *DatetimeServerToolType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type DatetimeServerToolParameters struct {
-	// IANA timezone name (e.g. "America/New_York"). Defaults to UTC.
-	Timezone *string `json:"timezone,omitzero"`
-}
-
-func (d DatetimeServerToolParameters) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(d, "", false)
-}
-
-func (d *DatetimeServerToolParameters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (d *DatetimeServerToolParameters) GetTimezone() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Timezone
-}
-
 // DatetimeServerTool - OpenRouter built-in server tool: returns the current date and time
 type DatetimeServerTool struct {
-	Type       DatetimeServerToolType        `json:"type"`
-	Parameters *DatetimeServerToolParameters `json:"parameters,omitzero"`
+	// Configuration for the openrouter:datetime server tool
+	Parameters *DatetimeServerToolConfig `json:"parameters,omitzero"`
+	Type       DatetimeServerToolType    `json:"type"`
 }
 
 func (d DatetimeServerTool) MarshalJSON() ([]byte, error) {
@@ -71,16 +49,16 @@ func (d *DatetimeServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (d *DatetimeServerTool) GetParameters() *DatetimeServerToolConfig {
+	if d == nil {
+		return nil
+	}
+	return d.Parameters
+}
+
 func (d *DatetimeServerTool) GetType() DatetimeServerToolType {
 	if d == nil {
 		return DatetimeServerToolType("")
 	}
 	return d.Type
-}
-
-func (d *DatetimeServerTool) GetParameters() *DatetimeServerToolParameters {
-	if d == nil {
-		return nil
-	}
-	return d.Parameters
 }

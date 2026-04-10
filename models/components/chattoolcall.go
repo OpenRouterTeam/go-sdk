@@ -8,6 +8,38 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type ChatToolCallFunction struct {
+	// Function arguments as JSON string
+	Arguments string `json:"arguments"`
+	// Function name to call
+	Name string `json:"name"`
+}
+
+func (c ChatToolCallFunction) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ChatToolCallFunction) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ChatToolCallFunction) GetArguments() string {
+	if c == nil {
+		return ""
+	}
+	return c.Arguments
+}
+
+func (c *ChatToolCallFunction) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
 type ChatToolCallType string
 
 const (
@@ -31,44 +63,12 @@ func (e *ChatToolCallType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type ChatToolCallFunction struct {
-	// Function name to call
-	Name string `json:"name"`
-	// Function arguments as JSON string
-	Arguments string `json:"arguments"`
-}
-
-func (c ChatToolCallFunction) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatToolCallFunction) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatToolCallFunction) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChatToolCallFunction) GetArguments() string {
-	if c == nil {
-		return ""
-	}
-	return c.Arguments
-}
-
 // ChatToolCall - Tool call made by the assistant
 type ChatToolCall struct {
-	// Tool call identifier
-	ID       string               `json:"id"`
-	Type     ChatToolCallType     `json:"type"`
 	Function ChatToolCallFunction `json:"function"`
+	// Tool call identifier
+	ID   string           `json:"id"`
+	Type ChatToolCallType `json:"type"`
 }
 
 func (c ChatToolCall) MarshalJSON() ([]byte, error) {
@@ -80,6 +80,13 @@ func (c *ChatToolCall) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *ChatToolCall) GetFunction() ChatToolCallFunction {
+	if c == nil {
+		return ChatToolCallFunction{}
+	}
+	return c.Function
 }
 
 func (c *ChatToolCall) GetID() string {
@@ -94,11 +101,4 @@ func (c *ChatToolCall) GetType() ChatToolCallType {
 		return ChatToolCallType("")
 	}
 	return c.Type
-}
-
-func (c *ChatToolCall) GetFunction() ChatToolCallFunction {
-	if c == nil {
-		return ChatToolCallFunction{}
-	}
-	return c.Function
 }

@@ -32,8 +32,8 @@ func (e *ReasoningSummaryTextType) UnmarshalJSON(data []byte) error {
 }
 
 type ReasoningSummaryText struct {
-	Type ReasoningSummaryTextType `json:"type"`
 	Text string                   `json:"text"`
+	Type ReasoningSummaryTextType `json:"type"`
 }
 
 func (r ReasoningSummaryText) MarshalJSON() ([]byte, error) {
@@ -47,16 +47,16 @@ func (r *ReasoningSummaryText) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningSummaryText) GetType() ReasoningSummaryTextType {
-	if r == nil {
-		return ReasoningSummaryTextType("")
-	}
-	return r.Type
-}
-
 func (r *ReasoningSummaryText) GetText() string {
 	if r == nil {
 		return ""
 	}
 	return r.Text
+}
+
+func (r *ReasoningSummaryText) GetType() ReasoningSummaryTextType {
+	if r == nil {
+		return ReasoningSummaryTextType("")
+	}
+	return r.Type
 }

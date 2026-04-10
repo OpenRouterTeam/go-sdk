@@ -33,12 +33,12 @@ func (e *ReasoningDeltaEventType) UnmarshalJSON(data []byte) error {
 
 // ReasoningDeltaEvent - Event emitted when reasoning text delta is streamed
 type ReasoningDeltaEvent struct {
-	Type           ReasoningDeltaEventType `json:"type"`
-	OutputIndex    int64                   `json:"output_index"`
-	ItemID         string                  `json:"item_id"`
 	ContentIndex   int64                   `json:"content_index"`
 	Delta          string                  `json:"delta"`
+	ItemID         string                  `json:"item_id"`
+	OutputIndex    int64                   `json:"output_index"`
 	SequenceNumber int64                   `json:"sequence_number"`
+	Type           ReasoningDeltaEventType `json:"type"`
 }
 
 func (r ReasoningDeltaEvent) MarshalJSON() ([]byte, error) {
@@ -50,27 +50,6 @@ func (r *ReasoningDeltaEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (r *ReasoningDeltaEvent) GetType() ReasoningDeltaEventType {
-	if r == nil {
-		return ReasoningDeltaEventType("")
-	}
-	return r.Type
-}
-
-func (r *ReasoningDeltaEvent) GetOutputIndex() int64 {
-	if r == nil {
-		return 0
-	}
-	return r.OutputIndex
-}
-
-func (r *ReasoningDeltaEvent) GetItemID() string {
-	if r == nil {
-		return ""
-	}
-	return r.ItemID
 }
 
 func (r *ReasoningDeltaEvent) GetContentIndex() int64 {
@@ -87,9 +66,30 @@ func (r *ReasoningDeltaEvent) GetDelta() string {
 	return r.Delta
 }
 
+func (r *ReasoningDeltaEvent) GetItemID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ItemID
+}
+
+func (r *ReasoningDeltaEvent) GetOutputIndex() int64 {
+	if r == nil {
+		return 0
+	}
+	return r.OutputIndex
+}
+
 func (r *ReasoningDeltaEvent) GetSequenceNumber() int64 {
 	if r == nil {
 		return 0
 	}
 	return r.SequenceNumber
+}
+
+func (r *ReasoningDeltaEvent) GetType() ReasoningDeltaEventType {
+	if r == nil {
+		return ReasoningDeltaEventType("")
+	}
+	return r.Type
 }

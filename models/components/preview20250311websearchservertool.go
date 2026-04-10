@@ -34,15 +34,15 @@ func (e *Preview20250311WebSearchServerToolType) UnmarshalJSON(data []byte) erro
 
 // Preview20250311WebSearchServerTool - Web search preview tool configuration (2025-03-11 version)
 type Preview20250311WebSearchServerTool struct {
-	Type Preview20250311WebSearchServerToolType `json:"type"`
+	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
+	Engine  *WebSearchEngineEnum                                     `json:"engine,omitzero"`
+	Filters optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
+	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
+	MaxResults *int64 `json:"max_results,omitzero"`
 	// Size of the search context for web search tools
 	SearchContextSize *SearchContextSizeEnum                                          `json:"search_context_size,omitzero"`
+	Type              Preview20250311WebSearchServerToolType                          `json:"type"`
 	UserLocation      optionalnullable.OptionalNullable[PreviewWebSearchUserLocation] `json:"user_location,omitzero"`
-	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
-	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
-	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
-	MaxResults *int64                                                   `json:"max_results,omitzero"`
-	Filters    optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
 }
 
 func (p Preview20250311WebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -56,32 +56,18 @@ func (p *Preview20250311WebSearchServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *Preview20250311WebSearchServerTool) GetType() Preview20250311WebSearchServerToolType {
-	if p == nil {
-		return Preview20250311WebSearchServerToolType("")
-	}
-	return p.Type
-}
-
-func (p *Preview20250311WebSearchServerTool) GetSearchContextSize() *SearchContextSizeEnum {
-	if p == nil {
-		return nil
-	}
-	return p.SearchContextSize
-}
-
-func (p *Preview20250311WebSearchServerTool) GetUserLocation() optionalnullable.OptionalNullable[PreviewWebSearchUserLocation] {
-	if p == nil {
-		return nil
-	}
-	return p.UserLocation
-}
-
 func (p *Preview20250311WebSearchServerTool) GetEngine() *WebSearchEngineEnum {
 	if p == nil {
 		return nil
 	}
 	return p.Engine
+}
+
+func (p *Preview20250311WebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchDomainFilter] {
+	if p == nil {
+		return nil
+	}
+	return p.Filters
 }
 
 func (p *Preview20250311WebSearchServerTool) GetMaxResults() *int64 {
@@ -91,11 +77,25 @@ func (p *Preview20250311WebSearchServerTool) GetMaxResults() *int64 {
 	return p.MaxResults
 }
 
-func (p *Preview20250311WebSearchServerTool) GetFilters() optionalnullable.OptionalNullable[WebSearchDomainFilter] {
+func (p *Preview20250311WebSearchServerTool) GetSearchContextSize() *SearchContextSizeEnum {
 	if p == nil {
 		return nil
 	}
-	return p.Filters
+	return p.SearchContextSize
+}
+
+func (p *Preview20250311WebSearchServerTool) GetType() Preview20250311WebSearchServerToolType {
+	if p == nil {
+		return Preview20250311WebSearchServerToolType("")
+	}
+	return p.Type
+}
+
+func (p *Preview20250311WebSearchServerTool) GetUserLocation() optionalnullable.OptionalNullable[PreviewWebSearchUserLocation] {
+	if p == nil {
+		return nil
+	}
+	return p.UserLocation
 }
 
 // #region class-body-preview20250311websearchservertool

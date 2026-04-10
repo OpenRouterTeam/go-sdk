@@ -33,9 +33,9 @@ func (e *ChatFormatGrammarConfigType) UnmarshalJSON(data []byte) error {
 
 // ChatFormatGrammarConfig - Custom grammar response format
 type ChatFormatGrammarConfig struct {
-	Type ChatFormatGrammarConfigType `json:"type"`
 	// Custom grammar for text generation
-	Grammar string `json:"grammar"`
+	Grammar string                      `json:"grammar"`
+	Type    ChatFormatGrammarConfigType `json:"type"`
 }
 
 func (c ChatFormatGrammarConfig) MarshalJSON() ([]byte, error) {
@@ -49,16 +49,16 @@ func (c *ChatFormatGrammarConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatFormatGrammarConfig) GetType() ChatFormatGrammarConfigType {
-	if c == nil {
-		return ChatFormatGrammarConfigType("")
-	}
-	return c.Type
-}
-
 func (c *ChatFormatGrammarConfig) GetGrammar() string {
 	if c == nil {
 		return ""
 	}
 	return c.Grammar
+}
+
+func (c *ChatFormatGrammarConfig) GetType() ChatFormatGrammarConfigType {
+	if c == nil {
+		return ChatFormatGrammarConfigType("")
+	}
+	return c.Type
 }

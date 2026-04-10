@@ -32,12 +32,12 @@ func (e *OpenAIResponseFunctionToolCallType) UnmarshalJSON(data []byte) error {
 }
 
 type OpenAIResponseFunctionToolCall struct {
-	Type      OpenAIResponseFunctionToolCallType `json:"type"`
-	CallID    string                             `json:"call_id"`
-	Name      string                             `json:"name"`
 	Arguments string                             `json:"arguments"`
+	CallID    string                             `json:"call_id"`
 	ID        *string                            `json:"id,omitzero"`
+	Name      string                             `json:"name"`
 	Status    *ToolCallStatus                    `json:"status,omitzero"`
+	Type      OpenAIResponseFunctionToolCallType `json:"type"`
 }
 
 func (o OpenAIResponseFunctionToolCall) MarshalJSON() ([]byte, error) {
@@ -51,11 +51,11 @@ func (o *OpenAIResponseFunctionToolCall) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OpenAIResponseFunctionToolCall) GetType() OpenAIResponseFunctionToolCallType {
+func (o *OpenAIResponseFunctionToolCall) GetArguments() string {
 	if o == nil {
-		return OpenAIResponseFunctionToolCallType("")
+		return ""
 	}
-	return o.Type
+	return o.Arguments
 }
 
 func (o *OpenAIResponseFunctionToolCall) GetCallID() string {
@@ -65,20 +65,6 @@ func (o *OpenAIResponseFunctionToolCall) GetCallID() string {
 	return o.CallID
 }
 
-func (o *OpenAIResponseFunctionToolCall) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *OpenAIResponseFunctionToolCall) GetArguments() string {
-	if o == nil {
-		return ""
-	}
-	return o.Arguments
-}
-
 func (o *OpenAIResponseFunctionToolCall) GetID() *string {
 	if o == nil {
 		return nil
@@ -86,9 +72,23 @@ func (o *OpenAIResponseFunctionToolCall) GetID() *string {
 	return o.ID
 }
 
+func (o *OpenAIResponseFunctionToolCall) GetName() string {
+	if o == nil {
+		return ""
+	}
+	return o.Name
+}
+
 func (o *OpenAIResponseFunctionToolCall) GetStatus() *ToolCallStatus {
 	if o == nil {
 		return nil
 	}
 	return o.Status
+}
+
+func (o *OpenAIResponseFunctionToolCall) GetType() OpenAIResponseFunctionToolCallType {
+	if o == nil {
+		return OpenAIResponseFunctionToolCallType("")
+	}
+	return o.Type
 }
