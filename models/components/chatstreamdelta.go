@@ -35,19 +35,19 @@ func (e *ChatStreamDeltaRole) UnmarshalJSON(data []byte) error {
 
 // ChatStreamDelta - Delta changes in streaming response
 type ChatStreamDelta struct {
-	// The role of the message author
-	Role *ChatStreamDeltaRole `json:"role,omitzero"`
+	Audio *ChatAudioOutput `json:"audio,omitzero"`
 	// Message content delta
 	Content optionalnullable.OptionalNullable[string] `json:"content,omitzero"`
 	// Reasoning content delta
 	Reasoning optionalnullable.OptionalNullable[string] `json:"reasoning,omitzero"`
-	// Refusal message delta
-	Refusal optionalnullable.OptionalNullable[string] `json:"refusal,omitzero"`
-	// Tool calls delta
-	ToolCalls []ChatStreamToolCall `json:"tool_calls,omitzero"`
 	// Reasoning details for extended thinking models
 	ReasoningDetails []ReasoningDetailUnion `json:"reasoning_details,omitzero"`
-	Audio            *ChatAudioOutput       `json:"audio,omitzero"`
+	// Refusal message delta
+	Refusal optionalnullable.OptionalNullable[string] `json:"refusal,omitzero"`
+	// The role of the message author
+	Role *ChatStreamDeltaRole `json:"role,omitzero"`
+	// Tool calls delta
+	ToolCalls []ChatStreamToolCall `json:"tool_calls,omitzero"`
 }
 
 func (c ChatStreamDelta) MarshalJSON() ([]byte, error) {
@@ -61,11 +61,11 @@ func (c *ChatStreamDelta) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatStreamDelta) GetRole() *ChatStreamDeltaRole {
+func (c *ChatStreamDelta) GetAudio() *ChatAudioOutput {
 	if c == nil {
 		return nil
 	}
-	return c.Role
+	return c.Audio
 }
 
 func (c *ChatStreamDelta) GetContent() optionalnullable.OptionalNullable[string] {
@@ -82,20 +82,6 @@ func (c *ChatStreamDelta) GetReasoning() optionalnullable.OptionalNullable[strin
 	return c.Reasoning
 }
 
-func (c *ChatStreamDelta) GetRefusal() optionalnullable.OptionalNullable[string] {
-	if c == nil {
-		return nil
-	}
-	return c.Refusal
-}
-
-func (c *ChatStreamDelta) GetToolCalls() []ChatStreamToolCall {
-	if c == nil {
-		return nil
-	}
-	return c.ToolCalls
-}
-
 func (c *ChatStreamDelta) GetReasoningDetails() []ReasoningDetailUnion {
 	if c == nil {
 		return nil
@@ -103,9 +89,23 @@ func (c *ChatStreamDelta) GetReasoningDetails() []ReasoningDetailUnion {
 	return c.ReasoningDetails
 }
 
-func (c *ChatStreamDelta) GetAudio() *ChatAudioOutput {
+func (c *ChatStreamDelta) GetRefusal() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
-	return c.Audio
+	return c.Refusal
+}
+
+func (c *ChatStreamDelta) GetRole() *ChatStreamDeltaRole {
+	if c == nil {
+		return nil
+	}
+	return c.Role
+}
+
+func (c *ChatStreamDelta) GetToolCalls() []ChatStreamToolCall {
+	if c == nil {
+		return nil
+	}
+	return c.ToolCalls
 }

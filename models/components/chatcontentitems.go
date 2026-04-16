@@ -12,12 +12,13 @@ import (
 type ChatContentItemsType string
 
 const (
-	ChatContentItemsTypeText       ChatContentItemsType = "text"
+	ChatContentItemsTypeFile       ChatContentItemsType = "file"
 	ChatContentItemsTypeImageURL   ChatContentItemsType = "image_url"
 	ChatContentItemsTypeInputAudio ChatContentItemsType = "input_audio"
 	ChatContentItemsTypeInputVideo ChatContentItemsType = "input_video"
+	ChatContentItemsTypeText       ChatContentItemsType = "text"
 	ChatContentItemsTypeVideoURL   ChatContentItemsType = "video_url"
-	ChatContentItemsTypeFile       ChatContentItemsType = "file"
+	ChatContentItemsTypeUnknown    ChatContentItemsType = "UNKNOWN"
 )
 
 // ChatContentItems - Content part for chat completion messages
@@ -28,18 +29,19 @@ type ChatContentItems struct {
 	LegacyChatContentVideo *LegacyChatContentVideo `queryParam:"inline" union:"member"`
 	ChatContentVideo       *ChatContentVideo       `queryParam:"inline" union:"member"`
 	ChatContentFile        *ChatContentFile        `queryParam:"inline" union:"member"`
+	UnknownRaw             json.RawMessage         `json:"-" union:"unknown"`
 
 	Type ChatContentItemsType
 }
 
-func CreateChatContentItemsText(text ChatContentText) ChatContentItems {
-	typ := ChatContentItemsTypeText
+func CreateChatContentItemsFile(file ChatContentFile) ChatContentItems {
+	typ := ChatContentItemsTypeFile
 
-	typStr := ChatContentTextType(typ)
-	text.Type = typStr
+	typStr := ChatContentFileType(typ)
+	file.Type = typStr
 
 	return ChatContentItems{
-		ChatContentText: &text,
+		ChatContentFile: &file,
 		Type:            typ,
 	}
 }
@@ -80,6 +82,18 @@ func CreateChatContentItemsInputVideo(inputVideo LegacyChatContentVideo) ChatCon
 	}
 }
 
+func CreateChatContentItemsText(text ChatContentText) ChatContentItems {
+	typ := ChatContentItemsTypeText
+
+	typStr := ChatContentTextType(typ)
+	text.Type = typStr
+
+	return ChatContentItems{
+		ChatContentText: &text,
+		Type:            typ,
+	}
+}
+
 func CreateChatContentItemsVideoURL(videoURL ChatContentVideo) ChatContentItems {
 	typ := ChatContentItemsTypeVideoURL
 
@@ -92,16 +106,19 @@ func CreateChatContentItemsVideoURL(videoURL ChatContentVideo) ChatContentItems 
 	}
 }
 
-func CreateChatContentItemsFile(file ChatContentFile) ChatContentItems {
-	typ := ChatContentItemsTypeFile
-
-	typStr := ChatContentFileType(typ)
-	file.Type = typStr
-
+func CreateChatContentItemsUnknown(raw json.RawMessage) ChatContentItems {
 	return ChatContentItems{
-		ChatContentFile: &file,
-		Type:            typ,
+		UnknownRaw: raw,
+		Type:       ChatContentItemsTypeUnknown,
 	}
+}
+
+func (u ChatContentItems) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u ChatContentItems) IsUnknown() bool {
+	return u.Type == ChatContentItemsTypeUnknown
 }
 
 func (u *ChatContentItems) UnmarshalJSON(data []byte) error {
@@ -112,18 +129,25 @@ func (u *ChatContentItems) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = ChatContentItemsTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = ChatContentItemsTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
-	case "text":
-		chatContentText := new(ChatContentText)
-		if err := utils.UnmarshalJSON(data, &chatContentText, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == text) type ChatContentText within ChatContentItems: %w", string(data), err)
+	case "file":
+		chatContentFile := new(ChatContentFile)
+		if err := utils.UnmarshalJSON(data, &chatContentFile, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type ChatContentFile within ChatContentItems: %w", string(data), err)
 		}
 
-		u.ChatContentText = chatContentText
-		u.Type = ChatContentItemsTypeText
+		u.ChatContentFile = chatContentFile
+		u.Type = ChatContentItemsTypeFile
 		return nil
 	case "image_url":
 		chatContentImage := new(ChatContentImage)
@@ -152,6 +176,15 @@ func (u *ChatContentItems) UnmarshalJSON(data []byte) error {
 		u.LegacyChatContentVideo = legacyChatContentVideo
 		u.Type = ChatContentItemsTypeInputVideo
 		return nil
+	case "text":
+		chatContentText := new(ChatContentText)
+		if err := utils.UnmarshalJSON(data, &chatContentText, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == text) type ChatContentText within ChatContentItems: %w", string(data), err)
+		}
+
+		u.ChatContentText = chatContentText
+		u.Type = ChatContentItemsTypeText
+		return nil
 	case "video_url":
 		chatContentVideo := new(ChatContentVideo)
 		if err := utils.UnmarshalJSON(data, &chatContentVideo, "", true, nil); err != nil {
@@ -161,18 +194,12 @@ func (u *ChatContentItems) UnmarshalJSON(data []byte) error {
 		u.ChatContentVideo = chatContentVideo
 		u.Type = ChatContentItemsTypeVideoURL
 		return nil
-	case "file":
-		chatContentFile := new(ChatContentFile)
-		if err := utils.UnmarshalJSON(data, &chatContentFile, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type ChatContentFile within ChatContentItems: %w", string(data), err)
-		}
-
-		u.ChatContentFile = chatContentFile
-		u.Type = ChatContentItemsTypeFile
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = ChatContentItemsTypeUnknown
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatContentItems", string(data))
 }
 
 func (u ChatContentItems) MarshalJSON() ([]byte, error) {
@@ -200,5 +227,8 @@ func (u ChatContentItems) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ChatContentFile, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type ChatContentItems: all fields are null")
 }

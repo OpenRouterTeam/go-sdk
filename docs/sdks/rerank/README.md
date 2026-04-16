@@ -2,7 +2,7 @@
 
 ## Overview
 
-Reranking endpoints
+Rerank endpoints
 
 ### Available Operations
 
@@ -34,13 +34,12 @@ func main() {
     )
 
     res, err := s.Rerank.Rerank(ctx, operations.CreateRerankRequest{
-        Model: "cohere/rerank-v3.5",
-        Query: "What is the capital of France?",
         Documents: []string{
             "Paris is the capital of France.",
             "Berlin is the capital of Germany.",
-            "Madrid is the capital of Spain.",
         },
+        Model: "cohere/rerank-v3.5",
+        Query: "What is the capital of France?",
     })
     if err != nil {
         log.Fatal(err)

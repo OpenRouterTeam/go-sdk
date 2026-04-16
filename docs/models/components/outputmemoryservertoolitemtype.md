@@ -1,4 +1,4 @@
-# ChatWebSearchServerToolType
+# OutputMemoryServerToolItemType
 
 ## Example Usage
 
@@ -7,7 +7,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-value := components.ChatWebSearchServerToolTypeOpenrouterWebSearch
+value := components.OutputMemoryServerToolItemTypeOpenrouterMemory
 ```
 
 
@@ -15,4 +15,4 @@ value := components.ChatWebSearchServerToolTypeOpenrouterWebSearch
 
 | Name                                             | Value                                            |
 | ------------------------------------------------ | ------------------------------------------------ |
-| `ChatWebSearchServerToolTypeOpenrouterWebSearch` | openrouter:web_search                            |
+| `OutputMemoryServerToolItemTypeOpenrouterMemory` | openrouter:memory                                |

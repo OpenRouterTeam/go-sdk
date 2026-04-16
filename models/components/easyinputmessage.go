@@ -10,260 +10,27 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type EasyInputMessageTypeMessage string
+type EasyInputMessageDetail string
 
 const (
-	EasyInputMessageTypeMessageMessage EasyInputMessageTypeMessage = "message"
+	EasyInputMessageDetailAuto EasyInputMessageDetail = "auto"
+	EasyInputMessageDetailHigh EasyInputMessageDetail = "high"
+	EasyInputMessageDetailLow  EasyInputMessageDetail = "low"
 )
 
-func (e EasyInputMessageTypeMessage) ToPointer() *EasyInputMessageTypeMessage {
+func (e EasyInputMessageDetail) ToPointer() *EasyInputMessageDetail {
 	return &e
 }
-func (e *EasyInputMessageTypeMessage) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EasyInputMessageDetail) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "high", "low":
+			return true
+		}
 	}
-	switch v {
-	case "message":
-		*e = EasyInputMessageTypeMessage(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for EasyInputMessageTypeMessage: %v", v)
-	}
-}
-
-type EasyInputMessageRoleDeveloper string
-
-const (
-	EasyInputMessageRoleDeveloperDeveloper EasyInputMessageRoleDeveloper = "developer"
-)
-
-func (e EasyInputMessageRoleDeveloper) ToPointer() *EasyInputMessageRoleDeveloper {
-	return &e
-}
-func (e *EasyInputMessageRoleDeveloper) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "developer":
-		*e = EasyInputMessageRoleDeveloper(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for EasyInputMessageRoleDeveloper: %v", v)
-	}
-}
-
-type EasyInputMessageRoleAssistant string
-
-const (
-	EasyInputMessageRoleAssistantAssistant EasyInputMessageRoleAssistant = "assistant"
-)
-
-func (e EasyInputMessageRoleAssistant) ToPointer() *EasyInputMessageRoleAssistant {
-	return &e
-}
-func (e *EasyInputMessageRoleAssistant) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "assistant":
-		*e = EasyInputMessageRoleAssistant(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for EasyInputMessageRoleAssistant: %v", v)
-	}
-}
-
-type EasyInputMessageRoleSystem string
-
-const (
-	EasyInputMessageRoleSystemSystem EasyInputMessageRoleSystem = "system"
-)
-
-func (e EasyInputMessageRoleSystem) ToPointer() *EasyInputMessageRoleSystem {
-	return &e
-}
-func (e *EasyInputMessageRoleSystem) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "system":
-		*e = EasyInputMessageRoleSystem(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for EasyInputMessageRoleSystem: %v", v)
-	}
-}
-
-type EasyInputMessageRoleUser string
-
-const (
-	EasyInputMessageRoleUserUser EasyInputMessageRoleUser = "user"
-)
-
-func (e EasyInputMessageRoleUser) ToPointer() *EasyInputMessageRoleUser {
-	return &e
-}
-func (e *EasyInputMessageRoleUser) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "user":
-		*e = EasyInputMessageRoleUser(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for EasyInputMessageRoleUser: %v", v)
-	}
-}
-
-type EasyInputMessageRoleUnionType string
-
-const (
-	EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser      EasyInputMessageRoleUnionType = "EasyInputMessage_role_User"
-	EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem    EasyInputMessageRoleUnionType = "EasyInputMessage_role_System"
-	EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant EasyInputMessageRoleUnionType = "EasyInputMessage_role_Assistant"
-	EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper EasyInputMessageRoleUnionType = "EasyInputMessage_role_Developer"
-)
-
-type EasyInputMessageRoleUnion struct {
-	EasyInputMessageRoleUser      *EasyInputMessageRoleUser      `queryParam:"inline" union:"member"`
-	EasyInputMessageRoleSystem    *EasyInputMessageRoleSystem    `queryParam:"inline" union:"member"`
-	EasyInputMessageRoleAssistant *EasyInputMessageRoleAssistant `queryParam:"inline" union:"member"`
-	EasyInputMessageRoleDeveloper *EasyInputMessageRoleDeveloper `queryParam:"inline" union:"member"`
-
-	Type EasyInputMessageRoleUnionType
-}
-
-func CreateEasyInputMessageRoleUnionEasyInputMessageRoleUser(easyInputMessageRoleUser EasyInputMessageRoleUser) EasyInputMessageRoleUnion {
-	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser
-
-	return EasyInputMessageRoleUnion{
-		EasyInputMessageRoleUser: &easyInputMessageRoleUser,
-		Type:                     typ,
-	}
-}
-
-func CreateEasyInputMessageRoleUnionEasyInputMessageRoleSystem(easyInputMessageRoleSystem EasyInputMessageRoleSystem) EasyInputMessageRoleUnion {
-	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem
-
-	return EasyInputMessageRoleUnion{
-		EasyInputMessageRoleSystem: &easyInputMessageRoleSystem,
-		Type:                       typ,
-	}
-}
-
-func CreateEasyInputMessageRoleUnionEasyInputMessageRoleAssistant(easyInputMessageRoleAssistant EasyInputMessageRoleAssistant) EasyInputMessageRoleUnion {
-	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant
-
-	return EasyInputMessageRoleUnion{
-		EasyInputMessageRoleAssistant: &easyInputMessageRoleAssistant,
-		Type:                          typ,
-	}
-}
-
-func CreateEasyInputMessageRoleUnionEasyInputMessageRoleDeveloper(easyInputMessageRoleDeveloper EasyInputMessageRoleDeveloper) EasyInputMessageRoleUnion {
-	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper
-
-	return EasyInputMessageRoleUnion{
-		EasyInputMessageRoleDeveloper: &easyInputMessageRoleDeveloper,
-		Type:                          typ,
-	}
-}
-
-func (u *EasyInputMessageRoleUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var easyInputMessageRoleUser EasyInputMessageRoleUser = EasyInputMessageRoleUser("")
-	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleUser, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser,
-			Value: &easyInputMessageRoleUser,
-		})
-	}
-
-	var easyInputMessageRoleSystem EasyInputMessageRoleSystem = EasyInputMessageRoleSystem("")
-	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleSystem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem,
-			Value: &easyInputMessageRoleSystem,
-		})
-	}
-
-	var easyInputMessageRoleAssistant EasyInputMessageRoleAssistant = EasyInputMessageRoleAssistant("")
-	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleAssistant, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant,
-			Value: &easyInputMessageRoleAssistant,
-		})
-	}
-
-	var easyInputMessageRoleDeveloper EasyInputMessageRoleDeveloper = EasyInputMessageRoleDeveloper("")
-	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleDeveloper, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper,
-			Value: &easyInputMessageRoleDeveloper,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EasyInputMessageRoleUnion", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EasyInputMessageRoleUnion", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(EasyInputMessageRoleUnionType)
-	switch best.Type {
-	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser:
-		u.EasyInputMessageRoleUser = best.Value.(*EasyInputMessageRoleUser)
-		return nil
-	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem:
-		u.EasyInputMessageRoleSystem = best.Value.(*EasyInputMessageRoleSystem)
-		return nil
-	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant:
-		u.EasyInputMessageRoleAssistant = best.Value.(*EasyInputMessageRoleAssistant)
-		return nil
-	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper:
-		u.EasyInputMessageRoleDeveloper = best.Value.(*EasyInputMessageRoleDeveloper)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for EasyInputMessageRoleUnion", string(data))
-}
-
-func (u EasyInputMessageRoleUnion) MarshalJSON() ([]byte, error) {
-	if u.EasyInputMessageRoleUser != nil {
-		return utils.MarshalJSON(u.EasyInputMessageRoleUser, "", true)
-	}
-
-	if u.EasyInputMessageRoleSystem != nil {
-		return utils.MarshalJSON(u.EasyInputMessageRoleSystem, "", true)
-	}
-
-	if u.EasyInputMessageRoleAssistant != nil {
-		return utils.MarshalJSON(u.EasyInputMessageRoleAssistant, "", true)
-	}
-
-	if u.EasyInputMessageRoleDeveloper != nil {
-		return utils.MarshalJSON(u.EasyInputMessageRoleDeveloper, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type EasyInputMessageRoleUnion: all fields are null")
+	return false
 }
 
 type EasyInputMessageContentType string
@@ -289,34 +56,11 @@ func (e *EasyInputMessageContentType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type EasyInputMessageDetail string
-
-const (
-	EasyInputMessageDetailAuto EasyInputMessageDetail = "auto"
-	EasyInputMessageDetailHigh EasyInputMessageDetail = "high"
-	EasyInputMessageDetailLow  EasyInputMessageDetail = "low"
-)
-
-func (e EasyInputMessageDetail) ToPointer() *EasyInputMessageDetail {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *EasyInputMessageDetail) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "high", "low":
-			return true
-		}
-	}
-	return false
-}
-
 // EasyInputMessageContentInputImage - Image input content item
 type EasyInputMessageContentInputImage struct {
-	Type     EasyInputMessageContentType               `json:"type"`
 	Detail   EasyInputMessageDetail                    `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
+	Type     EasyInputMessageContentType               `json:"type"`
 }
 
 func (e EasyInputMessageContentInputImage) MarshalJSON() ([]byte, error) {
@@ -328,13 +72,6 @@ func (e *EasyInputMessageContentInputImage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (e *EasyInputMessageContentInputImage) GetType() EasyInputMessageContentType {
-	if e == nil {
-		return EasyInputMessageContentType("")
-	}
-	return e.Type
 }
 
 func (e *EasyInputMessageContentInputImage) GetDetail() EasyInputMessageDetail {
@@ -349,6 +86,13 @@ func (e *EasyInputMessageContentInputImage) GetImageURL() optionalnullable.Optio
 		return nil
 	}
 	return e.ImageURL
+}
+
+func (e *EasyInputMessageContentInputImage) GetType() EasyInputMessageContentType {
+	if e == nil {
+		return EasyInputMessageContentType("")
+	}
+	return e.Type
 }
 
 type EasyInputMessageContentUnion1Type string
@@ -794,12 +538,268 @@ func (u EasyInputMessagePhaseUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type EasyInputMessagePhaseUnion: all fields are null")
 }
 
+type EasyInputMessageRoleDeveloper string
+
+const (
+	EasyInputMessageRoleDeveloperDeveloper EasyInputMessageRoleDeveloper = "developer"
+)
+
+func (e EasyInputMessageRoleDeveloper) ToPointer() *EasyInputMessageRoleDeveloper {
+	return &e
+}
+func (e *EasyInputMessageRoleDeveloper) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "developer":
+		*e = EasyInputMessageRoleDeveloper(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for EasyInputMessageRoleDeveloper: %v", v)
+	}
+}
+
+type EasyInputMessageRoleAssistant string
+
+const (
+	EasyInputMessageRoleAssistantAssistant EasyInputMessageRoleAssistant = "assistant"
+)
+
+func (e EasyInputMessageRoleAssistant) ToPointer() *EasyInputMessageRoleAssistant {
+	return &e
+}
+func (e *EasyInputMessageRoleAssistant) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "assistant":
+		*e = EasyInputMessageRoleAssistant(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for EasyInputMessageRoleAssistant: %v", v)
+	}
+}
+
+type EasyInputMessageRoleSystem string
+
+const (
+	EasyInputMessageRoleSystemSystem EasyInputMessageRoleSystem = "system"
+)
+
+func (e EasyInputMessageRoleSystem) ToPointer() *EasyInputMessageRoleSystem {
+	return &e
+}
+func (e *EasyInputMessageRoleSystem) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system":
+		*e = EasyInputMessageRoleSystem(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for EasyInputMessageRoleSystem: %v", v)
+	}
+}
+
+type EasyInputMessageRoleUser string
+
+const (
+	EasyInputMessageRoleUserUser EasyInputMessageRoleUser = "user"
+)
+
+func (e EasyInputMessageRoleUser) ToPointer() *EasyInputMessageRoleUser {
+	return &e
+}
+func (e *EasyInputMessageRoleUser) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "user":
+		*e = EasyInputMessageRoleUser(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for EasyInputMessageRoleUser: %v", v)
+	}
+}
+
+type EasyInputMessageRoleUnionType string
+
+const (
+	EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser      EasyInputMessageRoleUnionType = "EasyInputMessage_role_User"
+	EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem    EasyInputMessageRoleUnionType = "EasyInputMessage_role_System"
+	EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant EasyInputMessageRoleUnionType = "EasyInputMessage_role_Assistant"
+	EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper EasyInputMessageRoleUnionType = "EasyInputMessage_role_Developer"
+)
+
+type EasyInputMessageRoleUnion struct {
+	EasyInputMessageRoleUser      *EasyInputMessageRoleUser      `queryParam:"inline" union:"member"`
+	EasyInputMessageRoleSystem    *EasyInputMessageRoleSystem    `queryParam:"inline" union:"member"`
+	EasyInputMessageRoleAssistant *EasyInputMessageRoleAssistant `queryParam:"inline" union:"member"`
+	EasyInputMessageRoleDeveloper *EasyInputMessageRoleDeveloper `queryParam:"inline" union:"member"`
+
+	Type EasyInputMessageRoleUnionType
+}
+
+func CreateEasyInputMessageRoleUnionEasyInputMessageRoleUser(easyInputMessageRoleUser EasyInputMessageRoleUser) EasyInputMessageRoleUnion {
+	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser
+
+	return EasyInputMessageRoleUnion{
+		EasyInputMessageRoleUser: &easyInputMessageRoleUser,
+		Type:                     typ,
+	}
+}
+
+func CreateEasyInputMessageRoleUnionEasyInputMessageRoleSystem(easyInputMessageRoleSystem EasyInputMessageRoleSystem) EasyInputMessageRoleUnion {
+	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem
+
+	return EasyInputMessageRoleUnion{
+		EasyInputMessageRoleSystem: &easyInputMessageRoleSystem,
+		Type:                       typ,
+	}
+}
+
+func CreateEasyInputMessageRoleUnionEasyInputMessageRoleAssistant(easyInputMessageRoleAssistant EasyInputMessageRoleAssistant) EasyInputMessageRoleUnion {
+	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant
+
+	return EasyInputMessageRoleUnion{
+		EasyInputMessageRoleAssistant: &easyInputMessageRoleAssistant,
+		Type:                          typ,
+	}
+}
+
+func CreateEasyInputMessageRoleUnionEasyInputMessageRoleDeveloper(easyInputMessageRoleDeveloper EasyInputMessageRoleDeveloper) EasyInputMessageRoleUnion {
+	typ := EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper
+
+	return EasyInputMessageRoleUnion{
+		EasyInputMessageRoleDeveloper: &easyInputMessageRoleDeveloper,
+		Type:                          typ,
+	}
+}
+
+func (u *EasyInputMessageRoleUnion) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var easyInputMessageRoleUser EasyInputMessageRoleUser = EasyInputMessageRoleUser("")
+	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleUser, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser,
+			Value: &easyInputMessageRoleUser,
+		})
+	}
+
+	var easyInputMessageRoleSystem EasyInputMessageRoleSystem = EasyInputMessageRoleSystem("")
+	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleSystem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem,
+			Value: &easyInputMessageRoleSystem,
+		})
+	}
+
+	var easyInputMessageRoleAssistant EasyInputMessageRoleAssistant = EasyInputMessageRoleAssistant("")
+	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleAssistant, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant,
+			Value: &easyInputMessageRoleAssistant,
+		})
+	}
+
+	var easyInputMessageRoleDeveloper EasyInputMessageRoleDeveloper = EasyInputMessageRoleDeveloper("")
+	if err := utils.UnmarshalJSON(data, &easyInputMessageRoleDeveloper, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper,
+			Value: &easyInputMessageRoleDeveloper,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EasyInputMessageRoleUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for EasyInputMessageRoleUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(EasyInputMessageRoleUnionType)
+	switch best.Type {
+	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleUser:
+		u.EasyInputMessageRoleUser = best.Value.(*EasyInputMessageRoleUser)
+		return nil
+	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleSystem:
+		u.EasyInputMessageRoleSystem = best.Value.(*EasyInputMessageRoleSystem)
+		return nil
+	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleAssistant:
+		u.EasyInputMessageRoleAssistant = best.Value.(*EasyInputMessageRoleAssistant)
+		return nil
+	case EasyInputMessageRoleUnionTypeEasyInputMessageRoleDeveloper:
+		u.EasyInputMessageRoleDeveloper = best.Value.(*EasyInputMessageRoleDeveloper)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for EasyInputMessageRoleUnion", string(data))
+}
+
+func (u EasyInputMessageRoleUnion) MarshalJSON() ([]byte, error) {
+	if u.EasyInputMessageRoleUser != nil {
+		return utils.MarshalJSON(u.EasyInputMessageRoleUser, "", true)
+	}
+
+	if u.EasyInputMessageRoleSystem != nil {
+		return utils.MarshalJSON(u.EasyInputMessageRoleSystem, "", true)
+	}
+
+	if u.EasyInputMessageRoleAssistant != nil {
+		return utils.MarshalJSON(u.EasyInputMessageRoleAssistant, "", true)
+	}
+
+	if u.EasyInputMessageRoleDeveloper != nil {
+		return utils.MarshalJSON(u.EasyInputMessageRoleDeveloper, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type EasyInputMessageRoleUnion: all fields are null")
+}
+
+type EasyInputMessageTypeMessage string
+
+const (
+	EasyInputMessageTypeMessageMessage EasyInputMessageTypeMessage = "message"
+)
+
+func (e EasyInputMessageTypeMessage) ToPointer() *EasyInputMessageTypeMessage {
+	return &e
+}
+func (e *EasyInputMessageTypeMessage) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "message":
+		*e = EasyInputMessageTypeMessage(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for EasyInputMessageTypeMessage: %v", v)
+	}
+}
+
 type EasyInputMessage struct {
-	Type    *EasyInputMessageTypeMessage                                     `json:"type,omitzero"`
-	Role    EasyInputMessageRoleUnion                                        `json:"role"`
 	Content optionalnullable.OptionalNullable[EasyInputMessageContentUnion2] `json:"content,omitzero"`
 	// The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
 	Phase optionalnullable.OptionalNullable[EasyInputMessagePhaseUnion] `json:"phase,omitzero"`
+	Role  EasyInputMessageRoleUnion                                     `json:"role"`
+	Type  *EasyInputMessageTypeMessage                                  `json:"type,omitzero"`
 }
 
 func (e EasyInputMessage) MarshalJSON() ([]byte, error) {
@@ -811,20 +811,6 @@ func (e *EasyInputMessage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (e *EasyInputMessage) GetType() *EasyInputMessageTypeMessage {
-	if e == nil {
-		return nil
-	}
-	return e.Type
-}
-
-func (e *EasyInputMessage) GetRole() EasyInputMessageRoleUnion {
-	if e == nil {
-		return EasyInputMessageRoleUnion{}
-	}
-	return e.Role
 }
 
 func (e *EasyInputMessage) GetContent() optionalnullable.OptionalNullable[EasyInputMessageContentUnion2] {
@@ -839,4 +825,18 @@ func (e *EasyInputMessage) GetPhase() optionalnullable.OptionalNullable[EasyInpu
 		return nil
 	}
 	return e.Phase
+}
+
+func (e *EasyInputMessage) GetRole() EasyInputMessageRoleUnion {
+	if e == nil {
+		return EasyInputMessageRoleUnion{}
+	}
+	return e.Role
+}
+
+func (e *EasyInputMessage) GetType() *EasyInputMessageTypeMessage {
+	if e == nil {
+		return nil
+	}
+	return e.Type
 }

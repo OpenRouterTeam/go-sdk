@@ -8,17 +8,17 @@ Guardrails endpoints
 
 * [List](#list) - List guardrails
 * [Create](#create) - Create a guardrail
+* [Delete](#delete) - Delete a guardrail
 * [Get](#get) - Get a guardrail
 * [Update](#update) - Update a guardrail
-* [Delete](#delete) - Delete a guardrail
-* [ListKeyAssignments](#listkeyassignments) - List all key assignments
-* [ListMemberAssignments](#listmemberassignments) - List all member assignments
 * [ListGuardrailKeyAssignments](#listguardrailkeyassignments) - List key assignments for a guardrail
 * [BulkAssignKeys](#bulkassignkeys) - Bulk assign keys to a guardrail
+* [BulkUnassignKeys](#bulkunassignkeys) - Bulk unassign keys from a guardrail
 * [ListGuardrailMemberAssignments](#listguardrailmemberassignments) - List member assignments for a guardrail
 * [BulkAssignMembers](#bulkassignmembers) - Bulk assign members to a guardrail
-* [BulkUnassignKeys](#bulkunassignkeys) - Bulk unassign keys from a guardrail
 * [BulkUnassignMembers](#bulkunassignmembers) - Bulk unassign members from a guardrail
+* [ListKeyAssignments](#listkeyassignments) - List all key assignments
+* [ListMemberAssignments](#listmemberassignments) - List all member assignments
 
 ## List
 
@@ -114,18 +114,18 @@ func main() {
     )
 
     res, err := s.Guardrails.Create(ctx, components.CreateGuardrailRequest{
-        Name: "My New Guardrail",
-        Description: optionalnullable.From(openrouter.Pointer("A guardrail for limiting API usage")),
-        LimitUsd: openrouter.Pointer[float64](50.0),
-        ResetInterval: optionalnullable.From(openrouter.Pointer(components.GuardrailIntervalMonthly)),
+        AllowedModels: optionalnullable.From[[]string](nil),
         AllowedProviders: optionalnullable.From(openrouter.Pointer([]string{
             "openai",
             "anthropic",
             "deepseek",
         })),
-        IgnoredProviders: optionalnullable.From[[]string](nil),
-        AllowedModels: optionalnullable.From[[]string](nil),
+        Description: optionalnullable.From(openrouter.Pointer("A guardrail for limiting API usage")),
         EnforceZdr: optionalnullable.From(openrouter.Pointer(false)),
+        IgnoredProviders: optionalnullable.From[[]string](nil),
+        LimitUsd: openrouter.Pointer[float64](50.0),
+        Name: "My New Guardrail",
+        ResetInterval: optionalnullable.From(openrouter.Pointer(components.GuardrailIntervalMonthly)),
     })
     if err != nil {
         log.Fatal(err)
@@ -154,6 +154,61 @@ func main() {
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
 | sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## Delete
+
+Delete an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="deleteGuardrail" method="delete" path="/guardrails/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Guardrails.Delete(ctx, "550e8400-e29b-41d4-a716-446655440000")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail to delete         | 550e8400-e29b-41d4-a716-446655440000                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.DeleteGuardrailResponse](../../models/components/deleteguardrailresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
 | sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
 
@@ -239,9 +294,9 @@ func main() {
     )
 
     res, err := s.Guardrails.Update(ctx, "550e8400-e29b-41d4-a716-446655440000", components.UpdateGuardrailRequest{
-        Name: openrouter.Pointer("Updated Guardrail Name"),
         Description: optionalnullable.From(openrouter.Pointer("Updated description")),
         LimitUsd: openrouter.Pointer[float64](75.0),
+        Name: openrouter.Pointer("Updated Guardrail Name"),
         ResetInterval: optionalnullable.From(openrouter.Pointer(components.GuardrailIntervalWeekly)),
     })
     if err != nil {
@@ -259,7 +314,7 @@ func main() {
 | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                                                   | :heavy_check_mark:                                                                                                      | The context to use for the request.                                                                                     |                                                                                                                         |
 | `id`                                                                                                                    | `string`                                                                                                                | :heavy_check_mark:                                                                                                      | The unique identifier of the guardrail to update                                                                        | 550e8400-e29b-41d4-a716-446655440000                                                                                    |
-| `updateGuardrailRequest`                                                                                                | [components.UpdateGuardrailRequest](../../models/components/updateguardrailrequest.md)                                  | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | {<br/>"name": "Updated Guardrail Name",<br/>"description": "Updated description",<br/>"limit_usd": 75,<br/>"reset_interval": "weekly"<br/>} |
+| `updateGuardrailRequest`                                                                                                | [components.UpdateGuardrailRequest](../../models/components/updateguardrailrequest.md)                                  | :heavy_check_mark:                                                                                                      | N/A                                                                                                                     | {<br/>"description": "Updated description",<br/>"limit_usd": 75,<br/>"name": "Updated Guardrail Name",<br/>"reset_interval": "weekly"<br/>} |
 | `opts`                                                                                                                  | [][operations.Option](../../models/operations/option.md)                                                                | :heavy_minus_sign:                                                                                                      | The options for this request.                                                                                           |                                                                                                                         |
 
 ### Response
@@ -273,195 +328,6 @@ func main() {
 | sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
 | sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
 | sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
-| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
-| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
-
-## Delete
-
-Delete an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="deleteGuardrail" method="delete" path="/guardrails/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := openrouter.New(
-        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-    )
-
-    res, err := s.Guardrails.Delete(ctx, "550e8400-e29b-41d4-a716-446655440000")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail to delete         | 550e8400-e29b-41d4-a716-446655440000                     |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
-
-### Response
-
-**[*components.DeleteGuardrailResponse](../../models/components/deleteguardrailresponse.md), error**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
-| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
-| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
-| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
-
-## ListKeyAssignments
-
-List all API key guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="listKeyAssignments" method="get" path="/guardrails/assignments/keys" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := openrouter.New(
-        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-    )
-
-    res, err := s.Guardrails.ListKeyAssignments(ctx, nil, nil)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        for {
-            // handle items
-
-            res, err = res.Next()
-
-            if err != nil {
-                // handle error
-            }
-
-            if res == nil {
-                break
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
-
-### Response
-
-**[*operations.ListKeyAssignmentsResponse](../../models/operations/listkeyassignmentsresponse.md), error**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
-| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
-| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
-
-## ListMemberAssignments
-
-List all organization member guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="listMemberAssignments" method="get" path="/guardrails/assignments/members" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := openrouter.New(
-        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-    )
-
-    res, err := s.Guardrails.ListMemberAssignments(ctx, nil, nil)
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        for {
-            // handle items
-
-            res, err = res.Next()
-
-            if err != nil {
-                // handle error
-            }
-
-            if res == nil {
-                break
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
-
-### Response
-
-**[*operations.ListMemberAssignmentsResponse](../../models/operations/listmemberassignmentsresponse.md), error**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
 | sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
 
@@ -585,6 +451,68 @@ func main() {
 ### Response
 
 **[*components.BulkAssignKeysResponse](../../models/components/bulkassignkeysresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## BulkUnassignKeys
+
+Unassign multiple API keys from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="bulkUnassignKeysFromGuardrail" method="post" path="/guardrails/{id}/assignments/keys/remove" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Guardrails.BulkUnassignKeys(ctx, "550e8400-e29b-41d4-a716-446655440000", components.BulkUnassignKeysRequest{
+        KeyHashes: []string{
+            "c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `id`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The unique identifier of the guardrail                                                   | 550e8400-e29b-41d4-a716-446655440000                                                     |
+| `bulkUnassignKeysRequest`                                                                | [components.BulkUnassignKeysRequest](../../models/components/bulkunassignkeysrequest.md) | :heavy_check_mark:                                                                       | N/A                                                                                      | {<br/>"key_hashes": [<br/>"c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93"<br/>]<br/>} |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.md)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
+
+### Response
+
+**[*components.BulkUnassignKeysResponse](../../models/components/bulkunassignkeysresponse.md), error**
 
 ### Errors
 
@@ -728,68 +656,6 @@ func main() {
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
 | sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
 
-## BulkUnassignKeys
-
-Unassign multiple API keys from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="bulkUnassignKeysFromGuardrail" method="post" path="/guardrails/{id}/assignments/keys/remove" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := openrouter.New(
-        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-    )
-
-    res, err := s.Guardrails.BulkUnassignKeys(ctx, "550e8400-e29b-41d4-a716-446655440000", components.BulkUnassignKeysRequest{
-        KeyHashes: []string{
-            "c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93",
-        },
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
-| `id`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The unique identifier of the guardrail                                                   | 550e8400-e29b-41d4-a716-446655440000                                                     |
-| `bulkUnassignKeysRequest`                                                                | [components.BulkUnassignKeysRequest](../../models/components/bulkunassignkeysrequest.md) | :heavy_check_mark:                                                                       | N/A                                                                                      | {<br/>"key_hashes": [<br/>"c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93"<br/>]<br/>} |
-| `opts`                                                                                   | [][operations.Option](../../models/operations/option.md)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
-
-### Response
-
-**[*components.BulkUnassignKeysResponse](../../models/components/bulkunassignkeysresponse.md), error**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
-| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
-| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
-| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
-| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
-
 ## BulkUnassignMembers
 
 Unassign multiple organization members from a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
@@ -850,5 +716,139 @@ func main() {
 | sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
 | sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
 | sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListKeyAssignments
+
+List all API key guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listKeyAssignments" method="get" path="/guardrails/assignments/keys" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Guardrails.ListKeyAssignments(ctx, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*operations.ListKeyAssignmentsResponse](../../models/operations/listkeyassignmentsresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListMemberAssignments
+
+List all organization member guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listMemberAssignments" method="get" path="/guardrails/assignments/members" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Guardrails.ListMemberAssignments(ctx, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*operations.ListMemberAssignmentsResponse](../../models/operations/listmemberassignmentsresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
 | sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |

@@ -8,29 +8,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatContentAudioType string
-
-const (
-	ChatContentAudioTypeInputAudio ChatContentAudioType = "input_audio"
-)
-
-func (e ChatContentAudioType) ToPointer() *ChatContentAudioType {
-	return &e
-}
-func (e *ChatContentAudioType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "input_audio":
-		*e = ChatContentAudioType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatContentAudioType: %v", v)
-	}
-}
-
 type ChatContentAudioInputAudio struct {
 	// Base64 encoded audio data
 	Data string `json:"data"`
@@ -63,10 +40,33 @@ func (c *ChatContentAudioInputAudio) GetFormat() string {
 	return c.Format
 }
 
+type ChatContentAudioType string
+
+const (
+	ChatContentAudioTypeInputAudio ChatContentAudioType = "input_audio"
+)
+
+func (e ChatContentAudioType) ToPointer() *ChatContentAudioType {
+	return &e
+}
+func (e *ChatContentAudioType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "input_audio":
+		*e = ChatContentAudioType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatContentAudioType: %v", v)
+	}
+}
+
 // ChatContentAudio - Audio input content part. Supported audio formats vary by provider.
 type ChatContentAudio struct {
-	Type       ChatContentAudioType       `json:"type"`
 	InputAudio ChatContentAudioInputAudio `json:"input_audio"`
+	Type       ChatContentAudioType       `json:"type"`
 }
 
 func (c ChatContentAudio) MarshalJSON() ([]byte, error) {
@@ -80,16 +80,16 @@ func (c *ChatContentAudio) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatContentAudio) GetType() ChatContentAudioType {
-	if c == nil {
-		return ChatContentAudioType("")
-	}
-	return c.Type
-}
-
 func (c *ChatContentAudio) GetInputAudio() ChatContentAudioInputAudio {
 	if c == nil {
 		return ChatContentAudioInputAudio{}
 	}
 	return c.InputAudio
+}
+
+func (c *ChatContentAudio) GetType() ChatContentAudioType {
+	if c == nil {
+		return ChatContentAudioType("")
+	}
+	return c.Type
 }

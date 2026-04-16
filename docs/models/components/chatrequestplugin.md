@@ -9,16 +9,10 @@
 chatRequestPlugin := components.CreateChatRequestPluginAutoRouter(components.AutoRouterPlugin{/* values here */})
 ```
 
-### ModerationPlugin
+### ContextCompressionPlugin
 
 ```go
-chatRequestPlugin := components.CreateChatRequestPluginModeration(components.ModerationPlugin{/* values here */})
-```
-
-### WebSearchPlugin
-
-```go
-chatRequestPlugin := components.CreateChatRequestPluginWeb(components.WebSearchPlugin{/* values here */})
+chatRequestPlugin := components.CreateChatRequestPluginContextCompression(components.ContextCompressionPlugin{/* values here */})
 ```
 
 ### FileParserPlugin
@@ -27,16 +21,22 @@ chatRequestPlugin := components.CreateChatRequestPluginWeb(components.WebSearchP
 chatRequestPlugin := components.CreateChatRequestPluginFileParser(components.FileParserPlugin{/* values here */})
 ```
 
+### ModerationPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginModeration(components.ModerationPlugin{/* values here */})
+```
+
 ### ResponseHealingPlugin
 
 ```go
 chatRequestPlugin := components.CreateChatRequestPluginResponseHealing(components.ResponseHealingPlugin{/* values here */})
 ```
 
-### ContextCompressionPlugin
+### WebSearchPlugin
 
 ```go
-chatRequestPlugin := components.CreateChatRequestPluginContextCompression(components.ContextCompressionPlugin{/* values here */})
+chatRequestPlugin := components.CreateChatRequestPluginWeb(components.WebSearchPlugin{/* values here */})
 ```
 
 ## Union Discrimination
@@ -47,15 +47,15 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch chatRequestPlugin.Type {
 	case components.ChatRequestPluginTypeAutoRouter:
 		// chatRequestPlugin.AutoRouterPlugin is populated
-	case components.ChatRequestPluginTypeModeration:
-		// chatRequestPlugin.ModerationPlugin is populated
-	case components.ChatRequestPluginTypeWeb:
-		// chatRequestPlugin.WebSearchPlugin is populated
-	case components.ChatRequestPluginTypeFileParser:
-		// chatRequestPlugin.FileParserPlugin is populated
-	case components.ChatRequestPluginTypeResponseHealing:
-		// chatRequestPlugin.ResponseHealingPlugin is populated
 	case components.ChatRequestPluginTypeContextCompression:
 		// chatRequestPlugin.ContextCompressionPlugin is populated
+	case components.ChatRequestPluginTypeFileParser:
+		// chatRequestPlugin.FileParserPlugin is populated
+	case components.ChatRequestPluginTypeModeration:
+		// chatRequestPlugin.ModerationPlugin is populated
+	case components.ChatRequestPluginTypeResponseHealing:
+		// chatRequestPlugin.ResponseHealingPlugin is populated
+	case components.ChatRequestPluginTypeWeb:
+		// chatRequestPlugin.WebSearchPlugin is populated
 }
 ```

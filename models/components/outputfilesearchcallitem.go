@@ -32,10 +32,10 @@ func (e *OutputFileSearchCallItemType) UnmarshalJSON(data []byte) error {
 }
 
 type OutputFileSearchCallItem struct {
-	Type    OutputFileSearchCallItemType `json:"type"`
 	ID      string                       `json:"id"`
 	Queries []string                     `json:"queries"`
 	Status  WebSearchStatus              `json:"status"`
+	Type    OutputFileSearchCallItemType `json:"type"`
 }
 
 func (o OutputFileSearchCallItem) MarshalJSON() ([]byte, error) {
@@ -47,13 +47,6 @@ func (o *OutputFileSearchCallItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (o *OutputFileSearchCallItem) GetType() OutputFileSearchCallItemType {
-	if o == nil {
-		return OutputFileSearchCallItemType("")
-	}
-	return o.Type
 }
 
 func (o *OutputFileSearchCallItem) GetID() string {
@@ -75,4 +68,11 @@ func (o *OutputFileSearchCallItem) GetStatus() WebSearchStatus {
 		return WebSearchStatus("")
 	}
 	return o.Status
+}
+
+func (o *OutputFileSearchCallItem) GetType() OutputFileSearchCallItemType {
+	if o == nil {
+		return OutputFileSearchCallItemType("")
+	}
+	return o.Type
 }

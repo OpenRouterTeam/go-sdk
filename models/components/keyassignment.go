@@ -3,20 +3,41 @@
 package components
 
 type KeyAssignment struct {
-	// Unique identifier for the assignment
-	ID string `json:"id"`
-	// Hash of the assigned API key
-	KeyHash string `json:"key_hash"`
-	// ID of the guardrail
-	GuardrailID string `json:"guardrail_id"`
-	// Name of the API key
-	KeyName string `json:"key_name"`
-	// Label of the API key
-	KeyLabel string `json:"key_label"`
 	// User ID of who made the assignment
 	AssignedBy *string `json:"assigned_by"`
 	// ISO 8601 timestamp of when the assignment was created
 	CreatedAt string `json:"created_at"`
+	// ID of the guardrail
+	GuardrailID string `json:"guardrail_id"`
+	// Unique identifier for the assignment
+	ID string `json:"id"`
+	// Hash of the assigned API key
+	KeyHash string `json:"key_hash"`
+	// Label of the API key
+	KeyLabel string `json:"key_label"`
+	// Name of the API key
+	KeyName string `json:"key_name"`
+}
+
+func (k *KeyAssignment) GetAssignedBy() *string {
+	if k == nil {
+		return nil
+	}
+	return k.AssignedBy
+}
+
+func (k *KeyAssignment) GetCreatedAt() string {
+	if k == nil {
+		return ""
+	}
+	return k.CreatedAt
+}
+
+func (k *KeyAssignment) GetGuardrailID() string {
+	if k == nil {
+		return ""
+	}
+	return k.GuardrailID
 }
 
 func (k *KeyAssignment) GetID() string {
@@ -33,20 +54,6 @@ func (k *KeyAssignment) GetKeyHash() string {
 	return k.KeyHash
 }
 
-func (k *KeyAssignment) GetGuardrailID() string {
-	if k == nil {
-		return ""
-	}
-	return k.GuardrailID
-}
-
-func (k *KeyAssignment) GetKeyName() string {
-	if k == nil {
-		return ""
-	}
-	return k.KeyName
-}
-
 func (k *KeyAssignment) GetKeyLabel() string {
 	if k == nil {
 		return ""
@@ -54,16 +61,9 @@ func (k *KeyAssignment) GetKeyLabel() string {
 	return k.KeyLabel
 }
 
-func (k *KeyAssignment) GetAssignedBy() *string {
-	if k == nil {
-		return nil
-	}
-	return k.AssignedBy
-}
-
-func (k *KeyAssignment) GetCreatedAt() string {
+func (k *KeyAssignment) GetKeyName() string {
 	if k == nil {
 		return ""
 	}
-	return k.CreatedAt
+	return k.KeyName
 }

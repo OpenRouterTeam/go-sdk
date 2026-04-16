@@ -34,11 +34,11 @@ func (e *InputFileType) UnmarshalJSON(data []byte) error {
 
 // InputFile - File input content item
 type InputFile struct {
-	Type     InputFileType                             `json:"type"`
-	FileID   optionalnullable.OptionalNullable[string] `json:"file_id,omitzero"`
 	FileData *string                                   `json:"file_data,omitzero"`
-	Filename *string                                   `json:"filename,omitzero"`
+	FileID   optionalnullable.OptionalNullable[string] `json:"file_id,omitzero"`
 	FileURL  *string                                   `json:"file_url,omitzero"`
+	Filename *string                                   `json:"filename,omitzero"`
+	Type     InputFileType                             `json:"type"`
 }
 
 func (i InputFile) MarshalJSON() ([]byte, error) {
@@ -52,11 +52,11 @@ func (i *InputFile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputFile) GetType() InputFileType {
+func (i *InputFile) GetFileData() *string {
 	if i == nil {
-		return InputFileType("")
+		return nil
 	}
-	return i.Type
+	return i.FileData
 }
 
 func (i *InputFile) GetFileID() optionalnullable.OptionalNullable[string] {
@@ -66,11 +66,11 @@ func (i *InputFile) GetFileID() optionalnullable.OptionalNullable[string] {
 	return i.FileID
 }
 
-func (i *InputFile) GetFileData() *string {
+func (i *InputFile) GetFileURL() *string {
 	if i == nil {
 		return nil
 	}
-	return i.FileData
+	return i.FileURL
 }
 
 func (i *InputFile) GetFilename() *string {
@@ -80,9 +80,9 @@ func (i *InputFile) GetFilename() *string {
 	return i.Filename
 }
 
-func (i *InputFile) GetFileURL() *string {
+func (i *InputFile) GetType() InputFileType {
 	if i == nil {
-		return nil
+		return InputFileType("")
 	}
-	return i.FileURL
+	return i.Type
 }

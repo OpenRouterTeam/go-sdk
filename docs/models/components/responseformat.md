@@ -5,10 +5,10 @@ Response format configuration
 
 ## Supported Types
 
-### ChatFormatTextConfig
+### ChatFormatGrammarConfig
 
 ```go
-responseFormat := components.CreateResponseFormatText(components.ChatFormatTextConfig{/* values here */})
+responseFormat := components.CreateResponseFormatGrammar(components.ChatFormatGrammarConfig{/* values here */})
 ```
 
 ### FormatJSONObjectConfig
@@ -23,16 +23,16 @@ responseFormat := components.CreateResponseFormatJSONObject(components.FormatJSO
 responseFormat := components.CreateResponseFormatJSONSchema(components.ChatFormatJSONSchemaConfig{/* values here */})
 ```
 
-### ChatFormatGrammarConfig
-
-```go
-responseFormat := components.CreateResponseFormatGrammar(components.ChatFormatGrammarConfig{/* values here */})
-```
-
 ### ChatFormatPythonConfig
 
 ```go
 responseFormat := components.CreateResponseFormatPython(components.ChatFormatPythonConfig{/* values here */})
+```
+
+### ChatFormatTextConfig
+
+```go
+responseFormat := components.CreateResponseFormatText(components.ChatFormatTextConfig{/* values here */})
 ```
 
 ## Union Discrimination
@@ -41,15 +41,15 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch responseFormat.Type {
-	case components.ResponseFormatTypeText:
-		// responseFormat.ChatFormatTextConfig is populated
+	case components.ResponseFormatTypeGrammar:
+		// responseFormat.ChatFormatGrammarConfig is populated
 	case components.ResponseFormatTypeJSONObject:
 		// responseFormat.FormatJSONObjectConfig is populated
 	case components.ResponseFormatTypeJSONSchema:
 		// responseFormat.ChatFormatJSONSchemaConfig is populated
-	case components.ResponseFormatTypeGrammar:
-		// responseFormat.ChatFormatGrammarConfig is populated
 	case components.ResponseFormatTypePython:
 		// responseFormat.ChatFormatPythonConfig is populated
+	case components.ResponseFormatTypeText:
+		// responseFormat.ChatFormatTextConfig is populated
 }
 ```

@@ -15,12 +15,14 @@ const (
 	OpenAIResponsesAnnotationTypeFileCitation OpenAIResponsesAnnotationType = "file_citation"
 	OpenAIResponsesAnnotationTypeURLCitation  OpenAIResponsesAnnotationType = "url_citation"
 	OpenAIResponsesAnnotationTypeFilePath     OpenAIResponsesAnnotationType = "file_path"
+	OpenAIResponsesAnnotationTypeUnknown      OpenAIResponsesAnnotationType = "UNKNOWN"
 )
 
 type OpenAIResponsesAnnotation struct {
-	FileCitation *FileCitation `queryParam:"inline" union:"member"`
-	URLCitation  *URLCitation  `queryParam:"inline" union:"member"`
-	FilePath     *FilePath     `queryParam:"inline" union:"member"`
+	FileCitation *FileCitation   `queryParam:"inline" union:"member"`
+	URLCitation  *URLCitation    `queryParam:"inline" union:"member"`
+	FilePath     *FilePath       `queryParam:"inline" union:"member"`
+	UnknownRaw   json.RawMessage `json:"-" union:"unknown"`
 
 	Type OpenAIResponsesAnnotationType
 }
@@ -61,6 +63,21 @@ func CreateOpenAIResponsesAnnotationFilePath(filePath FilePath) OpenAIResponsesA
 	}
 }
 
+func CreateOpenAIResponsesAnnotationUnknown(raw json.RawMessage) OpenAIResponsesAnnotation {
+	return OpenAIResponsesAnnotation{
+		UnknownRaw: raw,
+		Type:       OpenAIResponsesAnnotationTypeUnknown,
+	}
+}
+
+func (u OpenAIResponsesAnnotation) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u OpenAIResponsesAnnotation) IsUnknown() bool {
+	return u.Type == OpenAIResponsesAnnotationTypeUnknown
+}
+
 func (u *OpenAIResponsesAnnotation) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -69,7 +86,14 @@ func (u *OpenAIResponsesAnnotation) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponsesAnnotationTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponsesAnnotationTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -100,9 +124,12 @@ func (u *OpenAIResponsesAnnotation) UnmarshalJSON(data []byte) error {
 		u.FilePath = filePath
 		u.Type = OpenAIResponsesAnnotationTypeFilePath
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponsesAnnotationTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenAIResponsesAnnotation", string(data))
 }
 
 func (u OpenAIResponsesAnnotation) MarshalJSON() ([]byte, error) {
@@ -118,5 +145,8 @@ func (u OpenAIResponsesAnnotation) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.FilePath, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type OpenAIResponsesAnnotation: all fields are null")
 }

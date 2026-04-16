@@ -35,5 +35,7 @@ switch formats.Type {
 		// formats.FormatJSONObjectConfig is populated
 	case components.FormatsTypeJSONSchema:
 		// formats.FormatJSONSchemaConfig is populated
+	default:
+		// Unknown type - use formats.GetUnknownRaw() for raw JSON
 }
 ```

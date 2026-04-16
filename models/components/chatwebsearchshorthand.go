@@ -32,22 +32,22 @@ func (e *ChatWebSearchShorthandType) IsExact() bool {
 
 // ChatWebSearchShorthand - Web search tool using OpenAI Responses API syntax. Automatically converted to openrouter:web_search.
 type ChatWebSearchShorthand struct {
-	Type ChatWebSearchShorthandType `json:"type"`
+	// Limit search results to these domains. Supported by Exa, Parallel, and most native providers (Anthropic, OpenAI, xAI). Not supported with Firecrawl or Perplexity.
+	AllowedDomains []string `json:"allowed_domains,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
 	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
+	// Exclude search results from these domains. Supported by Exa, Parallel, Anthropic, and xAI. Not supported with Firecrawl, OpenAI (silently ignored), or Perplexity.
+	ExcludedDomains []string `json:"excluded_domains,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
 	MaxResults *int64 `json:"max_results,omitzero"`
 	// Maximum total number of search results across all search calls in a single request. Once this limit is reached, the tool will stop returning new results. Useful for controlling cost and context size in agentic loops.
-	MaxTotalResults *int64 `json:"max_total_results,omitzero"`
+	MaxTotalResults *int64           `json:"max_total_results,omitzero"`
+	Parameters      *WebSearchConfig `json:"parameters,omitzero"`
 	// How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
-	SearchContextSize *SearchQualityLevel `json:"search_context_size,omitzero"`
+	SearchContextSize *SearchQualityLevel        `json:"search_context_size,omitzero"`
+	Type              ChatWebSearchShorthandType `json:"type"`
 	// Approximate user location for location-biased results.
 	UserLocation *WebSearchUserLocationServerTool `json:"user_location,omitzero"`
-	// Limit search results to these domains. Supported by Exa, Parallel, and most native providers (Anthropic, OpenAI, xAI). Not supported with Firecrawl or Perplexity.
-	AllowedDomains []string `json:"allowed_domains,omitzero"`
-	// Exclude search results from these domains. Supported by Exa, Parallel, Anthropic, and xAI. Not supported with Firecrawl, OpenAI (silently ignored), or Perplexity.
-	ExcludedDomains []string         `json:"excluded_domains,omitzero"`
-	Parameters      *WebSearchConfig `json:"parameters,omitzero"`
 }
 
 func (c ChatWebSearchShorthand) MarshalJSON() ([]byte, error) {
@@ -61,11 +61,11 @@ func (c *ChatWebSearchShorthand) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatWebSearchShorthand) GetType() ChatWebSearchShorthandType {
+func (c *ChatWebSearchShorthand) GetAllowedDomains() []string {
 	if c == nil {
-		return ChatWebSearchShorthandType("")
+		return nil
 	}
-	return c.Type
+	return c.AllowedDomains
 }
 
 func (c *ChatWebSearchShorthand) GetEngine() *WebSearchEngineEnum {
@@ -73,6 +73,13 @@ func (c *ChatWebSearchShorthand) GetEngine() *WebSearchEngineEnum {
 		return nil
 	}
 	return c.Engine
+}
+
+func (c *ChatWebSearchShorthand) GetExcludedDomains() []string {
+	if c == nil {
+		return nil
+	}
+	return c.ExcludedDomains
 }
 
 func (c *ChatWebSearchShorthand) GetMaxResults() *int64 {
@@ -89,6 +96,13 @@ func (c *ChatWebSearchShorthand) GetMaxTotalResults() *int64 {
 	return c.MaxTotalResults
 }
 
+func (c *ChatWebSearchShorthand) GetParameters() *WebSearchConfig {
+	if c == nil {
+		return nil
+	}
+	return c.Parameters
+}
+
 func (c *ChatWebSearchShorthand) GetSearchContextSize() *SearchQualityLevel {
 	if c == nil {
 		return nil
@@ -96,30 +110,16 @@ func (c *ChatWebSearchShorthand) GetSearchContextSize() *SearchQualityLevel {
 	return c.SearchContextSize
 }
 
+func (c *ChatWebSearchShorthand) GetType() ChatWebSearchShorthandType {
+	if c == nil {
+		return ChatWebSearchShorthandType("")
+	}
+	return c.Type
+}
+
 func (c *ChatWebSearchShorthand) GetUserLocation() *WebSearchUserLocationServerTool {
 	if c == nil {
 		return nil
 	}
 	return c.UserLocation
-}
-
-func (c *ChatWebSearchShorthand) GetAllowedDomains() []string {
-	if c == nil {
-		return nil
-	}
-	return c.AllowedDomains
-}
-
-func (c *ChatWebSearchShorthand) GetExcludedDomains() []string {
-	if c == nil {
-		return nil
-	}
-	return c.ExcludedDomains
-}
-
-func (c *ChatWebSearchShorthand) GetParameters() *WebSearchConfig {
-	if c == nil {
-		return nil
-	}
-	return c.Parameters
 }

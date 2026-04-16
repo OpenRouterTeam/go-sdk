@@ -10,300 +10,34 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type BaseInputsType string
-
-const (
-	BaseInputsTypeMessage BaseInputsType = "message"
-)
-
-func (e BaseInputsType) ToPointer() *BaseInputsType {
-	return &e
-}
-func (e *BaseInputsType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "message":
-		*e = BaseInputsType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for BaseInputsType: %v", v)
-	}
-}
-
-type BaseInputsRoleDeveloper string
-
-const (
-	BaseInputsRoleDeveloperDeveloper BaseInputsRoleDeveloper = "developer"
-)
-
-func (e BaseInputsRoleDeveloper) ToPointer() *BaseInputsRoleDeveloper {
-	return &e
-}
-func (e *BaseInputsRoleDeveloper) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "developer":
-		*e = BaseInputsRoleDeveloper(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for BaseInputsRoleDeveloper: %v", v)
-	}
-}
-
-type BaseInputsRoleAssistant string
-
-const (
-	BaseInputsRoleAssistantAssistant BaseInputsRoleAssistant = "assistant"
-)
-
-func (e BaseInputsRoleAssistant) ToPointer() *BaseInputsRoleAssistant {
-	return &e
-}
-func (e *BaseInputsRoleAssistant) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "assistant":
-		*e = BaseInputsRoleAssistant(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for BaseInputsRoleAssistant: %v", v)
-	}
-}
-
-type BaseInputsRoleSystem string
-
-const (
-	BaseInputsRoleSystemSystem BaseInputsRoleSystem = "system"
-)
-
-func (e BaseInputsRoleSystem) ToPointer() *BaseInputsRoleSystem {
-	return &e
-}
-func (e *BaseInputsRoleSystem) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "system":
-		*e = BaseInputsRoleSystem(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for BaseInputsRoleSystem: %v", v)
-	}
-}
-
-type BaseInputsRoleUser string
-
-const (
-	BaseInputsRoleUserUser BaseInputsRoleUser = "user"
-)
-
-func (e BaseInputsRoleUser) ToPointer() *BaseInputsRoleUser {
-	return &e
-}
-func (e *BaseInputsRoleUser) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "user":
-		*e = BaseInputsRoleUser(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for BaseInputsRoleUser: %v", v)
-	}
-}
-
-type BaseInputsRoleUnionType string
-
-const (
-	BaseInputsRoleUnionTypeBaseInputsRoleUser      BaseInputsRoleUnionType = "BaseInputs_role_User"
-	BaseInputsRoleUnionTypeBaseInputsRoleSystem    BaseInputsRoleUnionType = "BaseInputs_role_System"
-	BaseInputsRoleUnionTypeBaseInputsRoleAssistant BaseInputsRoleUnionType = "BaseInputs_role_Assistant"
-	BaseInputsRoleUnionTypeBaseInputsRoleDeveloper BaseInputsRoleUnionType = "BaseInputs_role_Developer"
-)
-
-type BaseInputsRoleUnion struct {
-	BaseInputsRoleUser      *BaseInputsRoleUser      `queryParam:"inline" union:"member"`
-	BaseInputsRoleSystem    *BaseInputsRoleSystem    `queryParam:"inline" union:"member"`
-	BaseInputsRoleAssistant *BaseInputsRoleAssistant `queryParam:"inline" union:"member"`
-	BaseInputsRoleDeveloper *BaseInputsRoleDeveloper `queryParam:"inline" union:"member"`
-
-	Type BaseInputsRoleUnionType
-}
-
-func CreateBaseInputsRoleUnionBaseInputsRoleUser(baseInputsRoleUser BaseInputsRoleUser) BaseInputsRoleUnion {
-	typ := BaseInputsRoleUnionTypeBaseInputsRoleUser
-
-	return BaseInputsRoleUnion{
-		BaseInputsRoleUser: &baseInputsRoleUser,
-		Type:               typ,
-	}
-}
-
-func CreateBaseInputsRoleUnionBaseInputsRoleSystem(baseInputsRoleSystem BaseInputsRoleSystem) BaseInputsRoleUnion {
-	typ := BaseInputsRoleUnionTypeBaseInputsRoleSystem
-
-	return BaseInputsRoleUnion{
-		BaseInputsRoleSystem: &baseInputsRoleSystem,
-		Type:                 typ,
-	}
-}
-
-func CreateBaseInputsRoleUnionBaseInputsRoleAssistant(baseInputsRoleAssistant BaseInputsRoleAssistant) BaseInputsRoleUnion {
-	typ := BaseInputsRoleUnionTypeBaseInputsRoleAssistant
-
-	return BaseInputsRoleUnion{
-		BaseInputsRoleAssistant: &baseInputsRoleAssistant,
-		Type:                    typ,
-	}
-}
-
-func CreateBaseInputsRoleUnionBaseInputsRoleDeveloper(baseInputsRoleDeveloper BaseInputsRoleDeveloper) BaseInputsRoleUnion {
-	typ := BaseInputsRoleUnionTypeBaseInputsRoleDeveloper
-
-	return BaseInputsRoleUnion{
-		BaseInputsRoleDeveloper: &baseInputsRoleDeveloper,
-		Type:                    typ,
-	}
-}
-
-func (u *BaseInputsRoleUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var baseInputsRoleUser BaseInputsRoleUser = BaseInputsRoleUser("")
-	if err := utils.UnmarshalJSON(data, &baseInputsRoleUser, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  BaseInputsRoleUnionTypeBaseInputsRoleUser,
-			Value: &baseInputsRoleUser,
-		})
-	}
-
-	var baseInputsRoleSystem BaseInputsRoleSystem = BaseInputsRoleSystem("")
-	if err := utils.UnmarshalJSON(data, &baseInputsRoleSystem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  BaseInputsRoleUnionTypeBaseInputsRoleSystem,
-			Value: &baseInputsRoleSystem,
-		})
-	}
-
-	var baseInputsRoleAssistant BaseInputsRoleAssistant = BaseInputsRoleAssistant("")
-	if err := utils.UnmarshalJSON(data, &baseInputsRoleAssistant, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  BaseInputsRoleUnionTypeBaseInputsRoleAssistant,
-			Value: &baseInputsRoleAssistant,
-		})
-	}
-
-	var baseInputsRoleDeveloper BaseInputsRoleDeveloper = BaseInputsRoleDeveloper("")
-	if err := utils.UnmarshalJSON(data, &baseInputsRoleDeveloper, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  BaseInputsRoleUnionTypeBaseInputsRoleDeveloper,
-			Value: &baseInputsRoleDeveloper,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsRoleUnion", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsRoleUnion", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(BaseInputsRoleUnionType)
-	switch best.Type {
-	case BaseInputsRoleUnionTypeBaseInputsRoleUser:
-		u.BaseInputsRoleUser = best.Value.(*BaseInputsRoleUser)
-		return nil
-	case BaseInputsRoleUnionTypeBaseInputsRoleSystem:
-		u.BaseInputsRoleSystem = best.Value.(*BaseInputsRoleSystem)
-		return nil
-	case BaseInputsRoleUnionTypeBaseInputsRoleAssistant:
-		u.BaseInputsRoleAssistant = best.Value.(*BaseInputsRoleAssistant)
-		return nil
-	case BaseInputsRoleUnionTypeBaseInputsRoleDeveloper:
-		u.BaseInputsRoleDeveloper = best.Value.(*BaseInputsRoleDeveloper)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsRoleUnion", string(data))
-}
-
-func (u BaseInputsRoleUnion) MarshalJSON() ([]byte, error) {
-	if u.BaseInputsRoleUser != nil {
-		return utils.MarshalJSON(u.BaseInputsRoleUser, "", true)
-	}
-
-	if u.BaseInputsRoleSystem != nil {
-		return utils.MarshalJSON(u.BaseInputsRoleSystem, "", true)
-	}
-
-	if u.BaseInputsRoleAssistant != nil {
-		return utils.MarshalJSON(u.BaseInputsRoleAssistant, "", true)
-	}
-
-	if u.BaseInputsRoleDeveloper != nil {
-		return utils.MarshalJSON(u.BaseInputsRoleDeveloper, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type BaseInputsRoleUnion: all fields are null")
-}
-
 type BaseInputsContent1Type string
 
 const (
-	BaseInputsContent1TypeInputText  BaseInputsContent1Type = "input_text"
-	BaseInputsContent1TypeInputImage BaseInputsContent1Type = "input_image"
-	BaseInputsContent1TypeInputFile  BaseInputsContent1Type = "input_file"
 	BaseInputsContent1TypeInputAudio BaseInputsContent1Type = "input_audio"
+	BaseInputsContent1TypeInputFile  BaseInputsContent1Type = "input_file"
+	BaseInputsContent1TypeInputImage BaseInputsContent1Type = "input_image"
+	BaseInputsContent1TypeInputText  BaseInputsContent1Type = "input_text"
+	BaseInputsContent1TypeUnknown    BaseInputsContent1Type = "UNKNOWN"
 )
 
 type BaseInputsContent1 struct {
-	InputText  *InputText  `queryParam:"inline" union:"member"`
-	InputImage *InputImage `queryParam:"inline" union:"member"`
-	InputFile  *InputFile  `queryParam:"inline" union:"member"`
-	InputAudio *InputAudio `queryParam:"inline" union:"member"`
+	InputText  *InputText      `queryParam:"inline" union:"member"`
+	InputImage *InputImage     `queryParam:"inline" union:"member"`
+	InputFile  *InputFile      `queryParam:"inline" union:"member"`
+	InputAudio *InputAudio     `queryParam:"inline" union:"member"`
+	UnknownRaw json.RawMessage `json:"-" union:"unknown"`
 
 	Type BaseInputsContent1Type
 }
 
-func CreateBaseInputsContent1InputText(inputText InputText) BaseInputsContent1 {
-	typ := BaseInputsContent1TypeInputText
+func CreateBaseInputsContent1InputAudio(inputAudio InputAudio) BaseInputsContent1 {
+	typ := BaseInputsContent1TypeInputAudio
 
-	typStr := InputTextType(typ)
-	inputText.Type = typStr
-
-	return BaseInputsContent1{
-		InputText: &inputText,
-		Type:      typ,
-	}
-}
-
-func CreateBaseInputsContent1InputImage(inputImage InputImage) BaseInputsContent1 {
-	typ := BaseInputsContent1TypeInputImage
-
-	typStr := InputImageType(typ)
-	inputImage.Type = typStr
+	typStr := InputAudioType(typ)
+	inputAudio.Type = typStr
 
 	return BaseInputsContent1{
-		InputImage: &inputImage,
+		InputAudio: &inputAudio,
 		Type:       typ,
 	}
 }
@@ -320,16 +54,43 @@ func CreateBaseInputsContent1InputFile(inputFile InputFile) BaseInputsContent1 {
 	}
 }
 
-func CreateBaseInputsContent1InputAudio(inputAudio InputAudio) BaseInputsContent1 {
-	typ := BaseInputsContent1TypeInputAudio
+func CreateBaseInputsContent1InputImage(inputImage InputImage) BaseInputsContent1 {
+	typ := BaseInputsContent1TypeInputImage
 
-	typStr := InputAudioType(typ)
-	inputAudio.Type = typStr
+	typStr := InputImageType(typ)
+	inputImage.Type = typStr
 
 	return BaseInputsContent1{
-		InputAudio: &inputAudio,
+		InputImage: &inputImage,
 		Type:       typ,
 	}
+}
+
+func CreateBaseInputsContent1InputText(inputText InputText) BaseInputsContent1 {
+	typ := BaseInputsContent1TypeInputText
+
+	typStr := InputTextType(typ)
+	inputText.Type = typStr
+
+	return BaseInputsContent1{
+		InputText: &inputText,
+		Type:      typ,
+	}
+}
+
+func CreateBaseInputsContent1Unknown(raw json.RawMessage) BaseInputsContent1 {
+	return BaseInputsContent1{
+		UnknownRaw: raw,
+		Type:       BaseInputsContent1TypeUnknown,
+	}
+}
+
+func (u BaseInputsContent1) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u BaseInputsContent1) IsUnknown() bool {
+	return u.Type == BaseInputsContent1TypeUnknown
 }
 
 func (u *BaseInputsContent1) UnmarshalJSON(data []byte) error {
@@ -340,27 +101,25 @@ func (u *BaseInputsContent1) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = BaseInputsContent1TypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = BaseInputsContent1TypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
-	case "input_text":
-		inputText := new(InputText)
-		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within BaseInputsContent1: %w", string(data), err)
+	case "input_audio":
+		inputAudio := new(InputAudio)
+		if err := utils.UnmarshalJSON(data, &inputAudio, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type InputAudio within BaseInputsContent1: %w", string(data), err)
 		}
 
-		u.InputText = inputText
-		u.Type = BaseInputsContent1TypeInputText
-		return nil
-	case "input_image":
-		inputImage := new(InputImage)
-		if err := utils.UnmarshalJSON(data, &inputImage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type InputImage within BaseInputsContent1: %w", string(data), err)
-		}
-
-		u.InputImage = inputImage
-		u.Type = BaseInputsContent1TypeInputImage
+		u.InputAudio = inputAudio
+		u.Type = BaseInputsContent1TypeInputAudio
 		return nil
 	case "input_file":
 		inputFile := new(InputFile)
@@ -371,18 +130,30 @@ func (u *BaseInputsContent1) UnmarshalJSON(data []byte) error {
 		u.InputFile = inputFile
 		u.Type = BaseInputsContent1TypeInputFile
 		return nil
-	case "input_audio":
-		inputAudio := new(InputAudio)
-		if err := utils.UnmarshalJSON(data, &inputAudio, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type InputAudio within BaseInputsContent1: %w", string(data), err)
+	case "input_image":
+		inputImage := new(InputImage)
+		if err := utils.UnmarshalJSON(data, &inputImage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type InputImage within BaseInputsContent1: %w", string(data), err)
 		}
 
-		u.InputAudio = inputAudio
-		u.Type = BaseInputsContent1TypeInputAudio
+		u.InputImage = inputImage
+		u.Type = BaseInputsContent1TypeInputImage
+		return nil
+	case "input_text":
+		inputText := new(InputText)
+		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within BaseInputsContent1: %w", string(data), err)
+		}
+
+		u.InputText = inputText
+		u.Type = BaseInputsContent1TypeInputText
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = BaseInputsContent1TypeUnknown
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsContent1", string(data))
 }
 
 func (u BaseInputsContent1) MarshalJSON() ([]byte, error) {
@@ -402,6 +173,9 @@ func (u BaseInputsContent1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputAudio, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type BaseInputsContent1: all fields are null")
 }
 
@@ -655,11 +429,267 @@ func (u BaseInputsPhaseUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type BaseInputsPhaseUnion: all fields are null")
 }
 
+type BaseInputsRoleDeveloper string
+
+const (
+	BaseInputsRoleDeveloperDeveloper BaseInputsRoleDeveloper = "developer"
+)
+
+func (e BaseInputsRoleDeveloper) ToPointer() *BaseInputsRoleDeveloper {
+	return &e
+}
+func (e *BaseInputsRoleDeveloper) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "developer":
+		*e = BaseInputsRoleDeveloper(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for BaseInputsRoleDeveloper: %v", v)
+	}
+}
+
+type BaseInputsRoleAssistant string
+
+const (
+	BaseInputsRoleAssistantAssistant BaseInputsRoleAssistant = "assistant"
+)
+
+func (e BaseInputsRoleAssistant) ToPointer() *BaseInputsRoleAssistant {
+	return &e
+}
+func (e *BaseInputsRoleAssistant) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "assistant":
+		*e = BaseInputsRoleAssistant(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for BaseInputsRoleAssistant: %v", v)
+	}
+}
+
+type BaseInputsRoleSystem string
+
+const (
+	BaseInputsRoleSystemSystem BaseInputsRoleSystem = "system"
+)
+
+func (e BaseInputsRoleSystem) ToPointer() *BaseInputsRoleSystem {
+	return &e
+}
+func (e *BaseInputsRoleSystem) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system":
+		*e = BaseInputsRoleSystem(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for BaseInputsRoleSystem: %v", v)
+	}
+}
+
+type BaseInputsRoleUser string
+
+const (
+	BaseInputsRoleUserUser BaseInputsRoleUser = "user"
+)
+
+func (e BaseInputsRoleUser) ToPointer() *BaseInputsRoleUser {
+	return &e
+}
+func (e *BaseInputsRoleUser) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "user":
+		*e = BaseInputsRoleUser(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for BaseInputsRoleUser: %v", v)
+	}
+}
+
+type BaseInputsRoleUnionType string
+
+const (
+	BaseInputsRoleUnionTypeBaseInputsRoleUser      BaseInputsRoleUnionType = "BaseInputs_role_User"
+	BaseInputsRoleUnionTypeBaseInputsRoleSystem    BaseInputsRoleUnionType = "BaseInputs_role_System"
+	BaseInputsRoleUnionTypeBaseInputsRoleAssistant BaseInputsRoleUnionType = "BaseInputs_role_Assistant"
+	BaseInputsRoleUnionTypeBaseInputsRoleDeveloper BaseInputsRoleUnionType = "BaseInputs_role_Developer"
+)
+
+type BaseInputsRoleUnion struct {
+	BaseInputsRoleUser      *BaseInputsRoleUser      `queryParam:"inline" union:"member"`
+	BaseInputsRoleSystem    *BaseInputsRoleSystem    `queryParam:"inline" union:"member"`
+	BaseInputsRoleAssistant *BaseInputsRoleAssistant `queryParam:"inline" union:"member"`
+	BaseInputsRoleDeveloper *BaseInputsRoleDeveloper `queryParam:"inline" union:"member"`
+
+	Type BaseInputsRoleUnionType
+}
+
+func CreateBaseInputsRoleUnionBaseInputsRoleUser(baseInputsRoleUser BaseInputsRoleUser) BaseInputsRoleUnion {
+	typ := BaseInputsRoleUnionTypeBaseInputsRoleUser
+
+	return BaseInputsRoleUnion{
+		BaseInputsRoleUser: &baseInputsRoleUser,
+		Type:               typ,
+	}
+}
+
+func CreateBaseInputsRoleUnionBaseInputsRoleSystem(baseInputsRoleSystem BaseInputsRoleSystem) BaseInputsRoleUnion {
+	typ := BaseInputsRoleUnionTypeBaseInputsRoleSystem
+
+	return BaseInputsRoleUnion{
+		BaseInputsRoleSystem: &baseInputsRoleSystem,
+		Type:                 typ,
+	}
+}
+
+func CreateBaseInputsRoleUnionBaseInputsRoleAssistant(baseInputsRoleAssistant BaseInputsRoleAssistant) BaseInputsRoleUnion {
+	typ := BaseInputsRoleUnionTypeBaseInputsRoleAssistant
+
+	return BaseInputsRoleUnion{
+		BaseInputsRoleAssistant: &baseInputsRoleAssistant,
+		Type:                    typ,
+	}
+}
+
+func CreateBaseInputsRoleUnionBaseInputsRoleDeveloper(baseInputsRoleDeveloper BaseInputsRoleDeveloper) BaseInputsRoleUnion {
+	typ := BaseInputsRoleUnionTypeBaseInputsRoleDeveloper
+
+	return BaseInputsRoleUnion{
+		BaseInputsRoleDeveloper: &baseInputsRoleDeveloper,
+		Type:                    typ,
+	}
+}
+
+func (u *BaseInputsRoleUnion) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var baseInputsRoleUser BaseInputsRoleUser = BaseInputsRoleUser("")
+	if err := utils.UnmarshalJSON(data, &baseInputsRoleUser, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsRoleUnionTypeBaseInputsRoleUser,
+			Value: &baseInputsRoleUser,
+		})
+	}
+
+	var baseInputsRoleSystem BaseInputsRoleSystem = BaseInputsRoleSystem("")
+	if err := utils.UnmarshalJSON(data, &baseInputsRoleSystem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsRoleUnionTypeBaseInputsRoleSystem,
+			Value: &baseInputsRoleSystem,
+		})
+	}
+
+	var baseInputsRoleAssistant BaseInputsRoleAssistant = BaseInputsRoleAssistant("")
+	if err := utils.UnmarshalJSON(data, &baseInputsRoleAssistant, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsRoleUnionTypeBaseInputsRoleAssistant,
+			Value: &baseInputsRoleAssistant,
+		})
+	}
+
+	var baseInputsRoleDeveloper BaseInputsRoleDeveloper = BaseInputsRoleDeveloper("")
+	if err := utils.UnmarshalJSON(data, &baseInputsRoleDeveloper, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsRoleUnionTypeBaseInputsRoleDeveloper,
+			Value: &baseInputsRoleDeveloper,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsRoleUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsRoleUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(BaseInputsRoleUnionType)
+	switch best.Type {
+	case BaseInputsRoleUnionTypeBaseInputsRoleUser:
+		u.BaseInputsRoleUser = best.Value.(*BaseInputsRoleUser)
+		return nil
+	case BaseInputsRoleUnionTypeBaseInputsRoleSystem:
+		u.BaseInputsRoleSystem = best.Value.(*BaseInputsRoleSystem)
+		return nil
+	case BaseInputsRoleUnionTypeBaseInputsRoleAssistant:
+		u.BaseInputsRoleAssistant = best.Value.(*BaseInputsRoleAssistant)
+		return nil
+	case BaseInputsRoleUnionTypeBaseInputsRoleDeveloper:
+		u.BaseInputsRoleDeveloper = best.Value.(*BaseInputsRoleDeveloper)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsRoleUnion", string(data))
+}
+
+func (u BaseInputsRoleUnion) MarshalJSON() ([]byte, error) {
+	if u.BaseInputsRoleUser != nil {
+		return utils.MarshalJSON(u.BaseInputsRoleUser, "", true)
+	}
+
+	if u.BaseInputsRoleSystem != nil {
+		return utils.MarshalJSON(u.BaseInputsRoleSystem, "", true)
+	}
+
+	if u.BaseInputsRoleAssistant != nil {
+		return utils.MarshalJSON(u.BaseInputsRoleAssistant, "", true)
+	}
+
+	if u.BaseInputsRoleDeveloper != nil {
+		return utils.MarshalJSON(u.BaseInputsRoleDeveloper, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type BaseInputsRoleUnion: all fields are null")
+}
+
+type BaseInputsType string
+
+const (
+	BaseInputsTypeMessage BaseInputsType = "message"
+)
+
+func (e BaseInputsType) ToPointer() *BaseInputsType {
+	return &e
+}
+func (e *BaseInputsType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "message":
+		*e = BaseInputsType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for BaseInputsType: %v", v)
+	}
+}
+
 type BaseInputsMessage struct {
-	Type    *BaseInputsType                                         `json:"type,omitzero"`
-	Role    BaseInputsRoleUnion                                     `json:"role"`
 	Content BaseInputsContent2                                      `json:"content"`
 	Phase   optionalnullable.OptionalNullable[BaseInputsPhaseUnion] `json:"phase,omitzero"`
+	Role    BaseInputsRoleUnion                                     `json:"role"`
+	Type    *BaseInputsType                                         `json:"type,omitzero"`
 }
 
 func (b BaseInputsMessage) MarshalJSON() ([]byte, error) {
@@ -671,20 +701,6 @@ func (b *BaseInputsMessage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (b *BaseInputsMessage) GetType() *BaseInputsType {
-	if b == nil {
-		return nil
-	}
-	return b.Type
-}
-
-func (b *BaseInputsMessage) GetRole() BaseInputsRoleUnion {
-	if b == nil {
-		return BaseInputsRoleUnion{}
-	}
-	return b.Role
 }
 
 func (b *BaseInputsMessage) GetContent() BaseInputsContent2 {
@@ -699,6 +715,20 @@ func (b *BaseInputsMessage) GetPhase() optionalnullable.OptionalNullable[BaseInp
 		return nil
 	}
 	return b.Phase
+}
+
+func (b *BaseInputsMessage) GetRole() BaseInputsRoleUnion {
+	if b == nil {
+		return BaseInputsRoleUnion{}
+	}
+	return b.Role
+}
+
+func (b *BaseInputsMessage) GetType() *BaseInputsType {
+	if b == nil {
+		return nil
+	}
+	return b.Type
 }
 
 type BaseInputsUnion1Type string

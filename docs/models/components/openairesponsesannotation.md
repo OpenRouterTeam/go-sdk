@@ -33,5 +33,7 @@ switch openAIResponsesAnnotation.Type {
 		// openAIResponsesAnnotation.URLCitation is populated
 	case components.OpenAIResponsesAnnotationTypeFilePath:
 		// openAIResponsesAnnotation.FilePath is populated
+	default:
+		// Unknown type - use openAIResponsesAnnotation.GetUnknownRaw() for raw JSON
 }
 ```

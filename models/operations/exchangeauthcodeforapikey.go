@@ -32,10 +32,10 @@ func (e *ExchangeAuthCodeForAPIKeyCodeChallengeMethod) IsExact() bool {
 type ExchangeAuthCodeForAPIKeyRequest struct {
 	// The authorization code received from the OAuth redirect
 	Code string `json:"code"`
-	// The code verifier if code_challenge was used in the authorization request
-	CodeVerifier *string `json:"code_verifier,omitzero"`
 	// The method used to generate the code challenge
 	CodeChallengeMethod optionalnullable.OptionalNullable[ExchangeAuthCodeForAPIKeyCodeChallengeMethod] `json:"code_challenge_method,omitzero"`
+	// The code verifier if code_challenge was used in the authorization request
+	CodeVerifier *string `json:"code_verifier,omitzero"`
 }
 
 func (e *ExchangeAuthCodeForAPIKeyRequest) GetCode() string {
@@ -45,18 +45,18 @@ func (e *ExchangeAuthCodeForAPIKeyRequest) GetCode() string {
 	return e.Code
 }
 
-func (e *ExchangeAuthCodeForAPIKeyRequest) GetCodeVerifier() *string {
-	if e == nil {
-		return nil
-	}
-	return e.CodeVerifier
-}
-
 func (e *ExchangeAuthCodeForAPIKeyRequest) GetCodeChallengeMethod() optionalnullable.OptionalNullable[ExchangeAuthCodeForAPIKeyCodeChallengeMethod] {
 	if e == nil {
 		return nil
 	}
 	return e.CodeChallengeMethod
+}
+
+func (e *ExchangeAuthCodeForAPIKeyRequest) GetCodeVerifier() *string {
+	if e == nil {
+		return nil
+	}
+	return e.CodeVerifier
 }
 
 // ExchangeAuthCodeForAPIKeyResponse - Successfully exchanged code for an API key

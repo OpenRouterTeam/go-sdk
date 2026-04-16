@@ -5,10 +5,10 @@ Content part for chat completion messages
 
 ## Supported Types
 
-### ChatContentText
+### ChatContentFile
 
 ```go
-chatContentItems := components.CreateChatContentItemsText(components.ChatContentText{/* values here */})
+chatContentItems := components.CreateChatContentItemsFile(components.ChatContentFile{/* values here */})
 ```
 
 ### ChatContentImage
@@ -29,16 +29,16 @@ chatContentItems := components.CreateChatContentItemsInputAudio(components.ChatC
 chatContentItems := components.CreateChatContentItemsInputVideo(components.LegacyChatContentVideo{/* values here */})
 ```
 
+### ChatContentText
+
+```go
+chatContentItems := components.CreateChatContentItemsText(components.ChatContentText{/* values here */})
+```
+
 ### ChatContentVideo
 
 ```go
 chatContentItems := components.CreateChatContentItemsVideoURL(components.ChatContentVideo{/* values here */})
-```
-
-### ChatContentFile
-
-```go
-chatContentItems := components.CreateChatContentItemsFile(components.ChatContentFile{/* values here */})
 ```
 
 ## Union Discrimination
@@ -47,17 +47,19 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch chatContentItems.Type {
-	case components.ChatContentItemsTypeText:
-		// chatContentItems.ChatContentText is populated
+	case components.ChatContentItemsTypeFile:
+		// chatContentItems.ChatContentFile is populated
 	case components.ChatContentItemsTypeImageURL:
 		// chatContentItems.ChatContentImage is populated
 	case components.ChatContentItemsTypeInputAudio:
 		// chatContentItems.ChatContentAudio is populated
 	case components.ChatContentItemsTypeInputVideo:
 		// chatContentItems.LegacyChatContentVideo is populated
+	case components.ChatContentItemsTypeText:
+		// chatContentItems.ChatContentText is populated
 	case components.ChatContentItemsTypeVideoURL:
 		// chatContentItems.ChatContentVideo is populated
-	case components.ChatContentItemsTypeFile:
-		// chatContentItems.ChatContentFile is populated
+	default:
+		// Unknown type - use chatContentItems.GetUnknownRaw() for raw JSON
 }
 ```

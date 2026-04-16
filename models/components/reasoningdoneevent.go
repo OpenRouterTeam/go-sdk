@@ -33,12 +33,12 @@ func (e *ReasoningDoneEventType) UnmarshalJSON(data []byte) error {
 
 // ReasoningDoneEvent - Event emitted when reasoning text streaming is complete
 type ReasoningDoneEvent struct {
-	Type           ReasoningDoneEventType `json:"type"`
-	OutputIndex    int64                  `json:"output_index"`
-	ItemID         string                 `json:"item_id"`
 	ContentIndex   int64                  `json:"content_index"`
-	Text           string                 `json:"text"`
+	ItemID         string                 `json:"item_id"`
+	OutputIndex    int64                  `json:"output_index"`
 	SequenceNumber int64                  `json:"sequence_number"`
+	Text           string                 `json:"text"`
+	Type           ReasoningDoneEventType `json:"type"`
 }
 
 func (r ReasoningDoneEvent) MarshalJSON() ([]byte, error) {
@@ -52,18 +52,11 @@ func (r *ReasoningDoneEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningDoneEvent) GetType() ReasoningDoneEventType {
-	if r == nil {
-		return ReasoningDoneEventType("")
-	}
-	return r.Type
-}
-
-func (r *ReasoningDoneEvent) GetOutputIndex() int64 {
+func (r *ReasoningDoneEvent) GetContentIndex() int64 {
 	if r == nil {
 		return 0
 	}
-	return r.OutputIndex
+	return r.ContentIndex
 }
 
 func (r *ReasoningDoneEvent) GetItemID() string {
@@ -73,11 +66,18 @@ func (r *ReasoningDoneEvent) GetItemID() string {
 	return r.ItemID
 }
 
-func (r *ReasoningDoneEvent) GetContentIndex() int64 {
+func (r *ReasoningDoneEvent) GetOutputIndex() int64 {
 	if r == nil {
 		return 0
 	}
-	return r.ContentIndex
+	return r.OutputIndex
+}
+
+func (r *ReasoningDoneEvent) GetSequenceNumber() int64 {
+	if r == nil {
+		return 0
+	}
+	return r.SequenceNumber
 }
 
 func (r *ReasoningDoneEvent) GetText() string {
@@ -87,9 +87,9 @@ func (r *ReasoningDoneEvent) GetText() string {
 	return r.Text
 }
 
-func (r *ReasoningDoneEvent) GetSequenceNumber() int64 {
+func (r *ReasoningDoneEvent) GetType() ReasoningDoneEventType {
 	if r == nil {
-		return 0
+		return ReasoningDoneEventType("")
 	}
-	return r.SequenceNumber
+	return r.Type
 }

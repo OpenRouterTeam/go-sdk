@@ -10,27 +10,28 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type TypeCodeInterpreter string
+type MemoryLimit string
 
 const (
-	TypeCodeInterpreterCodeInterpreter TypeCodeInterpreter = "code_interpreter"
+	MemoryLimitOneg       MemoryLimit = "1g"
+	MemoryLimitFourg      MemoryLimit = "4g"
+	MemoryLimitSixteeng   MemoryLimit = "16g"
+	MemoryLimitSixtyFourg MemoryLimit = "64g"
 )
 
-func (e TypeCodeInterpreter) ToPointer() *TypeCodeInterpreter {
+func (e MemoryLimit) ToPointer() *MemoryLimit {
 	return &e
 }
-func (e *TypeCodeInterpreter) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MemoryLimit) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "1g", "4g", "16g", "64g":
+			return true
+		}
 	}
-	switch v {
-	case "code_interpreter":
-		*e = TypeCodeInterpreter(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeCodeInterpreter: %v", v)
-	}
+	return false
 }
 
 type ContainerType string
@@ -56,34 +57,10 @@ func (e *ContainerType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type MemoryLimit string
-
-const (
-	MemoryLimitOneg       MemoryLimit = "1g"
-	MemoryLimitFourg      MemoryLimit = "4g"
-	MemoryLimitSixteeng   MemoryLimit = "16g"
-	MemoryLimitSixtyFourg MemoryLimit = "64g"
-)
-
-func (e MemoryLimit) ToPointer() *MemoryLimit {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MemoryLimit) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "1g", "4g", "16g", "64g":
-			return true
-		}
-	}
-	return false
-}
-
 type ContainerAuto struct {
-	Type        ContainerType                                  `json:"type"`
 	FileIds     []string                                       `json:"file_ids,omitzero"`
 	MemoryLimit optionalnullable.OptionalNullable[MemoryLimit] `json:"memory_limit,omitzero"`
+	Type        ContainerType                                  `json:"type"`
 }
 
 func (c ContainerAuto) MarshalJSON() ([]byte, error) {
@@ -95,13 +72,6 @@ func (c *ContainerAuto) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ContainerAuto) GetType() ContainerType {
-	if c == nil {
-		return ContainerType("")
-	}
-	return c.Type
 }
 
 func (c *ContainerAuto) GetFileIds() []string {
@@ -116,6 +86,13 @@ func (c *ContainerAuto) GetMemoryLimit() optionalnullable.OptionalNullable[Memor
 		return nil
 	}
 	return c.MemoryLimit
+}
+
+func (c *ContainerAuto) GetType() ContainerType {
+	if c == nil {
+		return ContainerType("")
+	}
+	return c.Type
 }
 
 type ContainerUnionType string
@@ -207,10 +184,33 @@ func (u Container) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Container: all fields are null")
 }
 
+type TypeCodeInterpreter string
+
+const (
+	TypeCodeInterpreterCodeInterpreter TypeCodeInterpreter = "code_interpreter"
+)
+
+func (e TypeCodeInterpreter) ToPointer() *TypeCodeInterpreter {
+	return &e
+}
+func (e *TypeCodeInterpreter) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "code_interpreter":
+		*e = TypeCodeInterpreter(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeCodeInterpreter: %v", v)
+	}
+}
+
 // CodeInterpreterServerTool - Code interpreter tool configuration
 type CodeInterpreterServerTool struct {
-	Type      TypeCodeInterpreter `json:"type"`
 	Container Container           `json:"container"`
+	Type      TypeCodeInterpreter `json:"type"`
 }
 
 func (c CodeInterpreterServerTool) MarshalJSON() ([]byte, error) {
@@ -224,16 +224,16 @@ func (c *CodeInterpreterServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CodeInterpreterServerTool) GetType() TypeCodeInterpreter {
-	if c == nil {
-		return TypeCodeInterpreter("")
-	}
-	return c.Type
-}
-
 func (c *CodeInterpreterServerTool) GetContainer() Container {
 	if c == nil {
 		return Container{}
 	}
 	return c.Container
+}
+
+func (c *CodeInterpreterServerTool) GetType() TypeCodeInterpreter {
+	if c == nil {
+		return TypeCodeInterpreter("")
+	}
+	return c.Type
 }

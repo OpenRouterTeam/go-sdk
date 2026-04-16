@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatToolMessageRole string
-
-const (
-	ChatToolMessageRoleTool ChatToolMessageRole = "tool"
-)
-
-func (e ChatToolMessageRole) ToPointer() *ChatToolMessageRole {
-	return &e
-}
-func (e *ChatToolMessageRole) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "tool":
-		*e = ChatToolMessageRole(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatToolMessageRole: %v", v)
-	}
-}
-
 type ChatToolMessageContentType string
 
 const (
@@ -122,11 +99,34 @@ func (u ChatToolMessageContent) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ChatToolMessageContent: all fields are null")
 }
 
+type ChatToolMessageRole string
+
+const (
+	ChatToolMessageRoleTool ChatToolMessageRole = "tool"
+)
+
+func (e ChatToolMessageRole) ToPointer() *ChatToolMessageRole {
+	return &e
+}
+func (e *ChatToolMessageRole) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tool":
+		*e = ChatToolMessageRole(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatToolMessageRole: %v", v)
+	}
+}
+
 // ChatToolMessage - Tool response message
 type ChatToolMessage struct {
-	Role ChatToolMessageRole `json:"role"`
 	// Tool response content
 	Content ChatToolMessageContent `json:"content"`
+	Role    ChatToolMessageRole    `json:"role"`
 	// ID of the assistant message tool call this message responds to
 	ToolCallID string `json:"tool_call_id"`
 }
@@ -142,18 +142,18 @@ func (c *ChatToolMessage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatToolMessage) GetRole() ChatToolMessageRole {
-	if c == nil {
-		return ChatToolMessageRole("")
-	}
-	return c.Role
-}
-
 func (c *ChatToolMessage) GetContent() ChatToolMessageContent {
 	if c == nil {
 		return ChatToolMessageContent{}
 	}
 	return c.Content
+}
+
+func (c *ChatToolMessage) GetRole() ChatToolMessageRole {
+	if c == nil {
+		return ChatToolMessageRole("")
+	}
+	return c.Role
 }
 
 func (c *ChatToolMessage) GetToolCallID() string {

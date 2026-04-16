@@ -12,19 +12,12 @@ import (
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 type RateLimit struct {
-	// Number of requests allowed per interval
-	Requests int64 `json:"requests"`
 	// Rate limit interval
 	Interval string `json:"interval"`
 	// Note about the rate limit
 	Note string `json:"note"`
-}
-
-func (r *RateLimit) GetRequests() int64 {
-	if r == nil {
-		return 0
-	}
-	return r.Requests
+	// Number of requests allowed per interval
+	Requests int64 `json:"requests"`
 }
 
 func (r *RateLimit) GetInterval() string {
@@ -41,28 +34,29 @@ func (r *RateLimit) GetNote() string {
 	return r.Note
 }
 
+func (r *RateLimit) GetRequests() int64 {
+	if r == nil {
+		return 0
+	}
+	return r.Requests
+}
+
 // GetCurrentKeyData - Current API key information
 type GetCurrentKeyData struct {
-	// Human-readable label for the API key
-	Label string `json:"label"`
-	// Spending limit for the API key in USD
-	Limit float64 `json:"limit"`
-	// Total OpenRouter credit usage (in USD) for the API key
-	Usage float64 `json:"usage"`
-	// OpenRouter credit usage (in USD) for the current UTC day
-	UsageDaily float64 `json:"usage_daily"`
-	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
-	UsageWeekly float64 `json:"usage_weekly"`
-	// OpenRouter credit usage (in USD) for the current UTC month
-	UsageMonthly float64 `json:"usage_monthly"`
 	// Total external BYOK usage (in USD) for the API key
 	ByokUsage float64 `json:"byok_usage"`
 	// External BYOK usage (in USD) for the current UTC day
 	ByokUsageDaily float64 `json:"byok_usage_daily"`
-	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
-	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
 	// External BYOK usage (in USD) for current UTC month
 	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
+	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
+	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
+	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
+	CreatorUserID *string `json:"creator_user_id"`
+	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
+	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Whether to include external BYOK usage in the credit limit
+	IncludeByokInLimit bool `json:"include_byok_in_limit"`
 	// Whether this is a free tier API key
 	IsFreeTier bool `json:"is_free_tier"`
 	// Whether this is a management key
@@ -71,20 +65,26 @@ type GetCurrentKeyData struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	IsProvisioningKey bool `json:"is_provisioning_key"`
+	// Human-readable label for the API key
+	Label string `json:"label"`
+	// Spending limit for the API key in USD
+	Limit float64 `json:"limit"`
 	// Remaining spending limit in USD
 	LimitRemaining float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
-	// Whether to include external BYOK usage in the credit limit
-	IncludeByokInLimit bool `json:"include_byok_in_limit"`
-	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
-	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
-	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
-	CreatorUserID *string `json:"creator_user_id"`
 	// Legacy rate limit information about a key. Will always return -1.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	RateLimit RateLimit `json:"rate_limit"`
+	// Total OpenRouter credit usage (in USD) for the API key
+	Usage float64 `json:"usage"`
+	// OpenRouter credit usage (in USD) for the current UTC day
+	UsageDaily float64 `json:"usage_daily"`
+	// OpenRouter credit usage (in USD) for the current UTC month
+	UsageMonthly float64 `json:"usage_monthly"`
+	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
+	UsageWeekly float64 `json:"usage_weekly"`
 }
 
 func (g GetCurrentKeyData) MarshalJSON() ([]byte, error) {
@@ -96,48 +96,6 @@ func (g *GetCurrentKeyData) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (g *GetCurrentKeyData) GetLabel() string {
-	if g == nil {
-		return ""
-	}
-	return g.Label
-}
-
-func (g *GetCurrentKeyData) GetLimit() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.Limit
-}
-
-func (g *GetCurrentKeyData) GetUsage() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.Usage
-}
-
-func (g *GetCurrentKeyData) GetUsageDaily() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.UsageDaily
-}
-
-func (g *GetCurrentKeyData) GetUsageWeekly() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.UsageWeekly
-}
-
-func (g *GetCurrentKeyData) GetUsageMonthly() float64 {
-	if g == nil {
-		return 0.0
-	}
-	return g.UsageMonthly
 }
 
 func (g *GetCurrentKeyData) GetByokUsage() float64 {
@@ -154,6 +112,13 @@ func (g *GetCurrentKeyData) GetByokUsageDaily() float64 {
 	return g.ByokUsageDaily
 }
 
+func (g *GetCurrentKeyData) GetByokUsageMonthly() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.ByokUsageMonthly
+}
+
 func (g *GetCurrentKeyData) GetByokUsageWeekly() float64 {
 	if g == nil {
 		return 0.0
@@ -161,11 +126,25 @@ func (g *GetCurrentKeyData) GetByokUsageWeekly() float64 {
 	return g.ByokUsageWeekly
 }
 
-func (g *GetCurrentKeyData) GetByokUsageMonthly() float64 {
+func (g *GetCurrentKeyData) GetCreatorUserID() *string {
 	if g == nil {
-		return 0.0
+		return nil
 	}
-	return g.ByokUsageMonthly
+	return g.CreatorUserID
+}
+
+func (g *GetCurrentKeyData) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
+	if g == nil {
+		return nil
+	}
+	return g.ExpiresAt
+}
+
+func (g *GetCurrentKeyData) GetIncludeByokInLimit() bool {
+	if g == nil {
+		return false
+	}
+	return g.IncludeByokInLimit
 }
 
 func (g *GetCurrentKeyData) GetIsFreeTier() bool {
@@ -189,6 +168,20 @@ func (g *GetCurrentKeyData) GetIsProvisioningKey() bool {
 	return g.IsProvisioningKey
 }
 
+func (g *GetCurrentKeyData) GetLabel() string {
+	if g == nil {
+		return ""
+	}
+	return g.Label
+}
+
+func (g *GetCurrentKeyData) GetLimit() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.Limit
+}
+
 func (g *GetCurrentKeyData) GetLimitRemaining() float64 {
 	if g == nil {
 		return 0.0
@@ -203,32 +196,39 @@ func (g *GetCurrentKeyData) GetLimitReset() *string {
 	return g.LimitReset
 }
 
-func (g *GetCurrentKeyData) GetIncludeByokInLimit() bool {
-	if g == nil {
-		return false
-	}
-	return g.IncludeByokInLimit
-}
-
-func (g *GetCurrentKeyData) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
-	if g == nil {
-		return nil
-	}
-	return g.ExpiresAt
-}
-
-func (g *GetCurrentKeyData) GetCreatorUserID() *string {
-	if g == nil {
-		return nil
-	}
-	return g.CreatorUserID
-}
-
 func (g *GetCurrentKeyData) GetRateLimit() RateLimit {
 	if g == nil {
 		return RateLimit{}
 	}
 	return g.RateLimit
+}
+
+func (g *GetCurrentKeyData) GetUsage() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.Usage
+}
+
+func (g *GetCurrentKeyData) GetUsageDaily() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.UsageDaily
+}
+
+func (g *GetCurrentKeyData) GetUsageMonthly() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.UsageMonthly
+}
+
+func (g *GetCurrentKeyData) GetUsageWeekly() float64 {
+	if g == nil {
+		return 0.0
+	}
+	return g.UsageWeekly
 }
 
 // GetCurrentKeyResponse - API key details

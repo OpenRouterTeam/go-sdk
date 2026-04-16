@@ -47,23 +47,23 @@ func (e *Role) IsExact() bool {
 }
 
 type ListOrganizationMembersData struct {
-	// User ID of the organization member
-	ID string `json:"id"`
-	// First name of the member
-	FirstName *string `json:"first_name"`
-	// Last name of the member
-	LastName *string `json:"last_name"`
 	// Email address of the member
 	Email string `json:"email"`
+	// First name of the member
+	FirstName *string `json:"first_name"`
+	// User ID of the organization member
+	ID string `json:"id"`
+	// Last name of the member
+	LastName *string `json:"last_name"`
 	// Role of the member in the organization
 	Role Role `json:"role"`
 }
 
-func (l *ListOrganizationMembersData) GetID() string {
+func (l *ListOrganizationMembersData) GetEmail() string {
 	if l == nil {
 		return ""
 	}
-	return l.ID
+	return l.Email
 }
 
 func (l *ListOrganizationMembersData) GetFirstName() *string {
@@ -73,18 +73,18 @@ func (l *ListOrganizationMembersData) GetFirstName() *string {
 	return l.FirstName
 }
 
+func (l *ListOrganizationMembersData) GetID() string {
+	if l == nil {
+		return ""
+	}
+	return l.ID
+}
+
 func (l *ListOrganizationMembersData) GetLastName() *string {
 	if l == nil {
 		return nil
 	}
 	return l.LastName
-}
-
-func (l *ListOrganizationMembersData) GetEmail() string {
-	if l == nil {
-		return ""
-	}
-	return l.Email
 }
 
 func (l *ListOrganizationMembersData) GetRole() Role {

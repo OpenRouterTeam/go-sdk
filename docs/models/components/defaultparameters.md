@@ -7,9 +7,9 @@ Default parameters for this model
 
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `Temperature`                              | `*float64`                                 | :heavy_minus_sign:                         | N/A                                        |
-| `TopP`                                     | `*float64`                                 | :heavy_minus_sign:                         | N/A                                        |
-| `TopK`                                     | optionalnullable.OptionalNullable[`int64`] | :heavy_minus_sign:                         | N/A                                        |
 | `FrequencyPenalty`                         | `*float64`                                 | :heavy_minus_sign:                         | N/A                                        |
 | `PresencePenalty`                          | `*float64`                                 | :heavy_minus_sign:                         | N/A                                        |
 | `RepetitionPenalty`                        | `*float64`                                 | :heavy_minus_sign:                         | N/A                                        |
+| `Temperature`                              | `*float64`                                 | :heavy_minus_sign:                         | N/A                                        |
+| `TopK`                                     | optionalnullable.OptionalNullable[`int64`] | :heavy_minus_sign:                         | N/A                                        |
+| `TopP`                                     | `*float64`                                 | :heavy_minus_sign:                         | N/A                                        |

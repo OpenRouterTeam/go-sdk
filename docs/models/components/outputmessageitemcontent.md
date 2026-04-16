@@ -25,5 +25,7 @@ switch outputMessageItemContent.Type {
 		// outputMessageItemContent.ResponseOutputText is populated
 	case components.OutputMessageItemContentTypeRefusal:
 		// outputMessageItemContent.OpenAIResponsesRefusalContent is populated
+	default:
+		// Unknown type - use outputMessageItemContent.GetUnknownRaw() for raw JSON
 }
 ```

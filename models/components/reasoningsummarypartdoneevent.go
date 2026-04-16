@@ -33,12 +33,12 @@ func (e *ReasoningSummaryPartDoneEventType) UnmarshalJSON(data []byte) error {
 
 // ReasoningSummaryPartDoneEvent - Event emitted when a reasoning summary part is complete
 type ReasoningSummaryPartDoneEvent struct {
-	Type           ReasoningSummaryPartDoneEventType `json:"type"`
-	OutputIndex    int64                             `json:"output_index"`
 	ItemID         string                            `json:"item_id"`
-	SummaryIndex   int64                             `json:"summary_index"`
+	OutputIndex    int64                             `json:"output_index"`
 	Part           ReasoningSummaryText              `json:"part"`
 	SequenceNumber int64                             `json:"sequence_number"`
+	SummaryIndex   int64                             `json:"summary_index"`
+	Type           ReasoningSummaryPartDoneEventType `json:"type"`
 }
 
 func (r ReasoningSummaryPartDoneEvent) MarshalJSON() ([]byte, error) {
@@ -52,20 +52,6 @@ func (r *ReasoningSummaryPartDoneEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningSummaryPartDoneEvent) GetType() ReasoningSummaryPartDoneEventType {
-	if r == nil {
-		return ReasoningSummaryPartDoneEventType("")
-	}
-	return r.Type
-}
-
-func (r *ReasoningSummaryPartDoneEvent) GetOutputIndex() int64 {
-	if r == nil {
-		return 0
-	}
-	return r.OutputIndex
-}
-
 func (r *ReasoningSummaryPartDoneEvent) GetItemID() string {
 	if r == nil {
 		return ""
@@ -73,11 +59,11 @@ func (r *ReasoningSummaryPartDoneEvent) GetItemID() string {
 	return r.ItemID
 }
 
-func (r *ReasoningSummaryPartDoneEvent) GetSummaryIndex() int64 {
+func (r *ReasoningSummaryPartDoneEvent) GetOutputIndex() int64 {
 	if r == nil {
 		return 0
 	}
-	return r.SummaryIndex
+	return r.OutputIndex
 }
 
 func (r *ReasoningSummaryPartDoneEvent) GetPart() ReasoningSummaryText {
@@ -92,4 +78,18 @@ func (r *ReasoningSummaryPartDoneEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return r.SequenceNumber
+}
+
+func (r *ReasoningSummaryPartDoneEvent) GetSummaryIndex() int64 {
+	if r == nil {
+		return 0
+	}
+	return r.SummaryIndex
+}
+
+func (r *ReasoningSummaryPartDoneEvent) GetType() ReasoningSummaryPartDoneEventType {
+	if r == nil {
+		return ReasoningSummaryPartDoneEventType("")
+	}
+	return r.Type
 }

@@ -34,19 +34,19 @@ func (e *ChatResultObject) UnmarshalJSON(data []byte) error {
 
 // ChatResult - Chat completion response
 type ChatResult struct {
-	// Unique completion identifier
-	ID string `json:"id"`
 	// List of completion choices
 	Choices []ChatChoice `json:"choices"`
 	// Unix timestamp of creation
 	Created int64 `json:"created"`
+	// Unique completion identifier
+	ID string `json:"id"`
 	// Model used for completion
 	Model  string           `json:"model"`
 	Object ChatResultObject `json:"object"`
-	// System fingerprint
-	SystemFingerprint *string `json:"system_fingerprint"`
 	// The service tier used by the upstream provider for this request
 	ServiceTier optionalnullable.OptionalNullable[string] `json:"service_tier,omitzero"`
+	// System fingerprint
+	SystemFingerprint *string `json:"system_fingerprint"`
 	// Token usage statistics
 	Usage *ChatUsage `json:"usage,omitzero"`
 }
@@ -60,13 +60,6 @@ func (c *ChatResult) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ChatResult) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
 }
 
 func (c *ChatResult) GetChoices() []ChatChoice {
@@ -83,6 +76,13 @@ func (c *ChatResult) GetCreated() int64 {
 	return c.Created
 }
 
+func (c *ChatResult) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
 func (c *ChatResult) GetModel() string {
 	if c == nil {
 		return ""
@@ -97,18 +97,18 @@ func (c *ChatResult) GetObject() ChatResultObject {
 	return c.Object
 }
 
-func (c *ChatResult) GetSystemFingerprint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SystemFingerprint
-}
-
 func (c *ChatResult) GetServiceTier() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.ServiceTier
+}
+
+func (c *ChatResult) GetSystemFingerprint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFingerprint
 }
 
 func (c *ChatResult) GetUsage() *ChatUsage {

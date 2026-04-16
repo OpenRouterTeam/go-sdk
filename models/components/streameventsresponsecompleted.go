@@ -33,10 +33,10 @@ func (e *StreamEventsResponseCompletedType) UnmarshalJSON(data []byte) error {
 
 // StreamEventsResponseCompleted - Event emitted when a response has completed successfully
 type StreamEventsResponseCompleted struct {
-	Type StreamEventsResponseCompletedType `json:"type"`
 	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
+	Response       OpenResponsesResult               `json:"response"`
+	SequenceNumber int64                             `json:"sequence_number"`
+	Type           StreamEventsResponseCompletedType `json:"type"`
 }
 
 func (s StreamEventsResponseCompleted) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (s *StreamEventsResponseCompleted) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (s *StreamEventsResponseCompleted) GetType() StreamEventsResponseCompletedType {
-	if s == nil {
-		return StreamEventsResponseCompletedType("")
-	}
-	return s.Type
 }
 
 func (s *StreamEventsResponseCompleted) GetResponse() OpenResponsesResult {
@@ -69,4 +62,11 @@ func (s *StreamEventsResponseCompleted) GetSequenceNumber() int64 {
 		return 0
 	}
 	return s.SequenceNumber
+}
+
+func (s *StreamEventsResponseCompleted) GetType() StreamEventsResponseCompletedType {
+	if s == nil {
+		return StreamEventsResponseCompletedType("")
+	}
+	return s.Type
 }

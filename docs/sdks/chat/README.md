@@ -32,26 +32,26 @@ func main() {
     )
 
     res, err := s.Chat.Send(ctx, components.ChatRequest{
+        MaxTokens: openrouter.Pointer[int64](150),
         Messages: []components.ChatMessages{
             components.CreateChatMessagesSystem(
                 components.ChatSystemMessage{
-                    Role: components.ChatSystemMessageRoleSystem,
                     Content: components.CreateChatSystemMessageContentStr(
                         "You are a helpful assistant.",
                     ),
+                    Role: components.ChatSystemMessageRoleSystem,
                 },
             ),
             components.CreateChatMessagesUser(
                 components.ChatUserMessage{
-                    Role: components.ChatUserMessageRoleUser,
                     Content: components.CreateChatUserMessageContentStr(
                         "What is the capital of France?",
                     ),
+                    Role: components.ChatUserMessageRoleUser,
                 },
             ),
         },
         Model: openrouter.Pointer("openai/gpt-4"),
-        MaxTokens: openrouter.Pointer[int64](150),
         Temperature: openrouter.Pointer[float64](0.7),
     })
     if err != nil {

@@ -34,11 +34,11 @@ func (e *FormatJSONSchemaConfigType) UnmarshalJSON(data []byte) error {
 
 // FormatJSONSchemaConfig - JSON schema constrained response format
 type FormatJSONSchemaConfig struct {
-	Type        FormatJSONSchemaConfigType              `json:"type"`
-	Name        string                                  `json:"name"`
 	Description *string                                 `json:"description,omitzero"`
-	Strict      optionalnullable.OptionalNullable[bool] `json:"strict,omitzero"`
+	Name        string                                  `json:"name"`
 	Schema      map[string]any                          `json:"schema"`
+	Strict      optionalnullable.OptionalNullable[bool] `json:"strict,omitzero"`
+	Type        FormatJSONSchemaConfigType              `json:"type"`
 }
 
 func (f FormatJSONSchemaConfig) MarshalJSON() ([]byte, error) {
@@ -52,11 +52,11 @@ func (f *FormatJSONSchemaConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FormatJSONSchemaConfig) GetType() FormatJSONSchemaConfigType {
+func (f *FormatJSONSchemaConfig) GetDescription() *string {
 	if f == nil {
-		return FormatJSONSchemaConfigType("")
+		return nil
 	}
-	return f.Type
+	return f.Description
 }
 
 func (f *FormatJSONSchemaConfig) GetName() string {
@@ -66,11 +66,11 @@ func (f *FormatJSONSchemaConfig) GetName() string {
 	return f.Name
 }
 
-func (f *FormatJSONSchemaConfig) GetDescription() *string {
+func (f *FormatJSONSchemaConfig) GetSchema() map[string]any {
 	if f == nil {
-		return nil
+		return map[string]any{}
 	}
-	return f.Description
+	return f.Schema
 }
 
 func (f *FormatJSONSchemaConfig) GetStrict() optionalnullable.OptionalNullable[bool] {
@@ -80,9 +80,9 @@ func (f *FormatJSONSchemaConfig) GetStrict() optionalnullable.OptionalNullable[b
 	return f.Strict
 }
 
-func (f *FormatJSONSchemaConfig) GetSchema() map[string]any {
+func (f *FormatJSONSchemaConfig) GetType() FormatJSONSchemaConfigType {
 	if f == nil {
-		return map[string]any{}
+		return FormatJSONSchemaConfigType("")
 	}
-	return f.Schema
+	return f.Type
 }

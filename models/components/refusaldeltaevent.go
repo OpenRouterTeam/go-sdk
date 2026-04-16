@@ -33,12 +33,12 @@ func (e *RefusalDeltaEventType) UnmarshalJSON(data []byte) error {
 
 // RefusalDeltaEvent - Event emitted when a refusal delta is streamed
 type RefusalDeltaEvent struct {
-	Type           RefusalDeltaEventType `json:"type"`
-	OutputIndex    int64                 `json:"output_index"`
-	ItemID         string                `json:"item_id"`
 	ContentIndex   int64                 `json:"content_index"`
 	Delta          string                `json:"delta"`
+	ItemID         string                `json:"item_id"`
+	OutputIndex    int64                 `json:"output_index"`
 	SequenceNumber int64                 `json:"sequence_number"`
+	Type           RefusalDeltaEventType `json:"type"`
 }
 
 func (r RefusalDeltaEvent) MarshalJSON() ([]byte, error) {
@@ -50,27 +50,6 @@ func (r *RefusalDeltaEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (r *RefusalDeltaEvent) GetType() RefusalDeltaEventType {
-	if r == nil {
-		return RefusalDeltaEventType("")
-	}
-	return r.Type
-}
-
-func (r *RefusalDeltaEvent) GetOutputIndex() int64 {
-	if r == nil {
-		return 0
-	}
-	return r.OutputIndex
-}
-
-func (r *RefusalDeltaEvent) GetItemID() string {
-	if r == nil {
-		return ""
-	}
-	return r.ItemID
 }
 
 func (r *RefusalDeltaEvent) GetContentIndex() int64 {
@@ -87,9 +66,30 @@ func (r *RefusalDeltaEvent) GetDelta() string {
 	return r.Delta
 }
 
+func (r *RefusalDeltaEvent) GetItemID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ItemID
+}
+
+func (r *RefusalDeltaEvent) GetOutputIndex() int64 {
+	if r == nil {
+		return 0
+	}
+	return r.OutputIndex
+}
+
 func (r *RefusalDeltaEvent) GetSequenceNumber() int64 {
 	if r == nil {
 		return 0
 	}
 	return r.SequenceNumber
+}
+
+func (r *RefusalDeltaEvent) GetType() RefusalDeltaEventType {
+	if r == nil {
+		return RefusalDeltaEventType("")
+	}
+	return r.Type
 }

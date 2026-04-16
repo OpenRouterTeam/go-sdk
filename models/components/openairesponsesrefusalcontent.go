@@ -32,8 +32,8 @@ func (e *OpenAIResponsesRefusalContentType) UnmarshalJSON(data []byte) error {
 }
 
 type OpenAIResponsesRefusalContent struct {
-	Type    OpenAIResponsesRefusalContentType `json:"type"`
 	Refusal string                            `json:"refusal"`
+	Type    OpenAIResponsesRefusalContentType `json:"type"`
 }
 
 func (o OpenAIResponsesRefusalContent) MarshalJSON() ([]byte, error) {
@@ -47,16 +47,16 @@ func (o *OpenAIResponsesRefusalContent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OpenAIResponsesRefusalContent) GetType() OpenAIResponsesRefusalContentType {
-	if o == nil {
-		return OpenAIResponsesRefusalContentType("")
-	}
-	return o.Type
-}
-
 func (o *OpenAIResponsesRefusalContent) GetRefusal() string {
 	if o == nil {
 		return ""
 	}
 	return o.Refusal
+}
+
+func (o *OpenAIResponsesRefusalContent) GetType() OpenAIResponsesRefusalContentType {
+	if o == nil {
+		return OpenAIResponsesRefusalContentType("")
+	}
+	return o.Type
 }

@@ -32,8 +32,8 @@ func (e *ReasoningTextContentType) UnmarshalJSON(data []byte) error {
 }
 
 type ReasoningTextContent struct {
-	Type ReasoningTextContentType `json:"type"`
 	Text string                   `json:"text"`
+	Type ReasoningTextContentType `json:"type"`
 }
 
 func (r ReasoningTextContent) MarshalJSON() ([]byte, error) {
@@ -47,16 +47,16 @@ func (r *ReasoningTextContent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningTextContent) GetType() ReasoningTextContentType {
-	if r == nil {
-		return ReasoningTextContentType("")
-	}
-	return r.Type
-}
-
 func (r *ReasoningTextContent) GetText() string {
 	if r == nil {
 		return ""
 	}
 	return r.Text
+}
+
+func (r *ReasoningTextContent) GetType() ReasoningTextContentType {
+	if r == nil {
+		return ReasoningTextContentType("")
+	}
+	return r.Type
 }

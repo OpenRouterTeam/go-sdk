@@ -33,12 +33,12 @@ func (e *ImageGenCallPartialImageEventType) UnmarshalJSON(data []byte) error {
 
 // ImageGenCallPartialImageEvent - Image generation call with partial image
 type ImageGenCallPartialImageEvent struct {
-	Type              ImageGenCallPartialImageEventType `json:"type"`
 	ItemID            string                            `json:"item_id"`
 	OutputIndex       int64                             `json:"output_index"`
-	SequenceNumber    int64                             `json:"sequence_number"`
 	PartialImageB64   string                            `json:"partial_image_b64"`
 	PartialImageIndex int64                             `json:"partial_image_index"`
+	SequenceNumber    int64                             `json:"sequence_number"`
+	Type              ImageGenCallPartialImageEventType `json:"type"`
 }
 
 func (i ImageGenCallPartialImageEvent) MarshalJSON() ([]byte, error) {
@@ -50,13 +50,6 @@ func (i *ImageGenCallPartialImageEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (i *ImageGenCallPartialImageEvent) GetType() ImageGenCallPartialImageEventType {
-	if i == nil {
-		return ImageGenCallPartialImageEventType("")
-	}
-	return i.Type
 }
 
 func (i *ImageGenCallPartialImageEvent) GetItemID() string {
@@ -73,13 +66,6 @@ func (i *ImageGenCallPartialImageEvent) GetOutputIndex() int64 {
 	return i.OutputIndex
 }
 
-func (i *ImageGenCallPartialImageEvent) GetSequenceNumber() int64 {
-	if i == nil {
-		return 0
-	}
-	return i.SequenceNumber
-}
-
 func (i *ImageGenCallPartialImageEvent) GetPartialImageB64() string {
 	if i == nil {
 		return ""
@@ -92,4 +78,18 @@ func (i *ImageGenCallPartialImageEvent) GetPartialImageIndex() int64 {
 		return 0
 	}
 	return i.PartialImageIndex
+}
+
+func (i *ImageGenCallPartialImageEvent) GetSequenceNumber() int64 {
+	if i == nil {
+		return 0
+	}
+	return i.SequenceNumber
+}
+
+func (i *ImageGenCallPartialImageEvent) GetType() ImageGenCallPartialImageEventType {
+	if i == nil {
+		return ImageGenCallPartialImageEventType("")
+	}
+	return i.Type
 }

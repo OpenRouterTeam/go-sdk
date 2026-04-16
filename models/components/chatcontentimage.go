@@ -8,29 +8,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatContentImageType string
-
-const (
-	ChatContentImageTypeImageURL ChatContentImageType = "image_url"
-)
-
-func (e ChatContentImageType) ToPointer() *ChatContentImageType {
-	return &e
-}
-func (e *ChatContentImageType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "image_url":
-		*e = ChatContentImageType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatContentImageType: %v", v)
-	}
-}
-
 // ChatContentImageDetail - Image detail level for vision models
 type ChatContentImageDetail string
 
@@ -56,10 +33,10 @@ func (e *ChatContentImageDetail) IsExact() bool {
 }
 
 type ChatContentImageImageURL struct {
-	// URL of the image (data: URLs supported)
-	URL string `json:"url"`
 	// Image detail level for vision models
 	Detail *ChatContentImageDetail `json:"detail,omitzero"`
+	// URL of the image (data: URLs supported)
+	URL string `json:"url"`
 }
 
 func (c ChatContentImageImageURL) MarshalJSON() ([]byte, error) {
@@ -73,13 +50,6 @@ func (c *ChatContentImageImageURL) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatContentImageImageURL) GetURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.URL
-}
-
 func (c *ChatContentImageImageURL) GetDetail() *ChatContentImageDetail {
 	if c == nil {
 		return nil
@@ -87,10 +57,40 @@ func (c *ChatContentImageImageURL) GetDetail() *ChatContentImageDetail {
 	return c.Detail
 }
 
+func (c *ChatContentImageImageURL) GetURL() string {
+	if c == nil {
+		return ""
+	}
+	return c.URL
+}
+
+type ChatContentImageType string
+
+const (
+	ChatContentImageTypeImageURL ChatContentImageType = "image_url"
+)
+
+func (e ChatContentImageType) ToPointer() *ChatContentImageType {
+	return &e
+}
+func (e *ChatContentImageType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "image_url":
+		*e = ChatContentImageType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatContentImageType: %v", v)
+	}
+}
+
 // ChatContentImage - Image content part for vision models
 type ChatContentImage struct {
-	Type     ChatContentImageType     `json:"type"`
 	ImageURL ChatContentImageImageURL `json:"image_url"`
+	Type     ChatContentImageType     `json:"type"`
 }
 
 func (c ChatContentImage) MarshalJSON() ([]byte, error) {
@@ -104,16 +104,16 @@ func (c *ChatContentImage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatContentImage) GetType() ChatContentImageType {
-	if c == nil {
-		return ChatContentImageType("")
-	}
-	return c.Type
-}
-
 func (c *ChatContentImage) GetImageURL() ChatContentImageImageURL {
 	if c == nil {
 		return ChatContentImageImageURL{}
 	}
 	return c.ImageURL
+}
+
+func (c *ChatContentImage) GetType() ChatContentImageType {
+	if c == nil {
+		return ChatContentImageType("")
+	}
+	return c.Type
 }
