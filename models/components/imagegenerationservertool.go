@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ImageGenerationServerToolType string
-
-const (
-	ImageGenerationServerToolTypeImageGeneration ImageGenerationServerToolType = "image_generation"
-)
-
-func (e ImageGenerationServerToolType) ToPointer() *ImageGenerationServerToolType {
-	return &e
-}
-func (e *ImageGenerationServerToolType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "image_generation":
-		*e = ImageGenerationServerToolType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ImageGenerationServerToolType: %v", v)
-	}
-}
-
 type Background string
 
 const (
@@ -78,8 +55,8 @@ func (e *InputFidelity) IsExact() bool {
 }
 
 type InputImageMask struct {
-	ImageURL *string `json:"image_url,omitzero"`
 	FileID   *string `json:"file_id,omitzero"`
+	ImageURL *string `json:"image_url,omitzero"`
 }
 
 func (i InputImageMask) MarshalJSON() ([]byte, error) {
@@ -93,18 +70,18 @@ func (i *InputImageMask) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputImageMask) GetImageURL() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ImageURL
-}
-
 func (i *InputImageMask) GetFileID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.FileID
+}
+
+func (i *InputImageMask) GetImageURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ImageURL
 }
 
 type ModelEnum string
@@ -222,9 +199,31 @@ func (e *Size) IsExact() bool {
 	return false
 }
 
+type ImageGenerationServerToolType string
+
+const (
+	ImageGenerationServerToolTypeImageGeneration ImageGenerationServerToolType = "image_generation"
+)
+
+func (e ImageGenerationServerToolType) ToPointer() *ImageGenerationServerToolType {
+	return &e
+}
+func (e *ImageGenerationServerToolType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "image_generation":
+		*e = ImageGenerationServerToolType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ImageGenerationServerToolType: %v", v)
+	}
+}
+
 // ImageGenerationServerTool - Image generation tool configuration
 type ImageGenerationServerTool struct {
-	Type              ImageGenerationServerToolType                    `json:"type"`
 	Background        *Background                                      `json:"background,omitzero"`
 	InputFidelity     optionalnullable.OptionalNullable[InputFidelity] `json:"input_fidelity,omitzero"`
 	InputImageMask    *InputImageMask                                  `json:"input_image_mask,omitzero"`
@@ -235,6 +234,7 @@ type ImageGenerationServerTool struct {
 	PartialImages     *int64                                           `json:"partial_images,omitzero"`
 	Quality           *Quality                                         `json:"quality,omitzero"`
 	Size              *Size                                            `json:"size,omitzero"`
+	Type              ImageGenerationServerToolType                    `json:"type"`
 }
 
 func (i ImageGenerationServerTool) MarshalJSON() ([]byte, error) {
@@ -246,13 +246,6 @@ func (i *ImageGenerationServerTool) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (i *ImageGenerationServerTool) GetType() ImageGenerationServerToolType {
-	if i == nil {
-		return ImageGenerationServerToolType("")
-	}
-	return i.Type
 }
 
 func (i *ImageGenerationServerTool) GetBackground() *Background {
@@ -323,4 +316,11 @@ func (i *ImageGenerationServerTool) GetSize() *Size {
 		return nil
 	}
 	return i.Size
+}
+
+func (i *ImageGenerationServerTool) GetType() ImageGenerationServerToolType {
+	if i == nil {
+		return ImageGenerationServerToolType("")
+	}
+	return i.Type
 }

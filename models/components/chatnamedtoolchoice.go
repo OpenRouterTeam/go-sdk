@@ -8,29 +8,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatNamedToolChoiceType string
-
-const (
-	ChatNamedToolChoiceTypeFunction ChatNamedToolChoiceType = "function"
-)
-
-func (e ChatNamedToolChoiceType) ToPointer() *ChatNamedToolChoiceType {
-	return &e
-}
-func (e *ChatNamedToolChoiceType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "function":
-		*e = ChatNamedToolChoiceType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatNamedToolChoiceType: %v", v)
-	}
-}
-
 type ChatNamedToolChoiceFunction struct {
 	// Function name to call
 	Name string `json:"name"`
@@ -54,10 +31,33 @@ func (c *ChatNamedToolChoiceFunction) GetName() string {
 	return c.Name
 }
 
+type ChatNamedToolChoiceType string
+
+const (
+	ChatNamedToolChoiceTypeFunction ChatNamedToolChoiceType = "function"
+)
+
+func (e ChatNamedToolChoiceType) ToPointer() *ChatNamedToolChoiceType {
+	return &e
+}
+func (e *ChatNamedToolChoiceType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "function":
+		*e = ChatNamedToolChoiceType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatNamedToolChoiceType: %v", v)
+	}
+}
+
 // ChatNamedToolChoice - Named tool choice for specific function
 type ChatNamedToolChoice struct {
-	Type     ChatNamedToolChoiceType     `json:"type"`
 	Function ChatNamedToolChoiceFunction `json:"function"`
+	Type     ChatNamedToolChoiceType     `json:"type"`
 }
 
 func (c ChatNamedToolChoice) MarshalJSON() ([]byte, error) {
@@ -71,16 +71,16 @@ func (c *ChatNamedToolChoice) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatNamedToolChoice) GetType() ChatNamedToolChoiceType {
-	if c == nil {
-		return ChatNamedToolChoiceType("")
-	}
-	return c.Type
-}
-
 func (c *ChatNamedToolChoice) GetFunction() ChatNamedToolChoiceFunction {
 	if c == nil {
 		return ChatNamedToolChoiceFunction{}
 	}
 	return c.Function
+}
+
+func (c *ChatNamedToolChoice) GetType() ChatNamedToolChoiceType {
+	if c == nil {
+		return ChatNamedToolChoiceType("")
+	}
+	return c.Type
 }

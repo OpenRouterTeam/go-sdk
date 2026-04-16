@@ -8,29 +8,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type InputAudioType string
-
-const (
-	InputAudioTypeInputAudio InputAudioType = "input_audio"
-)
-
-func (e InputAudioType) ToPointer() *InputAudioType {
-	return &e
-}
-func (e *InputAudioType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "input_audio":
-		*e = InputAudioType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputAudioType: %v", v)
-	}
-}
-
 type FormatEnum string
 
 const (
@@ -83,10 +60,33 @@ func (i *InputAudioInputAudio) GetFormat() FormatEnum {
 	return i.Format
 }
 
+type InputAudioType string
+
+const (
+	InputAudioTypeInputAudio InputAudioType = "input_audio"
+)
+
+func (e InputAudioType) ToPointer() *InputAudioType {
+	return &e
+}
+func (e *InputAudioType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "input_audio":
+		*e = InputAudioType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputAudioType: %v", v)
+	}
+}
+
 // InputAudio - Audio input content item
 type InputAudio struct {
-	Type       InputAudioType       `json:"type"`
 	InputAudio InputAudioInputAudio `json:"input_audio"`
+	Type       InputAudioType       `json:"type"`
 }
 
 func (i InputAudio) MarshalJSON() ([]byte, error) {
@@ -100,16 +100,16 @@ func (i *InputAudio) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputAudio) GetType() InputAudioType {
-	if i == nil {
-		return InputAudioType("")
-	}
-	return i.Type
-}
-
 func (i *InputAudio) GetInputAudio() InputAudioInputAudio {
 	if i == nil {
 		return InputAudioInputAudio{}
 	}
 	return i.InputAudio
+}
+
+func (i *InputAudio) GetType() InputAudioType {
+	if i == nil {
+		return InputAudioType("")
+	}
+	return i.Type
 }

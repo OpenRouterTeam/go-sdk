@@ -10,53 +10,32 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type OpenAIResponseFunctionToolCallOutputType string
-
-const (
-	OpenAIResponseFunctionToolCallOutputTypeFunctionCallOutput OpenAIResponseFunctionToolCallOutputType = "function_call_output"
-)
-
-func (e OpenAIResponseFunctionToolCallOutputType) ToPointer() *OpenAIResponseFunctionToolCallOutputType {
-	return &e
-}
-func (e *OpenAIResponseFunctionToolCallOutputType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "function_call_output":
-		*e = OpenAIResponseFunctionToolCallOutputType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OpenAIResponseFunctionToolCallOutputType: %v", v)
-	}
-}
-
 type OpenAIResponseFunctionToolCallOutputOutput1Type string
 
 const (
-	OpenAIResponseFunctionToolCallOutputOutput1TypeInputText  OpenAIResponseFunctionToolCallOutputOutput1Type = "input_text"
-	OpenAIResponseFunctionToolCallOutputOutput1TypeInputImage OpenAIResponseFunctionToolCallOutputOutput1Type = "input_image"
 	OpenAIResponseFunctionToolCallOutputOutput1TypeInputFile  OpenAIResponseFunctionToolCallOutputOutput1Type = "input_file"
+	OpenAIResponseFunctionToolCallOutputOutput1TypeInputImage OpenAIResponseFunctionToolCallOutputOutput1Type = "input_image"
+	OpenAIResponseFunctionToolCallOutputOutput1TypeInputText  OpenAIResponseFunctionToolCallOutputOutput1Type = "input_text"
+	OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown    OpenAIResponseFunctionToolCallOutputOutput1Type = "UNKNOWN"
 )
 
 type OpenAIResponseFunctionToolCallOutputOutput1 struct {
-	InputText  *InputText  `queryParam:"inline" union:"member"`
-	InputImage *InputImage `queryParam:"inline" union:"member"`
-	InputFile  *InputFile  `queryParam:"inline" union:"member"`
+	InputText  *InputText      `queryParam:"inline" union:"member"`
+	InputImage *InputImage     `queryParam:"inline" union:"member"`
+	InputFile  *InputFile      `queryParam:"inline" union:"member"`
+	UnknownRaw json.RawMessage `json:"-" union:"unknown"`
 
 	Type OpenAIResponseFunctionToolCallOutputOutput1Type
 }
 
-func CreateOpenAIResponseFunctionToolCallOutputOutput1InputText(inputText InputText) OpenAIResponseFunctionToolCallOutputOutput1 {
-	typ := OpenAIResponseFunctionToolCallOutputOutput1TypeInputText
+func CreateOpenAIResponseFunctionToolCallOutputOutput1InputFile(inputFile InputFile) OpenAIResponseFunctionToolCallOutputOutput1 {
+	typ := OpenAIResponseFunctionToolCallOutputOutput1TypeInputFile
 
-	typStr := InputTextType(typ)
-	inputText.Type = typStr
+	typStr := InputFileType(typ)
+	inputFile.Type = typStr
 
 	return OpenAIResponseFunctionToolCallOutputOutput1{
-		InputText: &inputText,
+		InputFile: &inputFile,
 		Type:      typ,
 	}
 }
@@ -73,16 +52,31 @@ func CreateOpenAIResponseFunctionToolCallOutputOutput1InputImage(inputImage Inpu
 	}
 }
 
-func CreateOpenAIResponseFunctionToolCallOutputOutput1InputFile(inputFile InputFile) OpenAIResponseFunctionToolCallOutputOutput1 {
-	typ := OpenAIResponseFunctionToolCallOutputOutput1TypeInputFile
+func CreateOpenAIResponseFunctionToolCallOutputOutput1InputText(inputText InputText) OpenAIResponseFunctionToolCallOutputOutput1 {
+	typ := OpenAIResponseFunctionToolCallOutputOutput1TypeInputText
 
-	typStr := InputFileType(typ)
-	inputFile.Type = typStr
+	typStr := InputTextType(typ)
+	inputText.Type = typStr
 
 	return OpenAIResponseFunctionToolCallOutputOutput1{
-		InputFile: &inputFile,
+		InputText: &inputText,
 		Type:      typ,
 	}
+}
+
+func CreateOpenAIResponseFunctionToolCallOutputOutput1Unknown(raw json.RawMessage) OpenAIResponseFunctionToolCallOutputOutput1 {
+	return OpenAIResponseFunctionToolCallOutputOutput1{
+		UnknownRaw: raw,
+		Type:       OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown,
+	}
+}
+
+func (u OpenAIResponseFunctionToolCallOutputOutput1) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u OpenAIResponseFunctionToolCallOutputOutput1) IsUnknown() bool {
+	return u.Type == OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown
 }
 
 func (u *OpenAIResponseFunctionToolCallOutputOutput1) UnmarshalJSON(data []byte) error {
@@ -93,18 +87,25 @@ func (u *OpenAIResponseFunctionToolCallOutputOutput1) UnmarshalJSON(data []byte)
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
-	case "input_text":
-		inputText := new(InputText)
-		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within OpenAIResponseFunctionToolCallOutputOutput1: %w", string(data), err)
+	case "input_file":
+		inputFile := new(InputFile)
+		if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_file) type InputFile within OpenAIResponseFunctionToolCallOutputOutput1: %w", string(data), err)
 		}
 
-		u.InputText = inputText
-		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeInputText
+		u.InputFile = inputFile
+		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeInputFile
 		return nil
 	case "input_image":
 		inputImage := new(InputImage)
@@ -115,18 +116,21 @@ func (u *OpenAIResponseFunctionToolCallOutputOutput1) UnmarshalJSON(data []byte)
 		u.InputImage = inputImage
 		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeInputImage
 		return nil
-	case "input_file":
-		inputFile := new(InputFile)
-		if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_file) type InputFile within OpenAIResponseFunctionToolCallOutputOutput1: %w", string(data), err)
+	case "input_text":
+		inputText := new(InputText)
+		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within OpenAIResponseFunctionToolCallOutputOutput1: %w", string(data), err)
 		}
 
-		u.InputFile = inputFile
-		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeInputFile
+		u.InputText = inputText
+		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeInputText
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenAIResponseFunctionToolCallOutputOutput1", string(data))
 }
 
 func (u OpenAIResponseFunctionToolCallOutputOutput1) MarshalJSON() ([]byte, error) {
@@ -142,6 +146,9 @@ func (u OpenAIResponseFunctionToolCallOutputOutput1) MarshalJSON() ([]byte, erro
 		return utils.MarshalJSON(u.InputFile, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type OpenAIResponseFunctionToolCallOutputOutput1: all fields are null")
 }
 
@@ -257,12 +264,35 @@ func (e *OpenAIResponseFunctionToolCallOutputStatus) IsExact() bool {
 	return false
 }
 
+type OpenAIResponseFunctionToolCallOutputType string
+
+const (
+	OpenAIResponseFunctionToolCallOutputTypeFunctionCallOutput OpenAIResponseFunctionToolCallOutputType = "function_call_output"
+)
+
+func (e OpenAIResponseFunctionToolCallOutputType) ToPointer() *OpenAIResponseFunctionToolCallOutputType {
+	return &e
+}
+func (e *OpenAIResponseFunctionToolCallOutputType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "function_call_output":
+		*e = OpenAIResponseFunctionToolCallOutputType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OpenAIResponseFunctionToolCallOutputType: %v", v)
+	}
+}
+
 type OpenAIResponseFunctionToolCallOutput struct {
-	Type   OpenAIResponseFunctionToolCallOutputType                                      `json:"type"`
-	ID     optionalnullable.OptionalNullable[string]                                     `json:"id,omitzero"`
 	CallID string                                                                        `json:"call_id"`
+	ID     optionalnullable.OptionalNullable[string]                                     `json:"id,omitzero"`
 	Output OpenAIResponseFunctionToolCallOutputOutput2                                   `json:"output"`
 	Status optionalnullable.OptionalNullable[OpenAIResponseFunctionToolCallOutputStatus] `json:"status,omitzero"`
+	Type   OpenAIResponseFunctionToolCallOutputType                                      `json:"type"`
 }
 
 func (o OpenAIResponseFunctionToolCallOutput) MarshalJSON() ([]byte, error) {
@@ -276,11 +306,11 @@ func (o *OpenAIResponseFunctionToolCallOutput) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-func (o *OpenAIResponseFunctionToolCallOutput) GetType() OpenAIResponseFunctionToolCallOutputType {
+func (o *OpenAIResponseFunctionToolCallOutput) GetCallID() string {
 	if o == nil {
-		return OpenAIResponseFunctionToolCallOutputType("")
+		return ""
 	}
-	return o.Type
+	return o.CallID
 }
 
 func (o *OpenAIResponseFunctionToolCallOutput) GetID() optionalnullable.OptionalNullable[string] {
@@ -288,13 +318,6 @@ func (o *OpenAIResponseFunctionToolCallOutput) GetID() optionalnullable.Optional
 		return nil
 	}
 	return o.ID
-}
-
-func (o *OpenAIResponseFunctionToolCallOutput) GetCallID() string {
-	if o == nil {
-		return ""
-	}
-	return o.CallID
 }
 
 func (o *OpenAIResponseFunctionToolCallOutput) GetOutput() OpenAIResponseFunctionToolCallOutputOutput2 {
@@ -309,4 +332,11 @@ func (o *OpenAIResponseFunctionToolCallOutput) GetStatus() optionalnullable.Opti
 		return nil
 	}
 	return o.Status
+}
+
+func (o *OpenAIResponseFunctionToolCallOutput) GetType() OpenAIResponseFunctionToolCallOutputType {
+	if o == nil {
+		return OpenAIResponseFunctionToolCallOutputType("")
+	}
+	return o.Type
 }

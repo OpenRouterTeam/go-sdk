@@ -5,16 +5,16 @@ Reasoning detail union schema
 
 ## Supported Types
 
-### ReasoningDetailSummary
-
-```go
-reasoningDetailUnion := components.CreateReasoningDetailUnionReasoningSummary(components.ReasoningDetailSummary{/* values here */})
-```
-
 ### ReasoningDetailEncrypted
 
 ```go
 reasoningDetailUnion := components.CreateReasoningDetailUnionReasoningEncrypted(components.ReasoningDetailEncrypted{/* values here */})
+```
+
+### ReasoningDetailSummary
+
+```go
+reasoningDetailUnion := components.CreateReasoningDetailUnionReasoningSummary(components.ReasoningDetailSummary{/* values here */})
 ```
 
 ### ReasoningDetailText
@@ -29,11 +29,13 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch reasoningDetailUnion.Type {
-	case components.ReasoningDetailUnionTypeReasoningSummary:
-		// reasoningDetailUnion.ReasoningDetailSummary is populated
 	case components.ReasoningDetailUnionTypeReasoningEncrypted:
 		// reasoningDetailUnion.ReasoningDetailEncrypted is populated
+	case components.ReasoningDetailUnionTypeReasoningSummary:
+		// reasoningDetailUnion.ReasoningDetailSummary is populated
 	case components.ReasoningDetailUnionTypeReasoningText:
 		// reasoningDetailUnion.ReasoningDetailText is populated
+	default:
+		// Unknown type - use reasoningDetailUnion.GetUnknownRaw() for raw JSON
 }
 ```

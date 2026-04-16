@@ -34,11 +34,11 @@ func (e *ReasoningDetailSummaryType) UnmarshalJSON(data []byte) error {
 
 // ReasoningDetailSummary - Reasoning detail summary schema
 type ReasoningDetailSummary struct {
-	Type    ReasoningDetailSummaryType                         `json:"type"`
-	Summary string                                             `json:"summary"`
-	ID      optionalnullable.OptionalNullable[string]          `json:"id,omitzero"`
 	Format  optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
+	ID      optionalnullable.OptionalNullable[string]          `json:"id,omitzero"`
 	Index   *int64                                             `json:"index,omitzero"`
+	Summary string                                             `json:"summary"`
+	Type    ReasoningDetailSummaryType                         `json:"type"`
 }
 
 func (r ReasoningDetailSummary) MarshalJSON() ([]byte, error) {
@@ -52,18 +52,11 @@ func (r *ReasoningDetailSummary) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningDetailSummary) GetType() ReasoningDetailSummaryType {
+func (r *ReasoningDetailSummary) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
 	if r == nil {
-		return ReasoningDetailSummaryType("")
+		return nil
 	}
-	return r.Type
-}
-
-func (r *ReasoningDetailSummary) GetSummary() string {
-	if r == nil {
-		return ""
-	}
-	return r.Summary
+	return r.Format
 }
 
 func (r *ReasoningDetailSummary) GetID() optionalnullable.OptionalNullable[string] {
@@ -73,16 +66,23 @@ func (r *ReasoningDetailSummary) GetID() optionalnullable.OptionalNullable[strin
 	return r.ID
 }
 
-func (r *ReasoningDetailSummary) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
-	if r == nil {
-		return nil
-	}
-	return r.Format
-}
-
 func (r *ReasoningDetailSummary) GetIndex() *int64 {
 	if r == nil {
 		return nil
 	}
 	return r.Index
+}
+
+func (r *ReasoningDetailSummary) GetSummary() string {
+	if r == nil {
+		return ""
+	}
+	return r.Summary
+}
+
+func (r *ReasoningDetailSummary) GetType() ReasoningDetailSummaryType {
+	if r == nil {
+		return ReasoningDetailSummaryType("")
+	}
+	return r.Type
 }

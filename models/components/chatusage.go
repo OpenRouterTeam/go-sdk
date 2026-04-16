@@ -9,38 +9,38 @@ import (
 
 // CompletionTokensDetails - Detailed completion token usage
 type CompletionTokensDetails struct {
-	// Tokens used for reasoning
-	ReasoningTokens *int64 `json:"reasoning_tokens,omitzero"`
-	// Tokens used for audio output
-	AudioTokens *int64 `json:"audio_tokens,omitzero"`
 	// Accepted prediction tokens
-	AcceptedPredictionTokens *int64 `json:"accepted_prediction_tokens,omitzero"`
+	AcceptedPredictionTokens optionalnullable.OptionalNullable[int64] `json:"accepted_prediction_tokens,omitzero"`
+	// Tokens used for audio output
+	AudioTokens optionalnullable.OptionalNullable[int64] `json:"audio_tokens,omitzero"`
+	// Tokens used for reasoning
+	ReasoningTokens optionalnullable.OptionalNullable[int64] `json:"reasoning_tokens,omitzero"`
 	// Rejected prediction tokens
-	RejectedPredictionTokens *int64 `json:"rejected_prediction_tokens,omitzero"`
+	RejectedPredictionTokens optionalnullable.OptionalNullable[int64] `json:"rejected_prediction_tokens,omitzero"`
 }
 
-func (c *CompletionTokensDetails) GetReasoningTokens() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.ReasoningTokens
-}
-
-func (c *CompletionTokensDetails) GetAudioTokens() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.AudioTokens
-}
-
-func (c *CompletionTokensDetails) GetAcceptedPredictionTokens() *int64 {
+func (c *CompletionTokensDetails) GetAcceptedPredictionTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.AcceptedPredictionTokens
 }
 
-func (c *CompletionTokensDetails) GetRejectedPredictionTokens() *int64 {
+func (c *CompletionTokensDetails) GetAudioTokens() optionalnullable.OptionalNullable[int64] {
+	if c == nil {
+		return nil
+	}
+	return c.AudioTokens
+}
+
+func (c *CompletionTokensDetails) GetReasoningTokens() optionalnullable.OptionalNullable[int64] {
+	if c == nil {
+		return nil
+	}
+	return c.ReasoningTokens
+}
+
+func (c *CompletionTokensDetails) GetRejectedPredictionTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
@@ -49,21 +49,21 @@ func (c *CompletionTokensDetails) GetRejectedPredictionTokens() *int64 {
 
 // PromptTokensDetails - Detailed prompt token usage
 type PromptTokensDetails struct {
-	// Cached prompt tokens
-	CachedTokens *int64 `json:"cached_tokens,omitzero"`
-	// Tokens written to cache. Only returned for models with explicit caching and cache write pricing.
-	CacheWriteTokens *int64 `json:"cache_write_tokens,omitzero"`
 	// Audio input tokens
 	AudioTokens *int64 `json:"audio_tokens,omitzero"`
+	// Tokens written to cache. Only returned for models with explicit caching and cache write pricing.
+	CacheWriteTokens *int64 `json:"cache_write_tokens,omitzero"`
+	// Cached prompt tokens
+	CachedTokens *int64 `json:"cached_tokens,omitzero"`
 	// Video input tokens
 	VideoTokens *int64 `json:"video_tokens,omitzero"`
 }
 
-func (p *PromptTokensDetails) GetCachedTokens() *int64 {
+func (p *PromptTokensDetails) GetAudioTokens() *int64 {
 	if p == nil {
 		return nil
 	}
-	return p.CachedTokens
+	return p.AudioTokens
 }
 
 func (p *PromptTokensDetails) GetCacheWriteTokens() *int64 {
@@ -73,11 +73,11 @@ func (p *PromptTokensDetails) GetCacheWriteTokens() *int64 {
 	return p.CacheWriteTokens
 }
 
-func (p *PromptTokensDetails) GetAudioTokens() *int64 {
+func (p *PromptTokensDetails) GetCachedTokens() *int64 {
 	if p == nil {
 		return nil
 	}
-	return p.AudioTokens
+	return p.CachedTokens
 }
 
 func (p *PromptTokensDetails) GetVideoTokens() *int64 {
@@ -91,14 +91,14 @@ func (p *PromptTokensDetails) GetVideoTokens() *int64 {
 type ChatUsage struct {
 	// Number of tokens in the completion
 	CompletionTokens int64 `json:"completion_tokens"`
-	// Number of tokens in the prompt
-	PromptTokens int64 `json:"prompt_tokens"`
-	// Total number of tokens
-	TotalTokens int64 `json:"total_tokens"`
 	// Detailed completion token usage
 	CompletionTokensDetails optionalnullable.OptionalNullable[CompletionTokensDetails] `json:"completion_tokens_details,omitzero"`
+	// Number of tokens in the prompt
+	PromptTokens int64 `json:"prompt_tokens"`
 	// Detailed prompt token usage
 	PromptTokensDetails optionalnullable.OptionalNullable[PromptTokensDetails] `json:"prompt_tokens_details,omitzero"`
+	// Total number of tokens
+	TotalTokens int64 `json:"total_tokens"`
 }
 
 func (c ChatUsage) MarshalJSON() ([]byte, error) {
@@ -119,20 +119,6 @@ func (c *ChatUsage) GetCompletionTokens() int64 {
 	return c.CompletionTokens
 }
 
-func (c *ChatUsage) GetPromptTokens() int64 {
-	if c == nil {
-		return 0
-	}
-	return c.PromptTokens
-}
-
-func (c *ChatUsage) GetTotalTokens() int64 {
-	if c == nil {
-		return 0
-	}
-	return c.TotalTokens
-}
-
 func (c *ChatUsage) GetCompletionTokensDetails() optionalnullable.OptionalNullable[CompletionTokensDetails] {
 	if c == nil {
 		return nil
@@ -140,9 +126,23 @@ func (c *ChatUsage) GetCompletionTokensDetails() optionalnullable.OptionalNullab
 	return c.CompletionTokensDetails
 }
 
+func (c *ChatUsage) GetPromptTokens() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.PromptTokens
+}
+
 func (c *ChatUsage) GetPromptTokensDetails() optionalnullable.OptionalNullable[PromptTokensDetails] {
 	if c == nil {
 		return nil
 	}
 	return c.PromptTokensDetails
+}
+
+func (c *ChatUsage) GetTotalTokens() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.TotalTokens
 }

@@ -1,0 +1,11 @@
+# ChatSearchModelsServerTool
+
+OpenRouter built-in server tool: searches and filters AI models available on OpenRouter
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            | Example                                                                                                |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `Parameters`                                                                                           | [*components.SearchModelsServerToolConfig](../../models/components/searchmodelsservertoolconfig.md)    | :heavy_minus_sign:                                                                                     | Configuration for the openrouter:experimental__search_models server tool                               | {<br/>"max_results": 5<br/>}                                                                           |
+| `Type`                                                                                                 | [components.ChatSearchModelsServerToolType](../../models/components/chatsearchmodelsservertooltype.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |                                                                                                        |

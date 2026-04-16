@@ -7,6 +7,275 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+type Datacenter string
+
+const (
+	DatacenterAd Datacenter = "AD"
+	DatacenterAe Datacenter = "AE"
+	DatacenterAf Datacenter = "AF"
+	DatacenterAg Datacenter = "AG"
+	DatacenterAi Datacenter = "AI"
+	DatacenterAl Datacenter = "AL"
+	DatacenterAm Datacenter = "AM"
+	DatacenterAo Datacenter = "AO"
+	DatacenterAq Datacenter = "AQ"
+	DatacenterAr Datacenter = "AR"
+	DatacenterAs Datacenter = "AS"
+	DatacenterAt Datacenter = "AT"
+	DatacenterAu Datacenter = "AU"
+	DatacenterAw Datacenter = "AW"
+	DatacenterAx Datacenter = "AX"
+	DatacenterAz Datacenter = "AZ"
+	DatacenterBa Datacenter = "BA"
+	DatacenterBb Datacenter = "BB"
+	DatacenterBd Datacenter = "BD"
+	DatacenterBe Datacenter = "BE"
+	DatacenterBf Datacenter = "BF"
+	DatacenterBg Datacenter = "BG"
+	DatacenterBh Datacenter = "BH"
+	DatacenterBi Datacenter = "BI"
+	DatacenterBj Datacenter = "BJ"
+	DatacenterBl Datacenter = "BL"
+	DatacenterBm Datacenter = "BM"
+	DatacenterBn Datacenter = "BN"
+	DatacenterBo Datacenter = "BO"
+	DatacenterBq Datacenter = "BQ"
+	DatacenterBr Datacenter = "BR"
+	DatacenterBs Datacenter = "BS"
+	DatacenterBt Datacenter = "BT"
+	DatacenterBv Datacenter = "BV"
+	DatacenterBw Datacenter = "BW"
+	DatacenterBy Datacenter = "BY"
+	DatacenterBz Datacenter = "BZ"
+	DatacenterCa Datacenter = "CA"
+	DatacenterCc Datacenter = "CC"
+	DatacenterCd Datacenter = "CD"
+	DatacenterCf Datacenter = "CF"
+	DatacenterCg Datacenter = "CG"
+	DatacenterCh Datacenter = "CH"
+	DatacenterCi Datacenter = "CI"
+	DatacenterCk Datacenter = "CK"
+	DatacenterCl Datacenter = "CL"
+	DatacenterCm Datacenter = "CM"
+	DatacenterCn Datacenter = "CN"
+	DatacenterCo Datacenter = "CO"
+	DatacenterCr Datacenter = "CR"
+	DatacenterCu Datacenter = "CU"
+	DatacenterCv Datacenter = "CV"
+	DatacenterCw Datacenter = "CW"
+	DatacenterCx Datacenter = "CX"
+	DatacenterCy Datacenter = "CY"
+	DatacenterCz Datacenter = "CZ"
+	DatacenterDe Datacenter = "DE"
+	DatacenterDj Datacenter = "DJ"
+	DatacenterDk Datacenter = "DK"
+	DatacenterDm Datacenter = "DM"
+	DatacenterDo Datacenter = "DO"
+	DatacenterDz Datacenter = "DZ"
+	DatacenterEc Datacenter = "EC"
+	DatacenterEe Datacenter = "EE"
+	DatacenterEg Datacenter = "EG"
+	DatacenterEh Datacenter = "EH"
+	DatacenterEr Datacenter = "ER"
+	DatacenterEs Datacenter = "ES"
+	DatacenterEt Datacenter = "ET"
+	DatacenterFi Datacenter = "FI"
+	DatacenterFj Datacenter = "FJ"
+	DatacenterFk Datacenter = "FK"
+	DatacenterFm Datacenter = "FM"
+	DatacenterFo Datacenter = "FO"
+	DatacenterFr Datacenter = "FR"
+	DatacenterGa Datacenter = "GA"
+	DatacenterGb Datacenter = "GB"
+	DatacenterGd Datacenter = "GD"
+	DatacenterGe Datacenter = "GE"
+	DatacenterGf Datacenter = "GF"
+	DatacenterGg Datacenter = "GG"
+	DatacenterGh Datacenter = "GH"
+	DatacenterGi Datacenter = "GI"
+	DatacenterGl Datacenter = "GL"
+	DatacenterGm Datacenter = "GM"
+	DatacenterGn Datacenter = "GN"
+	DatacenterGp Datacenter = "GP"
+	DatacenterGq Datacenter = "GQ"
+	DatacenterGr Datacenter = "GR"
+	DatacenterGs Datacenter = "GS"
+	DatacenterGt Datacenter = "GT"
+	DatacenterGu Datacenter = "GU"
+	DatacenterGw Datacenter = "GW"
+	DatacenterGy Datacenter = "GY"
+	DatacenterHk Datacenter = "HK"
+	DatacenterHm Datacenter = "HM"
+	DatacenterHn Datacenter = "HN"
+	DatacenterHr Datacenter = "HR"
+	DatacenterHt Datacenter = "HT"
+	DatacenterHu Datacenter = "HU"
+	DatacenterID Datacenter = "ID"
+	DatacenterIe Datacenter = "IE"
+	DatacenterIl Datacenter = "IL"
+	DatacenterIm Datacenter = "IM"
+	DatacenterIn Datacenter = "IN"
+	DatacenterIo Datacenter = "IO"
+	DatacenterIq Datacenter = "IQ"
+	DatacenterIr Datacenter = "IR"
+	DatacenterIs Datacenter = "IS"
+	DatacenterIt Datacenter = "IT"
+	DatacenterJe Datacenter = "JE"
+	DatacenterJm Datacenter = "JM"
+	DatacenterJo Datacenter = "JO"
+	DatacenterJp Datacenter = "JP"
+	DatacenterKe Datacenter = "KE"
+	DatacenterKg Datacenter = "KG"
+	DatacenterKh Datacenter = "KH"
+	DatacenterKi Datacenter = "KI"
+	DatacenterKm Datacenter = "KM"
+	DatacenterKn Datacenter = "KN"
+	DatacenterKp Datacenter = "KP"
+	DatacenterKr Datacenter = "KR"
+	DatacenterKw Datacenter = "KW"
+	DatacenterKy Datacenter = "KY"
+	DatacenterKz Datacenter = "KZ"
+	DatacenterLa Datacenter = "LA"
+	DatacenterLb Datacenter = "LB"
+	DatacenterLc Datacenter = "LC"
+	DatacenterLi Datacenter = "LI"
+	DatacenterLk Datacenter = "LK"
+	DatacenterLr Datacenter = "LR"
+	DatacenterLs Datacenter = "LS"
+	DatacenterLt Datacenter = "LT"
+	DatacenterLu Datacenter = "LU"
+	DatacenterLv Datacenter = "LV"
+	DatacenterLy Datacenter = "LY"
+	DatacenterMa Datacenter = "MA"
+	DatacenterMc Datacenter = "MC"
+	DatacenterMd Datacenter = "MD"
+	DatacenterMe Datacenter = "ME"
+	DatacenterMf Datacenter = "MF"
+	DatacenterMg Datacenter = "MG"
+	DatacenterMh Datacenter = "MH"
+	DatacenterMk Datacenter = "MK"
+	DatacenterMl Datacenter = "ML"
+	DatacenterMm Datacenter = "MM"
+	DatacenterMn Datacenter = "MN"
+	DatacenterMo Datacenter = "MO"
+	DatacenterMp Datacenter = "MP"
+	DatacenterMq Datacenter = "MQ"
+	DatacenterMr Datacenter = "MR"
+	DatacenterMs Datacenter = "MS"
+	DatacenterMt Datacenter = "MT"
+	DatacenterMu Datacenter = "MU"
+	DatacenterMv Datacenter = "MV"
+	DatacenterMw Datacenter = "MW"
+	DatacenterMx Datacenter = "MX"
+	DatacenterMy Datacenter = "MY"
+	DatacenterMz Datacenter = "MZ"
+	DatacenterNa Datacenter = "NA"
+	DatacenterNc Datacenter = "NC"
+	DatacenterNe Datacenter = "NE"
+	DatacenterNf Datacenter = "NF"
+	DatacenterNg Datacenter = "NG"
+	DatacenterNi Datacenter = "NI"
+	DatacenterNl Datacenter = "NL"
+	DatacenterNo Datacenter = "NO"
+	DatacenterNp Datacenter = "NP"
+	DatacenterNr Datacenter = "NR"
+	DatacenterNu Datacenter = "NU"
+	DatacenterNz Datacenter = "NZ"
+	DatacenterOm Datacenter = "OM"
+	DatacenterPa Datacenter = "PA"
+	DatacenterPe Datacenter = "PE"
+	DatacenterPf Datacenter = "PF"
+	DatacenterPg Datacenter = "PG"
+	DatacenterPh Datacenter = "PH"
+	DatacenterPk Datacenter = "PK"
+	DatacenterPl Datacenter = "PL"
+	DatacenterPm Datacenter = "PM"
+	DatacenterPn Datacenter = "PN"
+	DatacenterPr Datacenter = "PR"
+	DatacenterPs Datacenter = "PS"
+	DatacenterPt Datacenter = "PT"
+	DatacenterPw Datacenter = "PW"
+	DatacenterPy Datacenter = "PY"
+	DatacenterQa Datacenter = "QA"
+	DatacenterRe Datacenter = "RE"
+	DatacenterRo Datacenter = "RO"
+	DatacenterRs Datacenter = "RS"
+	DatacenterRu Datacenter = "RU"
+	DatacenterRw Datacenter = "RW"
+	DatacenterSa Datacenter = "SA"
+	DatacenterSb Datacenter = "SB"
+	DatacenterSc Datacenter = "SC"
+	DatacenterSd Datacenter = "SD"
+	DatacenterSe Datacenter = "SE"
+	DatacenterSg Datacenter = "SG"
+	DatacenterSh Datacenter = "SH"
+	DatacenterSi Datacenter = "SI"
+	DatacenterSj Datacenter = "SJ"
+	DatacenterSk Datacenter = "SK"
+	DatacenterSl Datacenter = "SL"
+	DatacenterSm Datacenter = "SM"
+	DatacenterSn Datacenter = "SN"
+	DatacenterSo Datacenter = "SO"
+	DatacenterSr Datacenter = "SR"
+	DatacenterSs Datacenter = "SS"
+	DatacenterSt Datacenter = "ST"
+	DatacenterSv Datacenter = "SV"
+	DatacenterSx Datacenter = "SX"
+	DatacenterSy Datacenter = "SY"
+	DatacenterSz Datacenter = "SZ"
+	DatacenterTc Datacenter = "TC"
+	DatacenterTd Datacenter = "TD"
+	DatacenterTf Datacenter = "TF"
+	DatacenterTg Datacenter = "TG"
+	DatacenterTh Datacenter = "TH"
+	DatacenterTj Datacenter = "TJ"
+	DatacenterTk Datacenter = "TK"
+	DatacenterTl Datacenter = "TL"
+	DatacenterTm Datacenter = "TM"
+	DatacenterTn Datacenter = "TN"
+	DatacenterTo Datacenter = "TO"
+	DatacenterTr Datacenter = "TR"
+	DatacenterTt Datacenter = "TT"
+	DatacenterTv Datacenter = "TV"
+	DatacenterTw Datacenter = "TW"
+	DatacenterTz Datacenter = "TZ"
+	DatacenterUa Datacenter = "UA"
+	DatacenterUg Datacenter = "UG"
+	DatacenterUm Datacenter = "UM"
+	DatacenterUs Datacenter = "US"
+	DatacenterUy Datacenter = "UY"
+	DatacenterUz Datacenter = "UZ"
+	DatacenterVa Datacenter = "VA"
+	DatacenterVc Datacenter = "VC"
+	DatacenterVe Datacenter = "VE"
+	DatacenterVg Datacenter = "VG"
+	DatacenterVi Datacenter = "VI"
+	DatacenterVn Datacenter = "VN"
+	DatacenterVu Datacenter = "VU"
+	DatacenterWf Datacenter = "WF"
+	DatacenterWs Datacenter = "WS"
+	DatacenterYe Datacenter = "YE"
+	DatacenterYt Datacenter = "YT"
+	DatacenterZa Datacenter = "ZA"
+	DatacenterZm Datacenter = "ZM"
+	DatacenterZw Datacenter = "ZW"
+)
+
+func (e Datacenter) ToPointer() *Datacenter {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Datacenter) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW":
+			return true
+		}
+	}
+	return false
+}
+
 // Headquarters - ISO 3166-1 Alpha-2 country code of the provider headquarters
 type Headquarters string
 
@@ -277,290 +546,21 @@ func (e *Headquarters) IsExact() bool {
 	return false
 }
 
-type Datacenter string
-
-const (
-	DatacenterAd Datacenter = "AD"
-	DatacenterAe Datacenter = "AE"
-	DatacenterAf Datacenter = "AF"
-	DatacenterAg Datacenter = "AG"
-	DatacenterAi Datacenter = "AI"
-	DatacenterAl Datacenter = "AL"
-	DatacenterAm Datacenter = "AM"
-	DatacenterAo Datacenter = "AO"
-	DatacenterAq Datacenter = "AQ"
-	DatacenterAr Datacenter = "AR"
-	DatacenterAs Datacenter = "AS"
-	DatacenterAt Datacenter = "AT"
-	DatacenterAu Datacenter = "AU"
-	DatacenterAw Datacenter = "AW"
-	DatacenterAx Datacenter = "AX"
-	DatacenterAz Datacenter = "AZ"
-	DatacenterBa Datacenter = "BA"
-	DatacenterBb Datacenter = "BB"
-	DatacenterBd Datacenter = "BD"
-	DatacenterBe Datacenter = "BE"
-	DatacenterBf Datacenter = "BF"
-	DatacenterBg Datacenter = "BG"
-	DatacenterBh Datacenter = "BH"
-	DatacenterBi Datacenter = "BI"
-	DatacenterBj Datacenter = "BJ"
-	DatacenterBl Datacenter = "BL"
-	DatacenterBm Datacenter = "BM"
-	DatacenterBn Datacenter = "BN"
-	DatacenterBo Datacenter = "BO"
-	DatacenterBq Datacenter = "BQ"
-	DatacenterBr Datacenter = "BR"
-	DatacenterBs Datacenter = "BS"
-	DatacenterBt Datacenter = "BT"
-	DatacenterBv Datacenter = "BV"
-	DatacenterBw Datacenter = "BW"
-	DatacenterBy Datacenter = "BY"
-	DatacenterBz Datacenter = "BZ"
-	DatacenterCa Datacenter = "CA"
-	DatacenterCc Datacenter = "CC"
-	DatacenterCd Datacenter = "CD"
-	DatacenterCf Datacenter = "CF"
-	DatacenterCg Datacenter = "CG"
-	DatacenterCh Datacenter = "CH"
-	DatacenterCi Datacenter = "CI"
-	DatacenterCk Datacenter = "CK"
-	DatacenterCl Datacenter = "CL"
-	DatacenterCm Datacenter = "CM"
-	DatacenterCn Datacenter = "CN"
-	DatacenterCo Datacenter = "CO"
-	DatacenterCr Datacenter = "CR"
-	DatacenterCu Datacenter = "CU"
-	DatacenterCv Datacenter = "CV"
-	DatacenterCw Datacenter = "CW"
-	DatacenterCx Datacenter = "CX"
-	DatacenterCy Datacenter = "CY"
-	DatacenterCz Datacenter = "CZ"
-	DatacenterDe Datacenter = "DE"
-	DatacenterDj Datacenter = "DJ"
-	DatacenterDk Datacenter = "DK"
-	DatacenterDm Datacenter = "DM"
-	DatacenterDo Datacenter = "DO"
-	DatacenterDz Datacenter = "DZ"
-	DatacenterEc Datacenter = "EC"
-	DatacenterEe Datacenter = "EE"
-	DatacenterEg Datacenter = "EG"
-	DatacenterEh Datacenter = "EH"
-	DatacenterEr Datacenter = "ER"
-	DatacenterEs Datacenter = "ES"
-	DatacenterEt Datacenter = "ET"
-	DatacenterFi Datacenter = "FI"
-	DatacenterFj Datacenter = "FJ"
-	DatacenterFk Datacenter = "FK"
-	DatacenterFm Datacenter = "FM"
-	DatacenterFo Datacenter = "FO"
-	DatacenterFr Datacenter = "FR"
-	DatacenterGa Datacenter = "GA"
-	DatacenterGb Datacenter = "GB"
-	DatacenterGd Datacenter = "GD"
-	DatacenterGe Datacenter = "GE"
-	DatacenterGf Datacenter = "GF"
-	DatacenterGg Datacenter = "GG"
-	DatacenterGh Datacenter = "GH"
-	DatacenterGi Datacenter = "GI"
-	DatacenterGl Datacenter = "GL"
-	DatacenterGm Datacenter = "GM"
-	DatacenterGn Datacenter = "GN"
-	DatacenterGp Datacenter = "GP"
-	DatacenterGq Datacenter = "GQ"
-	DatacenterGr Datacenter = "GR"
-	DatacenterGs Datacenter = "GS"
-	DatacenterGt Datacenter = "GT"
-	DatacenterGu Datacenter = "GU"
-	DatacenterGw Datacenter = "GW"
-	DatacenterGy Datacenter = "GY"
-	DatacenterHk Datacenter = "HK"
-	DatacenterHm Datacenter = "HM"
-	DatacenterHn Datacenter = "HN"
-	DatacenterHr Datacenter = "HR"
-	DatacenterHt Datacenter = "HT"
-	DatacenterHu Datacenter = "HU"
-	DatacenterID Datacenter = "ID"
-	DatacenterIe Datacenter = "IE"
-	DatacenterIl Datacenter = "IL"
-	DatacenterIm Datacenter = "IM"
-	DatacenterIn Datacenter = "IN"
-	DatacenterIo Datacenter = "IO"
-	DatacenterIq Datacenter = "IQ"
-	DatacenterIr Datacenter = "IR"
-	DatacenterIs Datacenter = "IS"
-	DatacenterIt Datacenter = "IT"
-	DatacenterJe Datacenter = "JE"
-	DatacenterJm Datacenter = "JM"
-	DatacenterJo Datacenter = "JO"
-	DatacenterJp Datacenter = "JP"
-	DatacenterKe Datacenter = "KE"
-	DatacenterKg Datacenter = "KG"
-	DatacenterKh Datacenter = "KH"
-	DatacenterKi Datacenter = "KI"
-	DatacenterKm Datacenter = "KM"
-	DatacenterKn Datacenter = "KN"
-	DatacenterKp Datacenter = "KP"
-	DatacenterKr Datacenter = "KR"
-	DatacenterKw Datacenter = "KW"
-	DatacenterKy Datacenter = "KY"
-	DatacenterKz Datacenter = "KZ"
-	DatacenterLa Datacenter = "LA"
-	DatacenterLb Datacenter = "LB"
-	DatacenterLc Datacenter = "LC"
-	DatacenterLi Datacenter = "LI"
-	DatacenterLk Datacenter = "LK"
-	DatacenterLr Datacenter = "LR"
-	DatacenterLs Datacenter = "LS"
-	DatacenterLt Datacenter = "LT"
-	DatacenterLu Datacenter = "LU"
-	DatacenterLv Datacenter = "LV"
-	DatacenterLy Datacenter = "LY"
-	DatacenterMa Datacenter = "MA"
-	DatacenterMc Datacenter = "MC"
-	DatacenterMd Datacenter = "MD"
-	DatacenterMe Datacenter = "ME"
-	DatacenterMf Datacenter = "MF"
-	DatacenterMg Datacenter = "MG"
-	DatacenterMh Datacenter = "MH"
-	DatacenterMk Datacenter = "MK"
-	DatacenterMl Datacenter = "ML"
-	DatacenterMm Datacenter = "MM"
-	DatacenterMn Datacenter = "MN"
-	DatacenterMo Datacenter = "MO"
-	DatacenterMp Datacenter = "MP"
-	DatacenterMq Datacenter = "MQ"
-	DatacenterMr Datacenter = "MR"
-	DatacenterMs Datacenter = "MS"
-	DatacenterMt Datacenter = "MT"
-	DatacenterMu Datacenter = "MU"
-	DatacenterMv Datacenter = "MV"
-	DatacenterMw Datacenter = "MW"
-	DatacenterMx Datacenter = "MX"
-	DatacenterMy Datacenter = "MY"
-	DatacenterMz Datacenter = "MZ"
-	DatacenterNa Datacenter = "NA"
-	DatacenterNc Datacenter = "NC"
-	DatacenterNe Datacenter = "NE"
-	DatacenterNf Datacenter = "NF"
-	DatacenterNg Datacenter = "NG"
-	DatacenterNi Datacenter = "NI"
-	DatacenterNl Datacenter = "NL"
-	DatacenterNo Datacenter = "NO"
-	DatacenterNp Datacenter = "NP"
-	DatacenterNr Datacenter = "NR"
-	DatacenterNu Datacenter = "NU"
-	DatacenterNz Datacenter = "NZ"
-	DatacenterOm Datacenter = "OM"
-	DatacenterPa Datacenter = "PA"
-	DatacenterPe Datacenter = "PE"
-	DatacenterPf Datacenter = "PF"
-	DatacenterPg Datacenter = "PG"
-	DatacenterPh Datacenter = "PH"
-	DatacenterPk Datacenter = "PK"
-	DatacenterPl Datacenter = "PL"
-	DatacenterPm Datacenter = "PM"
-	DatacenterPn Datacenter = "PN"
-	DatacenterPr Datacenter = "PR"
-	DatacenterPs Datacenter = "PS"
-	DatacenterPt Datacenter = "PT"
-	DatacenterPw Datacenter = "PW"
-	DatacenterPy Datacenter = "PY"
-	DatacenterQa Datacenter = "QA"
-	DatacenterRe Datacenter = "RE"
-	DatacenterRo Datacenter = "RO"
-	DatacenterRs Datacenter = "RS"
-	DatacenterRu Datacenter = "RU"
-	DatacenterRw Datacenter = "RW"
-	DatacenterSa Datacenter = "SA"
-	DatacenterSb Datacenter = "SB"
-	DatacenterSc Datacenter = "SC"
-	DatacenterSd Datacenter = "SD"
-	DatacenterSe Datacenter = "SE"
-	DatacenterSg Datacenter = "SG"
-	DatacenterSh Datacenter = "SH"
-	DatacenterSi Datacenter = "SI"
-	DatacenterSj Datacenter = "SJ"
-	DatacenterSk Datacenter = "SK"
-	DatacenterSl Datacenter = "SL"
-	DatacenterSm Datacenter = "SM"
-	DatacenterSn Datacenter = "SN"
-	DatacenterSo Datacenter = "SO"
-	DatacenterSr Datacenter = "SR"
-	DatacenterSs Datacenter = "SS"
-	DatacenterSt Datacenter = "ST"
-	DatacenterSv Datacenter = "SV"
-	DatacenterSx Datacenter = "SX"
-	DatacenterSy Datacenter = "SY"
-	DatacenterSz Datacenter = "SZ"
-	DatacenterTc Datacenter = "TC"
-	DatacenterTd Datacenter = "TD"
-	DatacenterTf Datacenter = "TF"
-	DatacenterTg Datacenter = "TG"
-	DatacenterTh Datacenter = "TH"
-	DatacenterTj Datacenter = "TJ"
-	DatacenterTk Datacenter = "TK"
-	DatacenterTl Datacenter = "TL"
-	DatacenterTm Datacenter = "TM"
-	DatacenterTn Datacenter = "TN"
-	DatacenterTo Datacenter = "TO"
-	DatacenterTr Datacenter = "TR"
-	DatacenterTt Datacenter = "TT"
-	DatacenterTv Datacenter = "TV"
-	DatacenterTw Datacenter = "TW"
-	DatacenterTz Datacenter = "TZ"
-	DatacenterUa Datacenter = "UA"
-	DatacenterUg Datacenter = "UG"
-	DatacenterUm Datacenter = "UM"
-	DatacenterUs Datacenter = "US"
-	DatacenterUy Datacenter = "UY"
-	DatacenterUz Datacenter = "UZ"
-	DatacenterVa Datacenter = "VA"
-	DatacenterVc Datacenter = "VC"
-	DatacenterVe Datacenter = "VE"
-	DatacenterVg Datacenter = "VG"
-	DatacenterVi Datacenter = "VI"
-	DatacenterVn Datacenter = "VN"
-	DatacenterVu Datacenter = "VU"
-	DatacenterWf Datacenter = "WF"
-	DatacenterWs Datacenter = "WS"
-	DatacenterYe Datacenter = "YE"
-	DatacenterYt Datacenter = "YT"
-	DatacenterZa Datacenter = "ZA"
-	DatacenterZm Datacenter = "ZM"
-	DatacenterZw Datacenter = "ZW"
-)
-
-func (e Datacenter) ToPointer() *Datacenter {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Datacenter) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW":
-			return true
-		}
-	}
-	return false
-}
-
 type ListProvidersData struct {
-	// Display name of the provider
-	Name string `json:"name"`
-	// URL-friendly identifier for the provider
-	Slug string `json:"slug"`
-	// URL to the provider's privacy policy
-	PrivacyPolicyURL *string `json:"privacy_policy_url"`
-	// URL to the provider's terms of service
-	TermsOfServiceURL optionalnullable.OptionalNullable[string] `json:"terms_of_service_url,omitzero"`
-	// URL to the provider's status page
-	StatusPageURL optionalnullable.OptionalNullable[string] `json:"status_page_url,omitzero"`
-	// ISO 3166-1 Alpha-2 country code of the provider headquarters
-	Headquarters optionalnullable.OptionalNullable[Headquarters] `json:"headquarters,omitzero"`
 	// ISO 3166-1 Alpha-2 country codes of the provider datacenter locations
 	Datacenters optionalnullable.OptionalNullable[[]Datacenter] `json:"datacenters,omitzero"`
+	// ISO 3166-1 Alpha-2 country code of the provider headquarters
+	Headquarters optionalnullable.OptionalNullable[Headquarters] `json:"headquarters,omitzero"`
+	// Display name of the provider
+	Name string `json:"name"`
+	// URL to the provider's privacy policy
+	PrivacyPolicyURL *string `json:"privacy_policy_url"`
+	// URL-friendly identifier for the provider
+	Slug string `json:"slug"`
+	// URL to the provider's status page
+	StatusPageURL optionalnullable.OptionalNullable[string] `json:"status_page_url,omitzero"`
+	// URL to the provider's terms of service
+	TermsOfServiceURL optionalnullable.OptionalNullable[string] `json:"terms_of_service_url,omitzero"`
 }
 
 func (l ListProvidersData) MarshalJSON() ([]byte, error) {
@@ -574,39 +574,11 @@ func (l *ListProvidersData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (l *ListProvidersData) GetName() string {
-	if l == nil {
-		return ""
-	}
-	return l.Name
-}
-
-func (l *ListProvidersData) GetSlug() string {
-	if l == nil {
-		return ""
-	}
-	return l.Slug
-}
-
-func (l *ListProvidersData) GetPrivacyPolicyURL() *string {
+func (l *ListProvidersData) GetDatacenters() optionalnullable.OptionalNullable[[]Datacenter] {
 	if l == nil {
 		return nil
 	}
-	return l.PrivacyPolicyURL
-}
-
-func (l *ListProvidersData) GetTermsOfServiceURL() optionalnullable.OptionalNullable[string] {
-	if l == nil {
-		return nil
-	}
-	return l.TermsOfServiceURL
-}
-
-func (l *ListProvidersData) GetStatusPageURL() optionalnullable.OptionalNullable[string] {
-	if l == nil {
-		return nil
-	}
-	return l.StatusPageURL
+	return l.Datacenters
 }
 
 func (l *ListProvidersData) GetHeadquarters() optionalnullable.OptionalNullable[Headquarters] {
@@ -616,11 +588,39 @@ func (l *ListProvidersData) GetHeadquarters() optionalnullable.OptionalNullable[
 	return l.Headquarters
 }
 
-func (l *ListProvidersData) GetDatacenters() optionalnullable.OptionalNullable[[]Datacenter] {
+func (l *ListProvidersData) GetName() string {
+	if l == nil {
+		return ""
+	}
+	return l.Name
+}
+
+func (l *ListProvidersData) GetPrivacyPolicyURL() *string {
 	if l == nil {
 		return nil
 	}
-	return l.Datacenters
+	return l.PrivacyPolicyURL
+}
+
+func (l *ListProvidersData) GetSlug() string {
+	if l == nil {
+		return ""
+	}
+	return l.Slug
+}
+
+func (l *ListProvidersData) GetStatusPageURL() optionalnullable.OptionalNullable[string] {
+	if l == nil {
+		return nil
+	}
+	return l.StatusPageURL
+}
+
+func (l *ListProvidersData) GetTermsOfServiceURL() optionalnullable.OptionalNullable[string] {
+	if l == nil {
+		return nil
+	}
+	return l.TermsOfServiceURL
 }
 
 // ListProvidersResponse - Returns a list of providers

@@ -33,10 +33,10 @@ func (e *ImageGenCallGeneratingEventType) UnmarshalJSON(data []byte) error {
 
 // ImageGenCallGeneratingEvent - Image generation call is generating
 type ImageGenCallGeneratingEvent struct {
-	Type           ImageGenCallGeneratingEventType `json:"type"`
 	ItemID         string                          `json:"item_id"`
 	OutputIndex    int64                           `json:"output_index"`
 	SequenceNumber int64                           `json:"sequence_number"`
+	Type           ImageGenCallGeneratingEventType `json:"type"`
 }
 
 func (i ImageGenCallGeneratingEvent) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (i *ImageGenCallGeneratingEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (i *ImageGenCallGeneratingEvent) GetType() ImageGenCallGeneratingEventType {
-	if i == nil {
-		return ImageGenCallGeneratingEventType("")
-	}
-	return i.Type
 }
 
 func (i *ImageGenCallGeneratingEvent) GetItemID() string {
@@ -76,4 +69,11 @@ func (i *ImageGenCallGeneratingEvent) GetSequenceNumber() int64 {
 		return 0
 	}
 	return i.SequenceNumber
+}
+
+func (i *ImageGenCallGeneratingEvent) GetType() ImageGenCallGeneratingEventType {
+	if i == nil {
+		return ImageGenCallGeneratingEventType("")
+	}
+	return i.Type
 }

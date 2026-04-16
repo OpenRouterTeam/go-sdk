@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatDeveloperMessageRole string
-
-const (
-	ChatDeveloperMessageRoleDeveloper ChatDeveloperMessageRole = "developer"
-)
-
-func (e ChatDeveloperMessageRole) ToPointer() *ChatDeveloperMessageRole {
-	return &e
-}
-func (e *ChatDeveloperMessageRole) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "developer":
-		*e = ChatDeveloperMessageRole(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatDeveloperMessageRole: %v", v)
-	}
-}
-
 type ChatDeveloperMessageContentType string
 
 const (
@@ -122,13 +99,36 @@ func (u ChatDeveloperMessageContent) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ChatDeveloperMessageContent: all fields are null")
 }
 
+type ChatDeveloperMessageRole string
+
+const (
+	ChatDeveloperMessageRoleDeveloper ChatDeveloperMessageRole = "developer"
+)
+
+func (e ChatDeveloperMessageRole) ToPointer() *ChatDeveloperMessageRole {
+	return &e
+}
+func (e *ChatDeveloperMessageRole) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "developer":
+		*e = ChatDeveloperMessageRole(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatDeveloperMessageRole: %v", v)
+	}
+}
+
 // ChatDeveloperMessage - Developer message
 type ChatDeveloperMessage struct {
-	Role ChatDeveloperMessageRole `json:"role"`
 	// Developer message content
 	Content ChatDeveloperMessageContent `json:"content"`
 	// Optional name for the developer message
-	Name *string `json:"name,omitzero"`
+	Name *string                  `json:"name,omitzero"`
+	Role ChatDeveloperMessageRole `json:"role"`
 }
 
 func (c ChatDeveloperMessage) MarshalJSON() ([]byte, error) {
@@ -140,13 +140,6 @@ func (c *ChatDeveloperMessage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ChatDeveloperMessage) GetRole() ChatDeveloperMessageRole {
-	if c == nil {
-		return ChatDeveloperMessageRole("")
-	}
-	return c.Role
 }
 
 func (c *ChatDeveloperMessage) GetContent() ChatDeveloperMessageContent {
@@ -161,4 +154,11 @@ func (c *ChatDeveloperMessage) GetName() *string {
 		return nil
 	}
 	return c.Name
+}
+
+func (c *ChatDeveloperMessage) GetRole() ChatDeveloperMessageRole {
+	if c == nil {
+		return ChatDeveloperMessageRole("")
+	}
+	return c.Role
 }

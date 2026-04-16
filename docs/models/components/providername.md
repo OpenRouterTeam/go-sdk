@@ -23,6 +23,7 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameAionLabs`        | AionLabs                      |
 | `ProviderNameAlibaba`         | Alibaba                       |
 | `ProviderNameAmbient`         | Ambient                       |
+| `ProviderNameBaidu`           | Baidu                         |
 | `ProviderNameAmazonBedrock`   | Amazon Bedrock                |
 | `ProviderNameAmazonNova`      | Amazon Nova                   |
 | `ProviderNameAnthropic`       | Anthropic                     |
@@ -42,6 +43,7 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameCrusoe`          | Crusoe                        |
 | `ProviderNameDeepInfra`       | DeepInfra                     |
 | `ProviderNameDeepSeek`        | DeepSeek                      |
+| `ProviderNameDekaLlm`         | DekaLLM                       |
 | `ProviderNameFeatherless`     | Featherless                   |
 | `ProviderNameFireworks`       | Fireworks                     |
 | `ProviderNameFriendli`        | Friendli                      |
@@ -76,6 +78,7 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameParasail`        | Parasail                      |
 | `ProviderNamePerplexity`      | Perplexity                    |
 | `ProviderNamePhala`           | Phala                         |
+| `ProviderNameRecraft`         | Recraft                       |
 | `ProviderNameReka`            | Reka                          |
 | `ProviderNameRelace`          | Relace                        |
 | `ProviderNameSambaNova`       | SambaNova                     |

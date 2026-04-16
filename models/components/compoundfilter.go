@@ -30,8 +30,8 @@ func (e *CompoundFilterType) IsExact() bool {
 
 // CompoundFilter - A compound filter that combines multiple comparison or compound filters
 type CompoundFilter struct {
-	Type    CompoundFilterType `json:"type"`
 	Filters []map[string]any   `json:"filters"`
+	Type    CompoundFilterType `json:"type"`
 }
 
 func (c CompoundFilter) MarshalJSON() ([]byte, error) {
@@ -45,16 +45,16 @@ func (c *CompoundFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CompoundFilter) GetType() CompoundFilterType {
-	if c == nil {
-		return CompoundFilterType("")
-	}
-	return c.Type
-}
-
 func (c *CompoundFilter) GetFilters() []map[string]any {
 	if c == nil {
 		return []map[string]any{}
 	}
 	return c.Filters
+}
+
+func (c *CompoundFilter) GetType() CompoundFilterType {
+	if c == nil {
+		return CompoundFilterType("")
+	}
+	return c.Type
 }

@@ -3,46 +3,18 @@
 package components
 
 type MemberAssignment struct {
-	// Unique identifier for the assignment
-	ID string `json:"id"`
-	// Clerk user ID of the assigned member
-	UserID string `json:"user_id"`
-	// Organization ID
-	OrganizationID string `json:"organization_id"`
-	// ID of the guardrail
-	GuardrailID string `json:"guardrail_id"`
 	// User ID of who made the assignment
 	AssignedBy *string `json:"assigned_by"`
 	// ISO 8601 timestamp of when the assignment was created
 	CreatedAt string `json:"created_at"`
-}
-
-func (m *MemberAssignment) GetID() string {
-	if m == nil {
-		return ""
-	}
-	return m.ID
-}
-
-func (m *MemberAssignment) GetUserID() string {
-	if m == nil {
-		return ""
-	}
-	return m.UserID
-}
-
-func (m *MemberAssignment) GetOrganizationID() string {
-	if m == nil {
-		return ""
-	}
-	return m.OrganizationID
-}
-
-func (m *MemberAssignment) GetGuardrailID() string {
-	if m == nil {
-		return ""
-	}
-	return m.GuardrailID
+	// ID of the guardrail
+	GuardrailID string `json:"guardrail_id"`
+	// Unique identifier for the assignment
+	ID string `json:"id"`
+	// Organization ID
+	OrganizationID string `json:"organization_id"`
+	// Clerk user ID of the assigned member
+	UserID string `json:"user_id"`
 }
 
 func (m *MemberAssignment) GetAssignedBy() *string {
@@ -57,4 +29,32 @@ func (m *MemberAssignment) GetCreatedAt() string {
 		return ""
 	}
 	return m.CreatedAt
+}
+
+func (m *MemberAssignment) GetGuardrailID() string {
+	if m == nil {
+		return ""
+	}
+	return m.GuardrailID
+}
+
+func (m *MemberAssignment) GetID() string {
+	if m == nil {
+		return ""
+	}
+	return m.ID
+}
+
+func (m *MemberAssignment) GetOrganizationID() string {
+	if m == nil {
+		return ""
+	}
+	return m.OrganizationID
+}
+
+func (m *MemberAssignment) GetUserID() string {
+	if m == nil {
+		return ""
+	}
+	return m.UserID
 }

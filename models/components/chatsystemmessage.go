@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatSystemMessageRole string
-
-const (
-	ChatSystemMessageRoleSystem ChatSystemMessageRole = "system"
-)
-
-func (e ChatSystemMessageRole) ToPointer() *ChatSystemMessageRole {
-	return &e
-}
-func (e *ChatSystemMessageRole) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "system":
-		*e = ChatSystemMessageRole(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatSystemMessageRole: %v", v)
-	}
-}
-
 type ChatSystemMessageContentType string
 
 const (
@@ -122,13 +99,36 @@ func (u ChatSystemMessageContent) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ChatSystemMessageContent: all fields are null")
 }
 
+type ChatSystemMessageRole string
+
+const (
+	ChatSystemMessageRoleSystem ChatSystemMessageRole = "system"
+)
+
+func (e ChatSystemMessageRole) ToPointer() *ChatSystemMessageRole {
+	return &e
+}
+func (e *ChatSystemMessageRole) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system":
+		*e = ChatSystemMessageRole(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatSystemMessageRole: %v", v)
+	}
+}
+
 // ChatSystemMessage - System message for setting behavior
 type ChatSystemMessage struct {
-	Role ChatSystemMessageRole `json:"role"`
 	// System message content
 	Content ChatSystemMessageContent `json:"content"`
 	// Optional name for the system message
-	Name *string `json:"name,omitzero"`
+	Name *string               `json:"name,omitzero"`
+	Role ChatSystemMessageRole `json:"role"`
 }
 
 func (c ChatSystemMessage) MarshalJSON() ([]byte, error) {
@@ -140,13 +140,6 @@ func (c *ChatSystemMessage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ChatSystemMessage) GetRole() ChatSystemMessageRole {
-	if c == nil {
-		return ChatSystemMessageRole("")
-	}
-	return c.Role
 }
 
 func (c *ChatSystemMessage) GetContent() ChatSystemMessageContent {
@@ -161,4 +154,11 @@ func (c *ChatSystemMessage) GetName() *string {
 		return nil
 	}
 	return c.Name
+}
+
+func (c *ChatSystemMessage) GetRole() ChatSystemMessageRole {
+	if c == nil {
+		return ChatSystemMessageRole("")
+	}
+	return c.Role
 }

@@ -11,6 +11,224 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/types"
 )
 
+type ResponsesRequestPluginType string
+
+const (
+	ResponsesRequestPluginTypeAutoRouter         ResponsesRequestPluginType = "auto-router"
+	ResponsesRequestPluginTypeContextCompression ResponsesRequestPluginType = "context-compression"
+	ResponsesRequestPluginTypeFileParser         ResponsesRequestPluginType = "file-parser"
+	ResponsesRequestPluginTypeModeration         ResponsesRequestPluginType = "moderation"
+	ResponsesRequestPluginTypeResponseHealing    ResponsesRequestPluginType = "response-healing"
+	ResponsesRequestPluginTypeWeb                ResponsesRequestPluginType = "web"
+)
+
+type ResponsesRequestPlugin struct {
+	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
+	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
+	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
+	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
+	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
+	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
+
+	Type ResponsesRequestPluginType
+}
+
+func CreateResponsesRequestPluginAutoRouter(autoRouter AutoRouterPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeAutoRouter
+
+	typStr := AutoRouterPluginID(typ)
+	autoRouter.ID = typStr
+
+	return ResponsesRequestPlugin{
+		AutoRouterPlugin: &autoRouter,
+		Type:             typ,
+	}
+}
+
+func CreateResponsesRequestPluginContextCompression(contextCompression ContextCompressionPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeContextCompression
+
+	typStr := ContextCompressionPluginID(typ)
+	contextCompression.ID = typStr
+
+	return ResponsesRequestPlugin{
+		ContextCompressionPlugin: &contextCompression,
+		Type:                     typ,
+	}
+}
+
+func CreateResponsesRequestPluginFileParser(fileParser FileParserPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeFileParser
+
+	typStr := FileParserPluginID(typ)
+	fileParser.ID = typStr
+
+	return ResponsesRequestPlugin{
+		FileParserPlugin: &fileParser,
+		Type:             typ,
+	}
+}
+
+func CreateResponsesRequestPluginModeration(moderation ModerationPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeModeration
+
+	typStr := ModerationPluginID(typ)
+	moderation.ID = typStr
+
+	return ResponsesRequestPlugin{
+		ModerationPlugin: &moderation,
+		Type:             typ,
+	}
+}
+
+func CreateResponsesRequestPluginResponseHealing(responseHealing ResponseHealingPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeResponseHealing
+
+	typStr := ResponseHealingPluginID(typ)
+	responseHealing.ID = typStr
+
+	return ResponsesRequestPlugin{
+		ResponseHealingPlugin: &responseHealing,
+		Type:                  typ,
+	}
+}
+
+func CreateResponsesRequestPluginWeb(web WebSearchPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeWeb
+
+	typStr := WebSearchPluginID(typ)
+	web.ID = typStr
+
+	return ResponsesRequestPlugin{
+		WebSearchPlugin: &web,
+		Type:            typ,
+	}
+}
+
+func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		ID string `json:"id"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.ID {
+	case "auto-router":
+		autoRouterPlugin := new(AutoRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &autoRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-router) type AutoRouterPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.AutoRouterPlugin = autoRouterPlugin
+		u.Type = ResponsesRequestPluginTypeAutoRouter
+		return nil
+	case "context-compression":
+		contextCompressionPlugin := new(ContextCompressionPlugin)
+		if err := utils.UnmarshalJSON(data, &contextCompressionPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == context-compression) type ContextCompressionPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.ContextCompressionPlugin = contextCompressionPlugin
+		u.Type = ResponsesRequestPluginTypeContextCompression
+		return nil
+	case "file-parser":
+		fileParserPlugin := new(FileParserPlugin)
+		if err := utils.UnmarshalJSON(data, &fileParserPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == file-parser) type FileParserPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.FileParserPlugin = fileParserPlugin
+		u.Type = ResponsesRequestPluginTypeFileParser
+		return nil
+	case "moderation":
+		moderationPlugin := new(ModerationPlugin)
+		if err := utils.UnmarshalJSON(data, &moderationPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == moderation) type ModerationPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.ModerationPlugin = moderationPlugin
+		u.Type = ResponsesRequestPluginTypeModeration
+		return nil
+	case "response-healing":
+		responseHealingPlugin := new(ResponseHealingPlugin)
+		if err := utils.UnmarshalJSON(data, &responseHealingPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == response-healing) type ResponseHealingPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.ResponseHealingPlugin = responseHealingPlugin
+		u.Type = ResponsesRequestPluginTypeResponseHealing
+		return nil
+	case "web":
+		webSearchPlugin := new(WebSearchPlugin)
+		if err := utils.UnmarshalJSON(data, &webSearchPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web) type WebSearchPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.WebSearchPlugin = webSearchPlugin
+		u.Type = ResponsesRequestPluginTypeWeb
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestPlugin", string(data))
+}
+
+func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
+	if u.AutoRouterPlugin != nil {
+		return utils.MarshalJSON(u.AutoRouterPlugin, "", true)
+	}
+
+	if u.ModerationPlugin != nil {
+		return utils.MarshalJSON(u.ModerationPlugin, "", true)
+	}
+
+	if u.WebSearchPlugin != nil {
+		return utils.MarshalJSON(u.WebSearchPlugin, "", true)
+	}
+
+	if u.FileParserPlugin != nil {
+		return utils.MarshalJSON(u.FileParserPlugin, "", true)
+	}
+
+	if u.ResponseHealingPlugin != nil {
+		return utils.MarshalJSON(u.ResponseHealingPlugin, "", true)
+	}
+
+	if u.ContextCompressionPlugin != nil {
+		return utils.MarshalJSON(u.ContextCompressionPlugin, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")
+}
+
+type ResponsesRequestServiceTier string
+
+const (
+	ResponsesRequestServiceTierAuto     ResponsesRequestServiceTier = "auto"
+	ResponsesRequestServiceTierDefault  ResponsesRequestServiceTier = "default"
+	ResponsesRequestServiceTierFlex     ResponsesRequestServiceTier = "flex"
+	ResponsesRequestServiceTierPriority ResponsesRequestServiceTier = "priority"
+	ResponsesRequestServiceTierScale    ResponsesRequestServiceTier = "scale"
+)
+
+func (e ResponsesRequestServiceTier) ToPointer() *ResponsesRequestServiceTier {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ResponsesRequestServiceTier) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "default", "flex", "priority", "scale":
+			return true
+		}
+	}
+	return false
+}
+
 type ResponsesRequestType string
 
 const (
@@ -36,11 +254,11 @@ func (e *ResponsesRequestType) UnmarshalJSON(data []byte) error {
 
 // ResponsesRequestToolFunction - Function tool definition
 type ResponsesRequestToolFunction struct {
-	Type        ResponsesRequestType                      `json:"type"`
-	Name        string                                    `json:"name"`
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
+	Name        string                                    `json:"name"`
 	Parameters  map[string]any                            `json:"parameters"`
+	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
+	Type        ResponsesRequestType                      `json:"type"`
 }
 
 func (r ResponsesRequestToolFunction) MarshalJSON() ([]byte, error) {
@@ -54,11 +272,11 @@ func (r *ResponsesRequestToolFunction) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ResponsesRequestToolFunction) GetType() ResponsesRequestType {
+func (r *ResponsesRequestToolFunction) GetDescription() optionalnullable.OptionalNullable[string] {
 	if r == nil {
-		return ResponsesRequestType("")
+		return nil
 	}
-	return r.Type
+	return r.Description
 }
 
 func (r *ResponsesRequestToolFunction) GetName() string {
@@ -68,11 +286,11 @@ func (r *ResponsesRequestToolFunction) GetName() string {
 	return r.Name
 }
 
-func (r *ResponsesRequestToolFunction) GetDescription() optionalnullable.OptionalNullable[string] {
+func (r *ResponsesRequestToolFunction) GetParameters() map[string]any {
 	if r == nil {
 		return nil
 	}
-	return r.Description
+	return r.Parameters
 }
 
 func (r *ResponsesRequestToolFunction) GetStrict() optionalnullable.OptionalNullable[bool] {
@@ -82,51 +300,55 @@ func (r *ResponsesRequestToolFunction) GetStrict() optionalnullable.OptionalNull
 	return r.Strict
 }
 
-func (r *ResponsesRequestToolFunction) GetParameters() map[string]any {
+func (r *ResponsesRequestToolFunction) GetType() ResponsesRequestType {
 	if r == nil {
-		return nil
+		return ResponsesRequestType("")
 	}
-	return r.Parameters
+	return r.Type
 }
 
 type ResponsesRequestToolUnionType string
 
 const (
-	ResponsesRequestToolUnionTypeFunction                 ResponsesRequestToolUnionType = "function"
-	ResponsesRequestToolUnionTypeWebSearchPreview         ResponsesRequestToolUnionType = "web_search_preview"
-	ResponsesRequestToolUnionTypeWebSearchPreview20250311 ResponsesRequestToolUnionType = "web_search_preview_2025_03_11"
-	ResponsesRequestToolUnionTypeWebSearch                ResponsesRequestToolUnionType = "web_search"
-	ResponsesRequestToolUnionTypeWebSearch20250826        ResponsesRequestToolUnionType = "web_search_2025_08_26"
-	ResponsesRequestToolUnionTypeFileSearch               ResponsesRequestToolUnionType = "file_search"
-	ResponsesRequestToolUnionTypeComputerUsePreview       ResponsesRequestToolUnionType = "computer_use_preview"
-	ResponsesRequestToolUnionTypeCodeInterpreter          ResponsesRequestToolUnionType = "code_interpreter"
-	ResponsesRequestToolUnionTypeMcp                      ResponsesRequestToolUnionType = "mcp"
-	ResponsesRequestToolUnionTypeImageGeneration          ResponsesRequestToolUnionType = "image_generation"
-	ResponsesRequestToolUnionTypeLocalShell               ResponsesRequestToolUnionType = "local_shell"
-	ResponsesRequestToolUnionTypeShell                    ResponsesRequestToolUnionType = "shell"
-	ResponsesRequestToolUnionTypeApplyPatch               ResponsesRequestToolUnionType = "apply_patch"
-	ResponsesRequestToolUnionTypeCustom                   ResponsesRequestToolUnionType = "custom"
-	ResponsesRequestToolUnionTypeOpenrouterDatetime       ResponsesRequestToolUnionType = "openrouter:datetime"
-	ResponsesRequestToolUnionTypeOpenrouterWebSearch      ResponsesRequestToolUnionType = "openrouter:web_search"
+	ResponsesRequestToolUnionTypeFunction                           ResponsesRequestToolUnionType = "function"
+	ResponsesRequestToolUnionTypeWebSearchPreview                   ResponsesRequestToolUnionType = "web_search_preview"
+	ResponsesRequestToolUnionTypeWebSearchPreview20250311           ResponsesRequestToolUnionType = "web_search_preview_2025_03_11"
+	ResponsesRequestToolUnionTypeWebSearch                          ResponsesRequestToolUnionType = "web_search"
+	ResponsesRequestToolUnionTypeWebSearch20250826                  ResponsesRequestToolUnionType = "web_search_2025_08_26"
+	ResponsesRequestToolUnionTypeFileSearch                         ResponsesRequestToolUnionType = "file_search"
+	ResponsesRequestToolUnionTypeComputerUsePreview                 ResponsesRequestToolUnionType = "computer_use_preview"
+	ResponsesRequestToolUnionTypeCodeInterpreter                    ResponsesRequestToolUnionType = "code_interpreter"
+	ResponsesRequestToolUnionTypeMcp                                ResponsesRequestToolUnionType = "mcp"
+	ResponsesRequestToolUnionTypeImageGeneration                    ResponsesRequestToolUnionType = "image_generation"
+	ResponsesRequestToolUnionTypeLocalShell                         ResponsesRequestToolUnionType = "local_shell"
+	ResponsesRequestToolUnionTypeShell                              ResponsesRequestToolUnionType = "shell"
+	ResponsesRequestToolUnionTypeApplyPatch                         ResponsesRequestToolUnionType = "apply_patch"
+	ResponsesRequestToolUnionTypeCustom                             ResponsesRequestToolUnionType = "custom"
+	ResponsesRequestToolUnionTypeOpenrouterDatetime                 ResponsesRequestToolUnionType = "openrouter:datetime"
+	ResponsesRequestToolUnionTypeOpenrouterImageGeneration          ResponsesRequestToolUnionType = "openrouter:image_generation"
+	ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels ResponsesRequestToolUnionType = "openrouter:experimental__search_models"
+	ResponsesRequestToolUnionTypeOpenrouterWebSearch                ResponsesRequestToolUnionType = "openrouter:web_search"
 )
 
 type ResponsesRequestToolUnion struct {
-	ResponsesRequestToolFunction       *ResponsesRequestToolFunction       `queryParam:"inline" union:"member"`
-	PreviewWebSearchServerTool         *PreviewWebSearchServerTool         `queryParam:"inline" union:"member"`
-	Preview20250311WebSearchServerTool *Preview20250311WebSearchServerTool `queryParam:"inline" union:"member"`
-	LegacyWebSearchServerTool          *LegacyWebSearchServerTool          `queryParam:"inline" union:"member"`
-	WebSearchServerTool                *WebSearchServerTool                `queryParam:"inline" union:"member"`
-	FileSearchServerTool               *FileSearchServerTool               `queryParam:"inline" union:"member"`
-	ComputerUseServerTool              *ComputerUseServerTool              `queryParam:"inline" union:"member"`
-	CodeInterpreterServerTool          *CodeInterpreterServerTool          `queryParam:"inline" union:"member"`
-	McpServerTool                      *McpServerTool                      `queryParam:"inline" union:"member"`
-	ImageGenerationServerTool          *ImageGenerationServerTool          `queryParam:"inline" union:"member"`
-	CodexLocalShellTool                *CodexLocalShellTool                `queryParam:"inline" union:"member"`
-	ShellServerTool                    *ShellServerTool                    `queryParam:"inline" union:"member"`
-	ApplyPatchServerTool               *ApplyPatchServerTool               `queryParam:"inline" union:"member"`
-	CustomTool                         *CustomTool                         `queryParam:"inline" union:"member"`
-	DatetimeServerTool                 *DatetimeServerTool                 `queryParam:"inline" union:"member"`
-	WebSearchServerToolOpenRouter      *WebSearchServerToolOpenRouter      `queryParam:"inline" union:"member"`
+	ResponsesRequestToolFunction        *ResponsesRequestToolFunction        `queryParam:"inline" union:"member"`
+	PreviewWebSearchServerTool          *PreviewWebSearchServerTool          `queryParam:"inline" union:"member"`
+	Preview20250311WebSearchServerTool  *Preview20250311WebSearchServerTool  `queryParam:"inline" union:"member"`
+	LegacyWebSearchServerTool           *LegacyWebSearchServerTool           `queryParam:"inline" union:"member"`
+	WebSearchServerTool                 *WebSearchServerTool                 `queryParam:"inline" union:"member"`
+	FileSearchServerTool                *FileSearchServerTool                `queryParam:"inline" union:"member"`
+	ComputerUseServerTool               *ComputerUseServerTool               `queryParam:"inline" union:"member"`
+	CodeInterpreterServerTool           *CodeInterpreterServerTool           `queryParam:"inline" union:"member"`
+	McpServerTool                       *McpServerTool                       `queryParam:"inline" union:"member"`
+	ImageGenerationServerTool           *ImageGenerationServerTool           `queryParam:"inline" union:"member"`
+	CodexLocalShellTool                 *CodexLocalShellTool                 `queryParam:"inline" union:"member"`
+	ShellServerTool                     *ShellServerTool                     `queryParam:"inline" union:"member"`
+	ApplyPatchServerTool                *ApplyPatchServerTool                `queryParam:"inline" union:"member"`
+	CustomTool                          *CustomTool                          `queryParam:"inline" union:"member"`
+	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
+	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
+	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	WebSearchServerToolOpenRouter       *WebSearchServerToolOpenRouter       `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestToolUnionType
 }
@@ -311,6 +533,30 @@ func CreateResponsesRequestToolUnionOpenrouterDatetime(openrouterDatetime Dateti
 	}
 }
 
+func CreateResponsesRequestToolUnionOpenrouterImageGeneration(openrouterImageGeneration ImageGenerationServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterImageGeneration
+
+	typStr := ImageGenerationServerToolOpenRouterType(typ)
+	openrouterImageGeneration.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		ImageGenerationServerToolOpenRouter: &openrouterImageGeneration,
+		Type:                                typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(openrouterExperimentalSearchModels ChatSearchModelsServerTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
+
+	typStr := ChatSearchModelsServerToolType(typ)
+	openrouterExperimentalSearchModels.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		ChatSearchModelsServerTool: &openrouterExperimentalSearchModels,
+		Type:                       typ,
+	}
+}
+
 func CreateResponsesRequestToolUnionOpenrouterWebSearch(openrouterWebSearch WebSearchServerToolOpenRouter) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeOpenrouterWebSearch
 
@@ -470,6 +716,24 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.DatetimeServerTool = datetimeServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterDatetime
 		return nil
+	case "openrouter:image_generation":
+		imageGenerationServerToolOpenRouter := new(ImageGenerationServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &imageGenerationServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:image_generation) type ImageGenerationServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.ImageGenerationServerToolOpenRouter = imageGenerationServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterImageGeneration
+		return nil
+	case "openrouter:experimental__search_models":
+		chatSearchModelsServerTool := new(ChatSearchModelsServerTool)
+		if err := utils.UnmarshalJSON(data, &chatSearchModelsServerTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:experimental__search_models) type ChatSearchModelsServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.ChatSearchModelsServerTool = chatSearchModelsServerTool
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
+		return nil
 	case "openrouter:web_search":
 		webSearchServerToolOpenRouter := new(WebSearchServerToolOpenRouter)
 		if err := utils.UnmarshalJSON(data, &webSearchServerToolOpenRouter, "", true, nil); err != nil {
@@ -545,6 +809,14 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
 	}
 
+	if u.ImageGenerationServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.ImageGenerationServerToolOpenRouter, "", true)
+	}
+
+	if u.ChatSearchModelsServerTool != nil {
+		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	}
+
 	if u.WebSearchServerToolOpenRouter != nil {
 		return utils.MarshalJSON(u.WebSearchServerToolOpenRouter, "", true)
 	}
@@ -552,362 +824,55 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ResponsesRequestToolUnion: all fields are null")
 }
 
-type ResponsesRequestImageConfigType string
-
-const (
-	ResponsesRequestImageConfigTypeStr    ResponsesRequestImageConfigType = "str"
-	ResponsesRequestImageConfigTypeNumber ResponsesRequestImageConfigType = "number"
-)
-
-type ResponsesRequestImageConfig struct {
-	Str    *string  `queryParam:"inline" union:"member"`
-	Number *float64 `queryParam:"inline" union:"member"`
-
-	Type ResponsesRequestImageConfigType
-}
-
-func CreateResponsesRequestImageConfigStr(str string) ResponsesRequestImageConfig {
-	typ := ResponsesRequestImageConfigTypeStr
-
-	return ResponsesRequestImageConfig{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateResponsesRequestImageConfigNumber(number float64) ResponsesRequestImageConfig {
-	typ := ResponsesRequestImageConfigTypeNumber
-
-	return ResponsesRequestImageConfig{
-		Number: &number,
-		Type:   typ,
-	}
-}
-
-func (u *ResponsesRequestImageConfig) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestImageConfigTypeStr,
-			Value: &str,
-		})
-	}
-
-	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestImageConfigTypeNumber,
-			Value: &number,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestImageConfig", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestImageConfig", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ResponsesRequestImageConfigType)
-	switch best.Type {
-	case ResponsesRequestImageConfigTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	case ResponsesRequestImageConfigTypeNumber:
-		u.Number = best.Value.(*float64)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestImageConfig", string(data))
-}
-
-func (u ResponsesRequestImageConfig) MarshalJSON() ([]byte, error) {
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.Number != nil {
-		return utils.MarshalJSON(u.Number, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ResponsesRequestImageConfig: all fields are null")
-}
-
-type ResponsesRequestServiceTier string
-
-const (
-	ResponsesRequestServiceTierAuto     ResponsesRequestServiceTier = "auto"
-	ResponsesRequestServiceTierDefault  ResponsesRequestServiceTier = "default"
-	ResponsesRequestServiceTierFlex     ResponsesRequestServiceTier = "flex"
-	ResponsesRequestServiceTierPriority ResponsesRequestServiceTier = "priority"
-	ResponsesRequestServiceTierScale    ResponsesRequestServiceTier = "scale"
-)
-
-func (e ResponsesRequestServiceTier) ToPointer() *ResponsesRequestServiceTier {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ResponsesRequestServiceTier) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "default", "flex", "priority", "scale":
-			return true
-		}
-	}
-	return false
-}
-
-type ResponsesRequestPluginType string
-
-const (
-	ResponsesRequestPluginTypeAutoRouter         ResponsesRequestPluginType = "auto-router"
-	ResponsesRequestPluginTypeModeration         ResponsesRequestPluginType = "moderation"
-	ResponsesRequestPluginTypeWeb                ResponsesRequestPluginType = "web"
-	ResponsesRequestPluginTypeFileParser         ResponsesRequestPluginType = "file-parser"
-	ResponsesRequestPluginTypeResponseHealing    ResponsesRequestPluginType = "response-healing"
-	ResponsesRequestPluginTypeContextCompression ResponsesRequestPluginType = "context-compression"
-)
-
-type ResponsesRequestPlugin struct {
-	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
-	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
-	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
-	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
-	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
-	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
-
-	Type ResponsesRequestPluginType
-}
-
-func CreateResponsesRequestPluginAutoRouter(autoRouter AutoRouterPlugin) ResponsesRequestPlugin {
-	typ := ResponsesRequestPluginTypeAutoRouter
-
-	typStr := AutoRouterPluginID(typ)
-	autoRouter.ID = typStr
-
-	return ResponsesRequestPlugin{
-		AutoRouterPlugin: &autoRouter,
-		Type:             typ,
-	}
-}
-
-func CreateResponsesRequestPluginModeration(moderation ModerationPlugin) ResponsesRequestPlugin {
-	typ := ResponsesRequestPluginTypeModeration
-
-	typStr := ModerationPluginID(typ)
-	moderation.ID = typStr
-
-	return ResponsesRequestPlugin{
-		ModerationPlugin: &moderation,
-		Type:             typ,
-	}
-}
-
-func CreateResponsesRequestPluginWeb(web WebSearchPlugin) ResponsesRequestPlugin {
-	typ := ResponsesRequestPluginTypeWeb
-
-	typStr := WebSearchPluginID(typ)
-	web.ID = typStr
-
-	return ResponsesRequestPlugin{
-		WebSearchPlugin: &web,
-		Type:            typ,
-	}
-}
-
-func CreateResponsesRequestPluginFileParser(fileParser FileParserPlugin) ResponsesRequestPlugin {
-	typ := ResponsesRequestPluginTypeFileParser
-
-	typStr := FileParserPluginID(typ)
-	fileParser.ID = typStr
-
-	return ResponsesRequestPlugin{
-		FileParserPlugin: &fileParser,
-		Type:             typ,
-	}
-}
-
-func CreateResponsesRequestPluginResponseHealing(responseHealing ResponseHealingPlugin) ResponsesRequestPlugin {
-	typ := ResponsesRequestPluginTypeResponseHealing
-
-	typStr := ResponseHealingPluginID(typ)
-	responseHealing.ID = typStr
-
-	return ResponsesRequestPlugin{
-		ResponseHealingPlugin: &responseHealing,
-		Type:                  typ,
-	}
-}
-
-func CreateResponsesRequestPluginContextCompression(contextCompression ContextCompressionPlugin) ResponsesRequestPlugin {
-	typ := ResponsesRequestPluginTypeContextCompression
-
-	typStr := ContextCompressionPluginID(typ)
-	contextCompression.ID = typStr
-
-	return ResponsesRequestPlugin{
-		ContextCompressionPlugin: &contextCompression,
-		Type:                     typ,
-	}
-}
-
-func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		ID string `json:"id"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
-	}
-
-	switch dis.ID {
-	case "auto-router":
-		autoRouterPlugin := new(AutoRouterPlugin)
-		if err := utils.UnmarshalJSON(data, &autoRouterPlugin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-router) type AutoRouterPlugin within ResponsesRequestPlugin: %w", string(data), err)
-		}
-
-		u.AutoRouterPlugin = autoRouterPlugin
-		u.Type = ResponsesRequestPluginTypeAutoRouter
-		return nil
-	case "moderation":
-		moderationPlugin := new(ModerationPlugin)
-		if err := utils.UnmarshalJSON(data, &moderationPlugin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == moderation) type ModerationPlugin within ResponsesRequestPlugin: %w", string(data), err)
-		}
-
-		u.ModerationPlugin = moderationPlugin
-		u.Type = ResponsesRequestPluginTypeModeration
-		return nil
-	case "web":
-		webSearchPlugin := new(WebSearchPlugin)
-		if err := utils.UnmarshalJSON(data, &webSearchPlugin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web) type WebSearchPlugin within ResponsesRequestPlugin: %w", string(data), err)
-		}
-
-		u.WebSearchPlugin = webSearchPlugin
-		u.Type = ResponsesRequestPluginTypeWeb
-		return nil
-	case "file-parser":
-		fileParserPlugin := new(FileParserPlugin)
-		if err := utils.UnmarshalJSON(data, &fileParserPlugin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == file-parser) type FileParserPlugin within ResponsesRequestPlugin: %w", string(data), err)
-		}
-
-		u.FileParserPlugin = fileParserPlugin
-		u.Type = ResponsesRequestPluginTypeFileParser
-		return nil
-	case "response-healing":
-		responseHealingPlugin := new(ResponseHealingPlugin)
-		if err := utils.UnmarshalJSON(data, &responseHealingPlugin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == response-healing) type ResponseHealingPlugin within ResponsesRequestPlugin: %w", string(data), err)
-		}
-
-		u.ResponseHealingPlugin = responseHealingPlugin
-		u.Type = ResponsesRequestPluginTypeResponseHealing
-		return nil
-	case "context-compression":
-		contextCompressionPlugin := new(ContextCompressionPlugin)
-		if err := utils.UnmarshalJSON(data, &contextCompressionPlugin, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (ID == context-compression) type ContextCompressionPlugin within ResponsesRequestPlugin: %w", string(data), err)
-		}
-
-		u.ContextCompressionPlugin = contextCompressionPlugin
-		u.Type = ResponsesRequestPluginTypeContextCompression
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestPlugin", string(data))
-}
-
-func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
-	if u.AutoRouterPlugin != nil {
-		return utils.MarshalJSON(u.AutoRouterPlugin, "", true)
-	}
-
-	if u.ModerationPlugin != nil {
-		return utils.MarshalJSON(u.ModerationPlugin, "", true)
-	}
-
-	if u.WebSearchPlugin != nil {
-		return utils.MarshalJSON(u.WebSearchPlugin, "", true)
-	}
-
-	if u.FileParserPlugin != nil {
-		return utils.MarshalJSON(u.FileParserPlugin, "", true)
-	}
-
-	if u.ResponseHealingPlugin != nil {
-		return utils.MarshalJSON(u.ResponseHealingPlugin, "", true)
-	}
-
-	if u.ContextCompressionPlugin != nil {
-		return utils.MarshalJSON(u.ContextCompressionPlugin, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")
-}
-
 // ResponsesRequest - Request schema for Responses endpoint
 type ResponsesRequest struct {
+	Background       optionalnullable.OptionalNullable[bool]    `json:"background,omitzero"`
+	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
+	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
+	ImageConfig map[string]ImageConfig                                    `json:"image_config,omitzero"`
+	Include     optionalnullable.OptionalNullable[[]ResponseIncludesEnum] `json:"include,omitzero"`
 	// Input for a response request - can be a string or array of items
-	Input        *InputsUnion                              `json:"input,omitzero"`
-	Instructions optionalnullable.OptionalNullable[string] `json:"instructions,omitzero"`
+	Input           *InputsUnion                              `json:"input,omitzero"`
+	Instructions    optionalnullable.OptionalNullable[string] `json:"instructions,omitzero"`
+	MaxOutputTokens optionalnullable.OptionalNullable[int64]  `json:"max_output_tokens,omitzero"`
+	MaxToolCalls    optionalnullable.OptionalNullable[int64]  `json:"max_tool_calls,omitzero"`
 	// Metadata key-value pairs for the request. Keys must be ≤64 characters and cannot contain brackets. Values must be ≤512 characters. Maximum 16 pairs allowed.
-	Metadata          optionalnullable.OptionalNullable[map[string]string] `json:"metadata,omitzero"`
-	Tools             []ResponsesRequestToolUnion                          `json:"tools,omitzero"`
-	ToolChoice        *OpenAIResponsesToolChoiceUnion                      `json:"tool_choice,omitzero"`
-	ParallelToolCalls optionalnullable.OptionalNullable[bool]              `json:"parallel_tool_calls,omitzero"`
-	Model             *string                                              `json:"model,omitzero"`
-	Models            []string                                             `json:"models,omitzero"`
-	// Text output configuration including format and verbosity
-	Text *TextExtendedConfig `json:"text,omitzero"`
-	// Configuration for reasoning mode in the response
-	Reasoning        optionalnullable.OptionalNullable[ReasoningConfig] `json:"reasoning,omitzero"`
-	MaxOutputTokens  *int64                                             `json:"max_output_tokens,omitzero"`
-	Temperature      *float64                                           `json:"temperature,omitzero"`
-	TopP             *float64                                           `json:"top_p,omitzero"`
-	TopLogprobs      *int64                                             `json:"top_logprobs,omitzero"`
-	MaxToolCalls     *int64                                             `json:"max_tool_calls,omitzero"`
-	PresencePenalty  *float64                                           `json:"presence_penalty,omitzero"`
-	FrequencyPenalty *float64                                           `json:"frequency_penalty,omitzero"`
-	TopK             *int64                                             `json:"top_k,omitzero"`
-	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/features/multimodal/image-generation for more details.
-	ImageConfig map[string]ResponsesRequestImageConfig `json:"image_config,omitzero"`
+	Metadata optionalnullable.OptionalNullable[map[string]string] `json:"metadata,omitzero"`
 	// Output modalities for the response. Supported values are "text" and "image".
-	Modalities         []OutputModalityEnum                                      `json:"modalities,omitzero"`
-	PromptCacheKey     optionalnullable.OptionalNullable[string]                 `json:"prompt_cache_key,omitzero"`
-	PreviousResponseID optionalnullable.OptionalNullable[string]                 `json:"previous_response_id,omitzero"`
-	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate]   `json:"prompt,omitzero"`
-	Include            optionalnullable.OptionalNullable[[]ResponseIncludesEnum] `json:"include,omitzero"`
-	Background         optionalnullable.OptionalNullable[bool]                   `json:"background,omitzero"`
-	SafetyIdentifier   optionalnullable.OptionalNullable[string]                 `json:"safety_identifier,omitzero"`
-	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	store       *bool                                                          `const:"false" json:"store"`
-	ServiceTier optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
-	Truncation  optionalnullable.OptionalNullable[OpenAIResponsesTruncation]   `json:"truncation,omitzero"`
-	Stream      *bool                                                          `default:"false" json:"stream"`
+	Modalities        []OutputModalityEnum                    `json:"modalities,omitzero"`
+	Model             *string                                 `json:"model,omitzero"`
+	Models            []string                                `json:"models,omitzero"`
+	ParallelToolCalls optionalnullable.OptionalNullable[bool] `json:"parallel_tool_calls,omitzero"`
+	// Plugins you want to enable for this request, including their settings.
+	Plugins            []ResponsesRequestPlugin                                `json:"plugins,omitzero"`
+	PresencePenalty    optionalnullable.OptionalNullable[float64]              `json:"presence_penalty,omitzero"`
+	PreviousResponseID optionalnullable.OptionalNullable[string]               `json:"previous_response_id,omitzero"`
+	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
+	PromptCacheKey     optionalnullable.OptionalNullable[string]               `json:"prompt_cache_key,omitzero"`
 	// When multiple model providers are available, optionally indicate your routing preference.
 	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
-	// Plugins you want to enable for this request, including their settings.
-	Plugins []ResponsesRequestPlugin `json:"plugins,omitzero"`
-	// A unique identifier representing your end-user, which helps distinguish between different users of your app. This allows your app to identify specific users in case of abuse reports, preventing your entire app from being affected by the actions of individual users. Maximum of 256 characters.
-	User *string `json:"user,omitzero"`
+	// Configuration for reasoning mode in the response
+	Reasoning        optionalnullable.OptionalNullable[ReasoningConfig]             `json:"reasoning,omitzero"`
+	SafetyIdentifier optionalnullable.OptionalNullable[string]                      `json:"safety_identifier,omitzero"`
+	ServiceTier      optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow) for observability. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	store       *bool                                      `const:"false" json:"store"`
+	Stream      *bool                                      `default:"false" json:"stream"`
+	Temperature optionalnullable.OptionalNullable[float64] `json:"temperature,omitzero"`
+	// Text output configuration including format and verbosity
+	Text        *TextExtendedConfig                        `json:"text,omitzero"`
+	ToolChoice  *OpenAIResponsesToolChoiceUnion            `json:"tool_choice,omitzero"`
+	Tools       []ResponsesRequestToolUnion                `json:"tools,omitzero"`
+	TopK        *int64                                     `json:"top_k,omitzero"`
+	TopLogprobs optionalnullable.OptionalNullable[int64]   `json:"top_logprobs,omitzero"`
+	TopP        optionalnullable.OptionalNullable[float64] `json:"top_p,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
-	Trace *TraceConfig `json:"trace,omitzero"`
+	Trace      *TraceConfig                                                 `json:"trace,omitzero"`
+	Truncation optionalnullable.OptionalNullable[OpenAIResponsesTruncation] `json:"truncation,omitzero"`
+	// A unique identifier representing your end-user, which helps distinguish between different users of your app. This allows your app to identify specific users in case of abuse reports, preventing your entire app from being affected by the actions of individual users. Maximum of 256 characters.
+	User *string `json:"user,omitzero"`
 }
 
 func (r ResponsesRequest) MarshalJSON() ([]byte, error) {
@@ -919,6 +884,34 @@ func (r *ResponsesRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (r *ResponsesRequest) GetBackground() optionalnullable.OptionalNullable[bool] {
+	if r == nil {
+		return nil
+	}
+	return r.Background
+}
+
+func (r *ResponsesRequest) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {
+	if r == nil {
+		return nil
+	}
+	return r.FrequencyPenalty
+}
+
+func (r *ResponsesRequest) GetImageConfig() map[string]ImageConfig {
+	if r == nil {
+		return nil
+	}
+	return r.ImageConfig
+}
+
+func (r *ResponsesRequest) GetInclude() optionalnullable.OptionalNullable[[]ResponseIncludesEnum] {
+	if r == nil {
+		return nil
+	}
+	return r.Include
 }
 
 func (r *ResponsesRequest) GetInput() *InputsUnion {
@@ -935,6 +928,20 @@ func (r *ResponsesRequest) GetInstructions() optionalnullable.OptionalNullable[s
 	return r.Instructions
 }
 
+func (r *ResponsesRequest) GetMaxOutputTokens() optionalnullable.OptionalNullable[int64] {
+	if r == nil {
+		return nil
+	}
+	return r.MaxOutputTokens
+}
+
+func (r *ResponsesRequest) GetMaxToolCalls() optionalnullable.OptionalNullable[int64] {
+	if r == nil {
+		return nil
+	}
+	return r.MaxToolCalls
+}
+
 func (r *ResponsesRequest) GetMetadata() optionalnullable.OptionalNullable[map[string]string] {
 	if r == nil {
 		return nil
@@ -942,25 +949,11 @@ func (r *ResponsesRequest) GetMetadata() optionalnullable.OptionalNullable[map[s
 	return r.Metadata
 }
 
-func (r *ResponsesRequest) GetTools() []ResponsesRequestToolUnion {
+func (r *ResponsesRequest) GetModalities() []OutputModalityEnum {
 	if r == nil {
 		return nil
 	}
-	return r.Tools
-}
-
-func (r *ResponsesRequest) GetToolChoice() *OpenAIResponsesToolChoiceUnion {
-	if r == nil {
-		return nil
-	}
-	return r.ToolChoice
-}
-
-func (r *ResponsesRequest) GetParallelToolCalls() optionalnullable.OptionalNullable[bool] {
-	if r == nil {
-		return nil
-	}
-	return r.ParallelToolCalls
+	return r.Modalities
 }
 
 func (r *ResponsesRequest) GetModel() *string {
@@ -977,95 +970,25 @@ func (r *ResponsesRequest) GetModels() []string {
 	return r.Models
 }
 
-func (r *ResponsesRequest) GetText() *TextExtendedConfig {
+func (r *ResponsesRequest) GetParallelToolCalls() optionalnullable.OptionalNullable[bool] {
 	if r == nil {
 		return nil
 	}
-	return r.Text
+	return r.ParallelToolCalls
 }
 
-func (r *ResponsesRequest) GetReasoning() optionalnullable.OptionalNullable[ReasoningConfig] {
+func (r *ResponsesRequest) GetPlugins() []ResponsesRequestPlugin {
 	if r == nil {
 		return nil
 	}
-	return r.Reasoning
+	return r.Plugins
 }
 
-func (r *ResponsesRequest) GetMaxOutputTokens() *int64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxOutputTokens
-}
-
-func (r *ResponsesRequest) GetTemperature() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Temperature
-}
-
-func (r *ResponsesRequest) GetTopP() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.TopP
-}
-
-func (r *ResponsesRequest) GetTopLogprobs() *int64 {
-	if r == nil {
-		return nil
-	}
-	return r.TopLogprobs
-}
-
-func (r *ResponsesRequest) GetMaxToolCalls() *int64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxToolCalls
-}
-
-func (r *ResponsesRequest) GetPresencePenalty() *float64 {
+func (r *ResponsesRequest) GetPresencePenalty() optionalnullable.OptionalNullable[float64] {
 	if r == nil {
 		return nil
 	}
 	return r.PresencePenalty
-}
-
-func (r *ResponsesRequest) GetFrequencyPenalty() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.FrequencyPenalty
-}
-
-func (r *ResponsesRequest) GetTopK() *int64 {
-	if r == nil {
-		return nil
-	}
-	return r.TopK
-}
-
-func (r *ResponsesRequest) GetImageConfig() map[string]ResponsesRequestImageConfig {
-	if r == nil {
-		return nil
-	}
-	return r.ImageConfig
-}
-
-func (r *ResponsesRequest) GetModalities() []OutputModalityEnum {
-	if r == nil {
-		return nil
-	}
-	return r.Modalities
-}
-
-func (r *ResponsesRequest) GetPromptCacheKey() optionalnullable.OptionalNullable[string] {
-	if r == nil {
-		return nil
-	}
-	return r.PromptCacheKey
 }
 
 func (r *ResponsesRequest) GetPreviousResponseID() optionalnullable.OptionalNullable[string] {
@@ -1082,50 +1005,11 @@ func (r *ResponsesRequest) GetPrompt() optionalnullable.OptionalNullable[StoredP
 	return r.Prompt
 }
 
-func (r *ResponsesRequest) GetInclude() optionalnullable.OptionalNullable[[]ResponseIncludesEnum] {
+func (r *ResponsesRequest) GetPromptCacheKey() optionalnullable.OptionalNullable[string] {
 	if r == nil {
 		return nil
 	}
-	return r.Include
-}
-
-func (r *ResponsesRequest) GetBackground() optionalnullable.OptionalNullable[bool] {
-	if r == nil {
-		return nil
-	}
-	return r.Background
-}
-
-func (r *ResponsesRequest) GetSafetyIdentifier() optionalnullable.OptionalNullable[string] {
-	if r == nil {
-		return nil
-	}
-	return r.SafetyIdentifier
-}
-
-func (r *ResponsesRequest) GetStore() *bool {
-	return types.Pointer(false)
-}
-
-func (r *ResponsesRequest) GetServiceTier() optionalnullable.OptionalNullable[ResponsesRequestServiceTier] {
-	if r == nil {
-		return nil
-	}
-	return r.ServiceTier
-}
-
-func (r *ResponsesRequest) GetTruncation() optionalnullable.OptionalNullable[OpenAIResponsesTruncation] {
-	if r == nil {
-		return nil
-	}
-	return r.Truncation
-}
-
-func (r *ResponsesRequest) GetStream() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Stream
+	return r.PromptCacheKey
 }
 
 func (r *ResponsesRequest) GetProvider() optionalnullable.OptionalNullable[ProviderPreferences] {
@@ -1135,18 +1019,25 @@ func (r *ResponsesRequest) GetProvider() optionalnullable.OptionalNullable[Provi
 	return r.Provider
 }
 
-func (r *ResponsesRequest) GetPlugins() []ResponsesRequestPlugin {
+func (r *ResponsesRequest) GetReasoning() optionalnullable.OptionalNullable[ReasoningConfig] {
 	if r == nil {
 		return nil
 	}
-	return r.Plugins
+	return r.Reasoning
 }
 
-func (r *ResponsesRequest) GetUser() *string {
+func (r *ResponsesRequest) GetSafetyIdentifier() optionalnullable.OptionalNullable[string] {
 	if r == nil {
 		return nil
 	}
-	return r.User
+	return r.SafetyIdentifier
+}
+
+func (r *ResponsesRequest) GetServiceTier() optionalnullable.OptionalNullable[ResponsesRequestServiceTier] {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceTier
 }
 
 func (r *ResponsesRequest) GetSessionID() *string {
@@ -1156,9 +1047,83 @@ func (r *ResponsesRequest) GetSessionID() *string {
 	return r.SessionID
 }
 
+func (r *ResponsesRequest) GetStore() *bool {
+	return types.Pointer(false)
+}
+
+func (r *ResponsesRequest) GetStream() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Stream
+}
+
+func (r *ResponsesRequest) GetTemperature() optionalnullable.OptionalNullable[float64] {
+	if r == nil {
+		return nil
+	}
+	return r.Temperature
+}
+
+func (r *ResponsesRequest) GetText() *TextExtendedConfig {
+	if r == nil {
+		return nil
+	}
+	return r.Text
+}
+
+func (r *ResponsesRequest) GetToolChoice() *OpenAIResponsesToolChoiceUnion {
+	if r == nil {
+		return nil
+	}
+	return r.ToolChoice
+}
+
+func (r *ResponsesRequest) GetTools() []ResponsesRequestToolUnion {
+	if r == nil {
+		return nil
+	}
+	return r.Tools
+}
+
+func (r *ResponsesRequest) GetTopK() *int64 {
+	if r == nil {
+		return nil
+	}
+	return r.TopK
+}
+
+func (r *ResponsesRequest) GetTopLogprobs() optionalnullable.OptionalNullable[int64] {
+	if r == nil {
+		return nil
+	}
+	return r.TopLogprobs
+}
+
+func (r *ResponsesRequest) GetTopP() optionalnullable.OptionalNullable[float64] {
+	if r == nil {
+		return nil
+	}
+	return r.TopP
+}
+
 func (r *ResponsesRequest) GetTrace() *TraceConfig {
 	if r == nil {
 		return nil
 	}
 	return r.Trace
+}
+
+func (r *ResponsesRequest) GetTruncation() optionalnullable.OptionalNullable[OpenAIResponsesTruncation] {
+	if r == nil {
+		return nil
+	}
+	return r.Truncation
+}
+
+func (r *ResponsesRequest) GetUser() *string {
+	if r == nil {
+		return nil
+	}
+	return r.User
 }

@@ -10,27 +10,255 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type InputMessageItemTypeMessage string
+type InputMessageItemDetail string
 
 const (
-	InputMessageItemTypeMessageMessage InputMessageItemTypeMessage = "message"
+	InputMessageItemDetailAuto InputMessageItemDetail = "auto"
+	InputMessageItemDetailHigh InputMessageItemDetail = "high"
+	InputMessageItemDetailLow  InputMessageItemDetail = "low"
 )
 
-func (e InputMessageItemTypeMessage) ToPointer() *InputMessageItemTypeMessage {
+func (e InputMessageItemDetail) ToPointer() *InputMessageItemDetail {
 	return &e
 }
-func (e *InputMessageItemTypeMessage) UnmarshalJSON(data []byte) error {
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputMessageItemDetail) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "high", "low":
+			return true
+		}
+	}
+	return false
+}
+
+type InputMessageItemContentType string
+
+const (
+	InputMessageItemContentTypeInputImage InputMessageItemContentType = "input_image"
+)
+
+func (e InputMessageItemContentType) ToPointer() *InputMessageItemContentType {
+	return &e
+}
+func (e *InputMessageItemContentType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "message":
-		*e = InputMessageItemTypeMessage(v)
+	case "input_image":
+		*e = InputMessageItemContentType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputMessageItemTypeMessage: %v", v)
+		return fmt.Errorf("invalid value for InputMessageItemContentType: %v", v)
 	}
+}
+
+// InputMessageItemContentInputImage - Image input content item
+type InputMessageItemContentInputImage struct {
+	Detail   InputMessageItemDetail                    `json:"detail"`
+	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
+	Type     InputMessageItemContentType               `json:"type"`
+}
+
+func (i InputMessageItemContentInputImage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMessageItemContentInputImage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMessageItemContentInputImage) GetDetail() InputMessageItemDetail {
+	if i == nil {
+		return InputMessageItemDetail("")
+	}
+	return i.Detail
+}
+
+func (i *InputMessageItemContentInputImage) GetImageURL() optionalnullable.OptionalNullable[string] {
+	if i == nil {
+		return nil
+	}
+	return i.ImageURL
+}
+
+func (i *InputMessageItemContentInputImage) GetType() InputMessageItemContentType {
+	if i == nil {
+		return InputMessageItemContentType("")
+	}
+	return i.Type
+}
+
+type InputMessageItemContentUnionType string
+
+const (
+	InputMessageItemContentUnionTypeInputText  InputMessageItemContentUnionType = "input_text"
+	InputMessageItemContentUnionTypeInputImage InputMessageItemContentUnionType = "input_image"
+	InputMessageItemContentUnionTypeInputFile  InputMessageItemContentUnionType = "input_file"
+	InputMessageItemContentUnionTypeInputAudio InputMessageItemContentUnionType = "input_audio"
+	InputMessageItemContentUnionTypeInputVideo InputMessageItemContentUnionType = "input_video"
+)
+
+type InputMessageItemContentUnion struct {
+	InputText                         *InputText                         `queryParam:"inline" union:"member"`
+	InputMessageItemContentInputImage *InputMessageItemContentInputImage `queryParam:"inline" union:"member"`
+	InputFile                         *InputFile                         `queryParam:"inline" union:"member"`
+	InputAudio                        *InputAudio                        `queryParam:"inline" union:"member"`
+	InputVideo                        *InputVideo                        `queryParam:"inline" union:"member"`
+
+	Type InputMessageItemContentUnionType
+}
+
+func CreateInputMessageItemContentUnionInputText(inputText InputText) InputMessageItemContentUnion {
+	typ := InputMessageItemContentUnionTypeInputText
+
+	typStr := InputTextType(typ)
+	inputText.Type = typStr
+
+	return InputMessageItemContentUnion{
+		InputText: &inputText,
+		Type:      typ,
+	}
+}
+
+func CreateInputMessageItemContentUnionInputImage(inputImage InputMessageItemContentInputImage) InputMessageItemContentUnion {
+	typ := InputMessageItemContentUnionTypeInputImage
+
+	typStr := InputMessageItemContentType(typ)
+	inputImage.Type = typStr
+
+	return InputMessageItemContentUnion{
+		InputMessageItemContentInputImage: &inputImage,
+		Type:                              typ,
+	}
+}
+
+func CreateInputMessageItemContentUnionInputFile(inputFile InputFile) InputMessageItemContentUnion {
+	typ := InputMessageItemContentUnionTypeInputFile
+
+	typStr := InputFileType(typ)
+	inputFile.Type = typStr
+
+	return InputMessageItemContentUnion{
+		InputFile: &inputFile,
+		Type:      typ,
+	}
+}
+
+func CreateInputMessageItemContentUnionInputAudio(inputAudio InputAudio) InputMessageItemContentUnion {
+	typ := InputMessageItemContentUnionTypeInputAudio
+
+	typStr := InputAudioType(typ)
+	inputAudio.Type = typStr
+
+	return InputMessageItemContentUnion{
+		InputAudio: &inputAudio,
+		Type:       typ,
+	}
+}
+
+func CreateInputMessageItemContentUnionInputVideo(inputVideo InputVideo) InputMessageItemContentUnion {
+	typ := InputMessageItemContentUnionTypeInputVideo
+
+	typStr := InputVideoType(typ)
+	inputVideo.Type = typStr
+
+	return InputMessageItemContentUnion{
+		InputVideo: &inputVideo,
+		Type:       typ,
+	}
+}
+
+func (u *InputMessageItemContentUnion) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.Type {
+	case "input_text":
+		inputText := new(InputText)
+		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within InputMessageItemContentUnion: %w", string(data), err)
+		}
+
+		u.InputText = inputText
+		u.Type = InputMessageItemContentUnionTypeInputText
+		return nil
+	case "input_image":
+		inputMessageItemContentInputImage := new(InputMessageItemContentInputImage)
+		if err := utils.UnmarshalJSON(data, &inputMessageItemContentInputImage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type InputMessageItemContentInputImage within InputMessageItemContentUnion: %w", string(data), err)
+		}
+
+		u.InputMessageItemContentInputImage = inputMessageItemContentInputImage
+		u.Type = InputMessageItemContentUnionTypeInputImage
+		return nil
+	case "input_file":
+		inputFile := new(InputFile)
+		if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_file) type InputFile within InputMessageItemContentUnion: %w", string(data), err)
+		}
+
+		u.InputFile = inputFile
+		u.Type = InputMessageItemContentUnionTypeInputFile
+		return nil
+	case "input_audio":
+		inputAudio := new(InputAudio)
+		if err := utils.UnmarshalJSON(data, &inputAudio, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type InputAudio within InputMessageItemContentUnion: %w", string(data), err)
+		}
+
+		u.InputAudio = inputAudio
+		u.Type = InputMessageItemContentUnionTypeInputAudio
+		return nil
+	case "input_video":
+		inputVideo := new(InputVideo)
+		if err := utils.UnmarshalJSON(data, &inputVideo, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_video) type InputVideo within InputMessageItemContentUnion: %w", string(data), err)
+		}
+
+		u.InputVideo = inputVideo
+		u.Type = InputMessageItemContentUnionTypeInputVideo
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputMessageItemContentUnion", string(data))
+}
+
+func (u InputMessageItemContentUnion) MarshalJSON() ([]byte, error) {
+	if u.InputText != nil {
+		return utils.MarshalJSON(u.InputText, "", true)
+	}
+
+	if u.InputMessageItemContentInputImage != nil {
+		return utils.MarshalJSON(u.InputMessageItemContentInputImage, "", true)
+	}
+
+	if u.InputFile != nil {
+		return utils.MarshalJSON(u.InputFile, "", true)
+	}
+
+	if u.InputAudio != nil {
+		return utils.MarshalJSON(u.InputAudio, "", true)
+	}
+
+	if u.InputVideo != nil {
+		return utils.MarshalJSON(u.InputVideo, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputMessageItemContentUnion: all fields are null")
 }
 
 type InputMessageItemRoleDeveloper string
@@ -217,262 +445,34 @@ func (u InputMessageItemRoleUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type InputMessageItemRoleUnion: all fields are null")
 }
 
-type InputMessageItemContentType string
+type InputMessageItemTypeMessage string
 
 const (
-	InputMessageItemContentTypeInputImage InputMessageItemContentType = "input_image"
+	InputMessageItemTypeMessageMessage InputMessageItemTypeMessage = "message"
 )
 
-func (e InputMessageItemContentType) ToPointer() *InputMessageItemContentType {
+func (e InputMessageItemTypeMessage) ToPointer() *InputMessageItemTypeMessage {
 	return &e
 }
-func (e *InputMessageItemContentType) UnmarshalJSON(data []byte) error {
+func (e *InputMessageItemTypeMessage) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "input_image":
-		*e = InputMessageItemContentType(v)
+	case "message":
+		*e = InputMessageItemTypeMessage(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputMessageItemContentType: %v", v)
+		return fmt.Errorf("invalid value for InputMessageItemTypeMessage: %v", v)
 	}
-}
-
-type InputMessageItemDetail string
-
-const (
-	InputMessageItemDetailAuto InputMessageItemDetail = "auto"
-	InputMessageItemDetailHigh InputMessageItemDetail = "high"
-	InputMessageItemDetailLow  InputMessageItemDetail = "low"
-)
-
-func (e InputMessageItemDetail) ToPointer() *InputMessageItemDetail {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputMessageItemDetail) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "high", "low":
-			return true
-		}
-	}
-	return false
-}
-
-// InputMessageItemContentInputImage - Image input content item
-type InputMessageItemContentInputImage struct {
-	Type     InputMessageItemContentType               `json:"type"`
-	Detail   InputMessageItemDetail                    `json:"detail"`
-	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
-}
-
-func (i InputMessageItemContentInputImage) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputMessageItemContentInputImage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputMessageItemContentInputImage) GetType() InputMessageItemContentType {
-	if i == nil {
-		return InputMessageItemContentType("")
-	}
-	return i.Type
-}
-
-func (i *InputMessageItemContentInputImage) GetDetail() InputMessageItemDetail {
-	if i == nil {
-		return InputMessageItemDetail("")
-	}
-	return i.Detail
-}
-
-func (i *InputMessageItemContentInputImage) GetImageURL() optionalnullable.OptionalNullable[string] {
-	if i == nil {
-		return nil
-	}
-	return i.ImageURL
-}
-
-type InputMessageItemContentUnionType string
-
-const (
-	InputMessageItemContentUnionTypeInputText  InputMessageItemContentUnionType = "input_text"
-	InputMessageItemContentUnionTypeInputImage InputMessageItemContentUnionType = "input_image"
-	InputMessageItemContentUnionTypeInputFile  InputMessageItemContentUnionType = "input_file"
-	InputMessageItemContentUnionTypeInputAudio InputMessageItemContentUnionType = "input_audio"
-	InputMessageItemContentUnionTypeInputVideo InputMessageItemContentUnionType = "input_video"
-)
-
-type InputMessageItemContentUnion struct {
-	InputText                         *InputText                         `queryParam:"inline" union:"member"`
-	InputMessageItemContentInputImage *InputMessageItemContentInputImage `queryParam:"inline" union:"member"`
-	InputFile                         *InputFile                         `queryParam:"inline" union:"member"`
-	InputAudio                        *InputAudio                        `queryParam:"inline" union:"member"`
-	InputVideo                        *InputVideo                        `queryParam:"inline" union:"member"`
-
-	Type InputMessageItemContentUnionType
-}
-
-func CreateInputMessageItemContentUnionInputText(inputText InputText) InputMessageItemContentUnion {
-	typ := InputMessageItemContentUnionTypeInputText
-
-	typStr := InputTextType(typ)
-	inputText.Type = typStr
-
-	return InputMessageItemContentUnion{
-		InputText: &inputText,
-		Type:      typ,
-	}
-}
-
-func CreateInputMessageItemContentUnionInputImage(inputImage InputMessageItemContentInputImage) InputMessageItemContentUnion {
-	typ := InputMessageItemContentUnionTypeInputImage
-
-	typStr := InputMessageItemContentType(typ)
-	inputImage.Type = typStr
-
-	return InputMessageItemContentUnion{
-		InputMessageItemContentInputImage: &inputImage,
-		Type:                              typ,
-	}
-}
-
-func CreateInputMessageItemContentUnionInputFile(inputFile InputFile) InputMessageItemContentUnion {
-	typ := InputMessageItemContentUnionTypeInputFile
-
-	typStr := InputFileType(typ)
-	inputFile.Type = typStr
-
-	return InputMessageItemContentUnion{
-		InputFile: &inputFile,
-		Type:      typ,
-	}
-}
-
-func CreateInputMessageItemContentUnionInputAudio(inputAudio InputAudio) InputMessageItemContentUnion {
-	typ := InputMessageItemContentUnionTypeInputAudio
-
-	typStr := InputAudioType(typ)
-	inputAudio.Type = typStr
-
-	return InputMessageItemContentUnion{
-		InputAudio: &inputAudio,
-		Type:       typ,
-	}
-}
-
-func CreateInputMessageItemContentUnionInputVideo(inputVideo InputVideo) InputMessageItemContentUnion {
-	typ := InputMessageItemContentUnionTypeInputVideo
-
-	typStr := InputVideoType(typ)
-	inputVideo.Type = typStr
-
-	return InputMessageItemContentUnion{
-		InputVideo: &inputVideo,
-		Type:       typ,
-	}
-}
-
-func (u *InputMessageItemContentUnion) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
-	}
-
-	switch dis.Type {
-	case "input_text":
-		inputText := new(InputText)
-		if err := utils.UnmarshalJSON(data, &inputText, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_text) type InputText within InputMessageItemContentUnion: %w", string(data), err)
-		}
-
-		u.InputText = inputText
-		u.Type = InputMessageItemContentUnionTypeInputText
-		return nil
-	case "input_image":
-		inputMessageItemContentInputImage := new(InputMessageItemContentInputImage)
-		if err := utils.UnmarshalJSON(data, &inputMessageItemContentInputImage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type InputMessageItemContentInputImage within InputMessageItemContentUnion: %w", string(data), err)
-		}
-
-		u.InputMessageItemContentInputImage = inputMessageItemContentInputImage
-		u.Type = InputMessageItemContentUnionTypeInputImage
-		return nil
-	case "input_file":
-		inputFile := new(InputFile)
-		if err := utils.UnmarshalJSON(data, &inputFile, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_file) type InputFile within InputMessageItemContentUnion: %w", string(data), err)
-		}
-
-		u.InputFile = inputFile
-		u.Type = InputMessageItemContentUnionTypeInputFile
-		return nil
-	case "input_audio":
-		inputAudio := new(InputAudio)
-		if err := utils.UnmarshalJSON(data, &inputAudio, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type InputAudio within InputMessageItemContentUnion: %w", string(data), err)
-		}
-
-		u.InputAudio = inputAudio
-		u.Type = InputMessageItemContentUnionTypeInputAudio
-		return nil
-	case "input_video":
-		inputVideo := new(InputVideo)
-		if err := utils.UnmarshalJSON(data, &inputVideo, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_video) type InputVideo within InputMessageItemContentUnion: %w", string(data), err)
-		}
-
-		u.InputVideo = inputVideo
-		u.Type = InputMessageItemContentUnionTypeInputVideo
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputMessageItemContentUnion", string(data))
-}
-
-func (u InputMessageItemContentUnion) MarshalJSON() ([]byte, error) {
-	if u.InputText != nil {
-		return utils.MarshalJSON(u.InputText, "", true)
-	}
-
-	if u.InputMessageItemContentInputImage != nil {
-		return utils.MarshalJSON(u.InputMessageItemContentInputImage, "", true)
-	}
-
-	if u.InputFile != nil {
-		return utils.MarshalJSON(u.InputFile, "", true)
-	}
-
-	if u.InputAudio != nil {
-		return utils.MarshalJSON(u.InputAudio, "", true)
-	}
-
-	if u.InputVideo != nil {
-		return utils.MarshalJSON(u.InputVideo, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputMessageItemContentUnion: all fields are null")
 }
 
 type InputMessageItem struct {
-	ID      *string                                                           `json:"id,omitzero"`
-	Type    *InputMessageItemTypeMessage                                      `json:"type,omitzero"`
-	Role    InputMessageItemRoleUnion                                         `json:"role"`
 	Content optionalnullable.OptionalNullable[[]InputMessageItemContentUnion] `json:"content,omitzero"`
+	ID      *string                                                           `json:"id,omitzero"`
+	Role    InputMessageItemRoleUnion                                         `json:"role"`
+	Type    *InputMessageItemTypeMessage                                      `json:"type,omitzero"`
 }
 
 func (i InputMessageItem) MarshalJSON() ([]byte, error) {
@@ -486,18 +486,18 @@ func (i *InputMessageItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (i *InputMessageItem) GetContent() optionalnullable.OptionalNullable[[]InputMessageItemContentUnion] {
+	if i == nil {
+		return nil
+	}
+	return i.Content
+}
+
 func (i *InputMessageItem) GetID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ID
-}
-
-func (i *InputMessageItem) GetType() *InputMessageItemTypeMessage {
-	if i == nil {
-		return nil
-	}
-	return i.Type
 }
 
 func (i *InputMessageItem) GetRole() InputMessageItemRoleUnion {
@@ -507,9 +507,9 @@ func (i *InputMessageItem) GetRole() InputMessageItemRoleUnion {
 	return i.Role
 }
 
-func (i *InputMessageItem) GetContent() optionalnullable.OptionalNullable[[]InputMessageItemContentUnion] {
+func (i *InputMessageItem) GetType() *InputMessageItemTypeMessage {
 	if i == nil {
 		return nil
 	}
-	return i.Content
+	return i.Type
 }

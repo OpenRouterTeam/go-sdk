@@ -33,11 +33,11 @@ func (e *StreamEventsResponseOutputItemDoneType) UnmarshalJSON(data []byte) erro
 
 // StreamEventsResponseOutputItemDone - Event emitted when an output item is complete
 type StreamEventsResponseOutputItemDone struct {
-	Type        StreamEventsResponseOutputItemDoneType `json:"type"`
-	OutputIndex int64                                  `json:"output_index"`
 	// An output item from the response
-	Item           OutputItems `json:"item"`
-	SequenceNumber int64       `json:"sequence_number"`
+	Item           OutputItems                            `json:"item"`
+	OutputIndex    int64                                  `json:"output_index"`
+	SequenceNumber int64                                  `json:"sequence_number"`
+	Type           StreamEventsResponseOutputItemDoneType `json:"type"`
 }
 
 func (s StreamEventsResponseOutputItemDone) MarshalJSON() ([]byte, error) {
@@ -51,11 +51,99 @@ func (s *StreamEventsResponseOutputItemDone) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *StreamEventsResponseOutputItemDone) GetType() StreamEventsResponseOutputItemDoneType {
+func (s *StreamEventsResponseOutputItemDone) GetItem() OutputItems {
 	if s == nil {
-		return StreamEventsResponseOutputItemDoneType("")
+		return OutputItems{}
 	}
-	return s.Type
+	return s.Item
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemCodeInterpreterCall() *OutputCodeInterpreterCallItem {
+	return s.GetItem().OutputCodeInterpreterCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemComputerCall() *OutputComputerCallItem {
+	return s.GetItem().OutputComputerCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemFileSearchCall() *OutputFileSearchCallItem {
+	return s.GetItem().OutputFileSearchCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemFunctionCall() *OutputFunctionCallItem {
+	return s.GetItem().OutputFunctionCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemImageGenerationCall() *OutputImageGenerationCallItem {
+	return s.GetItem().OutputImageGenerationCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemMessage() *OutputMessageItem {
+	return s.GetItem().OutputMessageItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterApplyPatch() *OutputApplyPatchServerToolItem {
+	return s.GetItem().OutputApplyPatchServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterBash() *OutputBashServerToolItem {
+	return s.GetItem().OutputBashServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterBrowserUse() *OutputBrowserUseServerToolItem {
+	return s.GetItem().OutputBrowserUseServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterCodeInterpreter() *OutputCodeInterpreterServerToolItem {
+	return s.GetItem().OutputCodeInterpreterServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterDatetime() *OutputDatetimeItem {
+	return s.GetItem().OutputDatetimeItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterExperimentalSearchModels() *OutputSearchModelsServerToolItem {
+	return s.GetItem().OutputSearchModelsServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterFileSearch() *OutputFileSearchServerToolItem {
+	return s.GetItem().OutputFileSearchServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterImageGeneration() *OutputImageGenerationServerToolItem {
+	return s.GetItem().OutputImageGenerationServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterMcp() *OutputMcpServerToolItem {
+	return s.GetItem().OutputMcpServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterMemory() *OutputMemoryServerToolItem {
+	return s.GetItem().OutputMemoryServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterTextEditor() *OutputTextEditorServerToolItem {
+	return s.GetItem().OutputTextEditorServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterToolSearch() *OutputToolSearchServerToolItem {
+	return s.GetItem().OutputToolSearchServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterWebFetch() *OutputWebFetchServerToolItem {
+	return s.GetItem().OutputWebFetchServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterWebSearch() *OutputWebSearchServerToolItem {
+	return s.GetItem().OutputWebSearchServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemReasoning() *OutputReasoningItem {
+	return s.GetItem().OutputReasoningItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemWebSearchCall() *OutputWebSearchCallItem {
+	return s.GetItem().OutputWebSearchCallItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetOutputIndex() int64 {
@@ -65,16 +153,16 @@ func (s *StreamEventsResponseOutputItemDone) GetOutputIndex() int64 {
 	return s.OutputIndex
 }
 
-func (s *StreamEventsResponseOutputItemDone) GetItem() OutputItems {
-	if s == nil {
-		return OutputItems{}
-	}
-	return s.Item
-}
-
 func (s *StreamEventsResponseOutputItemDone) GetSequenceNumber() int64 {
 	if s == nil {
 		return 0
 	}
 	return s.SequenceNumber
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetType() StreamEventsResponseOutputItemDoneType {
+	if s == nil {
+		return StreamEventsResponseOutputItemDoneType("")
+	}
+	return s.Type
 }

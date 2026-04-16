@@ -8,26 +8,28 @@ import (
 )
 
 type Guardrail struct {
-	// Unique identifier for the guardrail
-	ID string `json:"id"`
-	// Name of the guardrail
-	Name string `json:"name"`
-	// Description of the guardrail
-	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// Spending limit in USD
-	LimitUsd *float64 `json:"limit_usd,omitzero"`
-	// Interval at which the limit resets (daily, weekly, monthly)
-	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
-	// List of allowed provider IDs
-	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
-	// List of provider IDs to exclude from routing
-	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Array of model canonical_slugs (immutable identifiers)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
-	// Whether to enforce zero data retention
-	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
+	// List of allowed provider IDs
+	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
 	// ISO 8601 timestamp of when the guardrail was created
 	CreatedAt string `json:"created_at"`
+	// Description of the guardrail
+	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
+	// Whether to enforce zero data retention
+	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
+	// Unique identifier for the guardrail
+	ID string `json:"id"`
+	// Array of model canonical_slugs to exclude from routing
+	IgnoredModels optionalnullable.OptionalNullable[[]string] `json:"ignored_models,omitzero"`
+	// List of provider IDs to exclude from routing
+	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
+	// Spending limit in USD
+	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
+	// Name of the guardrail
+	Name string `json:"name"`
+	// Interval at which the limit resets (daily, weekly, monthly)
+	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
 	// ISO 8601 timestamp of when the guardrail was last updated
 	UpdatedAt optionalnullable.OptionalNullable[string] `json:"updated_at,omitzero"`
 }
@@ -43,39 +45,11 @@ func (g *Guardrail) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *Guardrail) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *Guardrail) GetName() string {
-	if g == nil {
-		return ""
-	}
-	return g.Name
-}
-
-func (g *Guardrail) GetDescription() optionalnullable.OptionalNullable[string] {
+func (g *Guardrail) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
 	if g == nil {
 		return nil
 	}
-	return g.Description
-}
-
-func (g *Guardrail) GetLimitUsd() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.LimitUsd
-}
-
-func (g *Guardrail) GetResetInterval() optionalnullable.OptionalNullable[GuardrailInterval] {
-	if g == nil {
-		return nil
-	}
-	return g.ResetInterval
+	return g.AllowedModels
 }
 
 func (g *Guardrail) GetAllowedProviders() optionalnullable.OptionalNullable[[]string] {
@@ -85,18 +59,18 @@ func (g *Guardrail) GetAllowedProviders() optionalnullable.OptionalNullable[[]st
 	return g.AllowedProviders
 }
 
-func (g *Guardrail) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
+func (g *Guardrail) GetCreatedAt() string {
 	if g == nil {
-		return nil
+		return ""
 	}
-	return g.IgnoredProviders
+	return g.CreatedAt
 }
 
-func (g *Guardrail) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
+func (g *Guardrail) GetDescription() optionalnullable.OptionalNullable[string] {
 	if g == nil {
 		return nil
 	}
-	return g.AllowedModels
+	return g.Description
 }
 
 func (g *Guardrail) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
@@ -106,11 +80,46 @@ func (g *Guardrail) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
 	return g.EnforceZdr
 }
 
-func (g *Guardrail) GetCreatedAt() string {
+func (g *Guardrail) GetID() string {
 	if g == nil {
 		return ""
 	}
-	return g.CreatedAt
+	return g.ID
+}
+
+func (g *Guardrail) GetIgnoredModels() optionalnullable.OptionalNullable[[]string] {
+	if g == nil {
+		return nil
+	}
+	return g.IgnoredModels
+}
+
+func (g *Guardrail) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
+	if g == nil {
+		return nil
+	}
+	return g.IgnoredProviders
+}
+
+func (g *Guardrail) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.LimitUsd
+}
+
+func (g *Guardrail) GetName() string {
+	if g == nil {
+		return ""
+	}
+	return g.Name
+}
+
+func (g *Guardrail) GetResetInterval() optionalnullable.OptionalNullable[GuardrailInterval] {
+	if g == nil {
+		return nil
+	}
+	return g.ResetInterval
 }
 
 func (g *Guardrail) GetUpdatedAt() optionalnullable.OptionalNullable[string] {

@@ -10,32 +10,9 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type McpServerToolType string
-
-const (
-	McpServerToolTypeMcp McpServerToolType = "mcp"
-)
-
-func (e McpServerToolType) ToPointer() *McpServerToolType {
-	return &e
-}
-func (e *McpServerToolType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "mcp":
-		*e = McpServerToolType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for McpServerToolType: %v", v)
-	}
-}
-
 type AllowedTools struct {
-	ToolNames []string `json:"tool_names,omitzero"`
 	ReadOnly  *bool    `json:"read_only,omitzero"`
+	ToolNames []string `json:"tool_names,omitzero"`
 }
 
 func (a AllowedTools) MarshalJSON() ([]byte, error) {
@@ -49,18 +26,18 @@ func (a *AllowedTools) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (a *AllowedTools) GetToolNames() []string {
-	if a == nil {
-		return nil
-	}
-	return a.ToolNames
-}
-
 func (a *AllowedTools) GetReadOnly() *bool {
 	if a == nil {
 		return nil
 	}
 	return a.ReadOnly
+}
+
+func (a *AllowedTools) GetToolNames() []string {
+	if a == nil {
+		return nil
+	}
+	return a.ToolNames
 }
 
 type AllowedToolsUnionType string
@@ -252,28 +229,6 @@ func (e *RequireApprovalAlways) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type Never struct {
-	ToolNames []string `json:"tool_names,omitzero"`
-}
-
-func (n Never) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
-}
-
-func (n *Never) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (n *Never) GetToolNames() []string {
-	if n == nil {
-		return nil
-	}
-	return n.ToolNames
-}
-
 type Always struct {
 	ToolNames []string `json:"tool_names,omitzero"`
 }
@@ -296,9 +251,31 @@ func (a *Always) GetToolNames() []string {
 	return a.ToolNames
 }
 
+type Never struct {
+	ToolNames []string `json:"tool_names,omitzero"`
+}
+
+func (n Never) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(n, "", false)
+}
+
+func (n *Never) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (n *Never) GetToolNames() []string {
+	if n == nil {
+		return nil
+	}
+	return n.ToolNames
+}
+
 type RequireApproval struct {
-	Never  *Never  `json:"never,omitzero"`
 	Always *Always `json:"always,omitzero"`
+	Never  *Never  `json:"never,omitzero"`
 }
 
 func (r RequireApproval) MarshalJSON() ([]byte, error) {
@@ -312,18 +289,18 @@ func (r *RequireApproval) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *RequireApproval) GetNever() *Never {
-	if r == nil {
-		return nil
-	}
-	return r.Never
-}
-
 func (r *RequireApproval) GetAlways() *Always {
 	if r == nil {
 		return nil
 	}
 	return r.Always
+}
+
+func (r *RequireApproval) GetNever() *Never {
+	if r == nil {
+		return nil
+	}
+	return r.Never
 }
 
 type RequireApprovalUnionType string
@@ -467,17 +444,40 @@ func (u RequireApprovalUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RequireApprovalUnion: all fields are null")
 }
 
+type McpServerToolType string
+
+const (
+	McpServerToolTypeMcp McpServerToolType = "mcp"
+)
+
+func (e McpServerToolType) ToPointer() *McpServerToolType {
+	return &e
+}
+func (e *McpServerToolType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "mcp":
+		*e = McpServerToolType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for McpServerToolType: %v", v)
+	}
+}
+
 // McpServerTool - MCP (Model Context Protocol) tool configuration
 type McpServerTool struct {
-	Type              McpServerToolType                                       `json:"type"`
-	ServerLabel       string                                                  `json:"server_label"`
 	AllowedTools      optionalnullable.OptionalNullable[AllowedToolsUnion]    `json:"allowed_tools,omitzero"`
 	Authorization     *string                                                 `json:"authorization,omitzero"`
 	ConnectorID       *ConnectorID                                            `json:"connector_id,omitzero"`
 	Headers           optionalnullable.OptionalNullable[map[string]string]    `json:"headers,omitzero"`
 	RequireApproval   optionalnullable.OptionalNullable[RequireApprovalUnion] `json:"require_approval,omitzero"`
 	ServerDescription *string                                                 `json:"server_description,omitzero"`
+	ServerLabel       string                                                  `json:"server_label"`
 	ServerURL         *string                                                 `json:"server_url,omitzero"`
+	Type              McpServerToolType                                       `json:"type"`
 }
 
 func (m McpServerTool) MarshalJSON() ([]byte, error) {
@@ -489,20 +489,6 @@ func (m *McpServerTool) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (m *McpServerTool) GetType() McpServerToolType {
-	if m == nil {
-		return McpServerToolType("")
-	}
-	return m.Type
-}
-
-func (m *McpServerTool) GetServerLabel() string {
-	if m == nil {
-		return ""
-	}
-	return m.ServerLabel
 }
 
 func (m *McpServerTool) GetAllowedTools() optionalnullable.OptionalNullable[AllowedToolsUnion] {
@@ -547,9 +533,23 @@ func (m *McpServerTool) GetServerDescription() *string {
 	return m.ServerDescription
 }
 
+func (m *McpServerTool) GetServerLabel() string {
+	if m == nil {
+		return ""
+	}
+	return m.ServerLabel
+}
+
 func (m *McpServerTool) GetServerURL() *string {
 	if m == nil {
 		return nil
 	}
 	return m.ServerURL
+}
+
+func (m *McpServerTool) GetType() McpServerToolType {
+	if m == nil {
+		return McpServerToolType("")
+	}
+	return m.Type
 }

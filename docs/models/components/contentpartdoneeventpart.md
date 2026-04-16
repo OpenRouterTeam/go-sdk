@@ -33,5 +33,7 @@ switch contentPartDoneEventPart.Type {
 		// contentPartDoneEventPart.ReasoningTextContent is populated
 	case components.ContentPartDoneEventPartTypeRefusal:
 		// contentPartDoneEventPart.OpenAIResponsesRefusalContent is populated
+	default:
+		// Unknown type - use contentPartDoneEventPart.GetUnknownRaw() for raw JSON
 }
 ```

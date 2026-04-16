@@ -4,62 +4,20 @@ package components
 
 // PublicPricing - Pricing information for the model
 type PublicPricing struct {
-	Prompt            string   `json:"prompt"`
-	Completion        string   `json:"completion"`
-	Request           *string  `json:"request,omitzero"`
-	Image             *string  `json:"image,omitzero"`
-	ImageToken        *string  `json:"image_token,omitzero"`
-	ImageOutput       *string  `json:"image_output,omitzero"`
 	Audio             *string  `json:"audio,omitzero"`
 	AudioOutput       *string  `json:"audio_output,omitzero"`
+	Completion        string   `json:"completion"`
+	Discount          *float64 `json:"discount,omitzero"`
+	Image             *string  `json:"image,omitzero"`
+	ImageOutput       *string  `json:"image_output,omitzero"`
+	ImageToken        *string  `json:"image_token,omitzero"`
 	InputAudioCache   *string  `json:"input_audio_cache,omitzero"`
-	WebSearch         *string  `json:"web_search,omitzero"`
-	InternalReasoning *string  `json:"internal_reasoning,omitzero"`
 	InputCacheRead    *string  `json:"input_cache_read,omitzero"`
 	InputCacheWrite   *string  `json:"input_cache_write,omitzero"`
-	Discount          *float64 `json:"discount,omitzero"`
-}
-
-func (p *PublicPricing) GetPrompt() string {
-	if p == nil {
-		return ""
-	}
-	return p.Prompt
-}
-
-func (p *PublicPricing) GetCompletion() string {
-	if p == nil {
-		return ""
-	}
-	return p.Completion
-}
-
-func (p *PublicPricing) GetRequest() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Request
-}
-
-func (p *PublicPricing) GetImage() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Image
-}
-
-func (p *PublicPricing) GetImageToken() *string {
-	if p == nil {
-		return nil
-	}
-	return p.ImageToken
-}
-
-func (p *PublicPricing) GetImageOutput() *string {
-	if p == nil {
-		return nil
-	}
-	return p.ImageOutput
+	InternalReasoning *string  `json:"internal_reasoning,omitzero"`
+	Prompt            string   `json:"prompt"`
+	Request           *string  `json:"request,omitzero"`
+	WebSearch         *string  `json:"web_search,omitzero"`
 }
 
 func (p *PublicPricing) GetAudio() *string {
@@ -76,25 +34,46 @@ func (p *PublicPricing) GetAudioOutput() *string {
 	return p.AudioOutput
 }
 
+func (p *PublicPricing) GetCompletion() string {
+	if p == nil {
+		return ""
+	}
+	return p.Completion
+}
+
+func (p *PublicPricing) GetDiscount() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.Discount
+}
+
+func (p *PublicPricing) GetImage() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Image
+}
+
+func (p *PublicPricing) GetImageOutput() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ImageOutput
+}
+
+func (p *PublicPricing) GetImageToken() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ImageToken
+}
+
 func (p *PublicPricing) GetInputAudioCache() *string {
 	if p == nil {
 		return nil
 	}
 	return p.InputAudioCache
-}
-
-func (p *PublicPricing) GetWebSearch() *string {
-	if p == nil {
-		return nil
-	}
-	return p.WebSearch
-}
-
-func (p *PublicPricing) GetInternalReasoning() *string {
-	if p == nil {
-		return nil
-	}
-	return p.InternalReasoning
 }
 
 func (p *PublicPricing) GetInputCacheRead() *string {
@@ -111,9 +90,30 @@ func (p *PublicPricing) GetInputCacheWrite() *string {
 	return p.InputCacheWrite
 }
 
-func (p *PublicPricing) GetDiscount() *float64 {
+func (p *PublicPricing) GetInternalReasoning() *string {
 	if p == nil {
 		return nil
 	}
-	return p.Discount
+	return p.InternalReasoning
+}
+
+func (p *PublicPricing) GetPrompt() string {
+	if p == nil {
+		return ""
+	}
+	return p.Prompt
+}
+
+func (p *PublicPricing) GetRequest() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Request
+}
+
+func (p *PublicPricing) GetWebSearch() *string {
+	if p == nil {
+		return nil
+	}
+	return p.WebSearch
 }

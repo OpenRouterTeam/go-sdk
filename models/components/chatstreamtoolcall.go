@@ -8,6 +8,28 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+// ChatStreamToolCallFunction - Function call details
+type ChatStreamToolCallFunction struct {
+	// Function arguments as JSON string
+	Arguments *string `json:"arguments,omitzero"`
+	// Function name
+	Name *string `json:"name,omitzero"`
+}
+
+func (c *ChatStreamToolCallFunction) GetArguments() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Arguments
+}
+
+func (c *ChatStreamToolCallFunction) GetName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Name
+}
+
 // ChatStreamToolCallType - Tool call type
 type ChatStreamToolCallType string
 
@@ -32,38 +54,16 @@ func (e *ChatStreamToolCallType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// ChatStreamToolCallFunction - Function call details
-type ChatStreamToolCallFunction struct {
-	// Function name
-	Name *string `json:"name,omitzero"`
-	// Function arguments as JSON string
-	Arguments *string `json:"arguments,omitzero"`
-}
-
-func (c *ChatStreamToolCallFunction) GetName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Name
-}
-
-func (c *ChatStreamToolCallFunction) GetArguments() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Arguments
-}
-
 // ChatStreamToolCall - Tool call delta for streaming responses
 type ChatStreamToolCall struct {
-	// Tool call index in the array
-	Index int64 `json:"index"`
-	// Tool call identifier
-	ID *string `json:"id,omitzero"`
-	// Tool call type
-	Type *ChatStreamToolCallType `json:"type,omitzero"`
 	// Function call details
 	Function *ChatStreamToolCallFunction `json:"function,omitzero"`
+	// Tool call identifier
+	ID *string `json:"id,omitzero"`
+	// Tool call index in the array
+	Index int64 `json:"index"`
+	// Tool call type
+	Type *ChatStreamToolCallType `json:"type,omitzero"`
 }
 
 func (c ChatStreamToolCall) MarshalJSON() ([]byte, error) {
@@ -77,11 +77,11 @@ func (c *ChatStreamToolCall) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatStreamToolCall) GetIndex() int64 {
+func (c *ChatStreamToolCall) GetFunction() *ChatStreamToolCallFunction {
 	if c == nil {
-		return 0
+		return nil
 	}
-	return c.Index
+	return c.Function
 }
 
 func (c *ChatStreamToolCall) GetID() *string {
@@ -91,16 +91,16 @@ func (c *ChatStreamToolCall) GetID() *string {
 	return c.ID
 }
 
+func (c *ChatStreamToolCall) GetIndex() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.Index
+}
+
 func (c *ChatStreamToolCall) GetType() *ChatStreamToolCallType {
 	if c == nil {
 		return nil
 	}
 	return c.Type
-}
-
-func (c *ChatStreamToolCall) GetFunction() *ChatStreamToolCallFunction {
-	if c == nil {
-		return nil
-	}
-	return c.Function
 }

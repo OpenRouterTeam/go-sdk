@@ -93,6 +93,18 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionCustom(co
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterDatetime(components.DatetimeServerTool{/* values here */})
 ```
 
+### ImageGenerationServerToolOpenRouter
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterImageGeneration(components.ImageGenerationServerToolOpenRouter{/* values here */})
+```
+
+### ChatSearchModelsServerTool
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(components.ChatSearchModelsServerTool{/* values here */})
+```
+
 ### WebSearchServerToolOpenRouter
 
 ```go
@@ -135,6 +147,10 @@ switch responsesRequestToolUnion.Type {
 		// responsesRequestToolUnion.CustomTool is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterDatetime:
 		// responsesRequestToolUnion.DatetimeServerTool is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterImageGeneration:
+		// responsesRequestToolUnion.ImageGenerationServerToolOpenRouter is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels:
+		// responsesRequestToolUnion.ChatSearchModelsServerTool is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterWebSearch:
 		// responsesRequestToolUnion.WebSearchServerToolOpenRouter is populated
 }

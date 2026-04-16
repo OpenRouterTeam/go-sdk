@@ -11,6 +11,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"github.com/spyzhov/ajson"
 	"net/http"
@@ -34,7 +35,7 @@ func newOrganization(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hoo
 
 // ListMembers - List organization members
 // List all members of the organization associated with the authenticated management key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Organization) ListMembers(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListOrganizationMembersResponse, error) {
+func (s *Organization) ListMembers(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListOrganizationMembersResponse, error) {
 	request := operations.ListOrganizationMembersRequest{
 		Offset: offset,
 		Limit:  limit,
@@ -213,8 +214,8 @@ func (s *Organization) ListMembers(ctx context.Context, offset *int64, limit *in
 		}
 
 		oS := 0
-		if offset != nil {
-			oS = int(*offset)
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
 		}
 		r, err := ajson.Eval(b, "$.data")
 		if err != nil {
@@ -242,7 +243,7 @@ func (s *Organization) ListMembers(ctx context.Context, offset *int64, limit *in
 
 		return s.ListMembers(
 			ctx,
-			&nOS,
+			optionalnullable.From(&nOS),
 			limit,
 			opts...,
 		)

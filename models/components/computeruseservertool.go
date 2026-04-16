@@ -8,29 +8,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ComputerUseServerToolType string
-
-const (
-	ComputerUseServerToolTypeComputerUsePreview ComputerUseServerToolType = "computer_use_preview"
-)
-
-func (e ComputerUseServerToolType) ToPointer() *ComputerUseServerToolType {
-	return &e
-}
-func (e *ComputerUseServerToolType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "computer_use_preview":
-		*e = ComputerUseServerToolType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ComputerUseServerToolType: %v", v)
-	}
-}
-
 type Environment string
 
 const (
@@ -56,12 +33,35 @@ func (e *Environment) IsExact() bool {
 	return false
 }
 
+type ComputerUseServerToolType string
+
+const (
+	ComputerUseServerToolTypeComputerUsePreview ComputerUseServerToolType = "computer_use_preview"
+)
+
+func (e ComputerUseServerToolType) ToPointer() *ComputerUseServerToolType {
+	return &e
+}
+func (e *ComputerUseServerToolType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "computer_use_preview":
+		*e = ComputerUseServerToolType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ComputerUseServerToolType: %v", v)
+	}
+}
+
 // ComputerUseServerTool - Computer use preview tool configuration
 type ComputerUseServerTool struct {
-	Type          ComputerUseServerToolType `json:"type"`
 	DisplayHeight int64                     `json:"display_height"`
 	DisplayWidth  int64                     `json:"display_width"`
 	Environment   Environment               `json:"environment"`
+	Type          ComputerUseServerToolType `json:"type"`
 }
 
 func (c ComputerUseServerTool) MarshalJSON() ([]byte, error) {
@@ -73,13 +73,6 @@ func (c *ComputerUseServerTool) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ComputerUseServerTool) GetType() ComputerUseServerToolType {
-	if c == nil {
-		return ComputerUseServerToolType("")
-	}
-	return c.Type
 }
 
 func (c *ComputerUseServerTool) GetDisplayHeight() int64 {
@@ -101,4 +94,11 @@ func (c *ComputerUseServerTool) GetEnvironment() Environment {
 		return Environment("")
 	}
 	return c.Environment
+}
+
+func (c *ComputerUseServerTool) GetType() ComputerUseServerToolType {
+	if c == nil {
+		return ComputerUseServerToolType("")
+	}
+	return c.Type
 }

@@ -3,28 +3,42 @@
 package components
 
 type ActivityItem struct {
+	// BYOK inference cost in USD (external credits spent)
+	ByokUsageInference float64 `json:"byok_usage_inference"`
+	// Total completion tokens generated
+	CompletionTokens int64 `json:"completion_tokens"`
 	// Date of the activity (YYYY-MM-DD format)
 	Date string `json:"date"`
+	// Unique identifier for the endpoint
+	EndpointID string `json:"endpoint_id"`
 	// Model slug (e.g., "openai/gpt-4.1")
 	Model string `json:"model"`
 	// Model permaslug (e.g., "openai/gpt-4.1-2025-04-14")
 	ModelPermaslug string `json:"model_permaslug"`
-	// Unique identifier for the endpoint
-	EndpointID string `json:"endpoint_id"`
-	// Name of the provider serving this endpoint
-	ProviderName string `json:"provider_name"`
-	// Total cost in USD (OpenRouter credits spent)
-	Usage float64 `json:"usage"`
-	// BYOK inference cost in USD (external credits spent)
-	ByokUsageInference float64 `json:"byok_usage_inference"`
-	// Number of requests made
-	Requests int64 `json:"requests"`
 	// Total prompt tokens used
 	PromptTokens int64 `json:"prompt_tokens"`
-	// Total completion tokens generated
-	CompletionTokens int64 `json:"completion_tokens"`
+	// Name of the provider serving this endpoint
+	ProviderName string `json:"provider_name"`
 	// Total reasoning tokens used
 	ReasoningTokens int64 `json:"reasoning_tokens"`
+	// Number of requests made
+	Requests int64 `json:"requests"`
+	// Total cost in USD (OpenRouter credits spent)
+	Usage float64 `json:"usage"`
+}
+
+func (a *ActivityItem) GetByokUsageInference() float64 {
+	if a == nil {
+		return 0.0
+	}
+	return a.ByokUsageInference
+}
+
+func (a *ActivityItem) GetCompletionTokens() int64 {
+	if a == nil {
+		return 0
+	}
+	return a.CompletionTokens
 }
 
 func (a *ActivityItem) GetDate() string {
@@ -32,6 +46,13 @@ func (a *ActivityItem) GetDate() string {
 		return ""
 	}
 	return a.Date
+}
+
+func (a *ActivityItem) GetEndpointID() string {
+	if a == nil {
+		return ""
+	}
+	return a.EndpointID
 }
 
 func (a *ActivityItem) GetModel() string {
@@ -48,11 +69,11 @@ func (a *ActivityItem) GetModelPermaslug() string {
 	return a.ModelPermaslug
 }
 
-func (a *ActivityItem) GetEndpointID() string {
+func (a *ActivityItem) GetPromptTokens() int64 {
 	if a == nil {
-		return ""
+		return 0
 	}
-	return a.EndpointID
+	return a.PromptTokens
 }
 
 func (a *ActivityItem) GetProviderName() string {
@@ -62,18 +83,11 @@ func (a *ActivityItem) GetProviderName() string {
 	return a.ProviderName
 }
 
-func (a *ActivityItem) GetUsage() float64 {
+func (a *ActivityItem) GetReasoningTokens() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
-	return a.Usage
-}
-
-func (a *ActivityItem) GetByokUsageInference() float64 {
-	if a == nil {
-		return 0.0
-	}
-	return a.ByokUsageInference
+	return a.ReasoningTokens
 }
 
 func (a *ActivityItem) GetRequests() int64 {
@@ -83,23 +97,9 @@ func (a *ActivityItem) GetRequests() int64 {
 	return a.Requests
 }
 
-func (a *ActivityItem) GetPromptTokens() int64 {
+func (a *ActivityItem) GetUsage() float64 {
 	if a == nil {
-		return 0
+		return 0.0
 	}
-	return a.PromptTokens
-}
-
-func (a *ActivityItem) GetCompletionTokens() int64 {
-	if a == nil {
-		return 0
-	}
-	return a.CompletionTokens
-}
-
-func (a *ActivityItem) GetReasoningTokens() int64 {
-	if a == nil {
-		return 0
-	}
-	return a.ReasoningTokens
+	return a.Usage
 }

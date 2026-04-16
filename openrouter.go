@@ -58,32 +58,34 @@ func Pointer[T any](v T) *T { return &v }
 // https://openrouter.ai/docs - OpenRouter Documentation
 type OpenRouter struct {
 	SDKVersion string
-	Beta       *Beta
 	// Analytics and usage endpoints
 	Analytics *Analytics
-	Chat      *Chat
-	// Credit management endpoints
-	Credits *Credits
-	// Generation history endpoints
-	Generations *Generations
-	// Model information endpoints
-	Models *Models
-	// Endpoint information
-	Endpoints *Endpoints
-	// Provider information endpoints
-	Providers *Providers
-	// API key management endpoints
-	APIKeys *APIKeys
-	// Organization endpoints
-	Organization *Organization
-	// Guardrails endpoints
-	Guardrails *Guardrails
 	// OAuth authentication endpoints
 	OAuth *OAuth
+	Chat  *Chat
+	// Credit management endpoints
+	Credits *Credits
 	// Text embedding endpoints
 	Embeddings *Embeddings
-	// Reranking endpoints
+	// Endpoint information
+	Endpoints *Endpoints
+	// Generation history endpoints
+	Generations *Generations
+	// Guardrails endpoints
+	Guardrails *Guardrails
+	// API key management endpoints
+	APIKeys *APIKeys
+	// Model information endpoints
+	Models *Models
+	// Organization endpoints
+	Organization *Organization
+	// Provider information endpoints
+	Providers *Providers
+	// Rerank endpoints
 	Rerank *Rerank
+	Beta   *Beta
+	// Video Generation endpoints
+	VideoGeneration *VideoGeneration
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -175,9 +177,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.3.0",
+		SDKVersion: "0.4.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.3.0 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.4.0 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -203,20 +205,21 @@ func New(opts ...SDKOption) *OpenRouter {
 
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
-	sdk.Beta = newBeta(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Analytics = newAnalytics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Endpoints = newEndpoints(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Providers = newProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Organization = newOrganization(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Endpoints = newEndpoints(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Organization = newOrganization(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Providers = newProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Rerank = newRerank(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Beta = newBeta(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.VideoGeneration = newVideoGeneration(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

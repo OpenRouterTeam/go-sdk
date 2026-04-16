@@ -5,30 +5,31 @@ package components
 type Parameter string
 
 const (
-	ParameterTemperature       Parameter = "temperature"
-	ParameterTopP              Parameter = "top_p"
-	ParameterTopK              Parameter = "top_k"
-	ParameterMinP              Parameter = "min_p"
-	ParameterTopA              Parameter = "top_a"
-	ParameterFrequencyPenalty  Parameter = "frequency_penalty"
-	ParameterPresencePenalty   Parameter = "presence_penalty"
-	ParameterRepetitionPenalty Parameter = "repetition_penalty"
-	ParameterMaxTokens         Parameter = "max_tokens"
-	ParameterLogitBias         Parameter = "logit_bias"
-	ParameterLogprobs          Parameter = "logprobs"
-	ParameterTopLogprobs       Parameter = "top_logprobs"
-	ParameterSeed              Parameter = "seed"
-	ParameterResponseFormat    Parameter = "response_format"
-	ParameterStructuredOutputs Parameter = "structured_outputs"
-	ParameterStop              Parameter = "stop"
-	ParameterTools             Parameter = "tools"
-	ParameterToolChoice        Parameter = "tool_choice"
-	ParameterParallelToolCalls Parameter = "parallel_tool_calls"
-	ParameterIncludeReasoning  Parameter = "include_reasoning"
-	ParameterReasoning         Parameter = "reasoning"
-	ParameterReasoningEffort   Parameter = "reasoning_effort"
-	ParameterWebSearchOptions  Parameter = "web_search_options"
-	ParameterVerbosity         Parameter = "verbosity"
+	ParameterTemperature         Parameter = "temperature"
+	ParameterTopP                Parameter = "top_p"
+	ParameterTopK                Parameter = "top_k"
+	ParameterMinP                Parameter = "min_p"
+	ParameterTopA                Parameter = "top_a"
+	ParameterFrequencyPenalty    Parameter = "frequency_penalty"
+	ParameterPresencePenalty     Parameter = "presence_penalty"
+	ParameterRepetitionPenalty   Parameter = "repetition_penalty"
+	ParameterMaxTokens           Parameter = "max_tokens"
+	ParameterMaxCompletionTokens Parameter = "max_completion_tokens"
+	ParameterLogitBias           Parameter = "logit_bias"
+	ParameterLogprobs            Parameter = "logprobs"
+	ParameterTopLogprobs         Parameter = "top_logprobs"
+	ParameterSeed                Parameter = "seed"
+	ParameterResponseFormat      Parameter = "response_format"
+	ParameterStructuredOutputs   Parameter = "structured_outputs"
+	ParameterStop                Parameter = "stop"
+	ParameterTools               Parameter = "tools"
+	ParameterToolChoice          Parameter = "tool_choice"
+	ParameterParallelToolCalls   Parameter = "parallel_tool_calls"
+	ParameterIncludeReasoning    Parameter = "include_reasoning"
+	ParameterReasoning           Parameter = "reasoning"
+	ParameterReasoningEffort     Parameter = "reasoning_effort"
+	ParameterWebSearchOptions    Parameter = "web_search_options"
+	ParameterVerbosity           Parameter = "verbosity"
 )
 
 func (e Parameter) ToPointer() *Parameter {
@@ -39,7 +40,7 @@ func (e Parameter) ToPointer() *Parameter {
 func (e *Parameter) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "temperature", "top_p", "top_k", "min_p", "top_a", "frequency_penalty", "presence_penalty", "repetition_penalty", "max_tokens", "logit_bias", "logprobs", "top_logprobs", "seed", "response_format", "structured_outputs", "stop", "tools", "tool_choice", "parallel_tool_calls", "include_reasoning", "reasoning", "reasoning_effort", "web_search_options", "verbosity":
+		case "temperature", "top_p", "top_k", "min_p", "top_a", "frequency_penalty", "presence_penalty", "repetition_penalty", "max_tokens", "max_completion_tokens", "logit_bias", "logprobs", "top_logprobs", "seed", "response_format", "structured_outputs", "stop", "tools", "tool_choice", "parallel_tool_calls", "include_reasoning", "reasoning", "reasoning_effort", "web_search_options", "verbosity":
 			return true
 		}
 	}

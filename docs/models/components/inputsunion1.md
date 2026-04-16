@@ -75,10 +75,10 @@ inputsUnion1 := components.CreateInputsUnion1OutputImageGenerationCallItem(compo
 inputsUnion1 := components.CreateInputsUnion1OutputDatetimeItem(components.OutputDatetimeItem{/* values here */})
 ```
 
-### OutputServerToolItem
+### OutputWebSearchServerToolItem
 
 ```go
-inputsUnion1 := components.CreateInputsUnion1OutputServerToolItem(components.OutputServerToolItem{/* values here */})
+inputsUnion1 := components.CreateInputsUnion1OutputWebSearchServerToolItem(components.OutputWebSearchServerToolItem{/* values here */})
 ```
 
 ## Union Discrimination
@@ -111,7 +111,7 @@ switch inputsUnion1.Type {
 		// inputsUnion1.OutputImageGenerationCallItem is populated
 	case components.InputsUnion1TypeOutputDatetimeItem:
 		// inputsUnion1.OutputDatetimeItem is populated
-	case components.InputsUnion1TypeOutputServerToolItem:
-		// inputsUnion1.OutputServerToolItem is populated
+	case components.InputsUnion1TypeOutputWebSearchServerToolItem:
+		// inputsUnion1.OutputWebSearchServerToolItem is populated
 }
 ```

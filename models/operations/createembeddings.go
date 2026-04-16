@@ -11,27 +11,27 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type TypeImageURL string
+// EncodingFormat - The format of the output embeddings
+type EncodingFormat string
 
 const (
-	TypeImageURLImageURL TypeImageURL = "image_url"
+	EncodingFormatFloat  EncodingFormat = "float"
+	EncodingFormatBase64 EncodingFormat = "base64"
 )
 
-func (e TypeImageURL) ToPointer() *TypeImageURL {
+func (e EncodingFormat) ToPointer() *EncodingFormat {
 	return &e
 }
-func (e *TypeImageURL) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EncodingFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "float", "base64":
+			return true
+		}
 	}
-	switch v {
-	case "image_url":
-		*e = TypeImageURL(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeImageURL: %v", v)
-	}
+	return false
 }
 
 type ImageURL struct {
@@ -56,9 +56,32 @@ func (i *ImageURL) GetURL() string {
 	return i.URL
 }
 
+type TypeImageURL string
+
+const (
+	TypeImageURLImageURL TypeImageURL = "image_url"
+)
+
+func (e TypeImageURL) ToPointer() *TypeImageURL {
+	return &e
+}
+func (e *TypeImageURL) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "image_url":
+		*e = TypeImageURL(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeImageURL: %v", v)
+	}
+}
+
 type ContentImageURL struct {
-	Type     TypeImageURL `json:"type"`
 	ImageURL ImageURL     `json:"image_url"`
+	Type     TypeImageURL `json:"type"`
 }
 
 func (c ContentImageURL) MarshalJSON() ([]byte, error) {
@@ -72,18 +95,18 @@ func (c *ContentImageURL) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ContentImageURL) GetType() TypeImageURL {
-	if c == nil {
-		return TypeImageURL("")
-	}
-	return c.Type
-}
-
 func (c *ContentImageURL) GetImageURL() ImageURL {
 	if c == nil {
 		return ImageURL{}
 	}
 	return c.ImageURL
+}
+
+func (c *ContentImageURL) GetType() TypeImageURL {
+	if c == nil {
+		return TypeImageURL("")
+	}
+	return c.Type
 }
 
 type TypeText string
@@ -110,8 +133,8 @@ func (e *TypeText) UnmarshalJSON(data []byte) error {
 }
 
 type ContentText struct {
-	Type TypeText `json:"type"`
 	Text string   `json:"text"`
+	Type TypeText `json:"type"`
 }
 
 func (c ContentText) MarshalJSON() ([]byte, error) {
@@ -125,18 +148,18 @@ func (c *ContentText) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ContentText) GetType() TypeText {
-	if c == nil {
-		return TypeText("")
-	}
-	return c.Type
-}
-
 func (c *ContentText) GetText() string {
 	if c == nil {
 		return ""
 	}
 	return c.Text
+}
+
+func (c *ContentText) GetType() TypeText {
+	if c == nil {
+		return TypeText("")
+	}
+	return c.Type
 }
 
 type ContentType string
@@ -414,44 +437,21 @@ func (u InputUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type InputUnion: all fields are null")
 }
 
-// EncodingFormat - The format of the output embeddings
-type EncodingFormat string
-
-const (
-	EncodingFormatFloat  EncodingFormat = "float"
-	EncodingFormatBase64 EncodingFormat = "base64"
-)
-
-func (e EncodingFormat) ToPointer() *EncodingFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *EncodingFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "float", "base64":
-			return true
-		}
-	}
-	return false
-}
-
 // CreateEmbeddingsRequest - Embeddings request input
 type CreateEmbeddingsRequest struct {
-	// Text, token, or multimodal input(s) to embed
-	Input InputUnion `json:"input"`
-	// The model to use for embeddings
-	Model string `json:"model"`
-	// The format of the output embeddings
-	EncodingFormat *EncodingFormat `json:"encoding_format,omitzero"`
 	// The number of dimensions for the output embeddings
 	Dimensions *int64 `json:"dimensions,omitzero"`
-	// A unique identifier for the end-user
-	User     *string                                                           `json:"user,omitzero"`
-	Provider optionalnullable.OptionalNullable[components.ProviderPreferences] `json:"provider,omitzero"`
+	// The format of the output embeddings
+	EncodingFormat *EncodingFormat `json:"encoding_format,omitzero"`
+	// Text, token, or multimodal input(s) to embed
+	Input InputUnion `json:"input"`
 	// The type of input (e.g. search_query, search_document)
 	InputType *string `json:"input_type,omitzero"`
+	// The model to use for embeddings
+	Model    string                                                            `json:"model"`
+	Provider optionalnullable.OptionalNullable[components.ProviderPreferences] `json:"provider,omitzero"`
+	// A unique identifier for the end-user
+	User *string `json:"user,omitzero"`
 }
 
 func (c CreateEmbeddingsRequest) MarshalJSON() ([]byte, error) {
@@ -465,18 +465,11 @@ func (c *CreateEmbeddingsRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateEmbeddingsRequest) GetInput() InputUnion {
+func (c *CreateEmbeddingsRequest) GetDimensions() *int64 {
 	if c == nil {
-		return InputUnion{}
+		return nil
 	}
-	return c.Input
-}
-
-func (c *CreateEmbeddingsRequest) GetModel() string {
-	if c == nil {
-		return ""
-	}
-	return c.Model
+	return c.Dimensions
 }
 
 func (c *CreateEmbeddingsRequest) GetEncodingFormat() *EncodingFormat {
@@ -486,25 +479,11 @@ func (c *CreateEmbeddingsRequest) GetEncodingFormat() *EncodingFormat {
 	return c.EncodingFormat
 }
 
-func (c *CreateEmbeddingsRequest) GetDimensions() *int64 {
+func (c *CreateEmbeddingsRequest) GetInput() InputUnion {
 	if c == nil {
-		return nil
+		return InputUnion{}
 	}
-	return c.Dimensions
-}
-
-func (c *CreateEmbeddingsRequest) GetUser() *string {
-	if c == nil {
-		return nil
-	}
-	return c.User
-}
-
-func (c *CreateEmbeddingsRequest) GetProvider() optionalnullable.OptionalNullable[components.ProviderPreferences] {
-	if c == nil {
-		return nil
-	}
-	return c.Provider
+	return c.Input
 }
 
 func (c *CreateEmbeddingsRequest) GetInputType() *string {
@@ -514,50 +493,25 @@ func (c *CreateEmbeddingsRequest) GetInputType() *string {
 	return c.InputType
 }
 
-type Object string
-
-const (
-	ObjectList Object = "list"
-)
-
-func (e Object) ToPointer() *Object {
-	return &e
-}
-func (e *Object) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+func (c *CreateEmbeddingsRequest) GetModel() string {
+	if c == nil {
+		return ""
 	}
-	switch v {
-	case "list":
-		*e = Object(v)
+	return c.Model
+}
+
+func (c *CreateEmbeddingsRequest) GetProvider() optionalnullable.OptionalNullable[components.ProviderPreferences] {
+	if c == nil {
 		return nil
-	default:
-		return fmt.Errorf("invalid value for Object: %v", v)
 	}
+	return c.Provider
 }
 
-type ObjectEmbedding string
-
-const (
-	ObjectEmbeddingEmbedding ObjectEmbedding = "embedding"
-)
-
-func (e ObjectEmbedding) ToPointer() *ObjectEmbedding {
-	return &e
-}
-func (e *ObjectEmbedding) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "embedding":
-		*e = ObjectEmbedding(v)
+func (c *CreateEmbeddingsRequest) GetUser() *string {
+	if c == nil {
 		return nil
-	default:
-		return fmt.Errorf("invalid value for ObjectEmbedding: %v", v)
 	}
+	return c.User
 }
 
 type EmbeddingType string
@@ -650,20 +604,36 @@ func (u Embedding) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Embedding: all fields are null")
 }
 
+type ObjectEmbedding string
+
+const (
+	ObjectEmbeddingEmbedding ObjectEmbedding = "embedding"
+)
+
+func (e ObjectEmbedding) ToPointer() *ObjectEmbedding {
+	return &e
+}
+func (e *ObjectEmbedding) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "embedding":
+		*e = ObjectEmbedding(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ObjectEmbedding: %v", v)
+	}
+}
+
 // CreateEmbeddingsData - A single embedding object
 type CreateEmbeddingsData struct {
-	Object ObjectEmbedding `json:"object"`
 	// Embedding vector as an array of floats or a base64 string
 	Embedding Embedding `json:"embedding"`
 	// Index of the embedding in the input list
-	Index *int64 `json:"index,omitzero"`
-}
-
-func (c *CreateEmbeddingsData) GetObject() ObjectEmbedding {
-	if c == nil {
-		return ObjectEmbedding("")
-	}
-	return c.Object
+	Index  *int64          `json:"index,omitzero"`
+	Object ObjectEmbedding `json:"object"`
 }
 
 func (c *CreateEmbeddingsData) GetEmbedding() Embedding {
@@ -680,14 +650,51 @@ func (c *CreateEmbeddingsData) GetIndex() *int64 {
 	return c.Index
 }
 
+func (c *CreateEmbeddingsData) GetObject() ObjectEmbedding {
+	if c == nil {
+		return ObjectEmbedding("")
+	}
+	return c.Object
+}
+
+type Object string
+
+const (
+	ObjectList Object = "list"
+)
+
+func (e Object) ToPointer() *Object {
+	return &e
+}
+func (e *Object) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "list":
+		*e = Object(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for Object: %v", v)
+	}
+}
+
 // CreateEmbeddingsUsage - Token usage statistics
 type CreateEmbeddingsUsage struct {
+	// Cost of the request in credits
+	Cost *float64 `json:"cost,omitzero"`
 	// Number of tokens in the input
 	PromptTokens int64 `json:"prompt_tokens"`
 	// Total number of tokens used
 	TotalTokens int64 `json:"total_tokens"`
-	// Cost of the request in credits
-	Cost *float64 `json:"cost,omitzero"`
+}
+
+func (c *CreateEmbeddingsUsage) GetCost() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Cost
 }
 
 func (c *CreateEmbeddingsUsage) GetPromptTokens() int64 {
@@ -704,22 +711,15 @@ func (c *CreateEmbeddingsUsage) GetTotalTokens() int64 {
 	return c.TotalTokens
 }
 
-func (c *CreateEmbeddingsUsage) GetCost() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Cost
-}
-
 // CreateEmbeddingsResponseBody - Embeddings response containing embedding vectors
 type CreateEmbeddingsResponseBody struct {
-	// Unique identifier for the embeddings response
-	ID     *string `json:"id,omitzero"`
-	Object Object  `json:"object"`
 	// List of embedding objects
 	Data []CreateEmbeddingsData `json:"data"`
+	// Unique identifier for the embeddings response
+	ID *string `json:"id,omitzero"`
 	// The model used for embeddings
-	Model string `json:"model"`
+	Model  string `json:"model"`
+	Object Object `json:"object"`
 	// Token usage statistics
 	Usage *CreateEmbeddingsUsage `json:"usage,omitzero"`
 }
@@ -735,20 +735,6 @@ func (c *CreateEmbeddingsResponseBody) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateEmbeddingsResponseBody) GetID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ID
-}
-
-func (c *CreateEmbeddingsResponseBody) GetObject() Object {
-	if c == nil {
-		return Object("")
-	}
-	return c.Object
-}
-
 func (c *CreateEmbeddingsResponseBody) GetData() []CreateEmbeddingsData {
 	if c == nil {
 		return []CreateEmbeddingsData{}
@@ -756,11 +742,25 @@ func (c *CreateEmbeddingsResponseBody) GetData() []CreateEmbeddingsData {
 	return c.Data
 }
 
+func (c *CreateEmbeddingsResponseBody) GetID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ID
+}
+
 func (c *CreateEmbeddingsResponseBody) GetModel() string {
 	if c == nil {
 		return ""
 	}
 	return c.Model
+}
+
+func (c *CreateEmbeddingsResponseBody) GetObject() Object {
+	if c == nil {
+		return Object("")
+	}
+	return c.Object
 }
 
 func (c *CreateEmbeddingsResponseBody) GetUsage() *CreateEmbeddingsUsage {

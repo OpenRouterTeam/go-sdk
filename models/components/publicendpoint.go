@@ -3,62 +3,20 @@
 package components
 
 type Pricing struct {
-	Prompt            string   `json:"prompt"`
-	Completion        string   `json:"completion"`
-	Request           *string  `json:"request,omitzero"`
-	Image             *string  `json:"image,omitzero"`
-	ImageToken        *string  `json:"image_token,omitzero"`
-	ImageOutput       *string  `json:"image_output,omitzero"`
 	Audio             *string  `json:"audio,omitzero"`
 	AudioOutput       *string  `json:"audio_output,omitzero"`
+	Completion        string   `json:"completion"`
+	Discount          *float64 `json:"discount,omitzero"`
+	Image             *string  `json:"image,omitzero"`
+	ImageOutput       *string  `json:"image_output,omitzero"`
+	ImageToken        *string  `json:"image_token,omitzero"`
 	InputAudioCache   *string  `json:"input_audio_cache,omitzero"`
-	WebSearch         *string  `json:"web_search,omitzero"`
-	InternalReasoning *string  `json:"internal_reasoning,omitzero"`
 	InputCacheRead    *string  `json:"input_cache_read,omitzero"`
 	InputCacheWrite   *string  `json:"input_cache_write,omitzero"`
-	Discount          *float64 `json:"discount,omitzero"`
-}
-
-func (p *Pricing) GetPrompt() string {
-	if p == nil {
-		return ""
-	}
-	return p.Prompt
-}
-
-func (p *Pricing) GetCompletion() string {
-	if p == nil {
-		return ""
-	}
-	return p.Completion
-}
-
-func (p *Pricing) GetRequest() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Request
-}
-
-func (p *Pricing) GetImage() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Image
-}
-
-func (p *Pricing) GetImageToken() *string {
-	if p == nil {
-		return nil
-	}
-	return p.ImageToken
-}
-
-func (p *Pricing) GetImageOutput() *string {
-	if p == nil {
-		return nil
-	}
-	return p.ImageOutput
+	InternalReasoning *string  `json:"internal_reasoning,omitzero"`
+	Prompt            string   `json:"prompt"`
+	Request           *string  `json:"request,omitzero"`
+	WebSearch         *string  `json:"web_search,omitzero"`
 }
 
 func (p *Pricing) GetAudio() *string {
@@ -75,25 +33,46 @@ func (p *Pricing) GetAudioOutput() *string {
 	return p.AudioOutput
 }
 
+func (p *Pricing) GetCompletion() string {
+	if p == nil {
+		return ""
+	}
+	return p.Completion
+}
+
+func (p *Pricing) GetDiscount() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.Discount
+}
+
+func (p *Pricing) GetImage() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Image
+}
+
+func (p *Pricing) GetImageOutput() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ImageOutput
+}
+
+func (p *Pricing) GetImageToken() *string {
+	if p == nil {
+		return nil
+	}
+	return p.ImageToken
+}
+
 func (p *Pricing) GetInputAudioCache() *string {
 	if p == nil {
 		return nil
 	}
 	return p.InputAudioCache
-}
-
-func (p *Pricing) GetWebSearch() *string {
-	if p == nil {
-		return nil
-	}
-	return p.WebSearch
-}
-
-func (p *Pricing) GetInternalReasoning() *string {
-	if p == nil {
-		return nil
-	}
-	return p.InternalReasoning
 }
 
 func (p *Pricing) GetInputCacheRead() *string {
@@ -110,11 +89,32 @@ func (p *Pricing) GetInputCacheWrite() *string {
 	return p.InputCacheWrite
 }
 
-func (p *Pricing) GetDiscount() *float64 {
+func (p *Pricing) GetInternalReasoning() *string {
 	if p == nil {
 		return nil
 	}
-	return p.Discount
+	return p.InternalReasoning
+}
+
+func (p *Pricing) GetPrompt() string {
+	if p == nil {
+		return ""
+	}
+	return p.Prompt
+}
+
+func (p *Pricing) GetRequest() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Request
+}
+
+func (p *Pricing) GetWebSearch() *string {
+	if p == nil {
+		return nil
+	}
+	return p.WebSearch
 }
 
 type PublicEndpointQuantization string
@@ -148,35 +148,56 @@ func (e *PublicEndpointQuantization) IsExact() bool {
 
 // PublicEndpoint - Information about a specific model endpoint
 type PublicEndpoint struct {
-	Name string `json:"name"`
-	// The unique identifier for the model (permaslug)
-	ModelID             string                      `json:"model_id"`
-	ModelName           string                      `json:"model_name"`
-	ContextLength       int64                       `json:"context_length"`
-	Pricing             Pricing                     `json:"pricing"`
-	ProviderName        ProviderName                `json:"provider_name"`
-	Tag                 string                      `json:"tag"`
-	Quantization        *PublicEndpointQuantization `json:"quantization"`
-	MaxCompletionTokens int64                       `json:"max_completion_tokens"`
-	MaxPromptTokens     int64                       `json:"max_prompt_tokens"`
-	SupportedParameters []Parameter                 `json:"supported_parameters"`
-	Status              *EndpointStatus             `json:"status,omitzero"`
-	UptimeLast30m       float64                     `json:"uptime_last_30m"`
-	// Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
-	UptimeLast5m float64 `json:"uptime_last_5m"`
-	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
-	UptimeLast1d            float64 `json:"uptime_last_1d"`
-	SupportsImplicitCaching bool    `json:"supports_implicit_caching"`
+	ContextLength int64 `json:"context_length"`
 	// Latency percentiles in milliseconds over the last 30 minutes. Latency measures time to first token. Only visible when authenticated with an API key or cookie; returns null for unauthenticated requests.
-	LatencyLast30m    *PercentileStats `json:"latency_last_30m"`
-	ThroughputLast30m *PercentileStats `json:"throughput_last_30m"`
+	LatencyLast30m      *PercentileStats `json:"latency_last_30m"`
+	MaxCompletionTokens *int64           `json:"max_completion_tokens"`
+	MaxPromptTokens     *int64           `json:"max_prompt_tokens"`
+	// The unique identifier for the model (permaslug)
+	ModelID                 string                      `json:"model_id"`
+	ModelName               string                      `json:"model_name"`
+	Name                    string                      `json:"name"`
+	Pricing                 Pricing                     `json:"pricing"`
+	ProviderName            ProviderName                `json:"provider_name"`
+	Quantization            *PublicEndpointQuantization `json:"quantization"`
+	Status                  *EndpointStatus             `json:"status,omitzero"`
+	SupportedParameters     []Parameter                 `json:"supported_parameters"`
+	SupportsImplicitCaching bool                        `json:"supports_implicit_caching"`
+	Tag                     string                      `json:"tag"`
+	ThroughputLast30m       *PercentileStats            `json:"throughput_last_30m"`
+	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
+	UptimeLast1d  *float64 `json:"uptime_last_1d"`
+	UptimeLast30m *float64 `json:"uptime_last_30m"`
+	// Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
+	UptimeLast5m *float64 `json:"uptime_last_5m"`
 }
 
-func (p *PublicEndpoint) GetName() string {
+func (p *PublicEndpoint) GetContextLength() int64 {
 	if p == nil {
-		return ""
+		return 0
 	}
-	return p.Name
+	return p.ContextLength
+}
+
+func (p *PublicEndpoint) GetLatencyLast30m() *PercentileStats {
+	if p == nil {
+		return nil
+	}
+	return p.LatencyLast30m
+}
+
+func (p *PublicEndpoint) GetMaxCompletionTokens() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.MaxCompletionTokens
+}
+
+func (p *PublicEndpoint) GetMaxPromptTokens() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.MaxPromptTokens
 }
 
 func (p *PublicEndpoint) GetModelID() string {
@@ -193,11 +214,11 @@ func (p *PublicEndpoint) GetModelName() string {
 	return p.ModelName
 }
 
-func (p *PublicEndpoint) GetContextLength() int64 {
+func (p *PublicEndpoint) GetName() string {
 	if p == nil {
-		return 0
+		return ""
 	}
-	return p.ContextLength
+	return p.Name
 }
 
 func (p *PublicEndpoint) GetPricing() Pricing {
@@ -214,39 +235,11 @@ func (p *PublicEndpoint) GetProviderName() ProviderName {
 	return p.ProviderName
 }
 
-func (p *PublicEndpoint) GetTag() string {
-	if p == nil {
-		return ""
-	}
-	return p.Tag
-}
-
 func (p *PublicEndpoint) GetQuantization() *PublicEndpointQuantization {
 	if p == nil {
 		return nil
 	}
 	return p.Quantization
-}
-
-func (p *PublicEndpoint) GetMaxCompletionTokens() int64 {
-	if p == nil {
-		return 0
-	}
-	return p.MaxCompletionTokens
-}
-
-func (p *PublicEndpoint) GetMaxPromptTokens() int64 {
-	if p == nil {
-		return 0
-	}
-	return p.MaxPromptTokens
-}
-
-func (p *PublicEndpoint) GetSupportedParameters() []Parameter {
-	if p == nil {
-		return []Parameter{}
-	}
-	return p.SupportedParameters
 }
 
 func (p *PublicEndpoint) GetStatus() *EndpointStatus {
@@ -256,25 +249,11 @@ func (p *PublicEndpoint) GetStatus() *EndpointStatus {
 	return p.Status
 }
 
-func (p *PublicEndpoint) GetUptimeLast30m() float64 {
+func (p *PublicEndpoint) GetSupportedParameters() []Parameter {
 	if p == nil {
-		return 0.0
+		return []Parameter{}
 	}
-	return p.UptimeLast30m
-}
-
-func (p *PublicEndpoint) GetUptimeLast5m() float64 {
-	if p == nil {
-		return 0.0
-	}
-	return p.UptimeLast5m
-}
-
-func (p *PublicEndpoint) GetUptimeLast1d() float64 {
-	if p == nil {
-		return 0.0
-	}
-	return p.UptimeLast1d
+	return p.SupportedParameters
 }
 
 func (p *PublicEndpoint) GetSupportsImplicitCaching() bool {
@@ -284,11 +263,11 @@ func (p *PublicEndpoint) GetSupportsImplicitCaching() bool {
 	return p.SupportsImplicitCaching
 }
 
-func (p *PublicEndpoint) GetLatencyLast30m() *PercentileStats {
+func (p *PublicEndpoint) GetTag() string {
 	if p == nil {
-		return nil
+		return ""
 	}
-	return p.LatencyLast30m
+	return p.Tag
 }
 
 func (p *PublicEndpoint) GetThroughputLast30m() *PercentileStats {
@@ -296,4 +275,25 @@ func (p *PublicEndpoint) GetThroughputLast30m() *PercentileStats {
 		return nil
 	}
 	return p.ThroughputLast30m
+}
+
+func (p *PublicEndpoint) GetUptimeLast1d() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.UptimeLast1d
+}
+
+func (p *PublicEndpoint) GetUptimeLast30m() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.UptimeLast30m
+}
+
+func (p *PublicEndpoint) GetUptimeLast5m() *float64 {
+	if p == nil {
+		return nil
+	}
+	return p.UptimeLast5m
 }

@@ -33,11 +33,11 @@ func (e *FunctionCallArgsDeltaEventType) UnmarshalJSON(data []byte) error {
 
 // FunctionCallArgsDeltaEvent - Event emitted when function call arguments are being streamed
 type FunctionCallArgsDeltaEvent struct {
-	Type           FunctionCallArgsDeltaEventType `json:"type"`
+	Delta          string                         `json:"delta"`
 	ItemID         string                         `json:"item_id"`
 	OutputIndex    int64                          `json:"output_index"`
-	Delta          string                         `json:"delta"`
 	SequenceNumber int64                          `json:"sequence_number"`
+	Type           FunctionCallArgsDeltaEventType `json:"type"`
 }
 
 func (f FunctionCallArgsDeltaEvent) MarshalJSON() ([]byte, error) {
@@ -51,11 +51,11 @@ func (f *FunctionCallArgsDeltaEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FunctionCallArgsDeltaEvent) GetType() FunctionCallArgsDeltaEventType {
+func (f *FunctionCallArgsDeltaEvent) GetDelta() string {
 	if f == nil {
-		return FunctionCallArgsDeltaEventType("")
+		return ""
 	}
-	return f.Type
+	return f.Delta
 }
 
 func (f *FunctionCallArgsDeltaEvent) GetItemID() string {
@@ -72,16 +72,16 @@ func (f *FunctionCallArgsDeltaEvent) GetOutputIndex() int64 {
 	return f.OutputIndex
 }
 
-func (f *FunctionCallArgsDeltaEvent) GetDelta() string {
-	if f == nil {
-		return ""
-	}
-	return f.Delta
-}
-
 func (f *FunctionCallArgsDeltaEvent) GetSequenceNumber() int64 {
 	if f == nil {
 		return 0
 	}
 	return f.SequenceNumber
+}
+
+func (f *FunctionCallArgsDeltaEvent) GetType() FunctionCallArgsDeltaEventType {
+	if f == nil {
+		return FunctionCallArgsDeltaEventType("")
+	}
+	return f.Type
 }

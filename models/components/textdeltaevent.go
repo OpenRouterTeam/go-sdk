@@ -33,13 +33,13 @@ func (e *TextDeltaEventType) UnmarshalJSON(data []byte) error {
 
 // TextDeltaEvent - Event emitted when a text delta is streamed
 type TextDeltaEvent struct {
-	Type           TextDeltaEventType `json:"type"`
-	Logprobs       []StreamLogprob    `json:"logprobs"`
-	OutputIndex    int64              `json:"output_index"`
-	ItemID         string             `json:"item_id"`
 	ContentIndex   int64              `json:"content_index"`
 	Delta          string             `json:"delta"`
+	ItemID         string             `json:"item_id"`
+	Logprobs       []StreamLogprob    `json:"logprobs"`
+	OutputIndex    int64              `json:"output_index"`
 	SequenceNumber int64              `json:"sequence_number"`
+	Type           TextDeltaEventType `json:"type"`
 }
 
 func (t TextDeltaEvent) MarshalJSON() ([]byte, error) {
@@ -51,34 +51,6 @@ func (t *TextDeltaEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (t *TextDeltaEvent) GetType() TextDeltaEventType {
-	if t == nil {
-		return TextDeltaEventType("")
-	}
-	return t.Type
-}
-
-func (t *TextDeltaEvent) GetLogprobs() []StreamLogprob {
-	if t == nil {
-		return []StreamLogprob{}
-	}
-	return t.Logprobs
-}
-
-func (t *TextDeltaEvent) GetOutputIndex() int64 {
-	if t == nil {
-		return 0
-	}
-	return t.OutputIndex
-}
-
-func (t *TextDeltaEvent) GetItemID() string {
-	if t == nil {
-		return ""
-	}
-	return t.ItemID
 }
 
 func (t *TextDeltaEvent) GetContentIndex() int64 {
@@ -95,9 +67,37 @@ func (t *TextDeltaEvent) GetDelta() string {
 	return t.Delta
 }
 
+func (t *TextDeltaEvent) GetItemID() string {
+	if t == nil {
+		return ""
+	}
+	return t.ItemID
+}
+
+func (t *TextDeltaEvent) GetLogprobs() []StreamLogprob {
+	if t == nil {
+		return []StreamLogprob{}
+	}
+	return t.Logprobs
+}
+
+func (t *TextDeltaEvent) GetOutputIndex() int64 {
+	if t == nil {
+		return 0
+	}
+	return t.OutputIndex
+}
+
 func (t *TextDeltaEvent) GetSequenceNumber() int64 {
 	if t == nil {
 		return 0
 	}
 	return t.SequenceNumber
+}
+
+func (t *TextDeltaEvent) GetType() TextDeltaEventType {
+	if t == nil {
+		return TextDeltaEventType("")
+	}
+	return t.Type
 }

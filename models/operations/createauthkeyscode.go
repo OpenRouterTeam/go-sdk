@@ -62,12 +62,12 @@ type CreateAuthKeysCodeRequest struct {
 	CodeChallenge *string `json:"code_challenge,omitzero"`
 	// The method used to generate the code challenge
 	CodeChallengeMethod *CreateAuthKeysCodeCodeChallengeMethod `json:"code_challenge_method,omitzero"`
-	// Credit limit for the API key to be created
-	Limit *float64 `json:"limit,omitzero"`
 	// Optional expiration time for the API key to be created
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
 	// Optional custom label for the API key. Defaults to the app name if not provided.
 	KeyLabel *string `json:"key_label,omitzero"`
+	// Credit limit for the API key to be created
+	Limit *float64 `json:"limit,omitzero"`
 	// Optional credit limit reset interval. When set, the credit limit resets on this interval.
 	UsageLimitType *UsageLimitType `json:"usage_limit_type,omitzero"`
 }
@@ -104,13 +104,6 @@ func (c *CreateAuthKeysCodeRequest) GetCodeChallengeMethod() *CreateAuthKeysCode
 	return c.CodeChallengeMethod
 }
 
-func (c *CreateAuthKeysCodeRequest) GetLimit() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Limit
-}
-
 func (c *CreateAuthKeysCodeRequest) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
 	if c == nil {
 		return nil
@@ -125,6 +118,13 @@ func (c *CreateAuthKeysCodeRequest) GetKeyLabel() *string {
 	return c.KeyLabel
 }
 
+func (c *CreateAuthKeysCodeRequest) GetLimit() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Limit
+}
+
 func (c *CreateAuthKeysCodeRequest) GetUsageLimitType() *UsageLimitType {
 	if c == nil {
 		return nil
@@ -134,19 +134,12 @@ func (c *CreateAuthKeysCodeRequest) GetUsageLimitType() *UsageLimitType {
 
 // CreateAuthKeysCodeData - Auth code data
 type CreateAuthKeysCodeData struct {
-	// The authorization code ID to use in the exchange request
-	ID string `json:"id"`
 	// The application ID associated with this auth code
 	AppID int64 `json:"app_id"`
 	// ISO 8601 timestamp of when the auth code was created
 	CreatedAt string `json:"created_at"`
-}
-
-func (c *CreateAuthKeysCodeData) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
+	// The authorization code ID to use in the exchange request
+	ID string `json:"id"`
 }
 
 func (c *CreateAuthKeysCodeData) GetAppID() int64 {
@@ -161,6 +154,13 @@ func (c *CreateAuthKeysCodeData) GetCreatedAt() string {
 		return ""
 	}
 	return c.CreatedAt
+}
+
+func (c *CreateAuthKeysCodeData) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
 }
 
 // CreateAuthKeysCodeResponse - Successfully created authorization code

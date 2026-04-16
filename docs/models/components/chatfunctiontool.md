@@ -17,10 +17,22 @@ chatFunctionTool := components.CreateChatFunctionToolChatFunctionToolFunction(co
 chatFunctionTool := components.CreateChatFunctionToolDatetimeServerTool(components.DatetimeServerTool{/* values here */})
 ```
 
-### ChatWebSearchServerTool
+### ImageGenerationServerToolOpenRouter
 
 ```go
-chatFunctionTool := components.CreateChatFunctionToolChatWebSearchServerTool(components.ChatWebSearchServerTool{/* values here */})
+chatFunctionTool := components.CreateChatFunctionToolImageGenerationServerToolOpenRouter(components.ImageGenerationServerToolOpenRouter{/* values here */})
+```
+
+### ChatSearchModelsServerTool
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolChatSearchModelsServerTool(components.ChatSearchModelsServerTool{/* values here */})
+```
+
+### OpenRouterWebSearchServerTool
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolOpenRouterWebSearchServerTool(components.OpenRouterWebSearchServerTool{/* values here */})
 ```
 
 ### ChatWebSearchShorthand
@@ -39,8 +51,12 @@ switch chatFunctionTool.Type {
 		// chatFunctionTool.ChatFunctionToolFunction is populated
 	case components.ChatFunctionToolUnionTypeDatetimeServerTool:
 		// chatFunctionTool.DatetimeServerTool is populated
-	case components.ChatFunctionToolUnionTypeChatWebSearchServerTool:
-		// chatFunctionTool.ChatWebSearchServerTool is populated
+	case components.ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter:
+		// chatFunctionTool.ImageGenerationServerToolOpenRouter is populated
+	case components.ChatFunctionToolUnionTypeChatSearchModelsServerTool:
+		// chatFunctionTool.ChatSearchModelsServerTool is populated
+	case components.ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool:
+		// chatFunctionTool.OpenRouterWebSearchServerTool is populated
 	case components.ChatFunctionToolUnionTypeChatWebSearchShorthand:
 		// chatFunctionTool.ChatWebSearchShorthand is populated
 }

@@ -3,23 +3,9 @@
 package components
 
 type ChatTokenLogprobTopLogprob struct {
-	Token   string  `json:"token"`
-	Logprob float64 `json:"logprob"`
 	Bytes   []int64 `json:"bytes"`
-}
-
-func (c *ChatTokenLogprobTopLogprob) GetToken() string {
-	if c == nil {
-		return ""
-	}
-	return c.Token
-}
-
-func (c *ChatTokenLogprobTopLogprob) GetLogprob() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.Logprob
+	Logprob float64 `json:"logprob"`
+	Token   string  `json:"token"`
 }
 
 func (c *ChatTokenLogprobTopLogprob) GetBytes() []int64 {
@@ -29,23 +15,37 @@ func (c *ChatTokenLogprobTopLogprob) GetBytes() []int64 {
 	return c.Bytes
 }
 
-// ChatTokenLogprob - Token log probability information
-type ChatTokenLogprob struct {
-	// The token
-	Token string `json:"token"`
-	// Log probability of the token
-	Logprob float64 `json:"logprob"`
-	// UTF-8 bytes of the token
-	Bytes []int64 `json:"bytes"`
-	// Top alternative tokens with probabilities
-	TopLogprobs []ChatTokenLogprobTopLogprob `json:"top_logprobs"`
+func (c *ChatTokenLogprobTopLogprob) GetLogprob() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Logprob
 }
 
-func (c *ChatTokenLogprob) GetToken() string {
+func (c *ChatTokenLogprobTopLogprob) GetToken() string {
 	if c == nil {
 		return ""
 	}
 	return c.Token
+}
+
+// ChatTokenLogprob - Token log probability information
+type ChatTokenLogprob struct {
+	// UTF-8 bytes of the token
+	Bytes []int64 `json:"bytes"`
+	// Log probability of the token
+	Logprob float64 `json:"logprob"`
+	// The token
+	Token string `json:"token"`
+	// Top alternative tokens with probabilities
+	TopLogprobs []ChatTokenLogprobTopLogprob `json:"top_logprobs"`
+}
+
+func (c *ChatTokenLogprob) GetBytes() []int64 {
+	if c == nil {
+		return nil
+	}
+	return c.Bytes
 }
 
 func (c *ChatTokenLogprob) GetLogprob() float64 {
@@ -55,11 +55,11 @@ func (c *ChatTokenLogprob) GetLogprob() float64 {
 	return c.Logprob
 }
 
-func (c *ChatTokenLogprob) GetBytes() []int64 {
+func (c *ChatTokenLogprob) GetToken() string {
 	if c == nil {
-		return nil
+		return ""
 	}
-	return c.Bytes
+	return c.Token
 }
 
 func (c *ChatTokenLogprob) GetTopLogprobs() []ChatTokenLogprobTopLogprob {

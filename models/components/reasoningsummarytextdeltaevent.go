@@ -33,12 +33,12 @@ func (e *ReasoningSummaryTextDeltaEventType) UnmarshalJSON(data []byte) error {
 
 // ReasoningSummaryTextDeltaEvent - Event emitted when reasoning summary text delta is streamed
 type ReasoningSummaryTextDeltaEvent struct {
-	Type           ReasoningSummaryTextDeltaEventType `json:"type"`
+	Delta          string                             `json:"delta"`
 	ItemID         string                             `json:"item_id"`
 	OutputIndex    int64                              `json:"output_index"`
-	SummaryIndex   int64                              `json:"summary_index"`
-	Delta          string                             `json:"delta"`
 	SequenceNumber int64                              `json:"sequence_number"`
+	SummaryIndex   int64                              `json:"summary_index"`
+	Type           ReasoningSummaryTextDeltaEventType `json:"type"`
 }
 
 func (r ReasoningSummaryTextDeltaEvent) MarshalJSON() ([]byte, error) {
@@ -52,11 +52,11 @@ func (r *ReasoningSummaryTextDeltaEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningSummaryTextDeltaEvent) GetType() ReasoningSummaryTextDeltaEventType {
+func (r *ReasoningSummaryTextDeltaEvent) GetDelta() string {
 	if r == nil {
-		return ReasoningSummaryTextDeltaEventType("")
+		return ""
 	}
-	return r.Type
+	return r.Delta
 }
 
 func (r *ReasoningSummaryTextDeltaEvent) GetItemID() string {
@@ -73,6 +73,13 @@ func (r *ReasoningSummaryTextDeltaEvent) GetOutputIndex() int64 {
 	return r.OutputIndex
 }
 
+func (r *ReasoningSummaryTextDeltaEvent) GetSequenceNumber() int64 {
+	if r == nil {
+		return 0
+	}
+	return r.SequenceNumber
+}
+
 func (r *ReasoningSummaryTextDeltaEvent) GetSummaryIndex() int64 {
 	if r == nil {
 		return 0
@@ -80,16 +87,9 @@ func (r *ReasoningSummaryTextDeltaEvent) GetSummaryIndex() int64 {
 	return r.SummaryIndex
 }
 
-func (r *ReasoningSummaryTextDeltaEvent) GetDelta() string {
+func (r *ReasoningSummaryTextDeltaEvent) GetType() ReasoningSummaryTextDeltaEventType {
 	if r == nil {
-		return ""
+		return ReasoningSummaryTextDeltaEventType("")
 	}
-	return r.Delta
-}
-
-func (r *ReasoningSummaryTextDeltaEvent) GetSequenceNumber() int64 {
-	if r == nil {
-		return 0
-	}
-	return r.SequenceNumber
+	return r.Type
 }

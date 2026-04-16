@@ -34,12 +34,12 @@ func (e *ReasoningDetailTextType) UnmarshalJSON(data []byte) error {
 
 // ReasoningDetailText - Reasoning detail text schema
 type ReasoningDetailText struct {
-	Type      ReasoningDetailTextType                            `json:"type"`
-	Text      optionalnullable.OptionalNullable[string]          `json:"text,omitzero"`
-	Signature optionalnullable.OptionalNullable[string]          `json:"signature,omitzero"`
-	ID        optionalnullable.OptionalNullable[string]          `json:"id,omitzero"`
 	Format    optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
+	ID        optionalnullable.OptionalNullable[string]          `json:"id,omitzero"`
 	Index     *int64                                             `json:"index,omitzero"`
+	Signature optionalnullable.OptionalNullable[string]          `json:"signature,omitzero"`
+	Text      optionalnullable.OptionalNullable[string]          `json:"text,omitzero"`
+	Type      ReasoningDetailTextType                            `json:"type"`
 }
 
 func (r ReasoningDetailText) MarshalJSON() ([]byte, error) {
@@ -53,25 +53,11 @@ func (r *ReasoningDetailText) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningDetailText) GetType() ReasoningDetailTextType {
-	if r == nil {
-		return ReasoningDetailTextType("")
-	}
-	return r.Type
-}
-
-func (r *ReasoningDetailText) GetText() optionalnullable.OptionalNullable[string] {
+func (r *ReasoningDetailText) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
 	if r == nil {
 		return nil
 	}
-	return r.Text
-}
-
-func (r *ReasoningDetailText) GetSignature() optionalnullable.OptionalNullable[string] {
-	if r == nil {
-		return nil
-	}
-	return r.Signature
+	return r.Format
 }
 
 func (r *ReasoningDetailText) GetID() optionalnullable.OptionalNullable[string] {
@@ -81,16 +67,30 @@ func (r *ReasoningDetailText) GetID() optionalnullable.OptionalNullable[string] 
 	return r.ID
 }
 
-func (r *ReasoningDetailText) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
-	if r == nil {
-		return nil
-	}
-	return r.Format
-}
-
 func (r *ReasoningDetailText) GetIndex() *int64 {
 	if r == nil {
 		return nil
 	}
 	return r.Index
+}
+
+func (r *ReasoningDetailText) GetSignature() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.Signature
+}
+
+func (r *ReasoningDetailText) GetText() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.Text
+}
+
+func (r *ReasoningDetailText) GetType() ReasoningDetailTextType {
+	if r == nil {
+		return ReasoningDetailTextType("")
+	}
+	return r.Type
 }

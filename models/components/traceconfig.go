@@ -8,11 +8,11 @@ import (
 
 // TraceConfig - Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
 type TraceConfig struct {
-	TraceID              *string        `json:"trace_id,omitzero"`
-	TraceName            *string        `json:"trace_name,omitzero"`
-	SpanName             *string        `json:"span_name,omitzero"`
 	GenerationName       *string        `json:"generation_name,omitzero"`
 	ParentSpanID         *string        `json:"parent_span_id,omitzero"`
+	SpanName             *string        `json:"span_name,omitzero"`
+	TraceID              *string        `json:"trace_id,omitzero"`
+	TraceName            *string        `json:"trace_name,omitzero"`
 	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
@@ -27,27 +27,6 @@ func (t *TraceConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TraceConfig) GetTraceID() *string {
-	if t == nil {
-		return nil
-	}
-	return t.TraceID
-}
-
-func (t *TraceConfig) GetTraceName() *string {
-	if t == nil {
-		return nil
-	}
-	return t.TraceName
-}
-
-func (t *TraceConfig) GetSpanName() *string {
-	if t == nil {
-		return nil
-	}
-	return t.SpanName
-}
-
 func (t *TraceConfig) GetGenerationName() *string {
 	if t == nil {
 		return nil
@@ -60,6 +39,27 @@ func (t *TraceConfig) GetParentSpanID() *string {
 		return nil
 	}
 	return t.ParentSpanID
+}
+
+func (t *TraceConfig) GetSpanName() *string {
+	if t == nil {
+		return nil
+	}
+	return t.SpanName
+}
+
+func (t *TraceConfig) GetTraceID() *string {
+	if t == nil {
+		return nil
+	}
+	return t.TraceID
+}
+
+func (t *TraceConfig) GetTraceName() *string {
+	if t == nil {
+		return nil
+	}
+	return t.TraceName
 }
 
 func (t *TraceConfig) GetAdditionalProperties() map[string]any {

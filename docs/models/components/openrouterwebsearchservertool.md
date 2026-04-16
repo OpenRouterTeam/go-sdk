@@ -1,0 +1,11 @@
+# OpenRouterWebSearchServerTool
+
+OpenRouter built-in server tool: searches the web for current information
+
+
+## Fields
+
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  | Example                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `Parameters`                                                                                                 | [*components.WebSearchConfig](../../models/components/websearchconfig.md)                                    | :heavy_minus_sign:                                                                                           | N/A                                                                                                          | {<br/>"max_results": 5,<br/>"search_context_size": "medium"<br/>}                                            |
+| `Type`                                                                                                       | [components.OpenRouterWebSearchServerToolType](../../models/components/openrouterwebsearchservertooltype.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |                                                                                                              |

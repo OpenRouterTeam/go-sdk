@@ -32,9 +32,9 @@ func (e *ResponseHealingPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type ResponseHealingPlugin struct {
-	ID ResponseHealingPluginID `json:"id"`
 	// Set to false to disable the response-healing plugin for this request. Defaults to true.
-	Enabled *bool `json:"enabled,omitzero"`
+	Enabled *bool                   `json:"enabled,omitzero"`
+	ID      ResponseHealingPluginID `json:"id"`
 }
 
 func (r ResponseHealingPlugin) MarshalJSON() ([]byte, error) {
@@ -48,16 +48,16 @@ func (r *ResponseHealingPlugin) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ResponseHealingPlugin) GetID() ResponseHealingPluginID {
-	if r == nil {
-		return ResponseHealingPluginID("")
-	}
-	return r.ID
-}
-
 func (r *ResponseHealingPlugin) GetEnabled() *bool {
 	if r == nil {
 		return nil
 	}
 	return r.Enabled
+}
+
+func (r *ResponseHealingPlugin) GetID() ResponseHealingPluginID {
+	if r == nil {
+		return ResponseHealingPluginID("")
+	}
+	return r.ID
 }

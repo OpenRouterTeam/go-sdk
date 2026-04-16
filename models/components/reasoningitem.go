@@ -10,29 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ReasoningItemType string
-
-const (
-	ReasoningItemTypeReasoning ReasoningItemType = "reasoning"
-)
-
-func (e ReasoningItemType) ToPointer() *ReasoningItemType {
-	return &e
-}
-func (e *ReasoningItemType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "reasoning":
-		*e = ReasoningItemType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ReasoningItemType: %v", v)
-	}
-}
-
 type ReasoningItemStatusInProgress string
 
 const (
@@ -217,16 +194,39 @@ func (u ReasoningItemStatusUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ReasoningItemStatusUnion: all fields are null")
 }
 
+type ReasoningItemType string
+
+const (
+	ReasoningItemTypeReasoning ReasoningItemType = "reasoning"
+)
+
+func (e ReasoningItemType) ToPointer() *ReasoningItemType {
+	return &e
+}
+func (e *ReasoningItemType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "reasoning":
+		*e = ReasoningItemType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ReasoningItemType: %v", v)
+	}
+}
+
 // ReasoningItem - Reasoning output item with signature and format extensions
 type ReasoningItem struct {
-	Type             ReasoningItemType                                         `json:"type"`
-	ID               string                                                    `json:"id"`
 	Content          optionalnullable.OptionalNullable[[]ReasoningTextContent] `json:"content,omitzero"`
-	Summary          []ReasoningSummaryText                                    `json:"summary"`
 	EncryptedContent optionalnullable.OptionalNullable[string]                 `json:"encrypted_content,omitzero"`
+	ID               string                                                    `json:"id"`
 	Status           *ReasoningItemStatusUnion                                 `json:"status,omitzero"`
-	Signature        optionalnullable.OptionalNullable[string]                 `json:"signature,omitzero"`
+	Summary          []ReasoningSummaryText                                    `json:"summary"`
+	Type             ReasoningItemType                                         `json:"type"`
 	Format           optionalnullable.OptionalNullable[ReasoningFormat]        `json:"format,omitzero"`
+	Signature        optionalnullable.OptionalNullable[string]                 `json:"signature,omitzero"`
 }
 
 func (r ReasoningItem) MarshalJSON() ([]byte, error) {
@@ -240,32 +240,11 @@ func (r *ReasoningItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ReasoningItem) GetType() ReasoningItemType {
-	if r == nil {
-		return ReasoningItemType("")
-	}
-	return r.Type
-}
-
-func (r *ReasoningItem) GetID() string {
-	if r == nil {
-		return ""
-	}
-	return r.ID
-}
-
 func (r *ReasoningItem) GetContent() optionalnullable.OptionalNullable[[]ReasoningTextContent] {
 	if r == nil {
 		return nil
 	}
 	return r.Content
-}
-
-func (r *ReasoningItem) GetSummary() []ReasoningSummaryText {
-	if r == nil {
-		return []ReasoningSummaryText{}
-	}
-	return r.Summary
 }
 
 func (r *ReasoningItem) GetEncryptedContent() optionalnullable.OptionalNullable[string] {
@@ -275,6 +254,13 @@ func (r *ReasoningItem) GetEncryptedContent() optionalnullable.OptionalNullable[
 	return r.EncryptedContent
 }
 
+func (r *ReasoningItem) GetID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ID
+}
+
 func (r *ReasoningItem) GetStatus() *ReasoningItemStatusUnion {
 	if r == nil {
 		return nil
@@ -282,11 +268,18 @@ func (r *ReasoningItem) GetStatus() *ReasoningItemStatusUnion {
 	return r.Status
 }
 
-func (r *ReasoningItem) GetSignature() optionalnullable.OptionalNullable[string] {
+func (r *ReasoningItem) GetSummary() []ReasoningSummaryText {
 	if r == nil {
-		return nil
+		return []ReasoningSummaryText{}
 	}
-	return r.Signature
+	return r.Summary
+}
+
+func (r *ReasoningItem) GetType() ReasoningItemType {
+	if r == nil {
+		return ReasoningItemType("")
+	}
+	return r.Type
 }
 
 func (r *ReasoningItem) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
@@ -294,4 +287,11 @@ func (r *ReasoningItem) GetFormat() optionalnullable.OptionalNullable[ReasoningF
 		return nil
 	}
 	return r.Format
+}
+
+func (r *ReasoningItem) GetSignature() optionalnullable.OptionalNullable[string] {
+	if r == nil {
+		return nil
+	}
+	return r.Signature
 }

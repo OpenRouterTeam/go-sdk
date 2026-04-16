@@ -10,29 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type InputsTypeReasoning string
-
-const (
-	InputsTypeReasoningReasoning InputsTypeReasoning = "reasoning"
-)
-
-func (e InputsTypeReasoning) ToPointer() *InputsTypeReasoning {
-	return &e
-}
-func (e *InputsTypeReasoning) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "reasoning":
-		*e = InputsTypeReasoning(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputsTypeReasoning: %v", v)
-	}
-}
-
 type InputsStatusInProgress2 string
 
 const (
@@ -217,17 +194,40 @@ func (u InputsStatusUnion2) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type InputsStatusUnion2: all fields are null")
 }
 
+type InputsTypeReasoning string
+
+const (
+	InputsTypeReasoningReasoning InputsTypeReasoning = "reasoning"
+)
+
+func (e InputsTypeReasoning) ToPointer() *InputsTypeReasoning {
+	return &e
+}
+func (e *InputsTypeReasoning) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "reasoning":
+		*e = InputsTypeReasoning(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputsTypeReasoning: %v", v)
+	}
+}
+
 // InputsReasoning - An output item containing reasoning
 type InputsReasoning struct {
-	Type             InputsTypeReasoning                                       `json:"type"`
-	ID               string                                                    `json:"id"`
 	Content          optionalnullable.OptionalNullable[[]ReasoningTextContent] `json:"content,omitzero"`
-	Summary          []ReasoningSummaryText                                    `json:"summary"`
 	EncryptedContent optionalnullable.OptionalNullable[string]                 `json:"encrypted_content,omitzero"`
+	ID               string                                                    `json:"id"`
 	Status           *InputsStatusUnion2                                       `json:"status,omitzero"`
+	Summary          []ReasoningSummaryText                                    `json:"summary"`
+	Type             InputsTypeReasoning                                       `json:"type"`
+	Format           optionalnullable.OptionalNullable[ReasoningFormat]        `json:"format,omitzero"`
 	// A signature for the reasoning content, used for verification
-	Signature optionalnullable.OptionalNullable[string]          `json:"signature,omitzero"`
-	Format    optionalnullable.OptionalNullable[ReasoningFormat] `json:"format,omitzero"`
+	Signature optionalnullable.OptionalNullable[string] `json:"signature,omitzero"`
 }
 
 func (i InputsReasoning) MarshalJSON() ([]byte, error) {
@@ -241,32 +241,11 @@ func (i *InputsReasoning) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputsReasoning) GetType() InputsTypeReasoning {
-	if i == nil {
-		return InputsTypeReasoning("")
-	}
-	return i.Type
-}
-
-func (i *InputsReasoning) GetID() string {
-	if i == nil {
-		return ""
-	}
-	return i.ID
-}
-
 func (i *InputsReasoning) GetContent() optionalnullable.OptionalNullable[[]ReasoningTextContent] {
 	if i == nil {
 		return nil
 	}
 	return i.Content
-}
-
-func (i *InputsReasoning) GetSummary() []ReasoningSummaryText {
-	if i == nil {
-		return nil
-	}
-	return i.Summary
 }
 
 func (i *InputsReasoning) GetEncryptedContent() optionalnullable.OptionalNullable[string] {
@@ -276,6 +255,13 @@ func (i *InputsReasoning) GetEncryptedContent() optionalnullable.OptionalNullabl
 	return i.EncryptedContent
 }
 
+func (i *InputsReasoning) GetID() string {
+	if i == nil {
+		return ""
+	}
+	return i.ID
+}
+
 func (i *InputsReasoning) GetStatus() *InputsStatusUnion2 {
 	if i == nil {
 		return nil
@@ -283,11 +269,18 @@ func (i *InputsReasoning) GetStatus() *InputsStatusUnion2 {
 	return i.Status
 }
 
-func (i *InputsReasoning) GetSignature() optionalnullable.OptionalNullable[string] {
+func (i *InputsReasoning) GetSummary() []ReasoningSummaryText {
 	if i == nil {
 		return nil
 	}
-	return i.Signature
+	return i.Summary
+}
+
+func (i *InputsReasoning) GetType() InputsTypeReasoning {
+	if i == nil {
+		return InputsTypeReasoning("")
+	}
+	return i.Type
 }
 
 func (i *InputsReasoning) GetFormat() optionalnullable.OptionalNullable[ReasoningFormat] {
@@ -297,234 +290,11 @@ func (i *InputsReasoning) GetFormat() optionalnullable.OptionalNullable[Reasonin
 	return i.Format
 }
 
-type InputsRole string
-
-const (
-	InputsRoleAssistant InputsRole = "assistant"
-)
-
-func (e InputsRole) ToPointer() *InputsRole {
-	return &e
-}
-func (e *InputsRole) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "assistant":
-		*e = InputsRole(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputsRole: %v", v)
-	}
-}
-
-type InputsTypeMessage string
-
-const (
-	InputsTypeMessageMessage InputsTypeMessage = "message"
-)
-
-func (e InputsTypeMessage) ToPointer() *InputsTypeMessage {
-	return &e
-}
-func (e *InputsTypeMessage) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "message":
-		*e = InputsTypeMessage(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputsTypeMessage: %v", v)
-	}
-}
-
-type InputsStatusInProgress1 string
-
-const (
-	InputsStatusInProgress1InProgress InputsStatusInProgress1 = "in_progress"
-)
-
-func (e InputsStatusInProgress1) ToPointer() *InputsStatusInProgress1 {
-	return &e
-}
-func (e *InputsStatusInProgress1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "in_progress":
-		*e = InputsStatusInProgress1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputsStatusInProgress1: %v", v)
-	}
-}
-
-type InputsStatusIncomplete1 string
-
-const (
-	InputsStatusIncomplete1Incomplete InputsStatusIncomplete1 = "incomplete"
-)
-
-func (e InputsStatusIncomplete1) ToPointer() *InputsStatusIncomplete1 {
-	return &e
-}
-func (e *InputsStatusIncomplete1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "incomplete":
-		*e = InputsStatusIncomplete1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputsStatusIncomplete1: %v", v)
-	}
-}
-
-type InputsStatusCompleted1 string
-
-const (
-	InputsStatusCompleted1Completed InputsStatusCompleted1 = "completed"
-)
-
-func (e InputsStatusCompleted1) ToPointer() *InputsStatusCompleted1 {
-	return &e
-}
-func (e *InputsStatusCompleted1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "completed":
-		*e = InputsStatusCompleted1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputsStatusCompleted1: %v", v)
-	}
-}
-
-type InputsStatusUnion1Type string
-
-const (
-	InputsStatusUnion1TypeInputsStatusCompleted1  InputsStatusUnion1Type = "Inputs_status_Completed_1"
-	InputsStatusUnion1TypeInputsStatusIncomplete1 InputsStatusUnion1Type = "Inputs_status_Incomplete_1"
-	InputsStatusUnion1TypeInputsStatusInProgress1 InputsStatusUnion1Type = "Inputs_status_InProgress_1"
-)
-
-type InputsStatusUnion1 struct {
-	InputsStatusCompleted1  *InputsStatusCompleted1  `queryParam:"inline" union:"member"`
-	InputsStatusIncomplete1 *InputsStatusIncomplete1 `queryParam:"inline" union:"member"`
-	InputsStatusInProgress1 *InputsStatusInProgress1 `queryParam:"inline" union:"member"`
-
-	Type InputsStatusUnion1Type
-}
-
-func CreateInputsStatusUnion1InputsStatusCompleted1(inputsStatusCompleted1 InputsStatusCompleted1) InputsStatusUnion1 {
-	typ := InputsStatusUnion1TypeInputsStatusCompleted1
-
-	return InputsStatusUnion1{
-		InputsStatusCompleted1: &inputsStatusCompleted1,
-		Type:                   typ,
-	}
-}
-
-func CreateInputsStatusUnion1InputsStatusIncomplete1(inputsStatusIncomplete1 InputsStatusIncomplete1) InputsStatusUnion1 {
-	typ := InputsStatusUnion1TypeInputsStatusIncomplete1
-
-	return InputsStatusUnion1{
-		InputsStatusIncomplete1: &inputsStatusIncomplete1,
-		Type:                    typ,
-	}
-}
-
-func CreateInputsStatusUnion1InputsStatusInProgress1(inputsStatusInProgress1 InputsStatusInProgress1) InputsStatusUnion1 {
-	typ := InputsStatusUnion1TypeInputsStatusInProgress1
-
-	return InputsStatusUnion1{
-		InputsStatusInProgress1: &inputsStatusInProgress1,
-		Type:                    typ,
-	}
-}
-
-func (u *InputsStatusUnion1) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var inputsStatusCompleted1 InputsStatusCompleted1 = InputsStatusCompleted1("")
-	if err := utils.UnmarshalJSON(data, &inputsStatusCompleted1, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsStatusUnion1TypeInputsStatusCompleted1,
-			Value: &inputsStatusCompleted1,
-		})
-	}
-
-	var inputsStatusIncomplete1 InputsStatusIncomplete1 = InputsStatusIncomplete1("")
-	if err := utils.UnmarshalJSON(data, &inputsStatusIncomplete1, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsStatusUnion1TypeInputsStatusIncomplete1,
-			Value: &inputsStatusIncomplete1,
-		})
-	}
-
-	var inputsStatusInProgress1 InputsStatusInProgress1 = InputsStatusInProgress1("")
-	if err := utils.UnmarshalJSON(data, &inputsStatusInProgress1, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsStatusUnion1TypeInputsStatusInProgress1,
-			Value: &inputsStatusInProgress1,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsStatusUnion1", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsStatusUnion1", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(InputsStatusUnion1Type)
-	switch best.Type {
-	case InputsStatusUnion1TypeInputsStatusCompleted1:
-		u.InputsStatusCompleted1 = best.Value.(*InputsStatusCompleted1)
-		return nil
-	case InputsStatusUnion1TypeInputsStatusIncomplete1:
-		u.InputsStatusIncomplete1 = best.Value.(*InputsStatusIncomplete1)
-		return nil
-	case InputsStatusUnion1TypeInputsStatusInProgress1:
-		u.InputsStatusInProgress1 = best.Value.(*InputsStatusInProgress1)
+func (i *InputsReasoning) GetSignature() optionalnullable.OptionalNullable[string] {
+	if i == nil {
 		return nil
 	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsStatusUnion1", string(data))
-}
-
-func (u InputsStatusUnion1) MarshalJSON() ([]byte, error) {
-	if u.InputsStatusCompleted1 != nil {
-		return utils.MarshalJSON(u.InputsStatusCompleted1, "", true)
-	}
-
-	if u.InputsStatusIncomplete1 != nil {
-		return utils.MarshalJSON(u.InputsStatusIncomplete1, "", true)
-	}
-
-	if u.InputsStatusInProgress1 != nil {
-		return utils.MarshalJSON(u.InputsStatusInProgress1, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type InputsStatusUnion1: all fields are null")
+	return i.Signature
 }
 
 type InputsContent1Type string
@@ -889,15 +659,245 @@ func (u InputsPhaseUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type InputsPhaseUnion: all fields are null")
 }
 
+type InputsRole string
+
+const (
+	InputsRoleAssistant InputsRole = "assistant"
+)
+
+func (e InputsRole) ToPointer() *InputsRole {
+	return &e
+}
+func (e *InputsRole) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "assistant":
+		*e = InputsRole(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputsRole: %v", v)
+	}
+}
+
+type InputsStatusInProgress1 string
+
+const (
+	InputsStatusInProgress1InProgress InputsStatusInProgress1 = "in_progress"
+)
+
+func (e InputsStatusInProgress1) ToPointer() *InputsStatusInProgress1 {
+	return &e
+}
+func (e *InputsStatusInProgress1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "in_progress":
+		*e = InputsStatusInProgress1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputsStatusInProgress1: %v", v)
+	}
+}
+
+type InputsStatusIncomplete1 string
+
+const (
+	InputsStatusIncomplete1Incomplete InputsStatusIncomplete1 = "incomplete"
+)
+
+func (e InputsStatusIncomplete1) ToPointer() *InputsStatusIncomplete1 {
+	return &e
+}
+func (e *InputsStatusIncomplete1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "incomplete":
+		*e = InputsStatusIncomplete1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputsStatusIncomplete1: %v", v)
+	}
+}
+
+type InputsStatusCompleted1 string
+
+const (
+	InputsStatusCompleted1Completed InputsStatusCompleted1 = "completed"
+)
+
+func (e InputsStatusCompleted1) ToPointer() *InputsStatusCompleted1 {
+	return &e
+}
+func (e *InputsStatusCompleted1) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "completed":
+		*e = InputsStatusCompleted1(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputsStatusCompleted1: %v", v)
+	}
+}
+
+type InputsStatusUnion1Type string
+
+const (
+	InputsStatusUnion1TypeInputsStatusCompleted1  InputsStatusUnion1Type = "Inputs_status_Completed_1"
+	InputsStatusUnion1TypeInputsStatusIncomplete1 InputsStatusUnion1Type = "Inputs_status_Incomplete_1"
+	InputsStatusUnion1TypeInputsStatusInProgress1 InputsStatusUnion1Type = "Inputs_status_InProgress_1"
+)
+
+type InputsStatusUnion1 struct {
+	InputsStatusCompleted1  *InputsStatusCompleted1  `queryParam:"inline" union:"member"`
+	InputsStatusIncomplete1 *InputsStatusIncomplete1 `queryParam:"inline" union:"member"`
+	InputsStatusInProgress1 *InputsStatusInProgress1 `queryParam:"inline" union:"member"`
+
+	Type InputsStatusUnion1Type
+}
+
+func CreateInputsStatusUnion1InputsStatusCompleted1(inputsStatusCompleted1 InputsStatusCompleted1) InputsStatusUnion1 {
+	typ := InputsStatusUnion1TypeInputsStatusCompleted1
+
+	return InputsStatusUnion1{
+		InputsStatusCompleted1: &inputsStatusCompleted1,
+		Type:                   typ,
+	}
+}
+
+func CreateInputsStatusUnion1InputsStatusIncomplete1(inputsStatusIncomplete1 InputsStatusIncomplete1) InputsStatusUnion1 {
+	typ := InputsStatusUnion1TypeInputsStatusIncomplete1
+
+	return InputsStatusUnion1{
+		InputsStatusIncomplete1: &inputsStatusIncomplete1,
+		Type:                    typ,
+	}
+}
+
+func CreateInputsStatusUnion1InputsStatusInProgress1(inputsStatusInProgress1 InputsStatusInProgress1) InputsStatusUnion1 {
+	typ := InputsStatusUnion1TypeInputsStatusInProgress1
+
+	return InputsStatusUnion1{
+		InputsStatusInProgress1: &inputsStatusInProgress1,
+		Type:                    typ,
+	}
+}
+
+func (u *InputsStatusUnion1) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var inputsStatusCompleted1 InputsStatusCompleted1 = InputsStatusCompleted1("")
+	if err := utils.UnmarshalJSON(data, &inputsStatusCompleted1, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsStatusUnion1TypeInputsStatusCompleted1,
+			Value: &inputsStatusCompleted1,
+		})
+	}
+
+	var inputsStatusIncomplete1 InputsStatusIncomplete1 = InputsStatusIncomplete1("")
+	if err := utils.UnmarshalJSON(data, &inputsStatusIncomplete1, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsStatusUnion1TypeInputsStatusIncomplete1,
+			Value: &inputsStatusIncomplete1,
+		})
+	}
+
+	var inputsStatusInProgress1 InputsStatusInProgress1 = InputsStatusInProgress1("")
+	if err := utils.UnmarshalJSON(data, &inputsStatusInProgress1, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsStatusUnion1TypeInputsStatusInProgress1,
+			Value: &inputsStatusInProgress1,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsStatusUnion1", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsStatusUnion1", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(InputsStatusUnion1Type)
+	switch best.Type {
+	case InputsStatusUnion1TypeInputsStatusCompleted1:
+		u.InputsStatusCompleted1 = best.Value.(*InputsStatusCompleted1)
+		return nil
+	case InputsStatusUnion1TypeInputsStatusIncomplete1:
+		u.InputsStatusIncomplete1 = best.Value.(*InputsStatusIncomplete1)
+		return nil
+	case InputsStatusUnion1TypeInputsStatusInProgress1:
+		u.InputsStatusInProgress1 = best.Value.(*InputsStatusInProgress1)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsStatusUnion1", string(data))
+}
+
+func (u InputsStatusUnion1) MarshalJSON() ([]byte, error) {
+	if u.InputsStatusCompleted1 != nil {
+		return utils.MarshalJSON(u.InputsStatusCompleted1, "", true)
+	}
+
+	if u.InputsStatusIncomplete1 != nil {
+		return utils.MarshalJSON(u.InputsStatusIncomplete1, "", true)
+	}
+
+	if u.InputsStatusInProgress1 != nil {
+		return utils.MarshalJSON(u.InputsStatusInProgress1, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputsStatusUnion1: all fields are null")
+}
+
+type InputsTypeMessage string
+
+const (
+	InputsTypeMessageMessage InputsTypeMessage = "message"
+)
+
+func (e InputsTypeMessage) ToPointer() *InputsTypeMessage {
+	return &e
+}
+func (e *InputsTypeMessage) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "message":
+		*e = InputsTypeMessage(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputsTypeMessage: %v", v)
+	}
+}
+
 // InputsMessage - An output message item
 type InputsMessage struct {
-	ID      string              `json:"id"`
-	Role    InputsRole          `json:"role"`
-	Type    InputsTypeMessage   `json:"type"`
-	Status  *InputsStatusUnion1 `json:"status,omitzero"`
-	Content *InputsContent2     `json:"content"`
+	Content *InputsContent2 `json:"content"`
+	ID      string          `json:"id"`
 	// The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
-	Phase optionalnullable.OptionalNullable[InputsPhaseUnion] `json:"phase,omitzero"`
+	Phase  optionalnullable.OptionalNullable[InputsPhaseUnion] `json:"phase,omitzero"`
+	Role   InputsRole                                          `json:"role"`
+	Status *InputsStatusUnion1                                 `json:"status,omitzero"`
+	Type   InputsTypeMessage                                   `json:"type"`
 }
 
 func (i InputsMessage) MarshalJSON() ([]byte, error) {
@@ -911,11 +911,25 @@ func (i *InputsMessage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (i *InputsMessage) GetContent() *InputsContent2 {
+	if i == nil {
+		return nil
+	}
+	return i.Content
+}
+
 func (i *InputsMessage) GetID() string {
 	if i == nil {
 		return ""
 	}
 	return i.ID
+}
+
+func (i *InputsMessage) GetPhase() optionalnullable.OptionalNullable[InputsPhaseUnion] {
+	if i == nil {
+		return nil
+	}
+	return i.Phase
 }
 
 func (i *InputsMessage) GetRole() InputsRole {
@@ -925,13 +939,6 @@ func (i *InputsMessage) GetRole() InputsRole {
 	return i.Role
 }
 
-func (i *InputsMessage) GetType() InputsTypeMessage {
-	if i == nil {
-		return InputsTypeMessage("")
-	}
-	return i.Type
-}
-
 func (i *InputsMessage) GetStatus() *InputsStatusUnion1 {
 	if i == nil {
 		return nil
@@ -939,18 +946,11 @@ func (i *InputsMessage) GetStatus() *InputsStatusUnion1 {
 	return i.Status
 }
 
-func (i *InputsMessage) GetContent() *InputsContent2 {
+func (i *InputsMessage) GetType() InputsTypeMessage {
 	if i == nil {
-		return nil
+		return InputsTypeMessage("")
 	}
-	return i.Content
-}
-
-func (i *InputsMessage) GetPhase() optionalnullable.OptionalNullable[InputsPhaseUnion] {
-	if i == nil {
-		return nil
-	}
-	return i.Phase
+	return i.Type
 }
 
 type InputsUnion1Type string
@@ -968,7 +968,7 @@ const (
 	InputsUnion1TypeOutputFileSearchCallItem      InputsUnion1Type = "OutputFileSearchCallItem"
 	InputsUnion1TypeOutputImageGenerationCallItem InputsUnion1Type = "OutputImageGenerationCallItem"
 	InputsUnion1TypeOutputDatetimeItem            InputsUnion1Type = "OutputDatetimeItem"
-	InputsUnion1TypeOutputServerToolItem          InputsUnion1Type = "OutputServerToolItem"
+	InputsUnion1TypeOutputWebSearchServerToolItem InputsUnion1Type = "OutputWebSearchServerToolItem"
 )
 
 type InputsUnion1 struct {
@@ -984,7 +984,7 @@ type InputsUnion1 struct {
 	OutputFileSearchCallItem      *OutputFileSearchCallItem      `queryParam:"inline" union:"member"`
 	OutputImageGenerationCallItem *OutputImageGenerationCallItem `queryParam:"inline" union:"member"`
 	OutputDatetimeItem            *OutputDatetimeItem            `queryParam:"inline" union:"member"`
-	OutputServerToolItem          *OutputServerToolItem          `queryParam:"inline" union:"member"`
+	OutputWebSearchServerToolItem *OutputWebSearchServerToolItem `queryParam:"inline" union:"member"`
 
 	Type InputsUnion1Type
 }
@@ -1097,12 +1097,12 @@ func CreateInputsUnion1OutputDatetimeItem(outputDatetimeItem OutputDatetimeItem)
 	}
 }
 
-func CreateInputsUnion1OutputServerToolItem(outputServerToolItem OutputServerToolItem) InputsUnion1 {
-	typ := InputsUnion1TypeOutputServerToolItem
+func CreateInputsUnion1OutputWebSearchServerToolItem(outputWebSearchServerToolItem OutputWebSearchServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputWebSearchServerToolItem
 
 	return InputsUnion1{
-		OutputServerToolItem: &outputServerToolItem,
-		Type:                 typ,
+		OutputWebSearchServerToolItem: &outputWebSearchServerToolItem,
+		Type:                          typ,
 	}
 }
 
@@ -1207,11 +1207,11 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var outputServerToolItem OutputServerToolItem = OutputServerToolItem{}
-	if err := utils.UnmarshalJSON(data, &outputServerToolItem, "", true, nil); err == nil {
+	var outputWebSearchServerToolItem OutputWebSearchServerToolItem = OutputWebSearchServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputWebSearchServerToolItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsUnion1TypeOutputServerToolItem,
-			Value: &outputServerToolItem,
+			Type:  InputsUnion1TypeOutputWebSearchServerToolItem,
+			Value: &outputWebSearchServerToolItem,
 		})
 	}
 
@@ -1264,8 +1264,8 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeOutputDatetimeItem:
 		u.OutputDatetimeItem = best.Value.(*OutputDatetimeItem)
 		return nil
-	case InputsUnion1TypeOutputServerToolItem:
-		u.OutputServerToolItem = best.Value.(*OutputServerToolItem)
+	case InputsUnion1TypeOutputWebSearchServerToolItem:
+		u.OutputWebSearchServerToolItem = best.Value.(*OutputWebSearchServerToolItem)
 		return nil
 	}
 
@@ -1321,8 +1321,8 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputDatetimeItem, "", true)
 	}
 
-	if u.OutputServerToolItem != nil {
-		return utils.MarshalJSON(u.OutputServerToolItem, "", true)
+	if u.OutputWebSearchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputWebSearchServerToolItem, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsUnion1: all fields are null")

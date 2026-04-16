@@ -10,29 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ChatAssistantMessageRole string
-
-const (
-	ChatAssistantMessageRoleAssistant ChatAssistantMessageRole = "assistant"
-)
-
-func (e ChatAssistantMessageRole) ToPointer() *ChatAssistantMessageRole {
-	return &e
-}
-func (e *ChatAssistantMessageRole) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "assistant":
-		*e = ChatAssistantMessageRole(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatAssistantMessageRole: %v", v)
-	}
-}
-
 type ChatAssistantMessageContentType string
 
 const (
@@ -149,25 +126,48 @@ func (u ChatAssistantMessageContent) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ChatAssistantMessageContent: all fields are null")
 }
 
+type ChatAssistantMessageRole string
+
+const (
+	ChatAssistantMessageRoleAssistant ChatAssistantMessageRole = "assistant"
+)
+
+func (e ChatAssistantMessageRole) ToPointer() *ChatAssistantMessageRole {
+	return &e
+}
+func (e *ChatAssistantMessageRole) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "assistant":
+		*e = ChatAssistantMessageRole(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatAssistantMessageRole: %v", v)
+	}
+}
+
 // ChatAssistantMessage - Assistant message for requests and responses
 type ChatAssistantMessage struct {
-	Role ChatAssistantMessageRole `json:"role"`
+	// Audio output data or reference
+	Audio *ChatAudioOutput `json:"audio,omitzero"`
 	// Assistant message content
 	Content optionalnullable.OptionalNullable[ChatAssistantMessageContent] `json:"content,omitzero"`
+	// Generated images from image generation models
+	Images []ChatAssistantImages `json:"images,omitzero"`
 	// Optional name for the assistant
 	Name *string `json:"name,omitzero"`
-	// Tool calls made by the assistant
-	ToolCalls []ChatToolCall `json:"tool_calls,omitzero"`
-	// Refusal message if content was refused
-	Refusal optionalnullable.OptionalNullable[string] `json:"refusal,omitzero"`
 	// Reasoning output
 	Reasoning optionalnullable.OptionalNullable[string] `json:"reasoning,omitzero"`
 	// Reasoning details for extended thinking models
 	ReasoningDetails []ReasoningDetailUnion `json:"reasoning_details,omitzero"`
-	// Generated images from image generation models
-	Images []ChatAssistantImages `json:"images,omitzero"`
-	// Audio output data or reference
-	Audio *ChatAudioOutput `json:"audio,omitzero"`
+	// Refusal message if content was refused
+	Refusal optionalnullable.OptionalNullable[string] `json:"refusal,omitzero"`
+	Role    ChatAssistantMessageRole                  `json:"role"`
+	// Tool calls made by the assistant
+	ToolCalls []ChatToolCall `json:"tool_calls,omitzero"`
 }
 
 func (c ChatAssistantMessage) MarshalJSON() ([]byte, error) {
@@ -181,11 +181,11 @@ func (c *ChatAssistantMessage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatAssistantMessage) GetRole() ChatAssistantMessageRole {
+func (c *ChatAssistantMessage) GetAudio() *ChatAudioOutput {
 	if c == nil {
-		return ChatAssistantMessageRole("")
+		return nil
 	}
-	return c.Role
+	return c.Audio
 }
 
 func (c *ChatAssistantMessage) GetContent() optionalnullable.OptionalNullable[ChatAssistantMessageContent] {
@@ -195,25 +195,18 @@ func (c *ChatAssistantMessage) GetContent() optionalnullable.OptionalNullable[Ch
 	return c.Content
 }
 
+func (c *ChatAssistantMessage) GetImages() []ChatAssistantImages {
+	if c == nil {
+		return nil
+	}
+	return c.Images
+}
+
 func (c *ChatAssistantMessage) GetName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Name
-}
-
-func (c *ChatAssistantMessage) GetToolCalls() []ChatToolCall {
-	if c == nil {
-		return nil
-	}
-	return c.ToolCalls
-}
-
-func (c *ChatAssistantMessage) GetRefusal() optionalnullable.OptionalNullable[string] {
-	if c == nil {
-		return nil
-	}
-	return c.Refusal
 }
 
 func (c *ChatAssistantMessage) GetReasoning() optionalnullable.OptionalNullable[string] {
@@ -230,16 +223,23 @@ func (c *ChatAssistantMessage) GetReasoningDetails() []ReasoningDetailUnion {
 	return c.ReasoningDetails
 }
 
-func (c *ChatAssistantMessage) GetImages() []ChatAssistantImages {
+func (c *ChatAssistantMessage) GetRefusal() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
-	return c.Images
+	return c.Refusal
 }
 
-func (c *ChatAssistantMessage) GetAudio() *ChatAudioOutput {
+func (c *ChatAssistantMessage) GetRole() ChatAssistantMessageRole {
+	if c == nil {
+		return ChatAssistantMessageRole("")
+	}
+	return c.Role
+}
+
+func (c *ChatAssistantMessage) GetToolCalls() []ChatToolCall {
 	if c == nil {
 		return nil
 	}
-	return c.Audio
+	return c.ToolCalls
 }

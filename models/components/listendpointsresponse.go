@@ -45,22 +45,22 @@ func (e *Tokenizer) IsExact() bool {
 
 // Architecture - Model architecture information
 type Architecture struct {
-	Tokenizer *Tokenizer `json:"tokenizer"`
+	// Supported input modalities
+	InputModalities []InputModality `json:"input_modalities"`
 	// Instruction format type
 	InstructType *InstructType `json:"instruct_type"`
 	// Primary modality of the model
 	Modality *string `json:"modality"`
-	// Supported input modalities
-	InputModalities []InputModality `json:"input_modalities"`
 	// Supported output modalities
 	OutputModalities []OutputModality `json:"output_modalities"`
+	Tokenizer        *Tokenizer       `json:"tokenizer"`
 }
 
-func (a *Architecture) GetTokenizer() *Tokenizer {
+func (a *Architecture) GetInputModalities() []InputModality {
 	if a == nil {
-		return nil
+		return []InputModality{}
 	}
-	return a.Tokenizer
+	return a.InputModalities
 }
 
 func (a *Architecture) GetInstructType() *InstructType {
@@ -77,13 +77,6 @@ func (a *Architecture) GetModality() *string {
 	return a.Modality
 }
 
-func (a *Architecture) GetInputModalities() []InputModality {
-	if a == nil {
-		return []InputModality{}
-	}
-	return a.InputModalities
-}
-
 func (a *Architecture) GetOutputModalities() []OutputModality {
 	if a == nil {
 		return []OutputModality{}
@@ -91,33 +84,33 @@ func (a *Architecture) GetOutputModalities() []OutputModality {
 	return a.OutputModalities
 }
 
+func (a *Architecture) GetTokenizer() *Tokenizer {
+	if a == nil {
+		return nil
+	}
+	return a.Tokenizer
+}
+
 // ListEndpointsResponse - List of available endpoints for a model
 type ListEndpointsResponse struct {
+	Architecture Architecture `json:"architecture"`
+	// Unix timestamp of when the model was created
+	Created int64 `json:"created"`
+	// Description of the model
+	Description string `json:"description"`
+	// List of available endpoints for this model
+	Endpoints []PublicEndpoint `json:"endpoints"`
 	// Unique identifier for the model
 	ID string `json:"id"`
 	// Display name of the model
 	Name string `json:"name"`
-	// Unix timestamp of when the model was created
-	Created int64 `json:"created"`
-	// Description of the model
-	Description  string       `json:"description"`
-	Architecture Architecture `json:"architecture"`
-	// List of available endpoints for this model
-	Endpoints []PublicEndpoint `json:"endpoints"`
 }
 
-func (l *ListEndpointsResponse) GetID() string {
+func (l *ListEndpointsResponse) GetArchitecture() Architecture {
 	if l == nil {
-		return ""
+		return Architecture{}
 	}
-	return l.ID
-}
-
-func (l *ListEndpointsResponse) GetName() string {
-	if l == nil {
-		return ""
-	}
-	return l.Name
+	return l.Architecture
 }
 
 func (l *ListEndpointsResponse) GetCreated() int64 {
@@ -134,16 +127,23 @@ func (l *ListEndpointsResponse) GetDescription() string {
 	return l.Description
 }
 
-func (l *ListEndpointsResponse) GetArchitecture() Architecture {
-	if l == nil {
-		return Architecture{}
-	}
-	return l.Architecture
-}
-
 func (l *ListEndpointsResponse) GetEndpoints() []PublicEndpoint {
 	if l == nil {
 		return []PublicEndpoint{}
 	}
 	return l.Endpoints
+}
+
+func (l *ListEndpointsResponse) GetID() string {
+	if l == nil {
+		return ""
+	}
+	return l.ID
+}
+
+func (l *ListEndpointsResponse) GetName() string {
+	if l == nil {
+		return ""
+	}
+	return l.Name
 }

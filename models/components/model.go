@@ -8,94 +8,38 @@ import (
 
 // Model - Information about an AI model available on OpenRouter
 type Model struct {
-	// Unique identifier for the model
-	ID string `json:"id"`
-	// Canonical slug for the model
-	CanonicalSlug string `json:"canonical_slug"`
-	// Hugging Face model identifier, if applicable
-	HuggingFaceID optionalnullable.OptionalNullable[string] `json:"hugging_face_id,omitzero"`
-	// Display name of the model
-	Name string `json:"name"`
-	// Unix timestamp of when the model was created
-	Created int64 `json:"created"`
-	// Description of the model
-	Description *string `json:"description,omitzero"`
-	// Pricing information for the model
-	Pricing PublicPricing `json:"pricing"`
-	// Maximum context length in tokens
-	ContextLength int64 `json:"context_length"`
 	// Model architecture information
 	Architecture ModelArchitecture `json:"architecture"`
-	// Information about the top provider for this model
-	TopProvider TopProviderInfo `json:"top_provider"`
-	// Per-request token limits
-	PerRequestLimits *PerRequestLimits `json:"per_request_limits"`
-	// List of supported parameters for this model
-	SupportedParameters []Parameter `json:"supported_parameters"`
+	// Canonical slug for the model
+	CanonicalSlug string `json:"canonical_slug"`
+	// Maximum context length in tokens
+	ContextLength *int64 `json:"context_length"`
+	// Unix timestamp of when the model was created
+	Created int64 `json:"created"`
 	// Default parameters for this model
 	DefaultParameters *DefaultParameters `json:"default_parameters"`
-	// The date up to which the model was trained on data. ISO 8601 date string (YYYY-MM-DD) or null if unknown.
-	KnowledgeCutoff optionalnullable.OptionalNullable[string] `json:"knowledge_cutoff,omitzero"`
+	// Description of the model
+	Description *string `json:"description,omitzero"`
 	// The date after which the model may be removed. ISO 8601 date string (YYYY-MM-DD) or null if no expiration.
 	ExpirationDate optionalnullable.OptionalNullable[string] `json:"expiration_date,omitzero"`
+	// Hugging Face model identifier, if applicable
+	HuggingFaceID optionalnullable.OptionalNullable[string] `json:"hugging_face_id,omitzero"`
+	// Unique identifier for the model
+	ID string `json:"id"`
+	// The date up to which the model was trained on data. ISO 8601 date string (YYYY-MM-DD) or null if unknown.
+	KnowledgeCutoff optionalnullable.OptionalNullable[string] `json:"knowledge_cutoff,omitzero"`
 	// Related API endpoints and resources for this model.
 	Links ModelLinks `json:"links"`
-}
-
-func (m *Model) GetID() string {
-	if m == nil {
-		return ""
-	}
-	return m.ID
-}
-
-func (m *Model) GetCanonicalSlug() string {
-	if m == nil {
-		return ""
-	}
-	return m.CanonicalSlug
-}
-
-func (m *Model) GetHuggingFaceID() optionalnullable.OptionalNullable[string] {
-	if m == nil {
-		return nil
-	}
-	return m.HuggingFaceID
-}
-
-func (m *Model) GetName() string {
-	if m == nil {
-		return ""
-	}
-	return m.Name
-}
-
-func (m *Model) GetCreated() int64 {
-	if m == nil {
-		return 0
-	}
-	return m.Created
-}
-
-func (m *Model) GetDescription() *string {
-	if m == nil {
-		return nil
-	}
-	return m.Description
-}
-
-func (m *Model) GetPricing() PublicPricing {
-	if m == nil {
-		return PublicPricing{}
-	}
-	return m.Pricing
-}
-
-func (m *Model) GetContextLength() int64 {
-	if m == nil {
-		return 0
-	}
-	return m.ContextLength
+	// Display name of the model
+	Name string `json:"name"`
+	// Per-request token limits
+	PerRequestLimits *PerRequestLimits `json:"per_request_limits"`
+	// Pricing information for the model
+	Pricing PublicPricing `json:"pricing"`
+	// List of supported parameters for this model
+	SupportedParameters []Parameter `json:"supported_parameters"`
+	// Information about the top provider for this model
+	TopProvider TopProviderInfo `json:"top_provider"`
 }
 
 func (m *Model) GetArchitecture() ModelArchitecture {
@@ -105,25 +49,25 @@ func (m *Model) GetArchitecture() ModelArchitecture {
 	return m.Architecture
 }
 
-func (m *Model) GetTopProvider() TopProviderInfo {
+func (m *Model) GetCanonicalSlug() string {
 	if m == nil {
-		return TopProviderInfo{}
+		return ""
 	}
-	return m.TopProvider
+	return m.CanonicalSlug
 }
 
-func (m *Model) GetPerRequestLimits() *PerRequestLimits {
+func (m *Model) GetContextLength() *int64 {
 	if m == nil {
 		return nil
 	}
-	return m.PerRequestLimits
+	return m.ContextLength
 }
 
-func (m *Model) GetSupportedParameters() []Parameter {
+func (m *Model) GetCreated() int64 {
 	if m == nil {
-		return []Parameter{}
+		return 0
 	}
-	return m.SupportedParameters
+	return m.Created
 }
 
 func (m *Model) GetDefaultParameters() *DefaultParameters {
@@ -133,11 +77,11 @@ func (m *Model) GetDefaultParameters() *DefaultParameters {
 	return m.DefaultParameters
 }
 
-func (m *Model) GetKnowledgeCutoff() optionalnullable.OptionalNullable[string] {
+func (m *Model) GetDescription() *string {
 	if m == nil {
 		return nil
 	}
-	return m.KnowledgeCutoff
+	return m.Description
 }
 
 func (m *Model) GetExpirationDate() optionalnullable.OptionalNullable[string] {
@@ -147,9 +91,65 @@ func (m *Model) GetExpirationDate() optionalnullable.OptionalNullable[string] {
 	return m.ExpirationDate
 }
 
+func (m *Model) GetHuggingFaceID() optionalnullable.OptionalNullable[string] {
+	if m == nil {
+		return nil
+	}
+	return m.HuggingFaceID
+}
+
+func (m *Model) GetID() string {
+	if m == nil {
+		return ""
+	}
+	return m.ID
+}
+
+func (m *Model) GetKnowledgeCutoff() optionalnullable.OptionalNullable[string] {
+	if m == nil {
+		return nil
+	}
+	return m.KnowledgeCutoff
+}
+
 func (m *Model) GetLinks() ModelLinks {
 	if m == nil {
 		return ModelLinks{}
 	}
 	return m.Links
+}
+
+func (m *Model) GetName() string {
+	if m == nil {
+		return ""
+	}
+	return m.Name
+}
+
+func (m *Model) GetPerRequestLimits() *PerRequestLimits {
+	if m == nil {
+		return nil
+	}
+	return m.PerRequestLimits
+}
+
+func (m *Model) GetPricing() PublicPricing {
+	if m == nil {
+		return PublicPricing{}
+	}
+	return m.Pricing
+}
+
+func (m *Model) GetSupportedParameters() []Parameter {
+	if m == nil {
+		return []Parameter{}
+	}
+	return m.SupportedParameters
+}
+
+func (m *Model) GetTopProvider() TopProviderInfo {
+	if m == nil {
+		return TopProviderInfo{}
+	}
+	return m.TopProvider
 }

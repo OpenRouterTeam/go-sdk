@@ -7,8 +7,12 @@ import (
 )
 
 type WebSearchConfig struct {
+	// Limit search results to these domains. Supported by Exa, Parallel, and most native providers (Anthropic, OpenAI, xAI). Not supported with Firecrawl or Perplexity.
+	AllowedDomains []string `json:"allowed_domains,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
 	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
+	// Exclude search results from these domains. Supported by Exa, Parallel, Anthropic, and xAI. Not supported with Firecrawl, OpenAI (silently ignored), or Perplexity.
+	ExcludedDomains []string `json:"excluded_domains,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, and Parallel engines; ignored with native provider search.
 	MaxResults *int64 `json:"max_results,omitzero"`
 	// Maximum total number of search results across all search calls in a single request. Once this limit is reached, the tool will stop returning new results. Useful for controlling cost and context size in agentic loops.
@@ -17,10 +21,6 @@ type WebSearchConfig struct {
 	SearchContextSize *SearchQualityLevel `json:"search_context_size,omitzero"`
 	// Approximate user location for location-biased results.
 	UserLocation *WebSearchUserLocationServerTool `json:"user_location,omitzero"`
-	// Limit search results to these domains. Supported by Exa, Parallel, and most native providers (Anthropic, OpenAI, xAI). Not supported with Firecrawl or Perplexity.
-	AllowedDomains []string `json:"allowed_domains,omitzero"`
-	// Exclude search results from these domains. Supported by Exa, Parallel, Anthropic, and xAI. Not supported with Firecrawl, OpenAI (silently ignored), or Perplexity.
-	ExcludedDomains []string `json:"excluded_domains,omitzero"`
 }
 
 func (w WebSearchConfig) MarshalJSON() ([]byte, error) {
@@ -34,11 +34,25 @@ func (w *WebSearchConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (w *WebSearchConfig) GetAllowedDomains() []string {
+	if w == nil {
+		return nil
+	}
+	return w.AllowedDomains
+}
+
 func (w *WebSearchConfig) GetEngine() *WebSearchEngineEnum {
 	if w == nil {
 		return nil
 	}
 	return w.Engine
+}
+
+func (w *WebSearchConfig) GetExcludedDomains() []string {
+	if w == nil {
+		return nil
+	}
+	return w.ExcludedDomains
 }
 
 func (w *WebSearchConfig) GetMaxResults() *int64 {
@@ -67,18 +81,4 @@ func (w *WebSearchConfig) GetUserLocation() *WebSearchUserLocationServerTool {
 		return nil
 	}
 	return w.UserLocation
-}
-
-func (w *WebSearchConfig) GetAllowedDomains() []string {
-	if w == nil {
-		return nil
-	}
-	return w.AllowedDomains
-}
-
-func (w *WebSearchConfig) GetExcludedDomains() []string {
-	if w == nil {
-		return nil
-	}
-	return w.ExcludedDomains
 }

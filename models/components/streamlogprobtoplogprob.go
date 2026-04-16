@@ -8,9 +8,9 @@ import (
 
 // StreamLogprobTopLogprob - Alternative token with its log probability
 type StreamLogprobTopLogprob struct {
-	Token   *string  `json:"token,omitzero"`
-	Logprob *float64 `json:"logprob,omitzero"`
 	Bytes   []int64  `json:"bytes,omitzero"`
+	Logprob *float64 `json:"logprob,omitzero"`
+	Token   *string  `json:"token,omitzero"`
 }
 
 func (s StreamLogprobTopLogprob) MarshalJSON() ([]byte, error) {
@@ -24,11 +24,11 @@ func (s *StreamLogprobTopLogprob) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *StreamLogprobTopLogprob) GetToken() *string {
+func (s *StreamLogprobTopLogprob) GetBytes() []int64 {
 	if s == nil {
 		return nil
 	}
-	return s.Token
+	return s.Bytes
 }
 
 func (s *StreamLogprobTopLogprob) GetLogprob() *float64 {
@@ -38,9 +38,9 @@ func (s *StreamLogprobTopLogprob) GetLogprob() *float64 {
 	return s.Logprob
 }
 
-func (s *StreamLogprobTopLogprob) GetBytes() []int64 {
+func (s *StreamLogprobTopLogprob) GetToken() *string {
 	if s == nil {
 		return nil
 	}
-	return s.Bytes
+	return s.Token
 }

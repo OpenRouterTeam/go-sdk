@@ -8,22 +8,24 @@ import (
 )
 
 type CreateGuardrailRequest struct {
-	// Name for the new guardrail
-	Name string `json:"name"`
-	// Description of the guardrail
-	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// Spending limit in USD
-	LimitUsd *float64 `json:"limit_usd,omitzero"`
-	// Interval at which the limit resets (daily, weekly, monthly)
-	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
-	// List of allowed provider IDs
-	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
-	// List of provider IDs to exclude from routing
-	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Array of model identifiers (slug or canonical_slug accepted)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
+	// List of allowed provider IDs
+	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
+	// Description of the guardrail
+	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
 	// Whether to enforce zero data retention
 	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
+	// Array of model identifiers to exclude from routing (slug or canonical_slug accepted)
+	IgnoredModels optionalnullable.OptionalNullable[[]string] `json:"ignored_models,omitzero"`
+	// List of provider IDs to exclude from routing
+	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
+	// Spending limit in USD
+	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
+	// Name for the new guardrail
+	Name string `json:"name"`
+	// Interval at which the limit resets (daily, weekly, monthly)
+	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
 }
 
 func (c CreateGuardrailRequest) MarshalJSON() ([]byte, error) {
@@ -37,32 +39,11 @@ func (c *CreateGuardrailRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateGuardrailRequest) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *CreateGuardrailRequest) GetDescription() optionalnullable.OptionalNullable[string] {
+func (c *CreateGuardrailRequest) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
 	if c == nil {
 		return nil
 	}
-	return c.Description
-}
-
-func (c *CreateGuardrailRequest) GetLimitUsd() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.LimitUsd
-}
-
-func (c *CreateGuardrailRequest) GetResetInterval() optionalnullable.OptionalNullable[GuardrailInterval] {
-	if c == nil {
-		return nil
-	}
-	return c.ResetInterval
+	return c.AllowedModels
 }
 
 func (c *CreateGuardrailRequest) GetAllowedProviders() optionalnullable.OptionalNullable[[]string] {
@@ -72,18 +53,11 @@ func (c *CreateGuardrailRequest) GetAllowedProviders() optionalnullable.Optional
 	return c.AllowedProviders
 }
 
-func (c *CreateGuardrailRequest) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
+func (c *CreateGuardrailRequest) GetDescription() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
-	return c.IgnoredProviders
-}
-
-func (c *CreateGuardrailRequest) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
-	if c == nil {
-		return nil
-	}
-	return c.AllowedModels
+	return c.Description
 }
 
 func (c *CreateGuardrailRequest) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
@@ -91,4 +65,39 @@ func (c *CreateGuardrailRequest) GetEnforceZdr() optionalnullable.OptionalNullab
 		return nil
 	}
 	return c.EnforceZdr
+}
+
+func (c *CreateGuardrailRequest) GetIgnoredModels() optionalnullable.OptionalNullable[[]string] {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoredModels
+}
+
+func (c *CreateGuardrailRequest) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoredProviders
+}
+
+func (c *CreateGuardrailRequest) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.LimitUsd
+}
+
+func (c *CreateGuardrailRequest) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
+func (c *CreateGuardrailRequest) GetResetInterval() optionalnullable.OptionalNullable[GuardrailInterval] {
+	if c == nil {
+		return nil
+	}
+	return c.ResetInterval
 }

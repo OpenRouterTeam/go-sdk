@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ChatUserMessageRole string
-
-const (
-	ChatUserMessageRoleUser ChatUserMessageRole = "user"
-)
-
-func (e ChatUserMessageRole) ToPointer() *ChatUserMessageRole {
-	return &e
-}
-func (e *ChatUserMessageRole) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "user":
-		*e = ChatUserMessageRole(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ChatUserMessageRole: %v", v)
-	}
-}
-
 type ChatUserMessageContentType string
 
 const (
@@ -122,13 +99,36 @@ func (u ChatUserMessageContent) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ChatUserMessageContent: all fields are null")
 }
 
+type ChatUserMessageRole string
+
+const (
+	ChatUserMessageRoleUser ChatUserMessageRole = "user"
+)
+
+func (e ChatUserMessageRole) ToPointer() *ChatUserMessageRole {
+	return &e
+}
+func (e *ChatUserMessageRole) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "user":
+		*e = ChatUserMessageRole(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ChatUserMessageRole: %v", v)
+	}
+}
+
 // ChatUserMessage - User message
 type ChatUserMessage struct {
-	Role ChatUserMessageRole `json:"role"`
 	// User message content
 	Content ChatUserMessageContent `json:"content"`
 	// Optional name for the user
-	Name *string `json:"name,omitzero"`
+	Name *string             `json:"name,omitzero"`
+	Role ChatUserMessageRole `json:"role"`
 }
 
 func (c ChatUserMessage) MarshalJSON() ([]byte, error) {
@@ -140,13 +140,6 @@ func (c *ChatUserMessage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (c *ChatUserMessage) GetRole() ChatUserMessageRole {
-	if c == nil {
-		return ChatUserMessageRole("")
-	}
-	return c.Role
 }
 
 func (c *ChatUserMessage) GetContent() ChatUserMessageContent {
@@ -161,4 +154,11 @@ func (c *ChatUserMessage) GetName() *string {
 		return nil
 	}
 	return c.Name
+}
+
+func (c *ChatUserMessage) GetRole() ChatUserMessageRole {
+	if c == nil {
+		return ChatUserMessageRole("")
+	}
+	return c.Role
 }

@@ -32,11 +32,11 @@ func (e *URLCitationType) UnmarshalJSON(data []byte) error {
 }
 
 type URLCitation struct {
+	EndIndex   int64           `json:"end_index"`
+	StartIndex int64           `json:"start_index"`
+	Title      string          `json:"title"`
 	Type       URLCitationType `json:"type"`
 	URL        string          `json:"url"`
-	Title      string          `json:"title"`
-	StartIndex int64           `json:"start_index"`
-	EndIndex   int64           `json:"end_index"`
 }
 
 func (u URLCitation) MarshalJSON() ([]byte, error) {
@@ -48,6 +48,27 @@ func (u *URLCitation) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (u *URLCitation) GetEndIndex() int64 {
+	if u == nil {
+		return 0
+	}
+	return u.EndIndex
+}
+
+func (u *URLCitation) GetStartIndex() int64 {
+	if u == nil {
+		return 0
+	}
+	return u.StartIndex
+}
+
+func (u *URLCitation) GetTitle() string {
+	if u == nil {
+		return ""
+	}
+	return u.Title
 }
 
 func (u *URLCitation) GetType() URLCitationType {
@@ -62,25 +83,4 @@ func (u *URLCitation) GetURL() string {
 		return ""
 	}
 	return u.URL
-}
-
-func (u *URLCitation) GetTitle() string {
-	if u == nil {
-		return ""
-	}
-	return u.Title
-}
-
-func (u *URLCitation) GetStartIndex() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.StartIndex
-}
-
-func (u *URLCitation) GetEndIndex() int64 {
-	if u == nil {
-		return 0
-	}
-	return u.EndIndex
 }

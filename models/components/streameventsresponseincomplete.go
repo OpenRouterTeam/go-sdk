@@ -33,10 +33,10 @@ func (e *StreamEventsResponseIncompleteType) UnmarshalJSON(data []byte) error {
 
 // StreamEventsResponseIncomplete - Event emitted when a response is incomplete
 type StreamEventsResponseIncomplete struct {
-	Type StreamEventsResponseIncompleteType `json:"type"`
 	// Complete non-streaming response from the Responses API
-	Response       OpenResponsesResult `json:"response"`
-	SequenceNumber int64               `json:"sequence_number"`
+	Response       OpenResponsesResult                `json:"response"`
+	SequenceNumber int64                              `json:"sequence_number"`
+	Type           StreamEventsResponseIncompleteType `json:"type"`
 }
 
 func (s StreamEventsResponseIncomplete) MarshalJSON() ([]byte, error) {
@@ -48,13 +48,6 @@ func (s *StreamEventsResponseIncomplete) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (s *StreamEventsResponseIncomplete) GetType() StreamEventsResponseIncompleteType {
-	if s == nil {
-		return StreamEventsResponseIncompleteType("")
-	}
-	return s.Type
 }
 
 func (s *StreamEventsResponseIncomplete) GetResponse() OpenResponsesResult {
@@ -69,4 +62,11 @@ func (s *StreamEventsResponseIncomplete) GetSequenceNumber() int64 {
 		return 0
 	}
 	return s.SequenceNumber
+}
+
+func (s *StreamEventsResponseIncomplete) GetType() StreamEventsResponseIncompleteType {
+	if s == nil {
+		return StreamEventsResponseIncompleteType("")
+	}
+	return s.Type
 }

@@ -190,8 +190,8 @@ func (e *OpenAIResponsesToolChoiceTypeFunction) UnmarshalJSON(data []byte) error
 }
 
 type OpenAIResponsesToolChoiceFunction struct {
-	Type OpenAIResponsesToolChoiceTypeFunction `json:"type"`
 	Name string                                `json:"name"`
+	Type OpenAIResponsesToolChoiceTypeFunction `json:"type"`
 }
 
 func (o OpenAIResponsesToolChoiceFunction) MarshalJSON() ([]byte, error) {
@@ -205,18 +205,18 @@ func (o *OpenAIResponsesToolChoiceFunction) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OpenAIResponsesToolChoiceFunction) GetType() OpenAIResponsesToolChoiceTypeFunction {
-	if o == nil {
-		return OpenAIResponsesToolChoiceTypeFunction("")
-	}
-	return o.Type
-}
-
 func (o *OpenAIResponsesToolChoiceFunction) GetName() string {
 	if o == nil {
 		return ""
 	}
 	return o.Name
+}
+
+func (o *OpenAIResponsesToolChoiceFunction) GetType() OpenAIResponsesToolChoiceTypeFunction {
+	if o == nil {
+		return OpenAIResponsesToolChoiceTypeFunction("")
+	}
+	return o.Type
 }
 
 type OpenAIResponsesToolChoiceRequired string
