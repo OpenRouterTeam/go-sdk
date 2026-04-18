@@ -5932,12 +5932,12 @@ components:
         quality, size, background, output_format, output_compression, moderation, etc.) plus a model field.
       example:
         aspect_ratio: '16:9'
-        model: openai/gpt-image-1
+        model: openai/gpt-5-image
         quality: high
       properties:
         model:
-          description: Which image generation model to use (e.g. "openai/gpt-image-1"). Defaults to "openai/gpt-image-1".
-          example: openai/gpt-image-1
+          description: Which image generation model to use (e.g. "openai/gpt-5-image"). Defaults to "openai/gpt-5-image".
+          example: openai/gpt-5-image
           type: string
       type: object
     ImageGenerationStatus:
@@ -9253,6 +9253,7 @@ components:
       example:
         id: ig_tmp_abc123
         imageUrl: https://example.com/image.png
+        result: https://example.com/image.png
         status: completed
         type: openrouter:image_generation
       properties:
@@ -9261,6 +9262,10 @@ components:
         imageB64:
           type: string
         imageUrl:
+          type: string
+        result:
+          description: The generated image as a base64-encoded string or URL, matching OpenAI image_generation_call format
+          nullable: true
           type: string
         revisedPrompt:
           type: string
@@ -9756,6 +9761,7 @@ components:
         - audio
         - video
         - rerank
+        - tts
       example: text
       type: string
     OutputModalityEnum:
@@ -14337,6 +14343,27 @@ paths:
                         description: Number of tokens in the input
                         example: 8
                         type: integer
+                      prompt_tokens_details:
+                        description: >-
+                          Per-modality token breakdown. Only present when the input contains 2+ modalities (e.g. text +
+                          image) and the upstream provider returns modality-level usage data. Only non-zero modality
+                          counts are included.
+                        properties:
+                          audio_tokens:
+                            description: Number of audio tokens in the input
+                            type: integer
+                          image_tokens:
+                            description: Number of image tokens in the input
+                            example: 258
+                            type: integer
+                          text_tokens:
+                            description: Number of text tokens in the input
+                            example: 8
+                            type: integer
+                          video_tokens:
+                            description: Number of video tokens in the input
+                            type: integer
+                        type: object
                       total_tokens:
                         description: Total number of tokens used
                         example: 8
@@ -14697,6 +14724,7 @@ paths:
                           - completions
                           - embeddings
                           - rerank
+                          - tts
                           - video
                           - null
                         nullable: true
