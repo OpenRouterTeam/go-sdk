@@ -4,18 +4,19 @@ package components
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 // PercentileThroughputCutoffs - Percentile-based throughput cutoffs. All specified cutoffs must be met for an endpoint to be preferred.
 type PercentileThroughputCutoffs struct {
 	// Minimum p50 throughput (tokens/sec)
-	P50 *float64 `json:"p50,omitzero"`
+	P50 optionalnullable.OptionalNullable[float64] `json:"p50,omitzero"`
 	// Minimum p75 throughput (tokens/sec)
-	P75 *float64 `json:"p75,omitzero"`
+	P75 optionalnullable.OptionalNullable[float64] `json:"p75,omitzero"`
 	// Minimum p90 throughput (tokens/sec)
-	P90 *float64 `json:"p90,omitzero"`
+	P90 optionalnullable.OptionalNullable[float64] `json:"p90,omitzero"`
 	// Minimum p99 throughput (tokens/sec)
-	P99 *float64 `json:"p99,omitzero"`
+	P99 optionalnullable.OptionalNullable[float64] `json:"p99,omitzero"`
 }
 
 func (p PercentileThroughputCutoffs) MarshalJSON() ([]byte, error) {
@@ -29,28 +30,28 @@ func (p *PercentileThroughputCutoffs) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PercentileThroughputCutoffs) GetP50() *float64 {
+func (p *PercentileThroughputCutoffs) GetP50() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.P50
 }
 
-func (p *PercentileThroughputCutoffs) GetP75() *float64 {
+func (p *PercentileThroughputCutoffs) GetP75() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.P75
 }
 
-func (p *PercentileThroughputCutoffs) GetP90() *float64 {
+func (p *PercentileThroughputCutoffs) GetP90() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.P90
 }
 
-func (p *PercentileThroughputCutoffs) GetP99() *float64 {
+func (p *PercentileThroughputCutoffs) GetP99() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}

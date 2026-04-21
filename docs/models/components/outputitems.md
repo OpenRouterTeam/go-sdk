@@ -71,6 +71,12 @@ outputItems := components.CreateOutputItemsOpenrouterCodeInterpreter(components.
 outputItems := components.CreateOutputItemsOpenrouterDatetime(components.OutputDatetimeItem{/* values here */})
 ```
 
+### OutputSearchModelsServerToolItem
+
+```go
+outputItems := components.CreateOutputItemsOpenrouterExperimentalSearchModels(components.OutputSearchModelsServerToolItem{/* values here */})
+```
+
 ### OutputFileSearchServerToolItem
 
 ```go
@@ -159,6 +165,8 @@ switch outputItems.Type {
 		// outputItems.OutputCodeInterpreterServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterDatetime:
 		// outputItems.OutputDatetimeItem is populated
+	case components.OutputItemsTypeOpenrouterExperimentalSearchModels:
+		// outputItems.OutputSearchModelsServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterFileSearch:
 		// outputItems.OutputFileSearchServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterImageGeneration:

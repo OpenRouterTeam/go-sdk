@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type OutputImageGenerationServerToolItemType string
@@ -33,12 +34,14 @@ func (e *OutputImageGenerationServerToolItemType) UnmarshalJSON(data []byte) err
 
 // OutputImageGenerationServerToolItem - An openrouter:image_generation server tool output item
 type OutputImageGenerationServerToolItem struct {
-	ID            *string                                 `json:"id,omitzero"`
-	ImageB64      *string                                 `json:"imageB64,omitzero"`
-	ImageURL      *string                                 `json:"imageUrl,omitzero"`
-	RevisedPrompt *string                                 `json:"revisedPrompt,omitzero"`
-	Status        ToolCallStatus                          `json:"status"`
-	Type          OutputImageGenerationServerToolItemType `json:"type"`
+	ID       *string `json:"id,omitzero"`
+	ImageB64 *string `json:"imageB64,omitzero"`
+	ImageURL *string `json:"imageUrl,omitzero"`
+	// The generated image as a base64-encoded string or URL, matching OpenAI image_generation_call format
+	Result        optionalnullable.OptionalNullable[string] `json:"result,omitzero"`
+	RevisedPrompt *string                                   `json:"revisedPrompt,omitzero"`
+	Status        ToolCallStatus                            `json:"status"`
+	Type          OutputImageGenerationServerToolItemType   `json:"type"`
 }
 
 func (o OutputImageGenerationServerToolItem) MarshalJSON() ([]byte, error) {
@@ -71,6 +74,13 @@ func (o *OutputImageGenerationServerToolItem) GetImageURL() *string {
 		return nil
 	}
 	return o.ImageURL
+}
+
+func (o *OutputImageGenerationServerToolItem) GetResult() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Result
 }
 
 func (o *OutputImageGenerationServerToolItem) GetRevisedPrompt() *string {

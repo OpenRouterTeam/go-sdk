@@ -80,6 +80,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -90,7 +91,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.APIKeys.List(ctx, nil, nil)
+    res, err := s.APIKeys.List(ctx, nil, optionalnullable.From[int64](nil), nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -102,12 +103,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `includeDisabled`                                        | `*bool`                                                  | :heavy_minus_sign:                                       | Whether to include disabled API keys in the response     | false                                                    |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of API keys to skip for pagination                | 0                                                        |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `includeDisabled`                                                                        | `*bool`                                                                                  | :heavy_minus_sign:                                                                       | Whether to include disabled API keys in the response                                     | false                                                                                    |
+| `offset`                                                                                 | optionalnullable.OptionalNullable[`int64`]                                               | :heavy_minus_sign:                                                                       | Number of API keys to skip for pagination                                                | 0                                                                                        |
+| `workspaceID`                                                                            | `*string`                                                                                | :heavy_minus_sign:                                                                       | Filter API keys by workspace ID. By default, keys in the default workspace are returned. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                     |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.md)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
 
 ### Response
 
@@ -152,7 +154,7 @@ func main() {
     res, err := s.APIKeys.Create(ctx, operations.CreateKeysRequest{
         ExpiresAt: optionalnullable.From(openrouter.Pointer(types.MustNewTimeFromString("2027-12-31T23:59:59Z"))),
         IncludeByokInLimit: openrouter.Pointer(true),
-        Limit: openrouter.Pointer[float64](50.0),
+        Limit: optionalnullable.From(openrouter.Pointer[float64](50.0)),
         LimitReset: optionalnullable.From(openrouter.Pointer(operations.CreateKeysLimitResetMonthly)),
         Name: "My New API Key",
     })
@@ -183,6 +185,7 @@ func main() {
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | sdkerrors.BadRequestResponseError      | 400                                    | application/json                       |
 | sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
+| sdkerrors.ForbiddenResponseError       | 403                                    | application/json                       |
 | sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
 | sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
 | sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
@@ -313,8 +316,8 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"log"
 )
 
@@ -328,7 +331,7 @@ func main() {
     res, err := s.APIKeys.Update(ctx, "f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943", operations.UpdateKeysRequestBody{
         Disabled: openrouter.Pointer(false),
         IncludeByokInLimit: openrouter.Pointer(true),
-        Limit: openrouter.Pointer[float64](75.0),
+        Limit: optionalnullable.From(openrouter.Pointer[float64](75.0)),
         LimitReset: optionalnullable.From(openrouter.Pointer(operations.UpdateKeysLimitResetDaily)),
         Name: openrouter.Pointer("Updated API Key Name"),
     })

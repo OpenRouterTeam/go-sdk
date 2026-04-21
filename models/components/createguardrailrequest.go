@@ -16,14 +16,18 @@ type CreateGuardrailRequest struct {
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
 	// Whether to enforce zero data retention
 	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
+	// Array of model identifiers to exclude from routing (slug or canonical_slug accepted)
+	IgnoredModels optionalnullable.OptionalNullable[[]string] `json:"ignored_models,omitzero"`
 	// List of provider IDs to exclude from routing
 	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Spending limit in USD
-	LimitUsd *float64 `json:"limit_usd,omitzero"`
+	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
 	// Name for the new guardrail
 	Name string `json:"name"`
 	// Interval at which the limit resets (daily, weekly, monthly)
 	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
+	// The workspace to create the guardrail in. Defaults to the default workspace if not provided.
+	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
 func (c CreateGuardrailRequest) MarshalJSON() ([]byte, error) {
@@ -65,6 +69,13 @@ func (c *CreateGuardrailRequest) GetEnforceZdr() optionalnullable.OptionalNullab
 	return c.EnforceZdr
 }
 
+func (c *CreateGuardrailRequest) GetIgnoredModels() optionalnullable.OptionalNullable[[]string] {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoredModels
+}
+
 func (c *CreateGuardrailRequest) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
 	if c == nil {
 		return nil
@@ -72,7 +83,7 @@ func (c *CreateGuardrailRequest) GetIgnoredProviders() optionalnullable.Optional
 	return c.IgnoredProviders
 }
 
-func (c *CreateGuardrailRequest) GetLimitUsd() *float64 {
+func (c *CreateGuardrailRequest) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
@@ -91,4 +102,11 @@ func (c *CreateGuardrailRequest) GetResetInterval() optionalnullable.OptionalNul
 		return nil
 	}
 	return c.ResetInterval
+}
+
+func (c *CreateGuardrailRequest) GetWorkspaceID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.WorkspaceID
 }

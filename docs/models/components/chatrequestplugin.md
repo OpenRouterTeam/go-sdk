@@ -27,6 +27,12 @@ chatRequestPlugin := components.CreateChatRequestPluginFileParser(components.Fil
 chatRequestPlugin := components.CreateChatRequestPluginModeration(components.ModerationPlugin{/* values here */})
 ```
 
+### ParetoRouterPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginParetoRouter(components.ParetoRouterPlugin{/* values here */})
+```
+
 ### ResponseHealingPlugin
 
 ```go
@@ -53,6 +59,8 @@ switch chatRequestPlugin.Type {
 		// chatRequestPlugin.FileParserPlugin is populated
 	case components.ChatRequestPluginTypeModeration:
 		// chatRequestPlugin.ModerationPlugin is populated
+	case components.ChatRequestPluginTypeParetoRouter:
+		// chatRequestPlugin.ParetoRouterPlugin is populated
 	case components.ChatRequestPluginTypeResponseHealing:
 		// chatRequestPlugin.ResponseHealingPlugin is populated
 	case components.ChatRequestPluginTypeWeb:

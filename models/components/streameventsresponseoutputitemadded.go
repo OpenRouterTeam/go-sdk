@@ -102,6 +102,10 @@ func (s *StreamEventsResponseOutputItemAdded) GetItemOpenrouterDatetime() *Outpu
 	return s.GetItem().OutputDatetimeItem
 }
 
+func (s *StreamEventsResponseOutputItemAdded) GetItemOpenrouterExperimentalSearchModels() *OutputSearchModelsServerToolItem {
+	return s.GetItem().OutputSearchModelsServerToolItem
+}
+
 func (s *StreamEventsResponseOutputItemAdded) GetItemOpenrouterFileSearch() *OutputFileSearchServerToolItem {
 	return s.GetItem().OutputFileSearchServerToolItem
 }

@@ -34,6 +34,28 @@ func (e *SupportedAspectRatio) IsExact() bool {
 	return false
 }
 
+type SupportedFrameImage string
+
+const (
+	SupportedFrameImageFirstFrame SupportedFrameImage = "first_frame"
+	SupportedFrameImageLastFrame  SupportedFrameImage = "last_frame"
+)
+
+func (e SupportedFrameImage) ToPointer() *SupportedFrameImage {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SupportedFrameImage) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "first_frame", "last_frame":
+			return true
+		}
+	}
+	return false
+}
+
 type SupportedResolution string
 
 const (
@@ -117,6 +139,8 @@ type VideoModel struct {
 	Created int64 `json:"created"`
 	// Description of the model
 	Description *string `json:"description,omitzero"`
+	// Whether the model supports generating audio alongside video
+	GenerateAudio *bool `json:"generate_audio"`
 	// Hugging Face model identifier, if applicable
 	HuggingFaceID optionalnullable.OptionalNullable[string] `json:"hugging_face_id,omitzero"`
 	// Unique identifier for the model
@@ -125,10 +149,14 @@ type VideoModel struct {
 	Name string `json:"name"`
 	// Pricing SKUs with provider prefix stripped, values as strings
 	PricingSkus optionalnullable.OptionalNullable[map[string]string] `json:"pricing_skus,omitzero"`
+	// Whether the model supports deterministic generation via seed parameter
+	Seed *bool `json:"seed"`
 	// Supported output aspect ratios
 	SupportedAspectRatios []SupportedAspectRatio `json:"supported_aspect_ratios"`
 	// Supported video durations in seconds
 	SupportedDurations []int64 `json:"supported_durations"`
+	// Supported frame image types (e.g. first_frame, last_frame)
+	SupportedFrameImages []SupportedFrameImage `json:"supported_frame_images"`
 	// Supported output resolutions
 	SupportedResolutions []SupportedResolution `json:"supported_resolutions"`
 	// Supported output sizes (width x height)
@@ -174,6 +202,13 @@ func (v *VideoModel) GetDescription() *string {
 	return v.Description
 }
 
+func (v *VideoModel) GetGenerateAudio() *bool {
+	if v == nil {
+		return nil
+	}
+	return v.GenerateAudio
+}
+
 func (v *VideoModel) GetHuggingFaceID() optionalnullable.OptionalNullable[string] {
 	if v == nil {
 		return nil
@@ -202,6 +237,13 @@ func (v *VideoModel) GetPricingSkus() optionalnullable.OptionalNullable[map[stri
 	return v.PricingSkus
 }
 
+func (v *VideoModel) GetSeed() *bool {
+	if v == nil {
+		return nil
+	}
+	return v.Seed
+}
+
 func (v *VideoModel) GetSupportedAspectRatios() []SupportedAspectRatio {
 	if v == nil {
 		return nil
@@ -214,6 +256,13 @@ func (v *VideoModel) GetSupportedDurations() []int64 {
 		return nil
 	}
 	return v.SupportedDurations
+}
+
+func (v *VideoModel) GetSupportedFrameImages() []SupportedFrameImage {
+	if v == nil {
+		return nil
+	}
+	return v.SupportedFrameImages
 }
 
 func (v *VideoModel) GetSupportedResolutions() []SupportedResolution {

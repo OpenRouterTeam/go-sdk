@@ -11,95 +11,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/types"
 )
 
-type ResponsesRequestImageConfigType string
-
-const (
-	ResponsesRequestImageConfigTypeStr    ResponsesRequestImageConfigType = "str"
-	ResponsesRequestImageConfigTypeNumber ResponsesRequestImageConfigType = "number"
-)
-
-type ResponsesRequestImageConfig struct {
-	Str    *string  `queryParam:"inline" union:"member"`
-	Number *float64 `queryParam:"inline" union:"member"`
-
-	Type ResponsesRequestImageConfigType
-}
-
-func CreateResponsesRequestImageConfigStr(str string) ResponsesRequestImageConfig {
-	typ := ResponsesRequestImageConfigTypeStr
-
-	return ResponsesRequestImageConfig{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateResponsesRequestImageConfigNumber(number float64) ResponsesRequestImageConfig {
-	typ := ResponsesRequestImageConfigTypeNumber
-
-	return ResponsesRequestImageConfig{
-		Number: &number,
-		Type:   typ,
-	}
-}
-
-func (u *ResponsesRequestImageConfig) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestImageConfigTypeStr,
-			Value: &str,
-		})
-	}
-
-	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ResponsesRequestImageConfigTypeNumber,
-			Value: &number,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestImageConfig", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestImageConfig", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ResponsesRequestImageConfigType)
-	switch best.Type {
-	case ResponsesRequestImageConfigTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	case ResponsesRequestImageConfigTypeNumber:
-		u.Number = best.Value.(*float64)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestImageConfig", string(data))
-}
-
-func (u ResponsesRequestImageConfig) MarshalJSON() ([]byte, error) {
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.Number != nil {
-		return utils.MarshalJSON(u.Number, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ResponsesRequestImageConfig: all fields are null")
-}
-
 type ResponsesRequestPluginType string
 
 const (
@@ -107,6 +18,7 @@ const (
 	ResponsesRequestPluginTypeContextCompression ResponsesRequestPluginType = "context-compression"
 	ResponsesRequestPluginTypeFileParser         ResponsesRequestPluginType = "file-parser"
 	ResponsesRequestPluginTypeModeration         ResponsesRequestPluginType = "moderation"
+	ResponsesRequestPluginTypeParetoRouter       ResponsesRequestPluginType = "pareto-router"
 	ResponsesRequestPluginTypeResponseHealing    ResponsesRequestPluginType = "response-healing"
 	ResponsesRequestPluginTypeWeb                ResponsesRequestPluginType = "web"
 )
@@ -118,6 +30,7 @@ type ResponsesRequestPlugin struct {
 	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
 	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
 	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
+	ParetoRouterPlugin       *ParetoRouterPlugin       `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestPluginType
 }
@@ -167,6 +80,18 @@ func CreateResponsesRequestPluginModeration(moderation ModerationPlugin) Respons
 	return ResponsesRequestPlugin{
 		ModerationPlugin: &moderation,
 		Type:             typ,
+	}
+}
+
+func CreateResponsesRequestPluginParetoRouter(paretoRouter ParetoRouterPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeParetoRouter
+
+	typStr := ParetoRouterPluginID(typ)
+	paretoRouter.ID = typStr
+
+	return ResponsesRequestPlugin{
+		ParetoRouterPlugin: &paretoRouter,
+		Type:               typ,
 	}
 }
 
@@ -242,6 +167,15 @@ func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.ModerationPlugin = moderationPlugin
 		u.Type = ResponsesRequestPluginTypeModeration
 		return nil
+	case "pareto-router":
+		paretoRouterPlugin := new(ParetoRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &paretoRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == pareto-router) type ParetoRouterPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.ParetoRouterPlugin = paretoRouterPlugin
+		u.Type = ResponsesRequestPluginTypeParetoRouter
+		return nil
 	case "response-healing":
 		responseHealingPlugin := new(ResponseHealingPlugin)
 		if err := utils.UnmarshalJSON(data, &responseHealingPlugin, "", true, nil); err != nil {
@@ -288,6 +222,10 @@ func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.ContextCompressionPlugin != nil {
 		return utils.MarshalJSON(u.ContextCompressionPlugin, "", true)
+	}
+
+	if u.ParetoRouterPlugin != nil {
+		return utils.MarshalJSON(u.ParetoRouterPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")
@@ -399,41 +337,45 @@ func (r *ResponsesRequestToolFunction) GetType() ResponsesRequestType {
 type ResponsesRequestToolUnionType string
 
 const (
-	ResponsesRequestToolUnionTypeFunction                 ResponsesRequestToolUnionType = "function"
-	ResponsesRequestToolUnionTypeWebSearchPreview         ResponsesRequestToolUnionType = "web_search_preview"
-	ResponsesRequestToolUnionTypeWebSearchPreview20250311 ResponsesRequestToolUnionType = "web_search_preview_2025_03_11"
-	ResponsesRequestToolUnionTypeWebSearch                ResponsesRequestToolUnionType = "web_search"
-	ResponsesRequestToolUnionTypeWebSearch20250826        ResponsesRequestToolUnionType = "web_search_2025_08_26"
-	ResponsesRequestToolUnionTypeFileSearch               ResponsesRequestToolUnionType = "file_search"
-	ResponsesRequestToolUnionTypeComputerUsePreview       ResponsesRequestToolUnionType = "computer_use_preview"
-	ResponsesRequestToolUnionTypeCodeInterpreter          ResponsesRequestToolUnionType = "code_interpreter"
-	ResponsesRequestToolUnionTypeMcp                      ResponsesRequestToolUnionType = "mcp"
-	ResponsesRequestToolUnionTypeImageGeneration          ResponsesRequestToolUnionType = "image_generation"
-	ResponsesRequestToolUnionTypeLocalShell               ResponsesRequestToolUnionType = "local_shell"
-	ResponsesRequestToolUnionTypeShell                    ResponsesRequestToolUnionType = "shell"
-	ResponsesRequestToolUnionTypeApplyPatch               ResponsesRequestToolUnionType = "apply_patch"
-	ResponsesRequestToolUnionTypeCustom                   ResponsesRequestToolUnionType = "custom"
-	ResponsesRequestToolUnionTypeOpenrouterDatetime       ResponsesRequestToolUnionType = "openrouter:datetime"
-	ResponsesRequestToolUnionTypeOpenrouterWebSearch      ResponsesRequestToolUnionType = "openrouter:web_search"
+	ResponsesRequestToolUnionTypeFunction                           ResponsesRequestToolUnionType = "function"
+	ResponsesRequestToolUnionTypeWebSearchPreview                   ResponsesRequestToolUnionType = "web_search_preview"
+	ResponsesRequestToolUnionTypeWebSearchPreview20250311           ResponsesRequestToolUnionType = "web_search_preview_2025_03_11"
+	ResponsesRequestToolUnionTypeWebSearch                          ResponsesRequestToolUnionType = "web_search"
+	ResponsesRequestToolUnionTypeWebSearch20250826                  ResponsesRequestToolUnionType = "web_search_2025_08_26"
+	ResponsesRequestToolUnionTypeFileSearch                         ResponsesRequestToolUnionType = "file_search"
+	ResponsesRequestToolUnionTypeComputerUsePreview                 ResponsesRequestToolUnionType = "computer_use_preview"
+	ResponsesRequestToolUnionTypeCodeInterpreter                    ResponsesRequestToolUnionType = "code_interpreter"
+	ResponsesRequestToolUnionTypeMcp                                ResponsesRequestToolUnionType = "mcp"
+	ResponsesRequestToolUnionTypeImageGeneration                    ResponsesRequestToolUnionType = "image_generation"
+	ResponsesRequestToolUnionTypeLocalShell                         ResponsesRequestToolUnionType = "local_shell"
+	ResponsesRequestToolUnionTypeShell                              ResponsesRequestToolUnionType = "shell"
+	ResponsesRequestToolUnionTypeApplyPatch                         ResponsesRequestToolUnionType = "apply_patch"
+	ResponsesRequestToolUnionTypeCustom                             ResponsesRequestToolUnionType = "custom"
+	ResponsesRequestToolUnionTypeOpenrouterDatetime                 ResponsesRequestToolUnionType = "openrouter:datetime"
+	ResponsesRequestToolUnionTypeOpenrouterImageGeneration          ResponsesRequestToolUnionType = "openrouter:image_generation"
+	ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels ResponsesRequestToolUnionType = "openrouter:experimental__search_models"
+	ResponsesRequestToolUnionTypeOpenrouterWebSearch                ResponsesRequestToolUnionType = "openrouter:web_search"
 )
 
 type ResponsesRequestToolUnion struct {
-	ResponsesRequestToolFunction       *ResponsesRequestToolFunction       `queryParam:"inline" union:"member"`
-	PreviewWebSearchServerTool         *PreviewWebSearchServerTool         `queryParam:"inline" union:"member"`
-	Preview20250311WebSearchServerTool *Preview20250311WebSearchServerTool `queryParam:"inline" union:"member"`
-	LegacyWebSearchServerTool          *LegacyWebSearchServerTool          `queryParam:"inline" union:"member"`
-	WebSearchServerTool                *WebSearchServerTool                `queryParam:"inline" union:"member"`
-	FileSearchServerTool               *FileSearchServerTool               `queryParam:"inline" union:"member"`
-	ComputerUseServerTool              *ComputerUseServerTool              `queryParam:"inline" union:"member"`
-	CodeInterpreterServerTool          *CodeInterpreterServerTool          `queryParam:"inline" union:"member"`
-	McpServerTool                      *McpServerTool                      `queryParam:"inline" union:"member"`
-	ImageGenerationServerTool          *ImageGenerationServerTool          `queryParam:"inline" union:"member"`
-	CodexLocalShellTool                *CodexLocalShellTool                `queryParam:"inline" union:"member"`
-	ShellServerTool                    *ShellServerTool                    `queryParam:"inline" union:"member"`
-	ApplyPatchServerTool               *ApplyPatchServerTool               `queryParam:"inline" union:"member"`
-	CustomTool                         *CustomTool                         `queryParam:"inline" union:"member"`
-	DatetimeServerTool                 *DatetimeServerTool                 `queryParam:"inline" union:"member"`
-	WebSearchServerToolOpenRouter      *WebSearchServerToolOpenRouter      `queryParam:"inline" union:"member"`
+	ResponsesRequestToolFunction        *ResponsesRequestToolFunction        `queryParam:"inline" union:"member"`
+	PreviewWebSearchServerTool          *PreviewWebSearchServerTool          `queryParam:"inline" union:"member"`
+	Preview20250311WebSearchServerTool  *Preview20250311WebSearchServerTool  `queryParam:"inline" union:"member"`
+	LegacyWebSearchServerTool           *LegacyWebSearchServerTool           `queryParam:"inline" union:"member"`
+	WebSearchServerTool                 *WebSearchServerTool                 `queryParam:"inline" union:"member"`
+	FileSearchServerTool                *FileSearchServerTool                `queryParam:"inline" union:"member"`
+	ComputerUseServerTool               *ComputerUseServerTool               `queryParam:"inline" union:"member"`
+	CodeInterpreterServerTool           *CodeInterpreterServerTool           `queryParam:"inline" union:"member"`
+	McpServerTool                       *McpServerTool                       `queryParam:"inline" union:"member"`
+	ImageGenerationServerTool           *ImageGenerationServerTool           `queryParam:"inline" union:"member"`
+	CodexLocalShellTool                 *CodexLocalShellTool                 `queryParam:"inline" union:"member"`
+	ShellServerTool                     *ShellServerTool                     `queryParam:"inline" union:"member"`
+	ApplyPatchServerTool                *ApplyPatchServerTool                `queryParam:"inline" union:"member"`
+	CustomTool                          *CustomTool                          `queryParam:"inline" union:"member"`
+	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
+	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
+	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	WebSearchServerToolOpenRouter       *WebSearchServerToolOpenRouter       `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestToolUnionType
 }
@@ -618,6 +560,30 @@ func CreateResponsesRequestToolUnionOpenrouterDatetime(openrouterDatetime Dateti
 	}
 }
 
+func CreateResponsesRequestToolUnionOpenrouterImageGeneration(openrouterImageGeneration ImageGenerationServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterImageGeneration
+
+	typStr := ImageGenerationServerToolOpenRouterType(typ)
+	openrouterImageGeneration.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		ImageGenerationServerToolOpenRouter: &openrouterImageGeneration,
+		Type:                                typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(openrouterExperimentalSearchModels ChatSearchModelsServerTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
+
+	typStr := ChatSearchModelsServerToolType(typ)
+	openrouterExperimentalSearchModels.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		ChatSearchModelsServerTool: &openrouterExperimentalSearchModels,
+		Type:                       typ,
+	}
+}
+
 func CreateResponsesRequestToolUnionOpenrouterWebSearch(openrouterWebSearch WebSearchServerToolOpenRouter) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeOpenrouterWebSearch
 
@@ -777,6 +743,24 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.DatetimeServerTool = datetimeServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterDatetime
 		return nil
+	case "openrouter:image_generation":
+		imageGenerationServerToolOpenRouter := new(ImageGenerationServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &imageGenerationServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:image_generation) type ImageGenerationServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.ImageGenerationServerToolOpenRouter = imageGenerationServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterImageGeneration
+		return nil
+	case "openrouter:experimental__search_models":
+		chatSearchModelsServerTool := new(ChatSearchModelsServerTool)
+		if err := utils.UnmarshalJSON(data, &chatSearchModelsServerTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:experimental__search_models) type ChatSearchModelsServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.ChatSearchModelsServerTool = chatSearchModelsServerTool
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
+		return nil
 	case "openrouter:web_search":
 		webSearchServerToolOpenRouter := new(WebSearchServerToolOpenRouter)
 		if err := utils.UnmarshalJSON(data, &webSearchServerToolOpenRouter, "", true, nil); err != nil {
@@ -852,6 +836,14 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
 	}
 
+	if u.ImageGenerationServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.ImageGenerationServerToolOpenRouter, "", true)
+	}
+
+	if u.ChatSearchModelsServerTool != nil {
+		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	}
+
 	if u.WebSearchServerToolOpenRouter != nil {
 		return utils.MarshalJSON(u.WebSearchServerToolOpenRouter, "", true)
 	}
@@ -861,16 +853,16 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 
 // ResponsesRequest - Request schema for Responses endpoint
 type ResponsesRequest struct {
-	Background       optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
-	FrequencyPenalty *float64                                `json:"frequency_penalty,omitzero"`
-	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/features/multimodal/image-generation for more details.
-	ImageConfig map[string]ResponsesRequestImageConfig                    `json:"image_config,omitzero"`
+	Background       optionalnullable.OptionalNullable[bool]    `json:"background,omitzero"`
+	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
+	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
+	ImageConfig map[string]ImageConfig                                    `json:"image_config,omitzero"`
 	Include     optionalnullable.OptionalNullable[[]ResponseIncludesEnum] `json:"include,omitzero"`
 	// Input for a response request - can be a string or array of items
 	Input           *InputsUnion                              `json:"input,omitzero"`
 	Instructions    optionalnullable.OptionalNullable[string] `json:"instructions,omitzero"`
-	MaxOutputTokens *int64                                    `json:"max_output_tokens,omitzero"`
-	MaxToolCalls    *int64                                    `json:"max_tool_calls,omitzero"`
+	MaxOutputTokens optionalnullable.OptionalNullable[int64]  `json:"max_output_tokens,omitzero"`
+	MaxToolCalls    optionalnullable.OptionalNullable[int64]  `json:"max_tool_calls,omitzero"`
 	// Metadata key-value pairs for the request. Keys must be ≤64 characters and cannot contain brackets. Values must be ≤512 characters. Maximum 16 pairs allowed.
 	Metadata optionalnullable.OptionalNullable[map[string]string] `json:"metadata,omitzero"`
 	// Output modalities for the response. Supported values are "text" and "image".
@@ -880,7 +872,7 @@ type ResponsesRequest struct {
 	ParallelToolCalls optionalnullable.OptionalNullable[bool] `json:"parallel_tool_calls,omitzero"`
 	// Plugins you want to enable for this request, including their settings.
 	Plugins            []ResponsesRequestPlugin                                `json:"plugins,omitzero"`
-	PresencePenalty    *float64                                                `json:"presence_penalty,omitzero"`
+	PresencePenalty    optionalnullable.OptionalNullable[float64]              `json:"presence_penalty,omitzero"`
 	PreviousResponseID optionalnullable.OptionalNullable[string]               `json:"previous_response_id,omitzero"`
 	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
 	PromptCacheKey     optionalnullable.OptionalNullable[string]               `json:"prompt_cache_key,omitzero"`
@@ -893,16 +885,16 @@ type ResponsesRequest struct {
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow) for observability. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	store       *bool    `const:"false" json:"store"`
-	Stream      *bool    `default:"false" json:"stream"`
-	Temperature *float64 `json:"temperature,omitzero"`
+	store       *bool                                      `const:"false" json:"store"`
+	Stream      *bool                                      `default:"false" json:"stream"`
+	Temperature optionalnullable.OptionalNullable[float64] `json:"temperature,omitzero"`
 	// Text output configuration including format and verbosity
-	Text        *TextExtendedConfig             `json:"text,omitzero"`
-	ToolChoice  *OpenAIResponsesToolChoiceUnion `json:"tool_choice,omitzero"`
-	Tools       []ResponsesRequestToolUnion     `json:"tools,omitzero"`
-	TopK        *int64                          `json:"top_k,omitzero"`
-	TopLogprobs *int64                          `json:"top_logprobs,omitzero"`
-	TopP        *float64                        `json:"top_p,omitzero"`
+	Text        *TextExtendedConfig                        `json:"text,omitzero"`
+	ToolChoice  *OpenAIResponsesToolChoiceUnion            `json:"tool_choice,omitzero"`
+	Tools       []ResponsesRequestToolUnion                `json:"tools,omitzero"`
+	TopK        *int64                                     `json:"top_k,omitzero"`
+	TopLogprobs optionalnullable.OptionalNullable[int64]   `json:"top_logprobs,omitzero"`
+	TopP        optionalnullable.OptionalNullable[float64] `json:"top_p,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
 	Trace      *TraceConfig                                                 `json:"trace,omitzero"`
 	Truncation optionalnullable.OptionalNullable[OpenAIResponsesTruncation] `json:"truncation,omitzero"`
@@ -928,14 +920,14 @@ func (r *ResponsesRequest) GetBackground() optionalnullable.OptionalNullable[boo
 	return r.Background
 }
 
-func (r *ResponsesRequest) GetFrequencyPenalty() *float64 {
+func (r *ResponsesRequest) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {
 	if r == nil {
 		return nil
 	}
 	return r.FrequencyPenalty
 }
 
-func (r *ResponsesRequest) GetImageConfig() map[string]ResponsesRequestImageConfig {
+func (r *ResponsesRequest) GetImageConfig() map[string]ImageConfig {
 	if r == nil {
 		return nil
 	}
@@ -963,14 +955,14 @@ func (r *ResponsesRequest) GetInstructions() optionalnullable.OptionalNullable[s
 	return r.Instructions
 }
 
-func (r *ResponsesRequest) GetMaxOutputTokens() *int64 {
+func (r *ResponsesRequest) GetMaxOutputTokens() optionalnullable.OptionalNullable[int64] {
 	if r == nil {
 		return nil
 	}
 	return r.MaxOutputTokens
 }
 
-func (r *ResponsesRequest) GetMaxToolCalls() *int64 {
+func (r *ResponsesRequest) GetMaxToolCalls() optionalnullable.OptionalNullable[int64] {
 	if r == nil {
 		return nil
 	}
@@ -1019,7 +1011,7 @@ func (r *ResponsesRequest) GetPlugins() []ResponsesRequestPlugin {
 	return r.Plugins
 }
 
-func (r *ResponsesRequest) GetPresencePenalty() *float64 {
+func (r *ResponsesRequest) GetPresencePenalty() optionalnullable.OptionalNullable[float64] {
 	if r == nil {
 		return nil
 	}
@@ -1093,7 +1085,7 @@ func (r *ResponsesRequest) GetStream() *bool {
 	return r.Stream
 }
 
-func (r *ResponsesRequest) GetTemperature() *float64 {
+func (r *ResponsesRequest) GetTemperature() optionalnullable.OptionalNullable[float64] {
 	if r == nil {
 		return nil
 	}
@@ -1128,14 +1120,14 @@ func (r *ResponsesRequest) GetTopK() *int64 {
 	return r.TopK
 }
 
-func (r *ResponsesRequest) GetTopLogprobs() *int64 {
+func (r *ResponsesRequest) GetTopLogprobs() optionalnullable.OptionalNullable[int64] {
 	if r == nil {
 		return nil
 	}
 	return r.TopLogprobs
 }
 
-func (r *ResponsesRequest) GetTopP() *float64 {
+func (r *ResponsesRequest) GetTopP() optionalnullable.OptionalNullable[float64] {
 	if r == nil {
 		return nil
 	}

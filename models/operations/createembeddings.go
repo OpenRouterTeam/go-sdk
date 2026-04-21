@@ -680,14 +680,67 @@ func (e *Object) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PromptTokensDetails - Per-modality token breakdown. Only present when the input contains 2+ modalities (e.g. text + image) and the upstream provider returns modality-level usage data. Only non-zero modality counts are included.
+type PromptTokensDetails struct {
+	// Number of audio tokens in the input
+	AudioTokens *int64 `json:"audio_tokens,omitzero"`
+	// Number of image tokens in the input
+	ImageTokens *int64 `json:"image_tokens,omitzero"`
+	// Number of text tokens in the input
+	TextTokens *int64 `json:"text_tokens,omitzero"`
+	// Number of video tokens in the input
+	VideoTokens *int64 `json:"video_tokens,omitzero"`
+}
+
+func (p *PromptTokensDetails) GetAudioTokens() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.AudioTokens
+}
+
+func (p *PromptTokensDetails) GetImageTokens() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.ImageTokens
+}
+
+func (p *PromptTokensDetails) GetTextTokens() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.TextTokens
+}
+
+func (p *PromptTokensDetails) GetVideoTokens() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.VideoTokens
+}
+
 // CreateEmbeddingsUsage - Token usage statistics
 type CreateEmbeddingsUsage struct {
 	// Cost of the request in credits
 	Cost *float64 `json:"cost,omitzero"`
 	// Number of tokens in the input
 	PromptTokens int64 `json:"prompt_tokens"`
+	// Per-modality token breakdown. Only present when the input contains 2+ modalities (e.g. text + image) and the upstream provider returns modality-level usage data. Only non-zero modality counts are included.
+	PromptTokensDetails *PromptTokensDetails `json:"prompt_tokens_details,omitzero"`
 	// Total number of tokens used
 	TotalTokens int64 `json:"total_tokens"`
+}
+
+func (c CreateEmbeddingsUsage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateEmbeddingsUsage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CreateEmbeddingsUsage) GetCost() *float64 {
@@ -702,6 +755,13 @@ func (c *CreateEmbeddingsUsage) GetPromptTokens() int64 {
 		return 0
 	}
 	return c.PromptTokens
+}
+
+func (c *CreateEmbeddingsUsage) GetPromptTokensDetails() *PromptTokensDetails {
+	if c == nil {
+		return nil
+	}
+	return c.PromptTokensDetails
 }
 
 func (c *CreateEmbeddingsUsage) GetTotalTokens() int64 {

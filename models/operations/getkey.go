@@ -45,9 +45,9 @@ type GetKeyData struct {
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
-	Limit float64 `json:"limit"`
+	Limit *float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining float64 `json:"limit_remaining"`
+	LimitRemaining *float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Name of the API key
@@ -62,6 +62,8 @@ type GetKeyData struct {
 	UsageMonthly float64 `json:"usage_monthly"`
 	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
 	UsageWeekly float64 `json:"usage_weekly"`
+	// The workspace ID this API key belongs to.
+	WorkspaceID string `json:"workspace_id"`
 }
 
 func (g GetKeyData) MarshalJSON() ([]byte, error) {
@@ -152,16 +154,16 @@ func (g *GetKeyData) GetLabel() string {
 	return g.Label
 }
 
-func (g *GetKeyData) GetLimit() float64 {
+func (g *GetKeyData) GetLimit() *float64 {
 	if g == nil {
-		return 0.0
+		return nil
 	}
 	return g.Limit
 }
 
-func (g *GetKeyData) GetLimitRemaining() float64 {
+func (g *GetKeyData) GetLimitRemaining() *float64 {
 	if g == nil {
-		return 0.0
+		return nil
 	}
 	return g.LimitRemaining
 }
@@ -213,6 +215,13 @@ func (g *GetKeyData) GetUsageWeekly() float64 {
 		return 0.0
 	}
 	return g.UsageWeekly
+}
+
+func (g *GetKeyData) GetWorkspaceID() string {
+	if g == nil {
+		return ""
+	}
+	return g.WorkspaceID
 }
 
 // GetKeyResponse - API key details

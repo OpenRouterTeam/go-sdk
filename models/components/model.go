@@ -13,7 +13,7 @@ type Model struct {
 	// Canonical slug for the model
 	CanonicalSlug string `json:"canonical_slug"`
 	// Maximum context length in tokens
-	ContextLength int64 `json:"context_length"`
+	ContextLength *int64 `json:"context_length"`
 	// Unix timestamp of when the model was created
 	Created int64 `json:"created"`
 	// Default parameters for this model
@@ -56,9 +56,9 @@ func (m *Model) GetCanonicalSlug() string {
 	return m.CanonicalSlug
 }
 
-func (m *Model) GetContextLength() int64 {
+func (m *Model) GetContextLength() *int64 {
 	if m == nil {
-		return 0
+		return nil
 	}
 	return m.ContextLength
 }

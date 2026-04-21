@@ -4,6 +4,7 @@ package components
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type InputTokensDetails struct {
@@ -51,9 +52,9 @@ func (o *OutputTokensDetails) GetReasoningTokens() int64 {
 }
 
 type CostDetails struct {
-	UpstreamInferenceCost       *float64 `json:"upstream_inference_cost,omitzero"`
-	UpstreamInferenceInputCost  float64  `json:"upstream_inference_input_cost"`
-	UpstreamInferenceOutputCost float64  `json:"upstream_inference_output_cost"`
+	UpstreamInferenceCost       optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
+	UpstreamInferenceInputCost  float64                                    `json:"upstream_inference_input_cost"`
+	UpstreamInferenceOutputCost float64                                    `json:"upstream_inference_output_cost"`
 }
 
 func (c CostDetails) MarshalJSON() ([]byte, error) {
@@ -67,7 +68,7 @@ func (c *CostDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CostDetails) GetUpstreamInferenceCost() *float64 {
+func (c *CostDetails) GetUpstreamInferenceCost() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
@@ -96,8 +97,8 @@ type Usage struct {
 	OutputTokensDetails OutputTokensDetails `json:"output_tokens_details"`
 	TotalTokens         int64               `json:"total_tokens"`
 	// Cost of the completion
-	Cost        *float64     `json:"cost,omitzero"`
-	CostDetails *CostDetails `json:"cost_details,omitzero"`
+	Cost        optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
+	CostDetails *CostDetails                               `json:"cost_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
 	IsByok *bool `json:"is_byok,omitzero"`
 }
@@ -148,7 +149,7 @@ func (u *Usage) GetTotalTokens() int64 {
 	return u.TotalTokens
 }
 
-func (u *Usage) GetCost() *float64 {
+func (u *Usage) GetCost() optionalnullable.OptionalNullable[float64] {
 	if u == nil {
 		return nil
 	}

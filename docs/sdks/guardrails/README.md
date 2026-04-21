@@ -34,6 +34,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -44,7 +45,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.List(ctx, nil, nil)
+    res, err := s.Guardrails.List(ctx, optionalnullable.From[int64](nil), nil, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -68,12 +69,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      | Example                                                                                          |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |                                                                                                  |
+| `offset`                                                                                         | optionalnullable.OptionalNullable[`int64`]                                                       | :heavy_minus_sign:                                                                               | Number of records to skip for pagination                                                         | 0                                                                                                |
+| `limit`                                                                                          | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Maximum number of records to return (max 100)                                                    | 50                                                                                               |
+| `workspaceID`                                                                                    | `*string`                                                                                        | :heavy_minus_sign:                                                                               | Filter guardrails by workspace ID. By default, guardrails in the default workspace are returned. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                             |
+| `opts`                                                                                           | [][operations.Option](../../models/operations/option.md)                                         | :heavy_minus_sign:                                                                               | The options for this request.                                                                    |                                                                                                  |
 
 ### Response
 
@@ -122,8 +124,9 @@ func main() {
         })),
         Description: optionalnullable.From(openrouter.Pointer("A guardrail for limiting API usage")),
         EnforceZdr: optionalnullable.From(openrouter.Pointer(false)),
+        IgnoredModels: optionalnullable.From[[]string](nil),
         IgnoredProviders: optionalnullable.From[[]string](nil),
-        LimitUsd: openrouter.Pointer[float64](50.0),
+        LimitUsd: optionalnullable.From(openrouter.Pointer[float64](50.0)),
         Name: "My New Guardrail",
         ResetInterval: optionalnullable.From(openrouter.Pointer(components.GuardrailIntervalMonthly)),
     })
@@ -154,6 +157,7 @@ func main() {
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
 | sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
 | sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
 
@@ -295,7 +299,7 @@ func main() {
 
     res, err := s.Guardrails.Update(ctx, "550e8400-e29b-41d4-a716-446655440000", components.UpdateGuardrailRequest{
         Description: optionalnullable.From(openrouter.Pointer("Updated description")),
-        LimitUsd: openrouter.Pointer[float64](75.0),
+        LimitUsd: optionalnullable.From(openrouter.Pointer[float64](75.0)),
         Name: openrouter.Pointer("Updated Guardrail Name"),
         ResetInterval: optionalnullable.From(openrouter.Pointer(components.GuardrailIntervalWeekly)),
     })
@@ -345,6 +349,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -355,7 +360,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.ListGuardrailKeyAssignments(ctx, "550e8400-e29b-41d4-a716-446655440000", nil, nil)
+    res, err := s.Guardrails.ListGuardrailKeyAssignments(ctx, "550e8400-e29b-41d4-a716-446655440000", optionalnullable.From[int64](nil), nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -383,7 +388,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
 | `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
@@ -538,6 +543,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -548,7 +554,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.ListGuardrailMemberAssignments(ctx, "550e8400-e29b-41d4-a716-446655440000", nil, nil)
+    res, err := s.Guardrails.ListGuardrailMemberAssignments(ctx, "550e8400-e29b-41d4-a716-446655440000", optionalnullable.From[int64](nil), nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -576,7 +582,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the guardrail                   | 550e8400-e29b-41d4-a716-446655440000                     |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
 | `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
@@ -733,6 +739,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -743,7 +750,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.ListKeyAssignments(ctx, nil, nil)
+    res, err := s.Guardrails.ListKeyAssignments(ctx, optionalnullable.From[int64](nil), nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -770,7 +777,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
 | `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
@@ -800,6 +807,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -810,7 +818,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Guardrails.ListMemberAssignments(ctx, nil, nil)
+    res, err := s.Guardrails.ListMemberAssignments(ctx, optionalnullable.From[int64](nil), nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -837,7 +845,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
 | `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 

@@ -4,16 +4,19 @@ package operations
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type ListGuardrailsRequest struct {
 	// Number of records to skip for pagination
-	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
+	// Filter guardrails by workspace ID. By default, guardrails in the default workspace are returned.
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
-func (l *ListGuardrailsRequest) GetOffset() *int64 {
+func (l *ListGuardrailsRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
 	if l == nil {
 		return nil
 	}
@@ -25,6 +28,13 @@ func (l *ListGuardrailsRequest) GetLimit() *int64 {
 		return nil
 	}
 	return l.Limit
+}
+
+func (l *ListGuardrailsRequest) GetWorkspaceID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.WorkspaceID
 }
 
 type ListGuardrailsResponse struct {

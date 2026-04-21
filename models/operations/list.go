@@ -12,7 +12,9 @@ type ListRequest struct {
 	// Whether to include disabled API keys in the response
 	IncludeDisabled *bool `queryParam:"style=form,explode=true,name=include_disabled"`
 	// Number of API keys to skip for pagination
-	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
+	// Filter API keys by workspace ID. By default, keys in the default workspace are returned.
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
 func (l *ListRequest) GetIncludeDisabled() *bool {
@@ -22,11 +24,18 @@ func (l *ListRequest) GetIncludeDisabled() *bool {
 	return l.IncludeDisabled
 }
 
-func (l *ListRequest) GetOffset() *int64 {
+func (l *ListRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
 	if l == nil {
 		return nil
 	}
 	return l.Offset
+}
+
+func (l *ListRequest) GetWorkspaceID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.WorkspaceID
 }
 
 type ListData struct {
@@ -53,9 +62,9 @@ type ListData struct {
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
-	Limit float64 `json:"limit"`
+	Limit *float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining float64 `json:"limit_remaining"`
+	LimitRemaining *float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Name of the API key
@@ -70,6 +79,8 @@ type ListData struct {
 	UsageMonthly float64 `json:"usage_monthly"`
 	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
 	UsageWeekly float64 `json:"usage_weekly"`
+	// The workspace ID this API key belongs to.
+	WorkspaceID string `json:"workspace_id"`
 }
 
 func (l ListData) MarshalJSON() ([]byte, error) {
@@ -160,16 +171,16 @@ func (l *ListData) GetLabel() string {
 	return l.Label
 }
 
-func (l *ListData) GetLimit() float64 {
+func (l *ListData) GetLimit() *float64 {
 	if l == nil {
-		return 0.0
+		return nil
 	}
 	return l.Limit
 }
 
-func (l *ListData) GetLimitRemaining() float64 {
+func (l *ListData) GetLimitRemaining() *float64 {
 	if l == nil {
-		return 0.0
+		return nil
 	}
 	return l.LimitRemaining
 }
@@ -221,6 +232,13 @@ func (l *ListData) GetUsageWeekly() float64 {
 		return 0.0
 	}
 	return l.UsageWeekly
+}
+
+func (l *ListData) GetWorkspaceID() string {
+	if l == nil {
+		return ""
+	}
+	return l.WorkspaceID
 }
 
 // ListResponse - List of API keys

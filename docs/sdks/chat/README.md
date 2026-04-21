@@ -20,6 +20,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
@@ -32,7 +33,7 @@ func main() {
     )
 
     res, err := s.Chat.Send(ctx, components.ChatRequest{
-        MaxTokens: openrouter.Pointer[int64](150),
+        MaxTokens: optionalnullable.From(openrouter.Pointer[int64](150)),
         Messages: []components.ChatMessages{
             components.CreateChatMessagesSystem(
                 components.ChatSystemMessage{
@@ -52,7 +53,7 @@ func main() {
             ),
         },
         Model: openrouter.Pointer("openai/gpt-4"),
-        Temperature: openrouter.Pointer[float64](0.7),
+        Temperature: optionalnullable.From(openrouter.Pointer[float64](0.7)),
     })
     if err != nil {
         log.Fatal(err)

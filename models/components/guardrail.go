@@ -20,16 +20,20 @@ type Guardrail struct {
 	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
 	// Unique identifier for the guardrail
 	ID string `json:"id"`
+	// Array of model canonical_slugs to exclude from routing
+	IgnoredModels optionalnullable.OptionalNullable[[]string] `json:"ignored_models,omitzero"`
 	// List of provider IDs to exclude from routing
 	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Spending limit in USD
-	LimitUsd *float64 `json:"limit_usd,omitzero"`
+	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
 	// Name of the guardrail
 	Name string `json:"name"`
 	// Interval at which the limit resets (daily, weekly, monthly)
 	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
 	// ISO 8601 timestamp of when the guardrail was last updated
 	UpdatedAt optionalnullable.OptionalNullable[string] `json:"updated_at,omitzero"`
+	// The workspace ID this guardrail belongs to.
+	WorkspaceID string `json:"workspace_id"`
 }
 
 func (g Guardrail) MarshalJSON() ([]byte, error) {
@@ -85,6 +89,13 @@ func (g *Guardrail) GetID() string {
 	return g.ID
 }
 
+func (g *Guardrail) GetIgnoredModels() optionalnullable.OptionalNullable[[]string] {
+	if g == nil {
+		return nil
+	}
+	return g.IgnoredModels
+}
+
 func (g *Guardrail) GetIgnoredProviders() optionalnullable.OptionalNullable[[]string] {
 	if g == nil {
 		return nil
@@ -92,7 +103,7 @@ func (g *Guardrail) GetIgnoredProviders() optionalnullable.OptionalNullable[[]st
 	return g.IgnoredProviders
 }
 
-func (g *Guardrail) GetLimitUsd() *float64 {
+func (g *Guardrail) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
 	if g == nil {
 		return nil
 	}
@@ -118,4 +129,11 @@ func (g *Guardrail) GetUpdatedAt() optionalnullable.OptionalNullable[string] {
 		return nil
 	}
 	return g.UpdatedAt
+}
+
+func (g *Guardrail) GetWorkspaceID() string {
+	if g == nil {
+		return ""
+	}
+	return g.WorkspaceID
 }

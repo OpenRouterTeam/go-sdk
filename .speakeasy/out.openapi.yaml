@@ -1349,12 +1349,16 @@ components:
           nullable: true
           type: array
         new_lines:
+          nullable: true
           type: integer
         new_start:
+          nullable: true
           type: integer
         old_lines:
+          nullable: true
           type: integer
         old_start:
+          nullable: true
           type: integer
         type:
           enum:
@@ -1439,10 +1443,13 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
         num_lines:
+          nullable: true
           type: integer
         start_line:
+          nullable: true
           type: integer
         total_lines:
+          nullable: true
           type: integer
         type:
           enum:
@@ -1475,6 +1482,15 @@ components:
         - thinking
         - signature
       type: object
+    AnthropicThinkingDisplay:
+      enum:
+        - summarized
+        - omitted
+        - null
+      example: summarized
+      nullable: true
+      type: string
+      x-speakeasy-unknown-values: allow
     AnthropicThinkingTurns:
       example:
         type: thinking_turns
@@ -1699,8 +1715,10 @@ components:
         cache_creation:
           $ref: '#/components/schemas/AnthropicCacheCreation'
         cache_creation_input_tokens:
+          nullable: true
           type: integer
         cache_read_input_tokens:
+          nullable: true
           type: integer
         inference_geo:
           nullable: true
@@ -2730,6 +2748,7 @@ components:
           nullable: true
           type: boolean
         completed_at:
+          nullable: true
           type: integer
         created_at:
           type: integer
@@ -2737,6 +2756,7 @@ components:
           $ref: '#/components/schemas/ResponsesErrorField'
         frequency_penalty:
           format: double
+          nullable: true
           type: number
         id:
           type: string
@@ -2745,8 +2765,10 @@ components:
         instructions:
           $ref: '#/components/schemas/BaseInputs'
         max_output_tokens:
+          nullable: true
           type: integer
         max_tool_calls:
+          nullable: true
           type: integer
         metadata:
           $ref: '#/components/schemas/RequestMetadata'
@@ -2781,6 +2803,7 @@ components:
           type: boolean
         presence_penalty:
           format: double
+          nullable: true
           type: number
         previous_response_id:
           nullable: true
@@ -2803,6 +2826,7 @@ components:
           type: boolean
         temperature:
           format: double
+          nullable: true
           type: number
         text:
           $ref: '#/components/schemas/TextConfig'
@@ -2852,6 +2876,7 @@ components:
           type: integer
         top_p:
           format: double
+          nullable: true
           type: number
         truncation:
           $ref: '#/components/schemas/Truncation'
@@ -2960,6 +2985,48 @@ components:
       description: Price per million prompt tokens
       example: 1000
       type: string
+    BulkAddWorkspaceMembersRequest:
+      example:
+        user_ids:
+          - user_abc123
+          - user_def456
+      properties:
+        user_ids:
+          description: List of user IDs to add to the workspace. Members are assigned the same role they hold in the organization.
+          example:
+            - user_abc123
+            - user_def456
+          items:
+            type: string
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+        - user_ids
+      type: object
+    BulkAddWorkspaceMembersResponse:
+      example:
+        added_count: 1
+        data:
+          - created_at: '2025-08-24T10:30:00Z'
+            id: 660e8400-e29b-41d4-a716-446655440000
+            role: member
+            user_id: user_abc123
+            workspace_id: 550e8400-e29b-41d4-a716-446655440000
+      properties:
+        added_count:
+          description: Number of workspace memberships created or updated
+          example: 2
+          type: integer
+        data:
+          description: List of added workspace memberships
+          items:
+            $ref: '#/components/schemas/WorkspaceMember'
+          type: array
+      required:
+        - data
+        - added_count
+      type: object
     BulkAssignKeysRequest:
       example:
         key_hashes:
@@ -3017,6 +3084,36 @@ components:
           type: integer
       required:
         - assigned_count
+      type: object
+    BulkRemoveWorkspaceMembersRequest:
+      example:
+        user_ids:
+          - user_abc123
+          - user_def456
+      properties:
+        user_ids:
+          description: List of user IDs to remove from the workspace
+          example:
+            - user_abc123
+            - user_def456
+          items:
+            type: string
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+        - user_ids
+      type: object
+    BulkRemoveWorkspaceMembersResponse:
+      example:
+        removed_count: 2
+      properties:
+        removed_count:
+          description: Number of members removed
+          example: 2
+          type: integer
+      required:
+        - removed_count
       type: object
     BulkUnassignKeysRequest:
       example:
@@ -3522,6 +3619,8 @@ components:
             - function
           type: object
         - $ref: '#/components/schemas/DatetimeServerTool'
+        - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
+        - $ref: '#/components/schemas/ChatSearchModelsServerTool'
         - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
         - $ref: '#/components/schemas/ChatWebSearchShorthand'
       description: Tool definition for function calling (regular function or OpenRouter built-in server tool)
@@ -3681,21 +3780,10 @@ components:
           description: Frequency penalty (-2.0 to 2.0)
           example: 0
           format: double
+          nullable: true
           type: number
         image_config:
-          additionalProperties:
-            anyOf:
-              - type: string
-              - format: double
-                type: number
-              - items:
-                  nullable: true
-                type: array
-          description: >-
-            Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
-          example:
-            aspect_ratio: '16:9'
-          type: object
+          $ref: '#/components/schemas/ImageConfig'
         logit_bias:
           additionalProperties:
             format: double
@@ -3713,10 +3801,12 @@ components:
         max_completion_tokens:
           description: Maximum tokens in completion
           example: 100
+          nullable: true
           type: integer
         max_tokens:
           description: 'Maximum tokens (deprecated, use max_completion_tokens). Note: some providers enforce a minimum of 16.'
           example: 100
+          nullable: true
           type: integer
         messages:
           description: List of messages for the conversation
@@ -3767,6 +3857,7 @@ components:
                 context-compression: '#/components/schemas/ContextCompressionPlugin'
                 file-parser: '#/components/schemas/FileParserPlugin'
                 moderation: '#/components/schemas/ModerationPlugin'
+                pareto-router: '#/components/schemas/ParetoRouterPlugin'
                 response-healing: '#/components/schemas/ResponseHealingPlugin'
                 web: '#/components/schemas/WebSearchPlugin'
               propertyName: id
@@ -3777,11 +3868,13 @@ components:
               - $ref: '#/components/schemas/FileParserPlugin'
               - $ref: '#/components/schemas/ResponseHealingPlugin'
               - $ref: '#/components/schemas/ContextCompressionPlugin'
+              - $ref: '#/components/schemas/ParetoRouterPlugin'
           type: array
         presence_penalty:
           description: Presence penalty (-2.0 to 2.0)
           example: 0
           format: double
+          nullable: true
           type: number
         provider:
           $ref: '#/components/schemas/ProviderPreferences'
@@ -3831,6 +3924,7 @@ components:
         seed:
           description: Random seed for deterministic outputs
           example: 42
+          nullable: true
           type: integer
         service_tier:
           description: The service tier to use for processing this request.
@@ -3872,6 +3966,7 @@ components:
           description: Sampling temperature (0-2)
           example: 0.7
           format: double
+          nullable: true
           type: number
         tool_choice:
           $ref: '#/components/schemas/ChatToolChoice'
@@ -3888,11 +3983,13 @@ components:
         top_logprobs:
           description: Number of top log probabilities to return (0-20)
           example: 5
+          nullable: true
           type: integer
         top_p:
           description: Nucleus sampling parameter (0-1)
           example: 1
           format: double
+          nullable: true
           type: number
         trace:
           $ref: '#/components/schemas/TraceConfig'
@@ -3961,6 +4058,22 @@ components:
         - model
         - object
         - system_fingerprint
+      type: object
+    ChatSearchModelsServerTool:
+      description: 'OpenRouter built-in server tool: searches and filters AI models available on OpenRouter'
+      example:
+        parameters:
+          max_results: 5
+        type: openrouter:experimental__search_models
+      properties:
+        parameters:
+          $ref: '#/components/schemas/SearchModelsServerToolConfig'
+        type:
+          enum:
+            - openrouter:experimental__search_models
+          type: string
+      required:
+        - type
       type: object
     ChatStreamChoice:
       description: Streaming completion choice chunk
@@ -4355,15 +4468,19 @@ components:
           properties:
             accepted_prediction_tokens:
               description: Accepted prediction tokens
+              nullable: true
               type: integer
             audio_tokens:
               description: Tokens used for audio output
+              nullable: true
               type: integer
             reasoning_tokens:
               description: Tokens used for reasoning
+              nullable: true
               type: integer
             rejected_prediction_tokens:
               description: Rejected prediction tokens
+              nullable: true
               type: integer
           type: object
         prompt_tokens:
@@ -4843,6 +4960,7 @@ components:
           - deepseek
         description: A guardrail for limiting API usage
         enforce_zdr: false
+        ignored_models: null
         ignored_providers: null
         limit_usd: 50
         name: My New Guardrail
@@ -4881,6 +4999,15 @@ components:
           example: false
           nullable: true
           type: boolean
+        ignored_models:
+          description: Array of model identifiers to exclude from routing (slug or canonical_slug accepted)
+          example:
+            - openai/gpt-4o-mini
+          items:
+            type: string
+          minItems: 1
+          nullable: true
+          type: array
         ignored_providers:
           description: List of provider IDs to exclude from routing
           example:
@@ -4894,6 +5021,7 @@ components:
           description: Spending limit in USD
           example: 50
           format: double
+          nullable: true
           type: number
         name:
           description: Name for the new guardrail
@@ -4903,6 +5031,11 @@ components:
           type: string
         reset_interval:
           $ref: '#/components/schemas/GuardrailInterval'
+        workspace_id:
+          description: The workspace to create the guardrail in. Defaults to the default workspace if not provided.
+          example: 0df9e665-d932-5740-b2c7-b52af166bc11
+          format: uuid
+          type: string
       required:
         - name
       type: object
@@ -4918,16 +5051,101 @@ components:
           description: A guardrail for limiting API usage
           enforce_zdr: false
           id: 550e8400-e29b-41d4-a716-446655440000
+          ignored_models: null
           ignored_providers: null
           limit_usd: 50
           name: My New Guardrail
           reset_interval: monthly
           updated_at: null
+          workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
       properties:
         data:
           allOf:
             - $ref: '#/components/schemas/Guardrail'
             - description: The created guardrail
+      required:
+        - data
+      type: object
+    CreateWorkspaceRequest:
+      example:
+        default_image_model: openai/dall-e-3
+        default_provider_sort: price
+        default_text_model: openai/gpt-4o
+        description: Production environment workspace
+        name: Production
+        slug: production
+      properties:
+        default_image_model:
+          description: Default image model for this workspace
+          example: openai/dall-e-3
+          nullable: true
+          type: string
+        default_provider_sort:
+          description: Default provider sort preference (price, throughput, latency, exacto)
+          example: price
+          nullable: true
+          type: string
+        default_text_model:
+          description: Default text model for this workspace
+          example: openai/gpt-4o
+          nullable: true
+          type: string
+        description:
+          description: Description of the workspace
+          example: Production environment workspace
+          maxLength: 500
+          nullable: true
+          type: string
+        is_data_discount_logging_enabled:
+          description: Whether data discount logging is enabled
+          example: true
+          type: boolean
+        is_observability_broadcast_enabled:
+          description: Whether broadcast is enabled
+          example: false
+          type: boolean
+        is_observability_io_logging_enabled:
+          description: Whether private logging is enabled
+          example: false
+          type: boolean
+        name:
+          description: Name for the new workspace
+          example: Production
+          maxLength: 100
+          minLength: 1
+          type: string
+        slug:
+          description: URL-friendly slug (lowercase alphanumeric and hyphens only)
+          example: production
+          maxLength: 50
+          minLength: 1
+          pattern: ^[a-z0-9-]+$
+          type: string
+      required:
+        - name
+        - slug
+      type: object
+    CreateWorkspaceResponse:
+      example:
+        data:
+          created_at: '2025-08-24T10:30:00Z'
+          created_by: user_abc123
+          default_image_model: openai/dall-e-3
+          default_provider_sort: price
+          default_text_model: openai/gpt-4o
+          description: Production environment workspace
+          id: 550e8400-e29b-41d4-a716-446655440000
+          is_data_discount_logging_enabled: true
+          is_observability_broadcast_enabled: false
+          is_observability_io_logging_enabled: false
+          name: Production
+          slug: production
+          updated_at: null
+      properties:
+        data:
+          allOf:
+            - $ref: '#/components/schemas/Workspace'
+            - description: The created workspace
       required:
         - data
       type: object
@@ -5017,22 +5235,26 @@ components:
       properties:
         frequency_penalty:
           format: double
+          nullable: true
           type: number
         presence_penalty:
           format: double
+          nullable: true
           type: number
         repetition_penalty:
           format: double
+          nullable: true
           type: number
         temperature:
           format: double
+          nullable: true
           type: number
         top_k:
-          minimum: 0
           nullable: true
           type: integer
         top_p:
           format: double
+          nullable: true
           type: number
       type: object
     DeleteGuardrailResponse:
@@ -5042,6 +5264,18 @@ components:
         deleted:
           const: true
           description: Confirmation that the guardrail was deleted
+          example: true
+          type: boolean
+      required:
+        - deleted
+      type: object
+    DeleteWorkspaceResponse:
+      example:
+        deleted: true
+      properties:
+        deleted:
+          const: true
+          description: Confirmation that the workspace was deleted
           example: true
           type: boolean
       required:
@@ -5443,6 +5677,25 @@ components:
       required:
         - type
       type: object
+    FrameImage:
+      allOf:
+        - $ref: '#/components/schemas/ContentPartImage'
+        - properties:
+            frame_type:
+              description: Whether this image represents the first or last frame of the video
+              enum:
+                - first_frame
+                - last_frame
+              example: first_frame
+              type: string
+              x-speakeasy-unknown-values: allow
+          required:
+            - frame_type
+          type: object
+      example:
+        image_url:
+          url: https://example.com/image.png
+        type: image_url
     FunctionCallArgsDeltaEvent:
       allOf:
         - $ref: '#/components/schemas/BaseFunctionCallArgsDeltaEvent'
@@ -5555,6 +5808,364 @@ components:
         - name
         - parameters
       type: object
+    GenerationContentData:
+      description: Stored prompt and completion content
+      example:
+        input:
+          messages:
+            - content: What is the meaning of life?
+              role: user
+        output:
+          completion: The meaning of life is a philosophical question...
+          reasoning: null
+      properties:
+        input:
+          anyOf:
+            - properties:
+                prompt:
+                  example: What is the meaning of life?
+                  type: string
+              required:
+                - prompt
+              type: object
+            - properties:
+                messages:
+                  example:
+                    - content: What is the meaning of life?
+                      role: user
+                  items:
+                    nullable: true
+                  type: array
+              required:
+                - messages
+              type: object
+          description: The input to the generation — either a prompt string or an array of messages
+        output:
+          description: The output from the generation
+          properties:
+            completion:
+              description: The completion output
+              example: The meaning of life is a philosophical question...
+              nullable: true
+              type: string
+            reasoning:
+              description: Reasoning/thinking output, if any
+              example: null
+              nullable: true
+              type: string
+          required:
+            - reasoning
+            - completion
+          type: object
+      required:
+        - input
+        - output
+      type: object
+    GenerationContentResponse:
+      description: Stored prompt and completion content for a generation
+      example:
+        data:
+          input:
+            messages:
+              - content: What is the meaning of life?
+                role: user
+          output:
+            completion: The meaning of life is a philosophical question...
+            reasoning: null
+      properties:
+        data:
+          $ref: '#/components/schemas/GenerationContentData'
+      required:
+        - data
+      type: object
+    GenerationResponse:
+      description: Generation response
+      example:
+        data:
+          api_type: completions
+          app_id: 12345
+          cache_discount: null
+          cancelled: false
+          created_at: '2024-07-15T23:33:19.433273+00:00'
+          external_user: user-123
+          finish_reason: stop
+          generation_time: 1200
+          http_referer: https://openrouter.ai/
+          id: gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG
+          is_byok: false
+          latency: 1250
+          model: sao10k/l3-stheno-8b
+          moderation_latency: 50
+          native_finish_reason: stop
+          native_tokens_cached: 3
+          native_tokens_completion: 25
+          native_tokens_completion_images: 0
+          native_tokens_prompt: 10
+          native_tokens_reasoning: 5
+          num_input_audio_prompt: 0
+          num_media_completion: 0
+          num_media_prompt: 1
+          num_search_results: 5
+          origin: https://openrouter.ai/
+          provider_name: Infermatic
+          provider_responses: null
+          request_id: req-1727282430-aBcDeFgHiJkLmNoPqRsT
+          router: openrouter/auto
+          session_id: null
+          streamed: true
+          tokens_completion: 25
+          tokens_prompt: 10
+          total_cost: 0.0015
+          upstream_id: chatcmpl-791bcf62-080e-4568-87d0-94c72e3b4946
+          upstream_inference_cost: 0.0012
+          usage: 0.0015
+          user_agent: Mozilla/5.0
+      properties:
+        data:
+          description: Generation data
+          properties:
+            api_type:
+              description: Type of API used for the generation
+              enum:
+                - completions
+                - embeddings
+                - rerank
+                - tts
+                - video
+                - null
+              nullable: true
+              type: string
+              x-speakeasy-unknown-values: allow
+            app_id:
+              description: ID of the app that made the request
+              example: 12345
+              nullable: true
+              type: integer
+            cache_discount:
+              description: Discount applied due to caching
+              example: 0.0002
+              format: double
+              nullable: true
+              type: number
+            cancelled:
+              description: Whether the generation was cancelled
+              example: false
+              nullable: true
+              type: boolean
+            created_at:
+              description: ISO 8601 timestamp of when the generation was created
+              example: '2024-07-15T23:33:19.433273+00:00'
+              type: string
+            external_user:
+              description: External user identifier
+              example: user-123
+              nullable: true
+              type: string
+            finish_reason:
+              description: Reason the generation finished
+              example: stop
+              nullable: true
+              type: string
+            generation_time:
+              description: Time taken for generation in milliseconds
+              example: 1200
+              format: double
+              nullable: true
+              type: number
+            http_referer:
+              description: Referer header from the request
+              nullable: true
+              type: string
+            id:
+              description: Unique identifier for the generation
+              example: gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG
+              type: string
+            is_byok:
+              description: Whether this used bring-your-own-key
+              example: false
+              type: boolean
+            latency:
+              description: Total latency in milliseconds
+              example: 1250
+              format: double
+              nullable: true
+              type: number
+            model:
+              description: Model used for the generation
+              example: sao10k/l3-stheno-8b
+              type: string
+            moderation_latency:
+              description: Moderation latency in milliseconds
+              example: 50
+              format: double
+              nullable: true
+              type: number
+            native_finish_reason:
+              description: Native finish reason as reported by provider
+              example: stop
+              nullable: true
+              type: string
+            native_tokens_cached:
+              description: Native cached tokens as reported by provider
+              example: 3
+              nullable: true
+              type: integer
+            native_tokens_completion:
+              description: Native completion tokens as reported by provider
+              example: 25
+              nullable: true
+              type: integer
+            native_tokens_completion_images:
+              description: Native completion image tokens as reported by provider
+              example: 0
+              nullable: true
+              type: integer
+            native_tokens_prompt:
+              description: Native prompt tokens as reported by provider
+              example: 10
+              nullable: true
+              type: integer
+            native_tokens_reasoning:
+              description: Native reasoning tokens as reported by provider
+              example: 5
+              nullable: true
+              type: integer
+            num_input_audio_prompt:
+              description: Number of audio inputs in the prompt
+              example: 0
+              nullable: true
+              type: integer
+            num_media_completion:
+              description: Number of media items in the completion
+              example: 0
+              nullable: true
+              type: integer
+            num_media_prompt:
+              description: Number of media items in the prompt
+              example: 1
+              nullable: true
+              type: integer
+            num_search_results:
+              description: Number of search results included
+              example: 5
+              nullable: true
+              type: integer
+            origin:
+              description: Origin URL of the request
+              example: https://openrouter.ai/
+              type: string
+            provider_name:
+              description: Name of the provider that served the request
+              example: Infermatic
+              nullable: true
+              type: string
+            provider_responses:
+              description: List of provider responses for this generation, including fallback attempts
+              items:
+                $ref: '#/components/schemas/ProviderResponse'
+              nullable: true
+              type: array
+            request_id:
+              description: Unique identifier grouping all generations from a single API request
+              example: req-1727282430-aBcDeFgHiJkLmNoPqRsT
+              nullable: true
+              type: string
+            router:
+              description: Router used for the request (e.g., openrouter/auto)
+              example: openrouter/auto
+              nullable: true
+              type: string
+            session_id:
+              description: Session identifier grouping multiple generations in the same session
+              nullable: true
+              type: string
+            streamed:
+              description: Whether the response was streamed
+              example: true
+              nullable: true
+              type: boolean
+            tokens_completion:
+              description: Number of tokens in the completion
+              example: 25
+              nullable: true
+              type: integer
+            tokens_prompt:
+              description: Number of tokens in the prompt
+              example: 10
+              nullable: true
+              type: integer
+            total_cost:
+              description: Total cost of the generation in USD
+              example: 0.0015
+              format: double
+              type: number
+            upstream_id:
+              description: Upstream provider's identifier for this generation
+              example: chatcmpl-791bcf62-080e-4568-87d0-94c72e3b4946
+              nullable: true
+              type: string
+            upstream_inference_cost:
+              description: Cost charged by the upstream provider
+              example: 0.0012
+              format: double
+              nullable: true
+              type: number
+            usage:
+              description: Usage amount in USD
+              example: 0.0015
+              format: double
+              type: number
+            user_agent:
+              description: User-Agent header from the request
+              nullable: true
+              type: string
+            web_search_engine:
+              description: The resolved web search engine used for this generation (e.g. exa, firecrawl, parallel)
+              example: exa
+              nullable: true
+              type: string
+          required:
+            - id
+            - upstream_id
+            - total_cost
+            - cache_discount
+            - upstream_inference_cost
+            - created_at
+            - model
+            - app_id
+            - streamed
+            - cancelled
+            - provider_name
+            - latency
+            - moderation_latency
+            - generation_time
+            - finish_reason
+            - tokens_prompt
+            - tokens_completion
+            - native_tokens_prompt
+            - native_tokens_completion
+            - native_tokens_completion_images
+            - native_tokens_reasoning
+            - native_tokens_cached
+            - num_media_prompt
+            - num_input_audio_prompt
+            - num_media_completion
+            - num_search_results
+            - web_search_engine
+            - origin
+            - usage
+            - is_byok
+            - native_finish_reason
+            - external_user
+            - api_type
+            - router
+            - provider_responses
+            - user_agent
+            - http_referer
+          type: object
+      required:
+        - data
+      type: object
     GetGuardrailResponse:
       example:
         data:
@@ -5567,16 +6178,42 @@ components:
           description: Guardrail for production environment
           enforce_zdr: false
           id: 550e8400-e29b-41d4-a716-446655440000
+          ignored_models: null
           ignored_providers: null
           limit_usd: 100
           name: Production Guardrail
           reset_interval: monthly
           updated_at: '2025-08-24T15:45:00Z'
+          workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
       properties:
         data:
           allOf:
             - $ref: '#/components/schemas/Guardrail'
             - description: The guardrail
+      required:
+        - data
+      type: object
+    GetWorkspaceResponse:
+      example:
+        data:
+          created_at: '2025-08-24T10:30:00Z'
+          created_by: user_abc123
+          default_image_model: openai/dall-e-3
+          default_provider_sort: price
+          default_text_model: openai/gpt-4o
+          description: Production environment workspace
+          id: 550e8400-e29b-41d4-a716-446655440000
+          is_data_discount_logging_enabled: true
+          is_observability_broadcast_enabled: false
+          is_observability_io_logging_enabled: false
+          name: Production
+          slug: production
+          updated_at: '2025-08-24T15:45:00Z'
+      properties:
+        data:
+          allOf:
+            - $ref: '#/components/schemas/Workspace'
+            - description: The workspace
       required:
         - data
       type: object
@@ -5627,11 +6264,13 @@ components:
         description: Guardrail for production environment
         enforce_zdr: false
         id: 550e8400-e29b-41d4-a716-446655440000
+        ignored_models: null
         ignored_providers: null
         limit_usd: 100
         name: Production Guardrail
         reset_interval: monthly
         updated_at: '2025-08-24T15:45:00Z'
+        workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
       properties:
         allowed_models:
           description: Array of model canonical_slugs (immutable identifiers)
@@ -5672,6 +6311,14 @@ components:
           example: 550e8400-e29b-41d4-a716-446655440000
           format: uuid
           type: string
+        ignored_models:
+          description: Array of model canonical_slugs to exclude from routing
+          example:
+            - openai/gpt-4o-mini-2024-07-18
+          items:
+            type: string
+          nullable: true
+          type: array
         ignored_providers:
           description: List of provider IDs to exclude from routing
           example:
@@ -5684,6 +6331,7 @@ components:
           description: Spending limit in USD
           example: 100
           format: double
+          nullable: true
           type: number
         name:
           description: Name of the guardrail
@@ -5696,10 +6344,15 @@ components:
           example: '2025-08-24T15:45:00Z'
           nullable: true
           type: string
+        workspace_id:
+          description: The workspace ID this guardrail belongs to.
+          example: 0df9e665-d932-5740-b2c7-b52af166bc11
+          type: string
       required:
         - id
         - name
         - created_at
+        - workspace_id
       type: object
     GuardrailInterval:
       description: Interval at which the limit resets (daily, weekly, monthly)
@@ -5712,6 +6365,21 @@ components:
       nullable: true
       type: string
       x-speakeasy-unknown-values: allow
+    ImageConfig:
+      additionalProperties:
+        anyOf:
+          - type: string
+          - format: double
+            type: number
+          - items:
+              nullable: true
+            type: array
+      description: >-
+        Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
+      example:
+        aspect_ratio: '16:9'
+        quality: high
+      type: object
     ImageGenCallCompletedEvent:
       allOf:
         - $ref: '#/components/schemas/OpenAIResponsesImageGenCallCompleted'
@@ -5831,6 +6499,45 @@ components:
           type: string
       required:
         - type
+      type: object
+    ImageGenerationServerTool_OpenRouter:
+      description: 'OpenRouter built-in server tool: generates images from text prompts using an image generation model'
+      example:
+        parameters:
+          model: openai/gpt-image-1
+          quality: high
+          size: 1024x1024
+        type: openrouter:image_generation
+      properties:
+        parameters:
+          $ref: '#/components/schemas/ImageGenerationServerToolConfig'
+        type:
+          enum:
+            - openrouter:image_generation
+          type: string
+      required:
+        - type
+      type: object
+    ImageGenerationServerToolConfig:
+      additionalProperties:
+        anyOf:
+          - type: string
+          - format: double
+            type: number
+          - items:
+              nullable: true
+            type: array
+      description: >-
+        Configuration for the openrouter:image_generation server tool. Accepts all image_config params (aspect_ratio, quality, size, background, output_format, output_compression, moderation, etc.) plus a model field.
+      example:
+        aspect_ratio: '16:9'
+        model: openai/gpt-5-image
+        quality: high
+      properties:
+        model:
+          description: Which image generation model to use (e.g. "openai/gpt-5-image"). Defaults to "openai/gpt-5-image".
+          example: openai/gpt-5-image
+          type: string
       type: object
     ImageGenerationStatus:
       enum:
@@ -6447,11 +7154,13 @@ components:
             description: Guardrail for production environment
             enforce_zdr: false
             id: 550e8400-e29b-41d4-a716-446655440000
+            ignored_models: null
             ignored_providers: null
             limit_usd: 100
             name: Production Guardrail
             reset_interval: monthly
             updated_at: '2025-08-24T15:45:00Z'
+            workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
         total_count: 1
       properties:
         data:
@@ -6511,6 +7220,37 @@ components:
         total_count:
           description: Total number of member assignments
           example: 10
+          type: integer
+      required:
+        - data
+        - total_count
+      type: object
+    ListWorkspacesResponse:
+      example:
+        data:
+          - created_at: '2025-08-24T10:30:00Z'
+            created_by: user_abc123
+            default_image_model: openai/dall-e-3
+            default_provider_sort: price
+            default_text_model: openai/gpt-4o
+            description: Production environment workspace
+            id: 550e8400-e29b-41d4-a716-446655440000
+            is_data_discount_logging_enabled: true
+            is_observability_broadcast_enabled: false
+            is_observability_io_logging_enabled: false
+            name: Production
+            slug: production
+            updated_at: '2025-08-24T15:45:00Z'
+        total_count: 1
+      properties:
+        data:
+          description: List of workspaces
+          items:
+            $ref: '#/components/schemas/Workspace'
+          type: array
+        total_count:
+          description: Total number of workspaces
+          example: 5
           type: integer
       required:
         - data
@@ -7113,11 +7853,12 @@ components:
       properties:
         effort:
           description: >-
-            How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, or `max`.
+            How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
           enum:
             - low
             - medium
             - high
+            - xhigh
             - max
             - null
           example: medium
@@ -7140,6 +7881,29 @@ components:
           required:
             - type
             - schema
+          type: object
+        task_budget:
+          description: >-
+            Task budget for an agentic turn. The model sees a countdown of remaining tokens and uses it to prioritize work and wind down gracefully. Advisory — does not enforce a hard cap.
+          example:
+            total: 400000
+            type: tokens
+          nullable: true
+          properties:
+            remaining:
+              minimum: 0
+              nullable: true
+              type: integer
+            total:
+              minimum: 20000
+              type: integer
+            type:
+              enum:
+                - tokens
+              type: string
+          required:
+            - type
+            - total
           type: object
       type: object
     MessagesPingEvent:
@@ -7281,6 +8045,7 @@ components:
                 context-compression: '#/components/schemas/ContextCompressionPlugin'
                 file-parser: '#/components/schemas/FileParserPlugin'
                 moderation: '#/components/schemas/ModerationPlugin'
+                pareto-router: '#/components/schemas/ParetoRouterPlugin'
                 response-healing: '#/components/schemas/ResponseHealingPlugin'
                 web: '#/components/schemas/WebSearchPlugin'
               propertyName: id
@@ -7291,6 +8056,7 @@ components:
               - $ref: '#/components/schemas/FileParserPlugin'
               - $ref: '#/components/schemas/ResponseHealingPlugin'
               - $ref: '#/components/schemas/ContextCompressionPlugin'
+              - $ref: '#/components/schemas/ParetoRouterPlugin'
           type: array
         provider:
           $ref: '#/components/schemas/ProviderPreferences'
@@ -7333,6 +8099,8 @@ components:
             - properties:
                 budget_tokens:
                   type: integer
+                display:
+                  $ref: '#/components/schemas/AnthropicThinkingDisplay'
                 type:
                   enum:
                     - enabled
@@ -7350,6 +8118,8 @@ components:
                 - type
               type: object
             - properties:
+                display:
+                  $ref: '#/components/schemas/AnthropicThinkingDisplay'
                 type:
                   enum:
                     - adaptive
@@ -7477,6 +8247,7 @@ components:
                   cache_control:
                     $ref: '#/components/schemas/AnthropicCacheControlDirective'
                   max_uses:
+                    nullable: true
                     type: integer
                   name:
                     enum:
@@ -7515,6 +8286,7 @@ components:
                   cache_control:
                     $ref: '#/components/schemas/AnthropicCacheControlDirective'
                   max_uses:
+                    nullable: true
                     type: integer
                   name:
                     enum:
@@ -7531,6 +8303,8 @@ components:
                   - name
                 type: object
               - $ref: '#/components/schemas/DatetimeServerTool'
+              - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
+              - $ref: '#/components/schemas/ChatSearchModelsServerTool'
               - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
           type: array
         top_k:
@@ -7553,6 +8327,23 @@ components:
       allOf:
         - $ref: '#/components/schemas/BaseMessagesResult'
         - properties:
+            context_management:
+              nullable: true
+              properties:
+                applied_edits:
+                  items:
+                    additionalProperties:
+                      nullable: true
+                    properties:
+                      type:
+                        type: string
+                    required:
+                      - type
+                    type: object
+                  type: array
+              required:
+                - applied_edits
+              type: object
             provider:
               $ref: '#/components/schemas/ProviderName'
             usage:
@@ -7561,6 +8352,7 @@ components:
                 - properties:
                     cost:
                       format: double
+                      nullable: true
                       type: number
                     cost_details:
                       nullable: true
@@ -7570,6 +8362,7 @@ components:
                           type: number
                         upstream_inference_cost:
                           format: double
+                          nullable: true
                           type: number
                         upstream_inference_prompt_cost:
                           format: double
@@ -7687,6 +8480,7 @@ components:
                 - AionLabs
                 - Alibaba
                 - Ambient
+                - Baidu
                 - Amazon Bedrock
                 - Amazon Nova
                 - Anthropic
@@ -7706,6 +8500,7 @@ components:
                 - Crusoe
                 - DeepInfra
                 - DeepSeek
+                - DekaLLM
                 - Featherless
                 - Fireworks
                 - Friendli
@@ -7740,6 +8535,7 @@ components:
                 - Parasail
                 - Perplexity
                 - Phala
+                - Recraft
                 - Reka
                 - Relace
                 - SambaNova
@@ -7900,6 +8696,7 @@ components:
         context_length:
           description: Maximum context length in tokens
           example: 8192
+          nullable: true
           type: integer
         created:
           description: Unix timestamp of when the model was created
@@ -8710,6 +9507,8 @@ components:
             service_tier:
               nullable: true
               type: string
+            text:
+              $ref: '#/components/schemas/TextExtendedConfig'
             usage:
               $ref: '#/components/schemas/Usage'
           type: object
@@ -9097,6 +9896,7 @@ components:
       example:
         id: ig_tmp_abc123
         imageUrl: https://example.com/image.png
+        result: https://example.com/image.png
         status: completed
         type: openrouter:image_generation
       properties:
@@ -9105,6 +9905,10 @@ components:
         imageB64:
           type: string
         imageUrl:
+          type: string
+        result:
+          description: The generated image as a base64-encoded string or URL, matching OpenAI image_generation_call format
+          nullable: true
           type: string
         revisedPrompt:
           type: string
@@ -9353,6 +10157,7 @@ components:
           openrouter:browser_use: '#/components/schemas/OutputBrowserUseServerToolItem'
           openrouter:code_interpreter: '#/components/schemas/OutputCodeInterpreterServerToolItem'
           openrouter:datetime: '#/components/schemas/OutputDatetimeItem'
+          openrouter:experimental__search_models: '#/components/schemas/OutputSearchModelsServerToolItem'
           openrouter:file_search: '#/components/schemas/OutputFileSearchServerToolItem'
           openrouter:image_generation: '#/components/schemas/OutputImageGenerationServerToolItem'
           openrouter:mcp: '#/components/schemas/OutputMcpServerToolItem'
@@ -9394,6 +10199,7 @@ components:
         - $ref: '#/components/schemas/OutputToolSearchServerToolItem'
         - $ref: '#/components/schemas/OutputMemoryServerToolItem'
         - $ref: '#/components/schemas/OutputMcpServerToolItem'
+        - $ref: '#/components/schemas/OutputSearchModelsServerToolItem'
     OutputItemWebSearchCall:
       example:
         action:
@@ -9597,6 +10403,7 @@ components:
         - audio
         - video
         - rerank
+        - tts
       example: text
       type: string
       x-speakeasy-unknown-values: allow
@@ -9637,6 +10444,32 @@ components:
           - text: Analyzed the problem and found the optimal solution.
             type: summary_text
         type: reasoning
+    OutputSearchModelsServerToolItem:
+      description: An openrouter:experimental__search_models server tool output item
+      example:
+        arguments: '{"query":"Claude Opus"}'
+        id: sm_tmp_abc123
+        query: Claude Opus
+        status: completed
+        type: openrouter:experimental__search_models
+      properties:
+        arguments:
+          description: The JSON arguments submitted to the search tool (e.g. {"query":"Claude"})
+          type: string
+        id:
+          type: string
+        query:
+          type: string
+        status:
+          $ref: '#/components/schemas/ToolCallStatus'
+        type:
+          enum:
+            - openrouter:experimental__search_models
+          type: string
+      required:
+        - status
+        - type
+      type: object
     OutputTextEditorServerToolItem:
       description: An openrouter:text_editor server tool output item
       example:
@@ -9775,6 +10608,30 @@ components:
       example: temperature
       type: string
       x-speakeasy-unknown-values: allow
+    ParetoRouterPlugin:
+      example:
+        enabled: true
+        id: pareto-router
+        min_coding_score: 0.8
+      properties:
+        enabled:
+          description: Set to false to disable the pareto-router plugin for this request. Defaults to true.
+          type: boolean
+        id:
+          enum:
+            - pareto-router
+          type: string
+        min_coding_score:
+          description: >-
+            Minimum desired coding score between 0 and 1, where 1 is best. Higher values select from stronger coding models (sourced from Artificial Analysis coding percentiles). Maps internally to one of three tiers (low, medium, high). Omit to use the router default tier.
+          example: 0.8
+          format: double
+          maximum: 1
+          minimum: 0
+          type: number
+      required:
+        - id
+      type: object
     PayloadTooLargeResponse:
       description: Payload Too Large - Request payload exceeds size limits
       example:
@@ -9874,18 +10731,22 @@ components:
         p50:
           description: Maximum p50 latency (seconds)
           format: double
+          nullable: true
           type: number
         p75:
           description: Maximum p75 latency (seconds)
           format: double
+          nullable: true
           type: number
         p90:
           description: Maximum p90 latency (seconds)
           format: double
+          nullable: true
           type: number
         p99:
           description: Maximum p99 latency (seconds)
           format: double
+          nullable: true
           type: number
       type: object
     PercentileStats:
@@ -9933,18 +10794,22 @@ components:
         p50:
           description: Minimum p50 throughput (tokens/sec)
           format: double
+          nullable: true
           type: number
         p75:
           description: Minimum p75 throughput (tokens/sec)
           format: double
+          nullable: true
           type: number
         p90:
           description: Minimum p90 throughput (tokens/sec)
           format: double
+          nullable: true
           type: number
         p99:
           description: Minimum p99 throughput (tokens/sec)
           format: double
+          nullable: true
           type: number
       type: object
     PerRequestLimits:
@@ -10069,6 +10934,7 @@ components:
         - AionLabs
         - Alibaba
         - Ambient
+        - Baidu
         - Amazon Bedrock
         - Amazon Nova
         - Anthropic
@@ -10088,6 +10954,7 @@ components:
         - Crusoe
         - DeepInfra
         - DeepSeek
+        - DekaLLM
         - Featherless
         - Fireworks
         - Friendli
@@ -10122,6 +10989,7 @@ components:
         - Parasail
         - Perplexity
         - Phala
+        - Recraft
         - Reka
         - Relace
         - SambaNova
@@ -10372,6 +11240,7 @@ components:
             - AionLabs
             - Alibaba
             - Ambient
+            - Baidu
             - Amazon Bedrock
             - Amazon Nova
             - Anthropic
@@ -10391,6 +11260,7 @@ components:
             - Crusoe
             - DeepInfra
             - DeepSeek
+            - DekaLLM
             - Featherless
             - Fireworks
             - Friendli
@@ -10425,6 +11295,7 @@ components:
             - Parasail
             - Perplexity
             - Phala
+            - Recraft
             - Reka
             - Relace
             - SambaNova
@@ -10536,8 +11407,10 @@ components:
         latency_last_30m:
           $ref: '#/components/schemas/PercentileStats'
         max_completion_tokens:
+          nullable: true
           type: integer
         max_prompt_tokens:
+          nullable: true
           type: integer
         model_id:
           description: The unique identifier for the model (permaslug)
@@ -10632,14 +11505,17 @@ components:
           description: >-
             Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
           format: double
+          nullable: true
           type: number
         uptime_last_30m:
           format: double
+          nullable: true
           type: number
         uptime_last_5m:
           description: >-
             Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
           format: double
+          nullable: true
           type: number
       required:
         - name
@@ -10749,6 +11625,7 @@ components:
               nullable: true
               type: boolean
             max_tokens:
+              nullable: true
               type: integer
           type: object
       description: Configuration for reasoning mode in the response
@@ -11231,18 +12108,10 @@ components:
           type: boolean
         frequency_penalty:
           format: double
+          nullable: true
           type: number
         image_config:
-          additionalProperties:
-            anyOf:
-              - type: string
-              - format: double
-                type: number
-          description: >-
-            Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/features/multimodal/image-generation for more details.
-          example:
-            aspect_ratio: '16:9'
-          type: object
+          $ref: '#/components/schemas/ImageConfig'
         include:
           items:
             $ref: '#/components/schemas/ResponseIncludesEnum'
@@ -11254,8 +12123,10 @@ components:
           nullable: true
           type: string
         max_output_tokens:
+          nullable: true
           type: integer
         max_tool_calls:
+          nullable: true
           type: integer
         metadata:
           $ref: '#/components/schemas/RequestMetadata'
@@ -11285,6 +12156,7 @@ components:
                 context-compression: '#/components/schemas/ContextCompressionPlugin'
                 file-parser: '#/components/schemas/FileParserPlugin'
                 moderation: '#/components/schemas/ModerationPlugin'
+                pareto-router: '#/components/schemas/ParetoRouterPlugin'
                 response-healing: '#/components/schemas/ResponseHealingPlugin'
                 web: '#/components/schemas/WebSearchPlugin'
               propertyName: id
@@ -11295,9 +12167,11 @@ components:
               - $ref: '#/components/schemas/FileParserPlugin'
               - $ref: '#/components/schemas/ResponseHealingPlugin'
               - $ref: '#/components/schemas/ContextCompressionPlugin'
+              - $ref: '#/components/schemas/ParetoRouterPlugin'
           type: array
         presence_penalty:
           format: double
+          nullable: true
           type: number
         previous_response_id:
           nullable: true
@@ -11342,6 +12216,7 @@ components:
           type: boolean
         temperature:
           format: double
+          nullable: true
           type: number
         text:
           $ref: '#/components/schemas/TextExtendedConfig'
@@ -11387,14 +12262,18 @@ components:
               - $ref: '#/components/schemas/ApplyPatchServerTool'
               - $ref: '#/components/schemas/CustomTool'
               - $ref: '#/components/schemas/DatetimeServerTool'
+              - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
+              - $ref: '#/components/schemas/ChatSearchModelsServerTool'
               - $ref: '#/components/schemas/WebSearchServerTool_OpenRouter'
           type: array
         top_k:
           type: integer
         top_logprobs:
+          nullable: true
           type: integer
         top_p:
           format: double
+          nullable: true
           type: number
         trace:
           $ref: '#/components/schemas/TraceConfig'
@@ -11415,6 +12294,16 @@ components:
       example: medium
       type: string
       x-speakeasy-unknown-values: allow
+    SearchModelsServerToolConfig:
+      description: Configuration for the openrouter:experimental__search_models server tool
+      example:
+        max_results: 5
+      properties:
+        max_results:
+          description: Maximum number of models to return. Defaults to 5, max 20.
+          example: 5
+          type: integer
+      type: object
     SearchQualityLevel:
       description: >-
         How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
@@ -11482,6 +12371,484 @@ components:
           type: string
       required:
         - type
+      type: object
+    SpeechRequest:
+      description: Text-to-speech request input
+      example:
+        input: Hello world
+        model: elevenlabs/eleven-turbo-v2
+        response_format: pcm
+        speed: 1
+        voice: alloy
+      properties:
+        input:
+          description: Text to synthesize
+          example: Hello world
+          type: string
+        model:
+          description: TTS model identifier
+          example: elevenlabs/eleven-turbo-v2
+          type: string
+        provider:
+          description: Provider-specific passthrough configuration
+          properties:
+            options:
+              description: >-
+                Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+              properties:
+                01ai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                ai21:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                aion-labs:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                akashml:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                alibaba:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                amazon-bedrock:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                amazon-nova:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                ambient:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                anthropic:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                anyscale:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                arcee-ai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                atlas-cloud:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                atoma:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                avian:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                azure:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                baidu:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                baseten:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                black-forest-labs:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                byteplus:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                centml:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                cerebras:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                chutes:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                cirrascale:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                clarifai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                cloudflare:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                cohere:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                crofai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                crusoe:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                deepinfra:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                deepseek:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                dekallm:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                enfer:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                fake-provider:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                featherless:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                fireworks:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                friendli:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                gmicloud:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                google-ai-studio:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                google-vertex:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                gopomelo:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                groq:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                huggingface:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                hyperbolic:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                hyperbolic-quantized:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                inception:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                inceptron:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                inference-net:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                infermatic:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                inflection:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                inocloud:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                io-net:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                ionstream:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                klusterai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                lambda:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                lepton:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                liquid:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                lynn:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                lynn-private:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                mancer:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                mancer-old:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                mara:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                meta:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                minimax:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                mistral:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                modal:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                modelrun:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                modular:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                moonshotai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                morph:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                ncompass:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                nebius:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                nextbit:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                nineteen:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                novita:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                nvidia:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                octoai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                open-inference:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                openai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                parasail:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                perplexity:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                phala:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                recraft:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                recursal:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                reflection:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                reka:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                relace:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                replicate:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                sambanova:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                sambanova-cloaked:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                seed:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                sf-compute:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                siliconflow:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                sourceful:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                stealth:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                stepfun:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                streamlake:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                switchpoint:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                targon:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                together:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                together-lite:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                ubicloud:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                upstage:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                venice:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                wandb:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                xai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                xiaomi:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                z-ai:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+              type: object
+          type: object
+        response_format:
+          default: pcm
+          description: Audio output format
+          enum:
+            - mp3
+            - pcm
+          example: pcm
+          type: string
+          x-speakeasy-unknown-values: allow
+        speed:
+          description: >-
+            Playback speed multiplier. Only used by models that support it (e.g. OpenAI TTS). Ignored by other providers.
+          example: 1
+          format: double
+          type: number
+        voice:
+          description: Voice identifier (provider-specific).
+          example: alloy
+          type: string
+      required:
+        - model
+        - input
+        - voice
       type: object
     StoredPromptTemplate:
       example:
@@ -11806,7 +13173,18 @@ components:
     TextExtendedConfig:
       allOf:
         - $ref: '#/components/schemas/TextConfig'
-        - properties: {}
+        - properties:
+            verbosity:
+              enum:
+                - low
+                - medium
+                - high
+                - xhigh
+                - max
+                - null
+              nullable: true
+              type: string
+              x-speakeasy-unknown-values: allow
           type: object
       description: Text output configuration including format and verbosity
       example:
@@ -11896,6 +13274,7 @@ components:
         context_length:
           description: Context length from the top provider
           example: 8192
+          nullable: true
           type: integer
         is_moderated:
           description: Whether the top provider moderates content
@@ -11904,6 +13283,7 @@ components:
         max_completion_tokens:
           description: Maximum completion tokens from the top provider
           example: 4096
+          nullable: true
           type: integer
       required:
         - is_moderated
@@ -12043,6 +13423,15 @@ components:
           example: true
           nullable: true
           type: boolean
+        ignored_models:
+          description: Array of model identifiers to exclude from routing (slug or canonical_slug accepted)
+          example:
+            - openai/gpt-4o-mini
+          items:
+            type: string
+          minItems: 1
+          nullable: true
+          type: array
         ignored_providers:
           description: List of provider IDs to exclude from routing
           example:
@@ -12056,6 +13445,7 @@ components:
           description: New spending limit in USD
           example: 75
           format: double
+          nullable: true
           type: number
         name:
           description: New name for the guardrail
@@ -12076,16 +13466,94 @@ components:
           description: Updated description
           enforce_zdr: true
           id: 550e8400-e29b-41d4-a716-446655440000
+          ignored_models: null
           ignored_providers: null
           limit_usd: 75
           name: Updated Guardrail Name
           reset_interval: weekly
           updated_at: '2025-08-24T16:00:00Z'
+          workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
       properties:
         data:
           allOf:
             - $ref: '#/components/schemas/Guardrail'
             - description: The updated guardrail
+      required:
+        - data
+      type: object
+    UpdateWorkspaceRequest:
+      example:
+        name: Updated Workspace
+        slug: updated-workspace
+      properties:
+        default_image_model:
+          description: Default image model for this workspace
+          example: openai/dall-e-3
+          nullable: true
+          type: string
+        default_provider_sort:
+          description: Default provider sort preference (price, throughput, latency, exacto)
+          example: price
+          nullable: true
+          type: string
+        default_text_model:
+          description: Default text model for this workspace
+          example: openai/gpt-4o
+          nullable: true
+          type: string
+        description:
+          description: New description for the workspace
+          example: Updated description
+          maxLength: 500
+          nullable: true
+          type: string
+        is_data_discount_logging_enabled:
+          description: Whether data discount logging is enabled
+          example: true
+          type: boolean
+        is_observability_broadcast_enabled:
+          description: Whether broadcast is enabled
+          example: false
+          type: boolean
+        is_observability_io_logging_enabled:
+          description: Whether private logging is enabled
+          example: false
+          type: boolean
+        name:
+          description: New name for the workspace
+          example: Updated Workspace
+          maxLength: 100
+          minLength: 1
+          type: string
+        slug:
+          description: New URL-friendly slug
+          example: updated-workspace
+          maxLength: 50
+          minLength: 1
+          pattern: ^[a-z0-9-]+$
+          type: string
+      type: object
+    UpdateWorkspaceResponse:
+      example:
+        data:
+          created_at: '2025-08-24T10:30:00Z'
+          created_by: user_abc123
+          default_image_model: openai/dall-e-3
+          default_provider_sort: price
+          default_text_model: openai/gpt-4o
+          description: Production environment workspace
+          id: 550e8400-e29b-41d4-a716-446655440000
+          is_data_discount_logging_enabled: true
+          is_observability_broadcast_enabled: false
+          is_observability_io_logging_enabled: false
+          name: Updated Workspace
+          slug: updated-workspace
+          updated_at: '2025-08-25T10:00:00Z'
+      properties:
+        data:
+          allOf:
+            - $ref: '#/components/schemas/Workspace'
+            - description: The updated workspace
       required:
         - data
       type: object
@@ -12124,11 +13592,13 @@ components:
             cost:
               description: Cost of the completion
               format: double
+              nullable: true
               type: number
             cost_details:
               properties:
                 upstream_inference_cost:
                   format: double
+                  nullable: true
                   type: number
                 upstream_inference_input_cost:
                   format: double
@@ -12182,12 +13652,17 @@ components:
         duration:
           description: Duration of the generated video in seconds
           example: 8
-          exclusiveMinimum: true
-          minimum: 0
+          minimum: 1
           type: integer
+        frame_images:
+          description: >-
+            Images to use as the first and/or last frame of the generated video. Each image must specify a frame_type of first_frame or last_frame.
+          items:
+            $ref: '#/components/schemas/FrameImage'
+          type: array
         generate_audio:
           description: >-
-            Whether to generate audio alongside the video. Defaults to true for models that support audio output, false otherwise.
+            Whether to generate audio alongside the video. Defaults to the endpoint's generate_audio capability flag, false if not set.
           example: true
           type: boolean
         input_references:
@@ -12270,6 +13745,10 @@ components:
                   additionalProperties:
                     nullable: true
                   type: object
+                baidu:
+                  additionalProperties:
+                    nullable: true
+                  type: object
                 baseten:
                   additionalProperties:
                     nullable: true
@@ -12323,6 +13802,10 @@ components:
                     nullable: true
                   type: object
                 deepseek:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                dekallm:
                   additionalProperties:
                     nullable: true
                   type: object
@@ -12526,6 +14009,10 @@ components:
                   additionalProperties:
                     nullable: true
                   type: object
+                recraft:
+                  additionalProperties:
+                    nullable: true
+                  type: object
                 recursal:
                   additionalProperties:
                     nullable: true
@@ -12699,6 +14186,7 @@ components:
         cost:
           description: The cost of the video generation in USD.
           format: double
+          nullable: true
           type: number
         is_byok:
           description: Whether the request was made using a Bring Your Own Key configuration.
@@ -12710,15 +14198,20 @@ components:
         canonical_slug: google/veo-3.1
         created: 1700000000
         description: Google video generation model
+        generate_audio: true
         id: google/veo-3.1
         name: Veo 3.1
         pricing_skus:
           generate: '0.50'
+        seed: null
         supported_aspect_ratios:
           - '16:9'
         supported_durations:
           - 5
           - 8
+        supported_frame_images:
+          - first_frame
+          - last_frame
         supported_resolutions:
           - 720p
         supported_sizes: null
@@ -12740,6 +14233,10 @@ components:
           description: Description of the model
           example: GPT-4 is a large multimodal model that can solve difficult problems with greater accuracy.
           type: string
+        generate_audio:
+          description: Whether the model supports generating audio alongside video
+          nullable: true
+          type: boolean
         hugging_face_id:
           description: Hugging Face model identifier, if applicable
           example: microsoft/DialoGPT-medium
@@ -12759,6 +14256,10 @@ components:
           description: Pricing SKUs with provider prefix stripped, values as strings
           nullable: true
           type: object
+        seed:
+          description: Whether the model supports deterministic generation via seed parameter
+          nullable: true
+          type: boolean
         supported_aspect_ratios:
           description: Supported output aspect ratios
           items:
@@ -12778,6 +14279,16 @@ components:
           description: Supported video durations in seconds
           items:
             type: integer
+          nullable: true
+          type: array
+        supported_frame_images:
+          description: Supported frame image types (e.g. first_frame, last_frame)
+          items:
+            enum:
+              - first_frame
+              - last_frame
+            type: string
+            x-speakeasy-unknown-values: allow
           nullable: true
           type: array
         supported_resolutions:
@@ -12839,6 +14350,9 @@ components:
         - supported_aspect_ratios
         - supported_sizes
         - supported_durations
+        - supported_frame_images
+        - generate_audio
+        - seed
         - allowed_passthrough_parameters
       type: object
     VideoModelsListResponse:
@@ -12848,15 +14362,20 @@ components:
             canonical_slug: google/veo-3.1
             created: 1700000000
             description: Google video generation model
+            generate_audio: true
             id: google/veo-3.1
             name: Veo 3.1
             pricing_skus:
               generate: '0.50'
+            seed: null
             supported_aspect_ratios:
               - '16:9'
             supported_durations:
               - 5
               - 8
+            supported_frame_images:
+              - first_frame
+              - last_frame
             supported_resolutions:
               - 720p
             supported_sizes: null
@@ -13146,6 +14665,137 @@ components:
             - approximate
           type: string
       type: object
+    Workspace:
+      example:
+        created_at: '2025-08-24T10:30:00Z'
+        created_by: user_abc123
+        default_image_model: openai/dall-e-3
+        default_provider_sort: price
+        default_text_model: openai/gpt-4o
+        description: Production environment workspace
+        id: 550e8400-e29b-41d4-a716-446655440000
+        is_data_discount_logging_enabled: true
+        is_observability_broadcast_enabled: false
+        is_observability_io_logging_enabled: false
+        name: Production
+        slug: production
+        updated_at: '2025-08-24T15:45:00Z'
+      properties:
+        created_at:
+          description: ISO 8601 timestamp of when the workspace was created
+          example: '2025-08-24T10:30:00Z'
+          type: string
+        created_by:
+          description: User ID of the workspace creator
+          example: user_abc123
+          nullable: true
+          type: string
+        default_image_model:
+          description: Default image model for this workspace
+          example: openai/dall-e-3
+          nullable: true
+          type: string
+        default_provider_sort:
+          description: Default provider sort preference (price, throughput, latency, exacto)
+          example: price
+          nullable: true
+          type: string
+        default_text_model:
+          description: Default text model for this workspace
+          example: openai/gpt-4o
+          nullable: true
+          type: string
+        description:
+          description: Description of the workspace
+          example: Production environment workspace
+          nullable: true
+          type: string
+        id:
+          description: Unique identifier for the workspace
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+        is_data_discount_logging_enabled:
+          description: Whether data discount logging is enabled for this workspace
+          example: true
+          type: boolean
+        is_observability_broadcast_enabled:
+          description: Whether broadcast is enabled for this workspace
+          example: false
+          type: boolean
+        is_observability_io_logging_enabled:
+          description: Whether private logging is enabled for this workspace
+          example: false
+          type: boolean
+        name:
+          description: Name of the workspace
+          example: Production
+          type: string
+        slug:
+          description: URL-friendly slug for the workspace
+          example: production
+          type: string
+        updated_at:
+          description: ISO 8601 timestamp of when the workspace was last updated
+          example: '2025-08-24T15:45:00Z'
+          nullable: true
+          type: string
+      required:
+        - id
+        - name
+        - slug
+        - description
+        - default_text_model
+        - default_image_model
+        - default_provider_sort
+        - is_observability_io_logging_enabled
+        - is_observability_broadcast_enabled
+        - is_data_discount_logging_enabled
+        - created_at
+        - updated_at
+        - created_by
+      type: object
+    WorkspaceMember:
+      example:
+        created_at: '2025-08-24T10:30:00Z'
+        id: 660e8400-e29b-41d4-a716-446655440000
+        role: member
+        user_id: user_abc123
+        workspace_id: 550e8400-e29b-41d4-a716-446655440000
+      properties:
+        created_at:
+          description: ISO 8601 timestamp of when the membership was created
+          example: '2025-08-24T10:30:00Z'
+          type: string
+        id:
+          description: Unique identifier for the workspace membership
+          example: 660e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+        role:
+          description: Role of the member in the workspace
+          enum:
+            - admin
+            - member
+          example: member
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          description: Clerk user ID of the member
+          example: user_abc123
+          type: string
+        workspace_id:
+          description: ID of the workspace
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+      required:
+        - id
+        - workspace_id
+        - user_id
+        - role
+        - created_at
+      type: object
   securitySchemes:
     apiKey:
       description: API key as bearer token in Authorization header
@@ -13274,6 +14924,136 @@ paths:
       summary: Get user activity grouped by endpoint
       tags:
         - Analytics
+  /audio/speech:
+    post:
+      description: Synthesizes audio from the input text
+      operationId: createAudioSpeech
+      requestBody:
+        content:
+          application/json:
+            example:
+              input: Hello world
+              model: elevenlabs/eleven-turbo-v2
+              response_format: pcm
+              speed: 1
+              voice: alloy
+            schema:
+              $ref: '#/components/schemas/SpeechRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            audio/*:
+              schema:
+                description: Raw audio bytestream. Content-Type varies by requested format (audio/mpeg for mp3, audio/L16 for pcm).
+                example: <binary audio data>
+                format: binary
+                type: string
+          description: Audio bytes stream
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '402':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 402
+                  message: Insufficient credits. Add more using https://openrouter.ai/credits
+              schema:
+                $ref: '#/components/schemas/PaymentRequiredResponse'
+          description: Payment Required - Insufficient credits or quota to complete request
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '429':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 429
+                  message: Rate limit exceeded
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsResponse'
+          description: Too Many Requests - Rate limit exceeded
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+        '502':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 502
+                  message: Provider returned error
+              schema:
+                $ref: '#/components/schemas/BadGatewayResponse'
+          description: Bad Gateway - Provider/upstream API failure
+        '503':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 503
+                  message: Service temporarily unavailable
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableResponse'
+          description: Service Unavailable - Service temporarily unavailable
+        '524':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 524
+                  message: Request timed out. Please try again later.
+              schema:
+                $ref: '#/components/schemas/EdgeNetworkTimeoutResponse'
+          description: Infrastructure Timeout - Provider request timed out at edge network
+        '529':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 529
+                  message: Provider returned error
+              schema:
+                $ref: '#/components/schemas/ProviderOverloadedResponse'
+          description: Provider Overloaded - Provider is temporarily overloaded
+      summary: Create speech
+      tags:
+        - TTS
+      x-speakeasy-name-override: createSpeech
   /auth/keys:
     post:
       description: Exchange an authorization code from the PKCE flow for a user-controlled API key
@@ -13858,8 +15638,7 @@ paths:
                 dimensions:
                   description: The number of dimensions for the output embeddings
                   example: 1536
-                  exclusiveMinimum: 0
-                  minimum: 0
+                  minimum: 1
                   type: integer
                 encoding_format:
                   description: The format of the output embeddings
@@ -14033,6 +15812,25 @@ paths:
                         description: Number of tokens in the input
                         example: 8
                         type: integer
+                      prompt_tokens_details:
+                        description: >-
+                          Per-modality token breakdown. Only present when the input contains 2+ modalities (e.g. text + image) and the upstream provider returns modality-level usage data. Only non-zero modality counts are included.
+                        properties:
+                          audio_tokens:
+                            description: Number of audio tokens in the input
+                            type: integer
+                          image_tokens:
+                            description: Number of image tokens in the input
+                            example: 258
+                            type: integer
+                          text_tokens:
+                            description: Number of text tokens in the input
+                            example: 8
+                            type: integer
+                          video_tokens:
+                            description: Number of video tokens in the input
+                            type: integer
+                        type: object
                       total_tokens:
                         description: Total number of tokens used
                         example: 8
@@ -14344,15 +16142,15 @@ paths:
             application/json:
               example:
                 data:
-                  api_type: null
+                  api_type: completions
                   app_id: 12345
-                  cache_discount: 0.0002
+                  cache_discount: null
                   cancelled: false
                   created_at: '2024-07-15T23:33:19.433273+00:00'
                   external_user: user-123
                   finish_reason: stop
                   generation_time: 1200
-                  http_referer: null
+                  http_referer: https://openrouter.ai/
                   id: gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG
                   is_byok: false
                   latency: 1250
@@ -14372,7 +16170,8 @@ paths:
                   provider_name: Infermatic
                   provider_responses: null
                   request_id: req-1727282430-aBcDeFgHiJkLmNoPqRsT
-                  router: null
+                  router: openrouter/auto
+                  session_id: null
                   streamed: true
                   tokens_completion: 25
                   tokens_prompt: 10
@@ -14380,231 +16179,9 @@ paths:
                   upstream_id: chatcmpl-791bcf62-080e-4568-87d0-94c72e3b4946
                   upstream_inference_cost: 0.0012
                   usage: 0.0015
-                  user_agent: null
+                  user_agent: Mozilla/5.0
               schema:
-                description: Generation response
-                properties:
-                  data:
-                    description: Generation data
-                    properties:
-                      api_type:
-                        description: Type of API used for the generation
-                        enum:
-                          - completions
-                          - embeddings
-                          - rerank
-                          - video
-                          - null
-                        nullable: true
-                        type: string
-                        x-speakeasy-unknown-values: allow
-                      app_id:
-                        description: ID of the app that made the request
-                        example: 12345
-                        type: integer
-                      cache_discount:
-                        description: Discount applied due to caching
-                        example: 0.0002
-                        format: double
-                        type: number
-                      cancelled:
-                        description: Whether the generation was cancelled
-                        example: false
-                        nullable: true
-                        type: boolean
-                      created_at:
-                        description: ISO 8601 timestamp of when the generation was created
-                        example: '2024-07-15T23:33:19.433273+00:00'
-                        type: string
-                      external_user:
-                        description: External user identifier
-                        example: user-123
-                        nullable: true
-                        type: string
-                      finish_reason:
-                        description: Reason the generation finished
-                        example: stop
-                        nullable: true
-                        type: string
-                      generation_time:
-                        description: Time taken for generation in milliseconds
-                        example: 1200
-                        format: double
-                        type: number
-                      http_referer:
-                        description: Referer header from the request
-                        nullable: true
-                        type: string
-                      id:
-                        description: Unique identifier for the generation
-                        example: gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG
-                        type: string
-                      is_byok:
-                        description: Whether this used bring-your-own-key
-                        example: false
-                        type: boolean
-                      latency:
-                        description: Total latency in milliseconds
-                        example: 1250
-                        format: double
-                        type: number
-                      model:
-                        description: Model used for the generation
-                        example: sao10k/l3-stheno-8b
-                        type: string
-                      moderation_latency:
-                        description: Moderation latency in milliseconds
-                        example: 50
-                        format: double
-                        type: number
-                      native_finish_reason:
-                        description: Native finish reason as reported by provider
-                        example: stop
-                        nullable: true
-                        type: string
-                      native_tokens_cached:
-                        description: Native cached tokens as reported by provider
-                        example: 3
-                        type: integer
-                      native_tokens_completion:
-                        description: Native completion tokens as reported by provider
-                        example: 25
-                        type: integer
-                      native_tokens_completion_images:
-                        description: Native completion image tokens as reported by provider
-                        example: 0
-                        type: integer
-                      native_tokens_prompt:
-                        description: Native prompt tokens as reported by provider
-                        example: 10
-                        type: integer
-                      native_tokens_reasoning:
-                        description: Native reasoning tokens as reported by provider
-                        example: 5
-                        type: integer
-                      num_input_audio_prompt:
-                        description: Number of audio inputs in the prompt
-                        example: 0
-                        type: integer
-                      num_media_completion:
-                        description: Number of media items in the completion
-                        example: 0
-                        type: integer
-                      num_media_prompt:
-                        description: Number of media items in the prompt
-                        example: 1
-                        type: integer
-                      num_search_results:
-                        description: Number of search results included
-                        example: 5
-                        type: integer
-                      origin:
-                        description: Origin URL of the request
-                        example: https://openrouter.ai/
-                        type: string
-                      provider_name:
-                        description: Name of the provider that served the request
-                        example: Infermatic
-                        nullable: true
-                        type: string
-                      provider_responses:
-                        description: List of provider responses for this generation, including fallback attempts
-                        items:
-                          $ref: '#/components/schemas/ProviderResponse'
-                        nullable: true
-                        type: array
-                      request_id:
-                        description: Unique identifier grouping all generations from a single API request
-                        example: req-1727282430-aBcDeFgHiJkLmNoPqRsT
-                        nullable: true
-                        type: string
-                      router:
-                        description: Router used for the request (e.g., openrouter/auto)
-                        example: openrouter/auto
-                        nullable: true
-                        type: string
-                      session_id:
-                        description: Session identifier grouping multiple generations in the same session
-                        nullable: true
-                        type: string
-                      streamed:
-                        description: Whether the response was streamed
-                        example: true
-                        nullable: true
-                        type: boolean
-                      tokens_completion:
-                        description: Number of tokens in the completion
-                        example: 25
-                        type: integer
-                      tokens_prompt:
-                        description: Number of tokens in the prompt
-                        example: 10
-                        type: integer
-                      total_cost:
-                        description: Total cost of the generation in USD
-                        example: 0.0015
-                        format: double
-                        type: number
-                      upstream_id:
-                        description: Upstream provider's identifier for this generation
-                        example: chatcmpl-791bcf62-080e-4568-87d0-94c72e3b4946
-                        nullable: true
-                        type: string
-                      upstream_inference_cost:
-                        description: Cost charged by the upstream provider
-                        example: 0.0012
-                        format: double
-                        type: number
-                      usage:
-                        description: Usage amount in USD
-                        example: 0.0015
-                        format: double
-                        type: number
-                      user_agent:
-                        description: User-Agent header from the request
-                        nullable: true
-                        type: string
-                    required:
-                      - id
-                      - upstream_id
-                      - total_cost
-                      - cache_discount
-                      - upstream_inference_cost
-                      - created_at
-                      - model
-                      - app_id
-                      - streamed
-                      - cancelled
-                      - provider_name
-                      - latency
-                      - moderation_latency
-                      - generation_time
-                      - finish_reason
-                      - tokens_prompt
-                      - tokens_completion
-                      - native_tokens_prompt
-                      - native_tokens_completion
-                      - native_tokens_completion_images
-                      - native_tokens_reasoning
-                      - native_tokens_cached
-                      - num_media_prompt
-                      - num_input_audio_prompt
-                      - num_media_completion
-                      - num_search_results
-                      - origin
-                      - usage
-                      - is_byok
-                      - native_finish_reason
-                      - external_user
-                      - api_type
-                      - router
-                      - provider_responses
-                      - user_agent
-                      - http_referer
-                    type: object
-                required:
-                  - data
-                type: object
+                $ref: '#/components/schemas/GenerationResponse'
           description: Returns the request metadata for this generation
         '401':
           content:
@@ -14689,6 +16266,118 @@ paths:
       summary: Get request & usage metadata for a generation
       tags:
         - Generations
+  /generation/content:
+    get:
+      operationId: listGenerationContent
+      parameters:
+        - description: The generation ID
+          in: query
+          name: id
+          required: true
+          schema:
+            description: The generation ID
+            example: gen-1234567890
+            minLength: 1
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                data:
+                  input:
+                    messages:
+                      - content: What is the meaning of life?
+                        role: user
+                  output:
+                    completion: The meaning of life is a philosophical question...
+                    reasoning: null
+              schema:
+                $ref: '#/components/schemas/GenerationContentResponse'
+          description: Returns the stored prompt and completion content
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '429':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 429
+                  message: Rate limit exceeded
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsResponse'
+          description: Too Many Requests - Rate limit exceeded
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+        '502':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 502
+                  message: Provider returned error
+              schema:
+                $ref: '#/components/schemas/BadGatewayResponse'
+          description: Bad Gateway - Provider/upstream API failure
+        '524':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 524
+                  message: Request timed out. Please try again later.
+              schema:
+                $ref: '#/components/schemas/EdgeNetworkTimeoutResponse'
+          description: Infrastructure Timeout - Provider request timed out at edge network
+        '529':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 529
+                  message: Provider returned error
+              schema:
+                $ref: '#/components/schemas/ProviderOverloadedResponse'
+          description: Provider Overloaded - Provider is temporarily overloaded
+      summary: Get stored prompt and completion content for a generation
+      tags:
+        - Generations
   /guardrails:
     get:
       description: >-
@@ -14703,6 +16392,7 @@ paths:
             description: Number of records to skip for pagination
             example: 0
             minimum: 0
+            nullable: true
             type: integer
         - description: Maximum number of records to return (max 100)
           in: query
@@ -14714,6 +16404,15 @@ paths:
             maximum: 100
             minimum: 1
             type: integer
+        - description: Filter guardrails by workspace ID. By default, guardrails in the default workspace are returned.
+          in: query
+          name: workspace_id
+          required: false
+          schema:
+            description: Filter guardrails by workspace ID. By default, guardrails in the default workspace are returned.
+            example: 0df9e665-d932-5740-b2c7-b52af166bc11
+            format: uuid
+            type: string
       responses:
         '200':
           content:
@@ -14729,11 +16428,13 @@ paths:
                     description: Guardrail for production environment
                     enforce_zdr: false
                     id: 550e8400-e29b-41d4-a716-446655440000
+                    ignored_models: null
                     ignored_providers: null
                     limit_usd: 100
                     name: Production Guardrail
                     reset_interval: monthly
                     updated_at: '2025-08-24T15:45:00Z'
+                    workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                 total_count: 1
               schema:
                 $ref: '#/components/schemas/ListGuardrailsResponse'
@@ -14788,6 +16489,7 @@ paths:
                 - deepseek
               description: A guardrail for limiting API usage
               enforce_zdr: false
+              ignored_models: null
               ignored_providers: null
               limit_usd: 50
               name: My New Guardrail
@@ -14810,11 +16512,13 @@ paths:
                   description: A guardrail for limiting API usage
                   enforce_zdr: false
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  ignored_models: null
                   ignored_providers: null
                   limit_usd: 50
                   name: My New Guardrail
                   reset_interval: monthly
                   updated_at: null
+                  workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
               schema:
                 $ref: '#/components/schemas/CreateGuardrailResponse'
           description: Guardrail created successfully
@@ -14838,6 +16542,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnauthorizedResponse'
           description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
         '500':
           content:
             application/json:
@@ -14937,11 +16651,13 @@ paths:
                   description: Guardrail for production environment
                   enforce_zdr: false
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  ignored_models: null
                   ignored_providers: null
                   limit_usd: 100
                   name: Production Guardrail
                   reset_interval: monthly
                   updated_at: '2025-08-24T15:45:00Z'
+                  workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
               schema:
                 $ref: '#/components/schemas/GetGuardrailResponse'
           description: Guardrail details
@@ -15016,11 +16732,13 @@ paths:
                   description: Updated description
                   enforce_zdr: true
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  ignored_models: null
                   ignored_providers: null
                   limit_usd: 75
                   name: Updated Guardrail Name
                   reset_interval: weekly
                   updated_at: '2025-08-24T16:00:00Z'
+                  workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
               schema:
                 $ref: '#/components/schemas/UpdateGuardrailResponse'
           description: Guardrail updated successfully
@@ -15091,6 +16809,7 @@ paths:
             description: Number of records to skip for pagination
             example: 0
             minimum: 0
+            nullable: true
             type: integer
         - description: Maximum number of records to return (max 100)
           in: query
@@ -15340,6 +17059,7 @@ paths:
             description: Number of records to skip for pagination
             example: 0
             minimum: 0
+            nullable: true
             type: integer
         - description: Maximum number of records to return (max 100)
           in: query
@@ -15581,6 +17301,7 @@ paths:
             description: Number of records to skip for pagination
             example: 0
             minimum: 0
+            nullable: true
             type: integer
         - description: Maximum number of records to return (max 100)
           in: query
@@ -15658,6 +17379,7 @@ paths:
             description: Number of records to skip for pagination
             example: 0
             minimum: 0
+            nullable: true
             type: integer
         - description: Maximum number of records to return (max 100)
           in: query
@@ -15861,11 +17583,13 @@ paths:
                         description: Spending limit for the API key in USD
                         example: 100
                         format: double
+                        nullable: true
                         type: number
                       limit_remaining:
                         description: Remaining spending limit in USD
                         example: 74.5
                         format: double
+                        nullable: true
                         type: number
                       limit_reset:
                         description: Type of limit reset for the API key
@@ -15988,7 +17712,17 @@ paths:
             description: Number of API keys to skip for pagination
             example: 0
             minimum: 0
+            nullable: true
             type: integer
+        - description: Filter API keys by workspace ID. By default, keys in the default workspace are returned.
+          in: query
+          name: workspace_id
+          required: false
+          schema:
+            description: Filter API keys by workspace ID. By default, keys in the default workspace are returned.
+            example: 0df9e665-d932-5740-b2c7-b52af166bc11
+            format: uuid
+            type: string
       responses:
         '200':
           content:
@@ -16015,6 +17749,7 @@ paths:
                     usage_daily: 25.5
                     usage_monthly: 25.5
                     usage_weekly: 25.5
+                    workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
               schema:
                 example:
                   data:
@@ -16038,6 +17773,7 @@ paths:
                       usage_daily: 25.5
                       usage_monthly: 25.5
                       usage_weekly: 25.5
+                      workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                 properties:
                   data:
                     description: List of API keys
@@ -16063,6 +17799,7 @@ paths:
                         usage_daily: 25.5
                         usage_monthly: 25.5
                         usage_weekly: 25.5
+                        workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                       properties:
                         byok_usage:
                           description: Total external BYOK usage (in USD) for the API key
@@ -16120,11 +17857,13 @@ paths:
                           description: Spending limit for the API key in USD
                           example: 100
                           format: double
+                          nullable: true
                           type: number
                         limit_remaining:
                           description: Remaining spending limit in USD
                           example: 74.5
                           format: double
+                          nullable: true
                           type: number
                         limit_reset:
                           description: Type of limit reset for the API key
@@ -16160,6 +17899,10 @@ paths:
                           example: 25.5
                           format: double
                           type: number
+                        workspace_id:
+                          description: The workspace ID this API key belongs to.
+                          example: 0df9e665-d932-5740-b2c7-b52af166bc11
+                          type: string
                       required:
                         - hash
                         - name
@@ -16180,6 +17923,7 @@ paths:
                         - created_at
                         - updated_at
                         - creator_user_id
+                        - workspace_id
                       type: object
                     type: array
                 required:
@@ -16263,6 +18007,7 @@ paths:
                   description: Optional spending limit for the API key in USD
                   example: 50
                   format: double
+                  nullable: true
                   type: number
                 limit_reset:
                   description: >-
@@ -16280,6 +18025,11 @@ paths:
                   description: Name for the new API key
                   example: My New API Key
                   minLength: 1
+                  type: string
+                workspace_id:
+                  description: The workspace to create the API key in. Defaults to the default workspace if not provided.
+                  example: 0df9e665-d932-5740-b2c7-b52af166bc11
+                  format: uuid
                   type: string
               required:
                 - name
@@ -16311,6 +18061,7 @@ paths:
                   usage_daily: 0
                   usage_monthly: 0
                   usage_weekly: 0
+                  workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                 key: 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
               schema:
                 example:
@@ -16335,6 +18086,7 @@ paths:
                     usage_daily: 0
                     usage_monthly: 0
                     usage_weekly: 0
+                    workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                   key: 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
                 properties:
                   data:
@@ -16360,6 +18112,7 @@ paths:
                       usage_daily: 25.5
                       usage_monthly: 25.5
                       usage_weekly: 25.5
+                      workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                     properties:
                       byok_usage:
                         description: Total external BYOK usage (in USD) for the API key
@@ -16417,11 +18170,13 @@ paths:
                         description: Spending limit for the API key in USD
                         example: 100
                         format: double
+                        nullable: true
                         type: number
                       limit_remaining:
                         description: Remaining spending limit in USD
                         example: 74.5
                         format: double
+                        nullable: true
                         type: number
                       limit_reset:
                         description: Type of limit reset for the API key
@@ -16457,6 +18212,10 @@ paths:
                         example: 25.5
                         format: double
                         type: number
+                      workspace_id:
+                        description: The workspace ID this API key belongs to.
+                        example: 0df9e665-d932-5740-b2c7-b52af166bc11
+                        type: string
                     required:
                       - hash
                       - name
@@ -16477,6 +18236,7 @@ paths:
                       - created_at
                       - updated_at
                       - creator_user_id
+                      - workspace_id
                     type: object
                   key:
                     description: The actual API key string (only shown once)
@@ -16507,6 +18267,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/UnauthorizedResponse'
           description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
         '429':
           content:
             application/json:
@@ -16645,6 +18415,7 @@ paths:
                   usage_daily: 25.5
                   usage_monthly: 25.5
                   usage_weekly: 25.5
+                  workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
               schema:
                 example:
                   data:
@@ -16668,6 +18439,7 @@ paths:
                     usage_daily: 25.5
                     usage_monthly: 25.5
                     usage_weekly: 25.5
+                    workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                 properties:
                   data:
                     description: The API key information
@@ -16692,6 +18464,7 @@ paths:
                       usage_daily: 25.5
                       usage_monthly: 25.5
                       usage_weekly: 25.5
+                      workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                     properties:
                       byok_usage:
                         description: Total external BYOK usage (in USD) for the API key
@@ -16749,11 +18522,13 @@ paths:
                         description: Spending limit for the API key in USD
                         example: 100
                         format: double
+                        nullable: true
                         type: number
                       limit_remaining:
                         description: Remaining spending limit in USD
                         example: 74.5
                         format: double
+                        nullable: true
                         type: number
                       limit_reset:
                         description: Type of limit reset for the API key
@@ -16789,6 +18564,10 @@ paths:
                         example: 25.5
                         format: double
                         type: number
+                      workspace_id:
+                        description: The workspace ID this API key belongs to.
+                        example: 0df9e665-d932-5740-b2c7-b52af166bc11
+                        type: string
                     required:
                       - hash
                       - name
@@ -16809,6 +18588,7 @@ paths:
                       - created_at
                       - updated_at
                       - creator_user_id
+                      - workspace_id
                     type: object
                 required:
                   - data
@@ -16899,6 +18679,7 @@ paths:
                   description: New spending limit for the API key in USD
                   example: 75
                   format: double
+                  nullable: true
                   type: number
                 limit_reset:
                   description: >-
@@ -16944,6 +18725,7 @@ paths:
                   usage_daily: 25.5
                   usage_monthly: 25.5
                   usage_weekly: 25.5
+                  workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
               schema:
                 example:
                   data:
@@ -16967,6 +18749,7 @@ paths:
                     usage_daily: 25.5
                     usage_monthly: 25.5
                     usage_weekly: 25.5
+                    workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                 properties:
                   data:
                     description: The updated API key information
@@ -16991,6 +18774,7 @@ paths:
                       usage_daily: 25.5
                       usage_monthly: 25.5
                       usage_weekly: 25.5
+                      workspace_id: 0df9e665-d932-5740-b2c7-b52af166bc11
                     properties:
                       byok_usage:
                         description: Total external BYOK usage (in USD) for the API key
@@ -17048,11 +18832,13 @@ paths:
                         description: Spending limit for the API key in USD
                         example: 100
                         format: double
+                        nullable: true
                         type: number
                       limit_remaining:
                         description: Remaining spending limit in USD
                         example: 74.5
                         format: double
+                        nullable: true
                         type: number
                       limit_reset:
                         description: Type of limit reset for the API key
@@ -17088,6 +18874,10 @@ paths:
                         example: 25.5
                         format: double
                         type: number
+                      workspace_id:
+                        description: The workspace ID this API key belongs to.
+                        example: 0df9e665-d932-5740-b2c7-b52af166bc11
+                        type: string
                     required:
                       - hash
                       - name
@@ -17108,6 +18898,7 @@ paths:
                       - created_at
                       - updated_at
                       - creator_user_id
+                      - workspace_id
                     type: object
                 required:
                   - data
@@ -17691,6 +19482,7 @@ paths:
             description: Number of records to skip for pagination
             example: 0
             minimum: 0
+            nullable: true
             type: integer
         - description: Maximum number of records to return (max 100)
           in: query
@@ -18456,8 +20248,7 @@ paths:
                 top_n:
                   description: Number of most relevant documents to return
                   example: 3
-                  exclusiveMinimum: 0
-                  minimum: 0
+                  minimum: 1
                   type: integer
               required:
                 - model
@@ -19106,15 +20897,20 @@ paths:
                     canonical_slug: google/veo-3.1
                     created: 1700000000
                     description: Google video generation model
+                    generate_audio: true
                     id: google/veo-3.1
                     name: Veo 3.1
                     pricing_skus:
                       generate: '0.50'
+                    seed: null
                     supported_aspect_ratios:
                       - '16:9'
                     supported_durations:
                       - 5
                       - 8
+                    supported_frame_images:
+                      - first_frame
+                      - last_frame
                     supported_resolutions:
                       - 720p
                     supported_sizes: null
@@ -19144,6 +20940,601 @@ paths:
       summary: List all video generation models
       tags:
         - Video Generation
+  /workspaces:
+    get:
+      description: >-
+        List all workspaces for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: listWorkspaces
+      parameters:
+        - description: Number of records to skip for pagination
+          in: query
+          name: offset
+          required: false
+          schema:
+            description: Number of records to skip for pagination
+            example: 0
+            minimum: 0
+            nullable: true
+            type: integer
+        - description: Maximum number of records to return (max 100)
+          in: query
+          name: limit
+          required: false
+          schema:
+            description: Maximum number of records to return (max 100)
+            example: 50
+            maximum: 100
+            minimum: 1
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                data:
+                  - created_at: '2025-08-24T10:30:00Z'
+                    created_by: user_abc123
+                    default_image_model: openai/dall-e-3
+                    default_provider_sort: price
+                    default_text_model: openai/gpt-4o
+                    description: Production environment workspace
+                    id: 550e8400-e29b-41d4-a716-446655440000
+                    is_data_discount_logging_enabled: true
+                    is_observability_broadcast_enabled: false
+                    is_observability_io_logging_enabled: false
+                    name: Production
+                    slug: production
+                    updated_at: '2025-08-24T15:45:00Z'
+                total_count: 1
+              schema:
+                $ref: '#/components/schemas/ListWorkspacesResponse'
+          description: List of workspaces
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: List workspaces
+      tags:
+        - Workspaces
+      x-speakeasy-name-override: list
+      x-speakeasy-pagination:
+        inputs:
+          - in: parameters
+            name: offset
+            type: offset
+          - in: parameters
+            name: limit
+            type: limit
+        outputs:
+          results: $.data
+        type: offsetLimit
+    post:
+      description: >-
+        Create a new workspace for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: createWorkspace
+      requestBody:
+        content:
+          application/json:
+            example:
+              default_image_model: openai/dall-e-3
+              default_provider_sort: price
+              default_text_model: openai/gpt-4o
+              description: Production environment workspace
+              name: Production
+              slug: production
+            schema:
+              $ref: '#/components/schemas/CreateWorkspaceRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              example:
+                data:
+                  created_at: '2025-08-24T10:30:00Z'
+                  created_by: user_abc123
+                  default_image_model: openai/dall-e-3
+                  default_provider_sort: price
+                  default_text_model: openai/gpt-4o
+                  description: Production environment workspace
+                  id: 550e8400-e29b-41d4-a716-446655440000
+                  is_data_discount_logging_enabled: true
+                  is_observability_broadcast_enabled: false
+                  is_observability_io_logging_enabled: false
+                  name: Production
+                  slug: production
+                  updated_at: null
+              schema:
+                $ref: '#/components/schemas/CreateWorkspaceResponse'
+          description: Workspace created successfully
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Create a workspace
+      tags:
+        - Workspaces
+      x-speakeasy-name-override: create
+  /workspaces/{id}:
+    delete:
+      description: >-
+        Delete an existing workspace. The default workspace cannot be deleted. Workspaces with active API keys cannot be deleted. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: deleteWorkspace
+      parameters:
+        - description: The workspace ID (UUID) or slug
+          in: path
+          name: id
+          required: true
+          schema:
+            description: The workspace ID (UUID) or slug
+            example: production
+            minLength: 1
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                deleted: true
+              schema:
+                $ref: '#/components/schemas/DeleteWorkspaceResponse'
+          description: Workspace deleted successfully
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Delete a workspace
+      tags:
+        - Workspaces
+      x-speakeasy-name-override: delete
+    get:
+      description: Get a single workspace by ID or slug. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: getWorkspace
+      parameters:
+        - description: The workspace ID (UUID) or slug
+          in: path
+          name: id
+          required: true
+          schema:
+            description: The workspace ID (UUID) or slug
+            example: production
+            minLength: 1
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                data:
+                  created_at: '2025-08-24T10:30:00Z'
+                  created_by: user_abc123
+                  default_image_model: openai/dall-e-3
+                  default_provider_sort: price
+                  default_text_model: openai/gpt-4o
+                  description: Production environment workspace
+                  id: 550e8400-e29b-41d4-a716-446655440000
+                  is_data_discount_logging_enabled: true
+                  is_observability_broadcast_enabled: false
+                  is_observability_io_logging_enabled: false
+                  name: Production
+                  slug: production
+                  updated_at: '2025-08-24T15:45:00Z'
+              schema:
+                $ref: '#/components/schemas/GetWorkspaceResponse'
+          description: Workspace details
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Get a workspace
+      tags:
+        - Workspaces
+      x-speakeasy-name-override: get
+    patch:
+      description: >-
+        Update an existing workspace by ID or slug. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: updateWorkspace
+      parameters:
+        - description: The workspace ID (UUID) or slug
+          in: path
+          name: id
+          required: true
+          schema:
+            description: The workspace ID (UUID) or slug
+            example: production
+            minLength: 1
+            type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              name: Updated Workspace
+              slug: updated-workspace
+            schema:
+              $ref: '#/components/schemas/UpdateWorkspaceRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                data:
+                  created_at: '2025-08-24T10:30:00Z'
+                  created_by: user_abc123
+                  default_image_model: openai/dall-e-3
+                  default_provider_sort: price
+                  default_text_model: openai/gpt-4o
+                  description: Production environment workspace
+                  id: 550e8400-e29b-41d4-a716-446655440000
+                  is_data_discount_logging_enabled: true
+                  is_observability_broadcast_enabled: false
+                  is_observability_io_logging_enabled: false
+                  name: Updated Workspace
+                  slug: updated-workspace
+                  updated_at: '2025-08-25T10:00:00Z'
+              schema:
+                $ref: '#/components/schemas/UpdateWorkspaceResponse'
+          description: Workspace updated successfully
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Update a workspace
+      tags:
+        - Workspaces
+      x-speakeasy-name-override: update
+  /workspaces/{id}/members/add:
+    post:
+      description: >-
+        Add multiple organization members to a workspace. Members are assigned the same role they hold in the organization. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: bulkAddWorkspaceMembers
+      parameters:
+        - description: The workspace ID (UUID) or slug
+          in: path
+          name: id
+          required: true
+          schema:
+            description: The workspace ID (UUID) or slug
+            example: production
+            minLength: 1
+            type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              user_ids:
+                - user_abc123
+                - user_def456
+            schema:
+              $ref: '#/components/schemas/BulkAddWorkspaceMembersRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                added_count: 1
+                data:
+                  - created_at: '2025-08-24T10:30:00Z'
+                    id: 660e8400-e29b-41d4-a716-446655440000
+                    role: member
+                    user_id: user_abc123
+                    workspace_id: 550e8400-e29b-41d4-a716-446655440000
+              schema:
+                $ref: '#/components/schemas/BulkAddWorkspaceMembersResponse'
+          description: Members added successfully
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Bulk add members to a workspace
+      tags:
+        - Workspaces
+      x-speakeasy-name-override: bulkAddMembers
+  /workspaces/{id}/members/remove:
+    post:
+      description: >-
+        Remove multiple members from a workspace. Members with active API keys in the workspace cannot be removed. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: bulkRemoveWorkspaceMembers
+      parameters:
+        - description: The workspace ID (UUID) or slug
+          in: path
+          name: id
+          required: true
+          schema:
+            description: The workspace ID (UUID) or slug
+            example: production
+            minLength: 1
+            type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              user_ids:
+                - user_abc123
+                - user_def456
+            schema:
+              $ref: '#/components/schemas/BulkRemoveWorkspaceMembersRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                removed_count: 2
+              schema:
+                $ref: '#/components/schemas/BulkRemoveWorkspaceMembersResponse'
+          description: Members removed successfully
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '403':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 403
+                  message: Only management keys can perform this operation
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden - Authentication successful but insufficient permissions
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Bulk remove members from a workspace
+      tags:
+        - Workspaces
+      x-speakeasy-name-override: bulkRemoveMembers
 security:
   - apiKey: []
 servers:
@@ -19179,8 +21570,12 @@ tags:
     name: Providers
   - description: Rerank endpoints
     name: Rerank
+  - description: Text-to-speech endpoints
+    name: TTS
   - description: Video Generation endpoints
     name: Video Generation
+  - description: Workspaces endpoints
+    name: Workspaces
   - description: beta.responses endpoints
     name: beta.responses
 x-fern-base-path: /

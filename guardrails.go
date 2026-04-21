@@ -12,6 +12,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"github.com/spyzhov/ajson"
 	"net/http"
@@ -35,10 +36,11 @@ func newGuardrails(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks
 
 // List guardrails
 // List all guardrails for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) List(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListGuardrailsResponse, error) {
+func (s *Guardrails) List(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, workspaceID *string, opts ...operations.Option) (*operations.ListGuardrailsResponse, error) {
 	request := operations.ListGuardrailsRequest{
-		Offset: offset,
-		Limit:  limit,
+		Offset:      offset,
+		Limit:       limit,
+		WorkspaceID: workspaceID,
 	}
 
 	o := operations.Options{}
@@ -214,8 +216,8 @@ func (s *Guardrails) List(ctx context.Context, offset *int64, limit *int64, opts
 		}
 
 		oS := 0
-		if offset != nil {
-			oS = int(*offset)
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
 		}
 		r, err := ajson.Eval(b, "$.data")
 		if err != nil {
@@ -243,8 +245,9 @@ func (s *Guardrails) List(ctx context.Context, offset *int64, limit *int64, opts
 
 		return s.List(
 			ctx,
-			&nOS,
+			optionalnullable.From(&nOS),
 			limit,
+			workspaceID,
 			opts...,
 		)
 	}
@@ -488,7 +491,7 @@ func (s *Guardrails) Create(ctx context.Context, request components.CreateGuardr
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"400", "401", "403", "4XX", "500", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -555,6 +558,27 @@ func (s *Guardrails) Create(ctx context.Context, request components.CreateGuardr
 			}
 
 			var out sdkerrors.UnauthorizedResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 403:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -1459,7 +1483,7 @@ func (s *Guardrails) Update(ctx context.Context, id string, updateGuardrailReque
 
 // ListGuardrailKeyAssignments - List key assignments for a guardrail
 // List all API key assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListGuardrailKeyAssignmentsResponse, error) {
+func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListGuardrailKeyAssignmentsResponse, error) {
 	request := operations.ListGuardrailKeyAssignmentsRequest{
 		ID:     id,
 		Offset: offset,
@@ -1639,8 +1663,8 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 		}
 
 		oS := 0
-		if offset != nil {
-			oS = int(*offset)
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
 		}
 		r, err := ajson.Eval(b, "$.data")
 		if err != nil {
@@ -1669,7 +1693,7 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 		return s.ListGuardrailKeyAssignments(
 			ctx,
 			id,
-			&nOS,
+			optionalnullable.From(&nOS),
 			limit,
 			opts...,
 		)
@@ -2388,7 +2412,7 @@ func (s *Guardrails) BulkUnassignKeys(ctx context.Context, id string, bulkUnassi
 
 // ListGuardrailMemberAssignments - List member assignments for a guardrail
 // List all organization member assignments for a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id string, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListGuardrailMemberAssignmentsResponse, error) {
+func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id string, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListGuardrailMemberAssignmentsResponse, error) {
 	request := operations.ListGuardrailMemberAssignmentsRequest{
 		ID:     id,
 		Offset: offset,
@@ -2568,8 +2592,8 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 		}
 
 		oS := 0
-		if offset != nil {
-			oS = int(*offset)
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
 		}
 		r, err := ajson.Eval(b, "$.data")
 		if err != nil {
@@ -2598,7 +2622,7 @@ func (s *Guardrails) ListGuardrailMemberAssignments(ctx context.Context, id stri
 		return s.ListGuardrailMemberAssignments(
 			ctx,
 			id,
-			&nOS,
+			optionalnullable.From(&nOS),
 			limit,
 			opts...,
 		)
@@ -3317,7 +3341,7 @@ func (s *Guardrails) BulkUnassignMembers(ctx context.Context, id string, bulkUna
 
 // ListKeyAssignments - List all key assignments
 // List all API key guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListKeyAssignmentsResponse, error) {
+func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListKeyAssignmentsResponse, error) {
 	request := operations.ListKeyAssignmentsRequest{
 		Offset: offset,
 		Limit:  limit,
@@ -3496,8 +3520,8 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *int64, limi
 		}
 
 		oS := 0
-		if offset != nil {
-			oS = int(*offset)
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
 		}
 		r, err := ajson.Eval(b, "$.data")
 		if err != nil {
@@ -3525,7 +3549,7 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *int64, limi
 
 		return s.ListKeyAssignments(
 			ctx,
-			&nOS,
+			optionalnullable.From(&nOS),
 			limit,
 			opts...,
 		)
@@ -3621,7 +3645,7 @@ func (s *Guardrails) ListKeyAssignments(ctx context.Context, offset *int64, limi
 
 // ListMemberAssignments - List all member assignments
 // List all organization member guardrail assignments for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.ListMemberAssignmentsResponse, error) {
+func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListMemberAssignmentsResponse, error) {
 	request := operations.ListMemberAssignmentsRequest{
 		Offset: offset,
 		Limit:  limit,
@@ -3800,8 +3824,8 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *int64, l
 		}
 
 		oS := 0
-		if offset != nil {
-			oS = int(*offset)
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
 		}
 		r, err := ajson.Eval(b, "$.data")
 		if err != nil {
@@ -3829,7 +3853,7 @@ func (s *Guardrails) ListMemberAssignments(ctx context.Context, offset *int64, l
 
 		return s.ListMemberAssignments(
 			ctx,
-			&nOS,
+			optionalnullable.From(&nOS),
 			limit,
 			opts...,
 		)

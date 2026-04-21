@@ -2,15 +2,19 @@
 
 package components
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+)
+
 // VideoGenerationUsage - Usage and cost information for the video generation. Available once the job has completed.
 type VideoGenerationUsage struct {
 	// The cost of the video generation in USD.
-	Cost *float64 `json:"cost,omitzero"`
+	Cost optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
 	// Whether the request was made using a Bring Your Own Key configuration.
 	IsByok *bool `json:"is_byok,omitzero"`
 }
 
-func (v *VideoGenerationUsage) GetCost() *float64 {
+func (v *VideoGenerationUsage) GetCost() optionalnullable.OptionalNullable[float64] {
 	if v == nil {
 		return nil
 	}

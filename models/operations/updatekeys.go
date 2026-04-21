@@ -38,7 +38,7 @@ type UpdateKeysRequestBody struct {
 	// Whether to include BYOK usage in the limit
 	IncludeByokInLimit *bool `json:"include_byok_in_limit,omitzero"`
 	// New spending limit for the API key in USD
-	Limit *float64 `json:"limit,omitzero"`
+	Limit optionalnullable.OptionalNullable[float64] `json:"limit,omitzero"`
 	// New limit reset type for the API key (daily, weekly, monthly, or null for no reset). Resets happen automatically at midnight UTC, and weeks are Monday through Sunday.
 	LimitReset optionalnullable.OptionalNullable[UpdateKeysLimitReset] `json:"limit_reset,omitzero"`
 	// New name for the API key
@@ -59,7 +59,7 @@ func (u *UpdateKeysRequestBody) GetIncludeByokInLimit() *bool {
 	return u.IncludeByokInLimit
 }
 
-func (u *UpdateKeysRequestBody) GetLimit() *float64 {
+func (u *UpdateKeysRequestBody) GetLimit() optionalnullable.OptionalNullable[float64] {
 	if u == nil {
 		return nil
 	}
@@ -125,9 +125,9 @@ type UpdateKeysData struct {
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
-	Limit float64 `json:"limit"`
+	Limit *float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining float64 `json:"limit_remaining"`
+	LimitRemaining *float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Name of the API key
@@ -142,6 +142,8 @@ type UpdateKeysData struct {
 	UsageMonthly float64 `json:"usage_monthly"`
 	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
 	UsageWeekly float64 `json:"usage_weekly"`
+	// The workspace ID this API key belongs to.
+	WorkspaceID string `json:"workspace_id"`
 }
 
 func (u UpdateKeysData) MarshalJSON() ([]byte, error) {
@@ -232,16 +234,16 @@ func (u *UpdateKeysData) GetLabel() string {
 	return u.Label
 }
 
-func (u *UpdateKeysData) GetLimit() float64 {
+func (u *UpdateKeysData) GetLimit() *float64 {
 	if u == nil {
-		return 0.0
+		return nil
 	}
 	return u.Limit
 }
 
-func (u *UpdateKeysData) GetLimitRemaining() float64 {
+func (u *UpdateKeysData) GetLimitRemaining() *float64 {
 	if u == nil {
-		return 0.0
+		return nil
 	}
 	return u.LimitRemaining
 }
@@ -293,6 +295,13 @@ func (u *UpdateKeysData) GetUsageWeekly() float64 {
 		return 0.0
 	}
 	return u.UsageWeekly
+}
+
+func (u *UpdateKeysData) GetWorkspaceID() string {
+	if u == nil {
+		return ""
+	}
+	return u.WorkspaceID
 }
 
 // UpdateKeysResponse - API key updated successfully
