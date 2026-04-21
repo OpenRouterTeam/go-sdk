@@ -68,9 +68,9 @@ type GetCurrentKeyData struct {
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
-	Limit float64 `json:"limit"`
+	Limit *float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining float64 `json:"limit_remaining"`
+	LimitRemaining *float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Legacy rate limit information about a key. Will always return -1.
@@ -175,16 +175,16 @@ func (g *GetCurrentKeyData) GetLabel() string {
 	return g.Label
 }
 
-func (g *GetCurrentKeyData) GetLimit() float64 {
+func (g *GetCurrentKeyData) GetLimit() *float64 {
 	if g == nil {
-		return 0.0
+		return nil
 	}
 	return g.Limit
 }
 
-func (g *GetCurrentKeyData) GetLimitRemaining() float64 {
+func (g *GetCurrentKeyData) GetLimitRemaining() *float64 {
 	if g == nil {
-		return 0.0
+		return nil
 	}
 	return g.LimitRemaining
 }

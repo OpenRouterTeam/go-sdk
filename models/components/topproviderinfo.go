@@ -2,17 +2,21 @@
 
 package components
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+)
+
 // TopProviderInfo - Information about the top provider for this model
 type TopProviderInfo struct {
 	// Context length from the top provider
-	ContextLength *int64 `json:"context_length,omitzero"`
+	ContextLength optionalnullable.OptionalNullable[int64] `json:"context_length,omitzero"`
 	// Whether the top provider moderates content
 	IsModerated bool `json:"is_moderated"`
 	// Maximum completion tokens from the top provider
-	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
+	MaxCompletionTokens optionalnullable.OptionalNullable[int64] `json:"max_completion_tokens,omitzero"`
 }
 
-func (t *TopProviderInfo) GetContextLength() *int64 {
+func (t *TopProviderInfo) GetContextLength() optionalnullable.OptionalNullable[int64] {
 	if t == nil {
 		return nil
 	}
@@ -26,7 +30,7 @@ func (t *TopProviderInfo) GetIsModerated() bool {
 	return t.IsModerated
 }
 
-func (t *TopProviderInfo) GetMaxCompletionTokens() *int64 {
+func (t *TopProviderInfo) GetMaxCompletionTokens() optionalnullable.OptionalNullable[int64] {
 	if t == nil {
 		return nil
 	}

@@ -4,18 +4,19 @@ package components
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 // PercentileLatencyCutoffs - Percentile-based latency cutoffs. All specified cutoffs must be met for an endpoint to be preferred.
 type PercentileLatencyCutoffs struct {
 	// Maximum p50 latency (seconds)
-	P50 *float64 `json:"p50,omitzero"`
+	P50 optionalnullable.OptionalNullable[float64] `json:"p50,omitzero"`
 	// Maximum p75 latency (seconds)
-	P75 *float64 `json:"p75,omitzero"`
+	P75 optionalnullable.OptionalNullable[float64] `json:"p75,omitzero"`
 	// Maximum p90 latency (seconds)
-	P90 *float64 `json:"p90,omitzero"`
+	P90 optionalnullable.OptionalNullable[float64] `json:"p90,omitzero"`
 	// Maximum p99 latency (seconds)
-	P99 *float64 `json:"p99,omitzero"`
+	P99 optionalnullable.OptionalNullable[float64] `json:"p99,omitzero"`
 }
 
 func (p PercentileLatencyCutoffs) MarshalJSON() ([]byte, error) {
@@ -29,28 +30,28 @@ func (p *PercentileLatencyCutoffs) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *PercentileLatencyCutoffs) GetP50() *float64 {
+func (p *PercentileLatencyCutoffs) GetP50() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.P50
 }
 
-func (p *PercentileLatencyCutoffs) GetP75() *float64 {
+func (p *PercentileLatencyCutoffs) GetP75() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.P75
 }
 
-func (p *PercentileLatencyCutoffs) GetP90() *float64 {
+func (p *PercentileLatencyCutoffs) GetP90() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}
 	return p.P90
 }
 
-func (p *PercentileLatencyCutoffs) GetP99() *float64 {
+func (p *PercentileLatencyCutoffs) GetP99() optionalnullable.OptionalNullable[float64] {
 	if p == nil {
 		return nil
 	}

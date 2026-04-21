@@ -151,8 +151,8 @@ type PublicEndpoint struct {
 	ContextLength int64 `json:"context_length"`
 	// Latency percentiles in milliseconds over the last 30 minutes. Latency measures time to first token. Only visible when authenticated with an API key or cookie; returns null for unauthenticated requests.
 	LatencyLast30m      *PercentileStats `json:"latency_last_30m"`
-	MaxCompletionTokens int64            `json:"max_completion_tokens"`
-	MaxPromptTokens     int64            `json:"max_prompt_tokens"`
+	MaxCompletionTokens *int64           `json:"max_completion_tokens"`
+	MaxPromptTokens     *int64           `json:"max_prompt_tokens"`
 	// The unique identifier for the model (permaslug)
 	ModelID                 string                      `json:"model_id"`
 	ModelName               string                      `json:"model_name"`
@@ -166,10 +166,10 @@ type PublicEndpoint struct {
 	Tag                     string                      `json:"tag"`
 	ThroughputLast30m       *PercentileStats            `json:"throughput_last_30m"`
 	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
-	UptimeLast1d  float64 `json:"uptime_last_1d"`
-	UptimeLast30m float64 `json:"uptime_last_30m"`
+	UptimeLast1d  *float64 `json:"uptime_last_1d"`
+	UptimeLast30m *float64 `json:"uptime_last_30m"`
 	// Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
-	UptimeLast5m float64 `json:"uptime_last_5m"`
+	UptimeLast5m *float64 `json:"uptime_last_5m"`
 }
 
 func (p *PublicEndpoint) GetContextLength() int64 {
@@ -186,16 +186,16 @@ func (p *PublicEndpoint) GetLatencyLast30m() *PercentileStats {
 	return p.LatencyLast30m
 }
 
-func (p *PublicEndpoint) GetMaxCompletionTokens() int64 {
+func (p *PublicEndpoint) GetMaxCompletionTokens() *int64 {
 	if p == nil {
-		return 0
+		return nil
 	}
 	return p.MaxCompletionTokens
 }
 
-func (p *PublicEndpoint) GetMaxPromptTokens() int64 {
+func (p *PublicEndpoint) GetMaxPromptTokens() *int64 {
 	if p == nil {
-		return 0
+		return nil
 	}
 	return p.MaxPromptTokens
 }
@@ -277,23 +277,23 @@ func (p *PublicEndpoint) GetThroughputLast30m() *PercentileStats {
 	return p.ThroughputLast30m
 }
 
-func (p *PublicEndpoint) GetUptimeLast1d() float64 {
+func (p *PublicEndpoint) GetUptimeLast1d() *float64 {
 	if p == nil {
-		return 0.0
+		return nil
 	}
 	return p.UptimeLast1d
 }
 
-func (p *PublicEndpoint) GetUptimeLast30m() float64 {
+func (p *PublicEndpoint) GetUptimeLast30m() *float64 {
 	if p == nil {
-		return 0.0
+		return nil
 	}
 	return p.UptimeLast30m
 }
 
-func (p *PublicEndpoint) GetUptimeLast5m() float64 {
+func (p *PublicEndpoint) GetUptimeLast5m() *float64 {
 	if p == nil {
-		return 0.0
+		return nil
 	}
 	return p.UptimeLast5m
 }

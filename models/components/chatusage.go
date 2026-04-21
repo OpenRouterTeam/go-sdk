@@ -10,37 +10,37 @@ import (
 // CompletionTokensDetails - Detailed completion token usage
 type CompletionTokensDetails struct {
 	// Accepted prediction tokens
-	AcceptedPredictionTokens *int64 `json:"accepted_prediction_tokens,omitzero"`
+	AcceptedPredictionTokens optionalnullable.OptionalNullable[int64] `json:"accepted_prediction_tokens,omitzero"`
 	// Tokens used for audio output
-	AudioTokens *int64 `json:"audio_tokens,omitzero"`
+	AudioTokens optionalnullable.OptionalNullable[int64] `json:"audio_tokens,omitzero"`
 	// Tokens used for reasoning
-	ReasoningTokens *int64 `json:"reasoning_tokens,omitzero"`
+	ReasoningTokens optionalnullable.OptionalNullable[int64] `json:"reasoning_tokens,omitzero"`
 	// Rejected prediction tokens
-	RejectedPredictionTokens *int64 `json:"rejected_prediction_tokens,omitzero"`
+	RejectedPredictionTokens optionalnullable.OptionalNullable[int64] `json:"rejected_prediction_tokens,omitzero"`
 }
 
-func (c *CompletionTokensDetails) GetAcceptedPredictionTokens() *int64 {
+func (c *CompletionTokensDetails) GetAcceptedPredictionTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.AcceptedPredictionTokens
 }
 
-func (c *CompletionTokensDetails) GetAudioTokens() *int64 {
+func (c *CompletionTokensDetails) GetAudioTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.AudioTokens
 }
 
-func (c *CompletionTokensDetails) GetReasoningTokens() *int64 {
+func (c *CompletionTokensDetails) GetReasoningTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.ReasoningTokens
 }
 
-func (c *CompletionTokensDetails) GetRejectedPredictionTokens() *int64 {
+func (c *CompletionTokensDetails) GetRejectedPredictionTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}

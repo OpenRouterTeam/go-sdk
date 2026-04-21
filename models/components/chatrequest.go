@@ -10,121 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ChatRequestImageConfigType string
-
-const (
-	ChatRequestImageConfigTypeStr        ChatRequestImageConfigType = "str"
-	ChatRequestImageConfigTypeNumber     ChatRequestImageConfigType = "number"
-	ChatRequestImageConfigTypeArrayOfAny ChatRequestImageConfigType = "arrayOfAny"
-)
-
-type ChatRequestImageConfig struct {
-	Str        *string  `queryParam:"inline" union:"member"`
-	Number     *float64 `queryParam:"inline" union:"member"`
-	ArrayOfAny []any    `queryParam:"inline" union:"member"`
-
-	Type ChatRequestImageConfigType
-}
-
-func CreateChatRequestImageConfigStr(str string) ChatRequestImageConfig {
-	typ := ChatRequestImageConfigTypeStr
-
-	return ChatRequestImageConfig{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateChatRequestImageConfigNumber(number float64) ChatRequestImageConfig {
-	typ := ChatRequestImageConfigTypeNumber
-
-	return ChatRequestImageConfig{
-		Number: &number,
-		Type:   typ,
-	}
-}
-
-func CreateChatRequestImageConfigArrayOfAny(arrayOfAny []any) ChatRequestImageConfig {
-	typ := ChatRequestImageConfigTypeArrayOfAny
-
-	return ChatRequestImageConfig{
-		ArrayOfAny: arrayOfAny,
-		Type:       typ,
-	}
-}
-
-func (u *ChatRequestImageConfig) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestImageConfigTypeStr,
-			Value: &str,
-		})
-	}
-
-	var number float64 = float64(0)
-	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestImageConfigTypeNumber,
-			Value: &number,
-		})
-	}
-
-	var arrayOfAny []any = []any{}
-	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChatRequestImageConfigTypeArrayOfAny,
-			Value: arrayOfAny,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestImageConfig", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestImageConfig", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChatRequestImageConfigType)
-	switch best.Type {
-	case ChatRequestImageConfigTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	case ChatRequestImageConfigTypeNumber:
-		u.Number = best.Value.(*float64)
-		return nil
-	case ChatRequestImageConfigTypeArrayOfAny:
-		u.ArrayOfAny = best.Value.([]any)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestImageConfig", string(data))
-}
-
-func (u ChatRequestImageConfig) MarshalJSON() ([]byte, error) {
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.Number != nil {
-		return utils.MarshalJSON(u.Number, "", true)
-	}
-
-	if u.ArrayOfAny != nil {
-		return utils.MarshalJSON(u.ArrayOfAny, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ChatRequestImageConfig: all fields are null")
-}
-
 type Modality string
 
 const (
@@ -155,6 +40,7 @@ const (
 	ChatRequestPluginTypeContextCompression ChatRequestPluginType = "context-compression"
 	ChatRequestPluginTypeFileParser         ChatRequestPluginType = "file-parser"
 	ChatRequestPluginTypeModeration         ChatRequestPluginType = "moderation"
+	ChatRequestPluginTypeParetoRouter       ChatRequestPluginType = "pareto-router"
 	ChatRequestPluginTypeResponseHealing    ChatRequestPluginType = "response-healing"
 	ChatRequestPluginTypeWeb                ChatRequestPluginType = "web"
 )
@@ -166,6 +52,7 @@ type ChatRequestPlugin struct {
 	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
 	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
 	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
+	ParetoRouterPlugin       *ParetoRouterPlugin       `queryParam:"inline" union:"member"`
 
 	Type ChatRequestPluginType
 }
@@ -215,6 +102,18 @@ func CreateChatRequestPluginModeration(moderation ModerationPlugin) ChatRequestP
 	return ChatRequestPlugin{
 		ModerationPlugin: &moderation,
 		Type:             typ,
+	}
+}
+
+func CreateChatRequestPluginParetoRouter(paretoRouter ParetoRouterPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeParetoRouter
+
+	typStr := ParetoRouterPluginID(typ)
+	paretoRouter.ID = typStr
+
+	return ChatRequestPlugin{
+		ParetoRouterPlugin: &paretoRouter,
+		Type:               typ,
 	}
 }
 
@@ -290,6 +189,15 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.ModerationPlugin = moderationPlugin
 		u.Type = ChatRequestPluginTypeModeration
 		return nil
+	case "pareto-router":
+		paretoRouterPlugin := new(ParetoRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &paretoRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == pareto-router) type ParetoRouterPlugin within ChatRequestPlugin: %w", string(data), err)
+		}
+
+		u.ParetoRouterPlugin = paretoRouterPlugin
+		u.Type = ChatRequestPluginTypeParetoRouter
+		return nil
 	case "response-healing":
 		responseHealingPlugin := new(ResponseHealingPlugin)
 		if err := utils.UnmarshalJSON(data, &responseHealingPlugin, "", true, nil); err != nil {
@@ -336,6 +244,10 @@ func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.ContextCompressionPlugin != nil {
 		return utils.MarshalJSON(u.ContextCompressionPlugin, "", true)
+	}
+
+	if u.ParetoRouterPlugin != nil {
+		return utils.MarshalJSON(u.ParetoRouterPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ChatRequestPlugin: all fields are null")
@@ -704,17 +616,17 @@ type ChatRequest struct {
 	// Debug options for inspecting request transformations (streaming only)
 	Debug *ChatDebugOptions `json:"debug,omitzero"`
 	// Frequency penalty (-2.0 to 2.0)
-	FrequencyPenalty *float64 `json:"frequency_penalty,omitzero"`
+	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
 	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
-	ImageConfig map[string]ChatRequestImageConfig `json:"image_config,omitzero"`
+	ImageConfig map[string]ImageConfig `json:"image_config,omitzero"`
 	// Token logit bias adjustments
 	LogitBias optionalnullable.OptionalNullable[map[string]float64] `json:"logit_bias,omitzero"`
 	// Return log probabilities
 	Logprobs optionalnullable.OptionalNullable[bool] `json:"logprobs,omitzero"`
 	// Maximum tokens in completion
-	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
+	MaxCompletionTokens optionalnullable.OptionalNullable[int64] `json:"max_completion_tokens,omitzero"`
 	// Maximum tokens (deprecated, use max_completion_tokens). Note: some providers enforce a minimum of 16.
-	MaxTokens *int64 `json:"max_tokens,omitzero"`
+	MaxTokens optionalnullable.OptionalNullable[int64] `json:"max_tokens,omitzero"`
 	// List of messages for the conversation
 	Messages []ChatMessages `json:"messages"`
 	// Key-value pairs for additional object information (max 16 pairs, 64 char keys, 512 char values)
@@ -730,7 +642,7 @@ type ChatRequest struct {
 	// Plugins you want to enable for this request, including their settings.
 	Plugins []ChatRequestPlugin `json:"plugins,omitzero"`
 	// Presence penalty (-2.0 to 2.0)
-	PresencePenalty *float64 `json:"presence_penalty,omitzero"`
+	PresencePenalty optionalnullable.OptionalNullable[float64] `json:"presence_penalty,omitzero"`
 	// When multiple model providers are available, optionally indicate your routing preference.
 	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Configuration options for reasoning models
@@ -738,7 +650,7 @@ type ChatRequest struct {
 	// Response format configuration
 	ResponseFormat *ResponseFormat `json:"response_format,omitzero"`
 	// Random seed for deterministic outputs
-	Seed *int64 `json:"seed,omitzero"`
+	Seed optionalnullable.OptionalNullable[int64] `json:"seed,omitzero"`
 	// The service tier to use for processing this request.
 	ServiceTier optionalnullable.OptionalNullable[ChatRequestServiceTier] `json:"service_tier,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow) for observability. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
@@ -750,15 +662,15 @@ type ChatRequest struct {
 	// Streaming configuration options
 	StreamOptions optionalnullable.OptionalNullable[ChatStreamOptions] `json:"stream_options,omitzero"`
 	// Sampling temperature (0-2)
-	Temperature *float64 `json:"temperature,omitzero"`
+	Temperature optionalnullable.OptionalNullable[float64] `json:"temperature,omitzero"`
 	// Tool choice configuration
 	ToolChoice *ChatToolChoice `json:"tool_choice,omitzero"`
 	// Available tools for function calling
 	Tools []ChatFunctionTool `json:"tools,omitzero"`
 	// Number of top log probabilities to return (0-20)
-	TopLogprobs *int64 `json:"top_logprobs,omitzero"`
+	TopLogprobs optionalnullable.OptionalNullable[int64] `json:"top_logprobs,omitzero"`
 	// Nucleus sampling parameter (0-1)
-	TopP *float64 `json:"top_p,omitzero"`
+	TopP optionalnullable.OptionalNullable[float64] `json:"top_p,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
 	Trace *TraceConfig `json:"trace,omitzero"`
 	// Unique user identifier
@@ -790,14 +702,14 @@ func (c *ChatRequest) GetDebug() *ChatDebugOptions {
 	return c.Debug
 }
 
-func (c *ChatRequest) GetFrequencyPenalty() *float64 {
+func (c *ChatRequest) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
 	return c.FrequencyPenalty
 }
 
-func (c *ChatRequest) GetImageConfig() map[string]ChatRequestImageConfig {
+func (c *ChatRequest) GetImageConfig() map[string]ImageConfig {
 	if c == nil {
 		return nil
 	}
@@ -818,14 +730,14 @@ func (c *ChatRequest) GetLogprobs() optionalnullable.OptionalNullable[bool] {
 	return c.Logprobs
 }
 
-func (c *ChatRequest) GetMaxCompletionTokens() *int64 {
+func (c *ChatRequest) GetMaxCompletionTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.MaxCompletionTokens
 }
 
-func (c *ChatRequest) GetMaxTokens() *int64 {
+func (c *ChatRequest) GetMaxTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
@@ -881,7 +793,7 @@ func (c *ChatRequest) GetPlugins() []ChatRequestPlugin {
 	return c.Plugins
 }
 
-func (c *ChatRequest) GetPresencePenalty() *float64 {
+func (c *ChatRequest) GetPresencePenalty() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
@@ -944,7 +856,7 @@ func (c *ChatRequest) GetResponseFormatText() *ChatFormatTextConfig {
 	return nil
 }
 
-func (c *ChatRequest) GetSeed() *int64 {
+func (c *ChatRequest) GetSeed() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
@@ -986,7 +898,7 @@ func (c *ChatRequest) GetStreamOptions() optionalnullable.OptionalNullable[ChatS
 	return c.StreamOptions
 }
 
-func (c *ChatRequest) GetTemperature() *float64 {
+func (c *ChatRequest) GetTemperature() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
@@ -1007,14 +919,14 @@ func (c *ChatRequest) GetTools() []ChatFunctionTool {
 	return c.Tools
 }
 
-func (c *ChatRequest) GetTopLogprobs() *int64 {
+func (c *ChatRequest) GetTopLogprobs() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.TopLogprobs
 }
 
-func (c *ChatRequest) GetTopP() *float64 {
+func (c *ChatRequest) GetTopP() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}

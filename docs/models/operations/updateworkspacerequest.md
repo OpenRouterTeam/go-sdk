@@ -1,0 +1,9 @@
+# UpdateWorkspaceRequest
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            | Example                                                                                |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ID`                                                                                   | `string`                                                                               | :heavy_check_mark:                                                                     | The workspace ID (UUID) or slug                                                        | production                                                                             |
+| `UpdateWorkspaceRequest`                                                               | [components.UpdateWorkspaceRequest](../../models/components/updateworkspacerequest.md) | :heavy_check_mark:                                                                     | N/A                                                                                    | {<br/>"name": "Updated Workspace",<br/>"slug": "updated-workspace"<br/>}               |

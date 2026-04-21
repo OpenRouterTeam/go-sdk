@@ -12,28 +12,29 @@ import (
 type OutputItemsType string
 
 const (
-	OutputItemsTypeCodeInterpreterCall       OutputItemsType = "code_interpreter_call"
-	OutputItemsTypeComputerCall              OutputItemsType = "computer_call"
-	OutputItemsTypeFileSearchCall            OutputItemsType = "file_search_call"
-	OutputItemsTypeFunctionCall              OutputItemsType = "function_call"
-	OutputItemsTypeImageGenerationCall       OutputItemsType = "image_generation_call"
-	OutputItemsTypeMessage                   OutputItemsType = "message"
-	OutputItemsTypeOpenrouterApplyPatch      OutputItemsType = "openrouter:apply_patch"
-	OutputItemsTypeOpenrouterBash            OutputItemsType = "openrouter:bash"
-	OutputItemsTypeOpenrouterBrowserUse      OutputItemsType = "openrouter:browser_use"
-	OutputItemsTypeOpenrouterCodeInterpreter OutputItemsType = "openrouter:code_interpreter"
-	OutputItemsTypeOpenrouterDatetime        OutputItemsType = "openrouter:datetime"
-	OutputItemsTypeOpenrouterFileSearch      OutputItemsType = "openrouter:file_search"
-	OutputItemsTypeOpenrouterImageGeneration OutputItemsType = "openrouter:image_generation"
-	OutputItemsTypeOpenrouterMcp             OutputItemsType = "openrouter:mcp"
-	OutputItemsTypeOpenrouterMemory          OutputItemsType = "openrouter:memory"
-	OutputItemsTypeOpenrouterTextEditor      OutputItemsType = "openrouter:text_editor"
-	OutputItemsTypeOpenrouterToolSearch      OutputItemsType = "openrouter:tool_search"
-	OutputItemsTypeOpenrouterWebFetch        OutputItemsType = "openrouter:web_fetch"
-	OutputItemsTypeOpenrouterWebSearch       OutputItemsType = "openrouter:web_search"
-	OutputItemsTypeReasoning                 OutputItemsType = "reasoning"
-	OutputItemsTypeWebSearchCall             OutputItemsType = "web_search_call"
-	OutputItemsTypeUnknown                   OutputItemsType = "UNKNOWN"
+	OutputItemsTypeCodeInterpreterCall                OutputItemsType = "code_interpreter_call"
+	OutputItemsTypeComputerCall                       OutputItemsType = "computer_call"
+	OutputItemsTypeFileSearchCall                     OutputItemsType = "file_search_call"
+	OutputItemsTypeFunctionCall                       OutputItemsType = "function_call"
+	OutputItemsTypeImageGenerationCall                OutputItemsType = "image_generation_call"
+	OutputItemsTypeMessage                            OutputItemsType = "message"
+	OutputItemsTypeOpenrouterApplyPatch               OutputItemsType = "openrouter:apply_patch"
+	OutputItemsTypeOpenrouterBash                     OutputItemsType = "openrouter:bash"
+	OutputItemsTypeOpenrouterBrowserUse               OutputItemsType = "openrouter:browser_use"
+	OutputItemsTypeOpenrouterCodeInterpreter          OutputItemsType = "openrouter:code_interpreter"
+	OutputItemsTypeOpenrouterDatetime                 OutputItemsType = "openrouter:datetime"
+	OutputItemsTypeOpenrouterExperimentalSearchModels OutputItemsType = "openrouter:experimental__search_models"
+	OutputItemsTypeOpenrouterFileSearch               OutputItemsType = "openrouter:file_search"
+	OutputItemsTypeOpenrouterImageGeneration          OutputItemsType = "openrouter:image_generation"
+	OutputItemsTypeOpenrouterMcp                      OutputItemsType = "openrouter:mcp"
+	OutputItemsTypeOpenrouterMemory                   OutputItemsType = "openrouter:memory"
+	OutputItemsTypeOpenrouterTextEditor               OutputItemsType = "openrouter:text_editor"
+	OutputItemsTypeOpenrouterToolSearch               OutputItemsType = "openrouter:tool_search"
+	OutputItemsTypeOpenrouterWebFetch                 OutputItemsType = "openrouter:web_fetch"
+	OutputItemsTypeOpenrouterWebSearch                OutputItemsType = "openrouter:web_search"
+	OutputItemsTypeReasoning                          OutputItemsType = "reasoning"
+	OutputItemsTypeWebSearchCall                      OutputItemsType = "web_search_call"
+	OutputItemsTypeUnknown                            OutputItemsType = "UNKNOWN"
 )
 
 // OutputItems - An output item from the response
@@ -59,6 +60,7 @@ type OutputItems struct {
 	OutputToolSearchServerToolItem      *OutputToolSearchServerToolItem      `queryParam:"inline" union:"member"`
 	OutputMemoryServerToolItem          *OutputMemoryServerToolItem          `queryParam:"inline" union:"member"`
 	OutputMcpServerToolItem             *OutputMcpServerToolItem             `queryParam:"inline" union:"member"`
+	OutputSearchModelsServerToolItem    *OutputSearchModelsServerToolItem    `queryParam:"inline" union:"member"`
 	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
 
 	Type OutputItemsType
@@ -193,6 +195,18 @@ func CreateOutputItemsOpenrouterDatetime(openrouterDatetime OutputDatetimeItem) 
 	return OutputItems{
 		OutputDatetimeItem: &openrouterDatetime,
 		Type:               typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterExperimentalSearchModels(openrouterExperimentalSearchModels OutputSearchModelsServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterExperimentalSearchModels
+
+	typStr := OutputSearchModelsServerToolItemType(typ)
+	openrouterExperimentalSearchModels.Type = typStr
+
+	return OutputItems{
+		OutputSearchModelsServerToolItem: &openrouterExperimentalSearchModels,
+		Type:                             typ,
 	}
 }
 
@@ -449,6 +463,15 @@ func (u *OutputItems) UnmarshalJSON(data []byte) error {
 		u.OutputDatetimeItem = outputDatetimeItem
 		u.Type = OutputItemsTypeOpenrouterDatetime
 		return nil
+	case "openrouter:experimental__search_models":
+		outputSearchModelsServerToolItem := new(OutputSearchModelsServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputSearchModelsServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:experimental__search_models) type OutputSearchModelsServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputSearchModelsServerToolItem = outputSearchModelsServerToolItem
+		u.Type = OutputItemsTypeOpenrouterExperimentalSearchModels
+		return nil
 	case "openrouter:file_search":
 		outputFileSearchServerToolItem := new(OutputFileSearchServerToolItem)
 		if err := utils.UnmarshalJSON(data, &outputFileSearchServerToolItem, "", true, nil); err != nil {
@@ -630,6 +653,10 @@ func (u OutputItems) MarshalJSON() ([]byte, error) {
 
 	if u.OutputMcpServerToolItem != nil {
 		return utils.MarshalJSON(u.OutputMcpServerToolItem, "", true)
+	}
+
+	if u.OutputSearchModelsServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputSearchModelsServerToolItem, "", true)
 	}
 
 	if u.UnknownRaw != nil {

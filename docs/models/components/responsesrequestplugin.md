@@ -27,6 +27,12 @@ responsesRequestPlugin := components.CreateResponsesRequestPluginFileParser(comp
 responsesRequestPlugin := components.CreateResponsesRequestPluginModeration(components.ModerationPlugin{/* values here */})
 ```
 
+### ParetoRouterPlugin
+
+```go
+responsesRequestPlugin := components.CreateResponsesRequestPluginParetoRouter(components.ParetoRouterPlugin{/* values here */})
+```
+
 ### ResponseHealingPlugin
 
 ```go
@@ -53,6 +59,8 @@ switch responsesRequestPlugin.Type {
 		// responsesRequestPlugin.FileParserPlugin is populated
 	case components.ResponsesRequestPluginTypeModeration:
 		// responsesRequestPlugin.ModerationPlugin is populated
+	case components.ResponsesRequestPluginTypeParetoRouter:
+		// responsesRequestPlugin.ParetoRouterPlugin is populated
 	case components.ResponsesRequestPluginTypeResponseHealing:
 		// responsesRequestPlugin.ResponseHealingPlugin is populated
 	case components.ResponsesRequestPluginTypeWeb:

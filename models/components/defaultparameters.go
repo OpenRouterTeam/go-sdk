@@ -8,36 +8,36 @@ import (
 
 // DefaultParameters - Default parameters for this model
 type DefaultParameters struct {
-	FrequencyPenalty  *float64                                 `json:"frequency_penalty,omitzero"`
-	PresencePenalty   *float64                                 `json:"presence_penalty,omitzero"`
-	RepetitionPenalty *float64                                 `json:"repetition_penalty,omitzero"`
-	Temperature       *float64                                 `json:"temperature,omitzero"`
-	TopK              optionalnullable.OptionalNullable[int64] `json:"top_k,omitzero"`
-	TopP              *float64                                 `json:"top_p,omitzero"`
+	FrequencyPenalty  optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
+	PresencePenalty   optionalnullable.OptionalNullable[float64] `json:"presence_penalty,omitzero"`
+	RepetitionPenalty optionalnullable.OptionalNullable[float64] `json:"repetition_penalty,omitzero"`
+	Temperature       optionalnullable.OptionalNullable[float64] `json:"temperature,omitzero"`
+	TopK              optionalnullable.OptionalNullable[int64]   `json:"top_k,omitzero"`
+	TopP              optionalnullable.OptionalNullable[float64] `json:"top_p,omitzero"`
 }
 
-func (d *DefaultParameters) GetFrequencyPenalty() *float64 {
+func (d *DefaultParameters) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {
 	if d == nil {
 		return nil
 	}
 	return d.FrequencyPenalty
 }
 
-func (d *DefaultParameters) GetPresencePenalty() *float64 {
+func (d *DefaultParameters) GetPresencePenalty() optionalnullable.OptionalNullable[float64] {
 	if d == nil {
 		return nil
 	}
 	return d.PresencePenalty
 }
 
-func (d *DefaultParameters) GetRepetitionPenalty() *float64 {
+func (d *DefaultParameters) GetRepetitionPenalty() optionalnullable.OptionalNullable[float64] {
 	if d == nil {
 		return nil
 	}
 	return d.RepetitionPenalty
 }
 
-func (d *DefaultParameters) GetTemperature() *float64 {
+func (d *DefaultParameters) GetTemperature() optionalnullable.OptionalNullable[float64] {
 	if d == nil {
 		return nil
 	}
@@ -51,7 +51,7 @@ func (d *DefaultParameters) GetTopK() optionalnullable.OptionalNullable[int64] {
 	return d.TopK
 }
 
-func (d *DefaultParameters) GetTopP() *float64 {
+func (d *DefaultParameters) GetTopP() optionalnullable.OptionalNullable[float64] {
 	if d == nil {
 		return nil
 	}

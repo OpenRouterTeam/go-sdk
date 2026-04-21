@@ -40,11 +40,13 @@ type CreateKeysRequest struct {
 	// Whether to include BYOK usage in the limit
 	IncludeByokInLimit *bool `json:"include_byok_in_limit,omitzero"`
 	// Optional spending limit for the API key in USD
-	Limit *float64 `json:"limit,omitzero"`
+	Limit optionalnullable.OptionalNullable[float64] `json:"limit,omitzero"`
 	// Type of limit reset for the API key (daily, weekly, monthly, or null for no reset). Resets happen automatically at midnight UTC, and weeks are Monday through Sunday.
 	LimitReset optionalnullable.OptionalNullable[CreateKeysLimitReset] `json:"limit_reset,omitzero"`
 	// Name for the new API key
 	Name string `json:"name"`
+	// The workspace to create the API key in. Defaults to the default workspace if not provided.
+	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
 func (c CreateKeysRequest) MarshalJSON() ([]byte, error) {
@@ -79,7 +81,7 @@ func (c *CreateKeysRequest) GetIncludeByokInLimit() *bool {
 	return c.IncludeByokInLimit
 }
 
-func (c *CreateKeysRequest) GetLimit() *float64 {
+func (c *CreateKeysRequest) GetLimit() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
@@ -98,6 +100,13 @@ func (c *CreateKeysRequest) GetName() string {
 		return ""
 	}
 	return c.Name
+}
+
+func (c *CreateKeysRequest) GetWorkspaceID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.WorkspaceID
 }
 
 // CreateKeysData - The created API key information
@@ -125,9 +134,9 @@ type CreateKeysData struct {
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
-	Limit float64 `json:"limit"`
+	Limit *float64 `json:"limit"`
 	// Remaining spending limit in USD
-	LimitRemaining float64 `json:"limit_remaining"`
+	LimitRemaining *float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
 	// Name of the API key
@@ -142,6 +151,8 @@ type CreateKeysData struct {
 	UsageMonthly float64 `json:"usage_monthly"`
 	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
 	UsageWeekly float64 `json:"usage_weekly"`
+	// The workspace ID this API key belongs to.
+	WorkspaceID string `json:"workspace_id"`
 }
 
 func (c CreateKeysData) MarshalJSON() ([]byte, error) {
@@ -232,16 +243,16 @@ func (c *CreateKeysData) GetLabel() string {
 	return c.Label
 }
 
-func (c *CreateKeysData) GetLimit() float64 {
+func (c *CreateKeysData) GetLimit() *float64 {
 	if c == nil {
-		return 0.0
+		return nil
 	}
 	return c.Limit
 }
 
-func (c *CreateKeysData) GetLimitRemaining() float64 {
+func (c *CreateKeysData) GetLimitRemaining() *float64 {
 	if c == nil {
-		return 0.0
+		return nil
 	}
 	return c.LimitRemaining
 }
@@ -293,6 +304,13 @@ func (c *CreateKeysData) GetUsageWeekly() float64 {
 		return 0.0
 	}
 	return c.UsageWeekly
+}
+
+func (c *CreateKeysData) GetWorkspaceID() string {
+	if c == nil {
+		return ""
+	}
+	return c.WorkspaceID
 }
 
 // CreateKeysResponse - API key created successfully

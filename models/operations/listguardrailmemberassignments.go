@@ -4,13 +4,14 @@ package operations
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type ListGuardrailMemberAssignmentsRequest struct {
 	// The unique identifier of the guardrail
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Number of records to skip for pagination
-	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
@@ -22,7 +23,7 @@ func (l *ListGuardrailMemberAssignmentsRequest) GetID() string {
 	return l.ID
 }
 
-func (l *ListGuardrailMemberAssignmentsRequest) GetOffset() *int64 {
+func (l *ListGuardrailMemberAssignmentsRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
 	if l == nil {
 		return nil
 	}

@@ -3,26 +3,29 @@
 package components
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type TextExtendedConfigVerbosity string
+type Verbosity string
 
 const (
-	TextExtendedConfigVerbosityHigh   TextExtendedConfigVerbosity = "high"
-	TextExtendedConfigVerbosityLow    TextExtendedConfigVerbosity = "low"
-	TextExtendedConfigVerbosityMedium TextExtendedConfigVerbosity = "medium"
+	VerbosityLow    Verbosity = "low"
+	VerbosityMedium Verbosity = "medium"
+	VerbosityHigh   Verbosity = "high"
+	VerbosityXhigh  Verbosity = "xhigh"
+	VerbosityMax    Verbosity = "max"
 )
 
-func (e TextExtendedConfigVerbosity) ToPointer() *TextExtendedConfigVerbosity {
+func (e Verbosity) ToPointer() *Verbosity {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TextExtendedConfigVerbosity) IsExact() bool {
+func (e *Verbosity) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "high", "low", "medium":
+		case "low", "medium", "high", "xhigh", "max":
 			return true
 		}
 	}
@@ -32,8 +35,19 @@ func (e *TextExtendedConfigVerbosity) IsExact() bool {
 // TextExtendedConfig - Text output configuration including format and verbosity
 type TextExtendedConfig struct {
 	// Text response format configuration
-	Format    *Formats                                                       `json:"format,omitzero"`
-	Verbosity optionalnullable.OptionalNullable[TextExtendedConfigVerbosity] `json:"verbosity,omitzero"`
+	Format    *Formats                                     `json:"format,omitzero"`
+	Verbosity optionalnullable.OptionalNullable[Verbosity] `json:"verbosity,omitzero"`
+}
+
+func (t TextExtendedConfig) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TextExtendedConfig) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (t *TextExtendedConfig) GetFormat() *Formats {
@@ -64,7 +78,7 @@ func (t *TextExtendedConfig) GetFormatJSONSchema() *FormatJSONSchemaConfig {
 	return nil
 }
 
-func (t *TextExtendedConfig) GetVerbosity() optionalnullable.OptionalNullable[TextExtendedConfigVerbosity] {
+func (t *TextExtendedConfig) GetVerbosity() optionalnullable.OptionalNullable[Verbosity] {
 	if t == nil {
 		return nil
 	}

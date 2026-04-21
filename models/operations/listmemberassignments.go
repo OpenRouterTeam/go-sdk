@@ -4,16 +4,17 @@ package operations
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type ListMemberAssignmentsRequest struct {
 	// Number of records to skip for pagination
-	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
-func (l *ListMemberAssignmentsRequest) GetOffset() *int64 {
+func (l *ListMemberAssignmentsRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
 	if l == nil {
 		return nil
 	}

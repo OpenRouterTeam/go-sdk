@@ -198,6 +198,7 @@ func main() {
 ### [Generations](docs/sdks/generations/README.md)
 
 * [GetGeneration](docs/sdks/generations/README.md#getgeneration) - Get request & usage metadata for a generation
+* [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt and completion content for a generation
 
 ### [Guardrails](docs/sdks/guardrails/README.md)
 
@@ -238,12 +239,26 @@ func main() {
 
 * [Rerank](docs/sdks/rerank/README.md#rerank) - Submit a rerank request
 
+### [Tts](docs/sdks/tts/README.md)
+
+* [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
+
 ### [VideoGeneration](docs/sdks/videogeneration/README.md)
 
 * [Generate](docs/sdks/videogeneration/README.md#generate) - Submit a video generation request
 * [GetGeneration](docs/sdks/videogeneration/README.md#getgeneration) - Poll video generation status
 * [GetVideoContent](docs/sdks/videogeneration/README.md#getvideocontent) - Download generated video content
 * [ListVideosModels](docs/sdks/videogeneration/README.md#listvideosmodels) - List all video generation models
+
+### [Workspaces](docs/sdks/workspaces/README.md)
+
+* [List](docs/sdks/workspaces/README.md#list) - List workspaces
+* [Create](docs/sdks/workspaces/README.md#create) - Create a workspace
+* [Delete](docs/sdks/workspaces/README.md#delete) - Delete a workspace
+* [Get](docs/sdks/workspaces/README.md#get) - Get a workspace
+* [Update](docs/sdks/workspaces/README.md#update) - Update a workspace
+* [BulkAddMembers](docs/sdks/workspaces/README.md#bulkaddmembers) - Bulk add members to a workspace
+* [BulkRemoveMembers](docs/sdks/workspaces/README.md#bulkremovemembers) - Bulk remove members from a workspace
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -264,6 +279,7 @@ import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -276,7 +292,7 @@ func main() {
 	)
 
 	res, err := s.Chat.Send(ctx, components.ChatRequest{
-		MaxTokens: openrouter.Pointer[int64](150),
+		MaxTokens: optionalnullable.From(openrouter.Pointer[int64](150)),
 		Messages: []components.ChatMessages{
 			components.CreateChatMessagesSystem(
 				components.ChatSystemMessage{
@@ -296,7 +312,7 @@ func main() {
 			),
 		},
 		Model:       openrouter.Pointer("openai/gpt-4"),
-		Temperature: openrouter.Pointer[float64](0.7),
+		Temperature: optionalnullable.From(openrouter.Pointer[float64](0.7)),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -331,6 +347,7 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -342,7 +359,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Guardrails.List(ctx, nil, nil)
+	res, err := s.Guardrails.List(ctx, optionalnullable.From[int64](nil), nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

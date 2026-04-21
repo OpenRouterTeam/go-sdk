@@ -53,6 +53,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameAionLabs`        | AionLabs                                      |
 | `ProviderResponseProviderNameAlibaba`         | Alibaba                                       |
 | `ProviderResponseProviderNameAmbient`         | Ambient                                       |
+| `ProviderResponseProviderNameBaidu`           | Baidu                                         |
 | `ProviderResponseProviderNameAmazonBedrock`   | Amazon Bedrock                                |
 | `ProviderResponseProviderNameAmazonNova`      | Amazon Nova                                   |
 | `ProviderResponseProviderNameAnthropic`       | Anthropic                                     |
@@ -72,6 +73,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameCrusoe`          | Crusoe                                        |
 | `ProviderResponseProviderNameDeepInfra`       | DeepInfra                                     |
 | `ProviderResponseProviderNameDeepSeek`        | DeepSeek                                      |
+| `ProviderResponseProviderNameDekaLlm`         | DekaLLM                                       |
 | `ProviderResponseProviderNameFeatherless`     | Featherless                                   |
 | `ProviderResponseProviderNameFireworks`       | Fireworks                                     |
 | `ProviderResponseProviderNameFriendli`        | Friendli                                      |
@@ -106,6 +108,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameParasail`        | Parasail                                      |
 | `ProviderResponseProviderNamePerplexity`      | Perplexity                                    |
 | `ProviderResponseProviderNamePhala`           | Phala                                         |
+| `ProviderResponseProviderNameRecraft`         | Recraft                                       |
 | `ProviderResponseProviderNameReka`            | Reka                                          |
 | `ProviderResponseProviderNameRelace`          | Relace                                        |
 | `ProviderResponseProviderNameSambaNova`       | SambaNova                                     |

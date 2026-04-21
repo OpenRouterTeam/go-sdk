@@ -1,0 +1,10 @@
+# FrameImage
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ImageURL`                                                                     | [components.FrameImageImageURL](../../models/components/frameimageimageurl.md) | :heavy_check_mark:                                                             | N/A                                                                            |                                                                                |
+| `Type`                                                                         | [components.FrameImageType](../../models/components/frameimagetype.md)         | :heavy_check_mark:                                                             | N/A                                                                            |                                                                                |
+| `FrameType`                                                                    | [components.FrameType](../../models/components/frametype.md)                   | :heavy_check_mark:                                                             | Whether this image represents the first or last frame of the video             | first_frame                                                                    |

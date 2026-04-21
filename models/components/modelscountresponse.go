@@ -2,28 +2,28 @@
 
 package components
 
-// Data - Model count data
-type Data struct {
+// ModelsCountResponseData - Model count data
+type ModelsCountResponseData struct {
 	// Total number of available models
 	Count int64 `json:"count"`
 }
 
-func (d *Data) GetCount() int64 {
-	if d == nil {
+func (m *ModelsCountResponseData) GetCount() int64 {
+	if m == nil {
 		return 0
 	}
-	return d.Count
+	return m.Count
 }
 
 // ModelsCountResponse - Model count data
 type ModelsCountResponse struct {
 	// Model count data
-	Data Data `json:"data"`
+	Data ModelsCountResponseData `json:"data"`
 }
 
-func (m *ModelsCountResponse) GetData() Data {
+func (m *ModelsCountResponse) GetData() ModelsCountResponseData {
 	if m == nil {
-		return Data{}
+		return ModelsCountResponseData{}
 	}
 	return m.Data
 }

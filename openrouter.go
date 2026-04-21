@@ -60,6 +60,8 @@ type OpenRouter struct {
 	SDKVersion string
 	// Analytics and usage endpoints
 	Analytics *Analytics
+	// Text-to-speech endpoints
+	Tts *Tts
 	// OAuth authentication endpoints
 	OAuth *OAuth
 	Chat  *Chat
@@ -86,6 +88,8 @@ type OpenRouter struct {
 	Beta   *Beta
 	// Video Generation endpoints
 	VideoGeneration *VideoGeneration
+	// Workspaces endpoints
+	Workspaces *Workspaces
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -177,9 +181,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.4.0",
+		SDKVersion: "0.4.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.4.0 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.4.1 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -206,6 +210,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.Analytics = newAnalytics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Tts = newTts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -220,6 +225,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Rerank = newRerank(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Beta = newBeta(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.VideoGeneration = newVideoGeneration(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Workspaces = newWorkspaces(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

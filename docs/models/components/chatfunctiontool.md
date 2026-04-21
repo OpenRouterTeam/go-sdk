@@ -17,6 +17,18 @@ chatFunctionTool := components.CreateChatFunctionToolChatFunctionToolFunction(co
 chatFunctionTool := components.CreateChatFunctionToolDatetimeServerTool(components.DatetimeServerTool{/* values here */})
 ```
 
+### ImageGenerationServerToolOpenRouter
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolImageGenerationServerToolOpenRouter(components.ImageGenerationServerToolOpenRouter{/* values here */})
+```
+
+### ChatSearchModelsServerTool
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolChatSearchModelsServerTool(components.ChatSearchModelsServerTool{/* values here */})
+```
+
 ### OpenRouterWebSearchServerTool
 
 ```go
@@ -39,6 +51,10 @@ switch chatFunctionTool.Type {
 		// chatFunctionTool.ChatFunctionToolFunction is populated
 	case components.ChatFunctionToolUnionTypeDatetimeServerTool:
 		// chatFunctionTool.DatetimeServerTool is populated
+	case components.ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter:
+		// chatFunctionTool.ImageGenerationServerToolOpenRouter is populated
+	case components.ChatFunctionToolUnionTypeChatSearchModelsServerTool:
+		// chatFunctionTool.ChatSearchModelsServerTool is populated
 	case components.ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool:
 		// chatFunctionTool.OpenRouterWebSearchServerTool is populated
 	case components.ChatFunctionToolUnionTypeChatWebSearchShorthand:

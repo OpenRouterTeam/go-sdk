@@ -11,7 +11,7 @@ type ReasoningConfig struct {
 	Effort    optionalnullable.OptionalNullable[ReasoningEffort]           `json:"effort,omitzero"`
 	Summary   optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] `json:"summary,omitzero"`
 	Enabled   optionalnullable.OptionalNullable[bool]                      `json:"enabled,omitzero"`
-	MaxTokens *int64                                                       `json:"max_tokens,omitzero"`
+	MaxTokens optionalnullable.OptionalNullable[int64]                     `json:"max_tokens,omitzero"`
 }
 
 func (r *ReasoningConfig) GetEffort() optionalnullable.OptionalNullable[ReasoningEffort] {
@@ -35,7 +35,7 @@ func (r *ReasoningConfig) GetEnabled() optionalnullable.OptionalNullable[bool] {
 	return r.Enabled
 }
 
-func (r *ReasoningConfig) GetMaxTokens() *int64 {
+func (r *ReasoningConfig) GetMaxTokens() optionalnullable.OptionalNullable[int64] {
 	if r == nil {
 		return nil
 	}

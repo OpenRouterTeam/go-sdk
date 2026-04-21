@@ -553,16 +553,16 @@ func (u OpenResponsesResultToolUnion) MarshalJSON() ([]byte, error) {
 // OpenResponsesResult - Complete non-streaming response from the Responses API
 type OpenResponsesResult struct {
 	Background  optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
-	CompletedAt int64                                   `json:"completed_at"`
+	CompletedAt *int64                                  `json:"completed_at"`
 	CreatedAt   int64                                   `json:"created_at"`
 	// Error information returned from the API
-	Error             *ResponsesErrorField `json:"error"`
-	FrequencyPenalty  float64              `json:"frequency_penalty"`
-	ID                string               `json:"id"`
-	IncompleteDetails *IncompleteDetails   `json:"incomplete_details"`
-	Instructions      *BaseInputsUnion     `json:"instructions"`
-	MaxOutputTokens   *int64               `json:"max_output_tokens,omitzero"`
-	MaxToolCalls      *int64               `json:"max_tool_calls,omitzero"`
+	Error             *ResponsesErrorField                     `json:"error"`
+	FrequencyPenalty  *float64                                 `json:"frequency_penalty"`
+	ID                string                                   `json:"id"`
+	IncompleteDetails *IncompleteDetails                       `json:"incomplete_details"`
+	Instructions      *BaseInputsUnion                         `json:"instructions"`
+	MaxOutputTokens   optionalnullable.OptionalNullable[int64] `json:"max_output_tokens,omitzero"`
+	MaxToolCalls      optionalnullable.OptionalNullable[int64] `json:"max_tool_calls,omitzero"`
 	// Metadata key-value pairs for the request. Keys must be ≤64 characters and cannot contain brackets. Values must be ≤512 characters. Maximum 16 pairs allowed.
 	Metadata           map[string]string                                       `json:"metadata"`
 	Model              string                                                  `json:"model"`
@@ -570,7 +570,7 @@ type OpenResponsesResult struct {
 	Output             []OutputItems                                           `json:"output"`
 	OutputText         *string                                                 `json:"output_text,omitzero"`
 	ParallelToolCalls  bool                                                    `json:"parallel_tool_calls"`
-	PresencePenalty    float64                                                 `json:"presence_penalty"`
+	PresencePenalty    *float64                                                `json:"presence_penalty"`
 	PreviousResponseID optionalnullable.OptionalNullable[string]               `json:"previous_response_id,omitzero"`
 	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
 	PromptCacheKey     optionalnullable.OptionalNullable[string]               `json:"prompt_cache_key,omitzero"`
@@ -579,13 +579,13 @@ type OpenResponsesResult struct {
 	ServiceTier        optionalnullable.OptionalNullable[string]               `json:"service_tier,omitzero"`
 	Status             OpenAIResponsesResponseStatus                           `json:"status"`
 	Store              *bool                                                   `json:"store,omitzero"`
-	Temperature        float64                                                 `json:"temperature"`
+	Temperature        *float64                                                `json:"temperature"`
 	// Text output configuration including format and verbosity
-	Text        *TextConfig                                   `json:"text,omitzero"`
+	Text        *TextExtendedConfig                           `json:"text,omitzero"`
 	ToolChoice  OpenAIResponsesToolChoiceUnion                `json:"tool_choice"`
 	Tools       []OpenResponsesResultToolUnion                `json:"tools"`
 	TopLogprobs *int64                                        `json:"top_logprobs,omitzero"`
-	TopP        float64                                       `json:"top_p"`
+	TopP        *float64                                      `json:"top_p"`
 	Truncation  optionalnullable.OptionalNullable[Truncation] `json:"truncation,omitzero"`
 	// Token usage information for the response
 	Usage optionalnullable.OptionalNullable[Usage]  `json:"usage,omitzero"`
@@ -610,9 +610,9 @@ func (o *OpenResponsesResult) GetBackground() optionalnullable.OptionalNullable[
 	return o.Background
 }
 
-func (o *OpenResponsesResult) GetCompletedAt() int64 {
+func (o *OpenResponsesResult) GetCompletedAt() *int64 {
 	if o == nil {
-		return 0
+		return nil
 	}
 	return o.CompletedAt
 }
@@ -631,9 +631,9 @@ func (o *OpenResponsesResult) GetError() *ResponsesErrorField {
 	return o.Error
 }
 
-func (o *OpenResponsesResult) GetFrequencyPenalty() float64 {
+func (o *OpenResponsesResult) GetFrequencyPenalty() *float64 {
 	if o == nil {
-		return 0.0
+		return nil
 	}
 	return o.FrequencyPenalty
 }
@@ -659,14 +659,14 @@ func (o *OpenResponsesResult) GetInstructions() *BaseInputsUnion {
 	return o.Instructions
 }
 
-func (o *OpenResponsesResult) GetMaxOutputTokens() *int64 {
+func (o *OpenResponsesResult) GetMaxOutputTokens() optionalnullable.OptionalNullable[int64] {
 	if o == nil {
 		return nil
 	}
 	return o.MaxOutputTokens
 }
 
-func (o *OpenResponsesResult) GetMaxToolCalls() *int64 {
+func (o *OpenResponsesResult) GetMaxToolCalls() optionalnullable.OptionalNullable[int64] {
 	if o == nil {
 		return nil
 	}
@@ -715,9 +715,9 @@ func (o *OpenResponsesResult) GetParallelToolCalls() bool {
 	return o.ParallelToolCalls
 }
 
-func (o *OpenResponsesResult) GetPresencePenalty() float64 {
+func (o *OpenResponsesResult) GetPresencePenalty() *float64 {
 	if o == nil {
-		return 0.0
+		return nil
 	}
 	return o.PresencePenalty
 }
@@ -778,14 +778,14 @@ func (o *OpenResponsesResult) GetStore() *bool {
 	return o.Store
 }
 
-func (o *OpenResponsesResult) GetTemperature() float64 {
+func (o *OpenResponsesResult) GetTemperature() *float64 {
 	if o == nil {
-		return 0.0
+		return nil
 	}
 	return o.Temperature
 }
 
-func (o *OpenResponsesResult) GetText() *TextConfig {
+func (o *OpenResponsesResult) GetText() *TextExtendedConfig {
 	if o == nil {
 		return nil
 	}
@@ -813,9 +813,9 @@ func (o *OpenResponsesResult) GetTopLogprobs() *int64 {
 	return o.TopLogprobs
 }
 
-func (o *OpenResponsesResult) GetTopP() float64 {
+func (o *OpenResponsesResult) GetTopP() *float64 {
 	if o == nil {
-		return 0.0
+		return nil
 	}
 	return o.TopP
 }
