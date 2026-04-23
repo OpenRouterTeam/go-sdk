@@ -8539,6 +8539,7 @@ components:
                 - OpenAI
                 - OpenInference
                 - Parasail
+                - Poolside
                 - Perplexity
                 - Phala
                 - Recraft
@@ -10995,6 +10996,7 @@ components:
         - OpenAI
         - OpenInference
         - Parasail
+        - Poolside
         - Perplexity
         - Phala
         - Recraft
@@ -11310,6 +11312,7 @@ components:
             - OpenAI
             - OpenInference
             - Parasail
+            - Poolside
             - Perplexity
             - Phala
             - Recraft
@@ -12739,6 +12742,10 @@ components:
                   additionalProperties:
                     nullable: true
                   type: object
+                poolside:
+                  additionalProperties:
+                    nullable: true
+                  type: object
                 recraft:
                   additionalProperties:
                     nullable: true
@@ -14050,6 +14057,10 @@ components:
                     nullable: true
                   type: object
                 phala:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                poolside:
                   additionalProperties:
                     nullable: true
                   type: object
