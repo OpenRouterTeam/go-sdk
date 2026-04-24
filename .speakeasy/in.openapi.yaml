@@ -8539,6 +8539,7 @@ components:
                 - OpenAI
                 - OpenInference
                 - Parasail
+                - Poolside
                 - Perplexity
                 - Phala
                 - Recraft
@@ -10995,6 +10996,7 @@ components:
         - OpenAI
         - OpenInference
         - Parasail
+        - Poolside
         - Perplexity
         - Phala
         - Recraft
@@ -11310,6 +11312,7 @@ components:
             - OpenAI
             - OpenInference
             - Parasail
+            - Poolside
             - Perplexity
             - Phala
             - Recraft
@@ -12739,6 +12742,10 @@ components:
                   additionalProperties:
                     nullable: true
                   type: object
+                poolside:
+                  additionalProperties:
+                    nullable: true
+                  type: object
                 recraft:
                   additionalProperties:
                     nullable: true
@@ -14053,6 +14060,10 @@ components:
                   additionalProperties:
                     nullable: true
                   type: object
+                poolside:
+                  additionalProperties:
+                    nullable: true
+                  type: object
                 recraft:
                   additionalProperties:
                     nullable: true
@@ -14635,8 +14646,27 @@ components:
           type: array
         max_results:
           type: integer
+        max_uses:
+          description: >-
+            Maximum number of times the model can invoke web search in a single turn. Passed through to native providers
+            that support it (e.g. Anthropic).
+          type: integer
         search_prompt:
           type: string
+        user_location:
+          allOf:
+            - $ref: '#/components/schemas/WebSearchUserLocation'
+            - description: >-
+                Approximate user location for location-biased search results. Passed through to native providers that
+                support it (e.g. Anthropic).
+              example:
+                city: San Francisco
+                country: US
+                region: California
+                timezone: America/Los_Angeles
+                type: approximate
+              required:
+                - type
       required:
         - id
       type: object
@@ -14757,12 +14787,16 @@ components:
         type: approximate
       properties:
         city:
+          nullable: true
           type: string
         country:
+          nullable: true
           type: string
         region:
+          nullable: true
           type: string
         timezone:
+          nullable: true
           type: string
         type:
           enum:
