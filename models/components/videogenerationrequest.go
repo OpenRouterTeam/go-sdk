@@ -107,6 +107,7 @@ type VideoGenerationRequestOptions struct {
 	Morph               map[string]any `json:"morph,omitzero"`
 	Ncompass            map[string]any `json:"ncompass,omitzero"`
 	Nebius              map[string]any `json:"nebius,omitzero"`
+	NexAgi              map[string]any `json:"nex-agi,omitzero"`
 	Nextbit             map[string]any `json:"nextbit,omitzero"`
 	Nineteen            map[string]any `json:"nineteen,omitzero"`
 	Novita              map[string]any `json:"novita,omitzero"`
@@ -117,6 +118,7 @@ type VideoGenerationRequestOptions struct {
 	Parasail            map[string]any `json:"parasail,omitzero"`
 	Perplexity          map[string]any `json:"perplexity,omitzero"`
 	Phala               map[string]any `json:"phala,omitzero"`
+	Poolside            map[string]any `json:"poolside,omitzero"`
 	Recraft             map[string]any `json:"recraft,omitzero"`
 	Recursal            map[string]any `json:"recursal,omitzero"`
 	Reflection          map[string]any `json:"reflection,omitzero"`
@@ -653,6 +655,13 @@ func (v *VideoGenerationRequestOptions) GetNebius() map[string]any {
 	return v.Nebius
 }
 
+func (v *VideoGenerationRequestOptions) GetNexAgi() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.NexAgi
+}
+
 func (v *VideoGenerationRequestOptions) GetNextbit() map[string]any {
 	if v == nil {
 		return nil
@@ -721,6 +730,13 @@ func (v *VideoGenerationRequestOptions) GetPhala() map[string]any {
 		return nil
 	}
 	return v.Phala
+}
+
+func (v *VideoGenerationRequestOptions) GetPoolside() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Poolside
 }
 
 func (v *VideoGenerationRequestOptions) GetRecraft() map[string]any {
@@ -959,6 +975,8 @@ func (e *Resolution) IsExact() bool {
 type VideoGenerationRequest struct {
 	// Aspect ratio of the generated video
 	AspectRatio *AspectRatio `json:"aspect_ratio,omitzero"`
+	// URL to receive a webhook notification when the video generation job completes. Overrides the workspace-level default callback URL if set. Must be HTTPS.
+	CallbackURL *string `json:"callback_url,omitzero"`
 	// Duration of the generated video in seconds
 	Duration *int64 `json:"duration,omitzero"`
 	// Images to use as the first and/or last frame of the generated video. Each image must specify a frame_type of first_frame or last_frame.
@@ -995,6 +1013,13 @@ func (v *VideoGenerationRequest) GetAspectRatio() *AspectRatio {
 		return nil
 	}
 	return v.AspectRatio
+}
+
+func (v *VideoGenerationRequest) GetCallbackURL() *string {
+	if v == nil {
+		return nil
+	}
+	return v.CallbackURL
 }
 
 func (v *VideoGenerationRequest) GetDuration() *int64 {

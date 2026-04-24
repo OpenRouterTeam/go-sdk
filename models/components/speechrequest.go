@@ -79,6 +79,7 @@ type SpeechRequestOptions struct {
 	Morph               map[string]any `json:"morph,omitzero"`
 	Ncompass            map[string]any `json:"ncompass,omitzero"`
 	Nebius              map[string]any `json:"nebius,omitzero"`
+	NexAgi              map[string]any `json:"nex-agi,omitzero"`
 	Nextbit             map[string]any `json:"nextbit,omitzero"`
 	Nineteen            map[string]any `json:"nineteen,omitzero"`
 	Novita              map[string]any `json:"novita,omitzero"`
@@ -89,6 +90,7 @@ type SpeechRequestOptions struct {
 	Parasail            map[string]any `json:"parasail,omitzero"`
 	Perplexity          map[string]any `json:"perplexity,omitzero"`
 	Phala               map[string]any `json:"phala,omitzero"`
+	Poolside            map[string]any `json:"poolside,omitzero"`
 	Recraft             map[string]any `json:"recraft,omitzero"`
 	Recursal            map[string]any `json:"recursal,omitzero"`
 	Reflection          map[string]any `json:"reflection,omitzero"`
@@ -625,6 +627,13 @@ func (s *SpeechRequestOptions) GetNebius() map[string]any {
 	return s.Nebius
 }
 
+func (s *SpeechRequestOptions) GetNexAgi() map[string]any {
+	if s == nil {
+		return nil
+	}
+	return s.NexAgi
+}
+
 func (s *SpeechRequestOptions) GetNextbit() map[string]any {
 	if s == nil {
 		return nil
@@ -693,6 +702,13 @@ func (s *SpeechRequestOptions) GetPhala() map[string]any {
 		return nil
 	}
 	return s.Phala
+}
+
+func (s *SpeechRequestOptions) GetPoolside() map[string]any {
+	if s == nil {
+		return nil
+	}
+	return s.Poolside
 }
 
 func (s *SpeechRequestOptions) GetRecraft() map[string]any {
