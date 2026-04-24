@@ -15100,7 +15100,7 @@ paths:
             audio/*:
               schema:
                 description: >-
-                  Raw audio bytestream. Content-Type varies by requested format (audio/mpeg for mp3, audio/L16 for pcm —
+                  Raw audio bytestream. Content-Type varies by requested format (audio/mpeg for mp3, audio/pcm for pcm —
                   16-bit little-endian).
                 example: <binary audio data>
                 format: binary
