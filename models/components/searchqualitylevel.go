@@ -2,7 +2,7 @@
 
 package components
 
-// SearchQualityLevel - How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
+// SearchQualityLevel - How much context to retrieve per result. Defaults to medium (15000 chars). Applies to Exa and Parallel engines; ignored with native provider search and Firecrawl.
 type SearchQualityLevel string
 
 const (

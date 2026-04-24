@@ -354,6 +354,7 @@ const (
 	ResponsesRequestToolUnionTypeOpenrouterDatetime                 ResponsesRequestToolUnionType = "openrouter:datetime"
 	ResponsesRequestToolUnionTypeOpenrouterImageGeneration          ResponsesRequestToolUnionType = "openrouter:image_generation"
 	ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels ResponsesRequestToolUnionType = "openrouter:experimental__search_models"
+	ResponsesRequestToolUnionTypeOpenrouterWebFetch                 ResponsesRequestToolUnionType = "openrouter:web_fetch"
 	ResponsesRequestToolUnionTypeOpenrouterWebSearch                ResponsesRequestToolUnionType = "openrouter:web_search"
 )
 
@@ -375,6 +376,7 @@ type ResponsesRequestToolUnion struct {
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
 	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	WebSearchServerToolOpenRouter       *WebSearchServerToolOpenRouter       `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestToolUnionType
@@ -584,6 +586,18 @@ func CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(openroute
 	}
 }
 
+func CreateResponsesRequestToolUnionOpenrouterWebFetch(openrouterWebFetch WebFetchServerTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterWebFetch
+
+	typStr := WebFetchServerToolType(typ)
+	openrouterWebFetch.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		WebFetchServerTool: &openrouterWebFetch,
+		Type:               typ,
+	}
+}
+
 func CreateResponsesRequestToolUnionOpenrouterWebSearch(openrouterWebSearch WebSearchServerToolOpenRouter) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeOpenrouterWebSearch
 
@@ -761,6 +775,15 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.ChatSearchModelsServerTool = chatSearchModelsServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
 		return nil
+	case "openrouter:web_fetch":
+		webFetchServerTool := new(WebFetchServerTool)
+		if err := utils.UnmarshalJSON(data, &webFetchServerTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:web_fetch) type WebFetchServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.WebFetchServerTool = webFetchServerTool
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterWebFetch
+		return nil
 	case "openrouter:web_search":
 		webSearchServerToolOpenRouter := new(WebSearchServerToolOpenRouter)
 		if err := utils.UnmarshalJSON(data, &webSearchServerToolOpenRouter, "", true, nil); err != nil {
@@ -842,6 +865,10 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 
 	if u.ChatSearchModelsServerTool != nil {
 		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	}
+
+	if u.WebFetchServerTool != nil {
+		return utils.MarshalJSON(u.WebFetchServerTool, "", true)
 	}
 
 	if u.WebSearchServerToolOpenRouter != nil {

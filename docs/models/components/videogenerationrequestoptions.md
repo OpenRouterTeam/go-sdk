@@ -78,6 +78,7 @@ Provider-specific options keyed by provider slug. The options for the matched pr
 | `Morph`               | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Ncompass`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Nebius`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `NexAgi`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Nextbit`             | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Nineteen`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Novita`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
@@ -88,6 +89,7 @@ Provider-specific options keyed by provider slug. The options for the matched pr
 | `Parasail`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Perplexity`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Phala`               | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `Poolside`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Recraft`             | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Recursal`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Reflection`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |

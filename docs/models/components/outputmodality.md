@@ -24,4 +24,4 @@ custom := components.OutputModality("custom_value")
 | `OutputModalityAudio`      | audio                      |
 | `OutputModalityVideo`      | video                      |
 | `OutputModalityRerank`     | rerank                     |
-| `OutputModalityTts`        | tts                        |
+| `OutputModalitySpeech`     | speech                     |

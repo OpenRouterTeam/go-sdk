@@ -3621,6 +3621,7 @@ components:
         - $ref: '#/components/schemas/DatetimeServerTool'
         - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
         - $ref: '#/components/schemas/ChatSearchModelsServerTool'
+        - $ref: '#/components/schemas/WebFetchServerTool'
         - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
         - $ref: '#/components/schemas/ChatWebSearchShorthand'
       description: Tool definition for function calling (regular function or OpenRouter built-in server tool)
@@ -5096,6 +5097,18 @@ components:
           maxLength: 500
           nullable: true
           type: string
+        io_logging_api_key_ids:
+          description: Optional array of API key IDs to filter I/O logging
+          example: null
+          items:
+            type: integer
+          nullable: true
+          type: array
+        io_logging_sampling_rate:
+          description: Sampling rate for I/O logging (0.0001-1)
+          example: 1
+          format: double
+          type: number
         is_data_discount_logging_enabled:
           description: Whether data discount logging is enabled
           example: true
@@ -5135,6 +5148,8 @@ components:
           default_text_model: openai/gpt-4o
           description: Production environment workspace
           id: 550e8400-e29b-41d4-a716-446655440000
+          io_logging_api_key_ids: null
+          io_logging_sampling_rate: 1
           is_data_discount_logging_enabled: true
           is_observability_broadcast_enabled: false
           is_observability_io_logging_enabled: false
@@ -6030,6 +6045,11 @@ components:
               example: 5
               nullable: true
               type: integer
+            num_fetches:
+              description: Number of web fetches performed
+              example: 0
+              nullable: true
+              type: integer
             num_input_audio_prompt:
               description: Number of audio inputs in the prompt
               example: 0
@@ -6068,6 +6088,10 @@ components:
             request_id:
               description: Unique identifier grouping all generations from a single API request
               example: req-1727282430-aBcDeFgHiJkLmNoPqRsT
+              nullable: true
+              type: string
+            response_cache_source_id:
+              description: If this generation was served from response cache, contains the original generation ID. Null otherwise.
               nullable: true
               type: string
             router:
@@ -6151,6 +6175,7 @@ components:
             - num_input_audio_prompt
             - num_media_completion
             - num_search_results
+            - num_fetches
             - web_search_engine
             - origin
             - usage
@@ -6203,6 +6228,8 @@ components:
           default_text_model: openai/gpt-4o
           description: Production environment workspace
           id: 550e8400-e29b-41d4-a716-446655440000
+          io_logging_api_key_ids: null
+          io_logging_sampling_rate: 1
           is_data_discount_logging_enabled: true
           is_observability_broadcast_enabled: false
           is_observability_io_logging_enabled: false
@@ -6826,8 +6853,22 @@ components:
               - $ref: '#/components/schemas/OutputWebSearchCallItem'
               - $ref: '#/components/schemas/OutputFileSearchCallItem'
               - $ref: '#/components/schemas/OutputImageGenerationCallItem'
+              - $ref: '#/components/schemas/OutputCodeInterpreterCallItem'
+              - $ref: '#/components/schemas/OutputComputerCallItem'
               - $ref: '#/components/schemas/OutputDatetimeItem'
               - $ref: '#/components/schemas/OutputWebSearchServerToolItem'
+              - $ref: '#/components/schemas/OutputCodeInterpreterServerToolItem'
+              - $ref: '#/components/schemas/OutputFileSearchServerToolItem'
+              - $ref: '#/components/schemas/OutputImageGenerationServerToolItem'
+              - $ref: '#/components/schemas/OutputBrowserUseServerToolItem'
+              - $ref: '#/components/schemas/OutputBashServerToolItem'
+              - $ref: '#/components/schemas/OutputTextEditorServerToolItem'
+              - $ref: '#/components/schemas/OutputApplyPatchServerToolItem'
+              - $ref: '#/components/schemas/OutputWebFetchServerToolItem'
+              - $ref: '#/components/schemas/OutputToolSearchServerToolItem'
+              - $ref: '#/components/schemas/OutputMemoryServerToolItem'
+              - $ref: '#/components/schemas/OutputMcpServerToolItem'
+              - $ref: '#/components/schemas/OutputSearchModelsServerToolItem'
           type: array
       description: Input for a response request - can be a string or array of items
       example:
@@ -7235,6 +7276,8 @@ components:
             default_text_model: openai/gpt-4o
             description: Production environment workspace
             id: 550e8400-e29b-41d4-a716-446655440000
+            io_logging_api_key_ids: null
+            io_logging_sampling_rate: 1
             is_data_discount_logging_enabled: true
             is_observability_broadcast_enabled: false
             is_observability_io_logging_enabled: false
@@ -8305,6 +8348,7 @@ components:
               - $ref: '#/components/schemas/DatetimeServerTool'
               - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
               - $ref: '#/components/schemas/ChatSearchModelsServerTool'
+              - $ref: '#/components/schemas/WebFetchServerTool'
               - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
           type: array
         top_k:
@@ -8527,12 +8571,14 @@ components:
                 - Morph
                 - NCompass
                 - Nebius
+                - Nex AGI
                 - NextBit
                 - Novita
                 - Nvidia
                 - OpenAI
                 - OpenInference
                 - Parasail
+                - Poolside
                 - Perplexity
                 - Phala
                 - Recraft
@@ -10403,7 +10449,7 @@ components:
         - audio
         - video
         - rerank
-        - tts
+        - speech
       example: text
       type: string
       x-speakeasy-unknown-values: allow
@@ -10981,12 +11027,14 @@ components:
         - Morph
         - NCompass
         - Nebius
+        - Nex AGI
         - NextBit
         - Novita
         - Nvidia
         - OpenAI
         - OpenInference
         - Parasail
+        - Poolside
         - Perplexity
         - Phala
         - Recraft
@@ -11287,12 +11335,14 @@ components:
             - Morph
             - NCompass
             - Nebius
+            - Nex AGI
             - NextBit
             - Novita
             - Nvidia
             - OpenAI
             - OpenInference
             - Parasail
+            - Poolside
             - Perplexity
             - Phala
             - Recraft
@@ -12264,6 +12314,7 @@ components:
               - $ref: '#/components/schemas/DatetimeServerTool'
               - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
               - $ref: '#/components/schemas/ChatSearchModelsServerTool'
+              - $ref: '#/components/schemas/WebFetchServerTool'
               - $ref: '#/components/schemas/WebSearchServerTool_OpenRouter'
           type: array
         top_k:
@@ -12306,7 +12357,7 @@ components:
       type: object
     SearchQualityLevel:
       description: >-
-        How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
+        How much context to retrieve per result. Defaults to medium (15000 chars). Applies to Exa and Parallel engines; ignored with native provider search and Firecrawl.
       enum:
         - low
         - medium
@@ -12680,6 +12731,10 @@ components:
                   additionalProperties:
                     nullable: true
                   type: object
+                nex-agi:
+                  additionalProperties:
+                    nullable: true
+                  type: object
                 nextbit:
                   additionalProperties:
                     nullable: true
@@ -12717,6 +12772,10 @@ components:
                     nullable: true
                   type: object
                 phala:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                poolside:
                   additionalProperties:
                     nullable: true
                   type: object
@@ -13507,6 +13566,18 @@ components:
           maxLength: 500
           nullable: true
           type: string
+        io_logging_api_key_ids:
+          description: Optional array of API key IDs to filter I/O logging
+          example: null
+          items:
+            type: integer
+          nullable: true
+          type: array
+        io_logging_sampling_rate:
+          description: Sampling rate for I/O logging (0.0001-1)
+          example: 1
+          format: double
+          type: number
         is_data_discount_logging_enabled:
           description: Whether data discount logging is enabled
           example: true
@@ -13543,6 +13614,8 @@ components:
           default_text_model: openai/gpt-4o
           description: Production environment workspace
           id: 550e8400-e29b-41d4-a716-446655440000
+          io_logging_api_key_ids: null
+          io_logging_sampling_rate: 1
           is_data_discount_logging_enabled: true
           is_observability_broadcast_enabled: false
           is_observability_io_logging_enabled: false
@@ -13649,6 +13722,12 @@ components:
           example: '16:9'
           type: string
           x-speakeasy-unknown-values: allow
+        callback_url:
+          description: >-
+            URL to receive a webhook notification when the video generation job completes. Overrides the workspace-level default callback URL if set. Must be HTTPS.
+          example: https://example.com/webhook
+          format: uri
+          type: string
         duration:
           description: Duration of the generated video in seconds
           example: 8
@@ -13969,6 +14048,10 @@ components:
                   additionalProperties:
                     nullable: true
                   type: object
+                nex-agi:
+                  additionalProperties:
+                    nullable: true
+                  type: object
                 nextbit:
                   additionalProperties:
                     nullable: true
@@ -14006,6 +14089,10 @@ components:
                     nullable: true
                   type: object
                 phala:
+                  additionalProperties:
+                    nullable: true
+                  type: object
+                poolside:
                   additionalProperties:
                     nullable: true
                   type: object
@@ -14387,6 +14474,61 @@ components:
       required:
         - data
       type: object
+    WebFetchEngineEnum:
+      description: >-
+        Which fetch engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in fetch. "exa" uses Exa Contents API (supports BYOK). "openrouter" uses direct HTTP fetch. "firecrawl" uses Firecrawl scrape (requires BYOK).
+      enum:
+        - auto
+        - native
+        - openrouter
+        - firecrawl
+        - exa
+      example: auto
+      type: string
+      x-speakeasy-unknown-values: allow
+    WebFetchServerTool:
+      description: 'OpenRouter built-in server tool: fetches full content from a URL (web page or PDF)'
+      example:
+        parameters:
+          max_uses: 10
+        type: openrouter:web_fetch
+      properties:
+        parameters:
+          $ref: '#/components/schemas/WebFetchServerToolConfig'
+        type:
+          enum:
+            - openrouter:web_fetch
+          type: string
+      required:
+        - type
+      type: object
+    WebFetchServerToolConfig:
+      description: Configuration for the openrouter:web_fetch server tool
+      example:
+        max_content_tokens: 100000
+        max_uses: 10
+      properties:
+        allowed_domains:
+          description: Only fetch from these domains.
+          items:
+            type: string
+          type: array
+        blocked_domains:
+          description: Never fetch from these domains.
+          items:
+            type: string
+          type: array
+        engine:
+          $ref: '#/components/schemas/WebFetchEngineEnum'
+        max_content_tokens:
+          description: Maximum content length in approximate tokens. Content exceeding this limit is truncated.
+          example: 100000
+          type: integer
+        max_uses:
+          description: Maximum number of web fetches per request. Once exceeded, the tool returns an error.
+          example: 10
+          type: integer
+      type: object
     WebSearchCallCompletedEvent:
       allOf:
         - $ref: '#/components/schemas/OpenAIResponsesSearchCompleted'
@@ -14532,8 +14674,25 @@ components:
           type: array
         max_results:
           type: integer
+        max_uses:
+          description: >-
+            Maximum number of times the model can invoke web search in a single turn. Passed through to native providers that support it (e.g. Anthropic).
+          type: integer
         search_prompt:
           type: string
+        user_location:
+          allOf:
+            - $ref: '#/components/schemas/WebSearchUserLocation'
+            - description: >-
+                Approximate user location for location-biased search results. Passed through to native providers that support it (e.g. Anthropic).
+              example:
+                city: San Francisco
+                country: US
+                region: California
+                timezone: America/Los_Angeles
+                type: approximate
+              required:
+                - type
       required:
         - id
       type: object
@@ -14653,12 +14812,16 @@ components:
         type: approximate
       properties:
         city:
+          nullable: true
           type: string
         country:
+          nullable: true
           type: string
         region:
+          nullable: true
           type: string
         timezone:
+          nullable: true
           type: string
         type:
           enum:
@@ -14674,6 +14837,8 @@ components:
         default_text_model: openai/gpt-4o
         description: Production environment workspace
         id: 550e8400-e29b-41d4-a716-446655440000
+        io_logging_api_key_ids: null
+        io_logging_sampling_rate: 1
         is_data_discount_logging_enabled: true
         is_observability_broadcast_enabled: false
         is_observability_io_logging_enabled: false
@@ -14715,6 +14880,18 @@ components:
           example: 550e8400-e29b-41d4-a716-446655440000
           format: uuid
           type: string
+        io_logging_api_key_ids:
+          description: Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
+          example: null
+          items:
+            type: integer
+          nullable: true
+          type: array
+        io_logging_sampling_rate:
+          description: Sampling rate for I/O logging (0.0001-1). 1 means 100% of requests are logged.
+          example: 1
+          format: double
+          type: number
         is_data_discount_logging_enabled:
           description: Whether data discount logging is enabled for this workspace
           example: true
@@ -14751,6 +14928,8 @@ components:
         - is_observability_io_logging_enabled
         - is_observability_broadcast_enabled
         - is_data_discount_logging_enabled
+        - io_logging_sampling_rate
+        - io_logging_api_key_ids
         - created_at
         - updated_at
         - created_by
@@ -14945,7 +15124,8 @@ paths:
           content:
             audio/*:
               schema:
-                description: Raw audio bytestream. Content-Type varies by requested format (audio/mpeg for mp3, audio/L16 for pcm).
+                description: >-
+                  Raw audio bytestream. Content-Type varies by requested format (audio/mpeg for mp3, audio/pcm for pcm — 16-bit little-endian).
                 example: <binary audio data>
                 format: binary
                 type: string
@@ -20979,6 +21159,8 @@ paths:
                     default_text_model: openai/gpt-4o
                     description: Production environment workspace
                     id: 550e8400-e29b-41d4-a716-446655440000
+                    io_logging_api_key_ids: null
+                    io_logging_sampling_rate: 1
                     is_data_discount_logging_enabled: true
                     is_observability_broadcast_enabled: false
                     is_observability_io_logging_enabled: false
@@ -21054,6 +21236,8 @@ paths:
                   default_text_model: openai/gpt-4o
                   description: Production environment workspace
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  io_logging_api_key_ids: null
+                  io_logging_sampling_rate: 1
                   is_data_discount_logging_enabled: true
                   is_observability_broadcast_enabled: false
                   is_observability_io_logging_enabled: false
@@ -21211,6 +21395,8 @@ paths:
                   default_text_model: openai/gpt-4o
                   description: Production environment workspace
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  io_logging_api_key_ids: null
+                  io_logging_sampling_rate: 1
                   is_data_discount_logging_enabled: true
                   is_observability_broadcast_enabled: false
                   is_observability_io_logging_enabled: false
@@ -21290,6 +21476,8 @@ paths:
                   default_text_model: openai/gpt-4o
                   description: Production environment workspace
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  io_logging_api_key_ids: null
+                  io_logging_sampling_rate: 1
                   is_data_discount_logging_enabled: true
                   is_observability_broadcast_enabled: false
                   is_observability_io_logging_enabled: false
