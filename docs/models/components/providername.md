@@ -70,12 +70,14 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameMorph`           | Morph                         |
 | `ProviderNameNCompass`        | NCompass                      |
 | `ProviderNameNebius`          | Nebius                        |
+| `ProviderNameNexAgi`          | Nex AGI                       |
 | `ProviderNameNextBit`         | NextBit                       |
 | `ProviderNameNovita`          | Novita                        |
 | `ProviderNameNvidia`          | Nvidia                        |
 | `ProviderNameOpenAi`          | OpenAI                        |
 | `ProviderNameOpenInference`   | OpenInference                 |
 | `ProviderNameParasail`        | Parasail                      |
+| `ProviderNamePoolside`        | Poolside                      |
 | `ProviderNamePerplexity`      | Perplexity                    |
 | `ProviderNamePhala`           | Phala                         |
 | `ProviderNameRecraft`         | Recraft                       |

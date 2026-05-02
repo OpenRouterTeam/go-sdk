@@ -93,6 +93,12 @@ type ChatUsage struct {
 	CompletionTokens int64 `json:"completion_tokens"`
 	// Detailed completion token usage
 	CompletionTokensDetails optionalnullable.OptionalNullable[CompletionTokensDetails] `json:"completion_tokens_details,omitzero"`
+	// Cost of the completion
+	Cost optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
+	// Breakdown of upstream inference costs
+	CostDetails optionalnullable.OptionalNullable[CostDetails] `json:"cost_details,omitzero"`
+	// Whether a request was made using a Bring Your Own Key configuration
+	IsByok *bool `json:"is_byok,omitzero"`
 	// Number of tokens in the prompt
 	PromptTokens int64 `json:"prompt_tokens"`
 	// Detailed prompt token usage
@@ -124,6 +130,27 @@ func (c *ChatUsage) GetCompletionTokensDetails() optionalnullable.OptionalNullab
 		return nil
 	}
 	return c.CompletionTokensDetails
+}
+
+func (c *ChatUsage) GetCost() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.Cost
+}
+
+func (c *ChatUsage) GetCostDetails() optionalnullable.OptionalNullable[CostDetails] {
+	if c == nil {
+		return nil
+	}
+	return c.CostDetails
+}
+
+func (c *ChatUsage) GetIsByok() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IsByok
 }
 
 func (c *ChatUsage) GetPromptTokens() int64 {

@@ -43,7 +43,7 @@ type ChatWebSearchShorthand struct {
 	// Maximum total number of search results across all search calls in a single request. Once this limit is reached, the tool will stop returning new results. Useful for controlling cost and context size in agentic loops.
 	MaxTotalResults *int64           `json:"max_total_results,omitzero"`
 	Parameters      *WebSearchConfig `json:"parameters,omitzero"`
-	// How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
+	// How much context to retrieve per result. Defaults to medium (15000 chars). Applies to Exa and Parallel engines; ignored with native provider search and Firecrawl.
 	SearchContextSize *SearchQualityLevel        `json:"search_context_size,omitzero"`
 	Type              ChatWebSearchShorthandType `json:"type"`
 	// Approximate user location for location-biased results.

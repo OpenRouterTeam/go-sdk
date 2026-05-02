@@ -239,6 +239,10 @@ func main() {
 
 * [Rerank](docs/sdks/rerank/README.md#rerank) - Submit a rerank request
 
+### [Stt](docs/sdks/stt/README.md)
+
+* [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
+
 ### [Tts](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech

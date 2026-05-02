@@ -51,42 +51,42 @@ func (o *OutputTokensDetails) GetReasoningTokens() int64 {
 	return o.ReasoningTokens
 }
 
-type CostDetails struct {
+type UsageCostDetails struct {
 	UpstreamInferenceCost       optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
 	UpstreamInferenceInputCost  float64                                    `json:"upstream_inference_input_cost"`
 	UpstreamInferenceOutputCost float64                                    `json:"upstream_inference_output_cost"`
 }
 
-func (c CostDetails) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (u UsageCostDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
 }
 
-func (c *CostDetails) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func (u *UsageCostDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CostDetails) GetUpstreamInferenceCost() optionalnullable.OptionalNullable[float64] {
-	if c == nil {
+func (u *UsageCostDetails) GetUpstreamInferenceCost() optionalnullable.OptionalNullable[float64] {
+	if u == nil {
 		return nil
 	}
-	return c.UpstreamInferenceCost
+	return u.UpstreamInferenceCost
 }
 
-func (c *CostDetails) GetUpstreamInferenceInputCost() float64 {
-	if c == nil {
+func (u *UsageCostDetails) GetUpstreamInferenceInputCost() float64 {
+	if u == nil {
 		return 0.0
 	}
-	return c.UpstreamInferenceInputCost
+	return u.UpstreamInferenceInputCost
 }
 
-func (c *CostDetails) GetUpstreamInferenceOutputCost() float64 {
-	if c == nil {
+func (u *UsageCostDetails) GetUpstreamInferenceOutputCost() float64 {
+	if u == nil {
 		return 0.0
 	}
-	return c.UpstreamInferenceOutputCost
+	return u.UpstreamInferenceOutputCost
 }
 
 // Usage - Token usage information for the response
@@ -98,7 +98,7 @@ type Usage struct {
 	TotalTokens         int64               `json:"total_tokens"`
 	// Cost of the completion
 	Cost        optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
-	CostDetails *CostDetails                               `json:"cost_details,omitzero"`
+	CostDetails *UsageCostDetails                          `json:"cost_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
 	IsByok *bool `json:"is_byok,omitzero"`
 }
@@ -156,7 +156,7 @@ func (u *Usage) GetCost() optionalnullable.OptionalNullable[float64] {
 	return u.Cost
 }
 
-func (u *Usage) GetCostDetails() *CostDetails {
+func (u *Usage) GetCostDetails() *UsageCostDetails {
 	if u == nil {
 		return nil
 	}

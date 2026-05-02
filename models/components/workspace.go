@@ -17,6 +17,10 @@ type Workspace struct {
 	Description *string `json:"description"`
 	// Unique identifier for the workspace
 	ID string `json:"id"`
+	// Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
+	IoLoggingAPIKeyIds []int64 `json:"io_logging_api_key_ids"`
+	// Sampling rate for I/O logging (0.0001-1). 1 means 100% of requests are logged.
+	IoLoggingSamplingRate float64 `json:"io_logging_sampling_rate"`
 	// Whether data discount logging is enabled for this workspace
 	IsDataDiscountLoggingEnabled bool `json:"is_data_discount_logging_enabled"`
 	// Whether broadcast is enabled for this workspace
@@ -78,6 +82,20 @@ func (w *Workspace) GetID() string {
 		return ""
 	}
 	return w.ID
+}
+
+func (w *Workspace) GetIoLoggingAPIKeyIds() []int64 {
+	if w == nil {
+		return nil
+	}
+	return w.IoLoggingAPIKeyIds
+}
+
+func (w *Workspace) GetIoLoggingSamplingRate() float64 {
+	if w == nil {
+		return 0.0
+	}
+	return w.IoLoggingSamplingRate
 }
 
 func (w *Workspace) GetIsDataDiscountLoggingEnabled() bool {

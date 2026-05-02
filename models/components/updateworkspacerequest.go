@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
@@ -15,6 +16,10 @@ type UpdateWorkspaceRequest struct {
 	DefaultTextModel optionalnullable.OptionalNullable[string] `json:"default_text_model,omitzero"`
 	// New description for the workspace
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
+	// Optional array of API key IDs to filter I/O logging
+	IoLoggingAPIKeyIds optionalnullable.OptionalNullable[[]int64] `json:"io_logging_api_key_ids,omitzero"`
+	// Sampling rate for I/O logging (0.0001-1)
+	IoLoggingSamplingRate *float64 `json:"io_logging_sampling_rate,omitzero"`
 	// Whether data discount logging is enabled
 	IsDataDiscountLoggingEnabled *bool `json:"is_data_discount_logging_enabled,omitzero"`
 	// Whether broadcast is enabled
@@ -25,6 +30,17 @@ type UpdateWorkspaceRequest struct {
 	Name *string `json:"name,omitzero"`
 	// New URL-friendly slug
 	Slug *string `json:"slug,omitzero"`
+}
+
+func (u UpdateWorkspaceRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateWorkspaceRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdateWorkspaceRequest) GetDefaultImageModel() optionalnullable.OptionalNullable[string] {
@@ -53,6 +69,20 @@ func (u *UpdateWorkspaceRequest) GetDescription() optionalnullable.OptionalNulla
 		return nil
 	}
 	return u.Description
+}
+
+func (u *UpdateWorkspaceRequest) GetIoLoggingAPIKeyIds() optionalnullable.OptionalNullable[[]int64] {
+	if u == nil {
+		return nil
+	}
+	return u.IoLoggingAPIKeyIds
+}
+
+func (u *UpdateWorkspaceRequest) GetIoLoggingSamplingRate() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.IoLoggingSamplingRate
 }
 
 func (u *UpdateWorkspaceRequest) GetIsDataDiscountLoggingEnabled() *bool {

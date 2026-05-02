@@ -14,6 +14,7 @@ const (
 	APITypeEmbeddings  APIType = "embeddings"
 	APITypeRerank      APIType = "rerank"
 	APITypeTts         APIType = "tts"
+	APITypeStt         APIType = "stt"
 	APITypeVideo       APIType = "video"
 )
 
@@ -25,7 +26,7 @@ func (e APIType) ToPointer() *APIType {
 func (e *APIType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "completions", "embeddings", "rerank", "tts", "video":
+		case "completions", "embeddings", "rerank", "tts", "stt", "video":
 			return true
 		}
 	}
@@ -74,6 +75,8 @@ type GenerationResponseData struct {
 	NativeTokensPrompt *int64 `json:"native_tokens_prompt"`
 	// Native reasoning tokens as reported by provider
 	NativeTokensReasoning *int64 `json:"native_tokens_reasoning"`
+	// Number of web fetches performed
+	NumFetches *int64 `json:"num_fetches"`
 	// Number of audio inputs in the prompt
 	NumInputAudioPrompt *int64 `json:"num_input_audio_prompt"`
 	// Number of media items in the completion
@@ -90,6 +93,8 @@ type GenerationResponseData struct {
 	ProviderResponses []ProviderResponse `json:"provider_responses"`
 	// Unique identifier grouping all generations from a single API request
 	RequestID optionalnullable.OptionalNullable[string] `json:"request_id,omitzero"`
+	// If this generation was served from response cache, contains the original generation ID. Null otherwise.
+	ResponseCacheSourceID optionalnullable.OptionalNullable[string] `json:"response_cache_source_id,omitzero"`
 	// Router used for the request (e.g., openrouter/auto)
 	Router *string `json:"router"`
 	// Session identifier grouping multiple generations in the same session
@@ -254,6 +259,13 @@ func (g *GenerationResponseData) GetNativeTokensReasoning() *int64 {
 	return g.NativeTokensReasoning
 }
 
+func (g *GenerationResponseData) GetNumFetches() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.NumFetches
+}
+
 func (g *GenerationResponseData) GetNumInputAudioPrompt() *int64 {
 	if g == nil {
 		return nil
@@ -308,6 +320,13 @@ func (g *GenerationResponseData) GetRequestID() optionalnullable.OptionalNullabl
 		return nil
 	}
 	return g.RequestID
+}
+
+func (g *GenerationResponseData) GetResponseCacheSourceID() optionalnullable.OptionalNullable[string] {
+	if g == nil {
+		return nil
+	}
+	return g.ResponseCacheSourceID
 }
 
 func (g *GenerationResponseData) GetRouter() *string {

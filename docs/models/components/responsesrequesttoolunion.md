@@ -105,6 +105,12 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenroute
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(components.ChatSearchModelsServerTool{/* values here */})
 ```
 
+### WebFetchServerTool
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterWebFetch(components.WebFetchServerTool{/* values here */})
+```
+
 ### WebSearchServerToolOpenRouter
 
 ```go
@@ -151,6 +157,8 @@ switch responsesRequestToolUnion.Type {
 		// responsesRequestToolUnion.ImageGenerationServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels:
 		// responsesRequestToolUnion.ChatSearchModelsServerTool is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterWebFetch:
+		// responsesRequestToolUnion.WebFetchServerTool is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterWebSearch:
 		// responsesRequestToolUnion.WebSearchServerToolOpenRouter is populated
 }
