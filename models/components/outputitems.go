@@ -297,7 +297,7 @@ func CreateOutputItemsOpenrouterWebFetch(openrouterWebFetch OutputWebFetchServer
 func CreateOutputItemsOpenrouterWebSearch(openrouterWebSearch OutputWebSearchServerToolItem) OutputItems {
 	typ := OutputItemsTypeOpenrouterWebSearch
 
-	typStr := OutputWebSearchServerToolItemType(typ)
+	typStr := OutputWebSearchServerToolItemTypeOpenrouterWebSearch(typ)
 	openrouterWebSearch.Type = typStr
 
 	return OutputItems{

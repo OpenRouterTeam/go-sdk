@@ -3621,6 +3621,7 @@ components:
         - $ref: '#/components/schemas/DatetimeServerTool'
         - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
         - $ref: '#/components/schemas/ChatSearchModelsServerTool'
+        - $ref: '#/components/schemas/WebFetchServerTool'
         - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
         - $ref: '#/components/schemas/ChatWebSearchShorthand'
       description: Tool definition for function calling (regular function or OpenRouter built-in server tool)
@@ -4454,6 +4455,12 @@ components:
         completion_tokens: 15
         completion_tokens_details:
           reasoning_tokens: 5
+        cost: 0.0012
+        cost_details:
+          upstream_inference_completions_cost: 0.0004
+          upstream_inference_cost: null
+          upstream_inference_prompt_cost: 0.0008
+        is_byok: false
         prompt_tokens: 10
         prompt_tokens_details:
           cached_tokens: 2
@@ -4483,6 +4490,16 @@ components:
               nullable: true
               type: integer
           type: object
+        cost:
+          description: Cost of the completion
+          format: double
+          nullable: true
+          type: number
+        cost_details:
+          $ref: '#/components/schemas/CostDetails'
+        is_byok:
+          description: Whether a request was made using a Bring Your Own Key configuration
+          type: boolean
         prompt_tokens:
           description: Number of tokens in the prompt
           type: integer
@@ -4915,6 +4932,28 @@ components:
       required:
         - id
       type: object
+    CostDetails:
+      description: Breakdown of upstream inference costs
+      example:
+        upstream_inference_completions_cost: 0.0004
+        upstream_inference_cost: null
+        upstream_inference_prompt_cost: 0.0008
+      nullable: true
+      properties:
+        upstream_inference_completions_cost:
+          format: double
+          type: number
+        upstream_inference_cost:
+          format: double
+          nullable: true
+          type: number
+        upstream_inference_prompt_cost:
+          format: double
+          type: number
+      required:
+        - upstream_inference_prompt_cost
+        - upstream_inference_completions_cost
+      type: object
     CreatedEvent:
       description: Event emitted when a response is created
       example:
@@ -5096,6 +5135,18 @@ components:
           maxLength: 500
           nullable: true
           type: string
+        io_logging_api_key_ids:
+          description: Optional array of API key IDs to filter I/O logging
+          example: null
+          items:
+            type: integer
+          nullable: true
+          type: array
+        io_logging_sampling_rate:
+          description: Sampling rate for I/O logging (0.0001-1)
+          example: 1
+          format: double
+          type: number
         is_data_discount_logging_enabled:
           description: Whether data discount logging is enabled
           example: true
@@ -5135,6 +5186,8 @@ components:
           default_text_model: openai/gpt-4o
           description: Production environment workspace
           id: 550e8400-e29b-41d4-a716-446655440000
+          io_logging_api_key_ids: null
+          io_logging_sampling_rate: 1
           is_data_discount_logging_enabled: true
           is_observability_broadcast_enabled: false
           is_observability_io_logging_enabled: false
@@ -5931,6 +5984,7 @@ components:
                 - embeddings
                 - rerank
                 - tts
+                - stt
                 - video
                 - null
               nullable: true
@@ -6030,6 +6084,11 @@ components:
               example: 5
               nullable: true
               type: integer
+            num_fetches:
+              description: Number of web fetches performed
+              example: 0
+              nullable: true
+              type: integer
             num_input_audio_prompt:
               description: Number of audio inputs in the prompt
               example: 0
@@ -6068,6 +6127,10 @@ components:
             request_id:
               description: Unique identifier grouping all generations from a single API request
               example: req-1727282430-aBcDeFgHiJkLmNoPqRsT
+              nullable: true
+              type: string
+            response_cache_source_id:
+              description: If this generation was served from response cache, contains the original generation ID. Null otherwise.
               nullable: true
               type: string
             router:
@@ -6151,6 +6214,7 @@ components:
             - num_input_audio_prompt
             - num_media_completion
             - num_search_results
+            - num_fetches
             - web_search_engine
             - origin
             - usage
@@ -6203,6 +6267,8 @@ components:
           default_text_model: openai/gpt-4o
           description: Production environment workspace
           id: 550e8400-e29b-41d4-a716-446655440000
+          io_logging_api_key_ids: null
+          io_logging_sampling_rate: 1
           is_data_discount_logging_enabled: true
           is_observability_broadcast_enabled: false
           is_observability_io_logging_enabled: false
@@ -6826,8 +6892,22 @@ components:
               - $ref: '#/components/schemas/OutputWebSearchCallItem'
               - $ref: '#/components/schemas/OutputFileSearchCallItem'
               - $ref: '#/components/schemas/OutputImageGenerationCallItem'
+              - $ref: '#/components/schemas/OutputCodeInterpreterCallItem'
+              - $ref: '#/components/schemas/OutputComputerCallItem'
               - $ref: '#/components/schemas/OutputDatetimeItem'
               - $ref: '#/components/schemas/OutputWebSearchServerToolItem'
+              - $ref: '#/components/schemas/OutputCodeInterpreterServerToolItem'
+              - $ref: '#/components/schemas/OutputFileSearchServerToolItem'
+              - $ref: '#/components/schemas/OutputImageGenerationServerToolItem'
+              - $ref: '#/components/schemas/OutputBrowserUseServerToolItem'
+              - $ref: '#/components/schemas/OutputBashServerToolItem'
+              - $ref: '#/components/schemas/OutputTextEditorServerToolItem'
+              - $ref: '#/components/schemas/OutputApplyPatchServerToolItem'
+              - $ref: '#/components/schemas/OutputWebFetchServerToolItem'
+              - $ref: '#/components/schemas/OutputToolSearchServerToolItem'
+              - $ref: '#/components/schemas/OutputMemoryServerToolItem'
+              - $ref: '#/components/schemas/OutputMcpServerToolItem'
+              - $ref: '#/components/schemas/OutputSearchModelsServerToolItem'
           type: array
       description: Input for a response request - can be a string or array of items
       example:
@@ -7235,6 +7315,8 @@ components:
             default_text_model: openai/gpt-4o
             description: Production environment workspace
             id: 550e8400-e29b-41d4-a716-446655440000
+            io_logging_api_key_ids: null
+            io_logging_sampling_rate: 1
             is_data_discount_logging_enabled: true
             is_observability_broadcast_enabled: false
             is_observability_io_logging_enabled: false
@@ -8305,6 +8387,7 @@ components:
               - $ref: '#/components/schemas/DatetimeServerTool'
               - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
               - $ref: '#/components/schemas/ChatSearchModelsServerTool'
+              - $ref: '#/components/schemas/WebFetchServerTool'
               - $ref: '#/components/schemas/OpenRouterWebSearchServerTool'
           type: array
         top_k:
@@ -8355,22 +8438,7 @@ components:
                       nullable: true
                       type: number
                     cost_details:
-                      nullable: true
-                      properties:
-                        upstream_inference_completions_cost:
-                          format: double
-                          type: number
-                        upstream_inference_cost:
-                          format: double
-                          nullable: true
-                          type: number
-                        upstream_inference_prompt_cost:
-                          format: double
-                          type: number
-                      required:
-                        - upstream_inference_prompt_cost
-                        - upstream_inference_completions_cost
-                      type: object
+                      $ref: '#/components/schemas/CostDetails'
                     is_byok:
                       type: boolean
                     iterations:
@@ -8527,12 +8595,14 @@ components:
                 - Morph
                 - NCompass
                 - Nebius
+                - Nex AGI
                 - NextBit
                 - Novita
                 - Nvidia
                 - OpenAI
                 - OpenInference
                 - Parasail
+                - Poolside
                 - Perplexity
                 - Phala
                 - Recraft
@@ -10403,7 +10473,8 @@ components:
         - audio
         - video
         - rerank
-        - tts
+        - speech
+        - transcription
       example: text
       type: string
       x-speakeasy-unknown-values: allow
@@ -10526,6 +10597,7 @@ components:
     OutputWebFetchServerToolItem:
       description: An openrouter:web_fetch server tool output item
       example:
+        httpStatus: 200
         id: wf_tmp_abc123
         status: completed
         title: Example Domain
@@ -10534,6 +10606,12 @@ components:
       properties:
         content:
           type: string
+        error:
+          description: The error message if the fetch failed.
+          type: string
+        httpStatus:
+          description: The HTTP status code returned by the upstream URL fetch.
+          type: integer
         id:
           type: string
         status:
@@ -10562,10 +10640,41 @@ components:
     OutputWebSearchServerToolItem:
       description: An openrouter:web_search server tool output item
       example:
+        action:
+          query: latest AI news
+          type: search
         id: ws_tmp_abc123
         status: completed
         type: openrouter:web_search
       properties:
+        action:
+          description: >-
+            The search action performed, matching OpenAI web_search_call.action shape. Includes the query the model issued and optional source URLs returned by the search provider.
+          properties:
+            query:
+              type: string
+            sources:
+              items:
+                properties:
+                  type:
+                    enum:
+                      - url
+                    type: string
+                  url:
+                    type: string
+                required:
+                  - type
+                  - url
+                type: object
+              type: array
+            type:
+              enum:
+                - search
+              type: string
+          required:
+            - type
+            - query
+          type: object
         id:
           type: string
         status:
@@ -10981,12 +11090,14 @@ components:
         - Morph
         - NCompass
         - Nebius
+        - Nex AGI
         - NextBit
         - Novita
         - Nvidia
         - OpenAI
         - OpenInference
         - Parasail
+        - Poolside
         - Perplexity
         - Phala
         - Recraft
@@ -11011,6 +11122,450 @@ components:
       example: OpenAI
       type: string
       x-speakeasy-unknown-values: allow
+    ProviderOptions:
+      description: >-
+        Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+      example:
+        openai:
+          max_tokens: 1000
+      properties:
+        01ai:
+          additionalProperties:
+            nullable: true
+          type: object
+        ai21:
+          additionalProperties:
+            nullable: true
+          type: object
+        aion-labs:
+          additionalProperties:
+            nullable: true
+          type: object
+        akashml:
+          additionalProperties:
+            nullable: true
+          type: object
+        alibaba:
+          additionalProperties:
+            nullable: true
+          type: object
+        amazon-bedrock:
+          additionalProperties:
+            nullable: true
+          type: object
+        amazon-nova:
+          additionalProperties:
+            nullable: true
+          type: object
+        ambient:
+          additionalProperties:
+            nullable: true
+          type: object
+        anthropic:
+          additionalProperties:
+            nullable: true
+          type: object
+        anyscale:
+          additionalProperties:
+            nullable: true
+          type: object
+        arcee-ai:
+          additionalProperties:
+            nullable: true
+          type: object
+        atlas-cloud:
+          additionalProperties:
+            nullable: true
+          type: object
+        atoma:
+          additionalProperties:
+            nullable: true
+          type: object
+        avian:
+          additionalProperties:
+            nullable: true
+          type: object
+        azure:
+          additionalProperties:
+            nullable: true
+          type: object
+        baidu:
+          additionalProperties:
+            nullable: true
+          type: object
+        baseten:
+          additionalProperties:
+            nullable: true
+          type: object
+        black-forest-labs:
+          additionalProperties:
+            nullable: true
+          type: object
+        byteplus:
+          additionalProperties:
+            nullable: true
+          type: object
+        centml:
+          additionalProperties:
+            nullable: true
+          type: object
+        cerebras:
+          additionalProperties:
+            nullable: true
+          type: object
+        chutes:
+          additionalProperties:
+            nullable: true
+          type: object
+        cirrascale:
+          additionalProperties:
+            nullable: true
+          type: object
+        clarifai:
+          additionalProperties:
+            nullable: true
+          type: object
+        cloudflare:
+          additionalProperties:
+            nullable: true
+          type: object
+        cohere:
+          additionalProperties:
+            nullable: true
+          type: object
+        crofai:
+          additionalProperties:
+            nullable: true
+          type: object
+        crusoe:
+          additionalProperties:
+            nullable: true
+          type: object
+        deepinfra:
+          additionalProperties:
+            nullable: true
+          type: object
+        deepseek:
+          additionalProperties:
+            nullable: true
+          type: object
+        dekallm:
+          additionalProperties:
+            nullable: true
+          type: object
+        enfer:
+          additionalProperties:
+            nullable: true
+          type: object
+        fake-provider:
+          additionalProperties:
+            nullable: true
+          type: object
+        featherless:
+          additionalProperties:
+            nullable: true
+          type: object
+        fireworks:
+          additionalProperties:
+            nullable: true
+          type: object
+        friendli:
+          additionalProperties:
+            nullable: true
+          type: object
+        gmicloud:
+          additionalProperties:
+            nullable: true
+          type: object
+        google-ai-studio:
+          additionalProperties:
+            nullable: true
+          type: object
+        google-vertex:
+          additionalProperties:
+            nullable: true
+          type: object
+        gopomelo:
+          additionalProperties:
+            nullable: true
+          type: object
+        groq:
+          additionalProperties:
+            nullable: true
+          type: object
+        huggingface:
+          additionalProperties:
+            nullable: true
+          type: object
+        hyperbolic:
+          additionalProperties:
+            nullable: true
+          type: object
+        hyperbolic-quantized:
+          additionalProperties:
+            nullable: true
+          type: object
+        inception:
+          additionalProperties:
+            nullable: true
+          type: object
+        inceptron:
+          additionalProperties:
+            nullable: true
+          type: object
+        inference-net:
+          additionalProperties:
+            nullable: true
+          type: object
+        infermatic:
+          additionalProperties:
+            nullable: true
+          type: object
+        inflection:
+          additionalProperties:
+            nullable: true
+          type: object
+        inocloud:
+          additionalProperties:
+            nullable: true
+          type: object
+        io-net:
+          additionalProperties:
+            nullable: true
+          type: object
+        ionstream:
+          additionalProperties:
+            nullable: true
+          type: object
+        klusterai:
+          additionalProperties:
+            nullable: true
+          type: object
+        lambda:
+          additionalProperties:
+            nullable: true
+          type: object
+        lepton:
+          additionalProperties:
+            nullable: true
+          type: object
+        liquid:
+          additionalProperties:
+            nullable: true
+          type: object
+        lynn:
+          additionalProperties:
+            nullable: true
+          type: object
+        lynn-private:
+          additionalProperties:
+            nullable: true
+          type: object
+        mancer:
+          additionalProperties:
+            nullable: true
+          type: object
+        mancer-old:
+          additionalProperties:
+            nullable: true
+          type: object
+        mara:
+          additionalProperties:
+            nullable: true
+          type: object
+        meta:
+          additionalProperties:
+            nullable: true
+          type: object
+        minimax:
+          additionalProperties:
+            nullable: true
+          type: object
+        mistral:
+          additionalProperties:
+            nullable: true
+          type: object
+        modal:
+          additionalProperties:
+            nullable: true
+          type: object
+        modelrun:
+          additionalProperties:
+            nullable: true
+          type: object
+        modular:
+          additionalProperties:
+            nullable: true
+          type: object
+        moonshotai:
+          additionalProperties:
+            nullable: true
+          type: object
+        morph:
+          additionalProperties:
+            nullable: true
+          type: object
+        ncompass:
+          additionalProperties:
+            nullable: true
+          type: object
+        nebius:
+          additionalProperties:
+            nullable: true
+          type: object
+        nex-agi:
+          additionalProperties:
+            nullable: true
+          type: object
+        nextbit:
+          additionalProperties:
+            nullable: true
+          type: object
+        nineteen:
+          additionalProperties:
+            nullable: true
+          type: object
+        novita:
+          additionalProperties:
+            nullable: true
+          type: object
+        nvidia:
+          additionalProperties:
+            nullable: true
+          type: object
+        octoai:
+          additionalProperties:
+            nullable: true
+          type: object
+        open-inference:
+          additionalProperties:
+            nullable: true
+          type: object
+        openai:
+          additionalProperties:
+            nullable: true
+          type: object
+        parasail:
+          additionalProperties:
+            nullable: true
+          type: object
+        perplexity:
+          additionalProperties:
+            nullable: true
+          type: object
+        phala:
+          additionalProperties:
+            nullable: true
+          type: object
+        poolside:
+          additionalProperties:
+            nullable: true
+          type: object
+        recraft:
+          additionalProperties:
+            nullable: true
+          type: object
+        recursal:
+          additionalProperties:
+            nullable: true
+          type: object
+        reflection:
+          additionalProperties:
+            nullable: true
+          type: object
+        reka:
+          additionalProperties:
+            nullable: true
+          type: object
+        relace:
+          additionalProperties:
+            nullable: true
+          type: object
+        replicate:
+          additionalProperties:
+            nullable: true
+          type: object
+        sambanova:
+          additionalProperties:
+            nullable: true
+          type: object
+        sambanova-cloaked:
+          additionalProperties:
+            nullable: true
+          type: object
+        seed:
+          additionalProperties:
+            nullable: true
+          type: object
+        sf-compute:
+          additionalProperties:
+            nullable: true
+          type: object
+        siliconflow:
+          additionalProperties:
+            nullable: true
+          type: object
+        sourceful:
+          additionalProperties:
+            nullable: true
+          type: object
+        stealth:
+          additionalProperties:
+            nullable: true
+          type: object
+        stepfun:
+          additionalProperties:
+            nullable: true
+          type: object
+        streamlake:
+          additionalProperties:
+            nullable: true
+          type: object
+        switchpoint:
+          additionalProperties:
+            nullable: true
+          type: object
+        targon:
+          additionalProperties:
+            nullable: true
+          type: object
+        together:
+          additionalProperties:
+            nullable: true
+          type: object
+        together-lite:
+          additionalProperties:
+            nullable: true
+          type: object
+        ubicloud:
+          additionalProperties:
+            nullable: true
+          type: object
+        upstage:
+          additionalProperties:
+            nullable: true
+          type: object
+        venice:
+          additionalProperties:
+            nullable: true
+          type: object
+        wandb:
+          additionalProperties:
+            nullable: true
+          type: object
+        xai:
+          additionalProperties:
+            nullable: true
+          type: object
+        xiaomi:
+          additionalProperties:
+            nullable: true
+          type: object
+        z-ai:
+          additionalProperties:
+            nullable: true
+          type: object
+      type: object
     ProviderOverloadedResponse:
       description: Provider Overloaded - Provider is temporarily overloaded
       example:
@@ -11287,12 +11842,14 @@ components:
             - Morph
             - NCompass
             - Nebius
+            - Nex AGI
             - NextBit
             - Novita
             - Nvidia
             - OpenAI
             - OpenInference
             - Parasail
+            - Poolside
             - Perplexity
             - Phala
             - Recraft
@@ -12264,6 +12821,7 @@ components:
               - $ref: '#/components/schemas/DatetimeServerTool'
               - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
               - $ref: '#/components/schemas/ChatSearchModelsServerTool'
+              - $ref: '#/components/schemas/WebFetchServerTool'
               - $ref: '#/components/schemas/WebSearchServerTool_OpenRouter'
           type: array
         top_k:
@@ -12306,7 +12864,7 @@ components:
       type: object
     SearchQualityLevel:
       description: >-
-        How much context to retrieve per result. Defaults to medium (15000 chars). Only applies when using the Exa engine; ignored with native provider search.
+        How much context to retrieve per result. Defaults to medium (15000 chars). Applies to Exa and Parallel engines; ignored with native provider search and Firecrawl.
       enum:
         - low
         - medium
@@ -12393,438 +12951,7 @@ components:
           description: Provider-specific passthrough configuration
           properties:
             options:
-              description: >-
-                Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
-              properties:
-                01ai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ai21:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                aion-labs:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                akashml:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                alibaba:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                amazon-bedrock:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                amazon-nova:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ambient:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                anthropic:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                anyscale:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                arcee-ai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                atlas-cloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                atoma:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                avian:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                azure:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                baidu:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                baseten:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                black-forest-labs:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                byteplus:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                centml:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cerebras:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                chutes:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cirrascale:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                clarifai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cloudflare:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cohere:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                crofai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                crusoe:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                deepinfra:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                deepseek:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                dekallm:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                enfer:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                fake-provider:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                featherless:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                fireworks:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                friendli:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                gmicloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                google-ai-studio:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                google-vertex:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                gopomelo:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                groq:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                huggingface:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                hyperbolic:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                hyperbolic-quantized:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inception:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inceptron:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inference-net:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                infermatic:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inflection:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inocloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                io-net:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ionstream:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                klusterai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lambda:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lepton:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                liquid:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lynn:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lynn-private:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mancer:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mancer-old:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mara:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                meta:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                minimax:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mistral:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                modal:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                modelrun:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                modular:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                moonshotai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                morph:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ncompass:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nebius:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nextbit:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nineteen:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                novita:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nvidia:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                octoai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                open-inference:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                openai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                parasail:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                perplexity:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                phala:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                recraft:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                recursal:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                reflection:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                reka:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                relace:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                replicate:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sambanova:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sambanova-cloaked:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                seed:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sf-compute:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                siliconflow:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sourceful:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                stealth:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                stepfun:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                streamlake:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                switchpoint:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                targon:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                together:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                together-lite:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ubicloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                upstage:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                venice:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                wandb:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                xai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                xiaomi:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                z-ai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-              type: object
+              $ref: '#/components/schemas/ProviderOptions'
           type: object
         response_format:
           default: pcm
@@ -13115,6 +13242,109 @@ components:
           - 111
         logprob: -0.5
         token: Hello
+    STTInputAudio:
+      description: Base64-encoded audio to transcribe
+      example:
+        data: UklGRiQA...
+        format: wav
+      properties:
+        data:
+          description: Base64-encoded audio data (raw bytes, not a data URI)
+          type: string
+        format:
+          description: Audio format (e.g., wav, mp3, flac, m4a, ogg, webm, aac). Supported formats vary by provider.
+          type: string
+      required:
+        - data
+        - format
+      type: object
+    STTRequest:
+      description: Speech-to-text request input. Accepts a JSON body with input_audio containing base64-encoded audio.
+      example:
+        input_audio:
+          data: UklGRiQA...
+          format: wav
+        language: en
+        model: openai/whisper-large-v3
+      properties:
+        input_audio:
+          $ref: '#/components/schemas/STTInputAudio'
+        language:
+          description: ISO-639-1 language code (e.g., "en", "ja"). Auto-detected if omitted.
+          example: en
+          type: string
+        model:
+          description: STT model identifier
+          example: openai/whisper-large-v3
+          type: string
+        provider:
+          description: Provider-specific passthrough configuration
+          properties:
+            options:
+              $ref: '#/components/schemas/ProviderOptions'
+          type: object
+        temperature:
+          description: Sampling temperature for transcription
+          example: 0
+          format: double
+          type: number
+      required:
+        - model
+        - input_audio
+      type: object
+    STTResponse:
+      description: STT response containing transcribed text and optional usage statistics
+      example:
+        text: Hello, this is a test of OpenAI speech-to-text transcription.
+        usage:
+          cost: 0.000508
+          input_tokens: 83
+          output_tokens: 30
+          seconds: 9.2
+          total_tokens: 113
+      properties:
+        text:
+          description: The transcribed text
+          example: >-
+            Hello, this is a test of OpenAI speech-to-text transcription. The weather is sunny today and the temperature is around 72 degrees.
+          type: string
+        usage:
+          $ref: '#/components/schemas/STTUsage'
+      required:
+        - text
+      type: object
+    STTUsage:
+      description: Aggregated usage statistics for the request
+      example:
+        cost: 0.000508
+        input_tokens: 83
+        output_tokens: 30
+        seconds: 9.2
+        total_tokens: 113
+      properties:
+        cost:
+          description: Total cost of the request in USD
+          example: 0.000508
+          format: double
+          type: number
+        input_tokens:
+          description: Number of input tokens billed for this request
+          example: 83
+          type: integer
+        output_tokens:
+          description: Number of output tokens generated
+          example: 30
+          type: integer
+        seconds:
+          description: Duration of the input audio in seconds
+          example: 9.2
+          format: double
+          type: number
+        total_tokens:
+          description: Total number of tokens used (input + output)
+          example: 113
+          type: integer
+      type: object
     TextConfig:
       description: Text output configuration including format and verbosity
       example:
@@ -13507,6 +13737,18 @@ components:
           maxLength: 500
           nullable: true
           type: string
+        io_logging_api_key_ids:
+          description: Optional array of API key IDs to filter I/O logging
+          example: null
+          items:
+            type: integer
+          nullable: true
+          type: array
+        io_logging_sampling_rate:
+          description: Sampling rate for I/O logging (0.0001-1)
+          example: 1
+          format: double
+          type: number
         is_data_discount_logging_enabled:
           description: Whether data discount logging is enabled
           example: true
@@ -13543,6 +13785,8 @@ components:
           default_text_model: openai/gpt-4o
           description: Production environment workspace
           id: 550e8400-e29b-41d4-a716-446655440000
+          io_logging_api_key_ids: null
+          io_logging_sampling_rate: 1
           is_data_discount_logging_enabled: true
           is_observability_broadcast_enabled: false
           is_observability_io_logging_enabled: false
@@ -13649,6 +13893,12 @@ components:
           example: '16:9'
           type: string
           x-speakeasy-unknown-values: allow
+        callback_url:
+          description: >-
+            URL to receive a webhook notification when the video generation job completes. Overrides the workspace-level default callback URL if set. Must be HTTPS.
+          example: https://example.com/webhook
+          format: uri
+          type: string
         duration:
           description: Duration of the generated video in seconds
           example: 8
@@ -13678,442 +13928,12 @@ components:
           description: Provider-specific passthrough configuration
           properties:
             options:
-              description: >-
-                Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
-              example:
-                google-vertex:
-                  output_config:
-                    effort: low
-              properties:
-                01ai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ai21:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                aion-labs:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                akashml:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                alibaba:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                amazon-bedrock:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                amazon-nova:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ambient:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                anthropic:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                anyscale:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                arcee-ai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                atlas-cloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                atoma:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                avian:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                azure:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                baidu:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                baseten:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                black-forest-labs:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                byteplus:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                centml:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cerebras:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                chutes:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cirrascale:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                clarifai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cloudflare:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                cohere:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                crofai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                crusoe:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                deepinfra:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                deepseek:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                dekallm:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                enfer:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                fake-provider:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                featherless:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                fireworks:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                friendli:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                gmicloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                google-ai-studio:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                google-vertex:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                gopomelo:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                groq:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                huggingface:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                hyperbolic:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                hyperbolic-quantized:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inception:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inceptron:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inference-net:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                infermatic:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inflection:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                inocloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                io-net:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ionstream:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                klusterai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lambda:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lepton:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                liquid:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lynn:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                lynn-private:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mancer:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mancer-old:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mara:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                meta:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                minimax:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                mistral:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                modal:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                modelrun:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                modular:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                moonshotai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                morph:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ncompass:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nebius:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nextbit:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nineteen:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                novita:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                nvidia:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                octoai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                open-inference:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                openai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                parasail:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                perplexity:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                phala:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                recraft:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                recursal:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                reflection:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                reka:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                relace:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                replicate:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sambanova:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sambanova-cloaked:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                seed:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sf-compute:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                siliconflow:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                sourceful:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                stealth:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                stepfun:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                streamlake:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                switchpoint:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                targon:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                together:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                together-lite:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                ubicloud:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                upstage:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                venice:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                wandb:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                xai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                xiaomi:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-                z-ai:
-                  additionalProperties:
-                    nullable: true
-                  type: object
-              type: object
+              allOf:
+                - $ref: '#/components/schemas/ProviderOptions'
+                - example:
+                    google-vertex:
+                      output_config:
+                        effort: low
           type: object
         resolution:
           description: Resolution of the generated video
@@ -14387,6 +14207,61 @@ components:
       required:
         - data
       type: object
+    WebFetchEngineEnum:
+      description: >-
+        Which fetch engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in fetch. "exa" uses Exa Contents API (supports BYOK). "openrouter" uses direct HTTP fetch. "firecrawl" uses Firecrawl scrape (requires BYOK).
+      enum:
+        - auto
+        - native
+        - openrouter
+        - firecrawl
+        - exa
+      example: auto
+      type: string
+      x-speakeasy-unknown-values: allow
+    WebFetchServerTool:
+      description: 'OpenRouter built-in server tool: fetches full content from a URL (web page or PDF)'
+      example:
+        parameters:
+          max_uses: 10
+        type: openrouter:web_fetch
+      properties:
+        parameters:
+          $ref: '#/components/schemas/WebFetchServerToolConfig'
+        type:
+          enum:
+            - openrouter:web_fetch
+          type: string
+      required:
+        - type
+      type: object
+    WebFetchServerToolConfig:
+      description: Configuration for the openrouter:web_fetch server tool
+      example:
+        max_content_tokens: 100000
+        max_uses: 10
+      properties:
+        allowed_domains:
+          description: Only fetch from these domains.
+          items:
+            type: string
+          type: array
+        blocked_domains:
+          description: Never fetch from these domains.
+          items:
+            type: string
+          type: array
+        engine:
+          $ref: '#/components/schemas/WebFetchEngineEnum'
+        max_content_tokens:
+          description: Maximum content length in approximate tokens. Content exceeding this limit is truncated.
+          example: 100000
+          type: integer
+        max_uses:
+          description: Maximum number of web fetches per request. Once exceeded, the tool returns an error.
+          example: 10
+          type: integer
+      type: object
     WebSearchCallCompletedEvent:
       allOf:
         - $ref: '#/components/schemas/OpenAIResponsesSearchCompleted'
@@ -14532,8 +14407,25 @@ components:
           type: array
         max_results:
           type: integer
+        max_uses:
+          description: >-
+            Maximum number of times the model can invoke web search in a single turn. Passed through to native providers that support it (e.g. Anthropic).
+          type: integer
         search_prompt:
           type: string
+        user_location:
+          allOf:
+            - $ref: '#/components/schemas/WebSearchUserLocation'
+            - description: >-
+                Approximate user location for location-biased search results. Passed through to native providers that support it (e.g. Anthropic).
+              example:
+                city: San Francisco
+                country: US
+                region: California
+                timezone: America/Los_Angeles
+                type: approximate
+              required:
+                - type
       required:
         - id
       type: object
@@ -14653,12 +14545,16 @@ components:
         type: approximate
       properties:
         city:
+          nullable: true
           type: string
         country:
+          nullable: true
           type: string
         region:
+          nullable: true
           type: string
         timezone:
+          nullable: true
           type: string
         type:
           enum:
@@ -14674,6 +14570,8 @@ components:
         default_text_model: openai/gpt-4o
         description: Production environment workspace
         id: 550e8400-e29b-41d4-a716-446655440000
+        io_logging_api_key_ids: null
+        io_logging_sampling_rate: 1
         is_data_discount_logging_enabled: true
         is_observability_broadcast_enabled: false
         is_observability_io_logging_enabled: false
@@ -14715,6 +14613,18 @@ components:
           example: 550e8400-e29b-41d4-a716-446655440000
           format: uuid
           type: string
+        io_logging_api_key_ids:
+          description: Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
+          example: null
+          items:
+            type: integer
+          nullable: true
+          type: array
+        io_logging_sampling_rate:
+          description: Sampling rate for I/O logging (0.0001-1). 1 means 100% of requests are logged.
+          example: 1
+          format: double
+          type: number
         is_data_discount_logging_enabled:
           description: Whether data discount logging is enabled for this workspace
           example: true
@@ -14751,6 +14661,8 @@ components:
         - is_observability_io_logging_enabled
         - is_observability_broadcast_enabled
         - is_data_discount_logging_enabled
+        - io_logging_sampling_rate
+        - io_logging_api_key_ids
         - created_at
         - updated_at
         - created_by
@@ -14945,7 +14857,8 @@ paths:
           content:
             audio/*:
               schema:
-                description: Raw audio bytestream. Content-Type varies by requested format (audio/mpeg for mp3, audio/L16 for pcm).
+                description: >-
+                  Raw audio bytestream. Content-Type varies by requested format (audio/mpeg for mp3, audio/pcm for pcm — 16-bit little-endian).
                 example: <binary audio data>
                 format: binary
                 type: string
@@ -15054,6 +14967,141 @@ paths:
       tags:
         - TTS
       x-speakeasy-name-override: createSpeech
+  /audio/transcriptions:
+    post:
+      description: Transcribes audio into text
+      operationId: createAudioTranscriptions
+      requestBody:
+        content:
+          application/json:
+            example:
+              input_audio:
+                data: UklGRiQA...
+                format: wav
+              language: en
+              model: openai/whisper-large-v3
+            schema:
+              $ref: '#/components/schemas/STTRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                text: Hello, this is a test of OpenAI speech-to-text transcription.
+                usage:
+                  cost: 0.000508
+                  input_tokens: 83
+                  output_tokens: 30
+                  seconds: 9.2
+                  total_tokens: 113
+              schema:
+                $ref: '#/components/schemas/STTResponse'
+          description: Transcription result
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '402':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 402
+                  message: Insufficient credits. Add more using https://openrouter.ai/credits
+              schema:
+                $ref: '#/components/schemas/PaymentRequiredResponse'
+          description: Payment Required - Insufficient credits or quota to complete request
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '429':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 429
+                  message: Rate limit exceeded
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsResponse'
+          description: Too Many Requests - Rate limit exceeded
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+        '502':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 502
+                  message: Provider returned error
+              schema:
+                $ref: '#/components/schemas/BadGatewayResponse'
+          description: Bad Gateway - Provider/upstream API failure
+        '503':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 503
+                  message: Service temporarily unavailable
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailableResponse'
+          description: Service Unavailable - Service temporarily unavailable
+        '524':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 524
+                  message: Request timed out. Please try again later.
+              schema:
+                $ref: '#/components/schemas/EdgeNetworkTimeoutResponse'
+          description: Infrastructure Timeout - Provider request timed out at edge network
+        '529':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 529
+                  message: Provider returned error
+              schema:
+                $ref: '#/components/schemas/ProviderOverloadedResponse'
+          description: Provider Overloaded - Provider is temporarily overloaded
+      summary: Create transcription
+      tags:
+        - STT
+      x-speakeasy-name-override: createTranscription
   /auth/keys:
     post:
       description: Exchange an authorization code from the PKCE flow for a user-controlled API key
@@ -20979,6 +21027,8 @@ paths:
                     default_text_model: openai/gpt-4o
                     description: Production environment workspace
                     id: 550e8400-e29b-41d4-a716-446655440000
+                    io_logging_api_key_ids: null
+                    io_logging_sampling_rate: 1
                     is_data_discount_logging_enabled: true
                     is_observability_broadcast_enabled: false
                     is_observability_io_logging_enabled: false
@@ -21054,6 +21104,8 @@ paths:
                   default_text_model: openai/gpt-4o
                   description: Production environment workspace
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  io_logging_api_key_ids: null
+                  io_logging_sampling_rate: 1
                   is_data_discount_logging_enabled: true
                   is_observability_broadcast_enabled: false
                   is_observability_io_logging_enabled: false
@@ -21211,6 +21263,8 @@ paths:
                   default_text_model: openai/gpt-4o
                   description: Production environment workspace
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  io_logging_api_key_ids: null
+                  io_logging_sampling_rate: 1
                   is_data_discount_logging_enabled: true
                   is_observability_broadcast_enabled: false
                   is_observability_io_logging_enabled: false
@@ -21290,6 +21344,8 @@ paths:
                   default_text_model: openai/gpt-4o
                   description: Production environment workspace
                   id: 550e8400-e29b-41d4-a716-446655440000
+                  io_logging_api_key_ids: null
+                  io_logging_sampling_rate: 1
                   is_data_discount_logging_enabled: true
                   is_observability_broadcast_enabled: false
                   is_observability_io_logging_enabled: false
@@ -21570,6 +21626,8 @@ tags:
     name: Providers
   - description: Rerank endpoints
     name: Rerank
+  - description: Speech-to-text endpoints
+    name: STT
   - description: Text-to-speech endpoints
     name: TTS
   - description: Video Generation endpoints

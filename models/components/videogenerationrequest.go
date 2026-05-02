@@ -34,8 +34,8 @@ func (e *AspectRatio) IsExact() bool {
 	return false
 }
 
-// VideoGenerationRequestOptions - Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
-type VideoGenerationRequestOptions struct {
+// OptionsObj - Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+type OptionsObj struct {
 	Oneai               map[string]any `json:"01ai,omitzero"`
 	Ai21                map[string]any `json:"ai21,omitzero"`
 	AionLabs            map[string]any `json:"aion-labs,omitzero"`
@@ -107,6 +107,7 @@ type VideoGenerationRequestOptions struct {
 	Morph               map[string]any `json:"morph,omitzero"`
 	Ncompass            map[string]any `json:"ncompass,omitzero"`
 	Nebius              map[string]any `json:"nebius,omitzero"`
+	NexAgi              map[string]any `json:"nex-agi,omitzero"`
 	Nextbit             map[string]any `json:"nextbit,omitzero"`
 	Nineteen            map[string]any `json:"nineteen,omitzero"`
 	Novita              map[string]any `json:"novita,omitzero"`
@@ -117,6 +118,7 @@ type VideoGenerationRequestOptions struct {
 	Parasail            map[string]any `json:"parasail,omitzero"`
 	Perplexity          map[string]any `json:"perplexity,omitzero"`
 	Phala               map[string]any `json:"phala,omitzero"`
+	Poolside            map[string]any `json:"poolside,omitzero"`
 	Recraft             map[string]any `json:"recraft,omitzero"`
 	Recursal            map[string]any `json:"recursal,omitzero"`
 	Reflection          map[string]any `json:"reflection,omitzero"`
@@ -145,770 +147,783 @@ type VideoGenerationRequestOptions struct {
 	ZAi                 map[string]any `json:"z-ai,omitzero"`
 }
 
-func (v VideoGenerationRequestOptions) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(v, "", false)
+func (o OptionsObj) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (v *VideoGenerationRequestOptions) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
+func (o *OptionsObj) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (v *VideoGenerationRequestOptions) GetOneai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetOneai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Oneai
+	return o.Oneai
 }
 
-func (v *VideoGenerationRequestOptions) GetAi21() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAi21() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Ai21
+	return o.Ai21
 }
 
-func (v *VideoGenerationRequestOptions) GetAionLabs() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAionLabs() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.AionLabs
+	return o.AionLabs
 }
 
-func (v *VideoGenerationRequestOptions) GetAkashml() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAkashml() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Akashml
+	return o.Akashml
 }
 
-func (v *VideoGenerationRequestOptions) GetAlibaba() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAlibaba() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Alibaba
+	return o.Alibaba
 }
 
-func (v *VideoGenerationRequestOptions) GetAmazonBedrock() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAmazonBedrock() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.AmazonBedrock
+	return o.AmazonBedrock
 }
 
-func (v *VideoGenerationRequestOptions) GetAmazonNova() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAmazonNova() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.AmazonNova
+	return o.AmazonNova
 }
 
-func (v *VideoGenerationRequestOptions) GetAmbient() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAmbient() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Ambient
+	return o.Ambient
 }
 
-func (v *VideoGenerationRequestOptions) GetAnthropic() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAnthropic() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Anthropic
+	return o.Anthropic
 }
 
-func (v *VideoGenerationRequestOptions) GetAnyscale() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAnyscale() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Anyscale
+	return o.Anyscale
 }
 
-func (v *VideoGenerationRequestOptions) GetArceeAi() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetArceeAi() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.ArceeAi
+	return o.ArceeAi
 }
 
-func (v *VideoGenerationRequestOptions) GetAtlasCloud() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAtlasCloud() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.AtlasCloud
+	return o.AtlasCloud
 }
 
-func (v *VideoGenerationRequestOptions) GetAtoma() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAtoma() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Atoma
+	return o.Atoma
 }
 
-func (v *VideoGenerationRequestOptions) GetAvian() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAvian() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Avian
+	return o.Avian
 }
 
-func (v *VideoGenerationRequestOptions) GetAzure() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetAzure() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Azure
+	return o.Azure
 }
 
-func (v *VideoGenerationRequestOptions) GetBaidu() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetBaidu() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Baidu
+	return o.Baidu
 }
 
-func (v *VideoGenerationRequestOptions) GetBaseten() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetBaseten() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Baseten
+	return o.Baseten
 }
 
-func (v *VideoGenerationRequestOptions) GetBlackForestLabs() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetBlackForestLabs() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.BlackForestLabs
+	return o.BlackForestLabs
 }
 
-func (v *VideoGenerationRequestOptions) GetByteplus() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetByteplus() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Byteplus
+	return o.Byteplus
 }
 
-func (v *VideoGenerationRequestOptions) GetCentml() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetCentml() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Centml
+	return o.Centml
 }
 
-func (v *VideoGenerationRequestOptions) GetCerebras() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetCerebras() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Cerebras
+	return o.Cerebras
 }
 
-func (v *VideoGenerationRequestOptions) GetChutes() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetChutes() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Chutes
+	return o.Chutes
 }
 
-func (v *VideoGenerationRequestOptions) GetCirrascale() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetCirrascale() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Cirrascale
+	return o.Cirrascale
 }
 
-func (v *VideoGenerationRequestOptions) GetClarifai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetClarifai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Clarifai
+	return o.Clarifai
 }
 
-func (v *VideoGenerationRequestOptions) GetCloudflare() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetCloudflare() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Cloudflare
+	return o.Cloudflare
 }
 
-func (v *VideoGenerationRequestOptions) GetCohere() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetCohere() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Cohere
+	return o.Cohere
 }
 
-func (v *VideoGenerationRequestOptions) GetCrofai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetCrofai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Crofai
+	return o.Crofai
 }
 
-func (v *VideoGenerationRequestOptions) GetCrusoe() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetCrusoe() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Crusoe
+	return o.Crusoe
 }
 
-func (v *VideoGenerationRequestOptions) GetDeepinfra() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetDeepinfra() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Deepinfra
+	return o.Deepinfra
 }
 
-func (v *VideoGenerationRequestOptions) GetDeepseek() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetDeepseek() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Deepseek
+	return o.Deepseek
 }
 
-func (v *VideoGenerationRequestOptions) GetDekallm() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetDekallm() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Dekallm
+	return o.Dekallm
 }
 
-func (v *VideoGenerationRequestOptions) GetEnfer() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetEnfer() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Enfer
+	return o.Enfer
 }
 
-func (v *VideoGenerationRequestOptions) GetFakeProvider() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetFakeProvider() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.FakeProvider
+	return o.FakeProvider
 }
 
-func (v *VideoGenerationRequestOptions) GetFeatherless() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetFeatherless() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Featherless
+	return o.Featherless
 }
 
-func (v *VideoGenerationRequestOptions) GetFireworks() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetFireworks() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Fireworks
+	return o.Fireworks
 }
 
-func (v *VideoGenerationRequestOptions) GetFriendli() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetFriendli() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Friendli
+	return o.Friendli
 }
 
-func (v *VideoGenerationRequestOptions) GetGmicloud() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetGmicloud() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Gmicloud
+	return o.Gmicloud
 }
 
-func (v *VideoGenerationRequestOptions) GetGoogleAiStudio() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetGoogleAiStudio() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.GoogleAiStudio
+	return o.GoogleAiStudio
 }
 
-func (v *VideoGenerationRequestOptions) GetGoogleVertex() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetGoogleVertex() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.GoogleVertex
+	return o.GoogleVertex
 }
 
-func (v *VideoGenerationRequestOptions) GetGopomelo() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetGopomelo() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Gopomelo
+	return o.Gopomelo
 }
 
-func (v *VideoGenerationRequestOptions) GetGroq() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetGroq() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Groq
+	return o.Groq
 }
 
-func (v *VideoGenerationRequestOptions) GetHuggingface() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetHuggingface() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Huggingface
+	return o.Huggingface
 }
 
-func (v *VideoGenerationRequestOptions) GetHyperbolic() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetHyperbolic() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Hyperbolic
+	return o.Hyperbolic
 }
 
-func (v *VideoGenerationRequestOptions) GetHyperbolicQuantized() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetHyperbolicQuantized() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.HyperbolicQuantized
+	return o.HyperbolicQuantized
 }
 
-func (v *VideoGenerationRequestOptions) GetInception() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetInception() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Inception
+	return o.Inception
 }
 
-func (v *VideoGenerationRequestOptions) GetInceptron() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetInceptron() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Inceptron
+	return o.Inceptron
 }
 
-func (v *VideoGenerationRequestOptions) GetInferenceNet() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetInferenceNet() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.InferenceNet
+	return o.InferenceNet
 }
 
-func (v *VideoGenerationRequestOptions) GetInfermatic() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetInfermatic() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Infermatic
+	return o.Infermatic
 }
 
-func (v *VideoGenerationRequestOptions) GetInflection() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetInflection() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Inflection
+	return o.Inflection
 }
 
-func (v *VideoGenerationRequestOptions) GetInocloud() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetInocloud() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Inocloud
+	return o.Inocloud
 }
 
-func (v *VideoGenerationRequestOptions) GetIoNet() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetIoNet() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.IoNet
+	return o.IoNet
 }
 
-func (v *VideoGenerationRequestOptions) GetIonstream() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetIonstream() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Ionstream
+	return o.Ionstream
 }
 
-func (v *VideoGenerationRequestOptions) GetKlusterai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetKlusterai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Klusterai
+	return o.Klusterai
 }
 
-func (v *VideoGenerationRequestOptions) GetLambda() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetLambda() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Lambda
+	return o.Lambda
 }
 
-func (v *VideoGenerationRequestOptions) GetLepton() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetLepton() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Lepton
+	return o.Lepton
 }
 
-func (v *VideoGenerationRequestOptions) GetLiquid() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetLiquid() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Liquid
+	return o.Liquid
 }
 
-func (v *VideoGenerationRequestOptions) GetLynn() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetLynn() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Lynn
+	return o.Lynn
 }
 
-func (v *VideoGenerationRequestOptions) GetLynnPrivate() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetLynnPrivate() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.LynnPrivate
+	return o.LynnPrivate
 }
 
-func (v *VideoGenerationRequestOptions) GetMancer() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMancer() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Mancer
+	return o.Mancer
 }
 
-func (v *VideoGenerationRequestOptions) GetMancerOld() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMancerOld() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.MancerOld
+	return o.MancerOld
 }
 
-func (v *VideoGenerationRequestOptions) GetMara() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMara() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Mara
+	return o.Mara
 }
 
-func (v *VideoGenerationRequestOptions) GetMeta() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMeta() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Meta
+	return o.Meta
 }
 
-func (v *VideoGenerationRequestOptions) GetMinimax() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMinimax() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Minimax
+	return o.Minimax
 }
 
-func (v *VideoGenerationRequestOptions) GetMistral() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMistral() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Mistral
+	return o.Mistral
 }
 
-func (v *VideoGenerationRequestOptions) GetModal() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetModal() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Modal
+	return o.Modal
 }
 
-func (v *VideoGenerationRequestOptions) GetModelrun() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetModelrun() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Modelrun
+	return o.Modelrun
 }
 
-func (v *VideoGenerationRequestOptions) GetModular() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetModular() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Modular
+	return o.Modular
 }
 
-func (v *VideoGenerationRequestOptions) GetMoonshotai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMoonshotai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Moonshotai
+	return o.Moonshotai
 }
 
-func (v *VideoGenerationRequestOptions) GetMorph() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetMorph() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Morph
+	return o.Morph
 }
 
-func (v *VideoGenerationRequestOptions) GetNcompass() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetNcompass() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Ncompass
+	return o.Ncompass
 }
 
-func (v *VideoGenerationRequestOptions) GetNebius() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetNebius() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Nebius
+	return o.Nebius
 }
 
-func (v *VideoGenerationRequestOptions) GetNextbit() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetNexAgi() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Nextbit
+	return o.NexAgi
 }
 
-func (v *VideoGenerationRequestOptions) GetNineteen() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetNextbit() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Nineteen
+	return o.Nextbit
 }
 
-func (v *VideoGenerationRequestOptions) GetNovita() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetNineteen() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Novita
+	return o.Nineteen
 }
 
-func (v *VideoGenerationRequestOptions) GetNvidia() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetNovita() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Nvidia
+	return o.Novita
 }
 
-func (v *VideoGenerationRequestOptions) GetOctoai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetNvidia() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Octoai
+	return o.Nvidia
 }
 
-func (v *VideoGenerationRequestOptions) GetOpenInference() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetOctoai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.OpenInference
+	return o.Octoai
 }
 
-func (v *VideoGenerationRequestOptions) GetOpenai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetOpenInference() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Openai
+	return o.OpenInference
 }
 
-func (v *VideoGenerationRequestOptions) GetParasail() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetOpenai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Parasail
+	return o.Openai
 }
 
-func (v *VideoGenerationRequestOptions) GetPerplexity() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetParasail() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Perplexity
+	return o.Parasail
 }
 
-func (v *VideoGenerationRequestOptions) GetPhala() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetPerplexity() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Phala
+	return o.Perplexity
 }
 
-func (v *VideoGenerationRequestOptions) GetRecraft() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetPhala() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Recraft
+	return o.Phala
 }
 
-func (v *VideoGenerationRequestOptions) GetRecursal() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetPoolside() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Recursal
+	return o.Poolside
 }
 
-func (v *VideoGenerationRequestOptions) GetReflection() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetRecraft() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Reflection
+	return o.Recraft
 }
 
-func (v *VideoGenerationRequestOptions) GetReka() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetRecursal() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Reka
+	return o.Recursal
 }
 
-func (v *VideoGenerationRequestOptions) GetRelace() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetReflection() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Relace
+	return o.Reflection
 }
 
-func (v *VideoGenerationRequestOptions) GetReplicate() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetReka() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Replicate
+	return o.Reka
 }
 
-func (v *VideoGenerationRequestOptions) GetSambanova() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetRelace() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Sambanova
+	return o.Relace
 }
 
-func (v *VideoGenerationRequestOptions) GetSambanovaCloaked() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetReplicate() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.SambanovaCloaked
+	return o.Replicate
 }
 
-func (v *VideoGenerationRequestOptions) GetSeed() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetSambanova() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Seed
+	return o.Sambanova
 }
 
-func (v *VideoGenerationRequestOptions) GetSfCompute() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetSambanovaCloaked() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.SfCompute
+	return o.SambanovaCloaked
 }
 
-func (v *VideoGenerationRequestOptions) GetSiliconflow() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetSeed() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Siliconflow
+	return o.Seed
 }
 
-func (v *VideoGenerationRequestOptions) GetSourceful() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetSfCompute() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Sourceful
+	return o.SfCompute
 }
 
-func (v *VideoGenerationRequestOptions) GetStealth() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetSiliconflow() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Stealth
+	return o.Siliconflow
 }
 
-func (v *VideoGenerationRequestOptions) GetStepfun() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetSourceful() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Stepfun
+	return o.Sourceful
 }
 
-func (v *VideoGenerationRequestOptions) GetStreamlake() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetStealth() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Streamlake
+	return o.Stealth
 }
 
-func (v *VideoGenerationRequestOptions) GetSwitchpoint() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetStepfun() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Switchpoint
+	return o.Stepfun
 }
 
-func (v *VideoGenerationRequestOptions) GetTargon() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetStreamlake() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Targon
+	return o.Streamlake
 }
 
-func (v *VideoGenerationRequestOptions) GetTogether() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetSwitchpoint() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Together
+	return o.Switchpoint
 }
 
-func (v *VideoGenerationRequestOptions) GetTogetherLite() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetTargon() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.TogetherLite
+	return o.Targon
 }
 
-func (v *VideoGenerationRequestOptions) GetUbicloud() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetTogether() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Ubicloud
+	return o.Together
 }
 
-func (v *VideoGenerationRequestOptions) GetUpstage() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetTogetherLite() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Upstage
+	return o.TogetherLite
 }
 
-func (v *VideoGenerationRequestOptions) GetVenice() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetUbicloud() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Venice
+	return o.Ubicloud
 }
 
-func (v *VideoGenerationRequestOptions) GetWandb() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetUpstage() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Wandb
+	return o.Upstage
 }
 
-func (v *VideoGenerationRequestOptions) GetXai() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetVenice() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Xai
+	return o.Venice
 }
 
-func (v *VideoGenerationRequestOptions) GetXiaomi() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetWandb() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.Xiaomi
+	return o.Wandb
 }
 
-func (v *VideoGenerationRequestOptions) GetZAi() map[string]any {
-	if v == nil {
+func (o *OptionsObj) GetXai() map[string]any {
+	if o == nil {
 		return nil
 	}
-	return v.ZAi
+	return o.Xai
+}
+
+func (o *OptionsObj) GetXiaomi() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.Xiaomi
+}
+
+func (o *OptionsObj) GetZAi() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.ZAi
 }
 
 // VideoGenerationRequestProvider - Provider-specific passthrough configuration
 type VideoGenerationRequestProvider struct {
-	// Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
-	Options *VideoGenerationRequestOptions `json:"options,omitzero"`
+	Options *OptionsObj `json:"options,omitzero"`
 }
 
 func (v VideoGenerationRequestProvider) MarshalJSON() ([]byte, error) {
@@ -922,7 +937,7 @@ func (v *VideoGenerationRequestProvider) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (v *VideoGenerationRequestProvider) GetOptions() *VideoGenerationRequestOptions {
+func (v *VideoGenerationRequestProvider) GetOptions() *OptionsObj {
 	if v == nil {
 		return nil
 	}
@@ -959,6 +974,8 @@ func (e *Resolution) IsExact() bool {
 type VideoGenerationRequest struct {
 	// Aspect ratio of the generated video
 	AspectRatio *AspectRatio `json:"aspect_ratio,omitzero"`
+	// URL to receive a webhook notification when the video generation job completes. Overrides the workspace-level default callback URL if set. Must be HTTPS.
+	CallbackURL *string `json:"callback_url,omitzero"`
 	// Duration of the generated video in seconds
 	Duration *int64 `json:"duration,omitzero"`
 	// Images to use as the first and/or last frame of the generated video. Each image must specify a frame_type of first_frame or last_frame.
@@ -995,6 +1012,13 @@ func (v *VideoGenerationRequest) GetAspectRatio() *AspectRatio {
 		return nil
 	}
 	return v.AspectRatio
+}
+
+func (v *VideoGenerationRequest) GetCallbackURL() *string {
+	if v == nil {
+		return nil
+	}
+	return v.CallbackURL
 }
 
 func (v *VideoGenerationRequest) GetDuration() *int64 {

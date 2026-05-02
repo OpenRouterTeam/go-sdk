@@ -24,4 +24,5 @@ custom := components.APIType("custom_value")
 | `APITypeEmbeddings`  | embeddings           |
 | `APITypeRerank`      | rerank               |
 | `APITypeTts`         | tts                  |
+| `APITypeStt`         | stt                  |
 | `APITypeVideo`       | video                |

@@ -124,102 +124,102 @@ func (a *ActionOpenPage) GetURL() optionalnullable.OptionalNullable[string] {
 	return a.URL
 }
 
-type TypeSearch string
+type ActionTypeSearch string
 
 const (
-	TypeSearchSearch TypeSearch = "search"
+	ActionTypeSearchSearch ActionTypeSearch = "search"
 )
 
-func (e TypeSearch) ToPointer() *TypeSearch {
+func (e ActionTypeSearch) ToPointer() *ActionTypeSearch {
 	return &e
 }
-func (e *TypeSearch) UnmarshalJSON(data []byte) error {
+func (e *ActionTypeSearch) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "search":
-		*e = TypeSearch(v)
+		*e = ActionTypeSearch(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeSearch: %v", v)
+		return fmt.Errorf("invalid value for ActionTypeSearch: %v", v)
 	}
 }
 
-type ActionSearch struct {
+type OutputWebSearchCallItemActionSearch struct {
 	Queries []string          `json:"queries,omitzero"`
 	Query   string            `json:"query"`
 	Sources []WebSearchSource `json:"sources,omitzero"`
-	Type    TypeSearch        `json:"type"`
+	Type    ActionTypeSearch  `json:"type"`
 }
 
-func (a ActionSearch) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (o OutputWebSearchCallItemActionSearch) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (a *ActionSearch) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (o *OutputWebSearchCallItemActionSearch) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *ActionSearch) GetQueries() []string {
-	if a == nil {
+func (o *OutputWebSearchCallItemActionSearch) GetQueries() []string {
+	if o == nil {
 		return nil
 	}
-	return a.Queries
+	return o.Queries
 }
 
-func (a *ActionSearch) GetQuery() string {
-	if a == nil {
+func (o *OutputWebSearchCallItemActionSearch) GetQuery() string {
+	if o == nil {
 		return ""
 	}
-	return a.Query
+	return o.Query
 }
 
-func (a *ActionSearch) GetSources() []WebSearchSource {
-	if a == nil {
+func (o *OutputWebSearchCallItemActionSearch) GetSources() []WebSearchSource {
+	if o == nil {
 		return nil
 	}
-	return a.Sources
+	return o.Sources
 }
 
-func (a *ActionSearch) GetType() TypeSearch {
-	if a == nil {
-		return TypeSearch("")
+func (o *OutputWebSearchCallItemActionSearch) GetType() ActionTypeSearch {
+	if o == nil {
+		return ActionTypeSearch("")
 	}
-	return a.Type
+	return o.Type
 }
 
 type ActionType string
 
 const (
-	ActionTypeSearch     ActionType = "search"
-	ActionTypeOpenPage   ActionType = "open_page"
-	ActionTypeFindInPage ActionType = "find_in_page"
-	ActionTypeUnknown    ActionType = "UNKNOWN"
+	ActionTypeSearchValue ActionType = "search"
+	ActionTypeOpenPage    ActionType = "open_page"
+	ActionTypeFindInPage  ActionType = "find_in_page"
+	ActionTypeUnknown     ActionType = "UNKNOWN"
 )
 
 type Action struct {
-	ActionSearch     *ActionSearch     `queryParam:"inline" union:"member"`
-	ActionOpenPage   *ActionOpenPage   `queryParam:"inline" union:"member"`
-	ActionFindInPage *ActionFindInPage `queryParam:"inline" union:"member"`
-	UnknownRaw       json.RawMessage   `json:"-" union:"unknown"`
+	OutputWebSearchCallItemActionSearch *OutputWebSearchCallItemActionSearch `queryParam:"inline" union:"member"`
+	ActionOpenPage                      *ActionOpenPage                      `queryParam:"inline" union:"member"`
+	ActionFindInPage                    *ActionFindInPage                    `queryParam:"inline" union:"member"`
+	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
 
 	Type ActionType
 }
 
-func CreateActionSearch(search ActionSearch) Action {
-	typ := ActionTypeSearch
+func CreateActionSearch(search OutputWebSearchCallItemActionSearch) Action {
+	typ := ActionTypeSearchValue
 
-	typStr := TypeSearch(typ)
+	typStr := ActionTypeSearch(typ)
 	search.Type = typStr
 
 	return Action{
-		ActionSearch: &search,
-		Type:         typ,
+		OutputWebSearchCallItemActionSearch: &search,
+		Type:                                typ,
 	}
 }
 
@@ -282,13 +282,13 @@ func (u *Action) UnmarshalJSON(data []byte) error {
 
 	switch dis.Type {
 	case "search":
-		actionSearch := new(ActionSearch)
-		if err := utils.UnmarshalJSON(data, &actionSearch, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == search) type ActionSearch within Action: %w", string(data), err)
+		outputWebSearchCallItemActionSearch := new(OutputWebSearchCallItemActionSearch)
+		if err := utils.UnmarshalJSON(data, &outputWebSearchCallItemActionSearch, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == search) type OutputWebSearchCallItemActionSearch within Action: %w", string(data), err)
 		}
 
-		u.ActionSearch = actionSearch
-		u.Type = ActionTypeSearch
+		u.OutputWebSearchCallItemActionSearch = outputWebSearchCallItemActionSearch
+		u.Type = ActionTypeSearchValue
 		return nil
 	case "open_page":
 		actionOpenPage := new(ActionOpenPage)
@@ -317,8 +317,8 @@ func (u *Action) UnmarshalJSON(data []byte) error {
 }
 
 func (u Action) MarshalJSON() ([]byte, error) {
-	if u.ActionSearch != nil {
-		return utils.MarshalJSON(u.ActionSearch, "", true)
+	if u.OutputWebSearchCallItemActionSearch != nil {
+		return utils.MarshalJSON(u.OutputWebSearchCallItemActionSearch, "", true)
 	}
 
 	if u.ActionOpenPage != nil {
@@ -383,8 +383,8 @@ func (o *OutputWebSearchCallItem) GetAction() Action {
 	return o.Action
 }
 
-func (o *OutputWebSearchCallItem) GetActionSearch() *ActionSearch {
-	return o.GetAction().ActionSearch
+func (o *OutputWebSearchCallItem) GetActionSearch() *OutputWebSearchCallItemActionSearch {
+	return o.GetAction().OutputWebSearchCallItemActionSearch
 }
 
 func (o *OutputWebSearchCallItem) GetActionOpenPage() *ActionOpenPage {
