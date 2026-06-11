@@ -14,7 +14,7 @@ jobs:
     with:
       speakeasy_version: "1.761.1"
       force: true
-      mode: pr
+      mode: direct
     secrets:
-      github_access_token: ${{ secrets.SDK_MERGE_PAT }}
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
