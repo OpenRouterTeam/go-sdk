@@ -14,7 +14,10 @@ jobs:
     with:
       speakeasy_version: "1.761.1"
       force: true
-      mode: pr
+      # direct: commit regenerated SDK straight to main instead of opening a
+      # PR that nothing auto-merges. The SDK_MERGE_PAT push triggers the
+      # publish workflow (RELEASES.md path filter) to tag a release.
+      mode: direct
     secrets:
       github_access_token: ${{ secrets.SDK_MERGE_PAT }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
