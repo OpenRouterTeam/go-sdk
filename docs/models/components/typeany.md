@@ -1,0 +1,18 @@
+# TypeAny
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeAnyAny
+```
+
+
+## Values
+
+| Name         | Value        |
+| ------------ | ------------ |
+| `TypeAnyAny` | any          |

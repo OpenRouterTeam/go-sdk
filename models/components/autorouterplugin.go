@@ -34,6 +34,8 @@ func (e *AutoRouterPluginID) UnmarshalJSON(data []byte) error {
 type AutoRouterPlugin struct {
 	// List of model patterns to filter which models the auto-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, uses the default supported models list.
 	AllowedModels []string `json:"allowed_models,omitzero"`
+	// Controls cost vs. quality routing tradeoff (0–10). 0 = pure quality (best model regardless of cost), 10 = maximize for cost (cheapest model wins). Intermediate values blend quality and cost signals continuously. Defaults to 7.
+	CostQualityTradeoff *int64 `json:"cost_quality_tradeoff,omitzero"`
 	// Set to false to disable the auto-router plugin for this request. Defaults to true.
 	Enabled *bool              `json:"enabled,omitzero"`
 	ID      AutoRouterPluginID `json:"id"`
@@ -55,6 +57,13 @@ func (a *AutoRouterPlugin) GetAllowedModels() []string {
 		return nil
 	}
 	return a.AllowedModels
+}
+
+func (a *AutoRouterPlugin) GetCostQualityTradeoff() *int64 {
+	if a == nil {
+		return nil
+	}
+	return a.CostQualityTradeoff
 }
 
 func (a *AutoRouterPlugin) GetEnabled() *bool {

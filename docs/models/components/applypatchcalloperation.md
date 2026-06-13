@@ -1,0 +1,41 @@
+# ApplyPatchCallOperation
+
+The patch operation requested by an `apply_patch_call`. `create_file` and `update_file` carry a V4A diff; `delete_file` omits it.
+
+
+## Supported Types
+
+### ApplyPatchCreateFileOperation
+
+```go
+applyPatchCallOperation := components.CreateApplyPatchCallOperationCreateFile(components.ApplyPatchCreateFileOperation{/* values here */})
+```
+
+### ApplyPatchDeleteFileOperation
+
+```go
+applyPatchCallOperation := components.CreateApplyPatchCallOperationDeleteFile(components.ApplyPatchDeleteFileOperation{/* values here */})
+```
+
+### ApplyPatchUpdateFileOperation
+
+```go
+applyPatchCallOperation := components.CreateApplyPatchCallOperationUpdateFile(components.ApplyPatchUpdateFileOperation{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch applyPatchCallOperation.Type {
+	case components.ApplyPatchCallOperationTypeCreateFile:
+		// applyPatchCallOperation.ApplyPatchCreateFileOperation is populated
+	case components.ApplyPatchCallOperationTypeDeleteFile:
+		// applyPatchCallOperation.ApplyPatchDeleteFileOperation is populated
+	case components.ApplyPatchCallOperationTypeUpdateFile:
+		// applyPatchCallOperation.ApplyPatchUpdateFileOperation is populated
+	default:
+		// Unknown type - use applyPatchCallOperation.GetUnknownRaw() for raw JSON
+}
+```

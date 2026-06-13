@@ -10,8 +10,9 @@ import (
 // InternalServerResponseError - Internal Server Error - Unexpected server error
 type InternalServerResponseError struct {
 	// Error data for InternalServerResponse
-	Error_ components.InternalServerResponseErrorData `json:"error"`
-	UserID *string                                    `json:"user_id,omitzero"`
+	Error_             components.InternalServerResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                             `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                    `json:"user_id,omitzero"`
 }
 
 var _ error = &InternalServerResponseError{}

@@ -1,0 +1,18 @@
+# ObservabilityArizeDestinationType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ObservabilityArizeDestinationTypeArize
+```
+
+
+## Values
+
+| Name                                     | Value                                    |
+| ---------------------------------------- | ---------------------------------------- |
+| `ObservabilityArizeDestinationTypeArize` | arize                                    |

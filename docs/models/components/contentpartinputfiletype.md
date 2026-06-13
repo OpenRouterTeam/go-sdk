@@ -1,0 +1,18 @@
+# ContentPartInputFileType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ContentPartInputFileTypeInputFile
+```
+
+
+## Values
+
+| Name                                | Value                               |
+| ----------------------------------- | ----------------------------------- |
+| `ContentPartInputFileTypeInputFile` | input_file                          |

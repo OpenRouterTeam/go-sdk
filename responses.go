@@ -35,7 +35,12 @@ func newResponses(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks 
 
 // Send - Create a response
 // Creates a streaming or non-streaming response using OpenResponses API format
-func (s *Responses) Send(ctx context.Context, request components.ResponsesRequest, opts ...operations.Option) (*operations.CreateResponsesResponse, error) {
+func (s *Responses) Send(ctx context.Context, responsesRequest components.ResponsesRequest, xOpenRouterMetadata *components.MetadataLevel, opts ...operations.Option) (*operations.CreateResponsesResponse, error) {
+	request := operations.CreateResponsesRequest{
+		ResponsesRequest:    responsesRequest,
+		XOpenRouterMetadata: xOpenRouterMetadata,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -69,7 +74,7 @@ func (s *Responses) Send(ctx context.Context, request components.ResponsesReques
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "ResponsesRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -99,6 +104,8 @@ func (s *Responses) Send(ctx context.Context, request components.ResponsesReques
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
 	}
+
+	utils.PopulateHeaders(ctx, req, request, nil)
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -190,7 +197,7 @@ func (s *Responses) Send(ctx context.Context, request components.ResponsesReques
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "402", "404", "408", "413", "422", "429", "4XX", "500", "502", "503", "524", "529", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"400", "401", "402", "403", "404", "408", "413", "422", "429", "4XX", "500", "502", "503", "524", "529", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -222,10 +229,10 @@ func (s *Responses) Send(ctx context.Context, request components.ResponsesReques
 			result := operations.CreateCreateResponsesResponseOpenResponsesResult(out)
 			return &result, nil
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `text/event-stream`):
-			out := stream.NewEventStream(ctx, httpRes.Body, func(se []byte) (operations.CreateResponsesResponseBody, error) {
-				var e operations.CreateResponsesResponseBody
+			out := stream.NewEventStream(ctx, httpRes.Body, func(se []byte) (components.ResponsesStreamingResponse, error) {
+				var e components.ResponsesStreamingResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(se), &e, ""); err != nil {
-					return operations.CreateResponsesResponseBody{}, err
+					return components.ResponsesStreamingResponse{}, err
 				}
 				return e, nil
 			}, "[DONE]")
@@ -289,6 +296,27 @@ func (s *Responses) Send(ctx context.Context, request components.ResponsesReques
 			}
 
 			var out sdkerrors.PaymentRequiredResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 403:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

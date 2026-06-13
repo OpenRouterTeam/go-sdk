@@ -18,9 +18,10 @@ custom := components.WebSearchEngine("custom_value")
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `WebSearchEngineNative`    | native                     |
-| `WebSearchEngineExa`       | exa                        |
-| `WebSearchEngineFirecrawl` | firecrawl                  |
-| `WebSearchEngineParallel`  | parallel                   |
+| Name                        | Value                       |
+| --------------------------- | --------------------------- |
+| `WebSearchEngineNative`     | native                      |
+| `WebSearchEngineExa`        | exa                         |
+| `WebSearchEngineFirecrawl`  | firecrawl                   |
+| `WebSearchEngineParallel`   | parallel                    |
+| `WebSearchEnginePerplexity` | perplexity                  |

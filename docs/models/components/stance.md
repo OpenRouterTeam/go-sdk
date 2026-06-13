@@ -1,0 +1,9 @@
+# Stance
+
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `Model`            | `string`           | :heavy_check_mark: | N/A                |
+| `Stance`           | `string`           | :heavy_check_mark: | N/A                |

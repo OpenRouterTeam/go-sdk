@@ -87,10 +87,28 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionApplyPatc
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionCustom(components.CustomTool{/* values here */})
 ```
 
+### AdvisorServerToolOpenRouter
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterAdvisor(components.AdvisorServerToolOpenRouter{/* values here */})
+```
+
+### SubagentServerToolOpenRouter
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterSubagent(components.SubagentServerToolOpenRouter{/* values here */})
+```
+
 ### DatetimeServerTool
 
 ```go
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterDatetime(components.DatetimeServerTool{/* values here */})
+```
+
+### FusionServerToolOpenRouter
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterFusion(components.FusionServerToolOpenRouter{/* values here */})
 ```
 
 ### ImageGenerationServerToolOpenRouter
@@ -105,10 +123,34 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenroute
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(components.ChatSearchModelsServerTool{/* values here */})
 ```
 
+### WebFetchServerTool
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterWebFetch(components.WebFetchServerTool{/* values here */})
+```
+
 ### WebSearchServerToolOpenRouter
 
 ```go
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterWebSearch(components.WebSearchServerToolOpenRouter{/* values here */})
+```
+
+### ApplyPatchServerToolOpenRouter
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterApplyPatch(components.ApplyPatchServerToolOpenRouter{/* values here */})
+```
+
+### BashServerTool
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterBash(components.BashServerTool{/* values here */})
+```
+
+### ShellServerToolOpenRouter
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterShell(components.ShellServerToolOpenRouter{/* values here */})
 ```
 
 ## Union Discrimination
@@ -145,13 +187,27 @@ switch responsesRequestToolUnion.Type {
 		// responsesRequestToolUnion.ApplyPatchServerTool is populated
 	case components.ResponsesRequestToolUnionTypeCustom:
 		// responsesRequestToolUnion.CustomTool is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterAdvisor:
+		// responsesRequestToolUnion.AdvisorServerToolOpenRouter is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterSubagent:
+		// responsesRequestToolUnion.SubagentServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterDatetime:
 		// responsesRequestToolUnion.DatetimeServerTool is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterFusion:
+		// responsesRequestToolUnion.FusionServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterImageGeneration:
 		// responsesRequestToolUnion.ImageGenerationServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels:
 		// responsesRequestToolUnion.ChatSearchModelsServerTool is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterWebFetch:
+		// responsesRequestToolUnion.WebFetchServerTool is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterWebSearch:
 		// responsesRequestToolUnion.WebSearchServerToolOpenRouter is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterApplyPatch:
+		// responsesRequestToolUnion.ApplyPatchServerToolOpenRouter is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterBash:
+		// responsesRequestToolUnion.BashServerTool is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterShell:
+		// responsesRequestToolUnion.ShellServerToolOpenRouter is populated
 }
 ```

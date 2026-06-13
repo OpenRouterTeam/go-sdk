@@ -1,0 +1,117 @@
+# MessagesRequestToolUnion
+
+
+## Supported Types
+
+### ToolCustom
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionToolCustom(components.ToolCustom{/* values here */})
+```
+
+### ToolBash20250124
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionToolBash20250124(components.ToolBash20250124{/* values here */})
+```
+
+### ToolTextEditor20250124
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionToolTextEditor20250124(components.ToolTextEditor20250124{/* values here */})
+```
+
+### ToolWebSearch20250305
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionToolWebSearch20250305(components.ToolWebSearch20250305{/* values here */})
+```
+
+### ToolWebSearch20260209
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionToolWebSearch20260209(components.ToolWebSearch20260209{/* values here */})
+```
+
+### ToolAdvisor20260301
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionToolAdvisor20260301(components.ToolAdvisor20260301{/* values here */})
+```
+
+### BashServerTool
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionBashServerTool(components.BashServerTool{/* values here */})
+```
+
+### DatetimeServerTool
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionDatetimeServerTool(components.DatetimeServerTool{/* values here */})
+```
+
+### ImageGenerationServerToolOpenRouter
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionImageGenerationServerToolOpenRouter(components.ImageGenerationServerToolOpenRouter{/* values here */})
+```
+
+### ChatSearchModelsServerTool
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionChatSearchModelsServerTool(components.ChatSearchModelsServerTool{/* values here */})
+```
+
+### WebFetchServerTool
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionWebFetchServerTool(components.WebFetchServerTool{/* values here */})
+```
+
+### OpenRouterWebSearchServerTool
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionOpenRouterWebSearchServerTool(components.OpenRouterWebSearchServerTool{/* values here */})
+```
+
+### MessagesRequestTool
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionMessagesRequestTool(components.MessagesRequestTool{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch messagesRequestToolUnion.Type {
+	case components.MessagesRequestToolUnionTypeToolCustom:
+		// messagesRequestToolUnion.ToolCustom is populated
+	case components.MessagesRequestToolUnionTypeToolBash20250124:
+		// messagesRequestToolUnion.ToolBash20250124 is populated
+	case components.MessagesRequestToolUnionTypeToolTextEditor20250124:
+		// messagesRequestToolUnion.ToolTextEditor20250124 is populated
+	case components.MessagesRequestToolUnionTypeToolWebSearch20250305:
+		// messagesRequestToolUnion.ToolWebSearch20250305 is populated
+	case components.MessagesRequestToolUnionTypeToolWebSearch20260209:
+		// messagesRequestToolUnion.ToolWebSearch20260209 is populated
+	case components.MessagesRequestToolUnionTypeToolAdvisor20260301:
+		// messagesRequestToolUnion.ToolAdvisor20260301 is populated
+	case components.MessagesRequestToolUnionTypeBashServerTool:
+		// messagesRequestToolUnion.BashServerTool is populated
+	case components.MessagesRequestToolUnionTypeDatetimeServerTool:
+		// messagesRequestToolUnion.DatetimeServerTool is populated
+	case components.MessagesRequestToolUnionTypeImageGenerationServerToolOpenRouter:
+		// messagesRequestToolUnion.ImageGenerationServerToolOpenRouter is populated
+	case components.MessagesRequestToolUnionTypeChatSearchModelsServerTool:
+		// messagesRequestToolUnion.ChatSearchModelsServerTool is populated
+	case components.MessagesRequestToolUnionTypeWebFetchServerTool:
+		// messagesRequestToolUnion.WebFetchServerTool is populated
+	case components.MessagesRequestToolUnionTypeOpenRouterWebSearchServerTool:
+		// messagesRequestToolUnion.OpenRouterWebSearchServerTool is populated
+	case components.MessagesRequestToolUnionTypeMessagesRequestTool:
+		// messagesRequestToolUnion.MessagesRequestTool is populated
+}
+```

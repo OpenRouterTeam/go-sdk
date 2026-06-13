@@ -10,21 +10,24 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/types/stream"
 )
 
-// SendChatCompletionRequestResponseBody - Successful chat completion response
-type SendChatCompletionRequestResponseBody struct {
-	// Streaming chat completion chunk
-	Data components.ChatStreamChunk `json:"data"`
+type SendChatCompletionRequestRequest struct {
+	// Opt-in to surface routing metadata on the response under `openrouter_metadata`. Defaults to `disabled`. The legacy header `X-OpenRouter-Experimental-Metadata` is also accepted for backward compatibility.
+	XOpenRouterMetadata *components.MetadataLevel `header:"style=simple,explode=false,name=X-OpenRouter-Metadata"`
+	ChatRequest         components.ChatRequest    `request:"mediaType=application/json"`
 }
 
-func (s *SendChatCompletionRequestResponseBody) GetData() components.ChatStreamChunk {
+func (s *SendChatCompletionRequestRequest) GetXOpenRouterMetadata() *components.MetadataLevel {
 	if s == nil {
-		return components.ChatStreamChunk{}
+		return nil
 	}
-	return s.Data
+	return s.XOpenRouterMetadata
 }
 
-func (s SendChatCompletionRequestResponseBody) GetEventEncoding(event string) (string, error) {
-	return "application/json", nil
+func (s *SendChatCompletionRequestRequest) GetChatRequest() components.ChatRequest {
+	if s == nil {
+		return components.ChatRequest{}
+	}
+	return s.ChatRequest
 }
 
 type SendChatCompletionRequestResponseType string
@@ -35,8 +38,8 @@ const (
 )
 
 type SendChatCompletionRequestResponse struct {
-	ChatResult  *components.ChatResult                                     `queryParam:"inline" union:"member"`
-	EventStream *stream.EventStream[SendChatCompletionRequestResponseBody] `queryParam:"inline" union:"member"`
+	ChatResult  *components.ChatResult                                `queryParam:"inline" union:"member"`
+	EventStream *stream.EventStream[components.ChatStreamingResponse] `queryParam:"inline" union:"member"`
 
 	Type SendChatCompletionRequestResponseType
 }
@@ -50,7 +53,7 @@ func CreateSendChatCompletionRequestResponseChatResult(chatResult components.Cha
 	}
 }
 
-func CreateSendChatCompletionRequestResponseEventStream(eventStream *stream.EventStream[SendChatCompletionRequestResponseBody]) SendChatCompletionRequestResponse {
+func CreateSendChatCompletionRequestResponseEventStream(eventStream *stream.EventStream[components.ChatStreamingResponse]) SendChatCompletionRequestResponse {
 	typ := SendChatCompletionRequestResponseTypeEventStream
 
 	return SendChatCompletionRequestResponse{
@@ -72,7 +75,7 @@ func (u *SendChatCompletionRequestResponse) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var eventStream *stream.EventStream[SendChatCompletionRequestResponseBody] = &stream.EventStream[SendChatCompletionRequestResponseBody]{}
+	var eventStream *stream.EventStream[components.ChatStreamingResponse] = &stream.EventStream[components.ChatStreamingResponse]{}
 	if err := utils.UnmarshalJSON(data, &eventStream, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  SendChatCompletionRequestResponseTypeEventStream,
@@ -97,7 +100,7 @@ func (u *SendChatCompletionRequestResponse) UnmarshalJSON(data []byte) error {
 		u.ChatResult = best.Value.(*components.ChatResult)
 		return nil
 	case SendChatCompletionRequestResponseTypeEventStream:
-		u.EventStream = best.Value.(*stream.EventStream[SendChatCompletionRequestResponseBody])
+		u.EventStream = best.Value.(*stream.EventStream[components.ChatStreamingResponse])
 		return nil
 	}
 

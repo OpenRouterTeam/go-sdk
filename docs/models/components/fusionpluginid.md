@@ -1,0 +1,18 @@
+# FusionPluginID
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.FusionPluginIDFusion
+```
+
+
+## Values
+
+| Name                   | Value                  |
+| ---------------------- | ---------------------- |
+| `FusionPluginIDFusion` | fusion                 |

@@ -740,6 +740,10 @@ const (
 	BaseInputsUnion1TypeOpenAIResponseFunctionToolCall       BaseInputsUnion1Type = "OpenAIResponseFunctionToolCall"
 	BaseInputsUnion1TypeOutputItemImageGenerationCall        BaseInputsUnion1Type = "OutputItemImageGenerationCall"
 	BaseInputsUnion1TypeOutputMessage                        BaseInputsUnion1Type = "OutputMessage"
+	BaseInputsUnion1TypeOpenAIResponseCustomToolCall         BaseInputsUnion1Type = "OpenAIResponseCustomToolCall"
+	BaseInputsUnion1TypeOpenAIResponseCustomToolCallOutput   BaseInputsUnion1Type = "OpenAIResponseCustomToolCallOutput"
+	BaseInputsUnion1TypeApplyPatchCallItem                   BaseInputsUnion1Type = "ApplyPatchCallItem"
+	BaseInputsUnion1TypeApplyPatchCallOutputItem             BaseInputsUnion1Type = "ApplyPatchCallOutputItem"
 )
 
 type BaseInputsUnion1 struct {
@@ -749,6 +753,10 @@ type BaseInputsUnion1 struct {
 	OpenAIResponseFunctionToolCall       *OpenAIResponseFunctionToolCall       `queryParam:"inline" union:"member"`
 	OutputItemImageGenerationCall        *OutputItemImageGenerationCall        `queryParam:"inline" union:"member"`
 	OutputMessage                        *OutputMessage                        `queryParam:"inline" union:"member"`
+	OpenAIResponseCustomToolCall         *OpenAIResponseCustomToolCall         `queryParam:"inline" union:"member"`
+	OpenAIResponseCustomToolCallOutput   *OpenAIResponseCustomToolCallOutput   `queryParam:"inline" union:"member"`
+	ApplyPatchCallItem                   *ApplyPatchCallItem                   `queryParam:"inline" union:"member"`
+	ApplyPatchCallOutputItem             *ApplyPatchCallOutputItem             `queryParam:"inline" union:"member"`
 
 	Type BaseInputsUnion1Type
 }
@@ -807,6 +815,42 @@ func CreateBaseInputsUnion1OutputMessage(outputMessage OutputMessage) BaseInputs
 	}
 }
 
+func CreateBaseInputsUnion1OpenAIResponseCustomToolCall(openAIResponseCustomToolCall OpenAIResponseCustomToolCall) BaseInputsUnion1 {
+	typ := BaseInputsUnion1TypeOpenAIResponseCustomToolCall
+
+	return BaseInputsUnion1{
+		OpenAIResponseCustomToolCall: &openAIResponseCustomToolCall,
+		Type:                         typ,
+	}
+}
+
+func CreateBaseInputsUnion1OpenAIResponseCustomToolCallOutput(openAIResponseCustomToolCallOutput OpenAIResponseCustomToolCallOutput) BaseInputsUnion1 {
+	typ := BaseInputsUnion1TypeOpenAIResponseCustomToolCallOutput
+
+	return BaseInputsUnion1{
+		OpenAIResponseCustomToolCallOutput: &openAIResponseCustomToolCallOutput,
+		Type:                               typ,
+	}
+}
+
+func CreateBaseInputsUnion1ApplyPatchCallItem(applyPatchCallItem ApplyPatchCallItem) BaseInputsUnion1 {
+	typ := BaseInputsUnion1TypeApplyPatchCallItem
+
+	return BaseInputsUnion1{
+		ApplyPatchCallItem: &applyPatchCallItem,
+		Type:               typ,
+	}
+}
+
+func CreateBaseInputsUnion1ApplyPatchCallOutputItem(applyPatchCallOutputItem ApplyPatchCallOutputItem) BaseInputsUnion1 {
+	typ := BaseInputsUnion1TypeApplyPatchCallOutputItem
+
+	return BaseInputsUnion1{
+		ApplyPatchCallOutputItem: &applyPatchCallOutputItem,
+		Type:                     typ,
+	}
+}
+
 func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -860,6 +904,38 @@ func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var openAIResponseCustomToolCall OpenAIResponseCustomToolCall = OpenAIResponseCustomToolCall{}
+	if err := utils.UnmarshalJSON(data, &openAIResponseCustomToolCall, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsUnion1TypeOpenAIResponseCustomToolCall,
+			Value: &openAIResponseCustomToolCall,
+		})
+	}
+
+	var openAIResponseCustomToolCallOutput OpenAIResponseCustomToolCallOutput = OpenAIResponseCustomToolCallOutput{}
+	if err := utils.UnmarshalJSON(data, &openAIResponseCustomToolCallOutput, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsUnion1TypeOpenAIResponseCustomToolCallOutput,
+			Value: &openAIResponseCustomToolCallOutput,
+		})
+	}
+
+	var applyPatchCallItem ApplyPatchCallItem = ApplyPatchCallItem{}
+	if err := utils.UnmarshalJSON(data, &applyPatchCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsUnion1TypeApplyPatchCallItem,
+			Value: &applyPatchCallItem,
+		})
+	}
+
+	var applyPatchCallOutputItem ApplyPatchCallOutputItem = ApplyPatchCallOutputItem{}
+	if err := utils.UnmarshalJSON(data, &applyPatchCallOutputItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsUnion1TypeApplyPatchCallOutputItem,
+			Value: &applyPatchCallOutputItem,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsUnion1", string(data))
 	}
@@ -891,6 +967,18 @@ func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) error {
 	case BaseInputsUnion1TypeOutputMessage:
 		u.OutputMessage = best.Value.(*OutputMessage)
 		return nil
+	case BaseInputsUnion1TypeOpenAIResponseCustomToolCall:
+		u.OpenAIResponseCustomToolCall = best.Value.(*OpenAIResponseCustomToolCall)
+		return nil
+	case BaseInputsUnion1TypeOpenAIResponseCustomToolCallOutput:
+		u.OpenAIResponseCustomToolCallOutput = best.Value.(*OpenAIResponseCustomToolCallOutput)
+		return nil
+	case BaseInputsUnion1TypeApplyPatchCallItem:
+		u.ApplyPatchCallItem = best.Value.(*ApplyPatchCallItem)
+		return nil
+	case BaseInputsUnion1TypeApplyPatchCallOutputItem:
+		u.ApplyPatchCallOutputItem = best.Value.(*ApplyPatchCallOutputItem)
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsUnion1", string(data))
@@ -919,6 +1007,22 @@ func (u BaseInputsUnion1) MarshalJSON() ([]byte, error) {
 
 	if u.OutputMessage != nil {
 		return utils.MarshalJSON(u.OutputMessage, "", true)
+	}
+
+	if u.OpenAIResponseCustomToolCall != nil {
+		return utils.MarshalJSON(u.OpenAIResponseCustomToolCall, "", true)
+	}
+
+	if u.OpenAIResponseCustomToolCallOutput != nil {
+		return utils.MarshalJSON(u.OpenAIResponseCustomToolCallOutput, "", true)
+	}
+
+	if u.ApplyPatchCallItem != nil {
+		return utils.MarshalJSON(u.ApplyPatchCallItem, "", true)
+	}
+
+	if u.ApplyPatchCallOutputItem != nil {
+		return utils.MarshalJSON(u.ApplyPatchCallOutputItem, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type BaseInputsUnion1: all fields are null")

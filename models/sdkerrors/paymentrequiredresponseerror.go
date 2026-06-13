@@ -10,8 +10,9 @@ import (
 // PaymentRequiredResponseError - Payment Required - Insufficient credits or quota to complete request
 type PaymentRequiredResponseError struct {
 	// Error data for PaymentRequiredResponse
-	Error_ components.PaymentRequiredResponseErrorData `json:"error"`
-	UserID *string                                     `json:"user_id,omitzero"`
+	Error_             components.PaymentRequiredResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                              `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                     `json:"user_id,omitzero"`
 }
 
 var _ error = &PaymentRequiredResponseError{}

@@ -23,5 +23,7 @@ custom := components.SupportedAspectRatio("custom_value")
 | `SupportedAspectRatioEleven`                  | 1:1                                           |
 | `SupportedAspectRatioFortyThree`              | 4:3                                           |
 | `SupportedAspectRatioThirtyFour`              | 3:4                                           |
+| `SupportedAspectRatioThirtyTwo`               | 3:2                                           |
+| `SupportedAspectRatioTwentyThree`             | 2:3                                           |
 | `SupportedAspectRatioTwoHundredAndNineteen`   | 21:9                                          |
 | `SupportedAspectRatioNineHundredAndTwentyOne` | 9:21                                          |

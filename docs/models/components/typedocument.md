@@ -1,0 +1,18 @@
+# TypeDocument
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeDocumentDocument
+```
+
+
+## Values
+
+| Name                   | Value                  |
+| ---------------------- | ---------------------- |
+| `TypeDocumentDocument` | document               |

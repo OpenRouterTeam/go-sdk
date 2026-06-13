@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type WebSearchUserLocationServerToolType string
@@ -33,11 +34,11 @@ func (e *WebSearchUserLocationServerToolType) UnmarshalJSON(data []byte) error {
 
 // WebSearchUserLocationServerTool - Approximate user location for location-biased results.
 type WebSearchUserLocationServerTool struct {
-	City     *string                              `json:"city,omitzero"`
-	Country  *string                              `json:"country,omitzero"`
-	Region   *string                              `json:"region,omitzero"`
-	Timezone *string                              `json:"timezone,omitzero"`
-	Type     *WebSearchUserLocationServerToolType `json:"type,omitzero"`
+	City     optionalnullable.OptionalNullable[string] `json:"city,omitzero"`
+	Country  optionalnullable.OptionalNullable[string] `json:"country,omitzero"`
+	Region   optionalnullable.OptionalNullable[string] `json:"region,omitzero"`
+	Timezone optionalnullable.OptionalNullable[string] `json:"timezone,omitzero"`
+	Type     *WebSearchUserLocationServerToolType      `json:"type,omitzero"`
 }
 
 func (w WebSearchUserLocationServerTool) MarshalJSON() ([]byte, error) {
@@ -51,28 +52,28 @@ func (w *WebSearchUserLocationServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (w *WebSearchUserLocationServerTool) GetCity() *string {
+func (w *WebSearchUserLocationServerTool) GetCity() optionalnullable.OptionalNullable[string] {
 	if w == nil {
 		return nil
 	}
 	return w.City
 }
 
-func (w *WebSearchUserLocationServerTool) GetCountry() *string {
+func (w *WebSearchUserLocationServerTool) GetCountry() optionalnullable.OptionalNullable[string] {
 	if w == nil {
 		return nil
 	}
 	return w.Country
 }
 
-func (w *WebSearchUserLocationServerTool) GetRegion() *string {
+func (w *WebSearchUserLocationServerTool) GetRegion() optionalnullable.OptionalNullable[string] {
 	if w == nil {
 		return nil
 	}
 	return w.Region
 }
 
-func (w *WebSearchUserLocationServerTool) GetTimezone() *string {
+func (w *WebSearchUserLocationServerTool) GetTimezone() optionalnullable.OptionalNullable[string] {
 	if w == nil {
 		return nil
 	}

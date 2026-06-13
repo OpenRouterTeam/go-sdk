@@ -1,0 +1,18 @@
+# CustomToolCallInputDoneEventType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.CustomToolCallInputDoneEventTypeResponseCustomToolCallInputDone
+```
+
+
+## Values
+
+| Name                                                              | Value                                                             |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `CustomToolCallInputDoneEventTypeResponseCustomToolCallInputDone` | response.custom_tool_call_input.done                              |

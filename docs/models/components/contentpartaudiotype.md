@@ -1,0 +1,18 @@
+# ContentPartAudioType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ContentPartAudioTypeAudioURL
+```
+
+
+## Values
+
+| Name                           | Value                          |
+| ------------------------------ | ------------------------------ |
+| `ContentPartAudioTypeAudioURL` | audio_url                      |

@@ -13,9 +13,10 @@ import (
 type FunctionCallOutputItemDetail string
 
 const (
-	FunctionCallOutputItemDetailAuto FunctionCallOutputItemDetail = "auto"
-	FunctionCallOutputItemDetailHigh FunctionCallOutputItemDetail = "high"
-	FunctionCallOutputItemDetailLow  FunctionCallOutputItemDetail = "low"
+	FunctionCallOutputItemDetailAuto     FunctionCallOutputItemDetail = "auto"
+	FunctionCallOutputItemDetailHigh     FunctionCallOutputItemDetail = "high"
+	FunctionCallOutputItemDetailLow      FunctionCallOutputItemDetail = "low"
+	FunctionCallOutputItemDetailOriginal FunctionCallOutputItemDetail = "original"
 )
 
 func (e FunctionCallOutputItemDetail) ToPointer() *FunctionCallOutputItemDetail {
@@ -26,73 +27,73 @@ func (e FunctionCallOutputItemDetail) ToPointer() *FunctionCallOutputItemDetail 
 func (e *FunctionCallOutputItemDetail) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "high", "low":
+		case "auto", "high", "low", "original":
 			return true
 		}
 	}
 	return false
 }
 
-type FunctionCallOutputItemOutputType string
+type FunctionCallOutputItemTypeInputImage string
 
 const (
-	FunctionCallOutputItemOutputTypeInputImage FunctionCallOutputItemOutputType = "input_image"
+	FunctionCallOutputItemTypeInputImageInputImage FunctionCallOutputItemTypeInputImage = "input_image"
 )
 
-func (e FunctionCallOutputItemOutputType) ToPointer() *FunctionCallOutputItemOutputType {
+func (e FunctionCallOutputItemTypeInputImage) ToPointer() *FunctionCallOutputItemTypeInputImage {
 	return &e
 }
-func (e *FunctionCallOutputItemOutputType) UnmarshalJSON(data []byte) error {
+func (e *FunctionCallOutputItemTypeInputImage) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "input_image":
-		*e = FunctionCallOutputItemOutputType(v)
+		*e = FunctionCallOutputItemTypeInputImage(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for FunctionCallOutputItemOutputType: %v", v)
+		return fmt.Errorf("invalid value for FunctionCallOutputItemTypeInputImage: %v", v)
 	}
 }
 
-// OutputInputImage - Image input content item
-type OutputInputImage struct {
+// FunctionCallOutputItemOutputInputImage - Image input content item
+type FunctionCallOutputItemOutputInputImage struct {
 	Detail   FunctionCallOutputItemDetail              `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
-	Type     FunctionCallOutputItemOutputType          `json:"type"`
+	Type     FunctionCallOutputItemTypeInputImage      `json:"type"`
 }
 
-func (o OutputInputImage) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
+func (f FunctionCallOutputItemOutputInputImage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
 }
 
-func (o *OutputInputImage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+func (f *FunctionCallOutputItemOutputInputImage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputInputImage) GetDetail() FunctionCallOutputItemDetail {
-	if o == nil {
+func (f *FunctionCallOutputItemOutputInputImage) GetDetail() FunctionCallOutputItemDetail {
+	if f == nil {
 		return FunctionCallOutputItemDetail("")
 	}
-	return o.Detail
+	return f.Detail
 }
 
-func (o *OutputInputImage) GetImageURL() optionalnullable.OptionalNullable[string] {
-	if o == nil {
+func (f *FunctionCallOutputItemOutputInputImage) GetImageURL() optionalnullable.OptionalNullable[string] {
+	if f == nil {
 		return nil
 	}
-	return o.ImageURL
+	return f.ImageURL
 }
 
-func (o *OutputInputImage) GetType() FunctionCallOutputItemOutputType {
-	if o == nil {
-		return FunctionCallOutputItemOutputType("")
+func (f *FunctionCallOutputItemOutputInputImage) GetType() FunctionCallOutputItemTypeInputImage {
+	if f == nil {
+		return FunctionCallOutputItemTypeInputImage("")
 	}
-	return o.Type
+	return f.Type
 }
 
 type FunctionCallOutputItemOutputUnion1Type string
@@ -104,9 +105,9 @@ const (
 )
 
 type FunctionCallOutputItemOutputUnion1 struct {
-	InputText        *InputText        `queryParam:"inline" union:"member"`
-	OutputInputImage *OutputInputImage `queryParam:"inline" union:"member"`
-	InputFile        *InputFile        `queryParam:"inline" union:"member"`
+	InputText                              *InputText                              `queryParam:"inline" union:"member"`
+	FunctionCallOutputItemOutputInputImage *FunctionCallOutputItemOutputInputImage `queryParam:"inline" union:"member"`
+	InputFile                              *InputFile                              `queryParam:"inline" union:"member"`
 
 	Type FunctionCallOutputItemOutputUnion1Type
 }
@@ -123,15 +124,15 @@ func CreateFunctionCallOutputItemOutputUnion1InputText(inputText InputText) Func
 	}
 }
 
-func CreateFunctionCallOutputItemOutputUnion1InputImage(inputImage OutputInputImage) FunctionCallOutputItemOutputUnion1 {
+func CreateFunctionCallOutputItemOutputUnion1InputImage(inputImage FunctionCallOutputItemOutputInputImage) FunctionCallOutputItemOutputUnion1 {
 	typ := FunctionCallOutputItemOutputUnion1TypeInputImage
 
-	typStr := FunctionCallOutputItemOutputType(typ)
+	typStr := FunctionCallOutputItemTypeInputImage(typ)
 	inputImage.Type = typStr
 
 	return FunctionCallOutputItemOutputUnion1{
-		OutputInputImage: &inputImage,
-		Type:             typ,
+		FunctionCallOutputItemOutputInputImage: &inputImage,
+		Type:                                   typ,
 	}
 }
 
@@ -169,12 +170,12 @@ func (u *FunctionCallOutputItemOutputUnion1) UnmarshalJSON(data []byte) error {
 		u.Type = FunctionCallOutputItemOutputUnion1TypeInputText
 		return nil
 	case "input_image":
-		outputInputImage := new(OutputInputImage)
-		if err := utils.UnmarshalJSON(data, &outputInputImage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type OutputInputImage within FunctionCallOutputItemOutputUnion1: %w", string(data), err)
+		functionCallOutputItemOutputInputImage := new(FunctionCallOutputItemOutputInputImage)
+		if err := utils.UnmarshalJSON(data, &functionCallOutputItemOutputInputImage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_image) type FunctionCallOutputItemOutputInputImage within FunctionCallOutputItemOutputUnion1: %w", string(data), err)
 		}
 
-		u.OutputInputImage = outputInputImage
+		u.FunctionCallOutputItemOutputInputImage = functionCallOutputItemOutputInputImage
 		u.Type = FunctionCallOutputItemOutputUnion1TypeInputImage
 		return nil
 	case "input_file":
@@ -196,8 +197,8 @@ func (u FunctionCallOutputItemOutputUnion1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputText, "", true)
 	}
 
-	if u.OutputInputImage != nil {
-		return utils.MarshalJSON(u.OutputInputImage, "", true)
+	if u.FunctionCallOutputItemOutputInputImage != nil {
+		return utils.MarshalJSON(u.FunctionCallOutputItemOutputInputImage, "", true)
 	}
 
 	if u.InputFile != nil {

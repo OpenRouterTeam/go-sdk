@@ -1,0 +1,85 @@
+# MessagesRequestPlugin
+
+
+## Supported Types
+
+### AutoRouterPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginAutoRouter(components.AutoRouterPlugin{/* values here */})
+```
+
+### ContextCompressionPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginContextCompression(components.ContextCompressionPlugin{/* values here */})
+```
+
+### FileParserPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginFileParser(components.FileParserPlugin{/* values here */})
+```
+
+### FusionPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginFusion(components.FusionPlugin{/* values here */})
+```
+
+### ModerationPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginModeration(components.ModerationPlugin{/* values here */})
+```
+
+### ParetoRouterPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginParetoRouter(components.ParetoRouterPlugin{/* values here */})
+```
+
+### ResponseHealingPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginResponseHealing(components.ResponseHealingPlugin{/* values here */})
+```
+
+### WebSearchPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginWeb(components.WebSearchPlugin{/* values here */})
+```
+
+### WebFetchPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginWebFetch(components.WebFetchPlugin{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch messagesRequestPlugin.Type {
+	case components.MessagesRequestPluginTypeAutoRouter:
+		// messagesRequestPlugin.AutoRouterPlugin is populated
+	case components.MessagesRequestPluginTypeContextCompression:
+		// messagesRequestPlugin.ContextCompressionPlugin is populated
+	case components.MessagesRequestPluginTypeFileParser:
+		// messagesRequestPlugin.FileParserPlugin is populated
+	case components.MessagesRequestPluginTypeFusion:
+		// messagesRequestPlugin.FusionPlugin is populated
+	case components.MessagesRequestPluginTypeModeration:
+		// messagesRequestPlugin.ModerationPlugin is populated
+	case components.MessagesRequestPluginTypeParetoRouter:
+		// messagesRequestPlugin.ParetoRouterPlugin is populated
+	case components.MessagesRequestPluginTypeResponseHealing:
+		// messagesRequestPlugin.ResponseHealingPlugin is populated
+	case components.MessagesRequestPluginTypeWeb:
+		// messagesRequestPlugin.WebSearchPlugin is populated
+	case components.MessagesRequestPluginTypeWebFetch:
+		// messagesRequestPlugin.WebFetchPlugin is populated
+}
+```

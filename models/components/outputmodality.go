@@ -5,13 +5,14 @@ package components
 type OutputModality string
 
 const (
-	OutputModalityText       OutputModality = "text"
-	OutputModalityImage      OutputModality = "image"
-	OutputModalityEmbeddings OutputModality = "embeddings"
-	OutputModalityAudio      OutputModality = "audio"
-	OutputModalityVideo      OutputModality = "video"
-	OutputModalityRerank     OutputModality = "rerank"
-	OutputModalityTts        OutputModality = "tts"
+	OutputModalityText          OutputModality = "text"
+	OutputModalityImage         OutputModality = "image"
+	OutputModalityEmbeddings    OutputModality = "embeddings"
+	OutputModalityAudio         OutputModality = "audio"
+	OutputModalityVideo         OutputModality = "video"
+	OutputModalityRerank        OutputModality = "rerank"
+	OutputModalitySpeech        OutputModality = "speech"
+	OutputModalityTranscription OutputModality = "transcription"
 )
 
 func (e OutputModality) ToPointer() *OutputModality {
@@ -22,7 +23,7 @@ func (e OutputModality) ToPointer() *OutputModality {
 func (e *OutputModality) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "text", "image", "embeddings", "audio", "video", "rerank", "tts":
+		case "text", "image", "embeddings", "audio", "video", "rerank", "speech", "transcription":
 			return true
 		}
 	}

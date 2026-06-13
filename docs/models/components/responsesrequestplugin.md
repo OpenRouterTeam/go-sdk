@@ -21,6 +21,12 @@ responsesRequestPlugin := components.CreateResponsesRequestPluginContextCompress
 responsesRequestPlugin := components.CreateResponsesRequestPluginFileParser(components.FileParserPlugin{/* values here */})
 ```
 
+### FusionPlugin
+
+```go
+responsesRequestPlugin := components.CreateResponsesRequestPluginFusion(components.FusionPlugin{/* values here */})
+```
+
 ### ModerationPlugin
 
 ```go
@@ -45,6 +51,12 @@ responsesRequestPlugin := components.CreateResponsesRequestPluginResponseHealing
 responsesRequestPlugin := components.CreateResponsesRequestPluginWeb(components.WebSearchPlugin{/* values here */})
 ```
 
+### WebFetchPlugin
+
+```go
+responsesRequestPlugin := components.CreateResponsesRequestPluginWebFetch(components.WebFetchPlugin{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -57,6 +69,8 @@ switch responsesRequestPlugin.Type {
 		// responsesRequestPlugin.ContextCompressionPlugin is populated
 	case components.ResponsesRequestPluginTypeFileParser:
 		// responsesRequestPlugin.FileParserPlugin is populated
+	case components.ResponsesRequestPluginTypeFusion:
+		// responsesRequestPlugin.FusionPlugin is populated
 	case components.ResponsesRequestPluginTypeModeration:
 		// responsesRequestPlugin.ModerationPlugin is populated
 	case components.ResponsesRequestPluginTypeParetoRouter:
@@ -65,5 +79,7 @@ switch responsesRequestPlugin.Type {
 		// responsesRequestPlugin.ResponseHealingPlugin is populated
 	case components.ResponsesRequestPluginTypeWeb:
 		// responsesRequestPlugin.WebSearchPlugin is populated
+	case components.ResponsesRequestPluginTypeWebFetch:
+		// responsesRequestPlugin.WebFetchPlugin is populated
 }
 ```

@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### ActionSearch
+### OutputWebSearchCallItemActionSearch
 
 ```go
-action := components.CreateActionSearch(components.ActionSearch{/* values here */})
+action := components.CreateActionSearch(components.OutputWebSearchCallItemActionSearch{/* values here */})
 ```
 
 ### ActionOpenPage
@@ -27,8 +27,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch action.Type {
-	case components.ActionTypeSearch:
-		// action.ActionSearch is populated
+	case components.ActionTypeSearchValue:
+		// action.OutputWebSearchCallItemActionSearch is populated
 	case components.ActionTypeOpenPage:
 		// action.ActionOpenPage is populated
 	case components.ActionTypeFindInPage:

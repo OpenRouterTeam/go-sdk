@@ -1,0 +1,18 @@
+# FileDeleteResponseType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.FileDeleteResponseTypeFileDeleted
+```
+
+
+## Values
+
+| Name                                | Value                               |
+| ----------------------------------- | ----------------------------------- |
+| `FileDeleteResponseTypeFileDeleted` | file_deleted                        |

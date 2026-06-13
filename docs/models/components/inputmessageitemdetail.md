@@ -16,8 +16,9 @@ custom := components.InputMessageItemDetail("custom_value")
 
 ## Values
 
-| Name                         | Value                        |
-| ---------------------------- | ---------------------------- |
-| `InputMessageItemDetailAuto` | auto                         |
-| `InputMessageItemDetailHigh` | high                         |
-| `InputMessageItemDetailLow`  | low                          |
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `InputMessageItemDetailAuto`     | auto                             |
+| `InputMessageItemDetailHigh`     | high                             |
+| `InputMessageItemDetailLow`      | low                              |
+| `InputMessageItemDetailOriginal` | original                         |

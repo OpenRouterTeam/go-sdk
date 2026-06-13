@@ -21,6 +21,12 @@ chatRequestPlugin := components.CreateChatRequestPluginContextCompression(compon
 chatRequestPlugin := components.CreateChatRequestPluginFileParser(components.FileParserPlugin{/* values here */})
 ```
 
+### FusionPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginFusion(components.FusionPlugin{/* values here */})
+```
+
 ### ModerationPlugin
 
 ```go
@@ -45,6 +51,12 @@ chatRequestPlugin := components.CreateChatRequestPluginResponseHealing(component
 chatRequestPlugin := components.CreateChatRequestPluginWeb(components.WebSearchPlugin{/* values here */})
 ```
 
+### WebFetchPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginWebFetch(components.WebFetchPlugin{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -57,6 +69,8 @@ switch chatRequestPlugin.Type {
 		// chatRequestPlugin.ContextCompressionPlugin is populated
 	case components.ChatRequestPluginTypeFileParser:
 		// chatRequestPlugin.FileParserPlugin is populated
+	case components.ChatRequestPluginTypeFusion:
+		// chatRequestPlugin.FusionPlugin is populated
 	case components.ChatRequestPluginTypeModeration:
 		// chatRequestPlugin.ModerationPlugin is populated
 	case components.ChatRequestPluginTypeParetoRouter:
@@ -65,5 +79,7 @@ switch chatRequestPlugin.Type {
 		// chatRequestPlugin.ResponseHealingPlugin is populated
 	case components.ChatRequestPluginTypeWeb:
 		// chatRequestPlugin.WebSearchPlugin is populated
+	case components.ChatRequestPluginTypeWebFetch:
+		// chatRequestPlugin.WebFetchPlugin is populated
 }
 ```

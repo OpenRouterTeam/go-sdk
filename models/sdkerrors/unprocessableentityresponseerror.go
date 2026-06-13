@@ -10,8 +10,9 @@ import (
 // UnprocessableEntityResponseError - Unprocessable Entity - Semantic validation failure
 type UnprocessableEntityResponseError struct {
 	// Error data for UnprocessableEntityResponse
-	Error_ components.UnprocessableEntityResponseErrorData `json:"error"`
-	UserID *string                                         `json:"user_id,omitzero"`
+	Error_             components.UnprocessableEntityResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                                  `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                         `json:"user_id,omitzero"`
 }
 
 var _ error = &UnprocessableEntityResponseError{}

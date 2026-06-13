@@ -1,0 +1,18 @@
+# NameAdvisor
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.NameAdvisorAdvisor
+```
+
+
+## Values
+
+| Name                 | Value                |
+| -------------------- | -------------------- |
+| `NameAdvisorAdvisor` | advisor              |

@@ -11,6 +11,18 @@ Tool definition for function calling (regular function or OpenRouter built-in se
 chatFunctionTool := components.CreateChatFunctionToolChatFunctionToolFunction(components.ChatFunctionToolFunction{/* values here */})
 ```
 
+### AdvisorServerToolOpenRouter
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolAdvisorServerToolOpenRouter(components.AdvisorServerToolOpenRouter{/* values here */})
+```
+
+### BashServerTool
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolBashServerTool(components.BashServerTool{/* values here */})
+```
+
 ### DatetimeServerTool
 
 ```go
@@ -27,6 +39,18 @@ chatFunctionTool := components.CreateChatFunctionToolImageGenerationServerToolOp
 
 ```go
 chatFunctionTool := components.CreateChatFunctionToolChatSearchModelsServerTool(components.ChatSearchModelsServerTool{/* values here */})
+```
+
+### SubagentServerToolOpenRouter
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolSubagentServerToolOpenRouter(components.SubagentServerToolOpenRouter{/* values here */})
+```
+
+### WebFetchServerTool
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolWebFetchServerTool(components.WebFetchServerTool{/* values here */})
 ```
 
 ### OpenRouterWebSearchServerTool
@@ -49,12 +73,20 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch chatFunctionTool.Type {
 	case components.ChatFunctionToolUnionTypeChatFunctionToolFunction:
 		// chatFunctionTool.ChatFunctionToolFunction is populated
+	case components.ChatFunctionToolUnionTypeAdvisorServerToolOpenRouter:
+		// chatFunctionTool.AdvisorServerToolOpenRouter is populated
+	case components.ChatFunctionToolUnionTypeBashServerTool:
+		// chatFunctionTool.BashServerTool is populated
 	case components.ChatFunctionToolUnionTypeDatetimeServerTool:
 		// chatFunctionTool.DatetimeServerTool is populated
 	case components.ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter:
 		// chatFunctionTool.ImageGenerationServerToolOpenRouter is populated
 	case components.ChatFunctionToolUnionTypeChatSearchModelsServerTool:
 		// chatFunctionTool.ChatSearchModelsServerTool is populated
+	case components.ChatFunctionToolUnionTypeSubagentServerToolOpenRouter:
+		// chatFunctionTool.SubagentServerToolOpenRouter is populated
+	case components.ChatFunctionToolUnionTypeWebFetchServerTool:
+		// chatFunctionTool.WebFetchServerTool is populated
 	case components.ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool:
 		// chatFunctionTool.OpenRouterWebSearchServerTool is populated
 	case components.ChatFunctionToolUnionTypeChatWebSearchShorthand:

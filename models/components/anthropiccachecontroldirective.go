@@ -30,7 +30,7 @@ func (e *AnthropicCacheControlDirectiveType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// AnthropicCacheControlDirective - Enable automatic prompt caching. When set, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+// AnthropicCacheControlDirective - Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
 type AnthropicCacheControlDirective struct {
 	TTL  *AnthropicCacheControlTTL          `json:"ttl,omitzero"`
 	Type AnthropicCacheControlDirectiveType `json:"type"`

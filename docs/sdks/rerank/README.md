@@ -34,9 +34,13 @@ func main() {
     )
 
     res, err := s.Rerank.Rerank(ctx, operations.CreateRerankRequest{
-        Documents: []string{
-            "Paris is the capital of France.",
-            "Berlin is the capital of Germany.",
+        Documents: []operations.Document{
+            operations.CreateDocumentStr(
+                "Paris is the capital of France.",
+            ),
+            operations.CreateDocumentStr(
+                "Berlin is the capital of Germany.",
+            ),
         },
         Model: "cohere/rerank-v3.5",
         Query: "What is the capital of France?",

@@ -34,7 +34,7 @@ func newTts(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks
 }
 
 // CreateSpeech - Create speech
-// Synthesizes audio from the input text
+// Synthesizes audio from the input text. Returns a raw audio bytestream in the requested format (e.g. mp3, pcm, wav).
 func (s *Tts) CreateSpeech(ctx context.Context, request components.SpeechRequest, opts ...operations.Option) (io.ReadCloser, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

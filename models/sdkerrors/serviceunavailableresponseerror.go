@@ -10,8 +10,9 @@ import (
 // ServiceUnavailableResponseError - Service Unavailable - Service temporarily unavailable
 type ServiceUnavailableResponseError struct {
 	// Error data for ServiceUnavailableResponse
-	Error_ components.ServiceUnavailableResponseErrorData `json:"error"`
-	UserID *string                                        `json:"user_id,omitzero"`
+	Error_             components.ServiceUnavailableResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                                 `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                        `json:"user_id,omitzero"`
 }
 
 var _ error = &ServiceUnavailableResponseError{}

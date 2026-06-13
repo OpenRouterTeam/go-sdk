@@ -1,0 +1,18 @@
+# OutputShellCallOutputItemTypeShellCallOutput
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.OutputShellCallOutputItemTypeShellCallOutputShellCallOutput
+```
+
+
+## Values
+
+| Name                                                          | Value                                                         |
+| ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `OutputShellCallOutputItemTypeShellCallOutputShellCallOutput` | shell_call_output                                             |

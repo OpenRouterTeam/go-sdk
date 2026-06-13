@@ -1,0 +1,11 @@
+# ShellServerToolOpenRouter
+
+OpenRouter built-in server tool: runs shell commands server-side in a sandboxed container (a sandbox-backed clone of OpenAI's hosted shell tool)
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          | Example                                                                                              |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `Parameters`                                                                                         | [*components.ShellServerToolConfig](../../models/components/shellservertoolconfig.md)                | :heavy_minus_sign:                                                                                   | Configuration for the openrouter:shell server tool                                                   | {<br/>"engine": "openrouter",<br/>"environment": {<br/>"type": "container_auto"<br/>}<br/>}          |
+| `Type`                                                                                               | [components.ShellServerToolOpenRouterType](../../models/components/shellservertoolopenroutertype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |                                                                                                      |

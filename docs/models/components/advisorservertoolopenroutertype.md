@@ -1,0 +1,18 @@
+# AdvisorServerToolOpenRouterType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AdvisorServerToolOpenRouterTypeOpenrouterAdvisor
+```
+
+
+## Values
+
+| Name                                               | Value                                              |
+| -------------------------------------------------- | -------------------------------------------------- |
+| `AdvisorServerToolOpenRouterTypeOpenrouterAdvisor` | openrouter:advisor                                 |

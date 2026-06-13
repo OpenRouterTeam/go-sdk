@@ -1,0 +1,13 @@
+# FusionCallInProgressEvent
+
+Emitted when an openrouter:fusion tool call begins executing.
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `ItemID`                                                                                             | `string`                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `OutputIndex`                                                                                        | `int64`                                                                                              | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `SequenceNumber`                                                                                     | `int64`                                                                                              | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `Type`                                                                                               | [components.FusionCallInProgressEventType](../../models/components/fusioncallinprogresseventtype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

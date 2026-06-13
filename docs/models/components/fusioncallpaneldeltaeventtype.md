@@ -1,0 +1,18 @@
+# FusionCallPanelDeltaEventType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.FusionCallPanelDeltaEventTypeResponseFusionCallPanelDelta
+```
+
+
+## Values
+
+| Name                                                        | Value                                                       |
+| ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `FusionCallPanelDeltaEventTypeResponseFusionCallPanelDelta` | response.fusion_call.panel.delta                            |

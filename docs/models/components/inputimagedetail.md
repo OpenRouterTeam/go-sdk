@@ -16,8 +16,9 @@ custom := components.InputImageDetail("custom_value")
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `InputImageDetailAuto` | auto                   |
-| `InputImageDetailHigh` | high                   |
-| `InputImageDetailLow`  | low                    |
+| Name                       | Value                      |
+| -------------------------- | -------------------------- |
+| `InputImageDetailAuto`     | auto                       |
+| `InputImageDetailHigh`     | high                       |
+| `InputImageDetailLow`      | low                        |
+| `InputImageDetailOriginal` | original                   |

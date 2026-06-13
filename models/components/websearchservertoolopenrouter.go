@@ -8,38 +8,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type Parameters struct {
-	// Maximum number of search results to return per search call. Defaults to 5.
-	MaxResults *int64 `json:"max_results,omitzero"`
-	// Maximum total number of search results across all search calls in a single request. Once this limit is reached, the tool will stop returning new results.
-	MaxTotalResults *int64 `json:"max_total_results,omitzero"`
-}
-
-func (p Parameters) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *Parameters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *Parameters) GetMaxResults() *int64 {
-	if p == nil {
-		return nil
-	}
-	return p.MaxResults
-}
-
-func (p *Parameters) GetMaxTotalResults() *int64 {
-	if p == nil {
-		return nil
-	}
-	return p.MaxTotalResults
-}
-
 type WebSearchServerToolOpenRouterType string
 
 const (
@@ -65,7 +33,8 @@ func (e *WebSearchServerToolOpenRouterType) UnmarshalJSON(data []byte) error {
 
 // WebSearchServerToolOpenRouter - OpenRouter built-in server tool: searches the web for current information
 type WebSearchServerToolOpenRouter struct {
-	Parameters *Parameters                       `json:"parameters,omitzero"`
+	// Configuration for the openrouter:web_search server tool
+	Parameters *WebSearchServerToolConfig        `json:"parameters,omitzero"`
 	Type       WebSearchServerToolOpenRouterType `json:"type"`
 }
 
@@ -80,7 +49,7 @@ func (w *WebSearchServerToolOpenRouter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (w *WebSearchServerToolOpenRouter) GetParameters() *Parameters {
+func (w *WebSearchServerToolOpenRouter) GetParameters() *WebSearchServerToolConfig {
 	if w == nil {
 		return nil
 	}

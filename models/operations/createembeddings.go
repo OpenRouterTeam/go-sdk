@@ -165,13 +165,19 @@ func (c *ContentText) GetType() TypeText {
 type ContentType string
 
 const (
-	ContentTypeText     ContentType = "text"
-	ContentTypeImageURL ContentType = "image_url"
+	ContentTypeText       ContentType = "text"
+	ContentTypeImageURL   ContentType = "image_url"
+	ContentTypeInputAudio ContentType = "input_audio"
+	ContentTypeInputVideo ContentType = "input_video"
+	ContentTypeInputFile  ContentType = "input_file"
 )
 
 type Content struct {
-	ContentText     *ContentText     `queryParam:"inline" union:"member"`
-	ContentImageURL *ContentImageURL `queryParam:"inline" union:"member"`
+	ContentText           *ContentText                      `queryParam:"inline" union:"member"`
+	ContentImageURL       *ContentImageURL                  `queryParam:"inline" union:"member"`
+	ContentPartInputAudio *components.ContentPartInputAudio `queryParam:"inline" union:"member"`
+	ContentPartInputVideo *components.ContentPartInputVideo `queryParam:"inline" union:"member"`
+	ContentPartInputFile  *components.ContentPartInputFile  `queryParam:"inline" union:"member"`
 
 	Type ContentType
 }
@@ -197,6 +203,42 @@ func CreateContentImageURL(imageURL ContentImageURL) Content {
 	return Content{
 		ContentImageURL: &imageURL,
 		Type:            typ,
+	}
+}
+
+func CreateContentInputAudio(inputAudio components.ContentPartInputAudio) Content {
+	typ := ContentTypeInputAudio
+
+	typStr := components.ContentPartInputAudioType(typ)
+	inputAudio.Type = typStr
+
+	return Content{
+		ContentPartInputAudio: &inputAudio,
+		Type:                  typ,
+	}
+}
+
+func CreateContentInputVideo(inputVideo components.ContentPartInputVideo) Content {
+	typ := ContentTypeInputVideo
+
+	typStr := components.ContentPartInputVideoType(typ)
+	inputVideo.Type = typStr
+
+	return Content{
+		ContentPartInputVideo: &inputVideo,
+		Type:                  typ,
+	}
+}
+
+func CreateContentInputFile(inputFile components.ContentPartInputFile) Content {
+	typ := ContentTypeInputFile
+
+	typStr := components.ContentPartInputFileType(typ)
+	inputFile.Type = typStr
+
+	return Content{
+		ContentPartInputFile: &inputFile,
+		Type:                 typ,
 	}
 }
 
@@ -230,6 +272,33 @@ func (u *Content) UnmarshalJSON(data []byte) error {
 		u.ContentImageURL = contentImageURL
 		u.Type = ContentTypeImageURL
 		return nil
+	case "input_audio":
+		contentPartInputAudio := new(components.ContentPartInputAudio)
+		if err := utils.UnmarshalJSON(data, &contentPartInputAudio, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_audio) type components.ContentPartInputAudio within Content: %w", string(data), err)
+		}
+
+		u.ContentPartInputAudio = contentPartInputAudio
+		u.Type = ContentTypeInputAudio
+		return nil
+	case "input_video":
+		contentPartInputVideo := new(components.ContentPartInputVideo)
+		if err := utils.UnmarshalJSON(data, &contentPartInputVideo, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_video) type components.ContentPartInputVideo within Content: %w", string(data), err)
+		}
+
+		u.ContentPartInputVideo = contentPartInputVideo
+		u.Type = ContentTypeInputVideo
+		return nil
+	case "input_file":
+		contentPartInputFile := new(components.ContentPartInputFile)
+		if err := utils.UnmarshalJSON(data, &contentPartInputFile, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == input_file) type components.ContentPartInputFile within Content: %w", string(data), err)
+		}
+
+		u.ContentPartInputFile = contentPartInputFile
+		u.Type = ContentTypeInputFile
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Content", string(data))
@@ -242,6 +311,18 @@ func (u Content) MarshalJSON() ([]byte, error) {
 
 	if u.ContentImageURL != nil {
 		return utils.MarshalJSON(u.ContentImageURL, "", true)
+	}
+
+	if u.ContentPartInputAudio != nil {
+		return utils.MarshalJSON(u.ContentPartInputAudio, "", true)
+	}
+
+	if u.ContentPartInputVideo != nil {
+		return utils.MarshalJSON(u.ContentPartInputVideo, "", true)
+	}
+
+	if u.ContentPartInputFile != nil {
+		return utils.MarshalJSON(u.ContentPartInputFile, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Content: all fields are null")
@@ -684,6 +765,8 @@ func (e *Object) UnmarshalJSON(data []byte) error {
 type PromptTokensDetails struct {
 	// Number of audio tokens in the input
 	AudioTokens *int64 `json:"audio_tokens,omitzero"`
+	// Number of file/document tokens in the input
+	FileTokens *int64 `json:"file_tokens,omitzero"`
 	// Number of image tokens in the input
 	ImageTokens *int64 `json:"image_tokens,omitzero"`
 	// Number of text tokens in the input
@@ -697,6 +780,13 @@ func (p *PromptTokensDetails) GetAudioTokens() *int64 {
 		return nil
 	}
 	return p.AudioTokens
+}
+
+func (p *PromptTokensDetails) GetFileTokens() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.FileTokens
 }
 
 func (p *PromptTokensDetails) GetImageTokens() *int64 {

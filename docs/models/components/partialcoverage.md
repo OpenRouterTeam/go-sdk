@@ -1,0 +1,9 @@
+# PartialCoverage
+
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `Models`           | []`string`         | :heavy_check_mark: | N/A                |
+| `Point`            | `string`           | :heavy_check_mark: | N/A                |

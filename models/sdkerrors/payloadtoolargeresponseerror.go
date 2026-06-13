@@ -10,8 +10,9 @@ import (
 // PayloadTooLargeResponseError - Payload Too Large - Request payload exceeds size limits
 type PayloadTooLargeResponseError struct {
 	// Error data for PayloadTooLargeResponse
-	Error_ components.PayloadTooLargeResponseErrorData `json:"error"`
-	UserID *string                                     `json:"user_id,omitzero"`
+	Error_             components.PayloadTooLargeResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                              `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                     `json:"user_id,omitzero"`
 }
 
 var _ error = &PayloadTooLargeResponseError{}

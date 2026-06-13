@@ -1,0 +1,18 @@
+# AnthropicCitationSearchResultLocationType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicCitationSearchResultLocationTypeSearchResultLocation
+```
+
+
+## Values
+
+| Name                                                            | Value                                                           |
+| --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `AnthropicCitationSearchResultLocationTypeSearchResultLocation` | search_result_location                                          |
