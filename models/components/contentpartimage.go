@@ -5,10 +5,22 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
 type ContentPartImageImageURL struct {
 	URL string `json:"url"`
+}
+
+func (c ContentPartImageImageURL) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ContentPartImageImageURL) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *ContentPartImageImageURL) GetURL() string {
@@ -44,6 +56,17 @@ func (e *ContentPartImageType) UnmarshalJSON(data []byte) error {
 type ContentPartImage struct {
 	ImageURL ContentPartImageImageURL `json:"image_url"`
 	Type     ContentPartImageType     `json:"type"`
+}
+
+func (c ContentPartImage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ContentPartImage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *ContentPartImage) GetImageURL() ContentPartImageImageURL {

@@ -1,0 +1,18 @@
+# OutputSubagentServerToolItemType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.OutputSubagentServerToolItemTypeOpenrouterSubagent
+```
+
+
+## Values
+
+| Name                                                 | Value                                                |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `OutputSubagentServerToolItemTypeOpenrouterSubagent` | openrouter:subagent                                  |

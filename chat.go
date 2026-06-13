@@ -34,7 +34,12 @@ func newChat(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hook
 
 // Send - Create a chat completion
 // Sends a request for a model response for the given chat conversation. Supports both streaming and non-streaming modes.
-func (s *Chat) Send(ctx context.Context, request components.ChatRequest, opts ...operations.Option) (*operations.SendChatCompletionRequestResponse, error) {
+func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOpenRouterMetadata *components.MetadataLevel, opts ...operations.Option) (*operations.SendChatCompletionRequestResponse, error) {
+	request := operations.SendChatCompletionRequestRequest{
+		ChatRequest:         chatRequest,
+		XOpenRouterMetadata: xOpenRouterMetadata,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -68,7 +73,7 @@ func (s *Chat) Send(ctx context.Context, request components.ChatRequest, opts ..
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "ChatRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -98,6 +103,8 @@ func (s *Chat) Send(ctx context.Context, request components.ChatRequest, opts ..
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
 	}
+
+	utils.PopulateHeaders(ctx, req, request, nil)
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -189,7 +196,7 @@ func (s *Chat) Send(ctx context.Context, request components.ChatRequest, opts ..
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "402", "404", "408", "413", "422", "429", "4XX", "500", "502", "503", "524", "529", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"400", "401", "402", "403", "404", "408", "413", "422", "429", "4XX", "500", "502", "503", "524", "529", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -221,10 +228,10 @@ func (s *Chat) Send(ctx context.Context, request components.ChatRequest, opts ..
 			result := operations.CreateSendChatCompletionRequestResponseChatResult(out)
 			return &result, nil
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `text/event-stream`):
-			out := stream.NewEventStream(ctx, httpRes.Body, func(se []byte) (operations.SendChatCompletionRequestResponseBody, error) {
-				var e operations.SendChatCompletionRequestResponseBody
+			out := stream.NewEventStream(ctx, httpRes.Body, func(se []byte) (components.ChatStreamingResponse, error) {
+				var e components.ChatStreamingResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(se), &e, ""); err != nil {
-					return operations.SendChatCompletionRequestResponseBody{}, err
+					return components.ChatStreamingResponse{}, err
 				}
 				return e, nil
 			}, "[DONE]")
@@ -288,6 +295,27 @@ func (s *Chat) Send(ctx context.Context, request components.ChatRequest, opts ..
 			}
 
 			var out sdkerrors.PaymentRequiredResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 403:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

@@ -1,0 +1,18 @@
+# AnthropicInputTokensTriggerType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicInputTokensTriggerTypeInputTokens
+```
+
+
+## Values
+
+| Name                                         | Value                                        |
+| -------------------------------------------- | -------------------------------------------- |
+| `AnthropicInputTokensTriggerTypeInputTokens` | input_tokens                                 |

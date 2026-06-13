@@ -1,0 +1,18 @@
+# AnthropicCitationContentBlockLocationParamType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicCitationContentBlockLocationParamTypeContentBlockLocation
+```
+
+
+## Values
+
+| Name                                                                 | Value                                                                |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `AnthropicCitationContentBlockLocationParamTypeContentBlockLocation` | content_block_location                                               |

@@ -1,0 +1,9 @@
+# ListBYOKKeysResponse
+
+
+## Fields
+
+| Field                                                      | Type                                                       | Required                                                   | Description                                                | Example                                                    |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `Data`                                                     | [][components.BYOKKey](../../models/components/byokkey.md) | :heavy_check_mark:                                         | List of BYOK credentials.                                  |                                                            |
+| `TotalCount`                                               | `int64`                                                    | :heavy_check_mark:                                         | Total number of BYOK credentials matching the filters.     | 1                                                          |

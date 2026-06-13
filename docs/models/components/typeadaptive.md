@@ -1,0 +1,18 @@
+# TypeAdaptive
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeAdaptiveAdaptive
+```
+
+
+## Values
+
+| Name                   | Value                  |
+| ---------------------- | ---------------------- |
+| `TypeAdaptiveAdaptive` | adaptive               |

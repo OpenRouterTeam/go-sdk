@@ -39,20 +39,24 @@ const (
 	ChatRequestPluginTypeAutoRouter         ChatRequestPluginType = "auto-router"
 	ChatRequestPluginTypeContextCompression ChatRequestPluginType = "context-compression"
 	ChatRequestPluginTypeFileParser         ChatRequestPluginType = "file-parser"
+	ChatRequestPluginTypeFusion             ChatRequestPluginType = "fusion"
 	ChatRequestPluginTypeModeration         ChatRequestPluginType = "moderation"
 	ChatRequestPluginTypeParetoRouter       ChatRequestPluginType = "pareto-router"
 	ChatRequestPluginTypeResponseHealing    ChatRequestPluginType = "response-healing"
 	ChatRequestPluginTypeWeb                ChatRequestPluginType = "web"
+	ChatRequestPluginTypeWebFetch           ChatRequestPluginType = "web-fetch"
 )
 
 type ChatRequestPlugin struct {
 	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
 	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
 	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
+	WebFetchPlugin           *WebFetchPlugin           `queryParam:"inline" union:"member"`
 	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
 	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
 	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
 	ParetoRouterPlugin       *ParetoRouterPlugin       `queryParam:"inline" union:"member"`
+	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 
 	Type ChatRequestPluginType
 }
@@ -90,6 +94,18 @@ func CreateChatRequestPluginFileParser(fileParser FileParserPlugin) ChatRequestP
 	return ChatRequestPlugin{
 		FileParserPlugin: &fileParser,
 		Type:             typ,
+	}
+}
+
+func CreateChatRequestPluginFusion(fusion FusionPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeFusion
+
+	typStr := FusionPluginID(typ)
+	fusion.ID = typStr
+
+	return ChatRequestPlugin{
+		FusionPlugin: &fusion,
+		Type:         typ,
 	}
 }
 
@@ -141,6 +157,18 @@ func CreateChatRequestPluginWeb(web WebSearchPlugin) ChatRequestPlugin {
 	}
 }
 
+func CreateChatRequestPluginWebFetch(webFetch WebFetchPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeWebFetch
+
+	typStr := WebFetchPluginID(typ)
+	webFetch.ID = typStr
+
+	return ChatRequestPlugin{
+		WebFetchPlugin: &webFetch,
+		Type:           typ,
+	}
+}
+
 func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -180,6 +208,15 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.FileParserPlugin = fileParserPlugin
 		u.Type = ChatRequestPluginTypeFileParser
 		return nil
+	case "fusion":
+		fusionPlugin := new(FusionPlugin)
+		if err := utils.UnmarshalJSON(data, &fusionPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == fusion) type FusionPlugin within ChatRequestPlugin: %w", string(data), err)
+		}
+
+		u.FusionPlugin = fusionPlugin
+		u.Type = ChatRequestPluginTypeFusion
+		return nil
 	case "moderation":
 		moderationPlugin := new(ModerationPlugin)
 		if err := utils.UnmarshalJSON(data, &moderationPlugin, "", true, nil); err != nil {
@@ -216,6 +253,15 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.WebSearchPlugin = webSearchPlugin
 		u.Type = ChatRequestPluginTypeWeb
 		return nil
+	case "web-fetch":
+		webFetchPlugin := new(WebFetchPlugin)
+		if err := utils.UnmarshalJSON(data, &webFetchPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web-fetch) type WebFetchPlugin within ChatRequestPlugin: %w", string(data), err)
+		}
+
+		u.WebFetchPlugin = webFetchPlugin
+		u.Type = ChatRequestPluginTypeWebFetch
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatRequestPlugin", string(data))
@@ -234,6 +280,10 @@ func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.WebSearchPlugin, "", true)
 	}
 
+	if u.WebFetchPlugin != nil {
+		return utils.MarshalJSON(u.WebFetchPlugin, "", true)
+	}
+
 	if u.FileParserPlugin != nil {
 		return utils.MarshalJSON(u.FileParserPlugin, "", true)
 	}
@@ -250,27 +300,31 @@ func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ParetoRouterPlugin, "", true)
 	}
 
+	if u.FusionPlugin != nil {
+		return utils.MarshalJSON(u.FusionPlugin, "", true)
+	}
+
 	return nil, errors.New("could not marshal union type ChatRequestPlugin: all fields are null")
 }
 
-// Effort - Constrains effort on reasoning for reasoning models
-type Effort string
+// ChatRequestEffort - Constrains effort on reasoning for reasoning models
+type ChatRequestEffort string
 
 const (
-	EffortXhigh   Effort = "xhigh"
-	EffortHigh    Effort = "high"
-	EffortMedium  Effort = "medium"
-	EffortLow     Effort = "low"
-	EffortMinimal Effort = "minimal"
-	EffortNone    Effort = "none"
+	ChatRequestEffortXhigh   ChatRequestEffort = "xhigh"
+	ChatRequestEffortHigh    ChatRequestEffort = "high"
+	ChatRequestEffortMedium  ChatRequestEffort = "medium"
+	ChatRequestEffortLow     ChatRequestEffort = "low"
+	ChatRequestEffortMinimal ChatRequestEffort = "minimal"
+	ChatRequestEffortNone    ChatRequestEffort = "none"
 )
 
-func (e Effort) ToPointer() *Effort {
+func (e ChatRequestEffort) ToPointer() *ChatRequestEffort {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Effort) IsExact() bool {
+func (e *ChatRequestEffort) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "xhigh", "high", "medium", "low", "minimal", "none":
@@ -280,25 +334,52 @@ func (e *Effort) IsExact() bool {
 	return false
 }
 
-// Reasoning - Configuration options for reasoning models
-type Reasoning struct {
+// ChatRequestReasoning - Configuration options for reasoning models
+type ChatRequestReasoning struct {
 	// Constrains effort on reasoning for reasoning models
-	Effort  optionalnullable.OptionalNullable[Effort]                            `json:"effort,omitzero"`
+	Effort  optionalnullable.OptionalNullable[ChatRequestEffort]                 `json:"effort,omitzero"`
 	Summary optionalnullable.OptionalNullable[ChatReasoningSummaryVerbosityEnum] `json:"summary,omitzero"`
 }
 
-func (r *Reasoning) GetEffort() optionalnullable.OptionalNullable[Effort] {
-	if r == nil {
+func (c *ChatRequestReasoning) GetEffort() optionalnullable.OptionalNullable[ChatRequestEffort] {
+	if c == nil {
 		return nil
 	}
-	return r.Effort
+	return c.Effort
 }
 
-func (r *Reasoning) GetSummary() optionalnullable.OptionalNullable[ChatReasoningSummaryVerbosityEnum] {
-	if r == nil {
+func (c *ChatRequestReasoning) GetSummary() optionalnullable.OptionalNullable[ChatReasoningSummaryVerbosityEnum] {
+	if c == nil {
 		return nil
 	}
-	return r.Summary
+	return c.Summary
+}
+
+// ChatRequestReasoningEffort - Shorthand for setting reasoning effort. Equivalent to setting reasoning.effort. Cannot be used simultaneously with reasoning.effort if they differ.
+type ChatRequestReasoningEffort string
+
+const (
+	ChatRequestReasoningEffortXhigh   ChatRequestReasoningEffort = "xhigh"
+	ChatRequestReasoningEffortHigh    ChatRequestReasoningEffort = "high"
+	ChatRequestReasoningEffortMedium  ChatRequestReasoningEffort = "medium"
+	ChatRequestReasoningEffortLow     ChatRequestReasoningEffort = "low"
+	ChatRequestReasoningEffortMinimal ChatRequestReasoningEffort = "minimal"
+	ChatRequestReasoningEffortNone    ChatRequestReasoningEffort = "none"
+)
+
+func (e ChatRequestReasoningEffort) ToPointer() *ChatRequestReasoningEffort {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ChatRequestReasoningEffort) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "xhigh", "high", "medium", "low", "minimal", "none":
+			return true
+		}
+	}
+	return false
 }
 
 type ResponseFormatType string
@@ -612,6 +693,7 @@ func (u Stop) MarshalJSON() ([]byte, error) {
 
 // ChatRequest - Chat completion request parameters
 type ChatRequest struct {
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
 	Debug *ChatDebugOptions `json:"debug,omitzero"`
@@ -631,6 +713,8 @@ type ChatRequest struct {
 	Messages []ChatMessages `json:"messages"`
 	// Key-value pairs for additional object information (max 16 pairs, 64 char keys, 512 char values)
 	Metadata map[string]string `json:"metadata,omitzero"`
+	// Minimum probability threshold relative to the most likely token. Tokens with probability below min_p * (probability of top token) are filtered out. Not all providers support this parameter.
+	MinP optionalnullable.OptionalNullable[float64] `json:"min_p,omitzero"`
 	// Output modalities for the response. Supported values are "text", "image", and "audio".
 	Modalities []Modality `json:"modalities,omitzero"`
 	// Model to use for completion
@@ -646,17 +730,23 @@ type ChatRequest struct {
 	// When multiple model providers are available, optionally indicate your routing preference.
 	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Configuration options for reasoning models
-	Reasoning *Reasoning `json:"reasoning,omitzero"`
+	Reasoning *ChatRequestReasoning `json:"reasoning,omitzero"`
+	// Shorthand for setting reasoning effort. Equivalent to setting reasoning.effort. Cannot be used simultaneously with reasoning.effort if they differ.
+	ReasoningEffort optionalnullable.OptionalNullable[ChatRequestReasoningEffort] `json:"reasoning_effort,omitzero"`
+	// Penalizes tokens based on how much they have already appeared in the text. A value of 1.0 means no penalty. Values above 1.0 penalize repeated tokens more strongly. Not all providers support this parameter.
+	RepetitionPenalty optionalnullable.OptionalNullable[float64] `json:"repetition_penalty,omitzero"`
 	// Response format configuration
 	ResponseFormat *ResponseFormat `json:"response_format,omitzero"`
 	// Random seed for deterministic outputs
 	Seed optionalnullable.OptionalNullable[int64] `json:"seed,omitzero"`
 	// The service tier to use for processing this request.
 	ServiceTier optionalnullable.OptionalNullable[ChatRequestServiceTier] `json:"service_tier,omitzero"`
-	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow) for observability. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
 	// Stop sequences (up to 4)
 	Stop optionalnullable.OptionalNullable[Stop] `json:"stop,omitzero"`
+	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`.
+	StopServerToolsWhen []StopServerToolsWhenCondition `json:"stop_server_tools_when,omitzero"`
 	// Enable streaming response
 	Stream *bool `default:"false" json:"stream"`
 	// Streaming configuration options
@@ -667,6 +757,10 @@ type ChatRequest struct {
 	ToolChoice *ChatToolChoice `json:"tool_choice,omitzero"`
 	// Available tools for function calling
 	Tools []ChatFunctionTool `json:"tools,omitzero"`
+	// Consider only tokens with "sufficiently high" probabilities based on the probability of the most likely token. Not all providers support this parameter.
+	TopA optionalnullable.OptionalNullable[float64] `json:"top_a,omitzero"`
+	// Limits the model to choose from the top K most likely tokens at each step. A value of 1 means the model will always pick the most likely next token. Not all providers support this parameter.
+	TopK optionalnullable.OptionalNullable[int64] `json:"top_k,omitzero"`
 	// Number of top log probabilities to return (0-20)
 	TopLogprobs optionalnullable.OptionalNullable[int64] `json:"top_logprobs,omitzero"`
 	// Nucleus sampling parameter (0-1)
@@ -758,6 +852,13 @@ func (c *ChatRequest) GetMetadata() map[string]string {
 	return c.Metadata
 }
 
+func (c *ChatRequest) GetMinP() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.MinP
+}
+
 func (c *ChatRequest) GetModalities() []Modality {
 	if c == nil {
 		return nil
@@ -807,11 +908,25 @@ func (c *ChatRequest) GetProvider() optionalnullable.OptionalNullable[ProviderPr
 	return c.Provider
 }
 
-func (c *ChatRequest) GetReasoning() *Reasoning {
+func (c *ChatRequest) GetReasoning() *ChatRequestReasoning {
 	if c == nil {
 		return nil
 	}
 	return c.Reasoning
+}
+
+func (c *ChatRequest) GetReasoningEffort() optionalnullable.OptionalNullable[ChatRequestReasoningEffort] {
+	if c == nil {
+		return nil
+	}
+	return c.ReasoningEffort
+}
+
+func (c *ChatRequest) GetRepetitionPenalty() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.RepetitionPenalty
 }
 
 func (c *ChatRequest) GetResponseFormat() *ResponseFormat {
@@ -884,6 +999,13 @@ func (c *ChatRequest) GetStop() optionalnullable.OptionalNullable[Stop] {
 	return c.Stop
 }
 
+func (c *ChatRequest) GetStopServerToolsWhen() []StopServerToolsWhenCondition {
+	if c == nil {
+		return nil
+	}
+	return c.StopServerToolsWhen
+}
+
 func (c *ChatRequest) GetStream() *bool {
 	if c == nil {
 		return nil
@@ -917,6 +1039,20 @@ func (c *ChatRequest) GetTools() []ChatFunctionTool {
 		return nil
 	}
 	return c.Tools
+}
+
+func (c *ChatRequest) GetTopA() optionalnullable.OptionalNullable[float64] {
+	if c == nil {
+		return nil
+	}
+	return c.TopA
+}
+
+func (c *ChatRequest) GetTopK() optionalnullable.OptionalNullable[int64] {
+	if c == nil {
+		return nil
+	}
+	return c.TopK
 }
 
 func (c *ChatRequest) GetTopLogprobs() optionalnullable.OptionalNullable[int64] {

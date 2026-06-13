@@ -10,8 +10,9 @@ import (
 // UnauthorizedResponseError - Unauthorized - Authentication required or invalid credentials
 type UnauthorizedResponseError struct {
 	// Error data for UnauthorizedResponse
-	Error_ components.UnauthorizedResponseErrorData `json:"error"`
-	UserID *string                                  `json:"user_id,omitzero"`
+	Error_             components.UnauthorizedResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                           `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                  `json:"user_id,omitzero"`
 }
 
 var _ error = &UnauthorizedResponseError{}

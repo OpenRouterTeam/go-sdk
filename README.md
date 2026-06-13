@@ -173,9 +173,22 @@ func main() {
 * [Get](docs/sdks/apikeys/README.md#get) - Get a single API key
 * [Update](docs/sdks/apikeys/README.md#update) - Update an API key
 
+### [Beta.Analytics](docs/sdks/betaanalytics/README.md)
+
+* [GetAnalyticsMeta](docs/sdks/betaanalytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
+* [QueryAnalytics](docs/sdks/betaanalytics/README.md#queryanalytics) - Query analytics data
+
 ### [Beta.Responses](docs/sdks/responses/README.md)
 
 * [Send](docs/sdks/responses/README.md#send) - Create a response
+
+### [Byok](docs/sdks/byok/README.md)
+
+* [List](docs/sdks/byok/README.md#list) - List BYOK provider credentials
+* [Create](docs/sdks/byok/README.md#create) - Create a BYOK provider credential
+* [Delete](docs/sdks/byok/README.md#delete) - Delete a BYOK provider credential
+* [Get](docs/sdks/byok/README.md#get) - Get a BYOK provider credential
+* [Update](docs/sdks/byok/README.md#update) - Update a BYOK provider credential
 
 ### [Chat](docs/sdks/chat/README.md)
 
@@ -184,6 +197,13 @@ func main() {
 ### [Credits](docs/sdks/credits/README.md)
 
 * [GetCredits](docs/sdks/credits/README.md#getcredits) - Get remaining credits
+
+### [Datasets](docs/sdks/datasets/README.md)
+
+* [GetAppRankings](docs/sdks/datasets/README.md#getapprankings) - Top apps by token usage
+* [GetBenchmarksArtificialAnalysis](docs/sdks/datasets/README.md#getbenchmarksartificialanalysis) - Artificial Analysis Benchmark Indices
+* [GetBenchmarksDesignArena](docs/sdks/datasets/README.md#getbenchmarksdesignarena) - Design Arena Benchmark Rankings
+* [GetRankingsDaily](docs/sdks/datasets/README.md#getrankingsdaily) - Daily token totals for top 50 models
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 
@@ -194,6 +214,14 @@ func main() {
 
 * [ListZdrEndpoints](docs/sdks/endpoints/README.md#listzdrendpoints) - Preview the impact of ZDR on the available endpoints
 * [List](docs/sdks/endpoints/README.md#list) - List all endpoints for a model
+
+### [Files](docs/sdks/files/README.md)
+
+* [List](docs/sdks/files/README.md#list) - List files
+* [Upload](docs/sdks/files/README.md#upload) - Upload a file
+* [Delete](docs/sdks/files/README.md#delete) - Delete a file
+* [Retrieve](docs/sdks/files/README.md#retrieve) - Get file metadata
+* [Download](docs/sdks/files/README.md#download) - Download file content
 
 ### [Generations](docs/sdks/generations/README.md)
 
@@ -218,6 +246,7 @@ func main() {
 
 ### [Models](docs/sdks/models/README.md)
 
+* [Get](docs/sdks/models/README.md#get) - Get a model by its slug
 * [List](docs/sdks/models/README.md#list) - List all models and their properties
 * [Count](docs/sdks/models/README.md#count) - Get total count of available models
 * [ListForUser](docs/sdks/models/README.md#listforuser) - List models filtered by user provider preferences, privacy settings, and guardrails
@@ -227,9 +256,27 @@ func main() {
 * [ExchangeAuthCodeForAPIKey](docs/sdks/oauth/README.md#exchangeauthcodeforapikey) - Exchange authorization code for API key
 * [CreateAuthCode](docs/sdks/oauth/README.md#createauthcode) - Create authorization code
 
+### [Observability](docs/sdks/observability/README.md)
+
+* [List](docs/sdks/observability/README.md#list) - List observability destinations
+* [Create](docs/sdks/observability/README.md#create) - Create an observability destination
+* [Delete](docs/sdks/observability/README.md#delete) - Delete an observability destination
+* [Get](docs/sdks/observability/README.md#get) - Get an observability destination
+* [Update](docs/sdks/observability/README.md#update) - Update an observability destination
+
 ### [Organization](docs/sdks/organization/README.md)
 
 * [ListMembers](docs/sdks/organization/README.md#listmembers) - List organization members
+
+### [Presets](docs/sdks/presets/README.md)
+
+* [List](docs/sdks/presets/README.md#list) - List presets
+* [Get](docs/sdks/presets/README.md#get) - Get a preset
+* [CreatePresetsChatCompletions](docs/sdks/presets/README.md#createpresetschatcompletions) - Create a preset from a chat-completions request body
+* [CreatePresetsMessages](docs/sdks/presets/README.md#createpresetsmessages) - Create a preset from a messages request body
+* [CreatePresetsResponses](docs/sdks/presets/README.md#createpresetsresponses) - Create a preset from a responses request body
+* [ListVersions](docs/sdks/presets/README.md#listversions) - List versions of a preset
+* [GetVersion](docs/sdks/presets/README.md#getversion) - Get a specific version of a preset
 
 ### [Providers](docs/sdks/providers/README.md)
 
@@ -238,6 +285,10 @@ func main() {
 ### [Rerank](docs/sdks/rerank/README.md)
 
 * [Rerank](docs/sdks/rerank/README.md#rerank) - Submit a rerank request
+
+### [Stt](docs/sdks/stt/README.md)
+
+* [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
 
 ### [Tts](docs/sdks/tts/README.md)
 
@@ -279,7 +330,6 @@ import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -291,37 +341,20 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Chat.Send(ctx, components.ChatRequest{
-		MaxTokens: optionalnullable.From(openrouter.Pointer[int64](150)),
-		Messages: []components.ChatMessages{
-			components.CreateChatMessagesSystem(
-				components.ChatSystemMessage{
-					Content: components.CreateChatSystemMessageContentStr(
-						"You are a helpful assistant.",
-					),
-					Role: components.ChatSystemMessageRoleSystem,
-				},
-			),
-			components.CreateChatMessagesUser(
-				components.ChatUserMessage{
-					Content: components.CreateChatUserMessageContentStr(
-						"What is the capital of France?",
-					),
-					Role: components.ChatUserMessageRoleUser,
-				},
-			),
-		},
-		Model:       openrouter.Pointer("openai/gpt-4"),
-		Temperature: optionalnullable.From(openrouter.Pointer[float64](0.7)),
-	})
+	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+		Input: openrouter.Pointer(components.CreateInputsUnionStr(
+			"Tell me a joke",
+		)),
+		Model: openrouter.Pointer("openai/gpt-4o"),
+	}, components.MetadataLevelEnabled.ToPointer())
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		defer res.Object.Close()
+		defer res.ResponsesStreamingResponse.Close()
 
-		for res.Object.Next() {
-			event := res.Object.Value()
+		for res.ResponsesStreamingResponse.Next() {
+			event := res.ResponsesStreamingResponse.Value()
 			log.Print(event)
 			// Handle the event
 		}
@@ -359,7 +392,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Guardrails.List(ctx, optionalnullable.From[int64](nil), nil, nil)
+	res, err := s.Byok.List(ctx, optionalnullable.From[int64](nil), nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

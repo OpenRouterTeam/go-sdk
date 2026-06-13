@@ -1,0 +1,18 @@
+# AnthropicToolUsesKeepType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicToolUsesKeepTypeToolUses
+```
+
+
+## Values
+
+| Name                                | Value                               |
+| ----------------------------------- | ----------------------------------- |
+| `AnthropicToolUsesKeepTypeToolUses` | tool_uses                           |

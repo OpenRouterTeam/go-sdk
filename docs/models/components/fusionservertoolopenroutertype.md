@@ -1,0 +1,18 @@
+# FusionServerToolOpenRouterType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.FusionServerToolOpenRouterTypeOpenrouterFusion
+```
+
+
+## Values
+
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `FusionServerToolOpenRouterTypeOpenrouterFusion` | openrouter:fusion                                |

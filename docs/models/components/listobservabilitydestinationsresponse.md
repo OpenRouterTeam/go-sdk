@@ -1,0 +1,9 @@
+# ListObservabilityDestinationsResponse
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  | Example                                                                                      |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `Data`                                                                                       | [][components.ObservabilityDestination](../../models/components/observabilitydestination.md) | :heavy_check_mark:                                                                           | List of observability destinations.                                                          |                                                                                              |
+| `TotalCount`                                                                                 | `int64`                                                                                      | :heavy_check_mark:                                                                           | Total number of destinations matching the filters.                                           | 1                                                                                            |

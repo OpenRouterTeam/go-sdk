@@ -1,0 +1,18 @@
+# AnthropicImageBlockParamType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicImageBlockParamTypeImage
+```
+
+
+## Values
+
+| Name                                | Value                               |
+| ----------------------------------- | ----------------------------------- |
+| `AnthropicImageBlockParamTypeImage` | image                               |

@@ -10,8 +10,9 @@ import (
 // TooManyRequestsResponseError - Too Many Requests - Rate limit exceeded
 type TooManyRequestsResponseError struct {
 	// Error data for TooManyRequestsResponse
-	Error_ components.TooManyRequestsResponseErrorData `json:"error"`
-	UserID *string                                     `json:"user_id,omitzero"`
+	Error_             components.TooManyRequestsResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                              `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                     `json:"user_id,omitzero"`
 }
 
 var _ error = &TooManyRequestsResponseError{}

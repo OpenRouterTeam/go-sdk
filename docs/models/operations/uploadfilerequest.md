@@ -1,0 +1,9 @@
+# UploadFileRequest
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `WorkspaceID`                                                                        | `*string`                                                                            | :heavy_minus_sign:                                                                   | Workspace to scope the request to. Defaults to the caller’s default workspace.       | a103d8b6-42f0-4e50-9a3c-bf41e2c3c1a7                                                 |
+| `RequestBody`                                                                        | [operations.UploadFileRequestBody](../../models/operations/uploadfilerequestbody.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |                                                                                      |

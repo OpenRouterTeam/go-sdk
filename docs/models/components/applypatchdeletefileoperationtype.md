@@ -1,0 +1,18 @@
+# ApplyPatchDeleteFileOperationType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ApplyPatchDeleteFileOperationTypeDeleteFile
+```
+
+
+## Values
+
+| Name                                          | Value                                         |
+| --------------------------------------------- | --------------------------------------------- |
+| `ApplyPatchDeleteFileOperationTypeDeleteFile` | delete_file                                   |

@@ -6,10 +6,11 @@ package components
 type WebSearchEngine string
 
 const (
-	WebSearchEngineNative    WebSearchEngine = "native"
-	WebSearchEngineExa       WebSearchEngine = "exa"
-	WebSearchEngineFirecrawl WebSearchEngine = "firecrawl"
-	WebSearchEngineParallel  WebSearchEngine = "parallel"
+	WebSearchEngineNative     WebSearchEngine = "native"
+	WebSearchEngineExa        WebSearchEngine = "exa"
+	WebSearchEngineFirecrawl  WebSearchEngine = "firecrawl"
+	WebSearchEngineParallel   WebSearchEngine = "parallel"
+	WebSearchEnginePerplexity WebSearchEngine = "perplexity"
 )
 
 func (e WebSearchEngine) ToPointer() *WebSearchEngine {
@@ -20,7 +21,7 @@ func (e WebSearchEngine) ToPointer() *WebSearchEngine {
 func (e *WebSearchEngine) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "native", "exa", "firecrawl", "parallel":
+		case "native", "exa", "firecrawl", "parallel", "perplexity":
 			return true
 		}
 	}

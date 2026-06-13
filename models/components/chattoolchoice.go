@@ -85,6 +85,7 @@ const (
 	ChatToolChoiceTypeChatToolChoiceAuto     ChatToolChoiceType = "ChatToolChoice_Auto"
 	ChatToolChoiceTypeChatToolChoiceRequired ChatToolChoiceType = "ChatToolChoice_Required"
 	ChatToolChoiceTypeChatNamedToolChoice    ChatToolChoiceType = "ChatNamedToolChoice"
+	ChatToolChoiceTypeChatServerToolChoice   ChatToolChoiceType = "ChatServerToolChoice"
 )
 
 // ChatToolChoice - Tool choice configuration
@@ -93,6 +94,7 @@ type ChatToolChoice struct {
 	ChatToolChoiceAuto     *ChatToolChoiceAuto     `queryParam:"inline" union:"member"`
 	ChatToolChoiceRequired *ChatToolChoiceRequired `queryParam:"inline" union:"member"`
 	ChatNamedToolChoice    *ChatNamedToolChoice    `queryParam:"inline" union:"member"`
+	ChatServerToolChoice   *ChatServerToolChoice   `queryParam:"inline" union:"member"`
 
 	Type ChatToolChoiceType
 }
@@ -133,6 +135,15 @@ func CreateChatToolChoiceChatNamedToolChoice(chatNamedToolChoice ChatNamedToolCh
 	}
 }
 
+func CreateChatToolChoiceChatServerToolChoice(chatServerToolChoice ChatServerToolChoice) ChatToolChoice {
+	typ := ChatToolChoiceTypeChatServerToolChoice
+
+	return ChatToolChoice{
+		ChatServerToolChoice: &chatServerToolChoice,
+		Type:                 typ,
+	}
+}
+
 func (u *ChatToolChoice) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -170,6 +181,14 @@ func (u *ChatToolChoice) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var chatServerToolChoice ChatServerToolChoice = ChatServerToolChoice{}
+	if err := utils.UnmarshalJSON(data, &chatServerToolChoice, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatToolChoiceTypeChatServerToolChoice,
+			Value: &chatServerToolChoice,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatToolChoice", string(data))
 	}
@@ -195,6 +214,9 @@ func (u *ChatToolChoice) UnmarshalJSON(data []byte) error {
 	case ChatToolChoiceTypeChatNamedToolChoice:
 		u.ChatNamedToolChoice = best.Value.(*ChatNamedToolChoice)
 		return nil
+	case ChatToolChoiceTypeChatServerToolChoice:
+		u.ChatServerToolChoice = best.Value.(*ChatServerToolChoice)
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatToolChoice", string(data))
@@ -215,6 +237,10 @@ func (u ChatToolChoice) MarshalJSON() ([]byte, error) {
 
 	if u.ChatNamedToolChoice != nil {
 		return utils.MarshalJSON(u.ChatNamedToolChoice, "", true)
+	}
+
+	if u.ChatServerToolChoice != nil {
+		return utils.MarshalJSON(u.ChatServerToolChoice, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ChatToolChoice: all fields are null")

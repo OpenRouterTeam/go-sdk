@@ -33,12 +33,16 @@ func (e *OutputWebFetchServerToolItemType) UnmarshalJSON(data []byte) error {
 
 // OutputWebFetchServerToolItem - An openrouter:web_fetch server tool output item
 type OutputWebFetchServerToolItem struct {
-	Content *string                          `json:"content,omitzero"`
-	ID      *string                          `json:"id,omitzero"`
-	Status  ToolCallStatus                   `json:"status"`
-	Title   *string                          `json:"title,omitzero"`
-	Type    OutputWebFetchServerToolItemType `json:"type"`
-	URL     *string                          `json:"url,omitzero"`
+	Content *string `json:"content,omitzero"`
+	// The error message if the fetch failed.
+	Error *string `json:"error,omitzero"`
+	// The HTTP status code returned by the upstream URL fetch.
+	HTTPStatus *int64                           `json:"httpStatus,omitzero"`
+	ID         *string                          `json:"id,omitzero"`
+	Status     ToolCallStatus                   `json:"status"`
+	Title      *string                          `json:"title,omitzero"`
+	Type       OutputWebFetchServerToolItemType `json:"type"`
+	URL        *string                          `json:"url,omitzero"`
 }
 
 func (o OutputWebFetchServerToolItem) MarshalJSON() ([]byte, error) {
@@ -57,6 +61,20 @@ func (o *OutputWebFetchServerToolItem) GetContent() *string {
 		return nil
 	}
 	return o.Content
+}
+
+func (o *OutputWebFetchServerToolItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
+}
+
+func (o *OutputWebFetchServerToolItem) GetHTTPStatus() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.HTTPStatus
 }
 
 func (o *OutputWebFetchServerToolItem) GetID() *string {

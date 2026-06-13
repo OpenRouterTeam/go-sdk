@@ -58,12 +58,20 @@ func (s *StreamEventsResponseOutputItemDone) GetItem() OutputItems {
 	return s.Item
 }
 
+func (s *StreamEventsResponseOutputItemDone) GetItemApplyPatchCall() *OutputApplyPatchCallItem {
+	return s.GetItem().OutputApplyPatchCallItem
+}
+
 func (s *StreamEventsResponseOutputItemDone) GetItemCodeInterpreterCall() *OutputCodeInterpreterCallItem {
 	return s.GetItem().OutputCodeInterpreterCallItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetItemComputerCall() *OutputComputerCallItem {
 	return s.GetItem().OutputComputerCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemCustomToolCall() *OutputCustomToolCallItem {
+	return s.GetItem().OutputCustomToolCallItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetItemFileSearchCall() *OutputFileSearchCallItem {
@@ -80,6 +88,10 @@ func (s *StreamEventsResponseOutputItemDone) GetItemImageGenerationCall() *Outpu
 
 func (s *StreamEventsResponseOutputItemDone) GetItemMessage() *OutputMessageItem {
 	return s.GetItem().OutputMessageItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterAdvisor() *OutputAdvisorServerToolItem {
+	return s.GetItem().OutputAdvisorServerToolItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterApplyPatch() *OutputApplyPatchServerToolItem {
@@ -110,6 +122,10 @@ func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterFileSearch() *Outp
 	return s.GetItem().OutputFileSearchServerToolItem
 }
 
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterFusion() *OutputFusionServerToolItem {
+	return s.GetItem().OutputFusionServerToolItem
+}
+
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterImageGeneration() *OutputImageGenerationServerToolItem {
 	return s.GetItem().OutputImageGenerationServerToolItem
 }
@@ -120,6 +136,10 @@ func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterMcp() *OutputMcpSe
 
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterMemory() *OutputMemoryServerToolItem {
 	return s.GetItem().OutputMemoryServerToolItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterSubagent() *OutputSubagentServerToolItem {
+	return s.GetItem().OutputSubagentServerToolItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterTextEditor() *OutputTextEditorServerToolItem {
@@ -140,6 +160,14 @@ func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterWebSearch() *Outpu
 
 func (s *StreamEventsResponseOutputItemDone) GetItemReasoning() *OutputReasoningItem {
 	return s.GetItem().OutputReasoningItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemShellCall() *OutputShellCallItem {
+	return s.GetItem().OutputShellCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemShellCallOutput() *OutputShellCallOutputItem {
+	return s.GetItem().OutputShellCallOutputItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetItemWebSearchCall() *OutputWebSearchCallItem {

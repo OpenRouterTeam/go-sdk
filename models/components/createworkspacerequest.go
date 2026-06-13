@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
@@ -15,6 +16,10 @@ type CreateWorkspaceRequest struct {
 	DefaultTextModel optionalnullable.OptionalNullable[string] `json:"default_text_model,omitzero"`
 	// Description of the workspace
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
+	// Optional array of API key IDs to filter I/O logging
+	IoLoggingAPIKeyIds optionalnullable.OptionalNullable[[]int64] `json:"io_logging_api_key_ids,omitzero"`
+	// Sampling rate for I/O logging (0.0001-1)
+	IoLoggingSamplingRate *float64 `json:"io_logging_sampling_rate,omitzero"`
 	// Whether data discount logging is enabled
 	IsDataDiscountLoggingEnabled *bool `json:"is_data_discount_logging_enabled,omitzero"`
 	// Whether broadcast is enabled
@@ -23,8 +28,19 @@ type CreateWorkspaceRequest struct {
 	IsObservabilityIoLoggingEnabled *bool `json:"is_observability_io_logging_enabled,omitzero"`
 	// Name for the new workspace
 	Name string `json:"name"`
-	// URL-friendly slug (lowercase alphanumeric and hyphens only)
+	// URL-friendly slug (lowercase alphanumeric segments separated by single hyphens, no leading/trailing hyphens)
 	Slug string `json:"slug"`
+}
+
+func (c CreateWorkspaceRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateWorkspaceRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CreateWorkspaceRequest) GetDefaultImageModel() optionalnullable.OptionalNullable[string] {
@@ -53,6 +69,20 @@ func (c *CreateWorkspaceRequest) GetDescription() optionalnullable.OptionalNulla
 		return nil
 	}
 	return c.Description
+}
+
+func (c *CreateWorkspaceRequest) GetIoLoggingAPIKeyIds() optionalnullable.OptionalNullable[[]int64] {
+	if c == nil {
+		return nil
+	}
+	return c.IoLoggingAPIKeyIds
+}
+
+func (c *CreateWorkspaceRequest) GetIoLoggingSamplingRate() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.IoLoggingSamplingRate
 }
 
 func (c *CreateWorkspaceRequest) GetIsDataDiscountLoggingEnabled() *bool {

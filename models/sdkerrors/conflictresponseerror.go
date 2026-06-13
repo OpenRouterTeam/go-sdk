@@ -10,8 +10,9 @@ import (
 // ConflictResponseError - Conflict - Resource conflict or concurrent modification
 type ConflictResponseError struct {
 	// Error data for ConflictResponse
-	Error_ components.ConflictResponseErrorData `json:"error"`
-	UserID *string                              `json:"user_id,omitzero"`
+	Error_             components.ConflictResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                       `json:"openrouter_metadata,omitzero"`
+	UserID             *string                              `json:"user_id,omitzero"`
 }
 
 var _ error = &ConflictResponseError{}

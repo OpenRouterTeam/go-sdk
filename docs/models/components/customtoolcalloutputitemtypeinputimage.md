@@ -1,0 +1,18 @@
+# CustomToolCallOutputItemTypeInputImage
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.CustomToolCallOutputItemTypeInputImageInputImage
+```
+
+
+## Values
+
+| Name                                               | Value                                              |
+| -------------------------------------------------- | -------------------------------------------------- |
+| `CustomToolCallOutputItemTypeInputImageInputImage` | input_image                                        |

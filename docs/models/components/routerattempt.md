@@ -1,0 +1,10 @@
+# RouterAttempt
+
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `Model`            | `string`           | :heavy_check_mark: | N/A                |
+| `Provider`         | `string`           | :heavy_check_mark: | N/A                |
+| `Status`           | `int64`            | :heavy_check_mark: | N/A                |

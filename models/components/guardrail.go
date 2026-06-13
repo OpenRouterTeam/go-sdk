@@ -12,12 +12,26 @@ type Guardrail struct {
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// List of allowed provider IDs
 	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
+	// Builtin content filters applied to requests. Includes PII detectors and the regex-based prompt injection detector.
+	ContentFilterBuiltins optionalnullable.OptionalNullable[[]ContentFilterBuiltinEntry] `json:"content_filter_builtins,omitzero"`
+	// Custom regex content filters applied to request messages
+	ContentFilters optionalnullable.OptionalNullable[[]ContentFilterEntry] `json:"content_filters,omitzero"`
 	// ISO 8601 timestamp of when the guardrail was created
 	CreatedAt string `json:"created_at"`
 	// Description of the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// Whether to enforce zero data retention
+	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
+	// Whether to enforce zero data retention for Anthropic models. Falls back to enforce_zdr when not provided.
+	EnforceZdrAnthropic optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_anthropic,omitzero"`
+	// Whether to enforce zero data retention for Google models. Falls back to enforce_zdr when not provided.
+	EnforceZdrGoogle optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_google,omitzero"`
+	// Whether to enforce zero data retention for OpenAI models. Falls back to enforce_zdr when not provided.
+	EnforceZdrOpenai optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_openai,omitzero"`
+	// Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, or Google. Falls back to enforce_zdr when not provided.
+	EnforceZdrOther optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_other,omitzero"`
 	// Unique identifier for the guardrail
 	ID string `json:"id"`
 	// Array of model canonical_slugs to exclude from routing
@@ -61,6 +75,20 @@ func (g *Guardrail) GetAllowedProviders() optionalnullable.OptionalNullable[[]st
 	return g.AllowedProviders
 }
 
+func (g *Guardrail) GetContentFilterBuiltins() optionalnullable.OptionalNullable[[]ContentFilterBuiltinEntry] {
+	if g == nil {
+		return nil
+	}
+	return g.ContentFilterBuiltins
+}
+
+func (g *Guardrail) GetContentFilters() optionalnullable.OptionalNullable[[]ContentFilterEntry] {
+	if g == nil {
+		return nil
+	}
+	return g.ContentFilters
+}
+
 func (g *Guardrail) GetCreatedAt() string {
 	if g == nil {
 		return ""
@@ -80,6 +108,34 @@ func (g *Guardrail) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
 		return nil
 	}
 	return g.EnforceZdr
+}
+
+func (g *Guardrail) GetEnforceZdrAnthropic() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnforceZdrAnthropic
+}
+
+func (g *Guardrail) GetEnforceZdrGoogle() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnforceZdrGoogle
+}
+
+func (g *Guardrail) GetEnforceZdrOpenai() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnforceZdrOpenai
+}
+
+func (g *Guardrail) GetEnforceZdrOther() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnforceZdrOther
 }
 
 func (g *Guardrail) GetID() string {

@@ -10,8 +10,9 @@ import (
 // RequestTimeoutResponseError - Request Timeout - Operation exceeded time limit
 type RequestTimeoutResponseError struct {
 	// Error data for RequestTimeoutResponse
-	Error_ components.RequestTimeoutResponseErrorData `json:"error"`
-	UserID *string                                    `json:"user_id,omitzero"`
+	Error_             components.RequestTimeoutResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                             `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                    `json:"user_id,omitzero"`
 }
 
 var _ error = &RequestTimeoutResponseError{}

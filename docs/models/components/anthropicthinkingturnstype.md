@@ -1,0 +1,18 @@
+# AnthropicThinkingTurnsType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicThinkingTurnsTypeThinkingTurns
+```
+
+
+## Values
+
+| Name                                      | Value                                     |
+| ----------------------------------------- | ----------------------------------------- |
+| `AnthropicThinkingTurnsTypeThinkingTurns` | thinking_turns                            |

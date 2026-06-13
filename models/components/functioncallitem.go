@@ -33,10 +33,12 @@ func (e *FunctionCallItemType) UnmarshalJSON(data []byte) error {
 
 // FunctionCallItem - A function call initiated by the model
 type FunctionCallItem struct {
-	Arguments string               `json:"arguments"`
-	CallID    string               `json:"call_id"`
-	ID        string               `json:"id"`
-	Name      string               `json:"name"`
+	Arguments string `json:"arguments"`
+	CallID    string `json:"call_id"`
+	ID        string `json:"id"`
+	Name      string `json:"name"`
+	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
+	Namespace *string              `json:"namespace,omitzero"`
 	Status    *ToolCallStatus      `json:"status,omitzero"`
 	Type      FunctionCallItemType `json:"type"`
 }
@@ -78,6 +80,13 @@ func (f *FunctionCallItem) GetName() string {
 		return ""
 	}
 	return f.Name
+}
+
+func (f *FunctionCallItem) GetNamespace() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Namespace
 }
 
 func (f *FunctionCallItem) GetStatus() *ToolCallStatus {

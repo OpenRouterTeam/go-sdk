@@ -1,0 +1,20 @@
+# Zdr
+
+When set to "true", return only models with zero data retention endpoints.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.ZdrTrue
+```
+
+
+## Values
+
+| Name      | Value     |
+| --------- | --------- |
+| `ZdrTrue` | true      |

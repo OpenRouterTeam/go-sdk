@@ -16,8 +16,9 @@ custom := components.EasyInputMessageDetail("custom_value")
 
 ## Values
 
-| Name                         | Value                        |
-| ---------------------------- | ---------------------------- |
-| `EasyInputMessageDetailAuto` | auto                         |
-| `EasyInputMessageDetailHigh` | high                         |
-| `EasyInputMessageDetailLow`  | low                          |
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `EasyInputMessageDetailAuto`     | auto                             |
+| `EasyInputMessageDetailHigh`     | high                             |
+| `EasyInputMessageDetailLow`      | low                              |
+| `EasyInputMessageDetailOriginal` | original                         |

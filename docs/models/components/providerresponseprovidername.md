@@ -27,6 +27,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameEnfer`           | Enfer                                         |
 | `ProviderResponseProviderNameGoPomelo`        | GoPomelo                                      |
 | `ProviderResponseProviderNameHuggingFace`     | HuggingFace                                   |
+| `ProviderResponseProviderNameHyperbolic`      | Hyperbolic                                    |
 | `ProviderResponseProviderNameHyperbolic2`     | Hyperbolic 2                                  |
 | `ProviderResponseProviderNameInoCloud`        | InoCloud                                      |
 | `ProviderResponseProviderNameKluster`         | Kluster                                       |
@@ -70,10 +71,14 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameClarifai`        | Clarifai                                      |
 | `ProviderResponseProviderNameCloudflare`      | Cloudflare                                    |
 | `ProviderResponseProviderNameCohere`          | Cohere                                        |
+| `ProviderResponseProviderNameCrucible`        | Crucible                                      |
 | `ProviderResponseProviderNameCrusoe`          | Crusoe                                        |
+| `ProviderResponseProviderNameDarkbloom`       | Darkbloom                                     |
+| `ProviderResponseProviderNameDecart`          | Decart                                        |
 | `ProviderResponseProviderNameDeepInfra`       | DeepInfra                                     |
 | `ProviderResponseProviderNameDeepSeek`        | DeepSeek                                      |
 | `ProviderResponseProviderNameDekaLlm`         | DekaLLM                                       |
+| `ProviderResponseProviderNameDigitalOcean`    | DigitalOcean                                  |
 | `ProviderResponseProviderNameFeatherless`     | Featherless                                   |
 | `ProviderResponseProviderNameFireworks`       | Fireworks                                     |
 | `ProviderResponseProviderNameFriendli`        | Friendli                                      |
@@ -81,7 +86,6 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameGoogle`          | Google                                        |
 | `ProviderResponseProviderNameGoogleAiStudio`  | Google AI Studio                              |
 | `ProviderResponseProviderNameGroq`            | Groq                                          |
-| `ProviderResponseProviderNameHyperbolic`      | Hyperbolic                                    |
 | `ProviderResponseProviderNameInception`       | Inception                                     |
 | `ProviderResponseProviderNameInceptron`       | Inceptron                                     |
 | `ProviderResponseProviderNameInferenceNet`    | InferenceNet                                  |
@@ -100,12 +104,15 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameMorph`           | Morph                                         |
 | `ProviderResponseProviderNameNCompass`        | NCompass                                      |
 | `ProviderResponseProviderNameNebius`          | Nebius                                        |
+| `ProviderResponseProviderNameNexAgi`          | Nex AGI                                       |
 | `ProviderResponseProviderNameNextBit`         | NextBit                                       |
 | `ProviderResponseProviderNameNovita`          | Novita                                        |
 | `ProviderResponseProviderNameNvidia`          | Nvidia                                        |
 | `ProviderResponseProviderNameOpenAi`          | OpenAI                                        |
 | `ProviderResponseProviderNameOpenInference`   | OpenInference                                 |
 | `ProviderResponseProviderNameParasail`        | Parasail                                      |
+| `ProviderResponseProviderNamePoolside`        | Poolside                                      |
+| `ProviderResponseProviderNamePerceptron`      | Perceptron                                    |
 | `ProviderResponseProviderNamePerplexity`      | Perplexity                                    |
 | `ProviderResponseProviderNamePhala`           | Phala                                         |
 | `ProviderResponseProviderNameRecraft`         | Recraft                                       |
@@ -122,6 +129,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameTogether`        | Together                                      |
 | `ProviderResponseProviderNameUpstage`         | Upstage                                       |
 | `ProviderResponseProviderNameVenice`          | Venice                                        |
+| `ProviderResponseProviderNameWafer`           | Wafer                                         |
 | `ProviderResponseProviderNameWandB`           | WandB                                         |
 | `ProviderResponseProviderNameXiaomi`          | Xiaomi                                        |
 | `ProviderResponseProviderNameXAi`             | xAI                                           |

@@ -9,6 +9,96 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type OpenAIResponsesToolChoiceTypeShell string
+
+const (
+	OpenAIResponsesToolChoiceTypeShellShell OpenAIResponsesToolChoiceTypeShell = "shell"
+)
+
+func (e OpenAIResponsesToolChoiceTypeShell) ToPointer() *OpenAIResponsesToolChoiceTypeShell {
+	return &e
+}
+func (e *OpenAIResponsesToolChoiceTypeShell) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "shell":
+		*e = OpenAIResponsesToolChoiceTypeShell(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OpenAIResponsesToolChoiceTypeShell: %v", v)
+	}
+}
+
+type OpenAIResponsesToolChoiceShell struct {
+	Type OpenAIResponsesToolChoiceTypeShell `json:"type"`
+}
+
+func (o OpenAIResponsesToolChoiceShell) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OpenAIResponsesToolChoiceShell) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OpenAIResponsesToolChoiceShell) GetType() OpenAIResponsesToolChoiceTypeShell {
+	if o == nil {
+		return OpenAIResponsesToolChoiceTypeShell("")
+	}
+	return o.Type
+}
+
+type OpenAIResponsesToolChoiceTypeApplyPatch string
+
+const (
+	OpenAIResponsesToolChoiceTypeApplyPatchApplyPatch OpenAIResponsesToolChoiceTypeApplyPatch = "apply_patch"
+)
+
+func (e OpenAIResponsesToolChoiceTypeApplyPatch) ToPointer() *OpenAIResponsesToolChoiceTypeApplyPatch {
+	return &e
+}
+func (e *OpenAIResponsesToolChoiceTypeApplyPatch) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "apply_patch":
+		*e = OpenAIResponsesToolChoiceTypeApplyPatch(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OpenAIResponsesToolChoiceTypeApplyPatch: %v", v)
+	}
+}
+
+type OpenAIResponsesToolChoiceApplyPatch struct {
+	Type OpenAIResponsesToolChoiceTypeApplyPatch `json:"type"`
+}
+
+func (o OpenAIResponsesToolChoiceApplyPatch) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OpenAIResponsesToolChoiceApplyPatch) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OpenAIResponsesToolChoiceApplyPatch) GetType() OpenAIResponsesToolChoiceTypeApplyPatch {
+	if o == nil {
+		return OpenAIResponsesToolChoiceTypeApplyPatch("")
+	}
+	return o.Type
+}
+
 type OpenAIResponsesToolChoiceTypeWebSearchPreview string
 
 const (
@@ -291,21 +381,25 @@ func (e *OpenAIResponsesToolChoiceAuto) UnmarshalJSON(data []byte) error {
 type OpenAIResponsesToolChoiceUnionType string
 
 const (
-	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceAuto     OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Auto"
-	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceNone     OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_None"
-	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceRequired OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Required"
-	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceFunction OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Function"
-	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoice         OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice"
-	OpenAIResponsesToolChoiceUnionTypeToolChoiceAllowed                 OpenAIResponsesToolChoiceUnionType = "ToolChoiceAllowed"
+	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceAuto       OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Auto"
+	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceNone       OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_None"
+	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceRequired   OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Required"
+	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceFunction   OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Function"
+	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoice           OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice"
+	OpenAIResponsesToolChoiceUnionTypeToolChoiceAllowed                   OpenAIResponsesToolChoiceUnionType = "ToolChoiceAllowed"
+	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceApplyPatch OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_ApplyPatch"
+	OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceShell      OpenAIResponsesToolChoiceUnionType = "OpenAIResponsesToolChoice_Shell"
 )
 
 type OpenAIResponsesToolChoiceUnion struct {
-	OpenAIResponsesToolChoiceAuto     *OpenAIResponsesToolChoiceAuto     `queryParam:"inline" union:"member"`
-	OpenAIResponsesToolChoiceNone     *OpenAIResponsesToolChoiceNone     `queryParam:"inline" union:"member"`
-	OpenAIResponsesToolChoiceRequired *OpenAIResponsesToolChoiceRequired `queryParam:"inline" union:"member"`
-	OpenAIResponsesToolChoiceFunction *OpenAIResponsesToolChoiceFunction `queryParam:"inline" union:"member"`
-	OpenAIResponsesToolChoice         *OpenAIResponsesToolChoice         `queryParam:"inline" union:"member"`
-	ToolChoiceAllowed                 *ToolChoiceAllowed                 `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceAuto       *OpenAIResponsesToolChoiceAuto       `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceNone       *OpenAIResponsesToolChoiceNone       `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceRequired   *OpenAIResponsesToolChoiceRequired   `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceFunction   *OpenAIResponsesToolChoiceFunction   `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoice           *OpenAIResponsesToolChoice           `queryParam:"inline" union:"member"`
+	ToolChoiceAllowed                   *ToolChoiceAllowed                   `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceApplyPatch *OpenAIResponsesToolChoiceApplyPatch `queryParam:"inline" union:"member"`
+	OpenAIResponsesToolChoiceShell      *OpenAIResponsesToolChoiceShell      `queryParam:"inline" union:"member"`
 
 	Type OpenAIResponsesToolChoiceUnionType
 }
@@ -364,6 +458,24 @@ func CreateOpenAIResponsesToolChoiceUnionToolChoiceAllowed(toolChoiceAllowed Too
 	}
 }
 
+func CreateOpenAIResponsesToolChoiceUnionOpenAIResponsesToolChoiceApplyPatch(openAIResponsesToolChoiceApplyPatch OpenAIResponsesToolChoiceApplyPatch) OpenAIResponsesToolChoiceUnion {
+	typ := OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceApplyPatch
+
+	return OpenAIResponsesToolChoiceUnion{
+		OpenAIResponsesToolChoiceApplyPatch: &openAIResponsesToolChoiceApplyPatch,
+		Type:                                typ,
+	}
+}
+
+func CreateOpenAIResponsesToolChoiceUnionOpenAIResponsesToolChoiceShell(openAIResponsesToolChoiceShell OpenAIResponsesToolChoiceShell) OpenAIResponsesToolChoiceUnion {
+	typ := OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceShell
+
+	return OpenAIResponsesToolChoiceUnion{
+		OpenAIResponsesToolChoiceShell: &openAIResponsesToolChoiceShell,
+		Type:                           typ,
+	}
+}
+
 func (u *OpenAIResponsesToolChoiceUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -417,6 +529,22 @@ func (u *OpenAIResponsesToolChoiceUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var openAIResponsesToolChoiceApplyPatch OpenAIResponsesToolChoiceApplyPatch = OpenAIResponsesToolChoiceApplyPatch{}
+	if err := utils.UnmarshalJSON(data, &openAIResponsesToolChoiceApplyPatch, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceApplyPatch,
+			Value: &openAIResponsesToolChoiceApplyPatch,
+		})
+	}
+
+	var openAIResponsesToolChoiceShell OpenAIResponsesToolChoiceShell = OpenAIResponsesToolChoiceShell{}
+	if err := utils.UnmarshalJSON(data, &openAIResponsesToolChoiceShell, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceShell,
+			Value: &openAIResponsesToolChoiceShell,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenAIResponsesToolChoiceUnion", string(data))
 	}
@@ -448,6 +576,12 @@ func (u *OpenAIResponsesToolChoiceUnion) UnmarshalJSON(data []byte) error {
 	case OpenAIResponsesToolChoiceUnionTypeToolChoiceAllowed:
 		u.ToolChoiceAllowed = best.Value.(*ToolChoiceAllowed)
 		return nil
+	case OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceApplyPatch:
+		u.OpenAIResponsesToolChoiceApplyPatch = best.Value.(*OpenAIResponsesToolChoiceApplyPatch)
+		return nil
+	case OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceShell:
+		u.OpenAIResponsesToolChoiceShell = best.Value.(*OpenAIResponsesToolChoiceShell)
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OpenAIResponsesToolChoiceUnion", string(data))
@@ -476,6 +610,14 @@ func (u OpenAIResponsesToolChoiceUnion) MarshalJSON() ([]byte, error) {
 
 	if u.ToolChoiceAllowed != nil {
 		return utils.MarshalJSON(u.ToolChoiceAllowed, "", true)
+	}
+
+	if u.OpenAIResponsesToolChoiceApplyPatch != nil {
+		return utils.MarshalJSON(u.OpenAIResponsesToolChoiceApplyPatch, "", true)
+	}
+
+	if u.OpenAIResponsesToolChoiceShell != nil {
+		return utils.MarshalJSON(u.OpenAIResponsesToolChoiceShell, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type OpenAIResponsesToolChoiceUnion: all fields are null")

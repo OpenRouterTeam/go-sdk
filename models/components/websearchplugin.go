@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type WebSearchPluginID string
@@ -31,6 +32,84 @@ func (e *WebSearchPluginID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type WebSearchPluginType string
+
+const (
+	WebSearchPluginTypeApproximate WebSearchPluginType = "approximate"
+)
+
+func (e WebSearchPluginType) ToPointer() *WebSearchPluginType {
+	return &e
+}
+func (e *WebSearchPluginType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "approximate":
+		*e = WebSearchPluginType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for WebSearchPluginType: %v", v)
+	}
+}
+
+// UserLocation - Approximate user location for location-biased search results. Passed through to native providers that support it (e.g. Anthropic).
+type UserLocation struct {
+	City     optionalnullable.OptionalNullable[string] `json:"city,omitzero"`
+	Country  optionalnullable.OptionalNullable[string] `json:"country,omitzero"`
+	Region   optionalnullable.OptionalNullable[string] `json:"region,omitzero"`
+	Timezone optionalnullable.OptionalNullable[string] `json:"timezone,omitzero"`
+	Type     WebSearchPluginType                       `json:"type"`
+}
+
+func (u UserLocation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UserLocation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UserLocation) GetCity() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.City
+}
+
+func (u *UserLocation) GetCountry() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.Country
+}
+
+func (u *UserLocation) GetRegion() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.Region
+}
+
+func (u *UserLocation) GetTimezone() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.Timezone
+}
+
+func (u *UserLocation) GetType() WebSearchPluginType {
+	if u == nil {
+		return WebSearchPluginType("")
+	}
+	return u.Type
+}
+
 type WebSearchPlugin struct {
 	// Set to false to disable the web-search plugin for this request. Defaults to true.
 	Enabled *bool `json:"enabled,omitzero"`
@@ -42,7 +121,10 @@ type WebSearchPlugin struct {
 	// A list of domains to restrict web search results to. Supports wildcards (e.g. "*.substack.com") and path filtering (e.g. "openai.com/blog").
 	IncludeDomains []string `json:"include_domains,omitzero"`
 	MaxResults     *int64   `json:"max_results,omitzero"`
-	SearchPrompt   *string  `json:"search_prompt,omitzero"`
+	// Maximum number of times the model can invoke web search in a single turn. Passed through to native providers that support it (e.g. Anthropic).
+	MaxUses      *int64                                          `json:"max_uses,omitzero"`
+	SearchPrompt *string                                         `json:"search_prompt,omitzero"`
+	UserLocation optionalnullable.OptionalNullable[UserLocation] `json:"user_location,omitzero"`
 }
 
 func (w WebSearchPlugin) MarshalJSON() ([]byte, error) {
@@ -98,9 +180,23 @@ func (w *WebSearchPlugin) GetMaxResults() *int64 {
 	return w.MaxResults
 }
 
+func (w *WebSearchPlugin) GetMaxUses() *int64 {
+	if w == nil {
+		return nil
+	}
+	return w.MaxUses
+}
+
 func (w *WebSearchPlugin) GetSearchPrompt() *string {
 	if w == nil {
 		return nil
 	}
 	return w.SearchPrompt
+}
+
+func (w *WebSearchPlugin) GetUserLocation() optionalnullable.OptionalNullable[UserLocation] {
+	if w == nil {
+		return nil
+	}
+	return w.UserLocation
 }

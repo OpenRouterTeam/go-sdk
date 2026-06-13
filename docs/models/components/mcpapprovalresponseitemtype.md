@@ -1,0 +1,18 @@
+# McpApprovalResponseItemType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.McpApprovalResponseItemTypeMcpApprovalResponse
+```
+
+
+## Values
+
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `McpApprovalResponseItemTypeMcpApprovalResponse` | mcp_approval_response                            |

@@ -31,13 +31,14 @@ func (e *OutputApplyPatchServerToolItemType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputApplyPatchServerToolItem - An openrouter:apply_patch server tool output item
+// OutputApplyPatchServerToolItem - An openrouter:apply_patch server tool output item. The turn halts when validation succeeds so the client can apply the patch and echo an `apply_patch_call_output` on the next turn.
 type OutputApplyPatchServerToolItem struct {
-	FilePath *string                            `json:"filePath,omitzero"`
-	ID       *string                            `json:"id,omitzero"`
-	Patch    *string                            `json:"patch,omitzero"`
-	Status   ToolCallStatus                     `json:"status"`
-	Type     OutputApplyPatchServerToolItemType `json:"type"`
+	CallID *string `json:"call_id,omitzero"`
+	ID     *string `json:"id,omitzero"`
+	// The patch operation requested by an `apply_patch_call`. `create_file` and `update_file` carry a V4A diff; `delete_file` omits it.
+	Operation *ApplyPatchCallOperation           `json:"operation,omitzero"`
+	Status    ToolCallStatus                     `json:"status"`
+	Type      OutputApplyPatchServerToolItemType `json:"type"`
 }
 
 func (o OutputApplyPatchServerToolItem) MarshalJSON() ([]byte, error) {
@@ -51,11 +52,11 @@ func (o *OutputApplyPatchServerToolItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputApplyPatchServerToolItem) GetFilePath() *string {
+func (o *OutputApplyPatchServerToolItem) GetCallID() *string {
 	if o == nil {
 		return nil
 	}
-	return o.FilePath
+	return o.CallID
 }
 
 func (o *OutputApplyPatchServerToolItem) GetID() *string {
@@ -65,11 +66,32 @@ func (o *OutputApplyPatchServerToolItem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputApplyPatchServerToolItem) GetPatch() *string {
+func (o *OutputApplyPatchServerToolItem) GetOperation() *ApplyPatchCallOperation {
 	if o == nil {
 		return nil
 	}
-	return o.Patch
+	return o.Operation
+}
+
+func (o *OutputApplyPatchServerToolItem) GetOperationCreateFile() *ApplyPatchCreateFileOperation {
+	if v := o.GetOperation(); v != nil {
+		return v.ApplyPatchCreateFileOperation
+	}
+	return nil
+}
+
+func (o *OutputApplyPatchServerToolItem) GetOperationDeleteFile() *ApplyPatchDeleteFileOperation {
+	if v := o.GetOperation(); v != nil {
+		return v.ApplyPatchDeleteFileOperation
+	}
+	return nil
+}
+
+func (o *OutputApplyPatchServerToolItem) GetOperationUpdateFile() *ApplyPatchUpdateFileOperation {
+	if v := o.GetOperation(); v != nil {
+		return v.ApplyPatchUpdateFileOperation
+	}
+	return nil
 }
 
 func (o *OutputApplyPatchServerToolItem) GetStatus() ToolCallStatus {

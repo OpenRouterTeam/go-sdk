@@ -1,0 +1,18 @@
+# AnthropicURLImageSourceType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicURLImageSourceTypeURL
+```
+
+
+## Values
+
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `AnthropicURLImageSourceTypeURL` | url                              |

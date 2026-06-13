@@ -1,0 +1,18 @@
+# OpenAIResponseCustomToolCallType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.OpenAIResponseCustomToolCallTypeCustomToolCall
+```
+
+
+## Values
+
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `OpenAIResponseCustomToolCallTypeCustomToolCall` | custom_tool_call                                 |

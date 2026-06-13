@@ -1,0 +1,18 @@
+# ObservabilityLangsmithDestinationType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ObservabilityLangsmithDestinationTypeLangsmith
+```
+
+
+## Values
+
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `ObservabilityLangsmithDestinationTypeLangsmith` | langsmith                                        |

@@ -1,0 +1,18 @@
+# FileMetadataType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.FileMetadataTypeFile
+```
+
+
+## Values
+
+| Name                   | Value                  |
+| ---------------------- | ---------------------- |
+| `FileMetadataTypeFile` | file                   |

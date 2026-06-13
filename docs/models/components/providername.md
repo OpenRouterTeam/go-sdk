@@ -40,10 +40,14 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameClarifai`        | Clarifai                      |
 | `ProviderNameCloudflare`      | Cloudflare                    |
 | `ProviderNameCohere`          | Cohere                        |
+| `ProviderNameCrucible`        | Crucible                      |
 | `ProviderNameCrusoe`          | Crusoe                        |
+| `ProviderNameDarkbloom`       | Darkbloom                     |
+| `ProviderNameDecart`          | Decart                        |
 | `ProviderNameDeepInfra`       | DeepInfra                     |
 | `ProviderNameDeepSeek`        | DeepSeek                      |
 | `ProviderNameDekaLlm`         | DekaLLM                       |
+| `ProviderNameDigitalOcean`    | DigitalOcean                  |
 | `ProviderNameFeatherless`     | Featherless                   |
 | `ProviderNameFireworks`       | Fireworks                     |
 | `ProviderNameFriendli`        | Friendli                      |
@@ -51,7 +55,6 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameGoogle`          | Google                        |
 | `ProviderNameGoogleAiStudio`  | Google AI Studio              |
 | `ProviderNameGroq`            | Groq                          |
-| `ProviderNameHyperbolic`      | Hyperbolic                    |
 | `ProviderNameInception`       | Inception                     |
 | `ProviderNameInceptron`       | Inceptron                     |
 | `ProviderNameInferenceNet`    | InferenceNet                  |
@@ -70,12 +73,15 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameMorph`           | Morph                         |
 | `ProviderNameNCompass`        | NCompass                      |
 | `ProviderNameNebius`          | Nebius                        |
+| `ProviderNameNexAgi`          | Nex AGI                       |
 | `ProviderNameNextBit`         | NextBit                       |
 | `ProviderNameNovita`          | Novita                        |
 | `ProviderNameNvidia`          | Nvidia                        |
 | `ProviderNameOpenAi`          | OpenAI                        |
 | `ProviderNameOpenInference`   | OpenInference                 |
 | `ProviderNameParasail`        | Parasail                      |
+| `ProviderNamePoolside`        | Poolside                      |
+| `ProviderNamePerceptron`      | Perceptron                    |
 | `ProviderNamePerplexity`      | Perplexity                    |
 | `ProviderNamePhala`           | Phala                         |
 | `ProviderNameRecraft`         | Recraft                       |
@@ -92,6 +98,7 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameTogether`        | Together                      |
 | `ProviderNameUpstage`         | Upstage                       |
 | `ProviderNameVenice`          | Venice                        |
+| `ProviderNameWafer`           | Wafer                         |
 | `ProviderNameWandB`           | WandB                         |
 | `ProviderNameXiaomi`          | Xiaomi                        |
 | `ProviderNameXAi`             | xAI                           |
