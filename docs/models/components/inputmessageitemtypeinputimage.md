@@ -1,0 +1,18 @@
+# InputMessageItemTypeInputImage
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.InputMessageItemTypeInputImageInputImage
+```
+
+
+## Values
+
+| Name                                       | Value                                      |
+| ------------------------------------------ | ------------------------------------------ |
+| `InputMessageItemTypeInputImageInputImage` | input_image                                |

@@ -14,7 +14,9 @@ const (
 	APITypeEmbeddings  APIType = "embeddings"
 	APITypeRerank      APIType = "rerank"
 	APITypeTts         APIType = "tts"
+	APITypeStt         APIType = "stt"
 	APITypeVideo       APIType = "video"
+	APITypeImage       APIType = "image"
 )
 
 func (e APIType) ToPointer() *APIType {
@@ -25,7 +27,30 @@ func (e APIType) ToPointer() *APIType {
 func (e *APIType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "completions", "embeddings", "rerank", "tts", "video":
+		case "completions", "embeddings", "rerank", "tts", "stt", "video", "image":
+			return true
+		}
+	}
+	return false
+}
+
+// DataRegion - The data region this generation was routed through. 'europe' for EU-routed requests, 'global' otherwise.
+type DataRegion string
+
+const (
+	DataRegionGlobal DataRegion = "global"
+	DataRegionEurope DataRegion = "europe"
+)
+
+func (e DataRegion) ToPointer() *DataRegion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DataRegion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "global", "europe":
 			return true
 		}
 	}
@@ -44,6 +69,8 @@ type GenerationResponseData struct {
 	Cancelled *bool `json:"cancelled"`
 	// ISO 8601 timestamp of when the generation was created
 	CreatedAt string `json:"created_at"`
+	// The data region this generation was routed through. 'europe' for EU-routed requests, 'global' otherwise.
+	DataRegion DataRegion `json:"data_region"`
 	// External user identifier
 	ExternalUser *string `json:"external_user"`
 	// Reason the generation finished
@@ -74,6 +101,8 @@ type GenerationResponseData struct {
 	NativeTokensPrompt *int64 `json:"native_tokens_prompt"`
 	// Native reasoning tokens as reported by provider
 	NativeTokensReasoning *int64 `json:"native_tokens_reasoning"`
+	// Number of web fetches performed
+	NumFetches *int64 `json:"num_fetches"`
 	// Number of audio inputs in the prompt
 	NumInputAudioPrompt *int64 `json:"num_input_audio_prompt"`
 	// Number of media items in the completion
@@ -84,14 +113,20 @@ type GenerationResponseData struct {
 	NumSearchResults *int64 `json:"num_search_results"`
 	// Origin URL of the request
 	Origin string `json:"origin"`
+	// ID of the preset used for this generation, null if no preset was used
+	PresetID *string `json:"preset_id"`
 	// Name of the provider that served the request
 	ProviderName *string `json:"provider_name"`
 	// List of provider responses for this generation, including fallback attempts
 	ProviderResponses []ProviderResponse `json:"provider_responses"`
 	// Unique identifier grouping all generations from a single API request
 	RequestID optionalnullable.OptionalNullable[string] `json:"request_id,omitzero"`
+	// If this generation was served from response cache, contains the original generation ID. Null otherwise.
+	ResponseCacheSourceID optionalnullable.OptionalNullable[string] `json:"response_cache_source_id,omitzero"`
 	// Router used for the request (e.g., openrouter/auto)
 	Router *string `json:"router"`
+	// Service tier the upstream provider reported running this request on, or null if it did not report one.
+	ServiceTier *string `json:"service_tier"`
 	// Session identifier grouping multiple generations in the same session
 	SessionID optionalnullable.OptionalNullable[string] `json:"session_id,omitzero"`
 	// Whether the response was streamed
@@ -147,6 +182,13 @@ func (g *GenerationResponseData) GetCreatedAt() string {
 		return ""
 	}
 	return g.CreatedAt
+}
+
+func (g *GenerationResponseData) GetDataRegion() DataRegion {
+	if g == nil {
+		return DataRegion("")
+	}
+	return g.DataRegion
 }
 
 func (g *GenerationResponseData) GetExternalUser() *string {
@@ -254,6 +296,13 @@ func (g *GenerationResponseData) GetNativeTokensReasoning() *int64 {
 	return g.NativeTokensReasoning
 }
 
+func (g *GenerationResponseData) GetNumFetches() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.NumFetches
+}
+
 func (g *GenerationResponseData) GetNumInputAudioPrompt() *int64 {
 	if g == nil {
 		return nil
@@ -289,6 +338,13 @@ func (g *GenerationResponseData) GetOrigin() string {
 	return g.Origin
 }
 
+func (g *GenerationResponseData) GetPresetID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.PresetID
+}
+
 func (g *GenerationResponseData) GetProviderName() *string {
 	if g == nil {
 		return nil
@@ -310,11 +366,25 @@ func (g *GenerationResponseData) GetRequestID() optionalnullable.OptionalNullabl
 	return g.RequestID
 }
 
+func (g *GenerationResponseData) GetResponseCacheSourceID() optionalnullable.OptionalNullable[string] {
+	if g == nil {
+		return nil
+	}
+	return g.ResponseCacheSourceID
+}
+
 func (g *GenerationResponseData) GetRouter() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Router
+}
+
+func (g *GenerationResponseData) GetServiceTier() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ServiceTier
 }
 
 func (g *GenerationResponseData) GetSessionID() optionalnullable.OptionalNullable[string] {

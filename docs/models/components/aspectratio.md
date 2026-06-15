@@ -25,5 +25,7 @@ custom := components.AspectRatio("custom_value")
 | `AspectRatioEleven`                  | 1:1                                  |
 | `AspectRatioFortyThree`              | 4:3                                  |
 | `AspectRatioThirtyFour`              | 3:4                                  |
+| `AspectRatioThirtyTwo`               | 3:2                                  |
+| `AspectRatioTwentyThree`             | 2:3                                  |
 | `AspectRatioTwoHundredAndNineteen`   | 21:9                                 |
 | `AspectRatioNineHundredAndTwentyOne` | 9:21                                 |

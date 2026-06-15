@@ -62,32 +62,32 @@ func (o *OutputLogs) GetType() TypeLogs {
 	return o.Type
 }
 
-type TypeImage string
+type OutputCodeInterpreterCallItemTypeImage string
 
 const (
-	TypeImageImage TypeImage = "image"
+	OutputCodeInterpreterCallItemTypeImageImage OutputCodeInterpreterCallItemTypeImage = "image"
 )
 
-func (e TypeImage) ToPointer() *TypeImage {
+func (e OutputCodeInterpreterCallItemTypeImage) ToPointer() *OutputCodeInterpreterCallItemTypeImage {
 	return &e
 }
-func (e *TypeImage) UnmarshalJSON(data []byte) error {
+func (e *OutputCodeInterpreterCallItemTypeImage) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "image":
-		*e = TypeImage(v)
+		*e = OutputCodeInterpreterCallItemTypeImage(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeImage: %v", v)
+		return fmt.Errorf("invalid value for OutputCodeInterpreterCallItemTypeImage: %v", v)
 	}
 }
 
 type OutputImage struct {
-	Type TypeImage `json:"type"`
-	URL  string    `json:"url"`
+	Type OutputCodeInterpreterCallItemTypeImage `json:"type"`
+	URL  string                                 `json:"url"`
 }
 
 func (o OutputImage) MarshalJSON() ([]byte, error) {
@@ -101,9 +101,9 @@ func (o *OutputImage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputImage) GetType() TypeImage {
+func (o *OutputImage) GetType() OutputCodeInterpreterCallItemTypeImage {
 	if o == nil {
-		return TypeImage("")
+		return OutputCodeInterpreterCallItemTypeImage("")
 	}
 	return o.Type
 }
@@ -134,7 +134,7 @@ type OutputCodeInterpreterCallItemOutputUnion struct {
 func CreateOutputCodeInterpreterCallItemOutputUnionImage(image OutputImage) OutputCodeInterpreterCallItemOutputUnion {
 	typ := OutputCodeInterpreterCallItemOutputUnionTypeImage
 
-	typStr := TypeImage(typ)
+	typStr := OutputCodeInterpreterCallItemTypeImage(typ)
 	image.Type = typStr
 
 	return OutputCodeInterpreterCallItemOutputUnion{

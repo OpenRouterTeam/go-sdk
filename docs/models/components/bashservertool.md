@@ -1,0 +1,11 @@
+# BashServerTool
+
+OpenRouter built-in server tool: runs shell commands server-side in a sandboxed container
+
+
+## Fields
+
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         | Example                                                                             |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `Parameters`                                                                        | [*components.BashServerToolConfig](../../models/components/bashservertoolconfig.md) | :heavy_minus_sign:                                                                  | Configuration for the openrouter:bash server tool                                   | {<br/>"environment": {<br/>"type": "container_auto"<br/>}<br/>}                     |
+| `Type`                                                                              | [components.BashServerToolType](../../models/components/bashservertooltype.md)      | :heavy_check_mark:                                                                  | N/A                                                                                 |                                                                                     |

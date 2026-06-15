@@ -29,6 +29,12 @@ chatToolChoice := components.CreateChatToolChoiceChatToolChoiceRequired(componen
 chatToolChoice := components.CreateChatToolChoiceChatNamedToolChoice(components.ChatNamedToolChoice{/* values here */})
 ```
 
+### ChatServerToolChoice
+
+```go
+chatToolChoice := components.CreateChatToolChoiceChatServerToolChoice(components.ChatServerToolChoice{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -43,5 +49,7 @@ switch chatToolChoice.Type {
 		// chatToolChoice.ChatToolChoiceRequired is populated
 	case components.ChatToolChoiceTypeChatNamedToolChoice:
 		// chatToolChoice.ChatNamedToolChoice is populated
+	case components.ChatToolChoiceTypeChatServerToolChoice:
+		// chatToolChoice.ChatServerToolChoice is populated
 }
 ```

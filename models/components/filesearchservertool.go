@@ -36,39 +36,39 @@ func (e *FiltersType) IsExact() bool {
 	return false
 }
 
-type Value1Type string
+type FileSearchServerToolValue1Type string
 
 const (
-	Value1TypeStr    Value1Type = "str"
-	Value1TypeNumber Value1Type = "number"
+	FileSearchServerToolValue1TypeStr    FileSearchServerToolValue1Type = "str"
+	FileSearchServerToolValue1TypeNumber FileSearchServerToolValue1Type = "number"
 )
 
-type Value1 struct {
+type FileSearchServerToolValue1 struct {
 	Str    *string  `queryParam:"inline" union:"member"`
 	Number *float64 `queryParam:"inline" union:"member"`
 
-	Type Value1Type
+	Type FileSearchServerToolValue1Type
 }
 
-func CreateValue1Str(str string) Value1 {
-	typ := Value1TypeStr
+func CreateFileSearchServerToolValue1Str(str string) FileSearchServerToolValue1 {
+	typ := FileSearchServerToolValue1TypeStr
 
-	return Value1{
+	return FileSearchServerToolValue1{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func CreateValue1Number(number float64) Value1 {
-	typ := Value1TypeNumber
+func CreateFileSearchServerToolValue1Number(number float64) FileSearchServerToolValue1 {
+	typ := FileSearchServerToolValue1TypeNumber
 
-	return Value1{
+	return FileSearchServerToolValue1{
 		Number: &number,
 		Type:   typ,
 	}
 }
 
-func (u *Value1) UnmarshalJSON(data []byte) error {
+func (u *FileSearchServerToolValue1) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -76,7 +76,7 @@ func (u *Value1) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  Value1TypeStr,
+			Type:  FileSearchServerToolValue1TypeStr,
 			Value: &str,
 		})
 	}
@@ -84,36 +84,36 @@ func (u *Value1) UnmarshalJSON(data []byte) error {
 	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  Value1TypeNumber,
+			Type:  FileSearchServerToolValue1TypeNumber,
 			Value: &number,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value1", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FileSearchServerToolValue1", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value1", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FileSearchServerToolValue1", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(Value1Type)
+	u.Type = best.Type.(FileSearchServerToolValue1Type)
 	switch best.Type {
-	case Value1TypeStr:
+	case FileSearchServerToolValue1TypeStr:
 		u.Str = best.Value.(*string)
 		return nil
-	case Value1TypeNumber:
+	case FileSearchServerToolValue1TypeNumber:
 		u.Number = best.Value.(*float64)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value1", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FileSearchServerToolValue1", string(data))
 }
 
-func (u Value1) MarshalJSON() ([]byte, error) {
+func (u FileSearchServerToolValue1) MarshalJSON() ([]byte, error) {
 	if u.Str != nil {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
@@ -122,64 +122,64 @@ func (u Value1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Number, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Value1: all fields are null")
+	return nil, errors.New("could not marshal union type FileSearchServerToolValue1: all fields are null")
 }
 
-type Value2Type string
+type FileSearchServerToolValue2Type string
 
 const (
-	Value2TypeStr           Value2Type = "str"
-	Value2TypeNumber        Value2Type = "number"
-	Value2TypeBoolean       Value2Type = "boolean"
-	Value2TypeArrayOfValue1 Value2Type = "arrayOfValue1"
+	FileSearchServerToolValue2TypeStr                               FileSearchServerToolValue2Type = "str"
+	FileSearchServerToolValue2TypeNumber                            FileSearchServerToolValue2Type = "number"
+	FileSearchServerToolValue2TypeBoolean                           FileSearchServerToolValue2Type = "boolean"
+	FileSearchServerToolValue2TypeArrayOfFileSearchServerToolValue1 FileSearchServerToolValue2Type = "arrayOfFileSearchServerToolValue1"
 )
 
-type Value2 struct {
-	Str           *string  `queryParam:"inline" union:"member"`
-	Number        *float64 `queryParam:"inline" union:"member"`
-	Boolean       *bool    `queryParam:"inline" union:"member"`
-	ArrayOfValue1 []Value1 `queryParam:"inline" union:"member"`
+type FileSearchServerToolValue2 struct {
+	Str                               *string                      `queryParam:"inline" union:"member"`
+	Number                            *float64                     `queryParam:"inline" union:"member"`
+	Boolean                           *bool                        `queryParam:"inline" union:"member"`
+	ArrayOfFileSearchServerToolValue1 []FileSearchServerToolValue1 `queryParam:"inline" union:"member"`
 
-	Type Value2Type
+	Type FileSearchServerToolValue2Type
 }
 
-func CreateValue2Str(str string) Value2 {
-	typ := Value2TypeStr
+func CreateFileSearchServerToolValue2Str(str string) FileSearchServerToolValue2 {
+	typ := FileSearchServerToolValue2TypeStr
 
-	return Value2{
+	return FileSearchServerToolValue2{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func CreateValue2Number(number float64) Value2 {
-	typ := Value2TypeNumber
+func CreateFileSearchServerToolValue2Number(number float64) FileSearchServerToolValue2 {
+	typ := FileSearchServerToolValue2TypeNumber
 
-	return Value2{
+	return FileSearchServerToolValue2{
 		Number: &number,
 		Type:   typ,
 	}
 }
 
-func CreateValue2Boolean(boolean bool) Value2 {
-	typ := Value2TypeBoolean
+func CreateFileSearchServerToolValue2Boolean(boolean bool) FileSearchServerToolValue2 {
+	typ := FileSearchServerToolValue2TypeBoolean
 
-	return Value2{
+	return FileSearchServerToolValue2{
 		Boolean: &boolean,
 		Type:    typ,
 	}
 }
 
-func CreateValue2ArrayOfValue1(arrayOfValue1 []Value1) Value2 {
-	typ := Value2TypeArrayOfValue1
+func CreateFileSearchServerToolValue2ArrayOfFileSearchServerToolValue1(arrayOfFileSearchServerToolValue1 []FileSearchServerToolValue1) FileSearchServerToolValue2 {
+	typ := FileSearchServerToolValue2TypeArrayOfFileSearchServerToolValue1
 
-	return Value2{
-		ArrayOfValue1: arrayOfValue1,
-		Type:          typ,
+	return FileSearchServerToolValue2{
+		ArrayOfFileSearchServerToolValue1: arrayOfFileSearchServerToolValue1,
+		Type:                              typ,
 	}
 }
 
-func (u *Value2) UnmarshalJSON(data []byte) error {
+func (u *FileSearchServerToolValue2) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -187,7 +187,7 @@ func (u *Value2) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  Value2TypeStr,
+			Type:  FileSearchServerToolValue2TypeStr,
 			Value: &str,
 		})
 	}
@@ -195,7 +195,7 @@ func (u *Value2) UnmarshalJSON(data []byte) error {
 	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  Value2TypeNumber,
+			Type:  FileSearchServerToolValue2TypeNumber,
 			Value: &number,
 		})
 	}
@@ -203,50 +203,50 @@ func (u *Value2) UnmarshalJSON(data []byte) error {
 	var boolean bool = false
 	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  Value2TypeBoolean,
+			Type:  FileSearchServerToolValue2TypeBoolean,
 			Value: &boolean,
 		})
 	}
 
-	var arrayOfValue1 []Value1 = []Value1{}
-	if err := utils.UnmarshalJSON(data, &arrayOfValue1, "", true, nil); err == nil {
+	var arrayOfFileSearchServerToolValue1 []FileSearchServerToolValue1 = []FileSearchServerToolValue1{}
+	if err := utils.UnmarshalJSON(data, &arrayOfFileSearchServerToolValue1, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  Value2TypeArrayOfValue1,
-			Value: arrayOfValue1,
+			Type:  FileSearchServerToolValue2TypeArrayOfFileSearchServerToolValue1,
+			Value: arrayOfFileSearchServerToolValue1,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value2", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FileSearchServerToolValue2", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value2", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FileSearchServerToolValue2", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(Value2Type)
+	u.Type = best.Type.(FileSearchServerToolValue2Type)
 	switch best.Type {
-	case Value2TypeStr:
+	case FileSearchServerToolValue2TypeStr:
 		u.Str = best.Value.(*string)
 		return nil
-	case Value2TypeNumber:
+	case FileSearchServerToolValue2TypeNumber:
 		u.Number = best.Value.(*float64)
 		return nil
-	case Value2TypeBoolean:
+	case FileSearchServerToolValue2TypeBoolean:
 		u.Boolean = best.Value.(*bool)
 		return nil
-	case Value2TypeArrayOfValue1:
-		u.ArrayOfValue1 = best.Value.([]Value1)
+	case FileSearchServerToolValue2TypeArrayOfFileSearchServerToolValue1:
+		u.ArrayOfFileSearchServerToolValue1 = best.Value.([]FileSearchServerToolValue1)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Value2", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FileSearchServerToolValue2", string(data))
 }
 
-func (u Value2) MarshalJSON() ([]byte, error) {
+func (u FileSearchServerToolValue2) MarshalJSON() ([]byte, error) {
 	if u.Str != nil {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
@@ -259,17 +259,17 @@ func (u Value2) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Boolean, "", true)
 	}
 
-	if u.ArrayOfValue1 != nil {
-		return utils.MarshalJSON(u.ArrayOfValue1, "", true)
+	if u.ArrayOfFileSearchServerToolValue1 != nil {
+		return utils.MarshalJSON(u.ArrayOfFileSearchServerToolValue1, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Value2: all fields are null")
+	return nil, errors.New("could not marshal union type FileSearchServerToolValue2: all fields are null")
 }
 
 type Filters struct {
-	Key   string      `json:"key"`
-	Type  FiltersType `json:"type"`
-	Value Value2      `json:"value"`
+	Key   string                     `json:"key"`
+	Type  FiltersType                `json:"type"`
+	Value FileSearchServerToolValue2 `json:"value"`
 }
 
 func (f Filters) MarshalJSON() ([]byte, error) {
@@ -297,9 +297,9 @@ func (f *Filters) GetType() FiltersType {
 	return f.Type
 }
 
-func (f *Filters) GetValue() Value2 {
+func (f *Filters) GetValue() FileSearchServerToolValue2 {
 	if f == nil {
-		return Value2{}
+		return FileSearchServerToolValue2{}
 	}
 	return f.Value
 }

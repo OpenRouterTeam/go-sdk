@@ -1,0 +1,18 @@
+# TypeTokens
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeTokensTokens
+```
+
+
+## Values
+
+| Name               | Value              |
+| ------------------ | ------------------ |
+| `TypeTokensTokens` | tokens             |

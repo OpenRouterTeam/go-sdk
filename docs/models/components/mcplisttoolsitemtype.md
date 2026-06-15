@@ -1,0 +1,18 @@
+# McpListToolsItemType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.McpListToolsItemTypeMcpListTools
+```
+
+
+## Values
+
+| Name                               | Value                              |
+| ---------------------------------- | ---------------------------------- |
+| `McpListToolsItemTypeMcpListTools` | mcp_list_tools                     |

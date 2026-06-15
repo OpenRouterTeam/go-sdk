@@ -2,7 +2,7 @@
 
 package openrouter
 
-// Generated from OpenAPI doc version 1.0.0 and generator version 2.879.6
+// Generated from OpenAPI doc version 1.0.0 and generator version 2.904.2
 
 import (
 	"context"
@@ -60,17 +60,26 @@ type OpenRouter struct {
 	SDKVersion string
 	// Analytics and usage endpoints
 	Analytics *Analytics
+	Beta      *Beta
 	// Text-to-speech endpoints
 	Tts *Tts
+	// Speech-to-text endpoints
+	Stt *Stt
 	// OAuth authentication endpoints
 	OAuth *OAuth
-	Chat  *Chat
+	// BYOK endpoints
+	Byok *Byok
+	Chat *Chat
 	// Credit management endpoints
 	Credits *Credits
+	// Datasets endpoints
+	Datasets *Datasets
 	// Text embedding endpoints
 	Embeddings *Embeddings
 	// Endpoint information
 	Endpoints *Endpoints
+	// Files endpoints
+	Files *Files
 	// Generation history endpoints
 	Generations *Generations
 	// Guardrails endpoints
@@ -79,13 +88,16 @@ type OpenRouter struct {
 	APIKeys *APIKeys
 	// Model information endpoints
 	Models *Models
+	// Observability endpoints
+	Observability *Observability
 	// Organization endpoints
 	Organization *Organization
+	// Presets endpoints
+	Presets *Presets
 	// Provider information endpoints
 	Providers *Providers
 	// Rerank endpoints
 	Rerank *Rerank
-	Beta   *Beta
 	// Video Generation endpoints
 	VideoGeneration *VideoGeneration
 	// Workspaces endpoints
@@ -181,9 +193,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.4.1",
+		SDKVersion: "0.5.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.4.1 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.5.0 2.904.2 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -210,20 +222,26 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.Analytics = newAnalytics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Beta = newBeta(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Tts = newTts(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Stt = newStt(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Byok = newByok(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Datasets = newDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Endpoints = newEndpoints(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Files = newFiles(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Observability = newObservability(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Organization = newOrganization(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Presets = newPresets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Providers = newProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Rerank = newRerank(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Beta = newBeta(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.VideoGeneration = newVideoGeneration(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Workspaces = newWorkspaces(sdk, sdk.sdkConfiguration, sdk.hooks)
 

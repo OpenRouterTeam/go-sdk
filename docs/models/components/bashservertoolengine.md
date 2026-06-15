@@ -1,0 +1,25 @@
+# BashServerToolEngine
+
+Which bash engine to use. "openrouter" runs commands server-side in the OpenRouter sandbox. "auto" (default) and "native" use native passthrough, returning the tool call to your application to run client-side; OpenRouter does not execute the commands.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.BashServerToolEngineAuto
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.BashServerToolEngine("custom_value")
+```
+
+
+## Values
+
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `BashServerToolEngineAuto`       | auto                             |
+| `BashServerToolEngineNative`     | native                           |
+| `BashServerToolEngineOpenrouter` | openrouter                       |

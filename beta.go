@@ -8,6 +8,8 @@ import (
 )
 
 type Beta struct {
+	// beta.Analytics endpoints
+	Analytics *BetaAnalytics
 	// beta.responses endpoints
 	Responses *Responses
 
@@ -21,6 +23,7 @@ func newBeta(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hook
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
+		Analytics:        newBetaAnalytics(rootSDK, sdkConfig, hooks),
 		Responses:        newResponses(rootSDK, sdkConfig, hooks),
 	}
 }

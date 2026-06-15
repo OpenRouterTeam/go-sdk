@@ -10,8 +10,9 @@ import (
 // EdgeNetworkTimeoutResponseError - Infrastructure Timeout - Provider request timed out at edge network
 type EdgeNetworkTimeoutResponseError struct {
 	// Error data for EdgeNetworkTimeoutResponse
-	Error_ components.EdgeNetworkTimeoutResponseErrorData `json:"error"`
-	UserID *string                                        `json:"user_id,omitzero"`
+	Error_             components.EdgeNetworkTimeoutResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                                 `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                        `json:"user_id,omitzero"`
 }
 
 var _ error = &EdgeNetworkTimeoutResponseError{}

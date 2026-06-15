@@ -252,35 +252,35 @@ func (u Format) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Format: all fields are null")
 }
 
-type TypeCustom string
+type CustomToolTypeCustom string
 
 const (
-	TypeCustomCustom TypeCustom = "custom"
+	CustomToolTypeCustomCustom CustomToolTypeCustom = "custom"
 )
 
-func (e TypeCustom) ToPointer() *TypeCustom {
+func (e CustomToolTypeCustom) ToPointer() *CustomToolTypeCustom {
 	return &e
 }
-func (e *TypeCustom) UnmarshalJSON(data []byte) error {
+func (e *CustomToolTypeCustom) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "custom":
-		*e = TypeCustom(v)
+		*e = CustomToolTypeCustom(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeCustom: %v", v)
+		return fmt.Errorf("invalid value for CustomToolTypeCustom: %v", v)
 	}
 }
 
 // CustomTool - Custom tool configuration
 type CustomTool struct {
-	Description *string    `json:"description,omitzero"`
-	Format      *Format    `json:"format,omitzero"`
-	Name        string     `json:"name"`
-	Type        TypeCustom `json:"type"`
+	Description *string              `json:"description,omitzero"`
+	Format      *Format              `json:"format,omitzero"`
+	Name        string               `json:"name"`
+	Type        CustomToolTypeCustom `json:"type"`
 }
 
 func (c CustomTool) MarshalJSON() ([]byte, error) {
@@ -329,9 +329,9 @@ func (c *CustomTool) GetName() string {
 	return c.Name
 }
 
-func (c *CustomTool) GetType() TypeCustom {
+func (c *CustomTool) GetType() CustomToolTypeCustom {
 	if c == nil {
-		return TypeCustom("")
+		return CustomToolTypeCustom("")
 	}
 	return c.Type
 }

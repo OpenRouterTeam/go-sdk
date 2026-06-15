@@ -1,0 +1,18 @@
+# MessagesAdvisorToolResultBlockType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.MessagesAdvisorToolResultBlockTypeAdvisorToolResult
+```
+
+
+## Values
+
+| Name                                                  | Value                                                 |
+| ----------------------------------------------------- | ----------------------------------------------------- |
+| `MessagesAdvisorToolResultBlockTypeAdvisorToolResult` | advisor_tool_result                                   |

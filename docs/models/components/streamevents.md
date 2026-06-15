@@ -11,6 +11,18 @@ Union of all possible event types emitted during response streaming
 streamEvents := components.CreateStreamEventsError(components.ErrorEvent{/* values here */})
 ```
 
+### ApplyPatchCallOperationDiffDeltaEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseApplyPatchCallOperationDiffDelta(components.ApplyPatchCallOperationDiffDeltaEvent{/* values here */})
+```
+
+### ApplyPatchCallOperationDiffDoneEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseApplyPatchCallOperationDiffDone(components.ApplyPatchCallOperationDiffDoneEvent{/* values here */})
+```
+
 ### StreamEventsResponseCompleted
 
 ```go
@@ -35,6 +47,18 @@ streamEvents := components.CreateStreamEventsResponseContentPartDone(components.
 streamEvents := components.CreateStreamEventsResponseCreated(components.OpenResponsesCreatedEvent{/* values here */})
 ```
 
+### CustomToolCallInputDeltaEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseCustomToolCallInputDelta(components.CustomToolCallInputDeltaEvent{/* values here */})
+```
+
+### CustomToolCallInputDoneEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseCustomToolCallInputDone(components.CustomToolCallInputDoneEvent{/* values here */})
+```
+
 ### StreamEventsResponseFailed
 
 ```go
@@ -51,6 +75,60 @@ streamEvents := components.CreateStreamEventsResponseFunctionCallArgumentsDelta(
 
 ```go
 streamEvents := components.CreateStreamEventsResponseFunctionCallArgumentsDone(components.FunctionCallArgsDoneEvent{/* values here */})
+```
+
+### FusionCallAnalysisCompletedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallAnalysisCompleted(components.FusionCallAnalysisCompletedEvent{/* values here */})
+```
+
+### FusionCallAnalysisInProgressEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallAnalysisInProgress(components.FusionCallAnalysisInProgressEvent{/* values here */})
+```
+
+### FusionCallCompletedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallCompleted(components.FusionCallCompletedEvent{/* values here */})
+```
+
+### FusionCallInProgressEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallInProgress(components.FusionCallInProgressEvent{/* values here */})
+```
+
+### FusionCallPanelAddedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallPanelAdded(components.FusionCallPanelAddedEvent{/* values here */})
+```
+
+### FusionCallPanelCompletedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallPanelCompleted(components.FusionCallPanelCompletedEvent{/* values here */})
+```
+
+### FusionCallPanelDeltaEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallPanelDelta(components.FusionCallPanelDeltaEvent{/* values here */})
+```
+
+### FusionCallPanelFailedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallPanelFailed(components.FusionCallPanelFailedEvent{/* values here */})
+```
+
+### FusionCallPanelReasoningDeltaEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseFusionCallPanelReasoningDelta(components.FusionCallPanelReasoningDeltaEvent{/* values here */})
 ```
 
 ### ImageGenCallCompletedEvent
@@ -193,6 +271,10 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch streamEvents.Type {
 	case components.StreamEventsTypeError:
 		// streamEvents.ErrorEvent is populated
+	case components.StreamEventsTypeResponseApplyPatchCallOperationDiffDelta:
+		// streamEvents.ApplyPatchCallOperationDiffDeltaEvent is populated
+	case components.StreamEventsTypeResponseApplyPatchCallOperationDiffDone:
+		// streamEvents.ApplyPatchCallOperationDiffDoneEvent is populated
 	case components.StreamEventsTypeResponseCompleted:
 		// streamEvents.StreamEventsResponseCompleted is populated
 	case components.StreamEventsTypeResponseContentPartAdded:
@@ -201,12 +283,34 @@ switch streamEvents.Type {
 		// streamEvents.ContentPartDoneEvent is populated
 	case components.StreamEventsTypeResponseCreated:
 		// streamEvents.OpenResponsesCreatedEvent is populated
+	case components.StreamEventsTypeResponseCustomToolCallInputDelta:
+		// streamEvents.CustomToolCallInputDeltaEvent is populated
+	case components.StreamEventsTypeResponseCustomToolCallInputDone:
+		// streamEvents.CustomToolCallInputDoneEvent is populated
 	case components.StreamEventsTypeResponseFailed:
 		// streamEvents.StreamEventsResponseFailed is populated
 	case components.StreamEventsTypeResponseFunctionCallArgumentsDelta:
 		// streamEvents.FunctionCallArgsDeltaEvent is populated
 	case components.StreamEventsTypeResponseFunctionCallArgumentsDone:
 		// streamEvents.FunctionCallArgsDoneEvent is populated
+	case components.StreamEventsTypeResponseFusionCallAnalysisCompleted:
+		// streamEvents.FusionCallAnalysisCompletedEvent is populated
+	case components.StreamEventsTypeResponseFusionCallAnalysisInProgress:
+		// streamEvents.FusionCallAnalysisInProgressEvent is populated
+	case components.StreamEventsTypeResponseFusionCallCompleted:
+		// streamEvents.FusionCallCompletedEvent is populated
+	case components.StreamEventsTypeResponseFusionCallInProgress:
+		// streamEvents.FusionCallInProgressEvent is populated
+	case components.StreamEventsTypeResponseFusionCallPanelAdded:
+		// streamEvents.FusionCallPanelAddedEvent is populated
+	case components.StreamEventsTypeResponseFusionCallPanelCompleted:
+		// streamEvents.FusionCallPanelCompletedEvent is populated
+	case components.StreamEventsTypeResponseFusionCallPanelDelta:
+		// streamEvents.FusionCallPanelDeltaEvent is populated
+	case components.StreamEventsTypeResponseFusionCallPanelFailed:
+		// streamEvents.FusionCallPanelFailedEvent is populated
+	case components.StreamEventsTypeResponseFusionCallPanelReasoningDelta:
+		// streamEvents.FusionCallPanelReasoningDeltaEvent is populated
 	case components.StreamEventsTypeResponseImageGenerationCallCompleted:
 		// streamEvents.ImageGenCallCompletedEvent is populated
 	case components.StreamEventsTypeResponseImageGenerationCallGenerating:

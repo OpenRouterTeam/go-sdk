@@ -1,0 +1,18 @@
+# ObservabilityRampDestinationType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ObservabilityRampDestinationTypeRamp
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `ObservabilityRampDestinationTypeRamp` | ramp                                   |

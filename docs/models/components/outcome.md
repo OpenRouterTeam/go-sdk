@@ -1,0 +1,31 @@
+# Outcome
+
+
+## Supported Types
+
+### OutcomeExit
+
+```go
+outcome := components.CreateOutcomeExit(components.OutcomeExit{/* values here */})
+```
+
+### OutcomeTimeout
+
+```go
+outcome := components.CreateOutcomeTimeoutObj(components.OutcomeTimeout{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch outcome.Type {
+	case components.OutcomeTypeExit:
+		// outcome.OutcomeExit is populated
+	case components.OutcomeTypeTimeoutObj:
+		// outcome.OutcomeTimeout is populated
+	default:
+		// Unknown type - use outcome.GetUnknownRaw() for raw JSON
+}
+```

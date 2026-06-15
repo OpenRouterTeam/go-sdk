@@ -1,0 +1,24 @@
+# ApplyPatchCallStatus
+
+Lifecycle state of an `apply_patch_call` output item.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ApplyPatchCallStatusInProgress
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ApplyPatchCallStatus("custom_value")
+```
+
+
+## Values
+
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `ApplyPatchCallStatusInProgress` | in_progress                      |
+| `ApplyPatchCallStatusCompleted`  | completed                        |

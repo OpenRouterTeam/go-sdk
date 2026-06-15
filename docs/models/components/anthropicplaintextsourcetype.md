@@ -1,0 +1,18 @@
+# AnthropicPlainTextSourceType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicPlainTextSourceTypeText
+```
+
+
+## Values
+
+| Name                               | Value                              |
+| ---------------------------------- | ---------------------------------- |
+| `AnthropicPlainTextSourceTypeText` | text                               |

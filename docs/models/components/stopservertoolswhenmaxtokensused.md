@@ -1,0 +1,11 @@
+# StopServerToolsWhenMaxTokensUsed
+
+Stop once cumulative token usage across the loop exceeds this threshold.
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `MaxTokens`                                                                                                        | `int64`                                                                                                            | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
+| `Type`                                                                                                             | [components.StopServerToolsWhenMaxTokensUsedType](../../models/components/stopservertoolswhenmaxtokensusedtype.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |

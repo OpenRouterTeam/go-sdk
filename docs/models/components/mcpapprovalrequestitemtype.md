@@ -1,0 +1,18 @@
+# McpApprovalRequestItemType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.McpApprovalRequestItemTypeMcpApprovalRequest
+```
+
+
+## Values
+
+| Name                                           | Value                                          |
+| ---------------------------------------------- | ---------------------------------------------- |
+| `McpApprovalRequestItemTypeMcpApprovalRequest` | mcp_approval_request                           |

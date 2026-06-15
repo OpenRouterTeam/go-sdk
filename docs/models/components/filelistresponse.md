@@ -1,0 +1,14 @@
+# FileListResponse
+
+A page of files belonging to the requesting workspace.
+
+
+## Fields
+
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `Cursor`                                                              | `*string`                                                             | :heavy_check_mark:                                                    | Opaque cursor for the next page; null when there are no more results. |
+| `Data`                                                                | [][components.FileMetadata](../../models/components/filemetadata.md)  | :heavy_check_mark:                                                    | N/A                                                                   |
+| `FirstID`                                                             | `*string`                                                             | :heavy_check_mark:                                                    | N/A                                                                   |
+| `HasMore`                                                             | `bool`                                                                | :heavy_check_mark:                                                    | N/A                                                                   |
+| `LastID`                                                              | `*string`                                                             | :heavy_check_mark:                                                    | N/A                                                                   |

@@ -65,8 +65,9 @@ type ChatStreamChunk struct {
 	// Unique chunk identifier
 	ID string `json:"id"`
 	// Model used for completion
-	Model  string                `json:"model"`
-	Object ChatStreamChunkObject `json:"object"`
+	Model              string                `json:"model"`
+	Object             ChatStreamChunkObject `json:"object"`
+	OpenrouterMetadata *OpenRouterMetadata   `json:"openrouter_metadata,omitzero"`
 	// The service tier used by the upstream provider for this request
 	ServiceTier optionalnullable.OptionalNullable[string] `json:"service_tier,omitzero"`
 	// System fingerprint
@@ -126,6 +127,13 @@ func (c *ChatStreamChunk) GetObject() ChatStreamChunkObject {
 		return ChatStreamChunkObject("")
 	}
 	return c.Object
+}
+
+func (c *ChatStreamChunk) GetOpenrouterMetadata() *OpenRouterMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.OpenrouterMetadata
 }
 
 func (c *ChatStreamChunk) GetServiceTier() optionalnullable.OptionalNullable[string] {

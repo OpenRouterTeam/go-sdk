@@ -1,0 +1,18 @@
+# TypeRedactedThinking
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeRedactedThinkingRedactedThinking
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `TypeRedactedThinkingRedactedThinking` | redacted_thinking                      |

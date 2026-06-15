@@ -2,30 +2,36 @@
 
 package operations
 
-// Category - Filter models by use case category
-type Category string
-
-const (
-	CategoryProgramming  Category = "programming"
-	CategoryRoleplay     Category = "roleplay"
-	CategoryMarketing    Category = "marketing"
-	CategoryMarketingSeo Category = "marketing/seo"
-	CategoryTechnology   Category = "technology"
-	CategoryScience      Category = "science"
-	CategoryTranslation  Category = "translation"
-	CategoryLegal        Category = "legal"
-	CategoryFinance      Category = "finance"
-	CategoryHealth       Category = "health"
-	CategoryTrivia       Category = "trivia"
-	CategoryAcademia     Category = "academia"
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-func (e Category) ToPointer() *Category {
+// GetModelsCategory - Filter models by use case category
+type GetModelsCategory string
+
+const (
+	GetModelsCategoryProgramming  GetModelsCategory = "programming"
+	GetModelsCategoryRoleplay     GetModelsCategory = "roleplay"
+	GetModelsCategoryMarketing    GetModelsCategory = "marketing"
+	GetModelsCategoryMarketingSeo GetModelsCategory = "marketing/seo"
+	GetModelsCategoryTechnology   GetModelsCategory = "technology"
+	GetModelsCategoryScience      GetModelsCategory = "science"
+	GetModelsCategoryTranslation  GetModelsCategory = "translation"
+	GetModelsCategoryLegal        GetModelsCategory = "legal"
+	GetModelsCategoryFinance      GetModelsCategory = "finance"
+	GetModelsCategoryHealth       GetModelsCategory = "health"
+	GetModelsCategoryTrivia       GetModelsCategory = "trivia"
+	GetModelsCategoryAcademia     GetModelsCategory = "academia"
+)
+
+func (e GetModelsCategory) ToPointer() *GetModelsCategory {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Category) IsExact() bool {
+func (e *GetModelsCategory) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "programming", "roleplay", "marketing", "marketing/seo", "technology", "science", "translation", "legal", "finance", "health", "trivia", "academia":
@@ -35,16 +41,140 @@ func (e *Category) IsExact() bool {
 	return false
 }
 
+// GetModelsSort - Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date). When omitted, the existing default ordering is preserved.
+type GetModelsSort string
+
+const (
+	GetModelsSortMostPopular         GetModelsSort = "most-popular"
+	GetModelsSortNewest              GetModelsSort = "newest"
+	GetModelsSortTopWeekly           GetModelsSort = "top-weekly"
+	GetModelsSortPricingLowToHigh    GetModelsSort = "pricing-low-to-high"
+	GetModelsSortPricingHighToLow    GetModelsSort = "pricing-high-to-low"
+	GetModelsSortContextHighToLow    GetModelsSort = "context-high-to-low"
+	GetModelsSortThroughputHighToLow GetModelsSort = "throughput-high-to-low"
+	GetModelsSortLatencyLowToHigh    GetModelsSort = "latency-low-to-high"
+)
+
+func (e GetModelsSort) ToPointer() *GetModelsSort {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GetModelsSort) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "most-popular", "newest", "top-weekly", "pricing-low-to-high", "pricing-high-to-low", "context-high-to-low", "throughput-high-to-low", "latency-low-to-high":
+			return true
+		}
+	}
+	return false
+}
+
+// Distillable - Filter by distillation capability. "true" returns only distillable models, "false" excludes them.
+type Distillable string
+
+const (
+	DistillableTrue  Distillable = "true"
+	DistillableFalse Distillable = "false"
+)
+
+func (e Distillable) ToPointer() *Distillable {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Distillable) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "true", "false":
+			return true
+		}
+	}
+	return false
+}
+
+// Zdr - When set to "true", return only models with zero data retention endpoints.
+type Zdr string
+
+const (
+	ZdrTrue Zdr = "true"
+)
+
+func (e Zdr) ToPointer() *Zdr {
+	return &e
+}
+func (e *Zdr) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "true":
+		*e = Zdr(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for Zdr: %v", v)
+	}
+}
+
+// Region - Filter to models with endpoints in the given data region. Currently only "eu" is supported.
+type Region string
+
+const (
+	RegionEu Region = "eu"
+)
+
+func (e Region) ToPointer() *Region {
+	return &e
+}
+func (e *Region) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "eu":
+		*e = Region(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for Region: %v", v)
+	}
+}
+
 type GetModelsRequest struct {
 	// Filter models by use case category
-	Category *Category `queryParam:"style=form,explode=true,name=category"`
+	Category *GetModelsCategory `queryParam:"style=form,explode=true,name=category"`
 	// Filter models by supported parameter (comma-separated)
 	SupportedParameters *string `queryParam:"style=form,explode=true,name=supported_parameters"`
 	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, audio, embeddings) or "all" to include all models. Defaults to "text".
 	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
+	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date). When omitted, the existing default ordering is preserved.
+	Sort *GetModelsSort `queryParam:"style=form,explode=true,name=sort"`
+	// Free-text search by model name or slug.
+	Q *string `queryParam:"style=form,explode=true,name=q"`
+	// Filter models by input modality. Comma-separated list of: text, image, audio, file.
+	InputModalities *string `queryParam:"style=form,explode=true,name=input_modalities"`
+	// Minimum context length (tokens). Models with smaller context are excluded.
+	Context *int64 `queryParam:"style=form,explode=true,name=context"`
+	// Minimum prompt price in $/M tokens.
+	MinPrice optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_price"`
+	// Maximum prompt price in $/M tokens.
+	MaxPrice optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=max_price"`
+	// Filter models by architecture/model family (e.g. GPT, Claude, Gemini, Llama).
+	Arch *string `queryParam:"style=form,explode=true,name=arch"`
+	// Filter models by the organization that created the model. Comma-separated list of author slugs.
+	ModelAuthors *string `queryParam:"style=form,explode=true,name=model_authors"`
+	// Filter models by hosting provider. Comma-separated list of provider names.
+	Providers *string `queryParam:"style=form,explode=true,name=providers"`
+	// Filter by distillation capability. "true" returns only distillable models, "false" excludes them.
+	Distillable *Distillable `queryParam:"style=form,explode=true,name=distillable"`
+	// When set to "true", return only models with zero data retention endpoints.
+	Zdr *Zdr `queryParam:"style=form,explode=true,name=zdr"`
+	// Filter to models with endpoints in the given data region. Currently only "eu" is supported.
+	Region *Region `queryParam:"style=form,explode=true,name=region"`
 }
 
-func (g *GetModelsRequest) GetCategory() *Category {
+func (g *GetModelsRequest) GetCategory() *GetModelsCategory {
 	if g == nil {
 		return nil
 	}
@@ -63,4 +193,88 @@ func (g *GetModelsRequest) GetOutputModalities() *string {
 		return nil
 	}
 	return g.OutputModalities
+}
+
+func (g *GetModelsRequest) GetSort() *GetModelsSort {
+	if g == nil {
+		return nil
+	}
+	return g.Sort
+}
+
+func (g *GetModelsRequest) GetQ() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Q
+}
+
+func (g *GetModelsRequest) GetInputModalities() *string {
+	if g == nil {
+		return nil
+	}
+	return g.InputModalities
+}
+
+func (g *GetModelsRequest) GetContext() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Context
+}
+
+func (g *GetModelsRequest) GetMinPrice() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MinPrice
+}
+
+func (g *GetModelsRequest) GetMaxPrice() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MaxPrice
+}
+
+func (g *GetModelsRequest) GetArch() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Arch
+}
+
+func (g *GetModelsRequest) GetModelAuthors() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ModelAuthors
+}
+
+func (g *GetModelsRequest) GetProviders() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Providers
+}
+
+func (g *GetModelsRequest) GetDistillable() *Distillable {
+	if g == nil {
+		return nil
+	}
+	return g.Distillable
+}
+
+func (g *GetModelsRequest) GetZdr() *Zdr {
+	if g == nil {
+		return nil
+	}
+	return g.Zdr
+}
+
+func (g *GetModelsRequest) GetRegion() *Region {
+	if g == nil {
+		return nil
+	}
+	return g.Region
 }

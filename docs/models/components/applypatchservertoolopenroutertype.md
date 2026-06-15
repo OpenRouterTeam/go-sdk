@@ -1,0 +1,18 @@
+# ApplyPatchServerToolOpenRouterType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ApplyPatchServerToolOpenRouterTypeOpenrouterApplyPatch
+```
+
+
+## Values
+
+| Name                                                     | Value                                                    |
+| -------------------------------------------------------- | -------------------------------------------------------- |
+| `ApplyPatchServerToolOpenRouterTypeOpenrouterApplyPatch` | openrouter:apply_patch                                   |

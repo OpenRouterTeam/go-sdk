@@ -56,7 +56,7 @@ func (e *UsageLimitType) IsExact() bool {
 }
 
 type CreateAuthKeysCodeRequest struct {
-	// The callback URL to redirect to after authorization. Note, only https URLs on ports 443 and 3000 are allowed.
+	// The callback URL to redirect to after authorization. Supports https URLs and localhost/127.0.0.1 URLs on any port for local CLI tools.
 	CallbackURL string `json:"callback_url"`
 	// PKCE code challenge for enhanced security
 	CodeChallenge *string `json:"code_challenge,omitzero"`
@@ -70,6 +70,8 @@ type CreateAuthKeysCodeRequest struct {
 	Limit *float64 `json:"limit,omitzero"`
 	// Optional credit limit reset interval. When set, the credit limit resets on this interval.
 	UsageLimitType *UsageLimitType `json:"usage_limit_type,omitzero"`
+	// Optional workspace ID to associate the API key with
+	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
 func (c CreateAuthKeysCodeRequest) MarshalJSON() ([]byte, error) {
@@ -130,6 +132,13 @@ func (c *CreateAuthKeysCodeRequest) GetUsageLimitType() *UsageLimitType {
 		return nil
 	}
 	return c.UsageLimitType
+}
+
+func (c *CreateAuthKeysCodeRequest) GetWorkspaceID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.WorkspaceID
 }
 
 // CreateAuthKeysCodeData - Auth code data

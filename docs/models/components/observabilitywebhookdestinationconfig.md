@@ -1,0 +1,10 @@
+# ObservabilityWebhookDestinationConfig
+
+
+## Fields
+
+| Field                                                   | Type                                                    | Required                                                | Description                                             |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `Headers`                                               | map[string]`string`                                     | :heavy_minus_sign:                                      | N/A                                                     |
+| `Method`                                                | [*components.Method](../../models/components/method.md) | :heavy_minus_sign:                                      | N/A                                                     |
+| `URL`                                                   | `string`                                                | :heavy_check_mark:                                      | N/A                                                     |

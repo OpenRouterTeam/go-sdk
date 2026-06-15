@@ -1,0 +1,18 @@
+# AnthropicBase64PdfSourceType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicBase64PdfSourceTypeBase64
+```
+
+
+## Values
+
+| Name                                 | Value                                |
+| ------------------------------------ | ------------------------------------ |
+| `AnthropicBase64PdfSourceTypeBase64` | base64                               |

@@ -5,9 +5,10 @@ Per-modality token breakdown. Only present when the input contains 2+ modalities
 
 ## Fields
 
-| Field                               | Type                                | Required                            | Description                         | Example                             |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `AudioTokens`                       | `*int64`                            | :heavy_minus_sign:                  | Number of audio tokens in the input |                                     |
-| `ImageTokens`                       | `*int64`                            | :heavy_minus_sign:                  | Number of image tokens in the input | 258                                 |
-| `TextTokens`                        | `*int64`                            | :heavy_minus_sign:                  | Number of text tokens in the input  | 8                                   |
-| `VideoTokens`                       | `*int64`                            | :heavy_minus_sign:                  | Number of video tokens in the input |                                     |
+| Field                                       | Type                                        | Required                                    | Description                                 | Example                                     |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| `AudioTokens`                               | `*int64`                                    | :heavy_minus_sign:                          | Number of audio tokens in the input         |                                             |
+| `FileTokens`                                | `*int64`                                    | :heavy_minus_sign:                          | Number of file/document tokens in the input |                                             |
+| `ImageTokens`                               | `*int64`                                    | :heavy_minus_sign:                          | Number of image tokens in the input         | 258                                         |
+| `TextTokens`                                | `*int64`                                    | :heavy_minus_sign:                          | Number of text tokens in the input          | 8                                           |
+| `VideoTokens`                               | `*int64`                                    | :heavy_minus_sign:                          | Number of video tokens in the input         |                                             |

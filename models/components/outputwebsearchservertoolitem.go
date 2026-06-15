@@ -8,34 +8,151 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type OutputWebSearchServerToolItemType string
+type OutputWebSearchServerToolItemTypeURL string
 
 const (
-	OutputWebSearchServerToolItemTypeOpenrouterWebSearch OutputWebSearchServerToolItemType = "openrouter:web_search"
+	OutputWebSearchServerToolItemTypeURLURL OutputWebSearchServerToolItemTypeURL = "url"
 )
 
-func (e OutputWebSearchServerToolItemType) ToPointer() *OutputWebSearchServerToolItemType {
+func (e OutputWebSearchServerToolItemTypeURL) ToPointer() *OutputWebSearchServerToolItemTypeURL {
 	return &e
 }
-func (e *OutputWebSearchServerToolItemType) UnmarshalJSON(data []byte) error {
+func (e *OutputWebSearchServerToolItemTypeURL) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "url":
+		*e = OutputWebSearchServerToolItemTypeURL(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebSearchServerToolItemTypeURL: %v", v)
+	}
+}
+
+type OutputWebSearchServerToolItemSource struct {
+	Type OutputWebSearchServerToolItemTypeURL `json:"type"`
+	URL  string                               `json:"url"`
+}
+
+func (o OutputWebSearchServerToolItemSource) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebSearchServerToolItemSource) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebSearchServerToolItemSource) GetType() OutputWebSearchServerToolItemTypeURL {
+	if o == nil {
+		return OutputWebSearchServerToolItemTypeURL("")
+	}
+	return o.Type
+}
+
+func (o *OutputWebSearchServerToolItemSource) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+type OutputWebSearchServerToolItemTypeSearch string
+
+const (
+	OutputWebSearchServerToolItemTypeSearchSearch OutputWebSearchServerToolItemTypeSearch = "search"
+)
+
+func (e OutputWebSearchServerToolItemTypeSearch) ToPointer() *OutputWebSearchServerToolItemTypeSearch {
+	return &e
+}
+func (e *OutputWebSearchServerToolItemTypeSearch) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "search":
+		*e = OutputWebSearchServerToolItemTypeSearch(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputWebSearchServerToolItemTypeSearch: %v", v)
+	}
+}
+
+// OutputWebSearchServerToolItemAction - The search action performed, matching OpenAI web_search_call.action shape. Includes the query the model issued and optional source URLs returned by the search provider.
+type OutputWebSearchServerToolItemAction struct {
+	Query   string                                  `json:"query"`
+	Sources []OutputWebSearchServerToolItemSource   `json:"sources,omitzero"`
+	Type    OutputWebSearchServerToolItemTypeSearch `json:"type"`
+}
+
+func (o OutputWebSearchServerToolItemAction) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputWebSearchServerToolItemAction) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputWebSearchServerToolItemAction) GetQuery() string {
+	if o == nil {
+		return ""
+	}
+	return o.Query
+}
+
+func (o *OutputWebSearchServerToolItemAction) GetSources() []OutputWebSearchServerToolItemSource {
+	if o == nil {
+		return nil
+	}
+	return o.Sources
+}
+
+func (o *OutputWebSearchServerToolItemAction) GetType() OutputWebSearchServerToolItemTypeSearch {
+	if o == nil {
+		return OutputWebSearchServerToolItemTypeSearch("")
+	}
+	return o.Type
+}
+
+type OutputWebSearchServerToolItemTypeOpenrouterWebSearch string
+
+const (
+	OutputWebSearchServerToolItemTypeOpenrouterWebSearchOpenrouterWebSearch OutputWebSearchServerToolItemTypeOpenrouterWebSearch = "openrouter:web_search"
+)
+
+func (e OutputWebSearchServerToolItemTypeOpenrouterWebSearch) ToPointer() *OutputWebSearchServerToolItemTypeOpenrouterWebSearch {
+	return &e
+}
+func (e *OutputWebSearchServerToolItemTypeOpenrouterWebSearch) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openrouter:web_search":
-		*e = OutputWebSearchServerToolItemType(v)
+		*e = OutputWebSearchServerToolItemTypeOpenrouterWebSearch(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputWebSearchServerToolItemType: %v", v)
+		return fmt.Errorf("invalid value for OutputWebSearchServerToolItemTypeOpenrouterWebSearch: %v", v)
 	}
 }
 
 // OutputWebSearchServerToolItem - An openrouter:web_search server tool output item
 type OutputWebSearchServerToolItem struct {
-	ID     *string                           `json:"id,omitzero"`
-	Status ToolCallStatus                    `json:"status"`
-	Type   OutputWebSearchServerToolItemType `json:"type"`
+	// The search action performed, matching OpenAI web_search_call.action shape. Includes the query the model issued and optional source URLs returned by the search provider.
+	Action *OutputWebSearchServerToolItemAction                 `json:"action,omitzero"`
+	ID     *string                                              `json:"id,omitzero"`
+	Status ToolCallStatus                                       `json:"status"`
+	Type   OutputWebSearchServerToolItemTypeOpenrouterWebSearch `json:"type"`
 }
 
 func (o OutputWebSearchServerToolItem) MarshalJSON() ([]byte, error) {
@@ -47,6 +164,13 @@ func (o *OutputWebSearchServerToolItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (o *OutputWebSearchServerToolItem) GetAction() *OutputWebSearchServerToolItemAction {
+	if o == nil {
+		return nil
+	}
+	return o.Action
 }
 
 func (o *OutputWebSearchServerToolItem) GetID() *string {
@@ -63,9 +187,9 @@ func (o *OutputWebSearchServerToolItem) GetStatus() ToolCallStatus {
 	return o.Status
 }
 
-func (o *OutputWebSearchServerToolItem) GetType() OutputWebSearchServerToolItemType {
+func (o *OutputWebSearchServerToolItem) GetType() OutputWebSearchServerToolItemTypeOpenrouterWebSearch {
 	if o == nil {
-		return OutputWebSearchServerToolItemType("")
+		return OutputWebSearchServerToolItemTypeOpenrouterWebSearch("")
 	}
 	return o.Type
 }

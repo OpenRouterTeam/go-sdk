@@ -1,0 +1,18 @@
+# TypeTimeout
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeTimeoutTimeout
+```
+
+
+## Values
+
+| Name                 | Value                |
+| -------------------- | -------------------- |
+| `TypeTimeoutTimeout` | timeout              |

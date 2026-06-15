@@ -310,7 +310,7 @@ func CreateOpenResponsesResultToolUnionApplyPatch(applyPatch ApplyPatchServerToo
 func CreateOpenResponsesResultToolUnionCustom(custom CustomTool) OpenResponsesResultToolUnion {
 	typ := OpenResponsesResultToolUnionTypeCustom
 
-	typStr := TypeCustom(typ)
+	typStr := CustomToolTypeCustom(typ)
 	custom.Type = typStr
 
 	return OpenResponsesResultToolUnion{
@@ -588,8 +588,9 @@ type OpenResponsesResult struct {
 	TopP        *float64                                      `json:"top_p"`
 	Truncation  optionalnullable.OptionalNullable[Truncation] `json:"truncation,omitzero"`
 	// Token usage information for the response
-	Usage optionalnullable.OptionalNullable[Usage]  `json:"usage,omitzero"`
-	User  optionalnullable.OptionalNullable[string] `json:"user,omitzero"`
+	Usage              optionalnullable.OptionalNullable[Usage]  `json:"usage,omitzero"`
+	User               optionalnullable.OptionalNullable[string] `json:"user,omitzero"`
+	OpenrouterMetadata *OpenRouterMetadata                       `json:"openrouter_metadata,omitzero"`
 }
 
 func (o OpenResponsesResult) MarshalJSON() ([]byte, error) {
@@ -839,4 +840,11 @@ func (o *OpenResponsesResult) GetUser() optionalnullable.OptionalNullable[string
 		return nil
 	}
 	return o.User
+}
+
+func (o *OpenResponsesResult) GetOpenrouterMetadata() *OpenRouterMetadata {
+	if o == nil {
+		return nil
+	}
+	return o.OpenrouterMetadata
 }

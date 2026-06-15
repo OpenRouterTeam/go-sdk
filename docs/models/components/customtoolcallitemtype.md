@@ -1,0 +1,18 @@
+# CustomToolCallItemType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.CustomToolCallItemTypeCustomToolCall
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `CustomToolCallItemTypeCustomToolCall` | custom_tool_call                       |

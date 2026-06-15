@@ -217,10 +217,12 @@ func (e *OutputFunctionCallItemType) UnmarshalJSON(data []byte) error {
 }
 
 type OutputFunctionCallItem struct {
-	Arguments string                             `json:"arguments"`
-	CallID    string                             `json:"call_id"`
-	ID        *string                            `json:"id,omitzero"`
-	Name      string                             `json:"name"`
+	Arguments string  `json:"arguments"`
+	CallID    string  `json:"call_id"`
+	ID        *string `json:"id,omitzero"`
+	Name      string  `json:"name"`
+	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
+	Namespace *string                            `json:"namespace,omitzero"`
 	Status    *OutputFunctionCallItemStatusUnion `json:"status,omitzero"`
 	Type      OutputFunctionCallItemType         `json:"type"`
 }
@@ -262,6 +264,13 @@ func (o *OutputFunctionCallItem) GetName() string {
 		return ""
 	}
 	return o.Name
+}
+
+func (o *OutputFunctionCallItem) GetNamespace() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Namespace
 }
 
 func (o *OutputFunctionCallItem) GetStatus() *OutputFunctionCallItemStatusUnion {

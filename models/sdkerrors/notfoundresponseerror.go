@@ -10,8 +10,9 @@ import (
 // NotFoundResponseError - Not Found - Resource does not exist
 type NotFoundResponseError struct {
 	// Error data for NotFoundResponse
-	Error_ components.NotFoundResponseErrorData `json:"error"`
-	UserID *string                              `json:"user_id,omitzero"`
+	Error_             components.NotFoundResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                       `json:"openrouter_metadata,omitzero"`
+	UserID             *string                              `json:"user_id,omitzero"`
 }
 
 var _ error = &NotFoundResponseError{}

@@ -10,8 +10,9 @@ import (
 // BadRequestResponseError - Bad Request - Invalid request parameters or malformed input
 type BadRequestResponseError struct {
 	// Error data for BadRequestResponse
-	Error_ components.BadRequestResponseErrorData `json:"error"`
-	UserID *string                                `json:"user_id,omitzero"`
+	Error_             components.BadRequestResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                         `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                `json:"user_id,omitzero"`
 }
 
 var _ error = &BadRequestResponseError{}

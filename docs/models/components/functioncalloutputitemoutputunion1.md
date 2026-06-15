@@ -9,10 +9,10 @@
 functionCallOutputItemOutputUnion1 := components.CreateFunctionCallOutputItemOutputUnion1InputText(components.InputText{/* values here */})
 ```
 
-### OutputInputImage
+### FunctionCallOutputItemOutputInputImage
 
 ```go
-functionCallOutputItemOutputUnion1 := components.CreateFunctionCallOutputItemOutputUnion1InputImage(components.OutputInputImage{/* values here */})
+functionCallOutputItemOutputUnion1 := components.CreateFunctionCallOutputItemOutputUnion1InputImage(components.FunctionCallOutputItemOutputInputImage{/* values here */})
 ```
 
 ### InputFile
@@ -30,7 +30,7 @@ switch functionCallOutputItemOutputUnion1.Type {
 	case components.FunctionCallOutputItemOutputUnion1TypeInputText:
 		// functionCallOutputItemOutputUnion1.InputText is populated
 	case components.FunctionCallOutputItemOutputUnion1TypeInputImage:
-		// functionCallOutputItemOutputUnion1.OutputInputImage is populated
+		// functionCallOutputItemOutputUnion1.FunctionCallOutputItemOutputInputImage is populated
 	case components.FunctionCallOutputItemOutputUnion1TypeInputFile:
 		// functionCallOutputItemOutputUnion1.InputFile is populated
 }
