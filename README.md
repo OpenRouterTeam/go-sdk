@@ -32,6 +32,8 @@ Install the module with:
 go get github.com/OpenRouterTeam/go-sdk
 ```
 
+See [examples/chat](examples/chat) for a runnable project.
+
 Quick start:
 
 ```go
