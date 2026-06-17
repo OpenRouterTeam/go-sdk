@@ -18,7 +18,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 
 ## Overview
 
-The OpenRouter Go SDK wraps the [OpenRouter API](https://openrouter.ai/docs) with idiomatic Go types, retries, and error handling.
+The OpenRouter Go SDK wraps the [OpenRouter API](https://openrouter.ai/docs) with idiomatic Go types, retries, and error handling. For a longer introduction, see [OVERVIEW.md](OVERVIEW.md).
 
 - **Chat completions** with streaming and non-streaming responses
 - **Embeddings, rerank, TTS, and video generation**
