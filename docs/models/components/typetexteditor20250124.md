@@ -1,0 +1,18 @@
+# TypeTextEditor20250124
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeTextEditor20250124TextEditor20250124
+```
+
+
+## Values
+
+| Name                                       | Value                                      |
+| ------------------------------------------ | ------------------------------------------ |
+| `TypeTextEditor20250124TextEditor20250124` | text_editor_20250124                       |

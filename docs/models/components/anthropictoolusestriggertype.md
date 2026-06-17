@@ -1,0 +1,18 @@
+# AnthropicToolUsesTriggerType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicToolUsesTriggerTypeToolUses
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `AnthropicToolUsesTriggerTypeToolUses` | tool_uses                              |

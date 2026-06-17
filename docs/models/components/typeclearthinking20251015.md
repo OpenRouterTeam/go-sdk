@@ -1,0 +1,18 @@
+# TypeClearThinking20251015
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TypeClearThinking20251015ClearThinking20251015
+```
+
+
+## Values
+
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `TypeClearThinking20251015ClearThinking20251015` | clear_thinking_20251015                          |

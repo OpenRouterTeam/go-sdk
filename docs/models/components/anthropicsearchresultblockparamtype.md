@@ -1,0 +1,18 @@
+# AnthropicSearchResultBlockParamType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicSearchResultBlockParamTypeSearchResult
+```
+
+
+## Values
+
+| Name                                              | Value                                             |
+| ------------------------------------------------- | ------------------------------------------------- |
+| `AnthropicSearchResultBlockParamTypeSearchResult` | search_result                                     |

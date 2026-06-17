@@ -1,0 +1,18 @@
+# AnthropicCitationCharLocationParamType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicCitationCharLocationParamTypeCharLocation
+```
+
+
+## Values
+
+| Name                                                 | Value                                                |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `AnthropicCitationCharLocationParamTypeCharLocation` | char_location                                        |

@@ -10,8 +10,9 @@ import (
 // BadGatewayResponseError - Bad Gateway - Provider/upstream API failure
 type BadGatewayResponseError struct {
 	// Error data for BadGatewayResponse
-	Error_ components.BadGatewayResponseErrorData `json:"error"`
-	UserID *string                                `json:"user_id,omitzero"`
+	Error_             components.BadGatewayResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                         `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                `json:"user_id,omitzero"`
 }
 
 var _ error = &BadGatewayResponseError{}

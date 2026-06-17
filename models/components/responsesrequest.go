@@ -17,20 +17,24 @@ const (
 	ResponsesRequestPluginTypeAutoRouter         ResponsesRequestPluginType = "auto-router"
 	ResponsesRequestPluginTypeContextCompression ResponsesRequestPluginType = "context-compression"
 	ResponsesRequestPluginTypeFileParser         ResponsesRequestPluginType = "file-parser"
+	ResponsesRequestPluginTypeFusion             ResponsesRequestPluginType = "fusion"
 	ResponsesRequestPluginTypeModeration         ResponsesRequestPluginType = "moderation"
 	ResponsesRequestPluginTypeParetoRouter       ResponsesRequestPluginType = "pareto-router"
 	ResponsesRequestPluginTypeResponseHealing    ResponsesRequestPluginType = "response-healing"
 	ResponsesRequestPluginTypeWeb                ResponsesRequestPluginType = "web"
+	ResponsesRequestPluginTypeWebFetch           ResponsesRequestPluginType = "web-fetch"
 )
 
 type ResponsesRequestPlugin struct {
 	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
 	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
 	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
+	WebFetchPlugin           *WebFetchPlugin           `queryParam:"inline" union:"member"`
 	FileParserPlugin         *FileParserPlugin         `queryParam:"inline" union:"member"`
 	ResponseHealingPlugin    *ResponseHealingPlugin    `queryParam:"inline" union:"member"`
 	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
 	ParetoRouterPlugin       *ParetoRouterPlugin       `queryParam:"inline" union:"member"`
+	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestPluginType
 }
@@ -68,6 +72,18 @@ func CreateResponsesRequestPluginFileParser(fileParser FileParserPlugin) Respons
 	return ResponsesRequestPlugin{
 		FileParserPlugin: &fileParser,
 		Type:             typ,
+	}
+}
+
+func CreateResponsesRequestPluginFusion(fusion FusionPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeFusion
+
+	typStr := FusionPluginID(typ)
+	fusion.ID = typStr
+
+	return ResponsesRequestPlugin{
+		FusionPlugin: &fusion,
+		Type:         typ,
 	}
 }
 
@@ -119,6 +135,18 @@ func CreateResponsesRequestPluginWeb(web WebSearchPlugin) ResponsesRequestPlugin
 	}
 }
 
+func CreateResponsesRequestPluginWebFetch(webFetch WebFetchPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeWebFetch
+
+	typStr := WebFetchPluginID(typ)
+	webFetch.ID = typStr
+
+	return ResponsesRequestPlugin{
+		WebFetchPlugin: &webFetch,
+		Type:           typ,
+	}
+}
+
 func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -158,6 +186,15 @@ func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.FileParserPlugin = fileParserPlugin
 		u.Type = ResponsesRequestPluginTypeFileParser
 		return nil
+	case "fusion":
+		fusionPlugin := new(FusionPlugin)
+		if err := utils.UnmarshalJSON(data, &fusionPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == fusion) type FusionPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.FusionPlugin = fusionPlugin
+		u.Type = ResponsesRequestPluginTypeFusion
+		return nil
 	case "moderation":
 		moderationPlugin := new(ModerationPlugin)
 		if err := utils.UnmarshalJSON(data, &moderationPlugin, "", true, nil); err != nil {
@@ -194,6 +231,15 @@ func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.WebSearchPlugin = webSearchPlugin
 		u.Type = ResponsesRequestPluginTypeWeb
 		return nil
+	case "web-fetch":
+		webFetchPlugin := new(WebFetchPlugin)
+		if err := utils.UnmarshalJSON(data, &webFetchPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == web-fetch) type WebFetchPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.WebFetchPlugin = webFetchPlugin
+		u.Type = ResponsesRequestPluginTypeWebFetch
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestPlugin", string(data))
@@ -212,6 +258,10 @@ func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.WebSearchPlugin, "", true)
 	}
 
+	if u.WebFetchPlugin != nil {
+		return utils.MarshalJSON(u.WebFetchPlugin, "", true)
+	}
+
 	if u.FileParserPlugin != nil {
 		return utils.MarshalJSON(u.FileParserPlugin, "", true)
 	}
@@ -226,6 +276,10 @@ func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.ParetoRouterPlugin != nil {
 		return utils.MarshalJSON(u.ParetoRouterPlugin, "", true)
+	}
+
+	if u.FusionPlugin != nil {
+		return utils.MarshalJSON(u.FusionPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")
@@ -351,10 +405,17 @@ const (
 	ResponsesRequestToolUnionTypeShell                              ResponsesRequestToolUnionType = "shell"
 	ResponsesRequestToolUnionTypeApplyPatch                         ResponsesRequestToolUnionType = "apply_patch"
 	ResponsesRequestToolUnionTypeCustom                             ResponsesRequestToolUnionType = "custom"
+	ResponsesRequestToolUnionTypeOpenrouterAdvisor                  ResponsesRequestToolUnionType = "openrouter:advisor"
+	ResponsesRequestToolUnionTypeOpenrouterSubagent                 ResponsesRequestToolUnionType = "openrouter:subagent"
 	ResponsesRequestToolUnionTypeOpenrouterDatetime                 ResponsesRequestToolUnionType = "openrouter:datetime"
+	ResponsesRequestToolUnionTypeOpenrouterFusion                   ResponsesRequestToolUnionType = "openrouter:fusion"
 	ResponsesRequestToolUnionTypeOpenrouterImageGeneration          ResponsesRequestToolUnionType = "openrouter:image_generation"
 	ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels ResponsesRequestToolUnionType = "openrouter:experimental__search_models"
+	ResponsesRequestToolUnionTypeOpenrouterWebFetch                 ResponsesRequestToolUnionType = "openrouter:web_fetch"
 	ResponsesRequestToolUnionTypeOpenrouterWebSearch                ResponsesRequestToolUnionType = "openrouter:web_search"
+	ResponsesRequestToolUnionTypeOpenrouterApplyPatch               ResponsesRequestToolUnionType = "openrouter:apply_patch"
+	ResponsesRequestToolUnionTypeOpenrouterBash                     ResponsesRequestToolUnionType = "openrouter:bash"
+	ResponsesRequestToolUnionTypeOpenrouterShell                    ResponsesRequestToolUnionType = "openrouter:shell"
 )
 
 type ResponsesRequestToolUnion struct {
@@ -372,10 +433,17 @@ type ResponsesRequestToolUnion struct {
 	ShellServerTool                     *ShellServerTool                     `queryParam:"inline" union:"member"`
 	ApplyPatchServerTool                *ApplyPatchServerTool                `queryParam:"inline" union:"member"`
 	CustomTool                          *CustomTool                          `queryParam:"inline" union:"member"`
+	AdvisorServerToolOpenRouter         *AdvisorServerToolOpenRouter         `queryParam:"inline" union:"member"`
+	SubagentServerToolOpenRouter        *SubagentServerToolOpenRouter        `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
+	FusionServerToolOpenRouter          *FusionServerToolOpenRouter          `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
 	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	WebSearchServerToolOpenRouter       *WebSearchServerToolOpenRouter       `queryParam:"inline" union:"member"`
+	ApplyPatchServerToolOpenRouter      *ApplyPatchServerToolOpenRouter      `queryParam:"inline" union:"member"`
+	BashServerTool                      *BashServerTool                      `queryParam:"inline" union:"member"`
+	ShellServerToolOpenRouter           *ShellServerToolOpenRouter           `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestToolUnionType
 }
@@ -539,12 +607,36 @@ func CreateResponsesRequestToolUnionApplyPatch(applyPatch ApplyPatchServerTool) 
 func CreateResponsesRequestToolUnionCustom(custom CustomTool) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeCustom
 
-	typStr := TypeCustom(typ)
+	typStr := CustomToolTypeCustom(typ)
 	custom.Type = typStr
 
 	return ResponsesRequestToolUnion{
 		CustomTool: &custom,
 		Type:       typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterAdvisor(openrouterAdvisor AdvisorServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterAdvisor
+
+	typStr := AdvisorServerToolOpenRouterType(typ)
+	openrouterAdvisor.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		AdvisorServerToolOpenRouter: &openrouterAdvisor,
+		Type:                        typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterSubagent(openrouterSubagent SubagentServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterSubagent
+
+	typStr := SubagentServerToolOpenRouterType(typ)
+	openrouterSubagent.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		SubagentServerToolOpenRouter: &openrouterSubagent,
+		Type:                         typ,
 	}
 }
 
@@ -557,6 +649,18 @@ func CreateResponsesRequestToolUnionOpenrouterDatetime(openrouterDatetime Dateti
 	return ResponsesRequestToolUnion{
 		DatetimeServerTool: &openrouterDatetime,
 		Type:               typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterFusion(openrouterFusion FusionServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterFusion
+
+	typStr := FusionServerToolOpenRouterType(typ)
+	openrouterFusion.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		FusionServerToolOpenRouter: &openrouterFusion,
+		Type:                       typ,
 	}
 }
 
@@ -584,6 +688,18 @@ func CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(openroute
 	}
 }
 
+func CreateResponsesRequestToolUnionOpenrouterWebFetch(openrouterWebFetch WebFetchServerTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterWebFetch
+
+	typStr := WebFetchServerToolType(typ)
+	openrouterWebFetch.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		WebFetchServerTool: &openrouterWebFetch,
+		Type:               typ,
+	}
+}
+
 func CreateResponsesRequestToolUnionOpenrouterWebSearch(openrouterWebSearch WebSearchServerToolOpenRouter) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeOpenrouterWebSearch
 
@@ -593,6 +709,42 @@ func CreateResponsesRequestToolUnionOpenrouterWebSearch(openrouterWebSearch WebS
 	return ResponsesRequestToolUnion{
 		WebSearchServerToolOpenRouter: &openrouterWebSearch,
 		Type:                          typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterApplyPatch(openrouterApplyPatch ApplyPatchServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterApplyPatch
+
+	typStr := ApplyPatchServerToolOpenRouterType(typ)
+	openrouterApplyPatch.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		ApplyPatchServerToolOpenRouter: &openrouterApplyPatch,
+		Type:                           typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterBash(openrouterBash BashServerTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterBash
+
+	typStr := BashServerToolType(typ)
+	openrouterBash.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		BashServerTool: &openrouterBash,
+		Type:           typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterShell(openrouterShell ShellServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterShell
+
+	typStr := ShellServerToolOpenRouterType(typ)
+	openrouterShell.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		ShellServerToolOpenRouter: &openrouterShell,
+		Type:                      typ,
 	}
 }
 
@@ -734,6 +886,24 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.CustomTool = customTool
 		u.Type = ResponsesRequestToolUnionTypeCustom
 		return nil
+	case "openrouter:advisor":
+		advisorServerToolOpenRouter := new(AdvisorServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &advisorServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:advisor) type AdvisorServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.AdvisorServerToolOpenRouter = advisorServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterAdvisor
+		return nil
+	case "openrouter:subagent":
+		subagentServerToolOpenRouter := new(SubagentServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &subagentServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:subagent) type SubagentServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.SubagentServerToolOpenRouter = subagentServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterSubagent
+		return nil
 	case "openrouter:datetime":
 		datetimeServerTool := new(DatetimeServerTool)
 		if err := utils.UnmarshalJSON(data, &datetimeServerTool, "", true, nil); err != nil {
@@ -742,6 +912,15 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 
 		u.DatetimeServerTool = datetimeServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterDatetime
+		return nil
+	case "openrouter:fusion":
+		fusionServerToolOpenRouter := new(FusionServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &fusionServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:fusion) type FusionServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.FusionServerToolOpenRouter = fusionServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterFusion
 		return nil
 	case "openrouter:image_generation":
 		imageGenerationServerToolOpenRouter := new(ImageGenerationServerToolOpenRouter)
@@ -761,6 +940,15 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.ChatSearchModelsServerTool = chatSearchModelsServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
 		return nil
+	case "openrouter:web_fetch":
+		webFetchServerTool := new(WebFetchServerTool)
+		if err := utils.UnmarshalJSON(data, &webFetchServerTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:web_fetch) type WebFetchServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.WebFetchServerTool = webFetchServerTool
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterWebFetch
+		return nil
 	case "openrouter:web_search":
 		webSearchServerToolOpenRouter := new(WebSearchServerToolOpenRouter)
 		if err := utils.UnmarshalJSON(data, &webSearchServerToolOpenRouter, "", true, nil); err != nil {
@@ -769,6 +957,33 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 
 		u.WebSearchServerToolOpenRouter = webSearchServerToolOpenRouter
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterWebSearch
+		return nil
+	case "openrouter:apply_patch":
+		applyPatchServerToolOpenRouter := new(ApplyPatchServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &applyPatchServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:apply_patch) type ApplyPatchServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.ApplyPatchServerToolOpenRouter = applyPatchServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterApplyPatch
+		return nil
+	case "openrouter:bash":
+		bashServerTool := new(BashServerTool)
+		if err := utils.UnmarshalJSON(data, &bashServerTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:bash) type BashServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.BashServerTool = bashServerTool
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterBash
+		return nil
+	case "openrouter:shell":
+		shellServerToolOpenRouter := new(ShellServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &shellServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:shell) type ShellServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.ShellServerToolOpenRouter = shellServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterShell
 		return nil
 	}
 
@@ -832,8 +1047,20 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CustomTool, "", true)
 	}
 
+	if u.AdvisorServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.AdvisorServerToolOpenRouter, "", true)
+	}
+
+	if u.SubagentServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.SubagentServerToolOpenRouter, "", true)
+	}
+
 	if u.DatetimeServerTool != nil {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
+	}
+
+	if u.FusionServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.FusionServerToolOpenRouter, "", true)
 	}
 
 	if u.ImageGenerationServerToolOpenRouter != nil {
@@ -844,8 +1071,24 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
 	}
 
+	if u.WebFetchServerTool != nil {
+		return utils.MarshalJSON(u.WebFetchServerTool, "", true)
+	}
+
 	if u.WebSearchServerToolOpenRouter != nil {
 		return utils.MarshalJSON(u.WebSearchServerToolOpenRouter, "", true)
+	}
+
+	if u.ApplyPatchServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.ApplyPatchServerToolOpenRouter, "", true)
+	}
+
+	if u.BashServerTool != nil {
+		return utils.MarshalJSON(u.BashServerTool, "", true)
+	}
+
+	if u.ShellServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.ShellServerToolOpenRouter, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ResponsesRequestToolUnion: all fields are null")
@@ -853,7 +1096,9 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 
 // ResponsesRequest - Request schema for Responses endpoint
 type ResponsesRequest struct {
-	Background       optionalnullable.OptionalNullable[bool]    `json:"background,omitzero"`
+	Background optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	CacheControl     *AnthropicCacheControlDirective            `json:"cache_control,omitzero"`
 	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
 	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
 	ImageConfig map[string]ImageConfig                                    `json:"image_config,omitzero"`
@@ -882,8 +1127,10 @@ type ResponsesRequest struct {
 	Reasoning        optionalnullable.OptionalNullable[ReasoningConfig]             `json:"reasoning,omitzero"`
 	SafetyIdentifier optionalnullable.OptionalNullable[string]                      `json:"safety_identifier,omitzero"`
 	ServiceTier      optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
-	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow) for observability. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
+	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`.
+	StopServerToolsWhen []StopServerToolsWhenCondition `json:"stop_server_tools_when,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	store       *bool                                      `const:"false" json:"store"`
 	Stream      *bool                                      `default:"false" json:"stream"`
@@ -918,6 +1165,13 @@ func (r *ResponsesRequest) GetBackground() optionalnullable.OptionalNullable[boo
 		return nil
 	}
 	return r.Background
+}
+
+func (r *ResponsesRequest) GetCacheControl() *AnthropicCacheControlDirective {
+	if r == nil {
+		return nil
+	}
+	return r.CacheControl
 }
 
 func (r *ResponsesRequest) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {
@@ -1072,6 +1326,13 @@ func (r *ResponsesRequest) GetSessionID() *string {
 		return nil
 	}
 	return r.SessionID
+}
+
+func (r *ResponsesRequest) GetStopServerToolsWhen() []StopServerToolsWhenCondition {
+	if r == nil {
+		return nil
+	}
+	return r.StopServerToolsWhen
 }
 
 func (r *ResponsesRequest) GetStore() *bool {

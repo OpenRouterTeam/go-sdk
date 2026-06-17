@@ -12,9 +12,10 @@ import (
 type InputImageDetail string
 
 const (
-	InputImageDetailAuto InputImageDetail = "auto"
-	InputImageDetailHigh InputImageDetail = "high"
-	InputImageDetailLow  InputImageDetail = "low"
+	InputImageDetailAuto     InputImageDetail = "auto"
+	InputImageDetailHigh     InputImageDetail = "high"
+	InputImageDetailLow      InputImageDetail = "low"
+	InputImageDetailOriginal InputImageDetail = "original"
 )
 
 func (e InputImageDetail) ToPointer() *InputImageDetail {
@@ -25,7 +26,7 @@ func (e InputImageDetail) ToPointer() *InputImageDetail {
 func (e *InputImageDetail) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "high", "low":
+		case "auto", "high", "low", "original":
 			return true
 		}
 	}

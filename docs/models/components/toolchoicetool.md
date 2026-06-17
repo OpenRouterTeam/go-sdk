@@ -1,0 +1,10 @@
+# ToolChoiceTool
+
+
+## Fields
+
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `DisableParallelToolUse`                                   | `*bool`                                                    | :heavy_minus_sign:                                         | N/A                                                        |
+| `Name`                                                     | `string`                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `Type`                                                     | [components.TypeTool](../../models/components/typetool.md) | :heavy_check_mark:                                         | N/A                                                        |

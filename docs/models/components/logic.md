@@ -1,0 +1,22 @@
+# Logic
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.LogicAnd
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.Logic("custom_value")
+```
+
+
+## Values
+
+| Name       | Value      |
+| ---------- | ---------- |
+| `LogicAnd` | and        |
+| `LogicOr`  | or         |

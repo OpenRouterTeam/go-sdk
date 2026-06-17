@@ -956,35 +956,97 @@ func (i *InputsMessage) GetType() InputsTypeMessage {
 type InputsUnion1Type string
 
 const (
-	InputsUnion1TypeReasoningItem                 InputsUnion1Type = "ReasoningItem"
-	InputsUnion1TypeEasyInputMessage              InputsUnion1Type = "EasyInputMessage"
-	InputsUnion1TypeInputMessageItem              InputsUnion1Type = "InputMessageItem"
-	InputsUnion1TypeFunctionCallItem              InputsUnion1Type = "FunctionCallItem"
-	InputsUnion1TypeFunctionCallOutputItem        InputsUnion1Type = "FunctionCallOutputItem"
-	InputsUnion1TypeInputsMessage                 InputsUnion1Type = "Inputs_Message"
-	InputsUnion1TypeInputsReasoning               InputsUnion1Type = "Inputs_Reasoning"
-	InputsUnion1TypeOutputFunctionCallItem        InputsUnion1Type = "OutputFunctionCallItem"
-	InputsUnion1TypeOutputWebSearchCallItem       InputsUnion1Type = "OutputWebSearchCallItem"
-	InputsUnion1TypeOutputFileSearchCallItem      InputsUnion1Type = "OutputFileSearchCallItem"
-	InputsUnion1TypeOutputImageGenerationCallItem InputsUnion1Type = "OutputImageGenerationCallItem"
-	InputsUnion1TypeOutputDatetimeItem            InputsUnion1Type = "OutputDatetimeItem"
-	InputsUnion1TypeOutputWebSearchServerToolItem InputsUnion1Type = "OutputWebSearchServerToolItem"
+	InputsUnion1TypeReasoningItem                       InputsUnion1Type = "ReasoningItem"
+	InputsUnion1TypeEasyInputMessage                    InputsUnion1Type = "EasyInputMessage"
+	InputsUnion1TypeInputMessageItem                    InputsUnion1Type = "InputMessageItem"
+	InputsUnion1TypeFunctionCallItem                    InputsUnion1Type = "FunctionCallItem"
+	InputsUnion1TypeFunctionCallOutputItem              InputsUnion1Type = "FunctionCallOutputItem"
+	InputsUnion1TypeApplyPatchCallItem                  InputsUnion1Type = "ApplyPatchCallItem"
+	InputsUnion1TypeApplyPatchCallOutputItem            InputsUnion1Type = "ApplyPatchCallOutputItem"
+	InputsUnion1TypeInputsMessage                       InputsUnion1Type = "Inputs_Message"
+	InputsUnion1TypeInputsReasoning                     InputsUnion1Type = "Inputs_Reasoning"
+	InputsUnion1TypeOutputFunctionCallItem              InputsUnion1Type = "OutputFunctionCallItem"
+	InputsUnion1TypeOutputCustomToolCallItem            InputsUnion1Type = "OutputCustomToolCallItem"
+	InputsUnion1TypeOutputWebSearchCallItem             InputsUnion1Type = "OutputWebSearchCallItem"
+	InputsUnion1TypeOutputFileSearchCallItem            InputsUnion1Type = "OutputFileSearchCallItem"
+	InputsUnion1TypeOutputImageGenerationCallItem       InputsUnion1Type = "OutputImageGenerationCallItem"
+	InputsUnion1TypeOutputCodeInterpreterCallItem       InputsUnion1Type = "OutputCodeInterpreterCallItem"
+	InputsUnion1TypeOutputComputerCallItem              InputsUnion1Type = "OutputComputerCallItem"
+	InputsUnion1TypeOutputDatetimeItem                  InputsUnion1Type = "OutputDatetimeItem"
+	InputsUnion1TypeOutputWebSearchServerToolItem       InputsUnion1Type = "OutputWebSearchServerToolItem"
+	InputsUnion1TypeOutputCodeInterpreterServerToolItem InputsUnion1Type = "OutputCodeInterpreterServerToolItem"
+	InputsUnion1TypeOutputFileSearchServerToolItem      InputsUnion1Type = "OutputFileSearchServerToolItem"
+	InputsUnion1TypeOutputImageGenerationServerToolItem InputsUnion1Type = "OutputImageGenerationServerToolItem"
+	InputsUnion1TypeOutputBrowserUseServerToolItem      InputsUnion1Type = "OutputBrowserUseServerToolItem"
+	InputsUnion1TypeOutputBashServerToolItem            InputsUnion1Type = "OutputBashServerToolItem"
+	InputsUnion1TypeOutputTextEditorServerToolItem      InputsUnion1Type = "OutputTextEditorServerToolItem"
+	InputsUnion1TypeOutputApplyPatchServerToolItem      InputsUnion1Type = "OutputApplyPatchServerToolItem"
+	InputsUnion1TypeOutputWebFetchServerToolItem        InputsUnion1Type = "OutputWebFetchServerToolItem"
+	InputsUnion1TypeOutputToolSearchServerToolItem      InputsUnion1Type = "OutputToolSearchServerToolItem"
+	InputsUnion1TypeOutputMemoryServerToolItem          InputsUnion1Type = "OutputMemoryServerToolItem"
+	InputsUnion1TypeOutputMcpServerToolItem             InputsUnion1Type = "OutputMcpServerToolItem"
+	InputsUnion1TypeOutputSearchModelsServerToolItem    InputsUnion1Type = "OutputSearchModelsServerToolItem"
+	InputsUnion1TypeOutputAdvisorServerToolItem         InputsUnion1Type = "OutputAdvisorServerToolItem"
+	InputsUnion1TypeOutputSubagentServerToolItem        InputsUnion1Type = "OutputSubagentServerToolItem"
+	InputsUnion1TypeLocalShellCallItem                  InputsUnion1Type = "LocalShellCallItem"
+	InputsUnion1TypeLocalShellCallOutputItem            InputsUnion1Type = "LocalShellCallOutputItem"
+	InputsUnion1TypeShellCallItem                       InputsUnion1Type = "ShellCallItem"
+	InputsUnion1TypeShellCallOutputItem                 InputsUnion1Type = "ShellCallOutputItem"
+	InputsUnion1TypeMcpListToolsItem                    InputsUnion1Type = "McpListToolsItem"
+	InputsUnion1TypeMcpApprovalRequestItem              InputsUnion1Type = "McpApprovalRequestItem"
+	InputsUnion1TypeMcpApprovalResponseItem             InputsUnion1Type = "McpApprovalResponseItem"
+	InputsUnion1TypeMcpCallItem                         InputsUnion1Type = "McpCallItem"
+	InputsUnion1TypeCustomToolCallItem                  InputsUnion1Type = "CustomToolCallItem"
+	InputsUnion1TypeCustomToolCallOutputItem            InputsUnion1Type = "CustomToolCallOutputItem"
+	InputsUnion1TypeCompactionItem                      InputsUnion1Type = "CompactionItem"
+	InputsUnion1TypeItemReferenceItem                   InputsUnion1Type = "ItemReferenceItem"
 )
 
 type InputsUnion1 struct {
-	ReasoningItem                 *ReasoningItem                 `queryParam:"inline" union:"member"`
-	EasyInputMessage              *EasyInputMessage              `queryParam:"inline" union:"member"`
-	InputMessageItem              *InputMessageItem              `queryParam:"inline" union:"member"`
-	FunctionCallItem              *FunctionCallItem              `queryParam:"inline" union:"member"`
-	FunctionCallOutputItem        *FunctionCallOutputItem        `queryParam:"inline" union:"member"`
-	InputsMessage                 *InputsMessage                 `queryParam:"inline" union:"member"`
-	InputsReasoning               *InputsReasoning               `queryParam:"inline" union:"member"`
-	OutputFunctionCallItem        *OutputFunctionCallItem        `queryParam:"inline" union:"member"`
-	OutputWebSearchCallItem       *OutputWebSearchCallItem       `queryParam:"inline" union:"member"`
-	OutputFileSearchCallItem      *OutputFileSearchCallItem      `queryParam:"inline" union:"member"`
-	OutputImageGenerationCallItem *OutputImageGenerationCallItem `queryParam:"inline" union:"member"`
-	OutputDatetimeItem            *OutputDatetimeItem            `queryParam:"inline" union:"member"`
-	OutputWebSearchServerToolItem *OutputWebSearchServerToolItem `queryParam:"inline" union:"member"`
+	ReasoningItem                       *ReasoningItem                       `queryParam:"inline" union:"member"`
+	EasyInputMessage                    *EasyInputMessage                    `queryParam:"inline" union:"member"`
+	InputMessageItem                    *InputMessageItem                    `queryParam:"inline" union:"member"`
+	FunctionCallItem                    *FunctionCallItem                    `queryParam:"inline" union:"member"`
+	FunctionCallOutputItem              *FunctionCallOutputItem              `queryParam:"inline" union:"member"`
+	ApplyPatchCallItem                  *ApplyPatchCallItem                  `queryParam:"inline" union:"member"`
+	ApplyPatchCallOutputItem            *ApplyPatchCallOutputItem            `queryParam:"inline" union:"member"`
+	InputsMessage                       *InputsMessage                       `queryParam:"inline" union:"member"`
+	InputsReasoning                     *InputsReasoning                     `queryParam:"inline" union:"member"`
+	OutputFunctionCallItem              *OutputFunctionCallItem              `queryParam:"inline" union:"member"`
+	OutputCustomToolCallItem            *OutputCustomToolCallItem            `queryParam:"inline" union:"member"`
+	OutputWebSearchCallItem             *OutputWebSearchCallItem             `queryParam:"inline" union:"member"`
+	OutputFileSearchCallItem            *OutputFileSearchCallItem            `queryParam:"inline" union:"member"`
+	OutputImageGenerationCallItem       *OutputImageGenerationCallItem       `queryParam:"inline" union:"member"`
+	OutputCodeInterpreterCallItem       *OutputCodeInterpreterCallItem       `queryParam:"inline" union:"member"`
+	OutputComputerCallItem              *OutputComputerCallItem              `queryParam:"inline" union:"member"`
+	OutputDatetimeItem                  *OutputDatetimeItem                  `queryParam:"inline" union:"member"`
+	OutputWebSearchServerToolItem       *OutputWebSearchServerToolItem       `queryParam:"inline" union:"member"`
+	OutputCodeInterpreterServerToolItem *OutputCodeInterpreterServerToolItem `queryParam:"inline" union:"member"`
+	OutputFileSearchServerToolItem      *OutputFileSearchServerToolItem      `queryParam:"inline" union:"member"`
+	OutputImageGenerationServerToolItem *OutputImageGenerationServerToolItem `queryParam:"inline" union:"member"`
+	OutputBrowserUseServerToolItem      *OutputBrowserUseServerToolItem      `queryParam:"inline" union:"member"`
+	OutputBashServerToolItem            *OutputBashServerToolItem            `queryParam:"inline" union:"member"`
+	OutputTextEditorServerToolItem      *OutputTextEditorServerToolItem      `queryParam:"inline" union:"member"`
+	OutputApplyPatchServerToolItem      *OutputApplyPatchServerToolItem      `queryParam:"inline" union:"member"`
+	OutputWebFetchServerToolItem        *OutputWebFetchServerToolItem        `queryParam:"inline" union:"member"`
+	OutputToolSearchServerToolItem      *OutputToolSearchServerToolItem      `queryParam:"inline" union:"member"`
+	OutputMemoryServerToolItem          *OutputMemoryServerToolItem          `queryParam:"inline" union:"member"`
+	OutputMcpServerToolItem             *OutputMcpServerToolItem             `queryParam:"inline" union:"member"`
+	OutputSearchModelsServerToolItem    *OutputSearchModelsServerToolItem    `queryParam:"inline" union:"member"`
+	OutputAdvisorServerToolItem         *OutputAdvisorServerToolItem         `queryParam:"inline" union:"member"`
+	OutputSubagentServerToolItem        *OutputSubagentServerToolItem        `queryParam:"inline" union:"member"`
+	LocalShellCallItem                  *LocalShellCallItem                  `queryParam:"inline" union:"member"`
+	LocalShellCallOutputItem            *LocalShellCallOutputItem            `queryParam:"inline" union:"member"`
+	ShellCallItem                       *ShellCallItem                       `queryParam:"inline" union:"member"`
+	ShellCallOutputItem                 *ShellCallOutputItem                 `queryParam:"inline" union:"member"`
+	McpListToolsItem                    *McpListToolsItem                    `queryParam:"inline" union:"member"`
+	McpApprovalRequestItem              *McpApprovalRequestItem              `queryParam:"inline" union:"member"`
+	McpApprovalResponseItem             *McpApprovalResponseItem             `queryParam:"inline" union:"member"`
+	McpCallItem                         *McpCallItem                         `queryParam:"inline" union:"member"`
+	CustomToolCallItem                  *CustomToolCallItem                  `queryParam:"inline" union:"member"`
+	CustomToolCallOutputItem            *CustomToolCallOutputItem            `queryParam:"inline" union:"member"`
+	CompactionItem                      *CompactionItem                      `queryParam:"inline" union:"member"`
+	ItemReferenceItem                   *ItemReferenceItem                   `queryParam:"inline" union:"member"`
 
 	Type InputsUnion1Type
 }
@@ -1034,6 +1096,24 @@ func CreateInputsUnion1FunctionCallOutputItem(functionCallOutputItem FunctionCal
 	}
 }
 
+func CreateInputsUnion1ApplyPatchCallItem(applyPatchCallItem ApplyPatchCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeApplyPatchCallItem
+
+	return InputsUnion1{
+		ApplyPatchCallItem: &applyPatchCallItem,
+		Type:               typ,
+	}
+}
+
+func CreateInputsUnion1ApplyPatchCallOutputItem(applyPatchCallOutputItem ApplyPatchCallOutputItem) InputsUnion1 {
+	typ := InputsUnion1TypeApplyPatchCallOutputItem
+
+	return InputsUnion1{
+		ApplyPatchCallOutputItem: &applyPatchCallOutputItem,
+		Type:                     typ,
+	}
+}
+
 func CreateInputsUnion1InputsMessage(inputsMessage InputsMessage) InputsUnion1 {
 	typ := InputsUnion1TypeInputsMessage
 
@@ -1058,6 +1138,15 @@ func CreateInputsUnion1OutputFunctionCallItem(outputFunctionCallItem OutputFunct
 	return InputsUnion1{
 		OutputFunctionCallItem: &outputFunctionCallItem,
 		Type:                   typ,
+	}
+}
+
+func CreateInputsUnion1OutputCustomToolCallItem(outputCustomToolCallItem OutputCustomToolCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputCustomToolCallItem
+
+	return InputsUnion1{
+		OutputCustomToolCallItem: &outputCustomToolCallItem,
+		Type:                     typ,
 	}
 }
 
@@ -1088,6 +1177,24 @@ func CreateInputsUnion1OutputImageGenerationCallItem(outputImageGenerationCallIt
 	}
 }
 
+func CreateInputsUnion1OutputCodeInterpreterCallItem(outputCodeInterpreterCallItem OutputCodeInterpreterCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputCodeInterpreterCallItem
+
+	return InputsUnion1{
+		OutputCodeInterpreterCallItem: &outputCodeInterpreterCallItem,
+		Type:                          typ,
+	}
+}
+
+func CreateInputsUnion1OutputComputerCallItem(outputComputerCallItem OutputComputerCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputComputerCallItem
+
+	return InputsUnion1{
+		OutputComputerCallItem: &outputComputerCallItem,
+		Type:                   typ,
+	}
+}
+
 func CreateInputsUnion1OutputDatetimeItem(outputDatetimeItem OutputDatetimeItem) InputsUnion1 {
 	typ := InputsUnion1TypeOutputDatetimeItem
 
@@ -1103,6 +1210,240 @@ func CreateInputsUnion1OutputWebSearchServerToolItem(outputWebSearchServerToolIt
 	return InputsUnion1{
 		OutputWebSearchServerToolItem: &outputWebSearchServerToolItem,
 		Type:                          typ,
+	}
+}
+
+func CreateInputsUnion1OutputCodeInterpreterServerToolItem(outputCodeInterpreterServerToolItem OutputCodeInterpreterServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputCodeInterpreterServerToolItem
+
+	return InputsUnion1{
+		OutputCodeInterpreterServerToolItem: &outputCodeInterpreterServerToolItem,
+		Type:                                typ,
+	}
+}
+
+func CreateInputsUnion1OutputFileSearchServerToolItem(outputFileSearchServerToolItem OutputFileSearchServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputFileSearchServerToolItem
+
+	return InputsUnion1{
+		OutputFileSearchServerToolItem: &outputFileSearchServerToolItem,
+		Type:                           typ,
+	}
+}
+
+func CreateInputsUnion1OutputImageGenerationServerToolItem(outputImageGenerationServerToolItem OutputImageGenerationServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputImageGenerationServerToolItem
+
+	return InputsUnion1{
+		OutputImageGenerationServerToolItem: &outputImageGenerationServerToolItem,
+		Type:                                typ,
+	}
+}
+
+func CreateInputsUnion1OutputBrowserUseServerToolItem(outputBrowserUseServerToolItem OutputBrowserUseServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputBrowserUseServerToolItem
+
+	return InputsUnion1{
+		OutputBrowserUseServerToolItem: &outputBrowserUseServerToolItem,
+		Type:                           typ,
+	}
+}
+
+func CreateInputsUnion1OutputBashServerToolItem(outputBashServerToolItem OutputBashServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputBashServerToolItem
+
+	return InputsUnion1{
+		OutputBashServerToolItem: &outputBashServerToolItem,
+		Type:                     typ,
+	}
+}
+
+func CreateInputsUnion1OutputTextEditorServerToolItem(outputTextEditorServerToolItem OutputTextEditorServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputTextEditorServerToolItem
+
+	return InputsUnion1{
+		OutputTextEditorServerToolItem: &outputTextEditorServerToolItem,
+		Type:                           typ,
+	}
+}
+
+func CreateInputsUnion1OutputApplyPatchServerToolItem(outputApplyPatchServerToolItem OutputApplyPatchServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputApplyPatchServerToolItem
+
+	return InputsUnion1{
+		OutputApplyPatchServerToolItem: &outputApplyPatchServerToolItem,
+		Type:                           typ,
+	}
+}
+
+func CreateInputsUnion1OutputWebFetchServerToolItem(outputWebFetchServerToolItem OutputWebFetchServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputWebFetchServerToolItem
+
+	return InputsUnion1{
+		OutputWebFetchServerToolItem: &outputWebFetchServerToolItem,
+		Type:                         typ,
+	}
+}
+
+func CreateInputsUnion1OutputToolSearchServerToolItem(outputToolSearchServerToolItem OutputToolSearchServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputToolSearchServerToolItem
+
+	return InputsUnion1{
+		OutputToolSearchServerToolItem: &outputToolSearchServerToolItem,
+		Type:                           typ,
+	}
+}
+
+func CreateInputsUnion1OutputMemoryServerToolItem(outputMemoryServerToolItem OutputMemoryServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputMemoryServerToolItem
+
+	return InputsUnion1{
+		OutputMemoryServerToolItem: &outputMemoryServerToolItem,
+		Type:                       typ,
+	}
+}
+
+func CreateInputsUnion1OutputMcpServerToolItem(outputMcpServerToolItem OutputMcpServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputMcpServerToolItem
+
+	return InputsUnion1{
+		OutputMcpServerToolItem: &outputMcpServerToolItem,
+		Type:                    typ,
+	}
+}
+
+func CreateInputsUnion1OutputSearchModelsServerToolItem(outputSearchModelsServerToolItem OutputSearchModelsServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputSearchModelsServerToolItem
+
+	return InputsUnion1{
+		OutputSearchModelsServerToolItem: &outputSearchModelsServerToolItem,
+		Type:                             typ,
+	}
+}
+
+func CreateInputsUnion1OutputAdvisorServerToolItem(outputAdvisorServerToolItem OutputAdvisorServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputAdvisorServerToolItem
+
+	return InputsUnion1{
+		OutputAdvisorServerToolItem: &outputAdvisorServerToolItem,
+		Type:                        typ,
+	}
+}
+
+func CreateInputsUnion1OutputSubagentServerToolItem(outputSubagentServerToolItem OutputSubagentServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputSubagentServerToolItem
+
+	return InputsUnion1{
+		OutputSubagentServerToolItem: &outputSubagentServerToolItem,
+		Type:                         typ,
+	}
+}
+
+func CreateInputsUnion1LocalShellCallItem(localShellCallItem LocalShellCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeLocalShellCallItem
+
+	return InputsUnion1{
+		LocalShellCallItem: &localShellCallItem,
+		Type:               typ,
+	}
+}
+
+func CreateInputsUnion1LocalShellCallOutputItem(localShellCallOutputItem LocalShellCallOutputItem) InputsUnion1 {
+	typ := InputsUnion1TypeLocalShellCallOutputItem
+
+	return InputsUnion1{
+		LocalShellCallOutputItem: &localShellCallOutputItem,
+		Type:                     typ,
+	}
+}
+
+func CreateInputsUnion1ShellCallItem(shellCallItem ShellCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeShellCallItem
+
+	return InputsUnion1{
+		ShellCallItem: &shellCallItem,
+		Type:          typ,
+	}
+}
+
+func CreateInputsUnion1ShellCallOutputItem(shellCallOutputItem ShellCallOutputItem) InputsUnion1 {
+	typ := InputsUnion1TypeShellCallOutputItem
+
+	return InputsUnion1{
+		ShellCallOutputItem: &shellCallOutputItem,
+		Type:                typ,
+	}
+}
+
+func CreateInputsUnion1McpListToolsItem(mcpListToolsItem McpListToolsItem) InputsUnion1 {
+	typ := InputsUnion1TypeMcpListToolsItem
+
+	return InputsUnion1{
+		McpListToolsItem: &mcpListToolsItem,
+		Type:             typ,
+	}
+}
+
+func CreateInputsUnion1McpApprovalRequestItem(mcpApprovalRequestItem McpApprovalRequestItem) InputsUnion1 {
+	typ := InputsUnion1TypeMcpApprovalRequestItem
+
+	return InputsUnion1{
+		McpApprovalRequestItem: &mcpApprovalRequestItem,
+		Type:                   typ,
+	}
+}
+
+func CreateInputsUnion1McpApprovalResponseItem(mcpApprovalResponseItem McpApprovalResponseItem) InputsUnion1 {
+	typ := InputsUnion1TypeMcpApprovalResponseItem
+
+	return InputsUnion1{
+		McpApprovalResponseItem: &mcpApprovalResponseItem,
+		Type:                    typ,
+	}
+}
+
+func CreateInputsUnion1McpCallItem(mcpCallItem McpCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeMcpCallItem
+
+	return InputsUnion1{
+		McpCallItem: &mcpCallItem,
+		Type:        typ,
+	}
+}
+
+func CreateInputsUnion1CustomToolCallItem(customToolCallItem CustomToolCallItem) InputsUnion1 {
+	typ := InputsUnion1TypeCustomToolCallItem
+
+	return InputsUnion1{
+		CustomToolCallItem: &customToolCallItem,
+		Type:               typ,
+	}
+}
+
+func CreateInputsUnion1CustomToolCallOutputItem(customToolCallOutputItem CustomToolCallOutputItem) InputsUnion1 {
+	typ := InputsUnion1TypeCustomToolCallOutputItem
+
+	return InputsUnion1{
+		CustomToolCallOutputItem: &customToolCallOutputItem,
+		Type:                     typ,
+	}
+}
+
+func CreateInputsUnion1CompactionItem(compactionItem CompactionItem) InputsUnion1 {
+	typ := InputsUnion1TypeCompactionItem
+
+	return InputsUnion1{
+		CompactionItem: &compactionItem,
+		Type:           typ,
+	}
+}
+
+func CreateInputsUnion1ItemReferenceItem(itemReferenceItem ItemReferenceItem) InputsUnion1 {
+	typ := InputsUnion1TypeItemReferenceItem
+
+	return InputsUnion1{
+		ItemReferenceItem: &itemReferenceItem,
+		Type:              typ,
 	}
 }
 
@@ -1151,6 +1492,22 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var applyPatchCallItem ApplyPatchCallItem = ApplyPatchCallItem{}
+	if err := utils.UnmarshalJSON(data, &applyPatchCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeApplyPatchCallItem,
+			Value: &applyPatchCallItem,
+		})
+	}
+
+	var applyPatchCallOutputItem ApplyPatchCallOutputItem = ApplyPatchCallOutputItem{}
+	if err := utils.UnmarshalJSON(data, &applyPatchCallOutputItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeApplyPatchCallOutputItem,
+			Value: &applyPatchCallOutputItem,
+		})
+	}
+
 	var inputsMessage InputsMessage = InputsMessage{}
 	if err := utils.UnmarshalJSON(data, &inputsMessage, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -1172,6 +1529,14 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  InputsUnion1TypeOutputFunctionCallItem,
 			Value: &outputFunctionCallItem,
+		})
+	}
+
+	var outputCustomToolCallItem OutputCustomToolCallItem = OutputCustomToolCallItem{}
+	if err := utils.UnmarshalJSON(data, &outputCustomToolCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputCustomToolCallItem,
+			Value: &outputCustomToolCallItem,
 		})
 	}
 
@@ -1199,6 +1564,22 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var outputCodeInterpreterCallItem OutputCodeInterpreterCallItem = OutputCodeInterpreterCallItem{}
+	if err := utils.UnmarshalJSON(data, &outputCodeInterpreterCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputCodeInterpreterCallItem,
+			Value: &outputCodeInterpreterCallItem,
+		})
+	}
+
+	var outputComputerCallItem OutputComputerCallItem = OutputComputerCallItem{}
+	if err := utils.UnmarshalJSON(data, &outputComputerCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputComputerCallItem,
+			Value: &outputComputerCallItem,
+		})
+	}
+
 	var outputDatetimeItem OutputDatetimeItem = OutputDatetimeItem{}
 	if err := utils.UnmarshalJSON(data, &outputDatetimeItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -1212,6 +1593,214 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  InputsUnion1TypeOutputWebSearchServerToolItem,
 			Value: &outputWebSearchServerToolItem,
+		})
+	}
+
+	var outputCodeInterpreterServerToolItem OutputCodeInterpreterServerToolItem = OutputCodeInterpreterServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputCodeInterpreterServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputCodeInterpreterServerToolItem,
+			Value: &outputCodeInterpreterServerToolItem,
+		})
+	}
+
+	var outputFileSearchServerToolItem OutputFileSearchServerToolItem = OutputFileSearchServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputFileSearchServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputFileSearchServerToolItem,
+			Value: &outputFileSearchServerToolItem,
+		})
+	}
+
+	var outputImageGenerationServerToolItem OutputImageGenerationServerToolItem = OutputImageGenerationServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputImageGenerationServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputImageGenerationServerToolItem,
+			Value: &outputImageGenerationServerToolItem,
+		})
+	}
+
+	var outputBrowserUseServerToolItem OutputBrowserUseServerToolItem = OutputBrowserUseServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputBrowserUseServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputBrowserUseServerToolItem,
+			Value: &outputBrowserUseServerToolItem,
+		})
+	}
+
+	var outputBashServerToolItem OutputBashServerToolItem = OutputBashServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputBashServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputBashServerToolItem,
+			Value: &outputBashServerToolItem,
+		})
+	}
+
+	var outputTextEditorServerToolItem OutputTextEditorServerToolItem = OutputTextEditorServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputTextEditorServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputTextEditorServerToolItem,
+			Value: &outputTextEditorServerToolItem,
+		})
+	}
+
+	var outputApplyPatchServerToolItem OutputApplyPatchServerToolItem = OutputApplyPatchServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputApplyPatchServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputApplyPatchServerToolItem,
+			Value: &outputApplyPatchServerToolItem,
+		})
+	}
+
+	var outputWebFetchServerToolItem OutputWebFetchServerToolItem = OutputWebFetchServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputWebFetchServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputWebFetchServerToolItem,
+			Value: &outputWebFetchServerToolItem,
+		})
+	}
+
+	var outputToolSearchServerToolItem OutputToolSearchServerToolItem = OutputToolSearchServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputToolSearchServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputToolSearchServerToolItem,
+			Value: &outputToolSearchServerToolItem,
+		})
+	}
+
+	var outputMemoryServerToolItem OutputMemoryServerToolItem = OutputMemoryServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputMemoryServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputMemoryServerToolItem,
+			Value: &outputMemoryServerToolItem,
+		})
+	}
+
+	var outputMcpServerToolItem OutputMcpServerToolItem = OutputMcpServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputMcpServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputMcpServerToolItem,
+			Value: &outputMcpServerToolItem,
+		})
+	}
+
+	var outputSearchModelsServerToolItem OutputSearchModelsServerToolItem = OutputSearchModelsServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputSearchModelsServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputSearchModelsServerToolItem,
+			Value: &outputSearchModelsServerToolItem,
+		})
+	}
+
+	var outputAdvisorServerToolItem OutputAdvisorServerToolItem = OutputAdvisorServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputAdvisorServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputAdvisorServerToolItem,
+			Value: &outputAdvisorServerToolItem,
+		})
+	}
+
+	var outputSubagentServerToolItem OutputSubagentServerToolItem = OutputSubagentServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputSubagentServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputSubagentServerToolItem,
+			Value: &outputSubagentServerToolItem,
+		})
+	}
+
+	var localShellCallItem LocalShellCallItem = LocalShellCallItem{}
+	if err := utils.UnmarshalJSON(data, &localShellCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeLocalShellCallItem,
+			Value: &localShellCallItem,
+		})
+	}
+
+	var localShellCallOutputItem LocalShellCallOutputItem = LocalShellCallOutputItem{}
+	if err := utils.UnmarshalJSON(data, &localShellCallOutputItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeLocalShellCallOutputItem,
+			Value: &localShellCallOutputItem,
+		})
+	}
+
+	var shellCallItem ShellCallItem = ShellCallItem{}
+	if err := utils.UnmarshalJSON(data, &shellCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeShellCallItem,
+			Value: &shellCallItem,
+		})
+	}
+
+	var shellCallOutputItem ShellCallOutputItem = ShellCallOutputItem{}
+	if err := utils.UnmarshalJSON(data, &shellCallOutputItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeShellCallOutputItem,
+			Value: &shellCallOutputItem,
+		})
+	}
+
+	var mcpListToolsItem McpListToolsItem = McpListToolsItem{}
+	if err := utils.UnmarshalJSON(data, &mcpListToolsItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeMcpListToolsItem,
+			Value: &mcpListToolsItem,
+		})
+	}
+
+	var mcpApprovalRequestItem McpApprovalRequestItem = McpApprovalRequestItem{}
+	if err := utils.UnmarshalJSON(data, &mcpApprovalRequestItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeMcpApprovalRequestItem,
+			Value: &mcpApprovalRequestItem,
+		})
+	}
+
+	var mcpApprovalResponseItem McpApprovalResponseItem = McpApprovalResponseItem{}
+	if err := utils.UnmarshalJSON(data, &mcpApprovalResponseItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeMcpApprovalResponseItem,
+			Value: &mcpApprovalResponseItem,
+		})
+	}
+
+	var mcpCallItem McpCallItem = McpCallItem{}
+	if err := utils.UnmarshalJSON(data, &mcpCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeMcpCallItem,
+			Value: &mcpCallItem,
+		})
+	}
+
+	var customToolCallItem CustomToolCallItem = CustomToolCallItem{}
+	if err := utils.UnmarshalJSON(data, &customToolCallItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeCustomToolCallItem,
+			Value: &customToolCallItem,
+		})
+	}
+
+	var customToolCallOutputItem CustomToolCallOutputItem = CustomToolCallOutputItem{}
+	if err := utils.UnmarshalJSON(data, &customToolCallOutputItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeCustomToolCallOutputItem,
+			Value: &customToolCallOutputItem,
+		})
+	}
+
+	var compactionItem CompactionItem = CompactionItem{}
+	if err := utils.UnmarshalJSON(data, &compactionItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeCompactionItem,
+			Value: &compactionItem,
+		})
+	}
+
+	var itemReferenceItem ItemReferenceItem = ItemReferenceItem{}
+	if err := utils.UnmarshalJSON(data, &itemReferenceItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeItemReferenceItem,
+			Value: &itemReferenceItem,
 		})
 	}
 
@@ -1243,6 +1832,12 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeFunctionCallOutputItem:
 		u.FunctionCallOutputItem = best.Value.(*FunctionCallOutputItem)
 		return nil
+	case InputsUnion1TypeApplyPatchCallItem:
+		u.ApplyPatchCallItem = best.Value.(*ApplyPatchCallItem)
+		return nil
+	case InputsUnion1TypeApplyPatchCallOutputItem:
+		u.ApplyPatchCallOutputItem = best.Value.(*ApplyPatchCallOutputItem)
+		return nil
 	case InputsUnion1TypeInputsMessage:
 		u.InputsMessage = best.Value.(*InputsMessage)
 		return nil
@@ -1251,6 +1846,9 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		return nil
 	case InputsUnion1TypeOutputFunctionCallItem:
 		u.OutputFunctionCallItem = best.Value.(*OutputFunctionCallItem)
+		return nil
+	case InputsUnion1TypeOutputCustomToolCallItem:
+		u.OutputCustomToolCallItem = best.Value.(*OutputCustomToolCallItem)
 		return nil
 	case InputsUnion1TypeOutputWebSearchCallItem:
 		u.OutputWebSearchCallItem = best.Value.(*OutputWebSearchCallItem)
@@ -1261,11 +1859,95 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeOutputImageGenerationCallItem:
 		u.OutputImageGenerationCallItem = best.Value.(*OutputImageGenerationCallItem)
 		return nil
+	case InputsUnion1TypeOutputCodeInterpreterCallItem:
+		u.OutputCodeInterpreterCallItem = best.Value.(*OutputCodeInterpreterCallItem)
+		return nil
+	case InputsUnion1TypeOutputComputerCallItem:
+		u.OutputComputerCallItem = best.Value.(*OutputComputerCallItem)
+		return nil
 	case InputsUnion1TypeOutputDatetimeItem:
 		u.OutputDatetimeItem = best.Value.(*OutputDatetimeItem)
 		return nil
 	case InputsUnion1TypeOutputWebSearchServerToolItem:
 		u.OutputWebSearchServerToolItem = best.Value.(*OutputWebSearchServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputCodeInterpreterServerToolItem:
+		u.OutputCodeInterpreterServerToolItem = best.Value.(*OutputCodeInterpreterServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputFileSearchServerToolItem:
+		u.OutputFileSearchServerToolItem = best.Value.(*OutputFileSearchServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputImageGenerationServerToolItem:
+		u.OutputImageGenerationServerToolItem = best.Value.(*OutputImageGenerationServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputBrowserUseServerToolItem:
+		u.OutputBrowserUseServerToolItem = best.Value.(*OutputBrowserUseServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputBashServerToolItem:
+		u.OutputBashServerToolItem = best.Value.(*OutputBashServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputTextEditorServerToolItem:
+		u.OutputTextEditorServerToolItem = best.Value.(*OutputTextEditorServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputApplyPatchServerToolItem:
+		u.OutputApplyPatchServerToolItem = best.Value.(*OutputApplyPatchServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputWebFetchServerToolItem:
+		u.OutputWebFetchServerToolItem = best.Value.(*OutputWebFetchServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputToolSearchServerToolItem:
+		u.OutputToolSearchServerToolItem = best.Value.(*OutputToolSearchServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputMemoryServerToolItem:
+		u.OutputMemoryServerToolItem = best.Value.(*OutputMemoryServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputMcpServerToolItem:
+		u.OutputMcpServerToolItem = best.Value.(*OutputMcpServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputSearchModelsServerToolItem:
+		u.OutputSearchModelsServerToolItem = best.Value.(*OutputSearchModelsServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputAdvisorServerToolItem:
+		u.OutputAdvisorServerToolItem = best.Value.(*OutputAdvisorServerToolItem)
+		return nil
+	case InputsUnion1TypeOutputSubagentServerToolItem:
+		u.OutputSubagentServerToolItem = best.Value.(*OutputSubagentServerToolItem)
+		return nil
+	case InputsUnion1TypeLocalShellCallItem:
+		u.LocalShellCallItem = best.Value.(*LocalShellCallItem)
+		return nil
+	case InputsUnion1TypeLocalShellCallOutputItem:
+		u.LocalShellCallOutputItem = best.Value.(*LocalShellCallOutputItem)
+		return nil
+	case InputsUnion1TypeShellCallItem:
+		u.ShellCallItem = best.Value.(*ShellCallItem)
+		return nil
+	case InputsUnion1TypeShellCallOutputItem:
+		u.ShellCallOutputItem = best.Value.(*ShellCallOutputItem)
+		return nil
+	case InputsUnion1TypeMcpListToolsItem:
+		u.McpListToolsItem = best.Value.(*McpListToolsItem)
+		return nil
+	case InputsUnion1TypeMcpApprovalRequestItem:
+		u.McpApprovalRequestItem = best.Value.(*McpApprovalRequestItem)
+		return nil
+	case InputsUnion1TypeMcpApprovalResponseItem:
+		u.McpApprovalResponseItem = best.Value.(*McpApprovalResponseItem)
+		return nil
+	case InputsUnion1TypeMcpCallItem:
+		u.McpCallItem = best.Value.(*McpCallItem)
+		return nil
+	case InputsUnion1TypeCustomToolCallItem:
+		u.CustomToolCallItem = best.Value.(*CustomToolCallItem)
+		return nil
+	case InputsUnion1TypeCustomToolCallOutputItem:
+		u.CustomToolCallOutputItem = best.Value.(*CustomToolCallOutputItem)
+		return nil
+	case InputsUnion1TypeCompactionItem:
+		u.CompactionItem = best.Value.(*CompactionItem)
+		return nil
+	case InputsUnion1TypeItemReferenceItem:
+		u.ItemReferenceItem = best.Value.(*ItemReferenceItem)
 		return nil
 	}
 
@@ -1293,6 +1975,14 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.FunctionCallOutputItem, "", true)
 	}
 
+	if u.ApplyPatchCallItem != nil {
+		return utils.MarshalJSON(u.ApplyPatchCallItem, "", true)
+	}
+
+	if u.ApplyPatchCallOutputItem != nil {
+		return utils.MarshalJSON(u.ApplyPatchCallOutputItem, "", true)
+	}
+
 	if u.InputsMessage != nil {
 		return utils.MarshalJSON(u.InputsMessage, "", true)
 	}
@@ -1303,6 +1993,10 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 
 	if u.OutputFunctionCallItem != nil {
 		return utils.MarshalJSON(u.OutputFunctionCallItem, "", true)
+	}
+
+	if u.OutputCustomToolCallItem != nil {
+		return utils.MarshalJSON(u.OutputCustomToolCallItem, "", true)
 	}
 
 	if u.OutputWebSearchCallItem != nil {
@@ -1317,12 +2011,124 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputImageGenerationCallItem, "", true)
 	}
 
+	if u.OutputCodeInterpreterCallItem != nil {
+		return utils.MarshalJSON(u.OutputCodeInterpreterCallItem, "", true)
+	}
+
+	if u.OutputComputerCallItem != nil {
+		return utils.MarshalJSON(u.OutputComputerCallItem, "", true)
+	}
+
 	if u.OutputDatetimeItem != nil {
 		return utils.MarshalJSON(u.OutputDatetimeItem, "", true)
 	}
 
 	if u.OutputWebSearchServerToolItem != nil {
 		return utils.MarshalJSON(u.OutputWebSearchServerToolItem, "", true)
+	}
+
+	if u.OutputCodeInterpreterServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputCodeInterpreterServerToolItem, "", true)
+	}
+
+	if u.OutputFileSearchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputFileSearchServerToolItem, "", true)
+	}
+
+	if u.OutputImageGenerationServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputImageGenerationServerToolItem, "", true)
+	}
+
+	if u.OutputBrowserUseServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputBrowserUseServerToolItem, "", true)
+	}
+
+	if u.OutputBashServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputBashServerToolItem, "", true)
+	}
+
+	if u.OutputTextEditorServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputTextEditorServerToolItem, "", true)
+	}
+
+	if u.OutputApplyPatchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputApplyPatchServerToolItem, "", true)
+	}
+
+	if u.OutputWebFetchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputWebFetchServerToolItem, "", true)
+	}
+
+	if u.OutputToolSearchServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputToolSearchServerToolItem, "", true)
+	}
+
+	if u.OutputMemoryServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputMemoryServerToolItem, "", true)
+	}
+
+	if u.OutputMcpServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputMcpServerToolItem, "", true)
+	}
+
+	if u.OutputSearchModelsServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputSearchModelsServerToolItem, "", true)
+	}
+
+	if u.OutputAdvisorServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputAdvisorServerToolItem, "", true)
+	}
+
+	if u.OutputSubagentServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputSubagentServerToolItem, "", true)
+	}
+
+	if u.LocalShellCallItem != nil {
+		return utils.MarshalJSON(u.LocalShellCallItem, "", true)
+	}
+
+	if u.LocalShellCallOutputItem != nil {
+		return utils.MarshalJSON(u.LocalShellCallOutputItem, "", true)
+	}
+
+	if u.ShellCallItem != nil {
+		return utils.MarshalJSON(u.ShellCallItem, "", true)
+	}
+
+	if u.ShellCallOutputItem != nil {
+		return utils.MarshalJSON(u.ShellCallOutputItem, "", true)
+	}
+
+	if u.McpListToolsItem != nil {
+		return utils.MarshalJSON(u.McpListToolsItem, "", true)
+	}
+
+	if u.McpApprovalRequestItem != nil {
+		return utils.MarshalJSON(u.McpApprovalRequestItem, "", true)
+	}
+
+	if u.McpApprovalResponseItem != nil {
+		return utils.MarshalJSON(u.McpApprovalResponseItem, "", true)
+	}
+
+	if u.McpCallItem != nil {
+		return utils.MarshalJSON(u.McpCallItem, "", true)
+	}
+
+	if u.CustomToolCallItem != nil {
+		return utils.MarshalJSON(u.CustomToolCallItem, "", true)
+	}
+
+	if u.CustomToolCallOutputItem != nil {
+		return utils.MarshalJSON(u.CustomToolCallOutputItem, "", true)
+	}
+
+	if u.CompactionItem != nil {
+		return utils.MarshalJSON(u.CompactionItem, "", true)
+	}
+
+	if u.ItemReferenceItem != nil {
+		return utils.MarshalJSON(u.ItemReferenceItem, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsUnion1: all fields are null")

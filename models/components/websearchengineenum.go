@@ -2,15 +2,16 @@
 
 package components
 
-// WebSearchEngineEnum - Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API.
+// WebSearchEngineEnum - Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API. "perplexity" uses the Perplexity Search API (raw ranked results).
 type WebSearchEngineEnum string
 
 const (
-	WebSearchEngineEnumAuto      WebSearchEngineEnum = "auto"
-	WebSearchEngineEnumNative    WebSearchEngineEnum = "native"
-	WebSearchEngineEnumExa       WebSearchEngineEnum = "exa"
-	WebSearchEngineEnumFirecrawl WebSearchEngineEnum = "firecrawl"
-	WebSearchEngineEnumParallel  WebSearchEngineEnum = "parallel"
+	WebSearchEngineEnumNative     WebSearchEngineEnum = "native"
+	WebSearchEngineEnumExa        WebSearchEngineEnum = "exa"
+	WebSearchEngineEnumParallel   WebSearchEngineEnum = "parallel"
+	WebSearchEngineEnumFirecrawl  WebSearchEngineEnum = "firecrawl"
+	WebSearchEngineEnumPerplexity WebSearchEngineEnum = "perplexity"
+	WebSearchEngineEnumAuto       WebSearchEngineEnum = "auto"
 )
 
 func (e WebSearchEngineEnum) ToPointer() *WebSearchEngineEnum {
@@ -21,7 +22,7 @@ func (e WebSearchEngineEnum) ToPointer() *WebSearchEngineEnum {
 func (e *WebSearchEngineEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "native", "exa", "firecrawl", "parallel":
+		case "native", "exa", "parallel", "firecrawl", "perplexity", "auto":
 			return true
 		}
 	}

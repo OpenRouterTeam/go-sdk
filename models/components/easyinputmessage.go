@@ -13,9 +13,10 @@ import (
 type EasyInputMessageDetail string
 
 const (
-	EasyInputMessageDetailAuto EasyInputMessageDetail = "auto"
-	EasyInputMessageDetailHigh EasyInputMessageDetail = "high"
-	EasyInputMessageDetailLow  EasyInputMessageDetail = "low"
+	EasyInputMessageDetailAuto     EasyInputMessageDetail = "auto"
+	EasyInputMessageDetailHigh     EasyInputMessageDetail = "high"
+	EasyInputMessageDetailLow      EasyInputMessageDetail = "low"
+	EasyInputMessageDetailOriginal EasyInputMessageDetail = "original"
 )
 
 func (e EasyInputMessageDetail) ToPointer() *EasyInputMessageDetail {
@@ -26,33 +27,33 @@ func (e EasyInputMessageDetail) ToPointer() *EasyInputMessageDetail {
 func (e *EasyInputMessageDetail) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "high", "low":
+		case "auto", "high", "low", "original":
 			return true
 		}
 	}
 	return false
 }
 
-type EasyInputMessageContentType string
+type EasyInputMessageTypeInputImage string
 
 const (
-	EasyInputMessageContentTypeInputImage EasyInputMessageContentType = "input_image"
+	EasyInputMessageTypeInputImageInputImage EasyInputMessageTypeInputImage = "input_image"
 )
 
-func (e EasyInputMessageContentType) ToPointer() *EasyInputMessageContentType {
+func (e EasyInputMessageTypeInputImage) ToPointer() *EasyInputMessageTypeInputImage {
 	return &e
 }
-func (e *EasyInputMessageContentType) UnmarshalJSON(data []byte) error {
+func (e *EasyInputMessageTypeInputImage) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "input_image":
-		*e = EasyInputMessageContentType(v)
+		*e = EasyInputMessageTypeInputImage(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for EasyInputMessageContentType: %v", v)
+		return fmt.Errorf("invalid value for EasyInputMessageTypeInputImage: %v", v)
 	}
 }
 
@@ -60,7 +61,7 @@ func (e *EasyInputMessageContentType) UnmarshalJSON(data []byte) error {
 type EasyInputMessageContentInputImage struct {
 	Detail   EasyInputMessageDetail                    `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
-	Type     EasyInputMessageContentType               `json:"type"`
+	Type     EasyInputMessageTypeInputImage            `json:"type"`
 }
 
 func (e EasyInputMessageContentInputImage) MarshalJSON() ([]byte, error) {
@@ -88,9 +89,9 @@ func (e *EasyInputMessageContentInputImage) GetImageURL() optionalnullable.Optio
 	return e.ImageURL
 }
 
-func (e *EasyInputMessageContentInputImage) GetType() EasyInputMessageContentType {
+func (e *EasyInputMessageContentInputImage) GetType() EasyInputMessageTypeInputImage {
 	if e == nil {
-		return EasyInputMessageContentType("")
+		return EasyInputMessageTypeInputImage("")
 	}
 	return e.Type
 }
@@ -130,7 +131,7 @@ func CreateEasyInputMessageContentUnion1InputText(inputText InputText) EasyInput
 func CreateEasyInputMessageContentUnion1InputImage(inputImage EasyInputMessageContentInputImage) EasyInputMessageContentUnion1 {
 	typ := EasyInputMessageContentUnion1TypeInputImage
 
-	typStr := EasyInputMessageContentType(typ)
+	typStr := EasyInputMessageTypeInputImage(typ)
 	inputImage.Type = typStr
 
 	return EasyInputMessageContentUnion1{

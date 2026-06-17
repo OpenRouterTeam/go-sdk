@@ -1,0 +1,18 @@
+# FunctionCallOutputItemTypeInputImage
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.FunctionCallOutputItemTypeInputImageInputImage
+```
+
+
+## Values
+
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `FunctionCallOutputItemTypeInputImageInputImage` | input_image                                      |

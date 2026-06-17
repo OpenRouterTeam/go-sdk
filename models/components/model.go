@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
@@ -10,6 +11,8 @@ import (
 type Model struct {
 	// Model architecture information
 	Architecture ModelArchitecture `json:"architecture"`
+	// Third-party benchmark rankings for this model. Omitted when no benchmark data is available.
+	Benchmarks *ModelBenchmarks `json:"benchmarks,omitzero"`
 	// Canonical slug for the model
 	CanonicalSlug string `json:"canonical_slug"`
 	// Maximum context length in tokens
@@ -38,8 +41,21 @@ type Model struct {
 	Pricing PublicPricing `json:"pricing"`
 	// List of supported parameters for this model
 	SupportedParameters []Parameter `json:"supported_parameters"`
+	// List of supported voice identifiers for TTS models. Null for non-TTS models.
+	SupportedVoices []string `json:"supported_voices"`
 	// Information about the top provider for this model
 	TopProvider TopProviderInfo `json:"top_provider"`
+}
+
+func (m Model) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *Model) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (m *Model) GetArchitecture() ModelArchitecture {
@@ -47,6 +63,13 @@ func (m *Model) GetArchitecture() ModelArchitecture {
 		return ModelArchitecture{}
 	}
 	return m.Architecture
+}
+
+func (m *Model) GetBenchmarks() *ModelBenchmarks {
+	if m == nil {
+		return nil
+	}
+	return m.Benchmarks
 }
 
 func (m *Model) GetCanonicalSlug() string {
@@ -145,6 +168,13 @@ func (m *Model) GetSupportedParameters() []Parameter {
 		return []Parameter{}
 	}
 	return m.SupportedParameters
+}
+
+func (m *Model) GetSupportedVoices() []string {
+	if m == nil {
+		return nil
+	}
+	return m.SupportedVoices
 }
 
 func (m *Model) GetTopProvider() TopProviderInfo {

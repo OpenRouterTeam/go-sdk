@@ -10,10 +10,133 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// DocumentRequest - A structured document with optional text and/or image content. At least one of `text` or `image` must be provided.
+type DocumentRequest struct {
+	// An image associated with the document, as a remote URL (http/https) or a base64-encoded data URI (data:image/...).
+	Image *string `json:"image,omitzero"`
+	// The document text
+	Text *string `json:"text,omitzero"`
+}
+
+func (d DocumentRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DocumentRequest) GetImage() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Image
+}
+
+func (d *DocumentRequest) GetText() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Text
+}
+
+type DocumentType string
+
+const (
+	DocumentTypeStr             DocumentType = "str"
+	DocumentTypeDocumentRequest DocumentType = "document_request"
+)
+
+// Document - A document to rerank. Either a plain string, or a structured object with optional `text` and/or `image`.
+type Document struct {
+	Str             *string          `queryParam:"inline" union:"member"`
+	DocumentRequest *DocumentRequest `queryParam:"inline" union:"member"`
+
+	Type DocumentType
+}
+
+func CreateDocumentStr(str string) Document {
+	typ := DocumentTypeStr
+
+	return Document{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateDocumentDocumentRequest(documentRequest DocumentRequest) Document {
+	typ := DocumentTypeDocumentRequest
+
+	return Document{
+		DocumentRequest: &documentRequest,
+		Type:            typ,
+	}
+}
+
+func (u *Document) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DocumentTypeStr,
+			Value: &str,
+		})
+	}
+
+	var documentRequest DocumentRequest = DocumentRequest{}
+	if err := utils.UnmarshalJSON(data, &documentRequest, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DocumentTypeDocumentRequest,
+			Value: &documentRequest,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Document", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Document", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(DocumentType)
+	switch best.Type {
+	case DocumentTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case DocumentTypeDocumentRequest:
+		u.DocumentRequest = best.Value.(*DocumentRequest)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Document", string(data))
+}
+
+func (u Document) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.DocumentRequest != nil {
+		return utils.MarshalJSON(u.DocumentRequest, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type Document: all fields are null")
+}
+
 // CreateRerankRequest - Rerank request input
 type CreateRerankRequest struct {
-	// The list of documents to rerank
-	Documents []string `json:"documents"`
+	// The list of documents to rerank. Documents may be plain strings, or structured objects with `text` and/or `image` for multimodal models.
+	Documents []Document `json:"documents"`
 	// The rerank model to use
 	Model    string                                                            `json:"model"`
 	Provider optionalnullable.OptionalNullable[components.ProviderPreferences] `json:"provider,omitzero"`
@@ -34,9 +157,9 @@ func (c *CreateRerankRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateRerankRequest) GetDocuments() []string {
+func (c *CreateRerankRequest) GetDocuments() []Document {
 	if c == nil {
-		return []string{}
+		return []Document{}
 	}
 	return c.Documents
 }
@@ -69,32 +192,41 @@ func (c *CreateRerankRequest) GetTopN() *int64 {
 	return c.TopN
 }
 
-// Document - The document object containing the original text
-type Document struct {
+// DocumentResponse - The document object echoing the original input (text and/or image)
+type DocumentResponse struct {
+	// The image (URL or data URI) from the original document
+	Image *string `json:"image,omitzero"`
 	// The document text
-	Text string `json:"text"`
+	Text *string `json:"text,omitzero"`
 }
 
-func (d *Document) GetText() string {
+func (d *DocumentResponse) GetImage() *string {
 	if d == nil {
-		return ""
+		return nil
+	}
+	return d.Image
+}
+
+func (d *DocumentResponse) GetText() *string {
+	if d == nil {
+		return nil
 	}
 	return d.Text
 }
 
 // Result - A single rerank result
 type Result struct {
-	// The document object containing the original text
-	Document Document `json:"document"`
+	// The document object echoing the original input (text and/or image)
+	Document DocumentResponse `json:"document"`
 	// Index of the document in the original input list
 	Index int64 `json:"index"`
 	// Relevance score of the document to the query
 	RelevanceScore float64 `json:"relevance_score"`
 }
 
-func (r *Result) GetDocument() Document {
+func (r *Result) GetDocument() DocumentResponse {
 	if r == nil {
-		return Document{}
+		return DocumentResponse{}
 	}
 	return r.Document
 }

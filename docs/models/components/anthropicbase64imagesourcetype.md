@@ -1,0 +1,18 @@
+# AnthropicBase64ImageSourceType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicBase64ImageSourceTypeBase64
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `AnthropicBase64ImageSourceTypeBase64` | base64                                 |

@@ -39,6 +39,30 @@ baseInputsUnion1 := components.CreateBaseInputsUnion1OutputItemImageGenerationCa
 baseInputsUnion1 := components.CreateBaseInputsUnion1OutputMessage(components.OutputMessage{/* values here */})
 ```
 
+### OpenAIResponseCustomToolCall
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseCustomToolCall(components.OpenAIResponseCustomToolCall{/* values here */})
+```
+
+### OpenAIResponseCustomToolCallOutput
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseCustomToolCallOutput(components.OpenAIResponseCustomToolCallOutput{/* values here */})
+```
+
+### ApplyPatchCallItem
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1ApplyPatchCallItem(components.ApplyPatchCallItem{/* values here */})
+```
+
+### ApplyPatchCallOutputItem
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1ApplyPatchCallOutputItem(components.ApplyPatchCallOutputItem{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -57,5 +81,13 @@ switch baseInputsUnion1.Type {
 		// baseInputsUnion1.OutputItemImageGenerationCall is populated
 	case components.BaseInputsUnion1TypeOutputMessage:
 		// baseInputsUnion1.OutputMessage is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseCustomToolCall:
+		// baseInputsUnion1.OpenAIResponseCustomToolCall is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseCustomToolCallOutput:
+		// baseInputsUnion1.OpenAIResponseCustomToolCallOutput is populated
+	case components.BaseInputsUnion1TypeApplyPatchCallItem:
+		// baseInputsUnion1.ApplyPatchCallItem is populated
+	case components.BaseInputsUnion1TypeApplyPatchCallOutputItem:
+		// baseInputsUnion1.ApplyPatchCallOutputItem is populated
 }
 ```

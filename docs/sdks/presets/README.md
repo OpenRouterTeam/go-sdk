@@ -1,0 +1,491 @@
+# Presets
+
+## Overview
+
+Presets endpoints
+
+### Available Operations
+
+* [List](#list) - List presets
+* [Get](#get) - Get a preset
+* [CreatePresetsChatCompletions](#createpresetschatcompletions) - Create a preset from a chat-completions request body
+* [CreatePresetsMessages](#createpresetsmessages) - Create a preset from a messages request body
+* [CreatePresetsResponses](#createpresetsresponses) - Create a preset from a responses request body
+* [ListVersions](#listversions) - List versions of a preset
+* [GetVersion](#getversion) - Get a specific version of a preset
+
+## List
+
+Lists all presets for the authenticated user, ordered by most recently updated first.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listPresets" method="get" path="/presets" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Presets.List(ctx, optionalnullable.From[int64](nil), nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*operations.ListPresetsResponse](../../models/operations/listpresetsresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## Get
+
+Retrieves a preset by its slug with its currently designated version inline.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getPreset" method="get" path="/presets/{slug}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Presets.Get(ctx, "my-preset")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `slug`                                                   | `string`                                                 | :heavy_check_mark:                                       | URL-safe slug identifying the preset.                    | my-preset                                                |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.GetPresetResponse](../../models/components/getpresetresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreatePresetsChatCompletions
+
+Creates a preset (or a new version of an existing one) from an inference request body. Only fields that overlap with the preset config are persisted; other fields (e.g. `messages`, `stream`, `prompt`) are silently ignored.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createPresetsChatCompletions" method="post" path="/presets/{slug}/chat/completions" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Presets.CreatePresetsChatCompletions(ctx, "my-preset", components.ChatRequest{
+        Messages: []components.ChatMessages{
+            components.CreateChatMessagesSystem(
+                components.ChatSystemMessage{
+                    Content: components.CreateChatSystemMessageContentStr(
+                        "You are a helpful assistant.",
+                    ),
+                    Role: components.ChatSystemMessageRoleSystem,
+                },
+            ),
+            components.CreateChatMessagesUser(
+                components.ChatUserMessage{
+                    Content: components.CreateChatUserMessageContentStr(
+                        "Hello!",
+                    ),
+                    Role: components.ChatUserMessageRoleUser,
+                },
+            ),
+        },
+        Model: openrouter.Pointer("openai/gpt-5.4"),
+        Temperature: optionalnullable.From(openrouter.Pointer[float64](0.7)),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                            | Type                                                                                                                                                                                                                 | Required                                                                                                                                                                                                             | Description                                                                                                                                                                                                          | Example                                                                                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                   | The context to use for the request.                                                                                                                                                                                  |                                                                                                                                                                                                                      |
+| `slug`                                                                                                                                                                                                               | `string`                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                   | URL-safe slug identifying the preset. Created if it does not exist.                                                                                                                                                  | my-preset                                                                                                                                                                                                            |
+| `chatRequest`                                                                                                                                                                                                        | [components.ChatRequest](../../models/components/chatrequest.md)                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                  | {<br/>"max_tokens": 150,<br/>"messages": [<br/>{<br/>"content": "You are a helpful assistant.",<br/>"role": "system"<br/>},<br/>{<br/>"content": "What is the capital of France?",<br/>"role": "user"<br/>}<br/>],<br/>"model": "openai/gpt-4",<br/>"temperature": 0.7<br/>} |
+| `opts`                                                                                                                                                                                                               | [][operations.Option](../../models/operations/option.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                   | The options for this request.                                                                                                                                                                                        |                                                                                                                                                                                                                      |
+
+### Response
+
+**[*components.CreatePresetFromInferenceResponse](../../models/components/createpresetfrominferenceresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreatePresetsMessages
+
+Creates a preset (or a new version of an existing one) from an inference request body. Only fields that overlap with the preset config are persisted; other fields (e.g. `messages`, `stream`, `prompt`) are silently ignored.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createPresetsMessages" method="post" path="/presets/{slug}/messages" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Presets.CreatePresetsMessages(ctx, "my-preset", components.MessagesRequest{
+        MaxTokens: openrouter.Pointer[int64](1024),
+        Messages: []components.MessagesMessageParam{
+            components.MessagesMessageParam{
+                Content: components.CreateMessagesMessageParamContentUnion5Str(
+                    "Hello!",
+                ),
+                Role: components.MessagesMessageParamRoleUser,
+            },
+        },
+        Model: "anthropic/claude-4.6-sonnet",
+        System: openrouter.Pointer(components.CreateSystemStr(
+            "You are a helpful assistant.",
+        )),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                         | Type                                                                                                                                                              | Required                                                                                                                                                          | Description                                                                                                                                                       | Example                                                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                             | [context.Context](https://pkg.go.dev/context#Context)                                                                                                             | :heavy_check_mark:                                                                                                                                                | The context to use for the request.                                                                                                                               |                                                                                                                                                                   |
+| `slug`                                                                                                                                                            | `string`                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                | URL-safe slug identifying the preset. Created if it does not exist.                                                                                               | my-preset                                                                                                                                                         |
+| `messagesRequest`                                                                                                                                                 | [components.MessagesRequest](../../models/components/messagesrequest.md)                                                                                          | :heavy_check_mark:                                                                                                                                                | N/A                                                                                                                                                               | {<br/>"max_tokens": 1024,<br/>"messages": [<br/>{<br/>"content": "Hello, how are you?",<br/>"role": "user"<br/>}<br/>],<br/>"model": "anthropic/claude-4.5-sonnet-20250929",<br/>"temperature": 0.7<br/>} |
+| `opts`                                                                                                                                                            | [][operations.Option](../../models/operations/option.md)                                                                                                          | :heavy_minus_sign:                                                                                                                                                | The options for this request.                                                                                                                                     |                                                                                                                                                                   |
+
+### Response
+
+**[*components.CreatePresetFromInferenceResponse](../../models/components/createpresetfrominferenceresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreatePresetsResponses
+
+Creates a preset (or a new version of an existing one) from an inference request body. Only fields that overlap with the preset config are persisted; other fields (e.g. `messages`, `stream`, `prompt`) are silently ignored.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createPresetsResponses" method="post" path="/presets/{slug}/responses" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Presets.CreatePresetsResponses(ctx, "my-preset", components.ResponsesRequest{
+        Input: openrouter.Pointer(components.CreateInputsUnionStr(
+            "Hello!",
+        )),
+        Instructions: optionalnullable.From(openrouter.Pointer("You are a helpful assistant.")),
+        Model: openrouter.Pointer("openai/gpt-5.4"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                                                                                                             | Type                                                                                                                                                                                                                                                                                                                                                                                                  | Required                                                                                                                                                                                                                                                                                                                                                                                              | Description                                                                                                                                                                                                                                                                                                                                                                                           | Example                                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                                                                                                                                                                                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                    | The context to use for the request.                                                                                                                                                                                                                                                                                                                                                                   |                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `slug`                                                                                                                                                                                                                                                                                                                                                                                                | `string`                                                                                                                                                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                    | URL-safe slug identifying the preset. Created if it does not exist.                                                                                                                                                                                                                                                                                                                                   | my-preset                                                                                                                                                                                                                                                                                                                                                                                             |
+| `responsesRequest`                                                                                                                                                                                                                                                                                                                                                                                    | [components.ResponsesRequest](../../models/components/responsesrequest.md)                                                                                                                                                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                    | N/A                                                                                                                                                                                                                                                                                                                                                                                                   | {<br/>"input": [<br/>{<br/>"content": "Hello, how are you?",<br/>"role": "user",<br/>"type": "message"<br/>}<br/>],<br/>"model": "anthropic/claude-4.5-sonnet-20250929",<br/>"temperature": 0.7,<br/>"tools": [<br/>{<br/>"description": "Get the current weather in a given location",<br/>"name": "get_current_weather",<br/>"parameters": {<br/>"properties": {<br/>"location": {<br/>"type": "string"<br/>}<br/>},<br/>"type": "object"<br/>},<br/>"type": "function"<br/>}<br/>],<br/>"top_p": 0.9<br/>} |
+| `opts`                                                                                                                                                                                                                                                                                                                                                                                                | [][operations.Option](../../models/operations/option.md)                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                    | The options for this request.                                                                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                       |
+
+### Response
+
+**[*components.CreatePresetFromInferenceResponse](../../models/components/createpresetfrominferenceresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListVersions
+
+Lists all versions of a preset, ordered by version number ascending (oldest first).
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listPresetVersions" method="get" path="/presets/{slug}/versions" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Presets.ListVersions(ctx, "my-preset", optionalnullable.From[int64](nil), nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `slug`                                                   | `string`                                                 | :heavy_check_mark:                                       | URL-safe slug identifying the preset.                    | my-preset                                                |
+| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*operations.ListPresetVersionsResponse](../../models/operations/listpresetversionsresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetVersion
+
+Retrieves a specific version of a preset by its slug and version number.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getPresetVersion" method="get" path="/presets/{slug}/versions/{version}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Presets.GetVersion(ctx, "my-preset", "1")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `slug`                                                   | `string`                                                 | :heavy_check_mark:                                       | URL-safe slug identifying the preset.                    | my-preset                                                |
+| `version`                                                | `string`                                                 | :heavy_check_mark:                                       | Version number of the preset.                            | 1                                                        |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.GetPresetVersionResponse](../../models/components/getpresetversionresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |

@@ -16,12 +16,13 @@ custom := components.OutputModality("custom_value")
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `OutputModalityText`       | text                       |
-| `OutputModalityImage`      | image                      |
-| `OutputModalityEmbeddings` | embeddings                 |
-| `OutputModalityAudio`      | audio                      |
-| `OutputModalityVideo`      | video                      |
-| `OutputModalityRerank`     | rerank                     |
-| `OutputModalityTts`        | tts                        |
+| Name                          | Value                         |
+| ----------------------------- | ----------------------------- |
+| `OutputModalityText`          | text                          |
+| `OutputModalityImage`         | image                         |
+| `OutputModalityEmbeddings`    | embeddings                    |
+| `OutputModalityAudio`         | audio                         |
+| `OutputModalityVideo`         | video                         |
+| `OutputModalityRerank`        | rerank                        |
+| `OutputModalitySpeech`        | speech                        |
+| `OutputModalityTranscription` | transcription                 |

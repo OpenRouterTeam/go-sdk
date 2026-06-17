@@ -5,6 +5,12 @@ An output item from the response
 
 ## Supported Types
 
+### OutputApplyPatchCallItem
+
+```go
+outputItems := components.CreateOutputItemsApplyPatchCall(components.OutputApplyPatchCallItem{/* values here */})
+```
+
 ### OutputCodeInterpreterCallItem
 
 ```go
@@ -15,6 +21,12 @@ outputItems := components.CreateOutputItemsCodeInterpreterCall(components.Output
 
 ```go
 outputItems := components.CreateOutputItemsComputerCall(components.OutputComputerCallItem{/* values here */})
+```
+
+### OutputCustomToolCallItem
+
+```go
+outputItems := components.CreateOutputItemsCustomToolCall(components.OutputCustomToolCallItem{/* values here */})
 ```
 
 ### OutputFileSearchCallItem
@@ -39,6 +51,12 @@ outputItems := components.CreateOutputItemsImageGenerationCall(components.Output
 
 ```go
 outputItems := components.CreateOutputItemsMessage(components.OutputMessageItem{/* values here */})
+```
+
+### OutputAdvisorServerToolItem
+
+```go
+outputItems := components.CreateOutputItemsOpenrouterAdvisor(components.OutputAdvisorServerToolItem{/* values here */})
 ```
 
 ### OutputApplyPatchServerToolItem
@@ -83,6 +101,12 @@ outputItems := components.CreateOutputItemsOpenrouterExperimentalSearchModels(co
 outputItems := components.CreateOutputItemsOpenrouterFileSearch(components.OutputFileSearchServerToolItem{/* values here */})
 ```
 
+### OutputFusionServerToolItem
+
+```go
+outputItems := components.CreateOutputItemsOpenrouterFusion(components.OutputFusionServerToolItem{/* values here */})
+```
+
 ### OutputImageGenerationServerToolItem
 
 ```go
@@ -99,6 +123,12 @@ outputItems := components.CreateOutputItemsOpenrouterMcp(components.OutputMcpSer
 
 ```go
 outputItems := components.CreateOutputItemsOpenrouterMemory(components.OutputMemoryServerToolItem{/* values here */})
+```
+
+### OutputSubagentServerToolItem
+
+```go
+outputItems := components.CreateOutputItemsOpenrouterSubagent(components.OutputSubagentServerToolItem{/* values here */})
 ```
 
 ### OutputTextEditorServerToolItem
@@ -131,6 +161,18 @@ outputItems := components.CreateOutputItemsOpenrouterWebSearch(components.Output
 outputItems := components.CreateOutputItemsReasoning(components.OutputReasoningItem{/* values here */})
 ```
 
+### OutputShellCallItem
+
+```go
+outputItems := components.CreateOutputItemsShellCall(components.OutputShellCallItem{/* values here */})
+```
+
+### OutputShellCallOutputItem
+
+```go
+outputItems := components.CreateOutputItemsShellCallOutput(components.OutputShellCallOutputItem{/* values here */})
+```
+
 ### OutputWebSearchCallItem
 
 ```go
@@ -143,10 +185,14 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch outputItems.Type {
+	case components.OutputItemsTypeApplyPatchCall:
+		// outputItems.OutputApplyPatchCallItem is populated
 	case components.OutputItemsTypeCodeInterpreterCall:
 		// outputItems.OutputCodeInterpreterCallItem is populated
 	case components.OutputItemsTypeComputerCall:
 		// outputItems.OutputComputerCallItem is populated
+	case components.OutputItemsTypeCustomToolCall:
+		// outputItems.OutputCustomToolCallItem is populated
 	case components.OutputItemsTypeFileSearchCall:
 		// outputItems.OutputFileSearchCallItem is populated
 	case components.OutputItemsTypeFunctionCall:
@@ -155,6 +201,8 @@ switch outputItems.Type {
 		// outputItems.OutputImageGenerationCallItem is populated
 	case components.OutputItemsTypeMessage:
 		// outputItems.OutputMessageItem is populated
+	case components.OutputItemsTypeOpenrouterAdvisor:
+		// outputItems.OutputAdvisorServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterApplyPatch:
 		// outputItems.OutputApplyPatchServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterBash:
@@ -169,12 +217,16 @@ switch outputItems.Type {
 		// outputItems.OutputSearchModelsServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterFileSearch:
 		// outputItems.OutputFileSearchServerToolItem is populated
+	case components.OutputItemsTypeOpenrouterFusion:
+		// outputItems.OutputFusionServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterImageGeneration:
 		// outputItems.OutputImageGenerationServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterMcp:
 		// outputItems.OutputMcpServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterMemory:
 		// outputItems.OutputMemoryServerToolItem is populated
+	case components.OutputItemsTypeOpenrouterSubagent:
+		// outputItems.OutputSubagentServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterTextEditor:
 		// outputItems.OutputTextEditorServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterToolSearch:
@@ -185,6 +237,10 @@ switch outputItems.Type {
 		// outputItems.OutputWebSearchServerToolItem is populated
 	case components.OutputItemsTypeReasoning:
 		// outputItems.OutputReasoningItem is populated
+	case components.OutputItemsTypeShellCall:
+		// outputItems.OutputShellCallItem is populated
+	case components.OutputItemsTypeShellCallOutput:
+		// outputItems.OutputShellCallOutputItem is populated
 	case components.OutputItemsTypeWebSearchCall:
 		// outputItems.OutputWebSearchCallItem is populated
 	default:

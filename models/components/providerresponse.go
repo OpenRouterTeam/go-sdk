@@ -13,6 +13,7 @@ const (
 	ProviderResponseProviderNameEnfer           ProviderResponseProviderName = "Enfer"
 	ProviderResponseProviderNameGoPomelo        ProviderResponseProviderName = "GoPomelo"
 	ProviderResponseProviderNameHuggingFace     ProviderResponseProviderName = "HuggingFace"
+	ProviderResponseProviderNameHyperbolic      ProviderResponseProviderName = "Hyperbolic"
 	ProviderResponseProviderNameHyperbolic2     ProviderResponseProviderName = "Hyperbolic 2"
 	ProviderResponseProviderNameInoCloud        ProviderResponseProviderName = "InoCloud"
 	ProviderResponseProviderNameKluster         ProviderResponseProviderName = "Kluster"
@@ -56,10 +57,14 @@ const (
 	ProviderResponseProviderNameClarifai        ProviderResponseProviderName = "Clarifai"
 	ProviderResponseProviderNameCloudflare      ProviderResponseProviderName = "Cloudflare"
 	ProviderResponseProviderNameCohere          ProviderResponseProviderName = "Cohere"
+	ProviderResponseProviderNameCrucible        ProviderResponseProviderName = "Crucible"
 	ProviderResponseProviderNameCrusoe          ProviderResponseProviderName = "Crusoe"
+	ProviderResponseProviderNameDarkbloom       ProviderResponseProviderName = "Darkbloom"
+	ProviderResponseProviderNameDecart          ProviderResponseProviderName = "Decart"
 	ProviderResponseProviderNameDeepInfra       ProviderResponseProviderName = "DeepInfra"
 	ProviderResponseProviderNameDeepSeek        ProviderResponseProviderName = "DeepSeek"
 	ProviderResponseProviderNameDekaLlm         ProviderResponseProviderName = "DekaLLM"
+	ProviderResponseProviderNameDigitalOcean    ProviderResponseProviderName = "DigitalOcean"
 	ProviderResponseProviderNameFeatherless     ProviderResponseProviderName = "Featherless"
 	ProviderResponseProviderNameFireworks       ProviderResponseProviderName = "Fireworks"
 	ProviderResponseProviderNameFriendli        ProviderResponseProviderName = "Friendli"
@@ -67,7 +72,6 @@ const (
 	ProviderResponseProviderNameGoogle          ProviderResponseProviderName = "Google"
 	ProviderResponseProviderNameGoogleAiStudio  ProviderResponseProviderName = "Google AI Studio"
 	ProviderResponseProviderNameGroq            ProviderResponseProviderName = "Groq"
-	ProviderResponseProviderNameHyperbolic      ProviderResponseProviderName = "Hyperbolic"
 	ProviderResponseProviderNameInception       ProviderResponseProviderName = "Inception"
 	ProviderResponseProviderNameInceptron       ProviderResponseProviderName = "Inceptron"
 	ProviderResponseProviderNameInferenceNet    ProviderResponseProviderName = "InferenceNet"
@@ -86,12 +90,15 @@ const (
 	ProviderResponseProviderNameMorph           ProviderResponseProviderName = "Morph"
 	ProviderResponseProviderNameNCompass        ProviderResponseProviderName = "NCompass"
 	ProviderResponseProviderNameNebius          ProviderResponseProviderName = "Nebius"
+	ProviderResponseProviderNameNexAgi          ProviderResponseProviderName = "Nex AGI"
 	ProviderResponseProviderNameNextBit         ProviderResponseProviderName = "NextBit"
 	ProviderResponseProviderNameNovita          ProviderResponseProviderName = "Novita"
 	ProviderResponseProviderNameNvidia          ProviderResponseProviderName = "Nvidia"
 	ProviderResponseProviderNameOpenAi          ProviderResponseProviderName = "OpenAI"
 	ProviderResponseProviderNameOpenInference   ProviderResponseProviderName = "OpenInference"
 	ProviderResponseProviderNameParasail        ProviderResponseProviderName = "Parasail"
+	ProviderResponseProviderNamePoolside        ProviderResponseProviderName = "Poolside"
+	ProviderResponseProviderNamePerceptron      ProviderResponseProviderName = "Perceptron"
 	ProviderResponseProviderNamePerplexity      ProviderResponseProviderName = "Perplexity"
 	ProviderResponseProviderNamePhala           ProviderResponseProviderName = "Phala"
 	ProviderResponseProviderNameRecraft         ProviderResponseProviderName = "Recraft"
@@ -108,6 +115,7 @@ const (
 	ProviderResponseProviderNameTogether        ProviderResponseProviderName = "Together"
 	ProviderResponseProviderNameUpstage         ProviderResponseProviderName = "Upstage"
 	ProviderResponseProviderNameVenice          ProviderResponseProviderName = "Venice"
+	ProviderResponseProviderNameWafer           ProviderResponseProviderName = "Wafer"
 	ProviderResponseProviderNameWandB           ProviderResponseProviderName = "WandB"
 	ProviderResponseProviderNameXiaomi          ProviderResponseProviderName = "Xiaomi"
 	ProviderResponseProviderNameXAi             ProviderResponseProviderName = "xAI"
@@ -123,7 +131,7 @@ func (e ProviderResponseProviderName) ToPointer() *ProviderResponseProviderName 
 func (e *ProviderResponseProviderName) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Meta", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crusoe", "DeepInfra", "DeepSeek", "DekaLLM", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "Hyperbolic", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Together", "Upstage", "Venice", "WandB", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Meta", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crucible", "Crusoe", "Darkbloom", "Decart", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Together", "Upstage", "Venice", "Wafer", "WandB", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
 			return true
 		}
 	}
@@ -145,7 +153,7 @@ type ProviderResponse struct {
 	// Name of the provider
 	ProviderName *ProviderResponseProviderName `json:"provider_name,omitzero"`
 	// HTTP status code from the provider
-	Status *float64 `json:"status"`
+	Status *int64 `json:"status"`
 }
 
 func (p *ProviderResponse) GetEndpointID() *string {
@@ -190,7 +198,7 @@ func (p *ProviderResponse) GetProviderName() *ProviderResponseProviderName {
 	return p.ProviderName
 }
 
-func (p *ProviderResponse) GetStatus() *float64 {
+func (p *ProviderResponse) GetStatus() *int64 {
 	if p == nil {
 		return nil
 	}

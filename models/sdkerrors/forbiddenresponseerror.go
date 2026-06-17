@@ -10,8 +10,9 @@ import (
 // ForbiddenResponseError - Forbidden - Authentication successful but insufficient permissions
 type ForbiddenResponseError struct {
 	// Error data for ForbiddenResponse
-	Error_ components.ForbiddenResponseErrorData `json:"error"`
-	UserID *string                               `json:"user_id,omitzero"`
+	Error_             components.ForbiddenResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                        `json:"openrouter_metadata,omitzero"`
+	UserID             *string                               `json:"user_id,omitzero"`
 }
 
 var _ error = &ForbiddenResponseError{}

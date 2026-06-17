@@ -128,9 +128,13 @@ type ChatFunctionToolUnionType string
 
 const (
 	ChatFunctionToolUnionTypeChatFunctionToolFunction            ChatFunctionToolUnionType = "ChatFunctionTool_Function"
+	ChatFunctionToolUnionTypeAdvisorServerToolOpenRouter         ChatFunctionToolUnionType = "AdvisorServerTool_OpenRouter"
+	ChatFunctionToolUnionTypeBashServerTool                      ChatFunctionToolUnionType = "BashServerTool"
 	ChatFunctionToolUnionTypeDatetimeServerTool                  ChatFunctionToolUnionType = "DatetimeServerTool"
 	ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter ChatFunctionToolUnionType = "ImageGenerationServerTool_OpenRouter"
 	ChatFunctionToolUnionTypeChatSearchModelsServerTool          ChatFunctionToolUnionType = "ChatSearchModelsServerTool"
+	ChatFunctionToolUnionTypeSubagentServerToolOpenRouter        ChatFunctionToolUnionType = "SubagentServerTool_OpenRouter"
+	ChatFunctionToolUnionTypeWebFetchServerTool                  ChatFunctionToolUnionType = "WebFetchServerTool"
 	ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool       ChatFunctionToolUnionType = "OpenRouterWebSearchServerTool"
 	ChatFunctionToolUnionTypeChatWebSearchShorthand              ChatFunctionToolUnionType = "ChatWebSearchShorthand"
 )
@@ -138,9 +142,13 @@ const (
 // ChatFunctionTool - Tool definition for function calling (regular function or OpenRouter built-in server tool)
 type ChatFunctionTool struct {
 	ChatFunctionToolFunction            *ChatFunctionToolFunction            `queryParam:"inline" union:"member"`
+	AdvisorServerToolOpenRouter         *AdvisorServerToolOpenRouter         `queryParam:"inline" union:"member"`
+	BashServerTool                      *BashServerTool                      `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
 	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	SubagentServerToolOpenRouter        *SubagentServerToolOpenRouter        `queryParam:"inline" union:"member"`
+	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	OpenRouterWebSearchServerTool       *OpenRouterWebSearchServerTool       `queryParam:"inline" union:"member"`
 	ChatWebSearchShorthand              *ChatWebSearchShorthand              `queryParam:"inline" union:"member"`
 
@@ -153,6 +161,24 @@ func CreateChatFunctionToolChatFunctionToolFunction(chatFunctionToolFunction Cha
 	return ChatFunctionTool{
 		ChatFunctionToolFunction: &chatFunctionToolFunction,
 		Type:                     typ,
+	}
+}
+
+func CreateChatFunctionToolAdvisorServerToolOpenRouter(advisorServerToolOpenRouter AdvisorServerToolOpenRouter) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeAdvisorServerToolOpenRouter
+
+	return ChatFunctionTool{
+		AdvisorServerToolOpenRouter: &advisorServerToolOpenRouter,
+		Type:                        typ,
+	}
+}
+
+func CreateChatFunctionToolBashServerTool(bashServerTool BashServerTool) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeBashServerTool
+
+	return ChatFunctionTool{
+		BashServerTool: &bashServerTool,
+		Type:           typ,
 	}
 }
 
@@ -180,6 +206,24 @@ func CreateChatFunctionToolChatSearchModelsServerTool(chatSearchModelsServerTool
 	return ChatFunctionTool{
 		ChatSearchModelsServerTool: &chatSearchModelsServerTool,
 		Type:                       typ,
+	}
+}
+
+func CreateChatFunctionToolSubagentServerToolOpenRouter(subagentServerToolOpenRouter SubagentServerToolOpenRouter) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeSubagentServerToolOpenRouter
+
+	return ChatFunctionTool{
+		SubagentServerToolOpenRouter: &subagentServerToolOpenRouter,
+		Type:                         typ,
+	}
+}
+
+func CreateChatFunctionToolWebFetchServerTool(webFetchServerTool WebFetchServerTool) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeWebFetchServerTool
+
+	return ChatFunctionTool{
+		WebFetchServerTool: &webFetchServerTool,
+		Type:               typ,
 	}
 }
 
@@ -214,6 +258,22 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var advisorServerToolOpenRouter AdvisorServerToolOpenRouter = AdvisorServerToolOpenRouter{}
+	if err := utils.UnmarshalJSON(data, &advisorServerToolOpenRouter, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeAdvisorServerToolOpenRouter,
+			Value: &advisorServerToolOpenRouter,
+		})
+	}
+
+	var bashServerTool BashServerTool = BashServerTool{}
+	if err := utils.UnmarshalJSON(data, &bashServerTool, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeBashServerTool,
+			Value: &bashServerTool,
+		})
+	}
+
 	var datetimeServerTool DatetimeServerTool = DatetimeServerTool{}
 	if err := utils.UnmarshalJSON(data, &datetimeServerTool, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -235,6 +295,22 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  ChatFunctionToolUnionTypeChatSearchModelsServerTool,
 			Value: &chatSearchModelsServerTool,
+		})
+	}
+
+	var subagentServerToolOpenRouter SubagentServerToolOpenRouter = SubagentServerToolOpenRouter{}
+	if err := utils.UnmarshalJSON(data, &subagentServerToolOpenRouter, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeSubagentServerToolOpenRouter,
+			Value: &subagentServerToolOpenRouter,
+		})
+	}
+
+	var webFetchServerTool WebFetchServerTool = WebFetchServerTool{}
+	if err := utils.UnmarshalJSON(data, &webFetchServerTool, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeWebFetchServerTool,
+			Value: &webFetchServerTool,
 		})
 	}
 
@@ -270,6 +346,12 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 	case ChatFunctionToolUnionTypeChatFunctionToolFunction:
 		u.ChatFunctionToolFunction = best.Value.(*ChatFunctionToolFunction)
 		return nil
+	case ChatFunctionToolUnionTypeAdvisorServerToolOpenRouter:
+		u.AdvisorServerToolOpenRouter = best.Value.(*AdvisorServerToolOpenRouter)
+		return nil
+	case ChatFunctionToolUnionTypeBashServerTool:
+		u.BashServerTool = best.Value.(*BashServerTool)
+		return nil
 	case ChatFunctionToolUnionTypeDatetimeServerTool:
 		u.DatetimeServerTool = best.Value.(*DatetimeServerTool)
 		return nil
@@ -278,6 +360,12 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		return nil
 	case ChatFunctionToolUnionTypeChatSearchModelsServerTool:
 		u.ChatSearchModelsServerTool = best.Value.(*ChatSearchModelsServerTool)
+		return nil
+	case ChatFunctionToolUnionTypeSubagentServerToolOpenRouter:
+		u.SubagentServerToolOpenRouter = best.Value.(*SubagentServerToolOpenRouter)
+		return nil
+	case ChatFunctionToolUnionTypeWebFetchServerTool:
+		u.WebFetchServerTool = best.Value.(*WebFetchServerTool)
 		return nil
 	case ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool:
 		u.OpenRouterWebSearchServerTool = best.Value.(*OpenRouterWebSearchServerTool)
@@ -295,6 +383,14 @@ func (u ChatFunctionTool) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ChatFunctionToolFunction, "", true)
 	}
 
+	if u.AdvisorServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.AdvisorServerToolOpenRouter, "", true)
+	}
+
+	if u.BashServerTool != nil {
+		return utils.MarshalJSON(u.BashServerTool, "", true)
+	}
+
 	if u.DatetimeServerTool != nil {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
 	}
@@ -305,6 +401,14 @@ func (u ChatFunctionTool) MarshalJSON() ([]byte, error) {
 
 	if u.ChatSearchModelsServerTool != nil {
 		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	}
+
+	if u.SubagentServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.SubagentServerToolOpenRouter, "", true)
+	}
+
+	if u.WebFetchServerTool != nil {
+		return utils.MarshalJSON(u.WebFetchServerTool, "", true)
 	}
 
 	if u.OpenRouterWebSearchServerTool != nil {

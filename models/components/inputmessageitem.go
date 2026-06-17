@@ -13,9 +13,10 @@ import (
 type InputMessageItemDetail string
 
 const (
-	InputMessageItemDetailAuto InputMessageItemDetail = "auto"
-	InputMessageItemDetailHigh InputMessageItemDetail = "high"
-	InputMessageItemDetailLow  InputMessageItemDetail = "low"
+	InputMessageItemDetailAuto     InputMessageItemDetail = "auto"
+	InputMessageItemDetailHigh     InputMessageItemDetail = "high"
+	InputMessageItemDetailLow      InputMessageItemDetail = "low"
+	InputMessageItemDetailOriginal InputMessageItemDetail = "original"
 )
 
 func (e InputMessageItemDetail) ToPointer() *InputMessageItemDetail {
@@ -26,33 +27,33 @@ func (e InputMessageItemDetail) ToPointer() *InputMessageItemDetail {
 func (e *InputMessageItemDetail) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "high", "low":
+		case "auto", "high", "low", "original":
 			return true
 		}
 	}
 	return false
 }
 
-type InputMessageItemContentType string
+type InputMessageItemTypeInputImage string
 
 const (
-	InputMessageItemContentTypeInputImage InputMessageItemContentType = "input_image"
+	InputMessageItemTypeInputImageInputImage InputMessageItemTypeInputImage = "input_image"
 )
 
-func (e InputMessageItemContentType) ToPointer() *InputMessageItemContentType {
+func (e InputMessageItemTypeInputImage) ToPointer() *InputMessageItemTypeInputImage {
 	return &e
 }
-func (e *InputMessageItemContentType) UnmarshalJSON(data []byte) error {
+func (e *InputMessageItemTypeInputImage) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "input_image":
-		*e = InputMessageItemContentType(v)
+		*e = InputMessageItemTypeInputImage(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for InputMessageItemContentType: %v", v)
+		return fmt.Errorf("invalid value for InputMessageItemTypeInputImage: %v", v)
 	}
 }
 
@@ -60,7 +61,7 @@ func (e *InputMessageItemContentType) UnmarshalJSON(data []byte) error {
 type InputMessageItemContentInputImage struct {
 	Detail   InputMessageItemDetail                    `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
-	Type     InputMessageItemContentType               `json:"type"`
+	Type     InputMessageItemTypeInputImage            `json:"type"`
 }
 
 func (i InputMessageItemContentInputImage) MarshalJSON() ([]byte, error) {
@@ -88,9 +89,9 @@ func (i *InputMessageItemContentInputImage) GetImageURL() optionalnullable.Optio
 	return i.ImageURL
 }
 
-func (i *InputMessageItemContentInputImage) GetType() InputMessageItemContentType {
+func (i *InputMessageItemContentInputImage) GetType() InputMessageItemTypeInputImage {
 	if i == nil {
-		return InputMessageItemContentType("")
+		return InputMessageItemTypeInputImage("")
 	}
 	return i.Type
 }
@@ -130,7 +131,7 @@ func CreateInputMessageItemContentUnionInputText(inputText InputText) InputMessa
 func CreateInputMessageItemContentUnionInputImage(inputImage InputMessageItemContentInputImage) InputMessageItemContentUnion {
 	typ := InputMessageItemContentUnionTypeInputImage
 
-	typStr := InputMessageItemContentType(typ)
+	typStr := InputMessageItemTypeInputImage(typ)
 	inputImage.Type = typStr
 
 	return InputMessageItemContentUnion{

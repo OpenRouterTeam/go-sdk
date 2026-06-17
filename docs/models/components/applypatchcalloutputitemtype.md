@@ -1,0 +1,18 @@
+# ApplyPatchCallOutputItemType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ApplyPatchCallOutputItemTypeApplyPatchCallOutput
+```
+
+
+## Values
+
+| Name                                               | Value                                              |
+| -------------------------------------------------- | -------------------------------------------------- |
+| `ApplyPatchCallOutputItemTypeApplyPatchCallOutput` | apply_patch_call_output                            |

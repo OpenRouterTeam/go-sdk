@@ -1,0 +1,18 @@
+# ApplyPatchCallOperationDiffDeltaEventType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ApplyPatchCallOperationDiffDeltaEventTypeResponseApplyPatchCallOperationDiffDelta
+```
+
+
+## Values
+
+| Name                                                                                | Value                                                                               |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `ApplyPatchCallOperationDiffDeltaEventTypeResponseApplyPatchCallOperationDiffDelta` | response.apply_patch_call_operation_diff.delta                                      |

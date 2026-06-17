@@ -12,72 +12,98 @@ import (
 type StreamEventsType string
 
 const (
-	StreamEventsTypeError                                   StreamEventsType = "error"
-	StreamEventsTypeResponseCompleted                       StreamEventsType = "response.completed"
-	StreamEventsTypeResponseContentPartAdded                StreamEventsType = "response.content_part.added"
-	StreamEventsTypeResponseContentPartDone                 StreamEventsType = "response.content_part.done"
-	StreamEventsTypeResponseCreated                         StreamEventsType = "response.created"
-	StreamEventsTypeResponseFailed                          StreamEventsType = "response.failed"
-	StreamEventsTypeResponseFunctionCallArgumentsDelta      StreamEventsType = "response.function_call_arguments.delta"
-	StreamEventsTypeResponseFunctionCallArgumentsDone       StreamEventsType = "response.function_call_arguments.done"
-	StreamEventsTypeResponseImageGenerationCallCompleted    StreamEventsType = "response.image_generation_call.completed"
-	StreamEventsTypeResponseImageGenerationCallGenerating   StreamEventsType = "response.image_generation_call.generating"
-	StreamEventsTypeResponseImageGenerationCallInProgress   StreamEventsType = "response.image_generation_call.in_progress"
-	StreamEventsTypeResponseImageGenerationCallPartialImage StreamEventsType = "response.image_generation_call.partial_image"
-	StreamEventsTypeResponseInProgress                      StreamEventsType = "response.in_progress"
-	StreamEventsTypeResponseIncomplete                      StreamEventsType = "response.incomplete"
-	StreamEventsTypeResponseOutputItemAdded                 StreamEventsType = "response.output_item.added"
-	StreamEventsTypeResponseOutputItemDone                  StreamEventsType = "response.output_item.done"
-	StreamEventsTypeResponseOutputTextAnnotationAdded       StreamEventsType = "response.output_text.annotation.added"
-	StreamEventsTypeResponseOutputTextDelta                 StreamEventsType = "response.output_text.delta"
-	StreamEventsTypeResponseOutputTextDone                  StreamEventsType = "response.output_text.done"
-	StreamEventsTypeResponseReasoningSummaryPartAdded       StreamEventsType = "response.reasoning_summary_part.added"
-	StreamEventsTypeResponseReasoningSummaryPartDone        StreamEventsType = "response.reasoning_summary_part.done"
-	StreamEventsTypeResponseReasoningSummaryTextDelta       StreamEventsType = "response.reasoning_summary_text.delta"
-	StreamEventsTypeResponseReasoningSummaryTextDone        StreamEventsType = "response.reasoning_summary_text.done"
-	StreamEventsTypeResponseReasoningTextDelta              StreamEventsType = "response.reasoning_text.delta"
-	StreamEventsTypeResponseReasoningTextDone               StreamEventsType = "response.reasoning_text.done"
-	StreamEventsTypeResponseRefusalDelta                    StreamEventsType = "response.refusal.delta"
-	StreamEventsTypeResponseRefusalDone                     StreamEventsType = "response.refusal.done"
-	StreamEventsTypeResponseWebSearchCallCompleted          StreamEventsType = "response.web_search_call.completed"
-	StreamEventsTypeResponseWebSearchCallInProgress         StreamEventsType = "response.web_search_call.in_progress"
-	StreamEventsTypeResponseWebSearchCallSearching          StreamEventsType = "response.web_search_call.searching"
-	StreamEventsTypeUnknown                                 StreamEventsType = "UNKNOWN"
+	StreamEventsTypeError                                    StreamEventsType = "error"
+	StreamEventsTypeResponseApplyPatchCallOperationDiffDelta StreamEventsType = "response.apply_patch_call_operation_diff.delta"
+	StreamEventsTypeResponseApplyPatchCallOperationDiffDone  StreamEventsType = "response.apply_patch_call_operation_diff.done"
+	StreamEventsTypeResponseCompleted                        StreamEventsType = "response.completed"
+	StreamEventsTypeResponseContentPartAdded                 StreamEventsType = "response.content_part.added"
+	StreamEventsTypeResponseContentPartDone                  StreamEventsType = "response.content_part.done"
+	StreamEventsTypeResponseCreated                          StreamEventsType = "response.created"
+	StreamEventsTypeResponseCustomToolCallInputDelta         StreamEventsType = "response.custom_tool_call_input.delta"
+	StreamEventsTypeResponseCustomToolCallInputDone          StreamEventsType = "response.custom_tool_call_input.done"
+	StreamEventsTypeResponseFailed                           StreamEventsType = "response.failed"
+	StreamEventsTypeResponseFunctionCallArgumentsDelta       StreamEventsType = "response.function_call_arguments.delta"
+	StreamEventsTypeResponseFunctionCallArgumentsDone        StreamEventsType = "response.function_call_arguments.done"
+	StreamEventsTypeResponseFusionCallAnalysisCompleted      StreamEventsType = "response.fusion_call.analysis.completed"
+	StreamEventsTypeResponseFusionCallAnalysisInProgress     StreamEventsType = "response.fusion_call.analysis.in_progress"
+	StreamEventsTypeResponseFusionCallCompleted              StreamEventsType = "response.fusion_call.completed"
+	StreamEventsTypeResponseFusionCallInProgress             StreamEventsType = "response.fusion_call.in_progress"
+	StreamEventsTypeResponseFusionCallPanelAdded             StreamEventsType = "response.fusion_call.panel.added"
+	StreamEventsTypeResponseFusionCallPanelCompleted         StreamEventsType = "response.fusion_call.panel.completed"
+	StreamEventsTypeResponseFusionCallPanelDelta             StreamEventsType = "response.fusion_call.panel.delta"
+	StreamEventsTypeResponseFusionCallPanelFailed            StreamEventsType = "response.fusion_call.panel.failed"
+	StreamEventsTypeResponseFusionCallPanelReasoningDelta    StreamEventsType = "response.fusion_call.panel.reasoning.delta"
+	StreamEventsTypeResponseImageGenerationCallCompleted     StreamEventsType = "response.image_generation_call.completed"
+	StreamEventsTypeResponseImageGenerationCallGenerating    StreamEventsType = "response.image_generation_call.generating"
+	StreamEventsTypeResponseImageGenerationCallInProgress    StreamEventsType = "response.image_generation_call.in_progress"
+	StreamEventsTypeResponseImageGenerationCallPartialImage  StreamEventsType = "response.image_generation_call.partial_image"
+	StreamEventsTypeResponseInProgress                       StreamEventsType = "response.in_progress"
+	StreamEventsTypeResponseIncomplete                       StreamEventsType = "response.incomplete"
+	StreamEventsTypeResponseOutputItemAdded                  StreamEventsType = "response.output_item.added"
+	StreamEventsTypeResponseOutputItemDone                   StreamEventsType = "response.output_item.done"
+	StreamEventsTypeResponseOutputTextAnnotationAdded        StreamEventsType = "response.output_text.annotation.added"
+	StreamEventsTypeResponseOutputTextDelta                  StreamEventsType = "response.output_text.delta"
+	StreamEventsTypeResponseOutputTextDone                   StreamEventsType = "response.output_text.done"
+	StreamEventsTypeResponseReasoningSummaryPartAdded        StreamEventsType = "response.reasoning_summary_part.added"
+	StreamEventsTypeResponseReasoningSummaryPartDone         StreamEventsType = "response.reasoning_summary_part.done"
+	StreamEventsTypeResponseReasoningSummaryTextDelta        StreamEventsType = "response.reasoning_summary_text.delta"
+	StreamEventsTypeResponseReasoningSummaryTextDone         StreamEventsType = "response.reasoning_summary_text.done"
+	StreamEventsTypeResponseReasoningTextDelta               StreamEventsType = "response.reasoning_text.delta"
+	StreamEventsTypeResponseReasoningTextDone                StreamEventsType = "response.reasoning_text.done"
+	StreamEventsTypeResponseRefusalDelta                     StreamEventsType = "response.refusal.delta"
+	StreamEventsTypeResponseRefusalDone                      StreamEventsType = "response.refusal.done"
+	StreamEventsTypeResponseWebSearchCallCompleted           StreamEventsType = "response.web_search_call.completed"
+	StreamEventsTypeResponseWebSearchCallInProgress          StreamEventsType = "response.web_search_call.in_progress"
+	StreamEventsTypeResponseWebSearchCallSearching           StreamEventsType = "response.web_search_call.searching"
+	StreamEventsTypeUnknown                                  StreamEventsType = "UNKNOWN"
 )
 
 // StreamEvents - Union of all possible event types emitted during response streaming
 type StreamEvents struct {
-	OpenResponsesCreatedEvent           *OpenResponsesCreatedEvent           `queryParam:"inline" union:"member"`
-	OpenResponsesInProgressEvent        *OpenResponsesInProgressEvent        `queryParam:"inline" union:"member"`
-	StreamEventsResponseCompleted       *StreamEventsResponseCompleted       `queryParam:"inline" union:"member"`
-	StreamEventsResponseIncomplete      *StreamEventsResponseIncomplete      `queryParam:"inline" union:"member"`
-	StreamEventsResponseFailed          *StreamEventsResponseFailed          `queryParam:"inline" union:"member"`
-	ErrorEvent                          *ErrorEvent                          `queryParam:"inline" union:"member"`
-	StreamEventsResponseOutputItemAdded *StreamEventsResponseOutputItemAdded `queryParam:"inline" union:"member"`
-	StreamEventsResponseOutputItemDone  *StreamEventsResponseOutputItemDone  `queryParam:"inline" union:"member"`
-	ContentPartAddedEvent               *ContentPartAddedEvent               `queryParam:"inline" union:"member"`
-	ContentPartDoneEvent                *ContentPartDoneEvent                `queryParam:"inline" union:"member"`
-	TextDeltaEvent                      *TextDeltaEvent                      `queryParam:"inline" union:"member"`
-	TextDoneEvent                       *TextDoneEvent                       `queryParam:"inline" union:"member"`
-	RefusalDeltaEvent                   *RefusalDeltaEvent                   `queryParam:"inline" union:"member"`
-	RefusalDoneEvent                    *RefusalDoneEvent                    `queryParam:"inline" union:"member"`
-	AnnotationAddedEvent                *AnnotationAddedEvent                `queryParam:"inline" union:"member"`
-	FunctionCallArgsDeltaEvent          *FunctionCallArgsDeltaEvent          `queryParam:"inline" union:"member"`
-	FunctionCallArgsDoneEvent           *FunctionCallArgsDoneEvent           `queryParam:"inline" union:"member"`
-	ReasoningDeltaEvent                 *ReasoningDeltaEvent                 `queryParam:"inline" union:"member"`
-	ReasoningDoneEvent                  *ReasoningDoneEvent                  `queryParam:"inline" union:"member"`
-	ReasoningSummaryPartAddedEvent      *ReasoningSummaryPartAddedEvent      `queryParam:"inline" union:"member"`
-	ReasoningSummaryPartDoneEvent       *ReasoningSummaryPartDoneEvent       `queryParam:"inline" union:"member"`
-	ReasoningSummaryTextDeltaEvent      *ReasoningSummaryTextDeltaEvent      `queryParam:"inline" union:"member"`
-	ReasoningSummaryTextDoneEvent       *ReasoningSummaryTextDoneEvent       `queryParam:"inline" union:"member"`
-	ImageGenCallInProgressEvent         *ImageGenCallInProgressEvent         `queryParam:"inline" union:"member"`
-	ImageGenCallGeneratingEvent         *ImageGenCallGeneratingEvent         `queryParam:"inline" union:"member"`
-	ImageGenCallPartialImageEvent       *ImageGenCallPartialImageEvent       `queryParam:"inline" union:"member"`
-	ImageGenCallCompletedEvent          *ImageGenCallCompletedEvent          `queryParam:"inline" union:"member"`
-	WebSearchCallInProgressEvent        *WebSearchCallInProgressEvent        `queryParam:"inline" union:"member"`
-	WebSearchCallSearchingEvent         *WebSearchCallSearchingEvent         `queryParam:"inline" union:"member"`
-	WebSearchCallCompletedEvent         *WebSearchCallCompletedEvent         `queryParam:"inline" union:"member"`
-	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
+	OpenResponsesCreatedEvent             *OpenResponsesCreatedEvent             `queryParam:"inline" union:"member"`
+	OpenResponsesInProgressEvent          *OpenResponsesInProgressEvent          `queryParam:"inline" union:"member"`
+	StreamEventsResponseCompleted         *StreamEventsResponseCompleted         `queryParam:"inline" union:"member"`
+	StreamEventsResponseIncomplete        *StreamEventsResponseIncomplete        `queryParam:"inline" union:"member"`
+	StreamEventsResponseFailed            *StreamEventsResponseFailed            `queryParam:"inline" union:"member"`
+	ErrorEvent                            *ErrorEvent                            `queryParam:"inline" union:"member"`
+	StreamEventsResponseOutputItemAdded   *StreamEventsResponseOutputItemAdded   `queryParam:"inline" union:"member"`
+	StreamEventsResponseOutputItemDone    *StreamEventsResponseOutputItemDone    `queryParam:"inline" union:"member"`
+	ContentPartAddedEvent                 *ContentPartAddedEvent                 `queryParam:"inline" union:"member"`
+	ContentPartDoneEvent                  *ContentPartDoneEvent                  `queryParam:"inline" union:"member"`
+	TextDeltaEvent                        *TextDeltaEvent                        `queryParam:"inline" union:"member"`
+	TextDoneEvent                         *TextDoneEvent                         `queryParam:"inline" union:"member"`
+	RefusalDeltaEvent                     *RefusalDeltaEvent                     `queryParam:"inline" union:"member"`
+	RefusalDoneEvent                      *RefusalDoneEvent                      `queryParam:"inline" union:"member"`
+	AnnotationAddedEvent                  *AnnotationAddedEvent                  `queryParam:"inline" union:"member"`
+	FunctionCallArgsDeltaEvent            *FunctionCallArgsDeltaEvent            `queryParam:"inline" union:"member"`
+	FunctionCallArgsDoneEvent             *FunctionCallArgsDoneEvent             `queryParam:"inline" union:"member"`
+	ReasoningDeltaEvent                   *ReasoningDeltaEvent                   `queryParam:"inline" union:"member"`
+	ReasoningDoneEvent                    *ReasoningDoneEvent                    `queryParam:"inline" union:"member"`
+	ReasoningSummaryPartAddedEvent        *ReasoningSummaryPartAddedEvent        `queryParam:"inline" union:"member"`
+	ReasoningSummaryPartDoneEvent         *ReasoningSummaryPartDoneEvent         `queryParam:"inline" union:"member"`
+	ReasoningSummaryTextDeltaEvent        *ReasoningSummaryTextDeltaEvent        `queryParam:"inline" union:"member"`
+	ReasoningSummaryTextDoneEvent         *ReasoningSummaryTextDoneEvent         `queryParam:"inline" union:"member"`
+	ImageGenCallInProgressEvent           *ImageGenCallInProgressEvent           `queryParam:"inline" union:"member"`
+	ImageGenCallGeneratingEvent           *ImageGenCallGeneratingEvent           `queryParam:"inline" union:"member"`
+	ImageGenCallPartialImageEvent         *ImageGenCallPartialImageEvent         `queryParam:"inline" union:"member"`
+	ImageGenCallCompletedEvent            *ImageGenCallCompletedEvent            `queryParam:"inline" union:"member"`
+	WebSearchCallInProgressEvent          *WebSearchCallInProgressEvent          `queryParam:"inline" union:"member"`
+	WebSearchCallSearchingEvent           *WebSearchCallSearchingEvent           `queryParam:"inline" union:"member"`
+	WebSearchCallCompletedEvent           *WebSearchCallCompletedEvent           `queryParam:"inline" union:"member"`
+	CustomToolCallInputDeltaEvent         *CustomToolCallInputDeltaEvent         `queryParam:"inline" union:"member"`
+	CustomToolCallInputDoneEvent          *CustomToolCallInputDoneEvent          `queryParam:"inline" union:"member"`
+	ApplyPatchCallOperationDiffDeltaEvent *ApplyPatchCallOperationDiffDeltaEvent `queryParam:"inline" union:"member"`
+	ApplyPatchCallOperationDiffDoneEvent  *ApplyPatchCallOperationDiffDoneEvent  `queryParam:"inline" union:"member"`
+	FusionCallInProgressEvent             *FusionCallInProgressEvent             `queryParam:"inline" union:"member"`
+	FusionCallPanelAddedEvent             *FusionCallPanelAddedEvent             `queryParam:"inline" union:"member"`
+	FusionCallPanelDeltaEvent             *FusionCallPanelDeltaEvent             `queryParam:"inline" union:"member"`
+	FusionCallPanelReasoningDeltaEvent    *FusionCallPanelReasoningDeltaEvent    `queryParam:"inline" union:"member"`
+	FusionCallPanelCompletedEvent         *FusionCallPanelCompletedEvent         `queryParam:"inline" union:"member"`
+	FusionCallPanelFailedEvent            *FusionCallPanelFailedEvent            `queryParam:"inline" union:"member"`
+	FusionCallAnalysisInProgressEvent     *FusionCallAnalysisInProgressEvent     `queryParam:"inline" union:"member"`
+	FusionCallAnalysisCompletedEvent      *FusionCallAnalysisCompletedEvent      `queryParam:"inline" union:"member"`
+	FusionCallCompletedEvent              *FusionCallCompletedEvent              `queryParam:"inline" union:"member"`
+	UnknownRaw                            json.RawMessage                        `json:"-" union:"unknown"`
 
 	Type StreamEventsType
 }
@@ -91,6 +117,30 @@ func CreateStreamEventsError(errorT ErrorEvent) StreamEvents {
 	return StreamEvents{
 		ErrorEvent: &errorT,
 		Type:       typ,
+	}
+}
+
+func CreateStreamEventsResponseApplyPatchCallOperationDiffDelta(responseApplyPatchCallOperationDiffDelta ApplyPatchCallOperationDiffDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseApplyPatchCallOperationDiffDelta
+
+	typStr := ApplyPatchCallOperationDiffDeltaEventType(typ)
+	responseApplyPatchCallOperationDiffDelta.Type = typStr
+
+	return StreamEvents{
+		ApplyPatchCallOperationDiffDeltaEvent: &responseApplyPatchCallOperationDiffDelta,
+		Type:                                  typ,
+	}
+}
+
+func CreateStreamEventsResponseApplyPatchCallOperationDiffDone(responseApplyPatchCallOperationDiffDone ApplyPatchCallOperationDiffDoneEvent) StreamEvents {
+	typ := StreamEventsTypeResponseApplyPatchCallOperationDiffDone
+
+	typStr := ApplyPatchCallOperationDiffDoneEventType(typ)
+	responseApplyPatchCallOperationDiffDone.Type = typStr
+
+	return StreamEvents{
+		ApplyPatchCallOperationDiffDoneEvent: &responseApplyPatchCallOperationDiffDone,
+		Type:                                 typ,
 	}
 }
 
@@ -142,6 +192,30 @@ func CreateStreamEventsResponseCreated(responseCreated OpenResponsesCreatedEvent
 	}
 }
 
+func CreateStreamEventsResponseCustomToolCallInputDelta(responseCustomToolCallInputDelta CustomToolCallInputDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCustomToolCallInputDelta
+
+	typStr := CustomToolCallInputDeltaEventType(typ)
+	responseCustomToolCallInputDelta.Type = typStr
+
+	return StreamEvents{
+		CustomToolCallInputDeltaEvent: &responseCustomToolCallInputDelta,
+		Type:                          typ,
+	}
+}
+
+func CreateStreamEventsResponseCustomToolCallInputDone(responseCustomToolCallInputDone CustomToolCallInputDoneEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCustomToolCallInputDone
+
+	typStr := CustomToolCallInputDoneEventType(typ)
+	responseCustomToolCallInputDone.Type = typStr
+
+	return StreamEvents{
+		CustomToolCallInputDoneEvent: &responseCustomToolCallInputDone,
+		Type:                         typ,
+	}
+}
+
 func CreateStreamEventsResponseFailed(responseFailed StreamEventsResponseFailed) StreamEvents {
 	typ := StreamEventsTypeResponseFailed
 
@@ -175,6 +249,114 @@ func CreateStreamEventsResponseFunctionCallArgumentsDone(responseFunctionCallArg
 	return StreamEvents{
 		FunctionCallArgsDoneEvent: &responseFunctionCallArgumentsDone,
 		Type:                      typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallAnalysisCompleted(responseFusionCallAnalysisCompleted FusionCallAnalysisCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallAnalysisCompleted
+
+	typStr := FusionCallAnalysisCompletedEventType(typ)
+	responseFusionCallAnalysisCompleted.Type = typStr
+
+	return StreamEvents{
+		FusionCallAnalysisCompletedEvent: &responseFusionCallAnalysisCompleted,
+		Type:                             typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallAnalysisInProgress(responseFusionCallAnalysisInProgress FusionCallAnalysisInProgressEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallAnalysisInProgress
+
+	typStr := FusionCallAnalysisInProgressEventType(typ)
+	responseFusionCallAnalysisInProgress.Type = typStr
+
+	return StreamEvents{
+		FusionCallAnalysisInProgressEvent: &responseFusionCallAnalysisInProgress,
+		Type:                              typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallCompleted(responseFusionCallCompleted FusionCallCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallCompleted
+
+	typStr := FusionCallCompletedEventType(typ)
+	responseFusionCallCompleted.Type = typStr
+
+	return StreamEvents{
+		FusionCallCompletedEvent: &responseFusionCallCompleted,
+		Type:                     typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallInProgress(responseFusionCallInProgress FusionCallInProgressEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallInProgress
+
+	typStr := FusionCallInProgressEventType(typ)
+	responseFusionCallInProgress.Type = typStr
+
+	return StreamEvents{
+		FusionCallInProgressEvent: &responseFusionCallInProgress,
+		Type:                      typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallPanelAdded(responseFusionCallPanelAdded FusionCallPanelAddedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallPanelAdded
+
+	typStr := FusionCallPanelAddedEventType(typ)
+	responseFusionCallPanelAdded.Type = typStr
+
+	return StreamEvents{
+		FusionCallPanelAddedEvent: &responseFusionCallPanelAdded,
+		Type:                      typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallPanelCompleted(responseFusionCallPanelCompleted FusionCallPanelCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallPanelCompleted
+
+	typStr := FusionCallPanelCompletedEventType(typ)
+	responseFusionCallPanelCompleted.Type = typStr
+
+	return StreamEvents{
+		FusionCallPanelCompletedEvent: &responseFusionCallPanelCompleted,
+		Type:                          typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallPanelDelta(responseFusionCallPanelDelta FusionCallPanelDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallPanelDelta
+
+	typStr := FusionCallPanelDeltaEventType(typ)
+	responseFusionCallPanelDelta.Type = typStr
+
+	return StreamEvents{
+		FusionCallPanelDeltaEvent: &responseFusionCallPanelDelta,
+		Type:                      typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallPanelFailed(responseFusionCallPanelFailed FusionCallPanelFailedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallPanelFailed
+
+	typStr := FusionCallPanelFailedEventType(typ)
+	responseFusionCallPanelFailed.Type = typStr
+
+	return StreamEvents{
+		FusionCallPanelFailedEvent: &responseFusionCallPanelFailed,
+		Type:                       typ,
+	}
+}
+
+func CreateStreamEventsResponseFusionCallPanelReasoningDelta(responseFusionCallPanelReasoningDelta FusionCallPanelReasoningDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseFusionCallPanelReasoningDelta
+
+	typStr := FusionCallPanelReasoningDeltaEventType(typ)
+	responseFusionCallPanelReasoningDelta.Type = typStr
+
+	return StreamEvents{
+		FusionCallPanelReasoningDeltaEvent: &responseFusionCallPanelReasoningDelta,
+		Type:                               typ,
 	}
 }
 
@@ -485,6 +667,24 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.ErrorEvent = errorEvent
 		u.Type = StreamEventsTypeError
 		return nil
+	case "response.apply_patch_call_operation_diff.delta":
+		applyPatchCallOperationDiffDeltaEvent := new(ApplyPatchCallOperationDiffDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &applyPatchCallOperationDiffDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.apply_patch_call_operation_diff.delta) type ApplyPatchCallOperationDiffDeltaEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.ApplyPatchCallOperationDiffDeltaEvent = applyPatchCallOperationDiffDeltaEvent
+		u.Type = StreamEventsTypeResponseApplyPatchCallOperationDiffDelta
+		return nil
+	case "response.apply_patch_call_operation_diff.done":
+		applyPatchCallOperationDiffDoneEvent := new(ApplyPatchCallOperationDiffDoneEvent)
+		if err := utils.UnmarshalJSON(data, &applyPatchCallOperationDiffDoneEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.apply_patch_call_operation_diff.done) type ApplyPatchCallOperationDiffDoneEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.ApplyPatchCallOperationDiffDoneEvent = applyPatchCallOperationDiffDoneEvent
+		u.Type = StreamEventsTypeResponseApplyPatchCallOperationDiffDone
+		return nil
 	case "response.completed":
 		streamEventsResponseCompleted := new(StreamEventsResponseCompleted)
 		if err := utils.UnmarshalJSON(data, &streamEventsResponseCompleted, "", true, nil); err != nil {
@@ -521,6 +721,24 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.OpenResponsesCreatedEvent = openResponsesCreatedEvent
 		u.Type = StreamEventsTypeResponseCreated
 		return nil
+	case "response.custom_tool_call_input.delta":
+		customToolCallInputDeltaEvent := new(CustomToolCallInputDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &customToolCallInputDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.custom_tool_call_input.delta) type CustomToolCallInputDeltaEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.CustomToolCallInputDeltaEvent = customToolCallInputDeltaEvent
+		u.Type = StreamEventsTypeResponseCustomToolCallInputDelta
+		return nil
+	case "response.custom_tool_call_input.done":
+		customToolCallInputDoneEvent := new(CustomToolCallInputDoneEvent)
+		if err := utils.UnmarshalJSON(data, &customToolCallInputDoneEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.custom_tool_call_input.done) type CustomToolCallInputDoneEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.CustomToolCallInputDoneEvent = customToolCallInputDoneEvent
+		u.Type = StreamEventsTypeResponseCustomToolCallInputDone
+		return nil
 	case "response.failed":
 		streamEventsResponseFailed := new(StreamEventsResponseFailed)
 		if err := utils.UnmarshalJSON(data, &streamEventsResponseFailed, "", true, nil); err != nil {
@@ -547,6 +765,87 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 
 		u.FunctionCallArgsDoneEvent = functionCallArgsDoneEvent
 		u.Type = StreamEventsTypeResponseFunctionCallArgumentsDone
+		return nil
+	case "response.fusion_call.analysis.completed":
+		fusionCallAnalysisCompletedEvent := new(FusionCallAnalysisCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallAnalysisCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.analysis.completed) type FusionCallAnalysisCompletedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallAnalysisCompletedEvent = fusionCallAnalysisCompletedEvent
+		u.Type = StreamEventsTypeResponseFusionCallAnalysisCompleted
+		return nil
+	case "response.fusion_call.analysis.in_progress":
+		fusionCallAnalysisInProgressEvent := new(FusionCallAnalysisInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallAnalysisInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.analysis.in_progress) type FusionCallAnalysisInProgressEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallAnalysisInProgressEvent = fusionCallAnalysisInProgressEvent
+		u.Type = StreamEventsTypeResponseFusionCallAnalysisInProgress
+		return nil
+	case "response.fusion_call.completed":
+		fusionCallCompletedEvent := new(FusionCallCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.completed) type FusionCallCompletedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallCompletedEvent = fusionCallCompletedEvent
+		u.Type = StreamEventsTypeResponseFusionCallCompleted
+		return nil
+	case "response.fusion_call.in_progress":
+		fusionCallInProgressEvent := new(FusionCallInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.in_progress) type FusionCallInProgressEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallInProgressEvent = fusionCallInProgressEvent
+		u.Type = StreamEventsTypeResponseFusionCallInProgress
+		return nil
+	case "response.fusion_call.panel.added":
+		fusionCallPanelAddedEvent := new(FusionCallPanelAddedEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallPanelAddedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.panel.added) type FusionCallPanelAddedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallPanelAddedEvent = fusionCallPanelAddedEvent
+		u.Type = StreamEventsTypeResponseFusionCallPanelAdded
+		return nil
+	case "response.fusion_call.panel.completed":
+		fusionCallPanelCompletedEvent := new(FusionCallPanelCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallPanelCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.panel.completed) type FusionCallPanelCompletedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallPanelCompletedEvent = fusionCallPanelCompletedEvent
+		u.Type = StreamEventsTypeResponseFusionCallPanelCompleted
+		return nil
+	case "response.fusion_call.panel.delta":
+		fusionCallPanelDeltaEvent := new(FusionCallPanelDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallPanelDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.panel.delta) type FusionCallPanelDeltaEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallPanelDeltaEvent = fusionCallPanelDeltaEvent
+		u.Type = StreamEventsTypeResponseFusionCallPanelDelta
+		return nil
+	case "response.fusion_call.panel.failed":
+		fusionCallPanelFailedEvent := new(FusionCallPanelFailedEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallPanelFailedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.panel.failed) type FusionCallPanelFailedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallPanelFailedEvent = fusionCallPanelFailedEvent
+		u.Type = StreamEventsTypeResponseFusionCallPanelFailed
+		return nil
+	case "response.fusion_call.panel.reasoning.delta":
+		fusionCallPanelReasoningDeltaEvent := new(FusionCallPanelReasoningDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &fusionCallPanelReasoningDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.fusion_call.panel.reasoning.delta) type FusionCallPanelReasoningDeltaEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.FusionCallPanelReasoningDeltaEvent = fusionCallPanelReasoningDeltaEvent
+		u.Type = StreamEventsTypeResponseFusionCallPanelReasoningDelta
 		return nil
 	case "response.image_generation_call.completed":
 		imageGenCallCompletedEvent := new(ImageGenCallCompletedEvent)
@@ -873,6 +1172,58 @@ func (u StreamEvents) MarshalJSON() ([]byte, error) {
 
 	if u.WebSearchCallCompletedEvent != nil {
 		return utils.MarshalJSON(u.WebSearchCallCompletedEvent, "", true)
+	}
+
+	if u.CustomToolCallInputDeltaEvent != nil {
+		return utils.MarshalJSON(u.CustomToolCallInputDeltaEvent, "", true)
+	}
+
+	if u.CustomToolCallInputDoneEvent != nil {
+		return utils.MarshalJSON(u.CustomToolCallInputDoneEvent, "", true)
+	}
+
+	if u.ApplyPatchCallOperationDiffDeltaEvent != nil {
+		return utils.MarshalJSON(u.ApplyPatchCallOperationDiffDeltaEvent, "", true)
+	}
+
+	if u.ApplyPatchCallOperationDiffDoneEvent != nil {
+		return utils.MarshalJSON(u.ApplyPatchCallOperationDiffDoneEvent, "", true)
+	}
+
+	if u.FusionCallInProgressEvent != nil {
+		return utils.MarshalJSON(u.FusionCallInProgressEvent, "", true)
+	}
+
+	if u.FusionCallPanelAddedEvent != nil {
+		return utils.MarshalJSON(u.FusionCallPanelAddedEvent, "", true)
+	}
+
+	if u.FusionCallPanelDeltaEvent != nil {
+		return utils.MarshalJSON(u.FusionCallPanelDeltaEvent, "", true)
+	}
+
+	if u.FusionCallPanelReasoningDeltaEvent != nil {
+		return utils.MarshalJSON(u.FusionCallPanelReasoningDeltaEvent, "", true)
+	}
+
+	if u.FusionCallPanelCompletedEvent != nil {
+		return utils.MarshalJSON(u.FusionCallPanelCompletedEvent, "", true)
+	}
+
+	if u.FusionCallPanelFailedEvent != nil {
+		return utils.MarshalJSON(u.FusionCallPanelFailedEvent, "", true)
+	}
+
+	if u.FusionCallAnalysisInProgressEvent != nil {
+		return utils.MarshalJSON(u.FusionCallAnalysisInProgressEvent, "", true)
+	}
+
+	if u.FusionCallAnalysisCompletedEvent != nil {
+		return utils.MarshalJSON(u.FusionCallAnalysisCompletedEvent, "", true)
+	}
+
+	if u.FusionCallCompletedEvent != nil {
+		return utils.MarshalJSON(u.FusionCallCompletedEvent, "", true)
 	}
 
 	if u.UnknownRaw != nil {

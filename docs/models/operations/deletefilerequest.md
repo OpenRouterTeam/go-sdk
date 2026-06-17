@@ -1,0 +1,9 @@
+# DeleteFileRequest
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `FileID`                                                                       | `string`                                                                       | :heavy_check_mark:                                                             | N/A                                                                            | file_011CNha8iCJcU1wXNR6q4V8w                                                  |
+| `WorkspaceID`                                                                  | `*string`                                                                      | :heavy_minus_sign:                                                             | Workspace to scope the request to. Defaults to the caller’s default workspace. | a103d8b6-42f0-4e50-9a3c-bf41e2c3c1a7                                           |

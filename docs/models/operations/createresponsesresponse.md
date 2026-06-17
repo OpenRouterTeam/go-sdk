@@ -12,7 +12,7 @@ createResponsesResponse := operations.CreateCreateResponsesResponseOpenResponses
 ### 
 
 ```go
-createResponsesResponse := operations.CreateCreateResponsesResponseEventStream(*stream.EventStream[operations.CreateResponsesResponseBody]{/* values here */})
+createResponsesResponse := operations.CreateCreateResponsesResponseEventStream(*stream.EventStream[components.ResponsesStreamingResponse]{/* values here */})
 ```
 
 ## Union Discrimination

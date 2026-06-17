@@ -10,8 +10,9 @@ import (
 // ProviderOverloadedResponseError - Provider Overloaded - Provider is temporarily overloaded
 type ProviderOverloadedResponseError struct {
 	// Error data for ProviderOverloadedResponse
-	Error_ components.ProviderOverloadedResponseErrorData `json:"error"`
-	UserID *string                                        `json:"user_id,omitzero"`
+	Error_             components.ProviderOverloadedResponseErrorData `json:"error"`
+	OpenrouterMetadata map[string]any                                 `json:"openrouter_metadata,omitzero"`
+	UserID             *string                                        `json:"user_id,omitzero"`
 }
 
 var _ error = &ProviderOverloadedResponseError{}

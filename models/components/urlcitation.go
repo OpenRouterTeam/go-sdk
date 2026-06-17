@@ -32,6 +32,7 @@ func (e *URLCitationType) UnmarshalJSON(data []byte) error {
 }
 
 type URLCitation struct {
+	Content    *string         `json:"content,omitzero"`
 	EndIndex   int64           `json:"end_index"`
 	StartIndex int64           `json:"start_index"`
 	Title      string          `json:"title"`
@@ -48,6 +49,13 @@ func (u *URLCitation) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (u *URLCitation) GetContent() *string {
+	if u == nil {
+		return nil
+	}
+	return u.Content
 }
 
 func (u *URLCitation) GetEndIndex() int64 {

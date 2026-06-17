@@ -1,0 +1,29 @@
+# ObservabilityFilterRulesConfigValue
+
+
+## Supported Types
+
+### 
+
+```go
+observabilityFilterRulesConfigValue := components.CreateObservabilityFilterRulesConfigValueStr(string{/* values here */})
+```
+
+### 
+
+```go
+observabilityFilterRulesConfigValue := components.CreateObservabilityFilterRulesConfigValueNumber(float64{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch observabilityFilterRulesConfigValue.Type {
+	case components.ObservabilityFilterRulesConfigValueTypeStr:
+		// observabilityFilterRulesConfigValue.Str is populated
+	case components.ObservabilityFilterRulesConfigValueTypeNumber:
+		// observabilityFilterRulesConfigValue.Number is populated
+}
+```

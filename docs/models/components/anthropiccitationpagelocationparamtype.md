@@ -1,0 +1,18 @@
+# AnthropicCitationPageLocationParamType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicCitationPageLocationParamTypePageLocation
+```
+
+
+## Values
+
+| Name                                                 | Value                                                |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `AnthropicCitationPageLocationParamTypePageLocation` | page_location                                        |

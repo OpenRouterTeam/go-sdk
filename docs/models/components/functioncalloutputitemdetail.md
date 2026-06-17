@@ -16,8 +16,9 @@ custom := components.FunctionCallOutputItemDetail("custom_value")
 
 ## Values
 
-| Name                               | Value                              |
-| ---------------------------------- | ---------------------------------- |
-| `FunctionCallOutputItemDetailAuto` | auto                               |
-| `FunctionCallOutputItemDetailHigh` | high                               |
-| `FunctionCallOutputItemDetailLow`  | low                                |
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `FunctionCallOutputItemDetailAuto`     | auto                                   |
+| `FunctionCallOutputItemDetailHigh`     | high                                   |
+| `FunctionCallOutputItemDetailLow`      | low                                    |
+| `FunctionCallOutputItemDetailOriginal` | original                               |

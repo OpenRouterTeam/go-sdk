@@ -1,0 +1,11 @@
+# WebFetchServerTool
+
+OpenRouter built-in server tool: fetches full content from a URL (web page or PDF)
+
+
+## Fields
+
+| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 | Example                                                                                     |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `Parameters`                                                                                | [*components.WebFetchServerToolConfig](../../models/components/webfetchservertoolconfig.md) | :heavy_minus_sign:                                                                          | Configuration for the openrouter:web_fetch server tool                                      | {<br/>"max_content_tokens": 100000,<br/>"max_uses": 10<br/>}                                |
+| `Type`                                                                                      | [components.WebFetchServerToolType](../../models/components/webfetchservertooltype.md)      | :heavy_check_mark:                                                                          | N/A                                                                                         |                                                                                             |

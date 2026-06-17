@@ -1,0 +1,9 @@
+# GetPresetVersionRequest
+
+
+## Fields
+
+| Field                                 | Type                                  | Required                              | Description                           | Example                               |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `Slug`                                | `string`                              | :heavy_check_mark:                    | URL-safe slug identifying the preset. | my-preset                             |
+| `Version`                             | `string`                              | :heavy_check_mark:                    | Version number of the preset.         | 1                                     |

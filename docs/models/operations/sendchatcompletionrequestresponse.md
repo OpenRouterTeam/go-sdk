@@ -12,7 +12,7 @@ sendChatCompletionRequestResponse := operations.CreateSendChatCompletionRequestR
 ### 
 
 ```go
-sendChatCompletionRequestResponse := operations.CreateSendChatCompletionRequestResponseEventStream(*stream.EventStream[operations.SendChatCompletionRequestResponseBody]{/* values here */})
+sendChatCompletionRequestResponse := operations.CreateSendChatCompletionRequestResponseEventStream(*stream.EventStream[components.ChatStreamingResponse]{/* values here */})
 ```
 
 ## Union Discrimination

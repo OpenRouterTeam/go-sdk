@@ -1,0 +1,18 @@
+# OpenAIResponsesToolChoiceTypeShell
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.OpenAIResponsesToolChoiceTypeShellShell
+```
+
+
+## Values
+
+| Name                                      | Value                                     |
+| ----------------------------------------- | ----------------------------------------- |
+| `OpenAIResponsesToolChoiceTypeShellShell` | shell                                     |

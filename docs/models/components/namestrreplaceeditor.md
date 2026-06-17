@@ -1,0 +1,18 @@
+# NameStrReplaceEditor
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.NameStrReplaceEditorStrReplaceEditor
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `NameStrReplaceEditorStrReplaceEditor` | str_replace_editor                     |

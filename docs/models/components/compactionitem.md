@@ -1,0 +1,12 @@
+# CompactionItem
+
+A context compaction marker with encrypted summary
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `EncryptedContent`                                                             | `string`                                                                       | :heavy_check_mark:                                                             | N/A                                                                            |
+| `ID`                                                                           | optionalnullable.OptionalNullable[`string`]                                    | :heavy_minus_sign:                                                             | N/A                                                                            |
+| `Type`                                                                         | [components.CompactionItemType](../../models/components/compactionitemtype.md) | :heavy_check_mark:                                                             | N/A                                                                            |
