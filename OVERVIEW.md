@@ -39,15 +39,12 @@ func main() {
 			),
 		},
 		Temperature: optionalnullable.From(openrouter.Pointer(0.7)),
-	})
+	}, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res != nil {
-		defer res.Object.Close()
-		for res.Object.Next() {
-			log.Println(res.Object.Value())
-		}
+	if res != nil && res.ChatResult != nil {
+		log.Println(res.ChatResult.Choices)
 	}
 }
 ```
@@ -62,7 +59,7 @@ The SDK is automatically generated from OpenRouter's OpenAPI specs and updated w
 res, err := s.Chat.Send(ctx, components.ChatRequest{
 	Model: openrouter.Pointer("openai/gpt-4o"),
 	// ...
-})
+}, nil)
 ```
 
 ### Type-safe by default
@@ -80,7 +77,7 @@ res, err := s.Chat.Send(ctx, components.ChatRequest{
 			},
 		),
 	},
-})
+}, nil)
 ```
 
 ### Streaming and platform APIs
@@ -89,13 +86,14 @@ Use the same client for streaming chat completions, embeddings, rerank, TTS, vid
 
 ```go
 res, err := s.Chat.Send(ctx, components.ChatRequest{
-	Model: openrouter.Pointer("openai/gpt-4o"),
+	Model:  openrouter.Pointer("openai/gpt-4o"),
 	Messages: []components.ChatMessages{ /* ... */ },
-})
-if res != nil {
-	defer res.Object.Close()
-	for res.Object.Next() {
-		event := res.Object.Value()
+	Stream:   openrouter.Pointer(true),
+}, nil)
+if res != nil && res.EventStream != nil {
+	defer res.EventStream.Close()
+	for res.EventStream.Next() {
+		event := res.EventStream.Value()
 		_ = event
 	}
 }
@@ -113,7 +111,7 @@ For beta releases, pin an explicit version:
 go get github.com/OpenRouterTeam/go-sdk@v0.5.0
 ```
 
-**Requirements:** Go 1.22 or higher
+**Requirements:** Go 1.25 or higher
 
 Get your API key from [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys).
 

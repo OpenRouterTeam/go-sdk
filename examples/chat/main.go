@@ -30,14 +30,11 @@ func main() {
 			),
 		},
 		Temperature: optionalnullable.From(openrouter.Pointer(0.7)),
-	})
+	}, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res != nil {
-		defer res.Object.Close()
-		for res.Object.Next() {
-			log.Println(res.Object.Value())
-		}
+	if res != nil && res.ChatResult != nil {
+		log.Println(res.ChatResult.Choices)
 	}
 }

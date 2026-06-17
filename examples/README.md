@@ -4,7 +4,7 @@ This directory contains runnable examples for the OpenRouter Go SDK.
 
 ## Prerequisites
 
-- Go 1.22 or higher
+- Go 1.25 or higher
 - An OpenRouter API key from [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys)
 
 ## Setup
