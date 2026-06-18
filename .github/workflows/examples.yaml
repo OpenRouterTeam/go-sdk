@@ -1,0 +1,117 @@
+name: Examples
+
+permissions:
+  contents: write
+
+on:
+  pull_request:
+    paths:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+      - "go.work"
+      - "go.work.sum"
+      - "examples/**"
+      - "scripts/bump-examples.sh"
+      - "scripts/verify-examples.sh"
+      - ".speakeasy/gen.lock"
+      - ".github/workflows/examples.yaml"
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.go"
+      - "go.mod"
+      - "go.sum"
+      - "go.work"
+      - "go.work.sum"
+      - "examples/**"
+      - "scripts/bump-examples.sh"
+      - "scripts/verify-examples.sh"
+      - ".speakeasy/gen.lock"
+      - "RELEASES.md"
+      - ".github/workflows/examples.yaml"
+
+jobs:
+  bump:
+    name: Bump examples on release
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: dorny/paths-filter@v3
+        id: release
+        with:
+          filters: |
+            release:
+              - .speakeasy/gen.lock
+              - RELEASES.md
+
+      - uses: actions/setup-go@v5
+        if: steps.release.outputs.release == 'true'
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Bump example SDK versions
+        if: steps.release.outputs.release == 'true'
+        run: scripts/bump-examples.sh
+
+      - name: Verify bumped examples
+        if: steps.release.outputs.release == 'true'
+        run: scripts/verify-examples.sh
+        env:
+          PINNED_BUILD: "1"
+
+      - name: Commit example bumps
+        id: commit
+        if: steps.release.outputs.release == 'true'
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "examples already up to date"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add examples go.work.sum README.md OVERVIEW.md
+          git commit -m "$(cat <<EOF
+          chore: bump examples to SDK $(awk '/^  releaseVersion: / { print "v" $2; exit }' .speakeasy/gen.lock)
+
+          Sync example module pins and docs with the Speakeasy releaseVersion.
+          EOF
+          )"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  verify:
+    name: Verify examples
+    needs: bump
+    if: |
+      always() &&
+      (needs.bump.result == 'success' || needs.bump.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && 'main' || github.event.pull_request.head.sha }}
+
+      - name: Sync latest main
+        if: github.event_name == 'push' && needs.bump.outputs.changed == 'true'
+        run: git pull --ff-only origin main
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Verify examples
+        run: scripts/verify-examples.sh
+        env:
+          PINNED_BUILD: auto

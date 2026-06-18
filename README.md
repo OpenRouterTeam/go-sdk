@@ -1,28 +1,46 @@
-# openrouter
+# OpenRouter Go SDK
 
-Developer-friendly & type-safe Go SDK specifically catered to leverage *openrouter* API.
+The [OpenRouter SDK](https://openrouter.ai/docs/sdks/go/api-reference/chat) is a Go client for building AI-powered features with OpenRouter. It gives you type-safe access to 400+ models across providers through an OpenAI-compatible API, plus OpenRouter-specific features like provider routing, guardrails, and analytics.
+
+To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-reference) and [Documentation](https://openrouter.ai/docs/sdks/go/api-reference/chat).
 
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=openrouter&utm_campaign=go)
-[![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/Apache-2.0)
 
+> [!NOTE]
+> This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
+>
+> ```bash
+> go get github.com/OpenRouterTeam/go-sdk@v0.5.0
+> ```
 
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/openrouter/sdk). Delete this section before > publishing to a package manager.
+<!-- No Summary [summary] -->
 
-<!-- Start Summary [summary] -->
-## Summary
+## Overview
 
-OpenRouter API: OpenAI-compatible API with additional OpenRouter features
+The OpenRouter Go SDK wraps the [OpenRouter API](https://openrouter.ai/docs) with idiomatic Go types, retries, and error handling. For a longer introduction, see [OVERVIEW.md](OVERVIEW.md).
 
-For more information about the API: [OpenRouter Documentation](https://openrouter.ai/docs)
-<!-- End Summary [summary] -->
+- **Chat completions** with streaming and non-streaming responses
+- **Embeddings, rerank, TTS, and video generation**
+- **Beta Responses API** for agent-style workflows
+- **Platform APIs** for API keys, credits, models, providers, guardrails, workspaces, and analytics
+- **Configurable retries**, custom HTTP clients, and typed API errors
+
+Install the module with:
+
+```bash
+go get github.com/OpenRouterTeam/go-sdk
+```
+
+See [examples/README.md](examples/README.md) for runnable examples, starting with [examples/chat](examples/chat).
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [openrouter](#openrouter)
+* [OpenRouter Go SDK](#openrouter-go-sdk)
+  * [Overview](#overview)
   * [SDK Installation](#sdk-installation)
+  * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
@@ -41,11 +59,24 @@ For more information about the API: [OpenRouter Documentation](https://openroute
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-To add the SDK as a dependency to your project:
+Add the SDK to your module:
+
 ```bash
 go get github.com/OpenRouterTeam/go-sdk
 ```
+
+For beta releases, pin an explicit version:
+
+```bash
+go get github.com/OpenRouterTeam/go-sdk@v0.5.0
+```
 <!-- End SDK Installation [installation] -->
+
+<!-- Start Requirements [requirements] -->
+## Requirements
+
+This SDK requires Go 1.25 or higher.
+<!-- End Requirements [requirements] -->
 
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
@@ -57,9 +88,12 @@ package main
 
 import (
 	"context"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"log"
 	"os"
+
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 func main() {
@@ -69,12 +103,25 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Chat.Send(ctx, components.ChatRequest{
+		Model: openrouter.Pointer("openai/gpt-4o"),
+		Messages: []components.ChatMessages{
+			components.CreateChatMessagesUser(
+				components.ChatUserMessage{
+					Role: components.ChatUserMessageRoleUser,
+					Content: components.CreateChatUserMessageContentStr(
+						"Hello, how are you?",
+					),
+				},
+			),
+		},
+		Temperature: optionalnullable.From(openrouter.Pointer(0.7)),
+	}, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res != nil {
-		// handle response
+	if res != nil && res.ChatResult != nil {
+		log.Println(res.ChatResult.Choices)
 	}
 }
 
@@ -323,6 +370,8 @@ can be consumed using a simple `for` loop. The loop will
 terminate when the server no longer has any events to send and closes the
 underlying connection.
 
+For chat completions, check `res.EventStream` after setting `Stream: openrouter.Pointer(true)` on `components.ChatRequest`. See [examples/chat-stream](examples/chat-stream) for a runnable example.
+
 ```go
 package main
 
@@ -428,9 +477,9 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"log"
-	"models/operations"
 	"os"
 )
 
@@ -698,13 +747,18 @@ This can be a convenient way to configure timeouts, cookies, proxies, custom hea
 
 ## Maturity
 
-This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning usage
-to a specific package version. This way, you can install the same version each time without breaking changes unless you are intentionally
-looking for the latest version.
+This SDK is in beta. Breaking changes may ship in minor `0.x` releases. Pin to a specific module version in production, and review [RELEASES.md](RELEASES.md) before upgrading.
 
 ## Contributions
 
-While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
-We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
+While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation.
+We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release.
+
+Safe to edit manually without being overwritten by Speakeasy generation:
+
+- [USAGE.md](USAGE.md) — source for the README SDK Example Usage section
+- [OVERVIEW.md](OVERVIEW.md) — extended introduction
+- [examples/](examples/) — runnable example modules
+- [docs/sdks/chat/README.md](docs/sdks/chat/README.md) and other files tracked in Speakeasy persistent edits
 
 ### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=openrouter&utm_campaign=go)

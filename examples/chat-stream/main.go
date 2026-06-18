@@ -1,9 +1,8 @@
-<!-- Start SDK Example Usage [usage] -->
-```go
 package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 
@@ -20,13 +19,14 @@ func main() {
 	)
 
 	res, err := s.Chat.Send(ctx, components.ChatRequest{
-		Model: openrouter.Pointer("openai/gpt-4o"),
+		Model:  openrouter.Pointer("openai/gpt-4o-mini"),
+		Stream: openrouter.Pointer(true),
 		Messages: []components.ChatMessages{
 			components.CreateChatMessagesUser(
 				components.ChatUserMessage{
 					Role: components.ChatUserMessageRoleUser,
 					Content: components.CreateChatUserMessageContentStr(
-						"Hello, how are you?",
+						"Count from 1 to 5, one number per line.",
 					),
 				},
 			),
@@ -36,10 +36,27 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res != nil && res.ChatResult != nil {
-		log.Println(res.ChatResult.Choices)
+	if res == nil || res.EventStream == nil {
+		log.Fatal("expected streaming response")
+	}
+
+	stream := res.EventStream
+	defer stream.Close()
+
+	for stream.Next() {
+		chunk := stream.Value()
+		if chunk == nil {
+			continue
+		}
+		for _, choice := range chunk.Data.Choices {
+			if text, ok := choice.Delta.Content.Get(); ok && text != nil {
+				fmt.Print(*text)
+			}
+		}
+	}
+	fmt.Println()
+
+	if err := stream.Err(); err != nil {
+		log.Fatal(err)
 	}
 }
-
-```
-<!-- End SDK Example Usage [usage] -->

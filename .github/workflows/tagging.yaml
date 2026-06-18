@@ -1,36 +1,32 @@
-name: Publish SDK
+name: Speakeasy Tagging
 
 permissions:
   checks: write
   contents: write
   pull-requests: write
   statuses: write
-  id-token: write
 
 on:
   push:
     branches:
       - main
-    paths:
-      - .speakeasy/gen.lock
-      - RELEASES.md
   workflow_dispatch: {}
 
 jobs:
-  publish:
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v15
+  tag:
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/tag.yaml@v15
     with:
-      target: openrouter
+      registry_tags: main
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
 
-  publish-fallback:
-    needs: publish
+  tag-fallback:
+    needs: tag
     if: failure()
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v15
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/tag.yaml@v15
     with:
-      target: openrouter
+      registry_tags: main
     secrets:
       github_access_token: ${{ secrets.SDK_MERGE_PAT }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}

@@ -1,5 +1,3 @@
-<!-- Start SDK Example Usage [usage] -->
-```go
 package main
 
 import (
@@ -40,6 +38,3 @@ func main() {
 		log.Println(res.ChatResult.Choices)
 	}
 }
-
-```
-<!-- End SDK Example Usage [usage] -->
