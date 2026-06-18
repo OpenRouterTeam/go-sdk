@@ -82,11 +82,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add examples go.work.sum README.md OVERVIEW.md
           git commit -m "$(cat <<EOF
-chore: bump examples to SDK $(awk '/^  releaseVersion: / { print "v" $2; exit }' .speakeasy/gen.lock)
+          chore: bump examples to SDK $(awk '/^  releaseVersion: / { print "v" $2; exit }' .speakeasy/gen.lock)
 
-Sync example module pins and docs with the Speakeasy releaseVersion.
-EOF
-)"
+          Sync example module pins and docs with the Speakeasy releaseVersion.
+          EOF
+          )"
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
@@ -100,10 +100,10 @@ EOF
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event_name == 'push' && 'main' || github.event.pull_request.head.sha }}
 
       - name: Sync latest main
-        if: needs.bump.outputs.changed == 'true'
+        if: github.event_name == 'push' && needs.bump.outputs.changed == 'true'
         run: git pull --ff-only origin main
 
       - uses: actions/setup-go@v5
