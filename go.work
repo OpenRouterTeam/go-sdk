@@ -1,0 +1,13 @@
+go 1.25.10
+
+use (
+	.
+	./examples/chat
+	./examples/chat-stream
+	./examples/embed
+	./examples/generation
+	./examples/model
+	./examples/models
+	./examples/providers
+	./examples/rerank
+)

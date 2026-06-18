@@ -1,4 +1,4 @@
-module github.com/OpenRouterTeam/go-sdk/examples/chat
+module github.com/OpenRouterTeam/go-sdk/examples/chat-stream
 
 go 1.25.10
 
