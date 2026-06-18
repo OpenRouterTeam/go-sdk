@@ -85,6 +85,7 @@ func main() {
 * [OpenRouter Go SDK](#openrouter-go-sdk)
   * [Overview](#overview)
   * [SDK Installation](#sdk-installation)
+  * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
@@ -115,6 +116,12 @@ For beta releases, pin an explicit version:
 go get github.com/OpenRouterTeam/go-sdk@v0.5.0
 ```
 <!-- End SDK Installation [installation] -->
+
+<!-- Start Requirements [requirements] -->
+## Requirements
+
+This SDK requires Go 1.25 or higher.
+<!-- End Requirements [requirements] -->
 
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
