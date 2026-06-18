@@ -32,52 +32,7 @@ Install the module with:
 go get github.com/OpenRouterTeam/go-sdk
 ```
 
-See [examples/chat](examples/chat) for a runnable project.
-
-Quick start:
-
-```go
-package main
-
-import (
-	"context"
-	"log"
-	"os"
-
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
-)
-
-func main() {
-	ctx := context.Background()
-
-	s := openrouter.New(
-		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-	)
-
-	res, err := s.Chat.Send(ctx, components.ChatRequest{
-		Model: openrouter.Pointer("openai/gpt-4o"),
-		Messages: []components.ChatMessages{
-			components.CreateChatMessagesUser(
-				components.ChatUserMessage{
-					Role: components.ChatUserMessageRoleUser,
-					Content: components.CreateChatUserMessageContentStr(
-						"Hello, how are you?",
-					),
-				},
-			),
-		},
-		Temperature: optionalnullable.From(openrouter.Pointer(0.7)),
-	}, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if res != nil && res.ChatResult != nil {
-		log.Println(res.ChatResult.Choices)
-	}
-}
-```
+See [examples/README.md](examples/README.md) for runnable examples, starting with [examples/chat](examples/chat).
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
@@ -133,9 +88,12 @@ package main
 
 import (
 	"context"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"log"
 	"os"
+
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 func main() {
@@ -145,12 +103,25 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Chat.Send(ctx, components.ChatRequest{
+		Model: openrouter.Pointer("openai/gpt-4o"),
+		Messages: []components.ChatMessages{
+			components.CreateChatMessagesUser(
+				components.ChatUserMessage{
+					Role: components.ChatUserMessageRoleUser,
+					Content: components.CreateChatUserMessageContentStr(
+						"Hello, how are you?",
+					),
+				},
+			),
+		},
+		Temperature: optionalnullable.From(openrouter.Pointer(0.7)),
+	}, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res != nil {
-		// handle response
+	if res != nil && res.ChatResult != nil {
+		log.Println(res.ChatResult.Choices)
 	}
 }
 
@@ -399,6 +370,8 @@ can be consumed using a simple `for` loop. The loop will
 terminate when the server no longer has any events to send and closes the
 underlying connection.
 
+For chat completions, check `res.EventStream` after setting `Stream: openrouter.Pointer(true)` on `components.ChatRequest`. See [examples/chat-stream](examples/chat-stream) for a runnable example.
+
 ```go
 package main
 
@@ -504,9 +477,9 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"log"
-	"models/operations"
 	"os"
 )
 
@@ -778,7 +751,14 @@ This SDK is in beta. Breaking changes may ship in minor `0.x` releases. Pin to a
 
 ## Contributions
 
-While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
-We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
+While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation.
+We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release.
+
+Safe to edit manually without being overwritten by Speakeasy generation:
+
+- [USAGE.md](USAGE.md) — source for the README SDK Example Usage section
+- [OVERVIEW.md](OVERVIEW.md) — extended introduction
+- [examples/](examples/) — runnable example modules
+- [docs/sdks/chat/README.md](docs/sdks/chat/README.md) and other files tracked in Speakeasy persistent edits
 
 ### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=openrouter&utm_campaign=go)

@@ -93,11 +93,20 @@ res, err := s.Chat.Send(ctx, components.ChatRequest{
 if res != nil && res.EventStream != nil {
 	defer res.EventStream.Close()
 	for res.EventStream.Next() {
-		event := res.EventStream.Value()
-		_ = event
+		chunk := res.EventStream.Value()
+		if chunk == nil {
+			continue
+		}
+		for _, choice := range chunk.Data.Choices {
+			if text, ok := choice.Delta.Content.Get(); ok && text != nil {
+				_ = *text
+			}
+		}
 	}
 }
 ```
+
+See [examples/chat-stream](examples/chat-stream) for a runnable streaming chat example.
 
 ## Installation
 
@@ -117,4 +126,4 @@ Get your API key from [openrouter.ai/settings/keys](https://openrouter.ai/settin
 
 ## Quick start
 
-See [examples/chat](examples/chat) for a runnable example, or the [API Reference](https://openrouter.ai/docs/sdks/go/api-reference) for the full method list.
+See [examples/README.md](examples/README.md) for runnable examples, starting with [examples/chat](examples/chat), or the [API Reference](https://openrouter.ai/docs/sdks/go/api-reference) for the full method list.

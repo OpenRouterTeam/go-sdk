@@ -46,6 +46,8 @@ Each example pins a released SDK version in `go.mod`:
 require github.com/OpenRouterTeam/go-sdk v0.5.0
 ```
 
+This should match the version in [README.md](../README.md) and `.speakeasy/gen.lock` `releaseVersion`. CI runs `scripts/bump-examples.sh` after releases to keep these in sync.
+
 To use a different version:
 
 ```bash
