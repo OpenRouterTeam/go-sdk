@@ -6,7 +6,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// ProviderOptions - Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+// ProviderOptions - Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 type ProviderOptions struct {
 	Oneai               map[string]any `json:"01ai,omitzero"`
 	Ai21                map[string]any `json:"ai21,omitzero"`

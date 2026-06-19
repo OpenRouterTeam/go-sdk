@@ -36,7 +36,7 @@ func (e *AspectRatio) IsExact() bool {
 	return false
 }
 
-// OptionsObj - Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+// OptionsObj - Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 type OptionsObj struct {
 	Oneai               map[string]any `json:"01ai,omitzero"`
 	Ai21                map[string]any `json:"ai21,omitzero"`

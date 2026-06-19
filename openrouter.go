@@ -2,7 +2,7 @@
 
 package openrouter
 
-// Generated from OpenAPI doc version 1.0.0 and generator version 2.904.2
+// Generated from OpenAPI doc version 1.0.0 and generator version 2.879.6
 
 import (
 	"context"
@@ -67,6 +67,8 @@ type OpenRouter struct {
 	Stt *Stt
 	// OAuth authentication endpoints
 	OAuth *OAuth
+	// Benchmarks endpoints
+	Benchmarks *Benchmarks
 	// BYOK endpoints
 	Byok *Byok
 	Chat *Chat
@@ -193,9 +195,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.5.0",
+		SDKVersion: "0.5.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.5.0 2.904.2 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.5.1 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -226,6 +228,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Tts = newTts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Stt = newStt(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Benchmarks = newBenchmarks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Byok = newByok(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)

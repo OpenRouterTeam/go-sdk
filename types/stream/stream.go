@@ -26,41 +26,21 @@ var (
 	bom        = "\uFEFF"
 )
 
-// maxBoundaryLen is the length of the longest message boundary (\r\n\r\n).
-const maxBoundaryLen = 4
-
-// maxEventSize bounds a single server-sent event. The scanner buffer grows on
-// demand, so this caps pathological streams without reserving memory up front.
-const maxEventSize = 1 << 30
-
-// newServerEventSplitter returns a stateful bufio.SplitFunc that only re-scans
-// the trailing maxBoundaryLen-1 bytes across reads. That keeps large events
-// linear to parse while still finding boundaries split across two chunks.
-func newServerEventSplitter() bufio.SplitFunc {
-	scanned := 0
-	return func(data []byte, atEOF bool) (advance int, token []byte, err error) {
-		if atEOF && len(data) == 0 {
-			return 0, nil, nil
-		}
-
-		start := scanned - (maxBoundaryLen - 1)
-		if start < 0 {
-			start = 0
-		}
-
-		if result := boundary.FindIndex(data[start:]); result != nil {
-			scanned = 0
-			return start + result[1], data[:start+result[0]], nil
-		}
-
-		if atEOF {
-			scanned = 0
-			return len(data), bytes.TrimRight(data, "\r\n"), nil
-		}
-
-		scanned = len(data)
+func scanServerEvents(data []byte, atEOF bool) (advance int, token []byte, err error) {
+	if atEOF && len(data) == 0 {
 		return 0, nil, nil
 	}
+
+	result := boundary.FindIndex(data)
+	if result != nil {
+		return result[1], data[:result[0]], nil
+	}
+
+	if atEOF {
+		return len(data), bytes.TrimRight(data, "\r\n"), nil
+	}
+
+	return 0, nil, nil
 }
 
 type EventType interface {
@@ -90,8 +70,7 @@ func NewEventStream[T any](
 	opts ...func(*EventStream[T]),
 ) *EventStream[T] {
 	scanner := bufio.NewScanner(source)
-	scanner.Buffer(nil, maxEventSize)
-	scanner.Split(newServerEventSplitter())
+	scanner.Split(scanServerEvents)
 
 	var src io.ReadCloser
 	if s, ok := source.(io.ReadCloser); ok {

@@ -183,6 +183,12 @@ inputsUnion1 := components.CreateInputsUnion1OutputMcpServerToolItem(components.
 inputsUnion1 := components.CreateInputsUnion1OutputSearchModelsServerToolItem(components.OutputSearchModelsServerToolItem{/* values here */})
 ```
 
+### OutputFusionServerToolItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1OutputFusionServerToolItem(components.OutputFusionServerToolItem{/* values here */})
+```
+
 ### OutputAdvisorServerToolItem
 
 ```go
@@ -333,6 +339,8 @@ switch inputsUnion1.Type {
 		// inputsUnion1.OutputMcpServerToolItem is populated
 	case components.InputsUnion1TypeOutputSearchModelsServerToolItem:
 		// inputsUnion1.OutputSearchModelsServerToolItem is populated
+	case components.InputsUnion1TypeOutputFusionServerToolItem:
+		// inputsUnion1.OutputFusionServerToolItem is populated
 	case components.InputsUnion1TypeOutputAdvisorServerToolItem:
 		// inputsUnion1.OutputAdvisorServerToolItem is populated
 	case components.InputsUnion1TypeOutputSubagentServerToolItem:
