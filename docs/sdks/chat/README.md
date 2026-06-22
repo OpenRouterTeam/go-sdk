@@ -18,47 +18,51 @@ package main
 
 import(
 	"context"
-	"log"
 	"os"
-
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
 )
 
 func main() {
-	ctx := context.Background()
+    ctx := context.Background()
 
-	s := openrouter.New(
-		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-	)
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
 
-	res, err := s.Chat.Send(ctx, components.ChatRequest{
-		Model: openrouter.Pointer("openai/gpt-4o"),
-		Messages: []components.ChatMessages{
-			components.CreateChatMessagesSystem(
-				components.ChatSystemMessage{
-					Content: components.CreateChatSystemMessageContentStr(
-						"You are a helpful assistant.",
-					),
-					Role: components.ChatSystemMessageRoleSystem,
-				},
-			),
-			components.CreateChatMessagesUser(
-				components.ChatUserMessage{
-					Content: components.CreateChatUserMessageContentStr(
-						"What is the capital of France?",
-					),
-					Role: components.ChatUserMessageRoleUser,
-				},
-			),
-		},
-	}, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if res != nil && res.ChatResult != nil {
-		log.Println(res.ChatResult.Choices)
-	}
+    res, err := s.Chat.Send(ctx, components.ChatRequest{
+        Messages: []components.ChatMessages{
+            components.CreateChatMessagesSystem(
+                components.ChatSystemMessage{
+                    Content: components.CreateChatSystemMessageContentStr(
+                        "You are a helpful assistant.",
+                    ),
+                    Role: components.ChatSystemMessageRoleSystem,
+                },
+            ),
+            components.CreateChatMessagesUser(
+                components.ChatUserMessage{
+                    Content: components.CreateChatUserMessageContentStr(
+                        "What is the capital of France?",
+                    ),
+                    Role: components.ChatUserMessageRoleUser,
+                },
+            ),
+        },
+    }, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        defer res.ChatStreamingResponse.Close()
+
+        for res.ChatStreamingResponse.Next() {
+            event := res.ChatStreamingResponse.Value()
+            log.Print(event)
+            // Handle the event
+	      }
+    }
 }
 ```
 ### Example Usage: insufficient-permissions
@@ -69,51 +73,53 @@ package main
 
 import(
 	"context"
-	"log"
 	"os"
-
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
 )
 
 func main() {
-	ctx := context.Background()
+    ctx := context.Background()
 
-	s := openrouter.New(
-		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-	)
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
 
-	res, err := s.Chat.Send(ctx, components.ChatRequest{
-		Model: openrouter.Pointer("openai/gpt-4o"),
-		Messages: []components.ChatMessages{
-			components.CreateChatMessagesSystem(
-				components.ChatSystemMessage{
-					Content: components.CreateChatSystemMessageContentStr(
-						"You are a helpful assistant.",
-					),
-					Role: components.ChatSystemMessageRoleSystem,
-				},
-			),
-			components.CreateChatMessagesUser(
-				components.ChatUserMessage{
-					Content: components.CreateChatUserMessageContentStr(
-						"What is the capital of France?",
-					),
-					Role: components.ChatUserMessageRoleUser,
-				},
-			),
-		},
-	}, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if res != nil && res.ChatResult != nil {
-		log.Println(res.ChatResult.Choices)
-	}
+    res, err := s.Chat.Send(ctx, components.ChatRequest{
+        Messages: []components.ChatMessages{
+            components.CreateChatMessagesSystem(
+                components.ChatSystemMessage{
+                    Content: components.CreateChatSystemMessageContentStr(
+                        "You are a helpful assistant.",
+                    ),
+                    Role: components.ChatSystemMessageRoleSystem,
+                },
+            ),
+            components.CreateChatMessagesUser(
+                components.ChatUserMessage{
+                    Content: components.CreateChatUserMessageContentStr(
+                        "What is the capital of France?",
+                    ),
+                    Role: components.ChatUserMessageRoleUser,
+                },
+            ),
+        },
+    }, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        defer res.ChatStreamingResponse.Close()
+
+        for res.ChatStreamingResponse.Next() {
+            event := res.ChatStreamingResponse.Value()
+            log.Print(event)
+            // Handle the event
+	      }
+    }
 }
 ```
-
-For streaming responses, set `Stream: openrouter.Pointer(true)` and read from `res.EventStream`. See [examples/chat-stream](../../../examples/chat-stream/main.go).
 
 ### Parameters
 
@@ -127,8 +133,6 @@ For streaming responses, set `Stream: openrouter.Pointer(true)` and read from `r
 ### Response
 
 **[*operations.SendChatCompletionRequestResponse](../../models/operations/sendchatcompletionrequestresponse.md), error**
-
-Non-streaming responses populate `ChatResult`. Streaming responses populate `EventStream`.
 
 ### Errors
 
