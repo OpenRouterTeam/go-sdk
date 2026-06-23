@@ -8,7 +8,7 @@ This SDK is in beta. Pin to a specific module version to avoid unexpected breaki
 
 	go get github.com/OpenRouterTeam/go-sdk@v0.5.0
 
-For full API documentation, visit: https://openrouter.ai/docs
+For full API documentation, visit: https://openrouter.ai/docs/client-sdks/go/overview
 
 Authentication:
 
