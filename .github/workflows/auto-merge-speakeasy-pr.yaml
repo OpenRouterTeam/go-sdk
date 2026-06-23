@@ -25,53 +25,47 @@ jobs:
       contains(fromJSON('["patch", "minor", "major"]'), github.event.label.name)
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.GH_DOCS_SYNC_APP_ID }}
+          private-key: ${{ secrets.GH_DOCS_SYNC_APP_PRIVATE_KEY }}
+
       - name: Close superseded Speakeasy PRs
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SDK_MERGE_PAT: ${{ secrets.SDK_MERGE_PAT }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
           CURRENT_PR="${{ github.event.pull_request.number }}"
 
-          close_superseded() {
-            PRIOR_JSON=$(gh pr list \
-              --repo "${{ github.repository }}" \
-              --state open \
-              --search "head:speakeasy-sdk-regen-" \
-              --limit 500 \
-              --json number \
-              | jq -r --arg cur "$CURRENT_PR" \
-                '[.[].number | select(tostring != $cur)] | .[]')
+          PRIOR_JSON=$(gh pr list \
+            --repo "${{ github.repository }}" \
+            --state open \
+            --search "head:speakeasy-sdk-regen-" \
+            --limit 500 \
+            --json number \
+            | jq -r --arg cur "$CURRENT_PR" \
+              '[.[].number | select(tostring != $cur)] | .[]')
 
-            if [ -z "$PRIOR_JSON" ]; then
-              echo "No superseded Speakeasy PRs to close"
-              return 0
-            fi
-
-            mapfile -t PRIOR <<< "$PRIOR_JSON"
-
-            echo "Closing ${#PRIOR[@]} superseded Speakeasy PR(s)"
-            for N in "${PRIOR[@]}"; do
-              gh pr close "$N" --repo "${{ github.repository }}" --delete-branch \
-                --comment "Superseded by newer Speakeasy SDK generation PR #${CURRENT_PR}" \
-                || echo "::warning::Failed to close PR #$N (continuing)"
-              sleep 1
-            done
-          }
-
-          if ! close_superseded; then
-            if [ -n "${SDK_MERGE_PAT:-}" ]; then
-              echo "Retrying close with SDK_MERGE_PAT fallback"
-              GH_TOKEN="$SDK_MERGE_PAT" close_superseded
-            else
-              exit 1
-            fi
+          if [ -z "$PRIOR_JSON" ]; then
+            echo "No superseded Speakeasy PRs to close"
+            exit 0
           fi
+
+          mapfile -t PRIOR <<< "$PRIOR_JSON"
+
+          echo "Closing ${#PRIOR[@]} superseded Speakeasy PR(s)"
+          for N in "${PRIOR[@]}"; do
+            gh pr close "$N" --repo "${{ github.repository }}" --delete-branch \
+              --comment "Superseded by newer Speakeasy SDK generation PR #${CURRENT_PR}" \
+              || echo "::warning::Failed to close PR #$N (continuing)"
+            sleep 1
+          done
 
       - name: Auto-merge Speakeasy PR
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SDK_MERGE_PAT: ${{ secrets.SDK_MERGE_PAT }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -euo pipefail
           PR_NUM="${{ github.event.pull_request.number }}"
@@ -83,27 +77,15 @@ jobs:
             exit 0
           fi
 
-          merge_pr() {
-            AUTO_MERGE_NOOP_PATTERN='is in clean status|protected branch rules|Branch does not have required protected branch rules'
-            if gh pr merge "$PR_NUM" --repo "$REPO" --squash --auto --delete-branch 2> /tmp/gh-merge.err; then
-              echo "Auto-merge enabled for Speakeasy PR #$PR_NUM"
-            elif grep -qiE "$AUTO_MERGE_NOOP_PATTERN" /tmp/gh-merge.err; then
-              echo "Auto-merge not applicable — merging PR #$PR_NUM directly"
-              cat /tmp/gh-merge.err >&2
-              gh pr merge "$PR_NUM" --repo "$REPO" --squash --delete-branch
-            else
-              return 1
-            fi
-          }
-
-          if merge_pr; then
-            exit 0
-          fi
-
-          if [ -n "${SDK_MERGE_PAT:-}" ]; then
-            echo "Retrying merge with SDK_MERGE_PAT fallback"
+          # Prefer GitHub auto-merge when required checks exist; otherwise
+          # squash-merge directly (same pattern as sdk-release-prs.yaml).
+          AUTO_MERGE_NOOP_PATTERN='is in clean status|protected branch rules|Branch does not have required protected branch rules'
+          if gh pr merge "$PR_NUM" --repo "$REPO" --squash --auto --delete-branch 2> /tmp/gh-merge.err; then
+            echo "Auto-merge enabled for Speakeasy PR #$PR_NUM"
+          elif grep -qiE "$AUTO_MERGE_NOOP_PATTERN" /tmp/gh-merge.err; then
+            echo "Auto-merge not applicable — merging PR #$PR_NUM directly"
             cat /tmp/gh-merge.err >&2
-            GH_TOKEN="$SDK_MERGE_PAT" merge_pr
+            gh pr merge "$PR_NUM" --repo "$REPO" --squash --delete-branch
           else
             echo "::error::Failed to enable auto-merge on Speakeasy PR #$PR_NUM"
             cat /tmp/gh-merge.err >&2
