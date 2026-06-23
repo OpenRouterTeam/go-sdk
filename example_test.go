@@ -12,17 +12,23 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// ExampleNew demonstrates creating a new OpenRouter client.
+func ExampleNew() {
+	sdk := openrouter.New(
+		openrouter.WithSecurity("your-api-key"),
+	)
+	fmt.Println(sdk.SDKVersion)
+	// Output: 0.5.0
+}
+
 // Example demonstrates basic usage of the OpenRouter SDK for chat completions.
-// This example shows how to create a client, configure authentication, and send a chat request.
 func Example() {
 	ctx := context.Background()
 
-	// Initialize the SDK with your API key
 	sdk := openrouter.New(
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	// Send a chat completion request
 	res, err := sdk.Chat.Send(ctx, components.ChatRequest{
 		Model: openrouter.Pointer("openai/gpt-4o"),
 		Messages: []components.ChatMessages{
@@ -107,8 +113,11 @@ func Example_generateEmbedding() {
 		log.Fatal(err)
 	}
 
-	if res != nil && res.CreateEmbeddingsResponseBody != nil && res.CreateEmbeddingsResponseBody.Data != nil {
-		fmt.Printf("Embedding dimensions: %d\n", len(res.CreateEmbeddingsResponseBody.Data))
+	if res != nil && res.CreateEmbeddingsResponseBody != nil && len(res.CreateEmbeddingsResponseBody.Data) > 0 {
+		embedding := res.CreateEmbeddingsResponseBody.Data[0].GetEmbedding()
+		if embedding.Type == operations.EmbeddingTypeArrayOfNumber {
+			fmt.Printf("Vector dimensions: %d\n", len(embedding.ArrayOfNumber))
+		}
 	}
 }
 
@@ -138,12 +147,14 @@ func Example_streamChat() {
 	)
 
 	res, err := sdk.Chat.Send(ctx, components.ChatRequest{
-		Model: openrouter.Pointer("openai/gpt-4o"),
+		Model: openrouter.Pointer("openai/gpt-4o-mini"),
 		Messages: []components.ChatMessages{
 			components.CreateChatMessagesUser(
 				components.ChatUserMessage{
-					Role:    components.ChatUserMessageRoleUser,
-					Content: components.CreateChatUserMessageContentStr("Explain quantum computing in simple terms"),
+					Role: components.ChatUserMessageRoleUser,
+					Content: components.CreateChatUserMessageContentStr(
+						"Count from 1 to 3, one number per line.",
+					),
 				},
 			),
 		},
@@ -152,10 +163,28 @@ func Example_streamChat() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	if res == nil || res.EventStream == nil {
+		log.Fatal("expected streaming response")
+	}
 
-	if res != nil {
-		// Handle streaming response
-		fmt.Println("Streaming response received...")
+	stream := res.EventStream
+	defer stream.Close()
+
+	for stream.Next() {
+		chunk := stream.Value()
+		if chunk == nil {
+			continue
+		}
+		for _, choice := range chunk.Data.Choices {
+			if text, ok := choice.Delta.Content.Get(); ok && text != nil {
+				fmt.Print(*text)
+			}
+		}
+	}
+	fmt.Println()
+
+	if err := stream.Err(); err != nil {
+		log.Fatal(err)
 	}
 }
 
