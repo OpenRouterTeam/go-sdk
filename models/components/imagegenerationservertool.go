@@ -9,20 +9,20 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type Background string
+type ImageGenerationServerToolBackground string
 
 const (
-	BackgroundTransparent Background = "transparent"
-	BackgroundOpaque      Background = "opaque"
-	BackgroundAuto        Background = "auto"
+	ImageGenerationServerToolBackgroundTransparent ImageGenerationServerToolBackground = "transparent"
+	ImageGenerationServerToolBackgroundOpaque      ImageGenerationServerToolBackground = "opaque"
+	ImageGenerationServerToolBackgroundAuto        ImageGenerationServerToolBackground = "auto"
 )
 
-func (e Background) ToPointer() *Background {
+func (e ImageGenerationServerToolBackground) ToPointer() *ImageGenerationServerToolBackground {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Background) IsExact() bool {
+func (e *ImageGenerationServerToolBackground) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "transparent", "opaque", "auto":
@@ -128,20 +128,20 @@ func (e *Moderation) IsExact() bool {
 	return false
 }
 
-type OutputFormat string
+type ImageGenerationServerToolOutputFormat string
 
 const (
-	OutputFormatPng  OutputFormat = "png"
-	OutputFormatWebp OutputFormat = "webp"
-	OutputFormatJpeg OutputFormat = "jpeg"
+	ImageGenerationServerToolOutputFormatPng  ImageGenerationServerToolOutputFormat = "png"
+	ImageGenerationServerToolOutputFormatWebp ImageGenerationServerToolOutputFormat = "webp"
+	ImageGenerationServerToolOutputFormatJpeg ImageGenerationServerToolOutputFormat = "jpeg"
 )
 
-func (e OutputFormat) ToPointer() *OutputFormat {
+func (e ImageGenerationServerToolOutputFormat) ToPointer() *ImageGenerationServerToolOutputFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputFormat) IsExact() bool {
+func (e *ImageGenerationServerToolOutputFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "png", "webp", "jpeg":
@@ -151,21 +151,21 @@ func (e *OutputFormat) IsExact() bool {
 	return false
 }
 
-type Quality string
+type ImageGenerationServerToolQuality string
 
 const (
-	QualityLow    Quality = "low"
-	QualityMedium Quality = "medium"
-	QualityHigh   Quality = "high"
-	QualityAuto   Quality = "auto"
+	ImageGenerationServerToolQualityLow    ImageGenerationServerToolQuality = "low"
+	ImageGenerationServerToolQualityMedium ImageGenerationServerToolQuality = "medium"
+	ImageGenerationServerToolQualityHigh   ImageGenerationServerToolQuality = "high"
+	ImageGenerationServerToolQualityAuto   ImageGenerationServerToolQuality = "auto"
 )
 
-func (e Quality) ToPointer() *Quality {
+func (e ImageGenerationServerToolQuality) ToPointer() *ImageGenerationServerToolQuality {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Quality) IsExact() bool {
+func (e *ImageGenerationServerToolQuality) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "low", "medium", "high", "auto":
@@ -224,15 +224,15 @@ func (e *ImageGenerationServerToolType) UnmarshalJSON(data []byte) error {
 
 // ImageGenerationServerTool - Image generation tool configuration
 type ImageGenerationServerTool struct {
-	Background        *Background                                      `json:"background,omitzero"`
+	Background        *ImageGenerationServerToolBackground             `json:"background,omitzero"`
 	InputFidelity     optionalnullable.OptionalNullable[InputFidelity] `json:"input_fidelity,omitzero"`
 	InputImageMask    *InputImageMask                                  `json:"input_image_mask,omitzero"`
 	Model             *ModelEnum                                       `json:"model,omitzero"`
 	Moderation        *Moderation                                      `json:"moderation,omitzero"`
 	OutputCompression *int64                                           `json:"output_compression,omitzero"`
-	OutputFormat      *OutputFormat                                    `json:"output_format,omitzero"`
+	OutputFormat      *ImageGenerationServerToolOutputFormat           `json:"output_format,omitzero"`
 	PartialImages     *int64                                           `json:"partial_images,omitzero"`
-	Quality           *Quality                                         `json:"quality,omitzero"`
+	Quality           *ImageGenerationServerToolQuality                `json:"quality,omitzero"`
 	Size              *Size                                            `json:"size,omitzero"`
 	Type              ImageGenerationServerToolType                    `json:"type"`
 }
@@ -248,7 +248,7 @@ func (i *ImageGenerationServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *ImageGenerationServerTool) GetBackground() *Background {
+func (i *ImageGenerationServerTool) GetBackground() *ImageGenerationServerToolBackground {
 	if i == nil {
 		return nil
 	}
@@ -290,7 +290,7 @@ func (i *ImageGenerationServerTool) GetOutputCompression() *int64 {
 	return i.OutputCompression
 }
 
-func (i *ImageGenerationServerTool) GetOutputFormat() *OutputFormat {
+func (i *ImageGenerationServerTool) GetOutputFormat() *ImageGenerationServerToolOutputFormat {
 	if i == nil {
 		return nil
 	}
@@ -304,7 +304,7 @@ func (i *ImageGenerationServerTool) GetPartialImages() *int64 {
 	return i.PartialImages
 }
 
-func (i *ImageGenerationServerTool) GetQuality() *Quality {
+func (i *ImageGenerationServerTool) GetQuality() *ImageGenerationServerToolQuality {
 	if i == nil {
 		return nil
 	}

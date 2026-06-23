@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
@@ -11,6 +12,17 @@ type CostDetails struct {
 	UpstreamInferenceCompletionsCost float64                                    `json:"upstream_inference_completions_cost"`
 	UpstreamInferenceCost            optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
 	UpstreamInferencePromptCost      float64                                    `json:"upstream_inference_prompt_cost"`
+}
+
+func (c CostDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CostDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *CostDetails) GetUpstreamInferenceCompletionsCost() float64 {

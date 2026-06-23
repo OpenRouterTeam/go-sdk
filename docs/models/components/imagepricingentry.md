@@ -1,0 +1,13 @@
+# ImagePricingEntry
+
+One billable pricing line for an image provider.
+
+
+## Fields
+
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `Billable`                                                 | [components.Billable](../../models/components/billable.md) | :heavy_check_mark:                                         | N/A                                                        |
+| `CostUsd`                                                  | `float64`                                                  | :heavy_check_mark:                                         | N/A                                                        |
+| `Unit`                                                     | [components.Unit](../../models/components/unit.md)         | :heavy_check_mark:                                         | N/A                                                        |
+| `Variant`                                                  | `*string`                                                  | :heavy_minus_sign:                                         | N/A                                                        |

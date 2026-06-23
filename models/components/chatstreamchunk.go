@@ -9,26 +9,26 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-// Error information
-type Error struct {
+// ChatStreamChunkError - Error information
+type ChatStreamChunkError struct {
 	// Error code
 	Code int `json:"code"`
 	// Error message
 	Message string `json:"message"`
 }
 
-func (e *Error) GetCode() int {
-	if e == nil {
+func (c *ChatStreamChunkError) GetCode() int {
+	if c == nil {
 		return 0
 	}
-	return e.Code
+	return c.Code
 }
 
-func (e *Error) GetMessage() string {
-	if e == nil {
+func (c *ChatStreamChunkError) GetMessage() string {
+	if c == nil {
 		return ""
 	}
-	return e.Message
+	return c.Message
 }
 
 type ChatStreamChunkObject string
@@ -61,7 +61,7 @@ type ChatStreamChunk struct {
 	// Unix timestamp of creation
 	Created int64 `json:"created"`
 	// Error information
-	Error *Error `json:"error,omitzero"`
+	Error *ChatStreamChunkError `json:"error,omitzero"`
 	// Unique chunk identifier
 	ID string `json:"id"`
 	// Model used for completion
@@ -101,7 +101,7 @@ func (c *ChatStreamChunk) GetCreated() int64 {
 	return c.Created
 }
 
-func (c *ChatStreamChunk) GetError() *Error {
+func (c *ChatStreamChunk) GetError() *ChatStreamChunkError {
 	if c == nil {
 		return nil
 	}

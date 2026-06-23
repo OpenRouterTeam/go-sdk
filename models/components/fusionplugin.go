@@ -31,6 +31,29 @@ func (e *FusionPluginID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PresetEnum - A curated OpenRouter fusion preset (slugs follow `<task>-<tier>`, e.g. `general-high`). Expands server-side into the preset's analysis_models panel and judge model, so callers never name individual models. Explicitly provided `analysis_models` / `model` take precedence.
+type PresetEnum string
+
+const (
+	PresetEnumGeneralHigh   PresetEnum = "general-high"
+	PresetEnumGeneralBudget PresetEnum = "general-budget"
+)
+
+func (e PresetEnum) ToPointer() *PresetEnum {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PresetEnum) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "general-high", "general-budget":
+			return true
+		}
+	}
+	return false
+}
+
 type FusionPluginTool struct {
 	// Optional configuration forwarded as the tool's `parameters` object.
 	Parameters map[string]any `json:"parameters,omitzero"`
@@ -73,6 +96,8 @@ type FusionPlugin struct {
 	MaxToolCalls *int64 `json:"max_tool_calls,omitzero"`
 	// Slug of the model that performs both the judge step (with web_search + web_fetch) and the final synthesis. When omitted, defaults to the first model in the Quality preset.
 	Model *string `json:"model,omitzero"`
+	// A curated OpenRouter fusion preset (slugs follow `<task>-<tier>`, e.g. `general-high`). Expands server-side into the preset's analysis_models panel and judge model, so callers never name individual models. Explicitly provided `analysis_models` / `model` take precedence.
+	Preset *PresetEnum `json:"preset,omitzero"`
 	// Server tools available to panelist and judge inner calls. Each entry uses the same `{ type, parameters? }` shorthand as the outer Chat Completions request. When omitted, defaults to `[{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch" }]`. Pass an empty array to disable tools entirely (panelists answer from parametric knowledge only).
 	Tools []FusionPluginTool `json:"tools,omitzero"`
 }
@@ -121,6 +146,13 @@ func (f *FusionPlugin) GetModel() *string {
 		return nil
 	}
 	return f.Model
+}
+
+func (f *FusionPlugin) GetPreset() *PresetEnum {
+	if f == nil {
+		return nil
+	}
+	return f.Preset
 }
 
 func (f *FusionPlugin) GetTools() []FusionPluginTool {

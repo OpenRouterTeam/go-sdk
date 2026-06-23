@@ -9,7 +9,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-value := components.ChatRequestEffortXhigh
+value := components.ChatRequestEffortMax
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.ChatRequestEffort("custom_value")
@@ -20,6 +20,7 @@ custom := components.ChatRequestEffort("custom_value")
 
 | Name                       | Value                      |
 | -------------------------- | -------------------------- |
+| `ChatRequestEffortMax`     | max                        |
 | `ChatRequestEffortXhigh`   | xhigh                      |
 | `ChatRequestEffortHigh`    | high                       |
 | `ChatRequestEffortMedium`  | medium                     |

@@ -7,8 +7,8 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-// CompletionTokensDetails - Detailed completion token usage
-type CompletionTokensDetails struct {
+// ChatUsageCompletionTokensDetails - Detailed completion token usage
+type ChatUsageCompletionTokensDetails struct {
 	// Accepted prediction tokens
 	AcceptedPredictionTokens optionalnullable.OptionalNullable[int64] `json:"accepted_prediction_tokens,omitzero"`
 	// Tokens used for audio output
@@ -19,36 +19,36 @@ type CompletionTokensDetails struct {
 	RejectedPredictionTokens optionalnullable.OptionalNullable[int64] `json:"rejected_prediction_tokens,omitzero"`
 }
 
-func (c *CompletionTokensDetails) GetAcceptedPredictionTokens() optionalnullable.OptionalNullable[int64] {
+func (c *ChatUsageCompletionTokensDetails) GetAcceptedPredictionTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.AcceptedPredictionTokens
 }
 
-func (c *CompletionTokensDetails) GetAudioTokens() optionalnullable.OptionalNullable[int64] {
+func (c *ChatUsageCompletionTokensDetails) GetAudioTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.AudioTokens
 }
 
-func (c *CompletionTokensDetails) GetReasoningTokens() optionalnullable.OptionalNullable[int64] {
+func (c *ChatUsageCompletionTokensDetails) GetReasoningTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.ReasoningTokens
 }
 
-func (c *CompletionTokensDetails) GetRejectedPredictionTokens() optionalnullable.OptionalNullable[int64] {
+func (c *ChatUsageCompletionTokensDetails) GetRejectedPredictionTokens() optionalnullable.OptionalNullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.RejectedPredictionTokens
 }
 
-// PromptTokensDetails - Detailed prompt token usage
-type PromptTokensDetails struct {
+// ChatUsagePromptTokensDetails - Detailed prompt token usage
+type ChatUsagePromptTokensDetails struct {
 	// Audio input tokens
 	AudioTokens *int64 `json:"audio_tokens,omitzero"`
 	// Tokens written to cache. Only returned for models with explicit caching and cache write pricing.
@@ -59,32 +59,63 @@ type PromptTokensDetails struct {
 	VideoTokens *int64 `json:"video_tokens,omitzero"`
 }
 
-func (p *PromptTokensDetails) GetAudioTokens() *int64 {
-	if p == nil {
+func (c *ChatUsagePromptTokensDetails) GetAudioTokens() *int64 {
+	if c == nil {
 		return nil
 	}
-	return p.AudioTokens
+	return c.AudioTokens
 }
 
-func (p *PromptTokensDetails) GetCacheWriteTokens() *int64 {
-	if p == nil {
+func (c *ChatUsagePromptTokensDetails) GetCacheWriteTokens() *int64 {
+	if c == nil {
 		return nil
 	}
-	return p.CacheWriteTokens
+	return c.CacheWriteTokens
 }
 
-func (p *PromptTokensDetails) GetCachedTokens() *int64 {
-	if p == nil {
+func (c *ChatUsagePromptTokensDetails) GetCachedTokens() *int64 {
+	if c == nil {
 		return nil
 	}
-	return p.CachedTokens
+	return c.CachedTokens
 }
 
-func (p *PromptTokensDetails) GetVideoTokens() *int64 {
-	if p == nil {
+func (c *ChatUsagePromptTokensDetails) GetVideoTokens() *int64 {
+	if c == nil {
 		return nil
 	}
-	return p.VideoTokens
+	return c.VideoTokens
+}
+
+// ServerToolUseDetails - Usage for server-side tool execution (e.g., web search)
+type ServerToolUseDetails struct {
+	// Number of OpenRouter server tool calls that executed and produced a result
+	ToolCallsExecuted optionalnullable.OptionalNullable[int64] `json:"tool_calls_executed,omitzero"`
+	// Total number of OpenRouter server-orchestrated tool calls the model requested, across all tool types. Provider-native tools (e.g. native web search) are not counted here.
+	ToolCallsRequested optionalnullable.OptionalNullable[int64] `json:"tool_calls_requested,omitzero"`
+	// Number of web searches performed by server-side tools. For server-orchestrated tool calls a web search is also counted in tool_calls_requested; provider-native web search may report web_search_requests only. Do not sum the two.
+	WebSearchRequests optionalnullable.OptionalNullable[int64] `json:"web_search_requests,omitzero"`
+}
+
+func (s *ServerToolUseDetails) GetToolCallsExecuted() optionalnullable.OptionalNullable[int64] {
+	if s == nil {
+		return nil
+	}
+	return s.ToolCallsExecuted
+}
+
+func (s *ServerToolUseDetails) GetToolCallsRequested() optionalnullable.OptionalNullable[int64] {
+	if s == nil {
+		return nil
+	}
+	return s.ToolCallsRequested
+}
+
+func (s *ServerToolUseDetails) GetWebSearchRequests() optionalnullable.OptionalNullable[int64] {
+	if s == nil {
+		return nil
+	}
+	return s.WebSearchRequests
 }
 
 // ChatUsage - Token usage statistics
@@ -92,7 +123,7 @@ type ChatUsage struct {
 	// Number of tokens in the completion
 	CompletionTokens int64 `json:"completion_tokens"`
 	// Detailed completion token usage
-	CompletionTokensDetails optionalnullable.OptionalNullable[CompletionTokensDetails] `json:"completion_tokens_details,omitzero"`
+	CompletionTokensDetails optionalnullable.OptionalNullable[ChatUsageCompletionTokensDetails] `json:"completion_tokens_details,omitzero"`
 	// Cost of the completion
 	Cost optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
 	// Breakdown of upstream inference costs
@@ -102,7 +133,9 @@ type ChatUsage struct {
 	// Number of tokens in the prompt
 	PromptTokens int64 `json:"prompt_tokens"`
 	// Detailed prompt token usage
-	PromptTokensDetails optionalnullable.OptionalNullable[PromptTokensDetails] `json:"prompt_tokens_details,omitzero"`
+	PromptTokensDetails optionalnullable.OptionalNullable[ChatUsagePromptTokensDetails] `json:"prompt_tokens_details,omitzero"`
+	// Usage for server-side tool execution (e.g., web search)
+	ServerToolUseDetails optionalnullable.OptionalNullable[ServerToolUseDetails] `json:"server_tool_use_details,omitzero"`
 	// Total number of tokens
 	TotalTokens int64 `json:"total_tokens"`
 }
@@ -125,7 +158,7 @@ func (c *ChatUsage) GetCompletionTokens() int64 {
 	return c.CompletionTokens
 }
 
-func (c *ChatUsage) GetCompletionTokensDetails() optionalnullable.OptionalNullable[CompletionTokensDetails] {
+func (c *ChatUsage) GetCompletionTokensDetails() optionalnullable.OptionalNullable[ChatUsageCompletionTokensDetails] {
 	if c == nil {
 		return nil
 	}
@@ -160,11 +193,18 @@ func (c *ChatUsage) GetPromptTokens() int64 {
 	return c.PromptTokens
 }
 
-func (c *ChatUsage) GetPromptTokensDetails() optionalnullable.OptionalNullable[PromptTokensDetails] {
+func (c *ChatUsage) GetPromptTokensDetails() optionalnullable.OptionalNullable[ChatUsagePromptTokensDetails] {
 	if c == nil {
 		return nil
 	}
 	return c.PromptTokensDetails
+}
+
+func (c *ChatUsage) GetServerToolUseDetails() optionalnullable.OptionalNullable[ServerToolUseDetails] {
+	if c == nil {
+		return nil
+	}
+	return c.ServerToolUseDetails
 }
 
 func (c *ChatUsage) GetTotalTokens() int64 {

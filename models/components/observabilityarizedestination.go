@@ -12,9 +12,10 @@ type ObservabilityArizeDestinationConfig struct {
 	APIKey  string  `json:"apiKey"`
 	BaseURL *string `default:"https://otlp.arize.com" json:"baseUrl"`
 	// Custom HTTP headers to include in requests to this destination.
-	Headers  map[string]string `json:"headers,omitzero"`
-	ModelID  string            `json:"modelId"`
-	SpaceKey string            `json:"spaceKey"`
+	Headers map[string]string `json:"headers,omitzero"`
+	// The name of the tracing project in Arize AX
+	ModelID  string `json:"modelId"`
+	SpaceKey string `json:"spaceKey"`
 }
 
 func (o ObservabilityArizeDestinationConfig) MarshalJSON() ([]byte, error) {

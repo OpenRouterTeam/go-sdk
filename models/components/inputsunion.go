@@ -986,6 +986,7 @@ const (
 	InputsUnion1TypeOutputMemoryServerToolItem          InputsUnion1Type = "OutputMemoryServerToolItem"
 	InputsUnion1TypeOutputMcpServerToolItem             InputsUnion1Type = "OutputMcpServerToolItem"
 	InputsUnion1TypeOutputSearchModelsServerToolItem    InputsUnion1Type = "OutputSearchModelsServerToolItem"
+	InputsUnion1TypeOutputFusionServerToolItem          InputsUnion1Type = "OutputFusionServerToolItem"
 	InputsUnion1TypeOutputAdvisorServerToolItem         InputsUnion1Type = "OutputAdvisorServerToolItem"
 	InputsUnion1TypeOutputSubagentServerToolItem        InputsUnion1Type = "OutputSubagentServerToolItem"
 	InputsUnion1TypeLocalShellCallItem                  InputsUnion1Type = "LocalShellCallItem"
@@ -1033,6 +1034,7 @@ type InputsUnion1 struct {
 	OutputMemoryServerToolItem          *OutputMemoryServerToolItem          `queryParam:"inline" union:"member"`
 	OutputMcpServerToolItem             *OutputMcpServerToolItem             `queryParam:"inline" union:"member"`
 	OutputSearchModelsServerToolItem    *OutputSearchModelsServerToolItem    `queryParam:"inline" union:"member"`
+	OutputFusionServerToolItem          *OutputFusionServerToolItem          `queryParam:"inline" union:"member"`
 	OutputAdvisorServerToolItem         *OutputAdvisorServerToolItem         `queryParam:"inline" union:"member"`
 	OutputSubagentServerToolItem        *OutputSubagentServerToolItem        `queryParam:"inline" union:"member"`
 	LocalShellCallItem                  *LocalShellCallItem                  `queryParam:"inline" union:"member"`
@@ -1318,6 +1320,15 @@ func CreateInputsUnion1OutputSearchModelsServerToolItem(outputSearchModelsServer
 	return InputsUnion1{
 		OutputSearchModelsServerToolItem: &outputSearchModelsServerToolItem,
 		Type:                             typ,
+	}
+}
+
+func CreateInputsUnion1OutputFusionServerToolItem(outputFusionServerToolItem OutputFusionServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputFusionServerToolItem
+
+	return InputsUnion1{
+		OutputFusionServerToolItem: &outputFusionServerToolItem,
+		Type:                       typ,
 	}
 }
 
@@ -1692,6 +1703,14 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var outputFusionServerToolItem OutputFusionServerToolItem = OutputFusionServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputFusionServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputFusionServerToolItem,
+			Value: &outputFusionServerToolItem,
+		})
+	}
+
 	var outputAdvisorServerToolItem OutputAdvisorServerToolItem = OutputAdvisorServerToolItem{}
 	if err := utils.UnmarshalJSON(data, &outputAdvisorServerToolItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -1907,6 +1926,9 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeOutputSearchModelsServerToolItem:
 		u.OutputSearchModelsServerToolItem = best.Value.(*OutputSearchModelsServerToolItem)
 		return nil
+	case InputsUnion1TypeOutputFusionServerToolItem:
+		u.OutputFusionServerToolItem = best.Value.(*OutputFusionServerToolItem)
+		return nil
 	case InputsUnion1TypeOutputAdvisorServerToolItem:
 		u.OutputAdvisorServerToolItem = best.Value.(*OutputAdvisorServerToolItem)
 		return nil
@@ -2073,6 +2095,10 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 
 	if u.OutputSearchModelsServerToolItem != nil {
 		return utils.MarshalJSON(u.OutputSearchModelsServerToolItem, "", true)
+	}
+
+	if u.OutputFusionServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputFusionServerToolItem, "", true)
 	}
 
 	if u.OutputAdvisorServerToolItem != nil {
