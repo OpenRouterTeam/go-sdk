@@ -1,6 +1,6 @@
 # ProviderOptions
 
-Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 
 
 ## Fields
@@ -112,6 +112,7 @@ Provider-specific options keyed by provider slug. The options for the matched pr
 | `Streamlake`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Switchpoint`         | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Targon`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `Tenstorrent`         | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Together`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `TogetherLite`        | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Ubicloud`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |

@@ -10,6 +10,7 @@ import (
 type FusionServerToolConfigEffort string
 
 const (
+	FusionServerToolConfigEffortMax     FusionServerToolConfigEffort = "max"
 	FusionServerToolConfigEffortXhigh   FusionServerToolConfigEffort = "xhigh"
 	FusionServerToolConfigEffortHigh    FusionServerToolConfigEffort = "high"
 	FusionServerToolConfigEffortMedium  FusionServerToolConfigEffort = "medium"
@@ -26,7 +27,7 @@ func (e FusionServerToolConfigEffort) ToPointer() *FusionServerToolConfigEffort 
 func (e *FusionServerToolConfigEffort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "xhigh", "high", "medium", "low", "minimal", "none":
+		case "max", "xhigh", "high", "medium", "low", "minimal", "none":
 			return true
 		}
 	}
@@ -102,6 +103,8 @@ func (f *FusionServerToolConfigTool) GetType() string {
 type FusionServerToolConfig struct {
 	// Slugs of models to run in parallel as the analysis panel. Each model receives the user prompt with openrouter:web_search and openrouter:web_fetch enabled, then a judge model summarizes the collective output into structured analysis JSON. Capped at 8 models to bound cost amplification. Defaults to the Quality preset from /labs/fusion.
 	AnalysisModels []string `json:"analysis_models,omitzero"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Maximum number of output tokens (including reasoning tokens) each panelist and the judge model may produce per inner call. Controls the total output budget so reasoning-heavy models like GPT-5.5 do not exhaust their token allowance before producing visible text. When omitted, the provider's default applies.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
 	// Maximum number of tool-calling steps each panelist (analysis model) and the judge model may take during their agentic web-research loop. Models with web_search/web_fetch enabled iterate until they produce a text response or hit this ceiling. Defaults to 8. Capped at 16.
@@ -132,6 +135,13 @@ func (f *FusionServerToolConfig) GetAnalysisModels() []string {
 		return nil
 	}
 	return f.AnalysisModels
+}
+
+func (f *FusionServerToolConfig) GetCacheControl() *AnthropicCacheControlDirective {
+	if f == nil {
+		return nil
+	}
+	return f.CacheControl
 }
 
 func (f *FusionServerToolConfig) GetMaxCompletionTokens() *int64 {

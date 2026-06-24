@@ -95,6 +95,7 @@ custom := components.BYOKProviderSlug("custom_value")
 | `BYOKProviderSlugStepfun`         | stepfun                           |
 | `BYOKProviderSlugStreamlake`      | streamlake                        |
 | `BYOKProviderSlugSwitchpoint`     | switchpoint                       |
+| `BYOKProviderSlugTenstorrent`     | tenstorrent                       |
 | `BYOKProviderSlugTogether`        | together                          |
 | `BYOKProviderSlugUpstage`         | upstage                           |
 | `BYOKProviderSlugVenice`          | venice                            |

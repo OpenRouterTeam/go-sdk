@@ -95,6 +95,7 @@ custom := operations.Provider("custom_value")
 | `ProviderStepfun`         | stepfun                   |
 | `ProviderStreamlake`      | streamlake                |
 | `ProviderSwitchpoint`     | switchpoint               |
+| `ProviderTenstorrent`     | tenstorrent               |
 | `ProviderTogether`        | together                  |
 | `ProviderUpstage`         | upstage                   |
 | `ProviderVenice`          | venice                    |

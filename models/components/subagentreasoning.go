@@ -10,6 +10,7 @@ import (
 type SubagentReasoningEffort string
 
 const (
+	SubagentReasoningEffortMax     SubagentReasoningEffort = "max"
 	SubagentReasoningEffortXhigh   SubagentReasoningEffort = "xhigh"
 	SubagentReasoningEffortHigh    SubagentReasoningEffort = "high"
 	SubagentReasoningEffortMedium  SubagentReasoningEffort = "medium"
@@ -26,7 +27,7 @@ func (e SubagentReasoningEffort) ToPointer() *SubagentReasoningEffort {
 func (e *SubagentReasoningEffort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "xhigh", "high", "medium", "low", "minimal", "none":
+		case "max", "xhigh", "high", "medium", "low", "minimal", "none":
 			return true
 		}
 	}

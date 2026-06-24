@@ -266,13 +266,15 @@ const (
 	AnthropicDocumentBlockParamSourceUnionTypeText    AnthropicDocumentBlockParamSourceUnionType = "text"
 	AnthropicDocumentBlockParamSourceUnionTypeContent AnthropicDocumentBlockParamSourceUnionType = "content"
 	AnthropicDocumentBlockParamSourceUnionTypeURLObj  AnthropicDocumentBlockParamSourceUnionType = "url"
+	AnthropicDocumentBlockParamSourceUnionTypeFile    AnthropicDocumentBlockParamSourceUnionType = "file"
 )
 
 type AnthropicDocumentBlockParamSourceUnion struct {
-	AnthropicBase64PdfSource *AnthropicBase64PdfSource `queryParam:"inline" union:"member"`
-	AnthropicPlainTextSource *AnthropicPlainTextSource `queryParam:"inline" union:"member"`
-	SourceContent            *SourceContent            `queryParam:"inline" union:"member"`
-	AnthropicURLPdfSource    *AnthropicURLPdfSource    `queryParam:"inline" union:"member"`
+	AnthropicBase64PdfSource    *AnthropicBase64PdfSource    `queryParam:"inline" union:"member"`
+	AnthropicPlainTextSource    *AnthropicPlainTextSource    `queryParam:"inline" union:"member"`
+	SourceContent               *SourceContent               `queryParam:"inline" union:"member"`
+	AnthropicURLPdfSource       *AnthropicURLPdfSource       `queryParam:"inline" union:"member"`
+	AnthropicFileDocumentSource *AnthropicFileDocumentSource `queryParam:"inline" union:"member"`
 
 	Type AnthropicDocumentBlockParamSourceUnionType
 }
@@ -325,6 +327,18 @@ func CreateAnthropicDocumentBlockParamSourceUnionURLObj(urlT AnthropicURLPdfSour
 	}
 }
 
+func CreateAnthropicDocumentBlockParamSourceUnionFile(file AnthropicFileDocumentSource) AnthropicDocumentBlockParamSourceUnion {
+	typ := AnthropicDocumentBlockParamSourceUnionTypeFile
+
+	typStr := AnthropicFileDocumentSourceType(typ)
+	file.Type = typStr
+
+	return AnthropicDocumentBlockParamSourceUnion{
+		AnthropicFileDocumentSource: &file,
+		Type:                        typ,
+	}
+}
+
 func (u *AnthropicDocumentBlockParamSourceUnion) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -373,6 +387,15 @@ func (u *AnthropicDocumentBlockParamSourceUnion) UnmarshalJSON(data []byte) erro
 		u.AnthropicURLPdfSource = anthropicURLPdfSource
 		u.Type = AnthropicDocumentBlockParamSourceUnionTypeURLObj
 		return nil
+	case "file":
+		anthropicFileDocumentSource := new(AnthropicFileDocumentSource)
+		if err := utils.UnmarshalJSON(data, &anthropicFileDocumentSource, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type AnthropicFileDocumentSource within AnthropicDocumentBlockParamSourceUnion: %w", string(data), err)
+		}
+
+		u.AnthropicFileDocumentSource = anthropicFileDocumentSource
+		u.Type = AnthropicDocumentBlockParamSourceUnionTypeFile
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for AnthropicDocumentBlockParamSourceUnion", string(data))
@@ -393,6 +416,10 @@ func (u AnthropicDocumentBlockParamSourceUnion) MarshalJSON() ([]byte, error) {
 
 	if u.AnthropicURLPdfSource != nil {
 		return utils.MarshalJSON(u.AnthropicURLPdfSource, "", true)
+	}
+
+	if u.AnthropicFileDocumentSource != nil {
+		return utils.MarshalJSON(u.AnthropicFileDocumentSource, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type AnthropicDocumentBlockParamSourceUnion: all fields are null")
@@ -484,6 +511,10 @@ func (a *AnthropicDocumentBlockParam) GetSourceContent() *SourceContent {
 
 func (a *AnthropicDocumentBlockParam) GetSourceURLObj() *AnthropicURLPdfSource {
 	return a.GetSource().AnthropicURLPdfSource
+}
+
+func (a *AnthropicDocumentBlockParam) GetSourceFile() *AnthropicFileDocumentSource {
+	return a.GetSource().AnthropicFileDocumentSource
 }
 
 func (a *AnthropicDocumentBlockParam) GetTitle() optionalnullable.OptionalNullable[string] {

@@ -126,6 +126,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameStealth`         | Stealth                                       |
 | `ProviderResponseProviderNameStreamLake`      | StreamLake                                    |
 | `ProviderResponseProviderNameSwitchpoint`     | Switchpoint                                   |
+| `ProviderResponseProviderNameTenstorrent`     | Tenstorrent                                   |
 | `ProviderResponseProviderNameTogether`        | Together                                      |
 | `ProviderResponseProviderNameUpstage`         | Upstage                                       |
 | `ProviderResponseProviderNameVenice`          | Venice                                        |

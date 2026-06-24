@@ -1,0 +1,20 @@
+# UnifiedBenchmarksMetaVersion
+
+Dataset version.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.UnifiedBenchmarksMetaVersionV1
+```
+
+
+## Values
+
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `UnifiedBenchmarksMetaVersionV1` | v1                               |

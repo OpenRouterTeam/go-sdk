@@ -1,0 +1,18 @@
+# AnthropicAdvisorMessageUsageIterationType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicAdvisorMessageUsageIterationTypeAdvisorMessage
+```
+
+
+## Values
+
+| Name                                                      | Value                                                     |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| `AnthropicAdvisorMessageUsageIterationTypeAdvisorMessage` | advisor_message                                           |
