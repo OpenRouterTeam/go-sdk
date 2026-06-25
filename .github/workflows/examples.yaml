@@ -80,7 +80,10 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add examples go.work.sum README.md OVERVIEW.md
+          # Stage every file bump-examples.sh may touch (example go.mod/go.sum,
+          # workspace sum, and all docs in its DOCS list incl. doc.go +
+          # example_test.go). Use -A so newly-tidied go.sum entries are included.
+          git add -A
           git commit -m "$(cat <<EOF
           chore: bump examples to SDK $(awk '/^  releaseVersion: / { print "v" $2; exit }' .speakeasy/gen.lock)
 

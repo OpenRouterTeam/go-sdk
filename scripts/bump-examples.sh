@@ -9,6 +9,7 @@ DOCS=(
 	examples/README.md
 	README.md
 	OVERVIEW.md
+	doc.go
 )
 
 usage() {
@@ -18,6 +19,10 @@ Usage: $(basename "$0") [vX.Y.Z]
 Bump pinned SDK versions in all examples/ modules and docs.
 
 If VERSION is omitted, reads releaseVersion from .speakeasy/gen.lock.
+
+Environment:
+  GO_GET_RETRIES   attempts to fetch the module from the proxy (default 20)
+  GO_GET_INTERVAL  seconds to wait between attempts (default 30)
 EOF
 }
 
@@ -56,25 +61,45 @@ update_docs() {
 			s#(require github.com/OpenRouterTeam/go-sdk )v[0-9]+(?:\\.[0-9]+)*#\1${version}#g;
 		" "$doc"
 	done
+
+	# example_test.go asserts the SDK version via `// Output: X.Y.Z` (no `v`
+	# prefix, no module path), so it needs a dedicated substitution.
+	local bare="${version#v}"
+	if [[ -f example_test.go ]]; then
+		perl -pi -e "s#(// Output: )[0-9]+(?:\\.[0-9]+)*#\${1}${bare}#g" example_test.go
+	fi
 }
+
+# GOSUMDB=off: the checksum database (sum.golang.org) can lag the module proxy
+# by 10+ minutes after a tag publishes, but `go get` computes and records the
+# correct hash into go.sum directly from the proxy/tag without it. Waiting on
+# sum.golang.org is the reason release-time bumps used to fail; bypass it here
+# (downstream consumers still get sumdb-verified hashes once it backfills).
+GO_GET_RETRIES="${GO_GET_RETRIES:-20}"
+GO_GET_INTERVAL="${GO_GET_INTERVAL:-30}"
 
 go_get_with_retry() {
 	local dir="$1"
 	local version="$2"
 	local attempt
 
-	for attempt in 1 2 3 4 5 6; do
-		if (cd "$dir" && GOWORK=off go get "${MODULE}@${version}"); then
+	for attempt in $(seq 1 "$GO_GET_RETRIES"); do
+		if (cd "$dir" && GOWORK=off GOSUMDB=off go get "${MODULE}@${version}"); then
 			return 0
 		fi
-		if (( attempt == 6 )); then
-			echo "failed to fetch ${MODULE}@${version} for ${dir}" >&2
+		if (( attempt == GO_GET_RETRIES )); then
+			echo "failed to fetch ${MODULE}@${version} for ${dir} after ${GO_GET_RETRIES} attempts" >&2
 			return 1
 		fi
-		echo "waiting for ${MODULE}@${version} to appear on the module proxy (attempt ${attempt}/6)..." >&2
-		sleep 30
+		echo "waiting for ${MODULE}@${version} to appear on the module proxy (attempt ${attempt}/${GO_GET_RETRIES})..." >&2
+		sleep "$GO_GET_INTERVAL"
 	done
 }
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+	usage
+	exit 0
+fi
 
 VERSION="${1:-}"
 if [[ -z "$VERSION" ]]; then
@@ -100,7 +125,7 @@ for gomod in "${example_mods[@]}"; do
 	go_get_with_retry "$dir" "$VERSION"
 	(
 		cd "$dir"
-		GOWORK=off go mod tidy
+		GOWORK=off GOSUMDB=off go mod tidy
 	)
 done
 
