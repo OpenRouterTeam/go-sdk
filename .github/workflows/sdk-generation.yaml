@@ -52,8 +52,11 @@ jobs:
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
 
   resolve-branch:
-    needs: generate
-    if: ${{ !cancelled() && needs.generate.result == 'success' }}
+    # generate-fallback is an identical retry of generate (same token/config) that
+    # runs only if generate fails, so either job may be the one that produced the
+    # regen PR. Gate on either succeeding.
+    needs: [generate, generate-fallback]
+    if: ${{ !cancelled() && (needs.generate.result == 'success' || needs.generate-fallback.result == 'success') }}
     runs-on: ubuntu-latest
     outputs:
       branch_name: ${{ steps.branch.outputs.branch_name }}
@@ -76,9 +79,10 @@ jobs:
           echo "run_started_at=$RUN_STARTED" >> "$GITHUB_OUTPUT"
 
           # Full-run logs are unavailable while the workflow is in progress;
-          # fetch logs from the completed generate job instead.
+          # fetch logs from the completed generate job instead. Either generate or
+          # generate-fallback may be the producer, so match both job names.
           JOB_ID=$(gh run view "$RUN_ID" --repo "$REPO" --json jobs --jq \
-            '[.jobs[] | select(.name == "generate / Generate Target")] | .[0].databaseId // empty')
+            '[.jobs[] | select(.name == "generate / Generate Target" or .name == "generate-fallback / Generate Target")] | .[0].databaseId // empty')
 
           BRANCH=""
           if [ -z "$JOB_ID" ]; then
@@ -105,8 +109,8 @@ jobs:
           echo "branch_name=$BRANCH" >> "$GITHUB_OUTPUT"
 
   auto-merge:
-    needs: [generate, resolve-branch]
-    if: ${{ !cancelled() && needs.generate.result == 'success' }}
+    needs: [generate, generate-fallback, resolve-branch]
+    if: ${{ !cancelled() && (needs.generate.result == 'success' || needs.generate-fallback.result == 'success') }}
     uses: ./.github/workflows/auto-merge-speakeasy-pr.yaml
     with:
       run_started_at: ${{ needs.resolve-branch.outputs.run_started_at }}
