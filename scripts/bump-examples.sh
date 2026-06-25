@@ -19,6 +19,10 @@ Usage: $(basename "$0") [vX.Y.Z]
 Bump pinned SDK versions in all examples/ modules and docs.
 
 If VERSION is omitted, reads releaseVersion from .speakeasy/gen.lock.
+
+Environment:
+  GO_GET_RETRIES   attempts to fetch the module from the proxy (default 20)
+  GO_GET_INTERVAL  seconds to wait between attempts (default 30)
 EOF
 }
 
@@ -91,6 +95,11 @@ go_get_with_retry() {
 		sleep "$GO_GET_INTERVAL"
 	done
 }
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+	usage
+	exit 0
+fi
 
 VERSION="${1:-}"
 if [[ -z "$VERSION" ]]; then
