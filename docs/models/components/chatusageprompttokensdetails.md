@@ -1,0 +1,13 @@
+# ChatUsagePromptTokensDetails
+
+Detailed prompt token usage
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `AudioTokens`                                                                                    | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Audio input tokens                                                                               |
+| `CacheWriteTokens`                                                                               | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Tokens written to cache. Only returned for models with explicit caching and cache write pricing. |
+| `CachedTokens`                                                                                   | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Cached prompt tokens                                                                             |
+| `VideoTokens`                                                                                    | `*int64`                                                                                         | :heavy_minus_sign:                                                                               | Video input tokens                                                                               |

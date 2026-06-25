@@ -810,11 +810,11 @@ func (c *ContextManagement) GetEdits() []Edit {
 	return c.Edits
 }
 
-type Metadata struct {
+type MessagesRequestMetadata struct {
 	UserID optionalnullable.OptionalNullable[string] `json:"user_id,omitzero"`
 }
 
-func (m *Metadata) GetUserID() optionalnullable.OptionalNullable[string] {
+func (m *MessagesRequestMetadata) GetUserID() optionalnullable.OptionalNullable[string] {
 	if m == nil {
 		return nil
 	}
@@ -2973,7 +2973,7 @@ type MessagesRequest struct {
 	Fallbacks optionalnullable.OptionalNullable[[]MessagesFallbackParam] `json:"fallbacks,omitzero"`
 	MaxTokens *int64                                                     `json:"max_tokens,omitzero"`
 	Messages  []MessagesMessageParam                                     `json:"messages"`
-	Metadata  *Metadata                                                  `json:"metadata,omitzero"`
+	Metadata  *MessagesRequestMetadata                                   `json:"metadata,omitzero"`
 	Model     string                                                     `json:"model"`
 	Models    []string                                                   `json:"models,omitzero"`
 	// Configuration for controlling output behavior. Supports the effort parameter and structured output format.
@@ -3049,7 +3049,7 @@ func (m *MessagesRequest) GetMessages() []MessagesMessageParam {
 	return m.Messages
 }
 
-func (m *MessagesRequest) GetMetadata() *Metadata {
+func (m *MessagesRequest) GetMetadata() *MessagesRequestMetadata {
 	if m == nil {
 		return nil
 	}

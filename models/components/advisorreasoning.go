@@ -10,6 +10,7 @@ import (
 type AdvisorReasoningEffort string
 
 const (
+	AdvisorReasoningEffortMax     AdvisorReasoningEffort = "max"
 	AdvisorReasoningEffortXhigh   AdvisorReasoningEffort = "xhigh"
 	AdvisorReasoningEffortHigh    AdvisorReasoningEffort = "high"
 	AdvisorReasoningEffortMedium  AdvisorReasoningEffort = "medium"
@@ -26,7 +27,7 @@ func (e AdvisorReasoningEffort) ToPointer() *AdvisorReasoningEffort {
 func (e *AdvisorReasoningEffort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "xhigh", "high", "medium", "low", "minimal", "none":
+		case "max", "xhigh", "high", "medium", "low", "minimal", "none":
 			return true
 		}
 	}

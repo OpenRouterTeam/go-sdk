@@ -27,6 +27,12 @@ anthropicDocumentBlockParamSourceUnion := components.CreateAnthropicDocumentBloc
 anthropicDocumentBlockParamSourceUnion := components.CreateAnthropicDocumentBlockParamSourceUnionURLObj(components.AnthropicURLPdfSource{/* values here */})
 ```
 
+### AnthropicFileDocumentSource
+
+```go
+anthropicDocumentBlockParamSourceUnion := components.CreateAnthropicDocumentBlockParamSourceUnionFile(components.AnthropicFileDocumentSource{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -41,5 +47,7 @@ switch anthropicDocumentBlockParamSourceUnion.Type {
 		// anthropicDocumentBlockParamSourceUnion.SourceContent is populated
 	case components.AnthropicDocumentBlockParamSourceUnionTypeURLObj:
 		// anthropicDocumentBlockParamSourceUnion.AnthropicURLPdfSource is populated
+	case components.AnthropicDocumentBlockParamSourceUnionTypeFile:
+		// anthropicDocumentBlockParamSourceUnion.AnthropicFileDocumentSource is populated
 }
 ```

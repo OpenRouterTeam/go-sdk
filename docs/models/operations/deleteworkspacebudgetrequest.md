@@ -1,0 +1,9 @@
+# DeleteWorkspaceBudgetRequest
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ID`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The workspace ID (UUID) or slug                                                          | production                                                                               |
+| `Interval`                                                                               | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval.md) | :heavy_check_mark:                                                                       | Budget reset interval. Use "lifetime" for a one-time budget that never resets.           | monthly                                                                                  |

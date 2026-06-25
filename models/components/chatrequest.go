@@ -311,6 +311,7 @@ func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 type ChatRequestEffort string
 
 const (
+	ChatRequestEffortMax     ChatRequestEffort = "max"
 	ChatRequestEffortXhigh   ChatRequestEffort = "xhigh"
 	ChatRequestEffortHigh    ChatRequestEffort = "high"
 	ChatRequestEffortMedium  ChatRequestEffort = "medium"
@@ -327,7 +328,7 @@ func (e ChatRequestEffort) ToPointer() *ChatRequestEffort {
 func (e *ChatRequestEffort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "xhigh", "high", "medium", "low", "minimal", "none":
+		case "max", "xhigh", "high", "medium", "low", "minimal", "none":
 			return true
 		}
 	}
@@ -359,6 +360,7 @@ func (c *ChatRequestReasoning) GetSummary() optionalnullable.OptionalNullable[Ch
 type ChatRequestReasoningEffort string
 
 const (
+	ChatRequestReasoningEffortMax     ChatRequestReasoningEffort = "max"
 	ChatRequestReasoningEffortXhigh   ChatRequestReasoningEffort = "xhigh"
 	ChatRequestReasoningEffortHigh    ChatRequestReasoningEffort = "high"
 	ChatRequestReasoningEffortMedium  ChatRequestReasoningEffort = "medium"
@@ -375,7 +377,7 @@ func (e ChatRequestReasoningEffort) ToPointer() *ChatRequestReasoningEffort {
 func (e *ChatRequestReasoningEffort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "xhigh", "high", "medium", "low", "minimal", "none":
+		case "max", "xhigh", "high", "medium", "low", "minimal", "none":
 			return true
 		}
 	}

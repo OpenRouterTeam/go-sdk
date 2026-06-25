@@ -39,6 +39,8 @@ type Model struct {
 	PerRequestLimits *PerRequestLimits `json:"per_request_limits"`
 	// Pricing information for the model
 	Pricing PublicPricing `json:"pricing"`
+	// Reasoning effort configuration. Omitted for non-reasoning models and dynamic router models.
+	Reasoning *ModelReasoning `json:"reasoning,omitzero"`
 	// List of supported parameters for this model
 	SupportedParameters []Parameter `json:"supported_parameters"`
 	// List of supported voice identifiers for TTS models. Null for non-TTS models.
@@ -161,6 +163,13 @@ func (m *Model) GetPricing() PublicPricing {
 		return PublicPricing{}
 	}
 	return m.Pricing
+}
+
+func (m *Model) GetReasoning() *ModelReasoning {
+	if m == nil {
+		return nil
+	}
+	return m.Reasoning
 }
 
 func (m *Model) GetSupportedParameters() []Parameter {

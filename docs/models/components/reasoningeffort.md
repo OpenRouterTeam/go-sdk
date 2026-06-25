@@ -7,7 +7,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-value := components.ReasoningEffortXhigh
+value := components.ReasoningEffortMax
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.ReasoningEffort("custom_value")
@@ -18,6 +18,7 @@ custom := components.ReasoningEffort("custom_value")
 
 | Name                     | Value                    |
 | ------------------------ | ------------------------ |
+| `ReasoningEffortMax`     | max                      |
 | `ReasoningEffortXhigh`   | xhigh                    |
 | `ReasoningEffortHigh`    | high                     |
 | `ReasoningEffortMedium`  | medium                   |

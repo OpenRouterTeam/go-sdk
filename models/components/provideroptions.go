@@ -6,7 +6,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// ProviderOptions - Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+// ProviderOptions - Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 type ProviderOptions struct {
 	Oneai               map[string]any `json:"01ai,omitzero"`
 	Ai21                map[string]any `json:"ai21,omitzero"`
@@ -53,11 +53,13 @@ type ProviderOptions struct {
 	GoogleVertex        map[string]any `json:"google-vertex,omitzero"`
 	Gopomelo            map[string]any `json:"gopomelo,omitzero"`
 	Groq                map[string]any `json:"groq,omitzero"`
+	Heygen              map[string]any `json:"heygen,omitzero"`
 	Huggingface         map[string]any `json:"huggingface,omitzero"`
 	Hyperbolic          map[string]any `json:"hyperbolic,omitzero"`
 	HyperbolicQuantized map[string]any `json:"hyperbolic-quantized,omitzero"`
 	Inception           map[string]any `json:"inception,omitzero"`
 	Inceptron           map[string]any `json:"inceptron,omitzero"`
+	InferactVllm        map[string]any `json:"inferact-vllm,omitzero"`
 	InferenceNet        map[string]any `json:"inference-net,omitzero"`
 	Infermatic          map[string]any `json:"infermatic,omitzero"`
 	Inflection          map[string]any `json:"inflection,omitzero"`
@@ -102,6 +104,7 @@ type ProviderOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
+	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
 	Seed                map[string]any `json:"seed,omitzero"`
@@ -113,6 +116,7 @@ type ProviderOptions struct {
 	Streamlake          map[string]any `json:"streamlake,omitzero"`
 	Switchpoint         map[string]any `json:"switchpoint,omitzero"`
 	Targon              map[string]any `json:"targon,omitzero"`
+	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
@@ -451,6 +455,13 @@ func (p *ProviderOptions) GetGroq() map[string]any {
 	return p.Groq
 }
 
+func (p *ProviderOptions) GetHeygen() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Heygen
+}
+
 func (p *ProviderOptions) GetHuggingface() map[string]any {
 	if p == nil {
 		return nil
@@ -484,6 +495,13 @@ func (p *ProviderOptions) GetInceptron() map[string]any {
 		return nil
 	}
 	return p.Inceptron
+}
+
+func (p *ProviderOptions) GetInferactVllm() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.InferactVllm
 }
 
 func (p *ProviderOptions) GetInferenceNet() map[string]any {
@@ -794,6 +812,13 @@ func (p *ProviderOptions) GetReplicate() map[string]any {
 	return p.Replicate
 }
 
+func (p *ProviderOptions) GetSakanaAi() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.SakanaAi
+}
+
 func (p *ProviderOptions) GetSambanova() map[string]any {
 	if p == nil {
 		return nil
@@ -869,6 +894,13 @@ func (p *ProviderOptions) GetTargon() map[string]any {
 		return nil
 	}
 	return p.Targon
+}
+
+func (p *ProviderOptions) GetTenstorrent() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Tenstorrent
 }
 
 func (p *ProviderOptions) GetTogether() map[string]any {

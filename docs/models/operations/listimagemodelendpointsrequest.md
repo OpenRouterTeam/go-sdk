@@ -1,0 +1,9 @@
+# ListImageModelEndpointsRequest
+
+
+## Fields
+
+| Field                     | Type                      | Required                  | Description               | Example                   |
+| ------------------------- | ------------------------- | ------------------------- | ------------------------- | ------------------------- |
+| `Author`                  | `string`                  | :heavy_check_mark:        | Model author/organization | bytedance-seed            |
+| `Slug`                    | `string`                  | :heavy_check_mark:        | Model slug                | seedream-4.5              |

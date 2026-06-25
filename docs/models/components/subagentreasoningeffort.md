@@ -9,7 +9,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-value := components.SubagentReasoningEffortXhigh
+value := components.SubagentReasoningEffortMax
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.SubagentReasoningEffort("custom_value")
@@ -20,6 +20,7 @@ custom := components.SubagentReasoningEffort("custom_value")
 
 | Name                             | Value                            |
 | -------------------------------- | -------------------------------- |
+| `SubagentReasoningEffortMax`     | max                              |
 | `SubagentReasoningEffortXhigh`   | xhigh                            |
 | `SubagentReasoningEffortHigh`    | high                             |
 | `SubagentReasoningEffortMedium`  | medium                           |

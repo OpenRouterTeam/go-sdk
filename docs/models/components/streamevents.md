@@ -59,6 +59,12 @@ streamEvents := components.CreateStreamEventsResponseCustomToolCallInputDelta(co
 streamEvents := components.CreateStreamEventsResponseCustomToolCallInputDone(components.CustomToolCallInputDoneEvent{/* values here */})
 ```
 
+### DebugEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseDebug(components.DebugEvent{/* values here */})
+```
+
 ### StreamEventsResponseFailed
 
 ```go
@@ -287,6 +293,8 @@ switch streamEvents.Type {
 		// streamEvents.CustomToolCallInputDeltaEvent is populated
 	case components.StreamEventsTypeResponseCustomToolCallInputDone:
 		// streamEvents.CustomToolCallInputDoneEvent is populated
+	case components.StreamEventsTypeResponseDebug:
+		// streamEvents.DebugEvent is populated
 	case components.StreamEventsTypeResponseFailed:
 		// streamEvents.StreamEventsResponseFailed is populated
 	case components.StreamEventsTypeResponseFunctionCallArgumentsDelta:

@@ -38,18 +38,6 @@ See [examples/README.md](examples/README.md) for runnable examples, starting wit
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [OpenRouter Go SDK](#openrouter-go-sdk)
-  * [Overview](#overview)
-  * [SDK Installation](#sdk-installation)
-  * [Requirements](#requirements)
-  * [SDK Example Usage](#sdk-example-usage)
-  * [Authentication](#authentication)
-  * [Available Resources and Operations](#available-resources-and-operations)
-  * [Server-sent event streaming](#server-sent-event-streaming)
-  * [Pagination](#pagination)
-  * [Retries](#retries)
-  * [Error Handling](#error-handling)
-  * [Server Selection](#server-selection)
-  * [Custom HTTP Client](#custom-http-client)
 * [Development](#development)
   * [Maturity](#maturity)
   * [Contributions](#contributions)
@@ -59,16 +47,9 @@ See [examples/README.md](examples/README.md) for runnable examples, starting wit
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-Add the SDK to your module:
-
+To add the SDK as a dependency to your project:
 ```bash
 go get github.com/OpenRouterTeam/go-sdk
-```
-
-For beta releases, pin an explicit version:
-
-```bash
-go get github.com/OpenRouterTeam/go-sdk@v0.5.0
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -88,12 +69,9 @@ package main
 
 import (
 	"context"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"log"
 	"os"
-
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/components"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 func main() {
@@ -103,25 +81,12 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Chat.Send(ctx, components.ChatRequest{
-		Model: openrouter.Pointer("openai/gpt-4o"),
-		Messages: []components.ChatMessages{
-			components.CreateChatMessagesUser(
-				components.ChatUserMessage{
-					Role: components.ChatUserMessageRoleUser,
-					Content: components.CreateChatUserMessageContentStr(
-						"Hello, how are you?",
-					),
-				},
-			),
-		},
-		Temperature: optionalnullable.From(openrouter.Pointer(0.7)),
-	}, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res != nil && res.ChatResult != nil {
-		log.Println(res.ChatResult.Choices)
+	if res != nil {
+		// handle response
 	}
 }
 
@@ -220,6 +185,10 @@ func main() {
 * [Get](docs/sdks/apikeys/README.md#get) - Get a single API key
 * [Update](docs/sdks/apikeys/README.md#update) - Update an API key
 
+### [Benchmarks](docs/sdks/benchmarks/README.md)
+
+* [GetBenchmarks](docs/sdks/benchmarks/README.md#getbenchmarks) - List Benchmarks
+
 ### [Beta.Analytics](docs/sdks/betaanalytics/README.md)
 
 * [GetAnalyticsMeta](docs/sdks/betaanalytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
@@ -241,6 +210,10 @@ func main() {
 
 * [Send](docs/sdks/chat/README.md#send) - Create a chat completion
 
+### [Classifications](docs/sdks/classifications/README.md)
+
+* [GetTaskClassifications](docs/sdks/classifications/README.md#gettaskclassifications) - Task classification market share
+
 ### [Credits](docs/sdks/credits/README.md)
 
 * [GetCredits](docs/sdks/credits/README.md#getcredits) - Get remaining credits
@@ -248,8 +221,6 @@ func main() {
 ### [Datasets](docs/sdks/datasets/README.md)
 
 * [GetAppRankings](docs/sdks/datasets/README.md#getapprankings) - Top apps by token usage
-* [GetBenchmarksArtificialAnalysis](docs/sdks/datasets/README.md#getbenchmarksartificialanalysis) - Artificial Analysis Benchmark Indices
-* [GetBenchmarksDesignArena](docs/sdks/datasets/README.md#getbenchmarksdesignarena) - Design Arena Benchmark Rankings
 * [GetRankingsDaily](docs/sdks/datasets/README.md#getrankingsdaily) - Daily token totals for top 50 models
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
@@ -290,6 +261,12 @@ func main() {
 * [BulkUnassignMembers](docs/sdks/guardrails/README.md#bulkunassignmembers) - Bulk unassign members from a guardrail
 * [ListKeyAssignments](docs/sdks/guardrails/README.md#listkeyassignments) - List all key assignments
 * [ListMemberAssignments](docs/sdks/guardrails/README.md#listmemberassignments) - List all member assignments
+
+### [Images](docs/sdks/images/README.md)
+
+* [Generate](docs/sdks/images/README.md#generate) - Generate an image
+* [ListModels](docs/sdks/images/README.md#listmodels) - List image generation models
+* [ListModelEndpoints](docs/sdks/images/README.md#listmodelendpoints) - List endpoints for an image model
 
 ### [Models](docs/sdks/models/README.md)
 
@@ -355,6 +332,9 @@ func main() {
 * [Delete](docs/sdks/workspaces/README.md#delete) - Delete a workspace
 * [Get](docs/sdks/workspaces/README.md#get) - Get a workspace
 * [Update](docs/sdks/workspaces/README.md#update) - Update a workspace
+* [ListBudgets](docs/sdks/workspaces/README.md#listbudgets) - List workspace budgets
+* [DeleteBudget](docs/sdks/workspaces/README.md#deletebudget) - Delete a workspace budget
+* [SetBudget](docs/sdks/workspaces/README.md#setbudget) - Create or update a workspace budget
 * [BulkAddMembers](docs/sdks/workspaces/README.md#bulkaddmembers) - Bulk add members to a workspace
 * [BulkRemoveMembers](docs/sdks/workspaces/README.md#bulkremovemembers) - Bulk remove members from a workspace
 
@@ -369,8 +349,6 @@ operations. These operations will expose the stream as an iterable that
 can be consumed using a simple `for` loop. The loop will
 terminate when the server no longer has any events to send and closes the
 underlying connection.
-
-For chat completions, check `res.EventStream` after setting `Stream: openrouter.Pointer(true)` on `components.ChatRequest`. See [examples/chat-stream](examples/chat-stream) for a runnable example.
 
 ```go
 package main
@@ -477,9 +455,9 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"log"
+	"models/operations"
 	"os"
 )
 

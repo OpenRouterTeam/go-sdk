@@ -56,8 +56,10 @@ custom := operations.Provider("custom_value")
 | `ProviderGoogleAiStudio`  | google-ai-studio          |
 | `ProviderGoogleVertex`    | google-vertex             |
 | `ProviderGroq`            | groq                      |
+| `ProviderHeygen`          | heygen                    |
 | `ProviderInception`       | inception                 |
 | `ProviderInceptron`       | inceptron                 |
+| `ProviderInferactVllm`    | inferact-vllm             |
 | `ProviderInferenceNet`    | inference-net             |
 | `ProviderInfermatic`      | infermatic                |
 | `ProviderInflection`      | inflection                |
@@ -88,6 +90,7 @@ custom := operations.Provider("custom_value")
 | `ProviderRecraft`         | recraft                   |
 | `ProviderReka`            | reka                      |
 | `ProviderRelace`          | relace                    |
+| `ProviderSakanaAi`        | sakana-ai                 |
 | `ProviderSambanova`       | sambanova                 |
 | `ProviderSeed`            | seed                      |
 | `ProviderSiliconflow`     | siliconflow               |
@@ -95,6 +98,7 @@ custom := operations.Provider("custom_value")
 | `ProviderStepfun`         | stepfun                   |
 | `ProviderStreamlake`      | streamlake                |
 | `ProviderSwitchpoint`     | switchpoint               |
+| `ProviderTenstorrent`     | tenstorrent               |
 | `ProviderTogether`        | together                  |
 | `ProviderUpstage`         | upstage                   |
 | `ProviderVenice`          | venice                    |

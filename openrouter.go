@@ -2,7 +2,7 @@
 
 package openrouter
 
-// Generated from OpenAPI doc version 1.0.0 and generator version 2.904.2
+// Generated from OpenAPI doc version 1.0.0 and generator version 2.879.6
 
 import (
 	"context"
@@ -67,9 +67,13 @@ type OpenRouter struct {
 	Stt *Stt
 	// OAuth authentication endpoints
 	OAuth *OAuth
+	// Benchmarks endpoints
+	Benchmarks *Benchmarks
 	// BYOK endpoints
 	Byok *Byok
 	Chat *Chat
+	// Task classification market-share endpoints
+	Classifications *Classifications
 	// Credit management endpoints
 	Credits *Credits
 	// Datasets endpoints
@@ -84,6 +88,8 @@ type OpenRouter struct {
 	Generations *Generations
 	// Guardrails endpoints
 	Guardrails *Guardrails
+	// Images endpoints
+	Images *Images
 	// API key management endpoints
 	APIKeys *APIKeys
 	// Model information endpoints
@@ -193,9 +199,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.5.0",
+		SDKVersion: "0.5.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.5.0 2.904.2 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.5.1 2.879.6 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -226,8 +232,10 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Tts = newTts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Stt = newStt(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Benchmarks = newBenchmarks(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Byok = newByok(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Classifications = newClassifications(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Datasets = newDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -235,6 +243,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Files = newFiles(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Images = newImages(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Observability = newObservability(sdk, sdk.sdkConfiguration, sdk.hooks)
