@@ -3,20 +3,34 @@
 package components
 
 type Pricing struct {
-	Audio             *string  `json:"audio,omitzero"`
-	AudioOutput       *string  `json:"audio_output,omitzero"`
-	Completion        string   `json:"completion"`
-	Discount          *float64 `json:"discount,omitzero"`
-	Image             *string  `json:"image,omitzero"`
-	ImageOutput       *string  `json:"image_output,omitzero"`
-	ImageToken        *string  `json:"image_token,omitzero"`
-	InputAudioCache   *string  `json:"input_audio_cache,omitzero"`
-	InputCacheRead    *string  `json:"input_cache_read,omitzero"`
-	InputCacheWrite   *string  `json:"input_cache_write,omitzero"`
-	InternalReasoning *string  `json:"internal_reasoning,omitzero"`
-	Prompt            string   `json:"prompt"`
-	Request           *string  `json:"request,omitzero"`
-	WebSearch         *string  `json:"web_search,omitzero"`
+	// Price in USD per audio input token
+	Audio *string `json:"audio,omitzero"`
+	// Price in USD per audio output token
+	AudioOutput *string `json:"audio_output,omitzero"`
+	// Price in USD per token for completion (output) generation
+	Completion string `json:"completion"`
+	// Fractional discount applied to this endpoint's pricing; the price is multiplied by (1 - discount) (0 = no discount, 1 = free)
+	Discount *float64 `json:"discount,omitzero"`
+	// Price in USD per input image
+	Image *string `json:"image,omitzero"`
+	// Price in USD per output image
+	ImageOutput *string `json:"image_output,omitzero"`
+	// Price in USD per image token
+	ImageToken *string `json:"image_token,omitzero"`
+	// Price in USD per cached audio input token
+	InputAudioCache *string `json:"input_audio_cache,omitzero"`
+	// Price in USD per cached input token (read)
+	InputCacheRead *string `json:"input_cache_read,omitzero"`
+	// Price in USD per cached input token (write)
+	InputCacheWrite *string `json:"input_cache_write,omitzero"`
+	// Price in USD per internal reasoning token
+	InternalReasoning *string `json:"internal_reasoning,omitzero"`
+	// Price in USD per token for prompt (input) processing
+	Prompt string `json:"prompt"`
+	// Price in USD per request
+	Request *string `json:"request,omitzero"`
+	// Price in USD per web search
+	WebSearch *string `json:"web_search,omitzero"`
 }
 
 func (p *Pricing) GetAudio() *string {

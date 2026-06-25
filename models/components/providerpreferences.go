@@ -126,11 +126,15 @@ func (u Ignore) MarshalJSON() ([]byte, error) {
 
 // MaxPrice - The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
 type MaxPrice struct {
-	Audio      *string `json:"audio,omitzero"`
+	// Maximum price in USD per audio unit
+	Audio *string `json:"audio,omitzero"`
+	// Maximum price in USD per million completion tokens
 	Completion *string `json:"completion,omitzero"`
-	Image      *string `json:"image,omitzero"`
-	// Price per million prompt tokens
-	Prompt  *string `json:"prompt,omitzero"`
+	// Maximum price in USD per image
+	Image *string `json:"image,omitzero"`
+	// Maximum price in USD per million prompt tokens
+	Prompt *string `json:"prompt,omitzero"`
+	// Maximum price in USD per request
 	Request *string `json:"request,omitzero"`
 }
 
