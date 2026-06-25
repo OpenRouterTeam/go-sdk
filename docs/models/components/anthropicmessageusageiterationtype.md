@@ -1,0 +1,18 @@
+# AnthropicMessageUsageIterationType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AnthropicMessageUsageIterationTypeMessage
+```
+
+
+## Values
+
+| Name                                        | Value                                       |
+| ------------------------------------------- | ------------------------------------------- |
+| `AnthropicMessageUsageIterationTypeMessage` | message                                     |

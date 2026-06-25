@@ -9,26 +9,68 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-// Error information
-type Error struct {
+// ChatStreamChunkMetadata - Structured error metadata
+type ChatStreamChunkMetadata struct {
+	// Canonical OpenRouter error type, stable across all API formats
+	ErrorType APIErrorType `json:"error_type"`
+	// Upstream provider-specific error code, when available
+	ProviderCode *string `json:"provider_code,omitzero"`
+}
+
+func (c *ChatStreamChunkMetadata) GetErrorType() APIErrorType {
+	if c == nil {
+		return APIErrorType("")
+	}
+	return c.ErrorType
+}
+
+func (c *ChatStreamChunkMetadata) GetProviderCode() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ProviderCode
+}
+
+// ChatStreamChunkError - Error information
+type ChatStreamChunkError struct {
 	// Error code
 	Code int `json:"code"`
 	// Error message
 	Message string `json:"message"`
+	// Structured error metadata
+	Metadata *ChatStreamChunkMetadata `json:"metadata,omitzero"`
 }
 
-func (e *Error) GetCode() int {
-	if e == nil {
+func (c ChatStreamChunkError) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ChatStreamChunkError) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ChatStreamChunkError) GetCode() int {
+	if c == nil {
 		return 0
 	}
-	return e.Code
+	return c.Code
 }
 
-func (e *Error) GetMessage() string {
-	if e == nil {
+func (c *ChatStreamChunkError) GetMessage() string {
+	if c == nil {
 		return ""
 	}
-	return e.Message
+	return c.Message
+}
+
+func (c *ChatStreamChunkError) GetMetadata() *ChatStreamChunkMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
 }
 
 type ChatStreamChunkObject string
@@ -61,7 +103,7 @@ type ChatStreamChunk struct {
 	// Unix timestamp of creation
 	Created int64 `json:"created"`
 	// Error information
-	Error *Error `json:"error,omitzero"`
+	Error *ChatStreamChunkError `json:"error,omitzero"`
 	// Unique chunk identifier
 	ID string `json:"id"`
 	// Model used for completion
@@ -101,7 +143,7 @@ func (c *ChatStreamChunk) GetCreated() int64 {
 	return c.Created
 }
 
-func (c *ChatStreamChunk) GetError() *Error {
+func (c *ChatStreamChunk) GetError() *ChatStreamChunkError {
 	if c == nil {
 		return nil
 	}

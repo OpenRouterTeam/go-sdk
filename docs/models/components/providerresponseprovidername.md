@@ -86,12 +86,14 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameGoogle`          | Google                                        |
 | `ProviderResponseProviderNameGoogleAiStudio`  | Google AI Studio                              |
 | `ProviderResponseProviderNameGroq`            | Groq                                          |
+| `ProviderResponseProviderNameHeyGen`          | HeyGen                                        |
 | `ProviderResponseProviderNameInception`       | Inception                                     |
 | `ProviderResponseProviderNameInceptron`       | Inceptron                                     |
 | `ProviderResponseProviderNameInferenceNet`    | InferenceNet                                  |
 | `ProviderResponseProviderNameIonstream`       | Ionstream                                     |
 | `ProviderResponseProviderNameInfermatic`      | Infermatic                                    |
 | `ProviderResponseProviderNameIoNet`           | Io Net                                        |
+| `ProviderResponseProviderNameInferactVLlm`    | Inferact vLLM                                 |
 | `ProviderResponseProviderNameInflection`      | Inflection                                    |
 | `ProviderResponseProviderNameLiquid`          | Liquid                                        |
 | `ProviderResponseProviderNameMara`            | Mara                                          |
@@ -118,6 +120,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameRecraft`         | Recraft                                       |
 | `ProviderResponseProviderNameReka`            | Reka                                          |
 | `ProviderResponseProviderNameRelace`          | Relace                                        |
+| `ProviderResponseProviderNameSakanaAi`        | Sakana AI                                     |
 | `ProviderResponseProviderNameSambaNova`       | SambaNova                                     |
 | `ProviderResponseProviderNameSeed`            | Seed                                          |
 | `ProviderResponseProviderNameSiliconFlow`     | SiliconFlow                                   |
@@ -126,6 +129,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameStealth`         | Stealth                                       |
 | `ProviderResponseProviderNameStreamLake`      | StreamLake                                    |
 | `ProviderResponseProviderNameSwitchpoint`     | Switchpoint                                   |
+| `ProviderResponseProviderNameTenstorrent`     | Tenstorrent                                   |
 | `ProviderResponseProviderNameTogether`        | Together                                      |
 | `ProviderResponseProviderNameUpstage`         | Upstage                                       |
 | `ProviderResponseProviderNameVenice`          | Venice                                        |

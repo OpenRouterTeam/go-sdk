@@ -1,0 +1,18 @@
+# DebugEventType
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.DebugEventTypeResponseDebug
+```
+
+
+## Values
+
+| Name                          | Value                         |
+| ----------------------------- | ----------------------------- |
+| `DebugEventTypeResponseDebug` | response.debug                |

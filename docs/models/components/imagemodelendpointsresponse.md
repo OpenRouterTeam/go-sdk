@@ -1,0 +1,11 @@
+# ImageModelEndpointsResponse
+
+The full per-endpoint records for an image model.
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            | Example                                                                |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `Endpoints`                                                            | [][components.ImageEndpoint](../../models/components/imageendpoint.md) | :heavy_check_mark:                                                     | N/A                                                                    |                                                                        |
+| `ID`                                                                   | `string`                                                               | :heavy_check_mark:                                                     | Model slug                                                             | bytedance-seed/seedream-4.5                                            |

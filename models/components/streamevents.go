@@ -21,6 +21,7 @@ const (
 	StreamEventsTypeResponseCreated                          StreamEventsType = "response.created"
 	StreamEventsTypeResponseCustomToolCallInputDelta         StreamEventsType = "response.custom_tool_call_input.delta"
 	StreamEventsTypeResponseCustomToolCallInputDone          StreamEventsType = "response.custom_tool_call_input.done"
+	StreamEventsTypeResponseDebug                            StreamEventsType = "response.debug"
 	StreamEventsTypeResponseFailed                           StreamEventsType = "response.failed"
 	StreamEventsTypeResponseFunctionCallArgumentsDelta       StreamEventsType = "response.function_call_arguments.delta"
 	StreamEventsTypeResponseFunctionCallArgumentsDone        StreamEventsType = "response.function_call_arguments.done"
@@ -103,6 +104,7 @@ type StreamEvents struct {
 	FusionCallAnalysisInProgressEvent     *FusionCallAnalysisInProgressEvent     `queryParam:"inline" union:"member"`
 	FusionCallAnalysisCompletedEvent      *FusionCallAnalysisCompletedEvent      `queryParam:"inline" union:"member"`
 	FusionCallCompletedEvent              *FusionCallCompletedEvent              `queryParam:"inline" union:"member"`
+	DebugEvent                            *DebugEvent                            `queryParam:"inline" union:"member"`
 	UnknownRaw                            json.RawMessage                        `json:"-" union:"unknown"`
 
 	Type StreamEventsType
@@ -213,6 +215,18 @@ func CreateStreamEventsResponseCustomToolCallInputDone(responseCustomToolCallInp
 	return StreamEvents{
 		CustomToolCallInputDoneEvent: &responseCustomToolCallInputDone,
 		Type:                         typ,
+	}
+}
+
+func CreateStreamEventsResponseDebug(responseDebug DebugEvent) StreamEvents {
+	typ := StreamEventsTypeResponseDebug
+
+	typStr := DebugEventType(typ)
+	responseDebug.Type = typStr
+
+	return StreamEvents{
+		DebugEvent: &responseDebug,
+		Type:       typ,
 	}
 }
 
@@ -739,6 +753,15 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.CustomToolCallInputDoneEvent = customToolCallInputDoneEvent
 		u.Type = StreamEventsTypeResponseCustomToolCallInputDone
 		return nil
+	case "response.debug":
+		debugEvent := new(DebugEvent)
+		if err := utils.UnmarshalJSON(data, &debugEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.debug) type DebugEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.DebugEvent = debugEvent
+		u.Type = StreamEventsTypeResponseDebug
+		return nil
 	case "response.failed":
 		streamEventsResponseFailed := new(StreamEventsResponseFailed)
 		if err := utils.UnmarshalJSON(data, &streamEventsResponseFailed, "", true, nil); err != nil {
@@ -1224,6 +1247,10 @@ func (u StreamEvents) MarshalJSON() ([]byte, error) {
 
 	if u.FusionCallCompletedEvent != nil {
 		return utils.MarshalJSON(u.FusionCallCompletedEvent, "", true)
+	}
+
+	if u.DebugEvent != nil {
+		return utils.MarshalJSON(u.DebugEvent, "", true)
 	}
 
 	if u.UnknownRaw != nil {

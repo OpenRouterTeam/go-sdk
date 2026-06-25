@@ -7,8 +7,6 @@ Datasets endpoints
 ### Available Operations
 
 * [GetAppRankings](#getapprankings) - Top apps by token usage
-* [GetBenchmarksArtificialAnalysis](#getbenchmarksartificialanalysis) - Artificial Analysis Benchmark Indices
-* [GetBenchmarksDesignArena](#getbenchmarksdesignarena) - Design Arena Benchmark Rankings
 * [GetRankingsDaily](#getrankingsdaily) - Daily token totals for top 50 models
 
 ## GetAppRankings
@@ -91,121 +89,6 @@ func main() {
 ### Response
 
 **[*operations.GetAppRankingsResponse](../../models/operations/getapprankingsresponse.md), error**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| sdkerrors.BadRequestResponseError      | 400                                    | application/json                       |
-| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
-| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
-| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
-| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
-
-## GetBenchmarksArtificialAnalysis
-
-Returns composite index scores (Intelligence, Coding, Agentic) from Artificial Analysis for LLM models. Includes OpenRouter pricing per model. Authenticate with any valid OpenRouter API key. Rate-limited to 30 requests/minute per key and 500 requests/day per account.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getBenchmarksArtificialAnalysis" method="get" path="/datasets/benchmarks/artificial-analysis" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := openrouter.New(
-        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-    )
-
-    res, err := s.Datasets.GetBenchmarksArtificialAnalysis(ctx, openrouter.Pointer[int64](20))
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `maxResults`                                             | `*int64`                                                 | :heavy_minus_sign:                                       | Max results to return (1–100, default 50).               | 20                                                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
-
-### Response
-
-**[*components.BenchmarksAAResponse](../../models/components/benchmarksaaresponse.md), error**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| sdkerrors.BadRequestResponseError      | 400                                    | application/json                       |
-| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
-| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
-| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
-| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
-
-## GetBenchmarksDesignArena
-
-Returns ELO ratings from head-to-head arena battles on Design Arena. Filterable by arena (models/builders/agents) and category. Includes OpenRouter pricing per model. Authenticate with any valid OpenRouter API key. Rate-limited to 30 requests/minute per key and 500 requests/day per account.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getBenchmarksDesignArena" method="get" path="/datasets/benchmarks/design-arena" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/models/operations"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := openrouter.New(
-        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
-    )
-
-    res, err := s.Datasets.GetBenchmarksDesignArena(ctx, operations.ArenaModels.ToPointer(), nil, openrouter.Pointer[int64](20))
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                    | Type                                                                                                                                                         | Required                                                                                                                                                     | Description                                                                                                                                                  | Example                                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                                                                        | :heavy_check_mark:                                                                                                                                           | The context to use for the request.                                                                                                                          |                                                                                                                                                              |
-| `arena`                                                                                                                                                      | [*operations.Arena](../../models/operations/arena.md)                                                                                                        | :heavy_minus_sign:                                                                                                                                           | Arena to query. Defaults to `models`.                                                                                                                        | models                                                                                                                                                       |
-| `category`                                                                                                                                                   | `*string`                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                           | Category within the arena (e.g. `codecategories`, `uicomponent`, `gamedev`, `3d`, `dataviz`, `image`, `video`, `svg`). When omitted, returns all categories. | codecategories                                                                                                                                               |
-| `maxResults`                                                                                                                                                 | `*int64`                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                           | Max results to return: per category when no category filter is applied (1–100, default 50).                                                                  | 20                                                                                                                                                           |
-| `opts`                                                                                                                                                       | [][operations.Option](../../models/operations/option.md)                                                                                                     | :heavy_minus_sign:                                                                                                                                           | The options for this request.                                                                                                                                |                                                                                                                                                              |
-
-### Response
-
-**[*components.BenchmarksDAResponse](../../models/components/benchmarksdaresponse.md), error**
 
 ### Errors
 
