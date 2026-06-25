@@ -5,14 +5,14 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.5.1
-  configChecksum: 14dd75ad1e2e171da015ceee46f4f78d
+  releaseVersion: 0.5.2
+  configChecksum: 479736df1ab28a73db3f6a4635e9fbad
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: c65f1c25-1575-4d50-8bcf-5a4cc7cfca72
-  pristine_commit_hash: fc8f1416971856ecc2ee1019742f6eff8a29f50b
-  pristine_tree_hash: 78545a8396628aceeff84a365da4e8c293b12420
+  generation_id: f5d4e5ed-43ce-4ef5-829a-66bec8e89bbc
+  pristine_commit_hash: 2ab562d7cd6ac5e04012e96431880a0a329ac0e3
+  pristine_tree_hash: dab880b78edad60db78133118d8fa87c79332615
 features:
   go:
     acceptHeaders: 2.81.2
@@ -8519,8 +8519,8 @@ trackedFiles:
     pristine_git_object: de50129e03ba061879287c7c5790b8dc69174726
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:566cd848dd2d6b51cd1349c0f7188e1c7ad35209
-    pristine_git_object: 6fd9a05ebdb608bf04383928dd7b7966dfc9788d
+    last_write_checksum: sha1:80a2ebf1a5636e59925452e71bc176374c676ded
+    pristine_git_object: 735da4ed627ecfd5a23eb0c20da55b4d3482d7a3
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10028,4 +10028,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Benchmarks.GetBenchmarks()`: **Added**\n* `OpenRouter.Classifications.GetTaskClassifications()`: **Added**\n* `OpenRouter.Images.Generate()`: **Added**\n* `OpenRouter.Images.ListModels()`: **Added**\n* `OpenRouter.Images.ListModelEndpoints()`: **Added**\n* `OpenRouter.Workspaces.ListBudgets()`: **Added**\n* `OpenRouter.Workspaces.DeleteBudget()`: **Added**\n* `OpenRouter.Workspaces.SetBudget()`: **Added**\n* `OpenRouter.Datasets.GetBenchmarksArtificialAnalysis()`: **Removed** (Breaking ⚠️)\n* `OpenRouter.Datasets.GetBenchmarksDesignArena()`: **Removed** (Breaking ⚠️)\n* `OpenRouter.Beta.Analytics.QueryAnalytics()`:  `response.Data.Warnings` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options` **Changed**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options` **Changed**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider` **Changed**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider` **Changed**\n  *  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName)` **Changed**\n  *  `response.Usage` **Changed**\n* `OpenRouter.Embeddings.ListModels()`:  `response.Data[].Reasoning` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName` **Changed**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName` **Changed**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName` **Changed**\n* `OpenRouter.Models.Get()`:  `response.Data.Reasoning` **Added**\n* `OpenRouter.Models.List()`: \n  *  `request.Request.Sort` **Changed**\n  *  `response.Data[].Reasoning` **Added**\n* `OpenRouter.Models.ListForUser()`:  `response.Data[].Reasoning` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`:  `request.ChatRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`:  `request.MessagesRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`:  `request.ResponsesRequest` **Changed**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName)` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options` **Changed**\n"
