@@ -635,7 +635,7 @@ func (s *Workspaces) Create(ctx context.Context, request components.CreateWorksp
 }
 
 // Delete a workspace
-// Delete an existing workspace. The default workspace cannot be deleted. Workspaces with active API keys cannot be deleted. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Delete an existing workspace. The default workspace cannot be deleted. Workspaces with active API keys cannot be deleted; remove the keys first. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Workspaces) Delete(ctx context.Context, id string, opts ...operations.Option) (*components.DeleteWorkspaceResponse, error) {
 	request := operations.DeleteWorkspaceRequest{
 		ID: id,
