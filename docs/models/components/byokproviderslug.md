@@ -87,6 +87,7 @@ custom := components.BYOKProviderSlug("custom_value")
 | `BYOKProviderSlugPerplexity`      | perplexity                        |
 | `BYOKProviderSlugPhala`           | phala                             |
 | `BYOKProviderSlugPoolside`        | poolside                          |
+| `BYOKProviderSlugQuiver`          | quiver                            |
 | `BYOKProviderSlugRecraft`         | recraft                           |
 | `BYOKProviderSlugReka`            | reka                              |
 | `BYOKProviderSlugRelace`          | relace                            |

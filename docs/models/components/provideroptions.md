@@ -97,6 +97,7 @@ Provider-specific options keyed by provider slug. Only options for the matched p
 | `Perplexity`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Phala`               | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Poolside`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `Quiver`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Recraft`             | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Recursal`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Reflection`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |

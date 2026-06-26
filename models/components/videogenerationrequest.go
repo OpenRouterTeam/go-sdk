@@ -128,6 +128,7 @@ type VideoGenerationRequestOptions struct {
 	Perplexity          map[string]any `json:"perplexity,omitzero"`
 	Phala               map[string]any `json:"phala,omitzero"`
 	Poolside            map[string]any `json:"poolside,omitzero"`
+	Quiver              map[string]any `json:"quiver,omitzero"`
 	Recraft             map[string]any `json:"recraft,omitzero"`
 	Recursal            map[string]any `json:"recursal,omitzero"`
 	Reflection          map[string]any `json:"reflection,omitzero"`
@@ -798,6 +799,13 @@ func (v *VideoGenerationRequestOptions) GetPoolside() map[string]any {
 		return nil
 	}
 	return v.Poolside
+}
+
+func (v *VideoGenerationRequestOptions) GetQuiver() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Quiver
 }
 
 func (v *VideoGenerationRequestOptions) GetRecraft() map[string]any {

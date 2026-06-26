@@ -87,6 +87,7 @@ custom := operations.Provider("custom_value")
 | `ProviderPerplexity`      | perplexity                |
 | `ProviderPhala`           | phala                     |
 | `ProviderPoolside`        | poolside                  |
+| `ProviderQuiver`          | quiver                    |
 | `ProviderRecraft`         | recraft                   |
 | `ProviderReka`            | reka                      |
 | `ProviderRelace`          | relace                    |

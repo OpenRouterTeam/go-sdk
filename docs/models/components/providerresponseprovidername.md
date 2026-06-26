@@ -135,6 +135,7 @@ custom := components.ProviderResponseProviderName("custom_value")
 | `ProviderResponseProviderNameVenice`          | Venice                                        |
 | `ProviderResponseProviderNameWafer`           | Wafer                                         |
 | `ProviderResponseProviderNameWandB`           | WandB                                         |
+| `ProviderResponseProviderNameQuiver`          | Quiver                                        |
 | `ProviderResponseProviderNameXiaomi`          | Xiaomi                                        |
 | `ProviderResponseProviderNameXAi`             | xAI                                           |
 | `ProviderResponseProviderNameZAi`             | Z.AI                                          |

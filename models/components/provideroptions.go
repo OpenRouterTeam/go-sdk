@@ -98,6 +98,7 @@ type ProviderOptions struct {
 	Perplexity          map[string]any `json:"perplexity,omitzero"`
 	Phala               map[string]any `json:"phala,omitzero"`
 	Poolside            map[string]any `json:"poolside,omitzero"`
+	Quiver              map[string]any `json:"quiver,omitzero"`
 	Recraft             map[string]any `json:"recraft,omitzero"`
 	Recursal            map[string]any `json:"recursal,omitzero"`
 	Reflection          map[string]any `json:"reflection,omitzero"`
@@ -768,6 +769,13 @@ func (p *ProviderOptions) GetPoolside() map[string]any {
 		return nil
 	}
 	return p.Poolside
+}
+
+func (p *ProviderOptions) GetQuiver() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Quiver
 }
 
 func (p *ProviderOptions) GetRecraft() map[string]any {

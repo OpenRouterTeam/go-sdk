@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 503ff65c654d70b535e6f2999c9a2939
+  docChecksum: 7c501988ce44d1932c134cb5441a0225
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.5.6
-  configChecksum: f454c22fcd8409587982aa0338a06537
+  releaseVersion: 0.5.7
+  configChecksum: 8a9c6a7ef25264dbd15111c0d2dcd526
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 09f5d70f-20cd-4459-b332-78f191eb2522
-  pristine_commit_hash: 581b79f752d1e60a310263a0c7cf30af399816e1
-  pristine_tree_hash: 12467f60d0c18251cdf5982b10bc86ea0986b429
+  generation_id: 19338386-3c13-46be-a9c6-bd8e54c4f8e3
+  pristine_commit_hash: 2232f9f09da3e2502139463916fd919fb9a183f3
+  pristine_tree_hash: 34c1a73903269f8c8045fa7bf6a146e816158f24
 features:
   go:
     acceptHeaders: 2.81.2
@@ -735,8 +735,8 @@ trackedFiles:
     pristine_git_object: 77e6b19b98d4092fd8176268d8cd43136fbb1c57
   docs/models/components/byokproviderslug.md:
     id: c48bc2b1aea9
-    last_write_checksum: sha1:0148fd8dc1301b5e335d7d9c613d32b2851c5cdf
-    pristine_git_object: 8167378ea323f549219ee7751119d58b5dfa968f
+    last_write_checksum: sha1:8e052ce0fdc1c1953aef0847726c0eb6e28ad136
+    pristine_git_object: 6817a3900e4a72eacdb22c39bc2d67f8228bea5b
   docs/models/components/caching.md:
     id: 3dca35b50179
     last_write_checksum: sha1:d2c9ed89d9ab7168111f90a92bbe549780424f82
@@ -2087,8 +2087,8 @@ trackedFiles:
     pristine_git_object: 2dcc452acf9706a0aec8d96e3c738ce9c5dd560f
   docs/models/components/imagegenerationrequest.md:
     id: 622ded7de95b
-    last_write_checksum: sha1:09be2254b59182f752a670d9cc5baf1580477774
-    pristine_git_object: ee5ec46bc386a78c341c95e8de995cd4f1ba06e5
+    last_write_checksum: sha1:82853c9e8cb21204adff765786602d2696859f0b
+    pristine_git_object: 353cfd30767edad95b6092193d0ddbbb58107632
   docs/models/components/imagegenerationrequestaspectratio.md:
     id: 7fa9258c1120
     last_write_checksum: sha1:9968108e00b6eb5feb9f34b9f07e9fe3d771e892
@@ -2099,12 +2099,12 @@ trackedFiles:
     pristine_git_object: 069a10e990f8c89aa100d59f43946f6d2af3bff7
   docs/models/components/imagegenerationrequestoptions.md:
     id: 2251134e878e
-    last_write_checksum: sha1:9afed478b1fd4ea1c71444cd522eb67b8f366b9f
-    pristine_git_object: f62a56aa89d84695c6cab4e6da362af5c2954df6
+    last_write_checksum: sha1:2b1b3ef05933138c54c317b88d75a5919538f675
+    pristine_git_object: 4668b17c9060f67f6e6ddf4ac2ec824e9bfdea30
   docs/models/components/imagegenerationrequestoutputformat.md:
     id: c7f2db8581f4
-    last_write_checksum: sha1:1de81a6de44ce573bd7cc03875086ca5fc0eb258
-    pristine_git_object: d36b022ad7944a3e89eff15dd68a21e41aacc44b
+    last_write_checksum: sha1:090505229d55f675d11a3263f23b043bfd8ae140
+    pristine_git_object: aa7fb4b211437317a5284a9382fd396e741b06eb
   docs/models/components/imagegenerationrequestprovider.md:
     id: f6a850ef7a69
     last_write_checksum: sha1:112d06c2bdaf23bce91db94b51d129b7d40d8070
@@ -3791,12 +3791,12 @@ trackedFiles:
     pristine_git_object: 3e852eb8443da3be20c29edb8d6b653cb2394f72
   docs/models/components/providername.md:
     id: 0e51a390af7c
-    last_write_checksum: sha1:af8dd2f4accbf58939202bb95be0c641c3812a49
-    pristine_git_object: df5912d7778a16590fc9a838f828c50c208b0a06
+    last_write_checksum: sha1:e0221bd212e2e9bd82ef3408d20f2d8d28746278
+    pristine_git_object: 29f4012ef89053421ee18ce49df68cb6b873b9e9
   docs/models/components/provideroptions.md:
     id: ad91483204a0
-    last_write_checksum: sha1:dd3fa8553d01a7486477d0d567cbe3bdfce8827e
-    pristine_git_object: 7d65f99098e1b49a07a5532a9c49306ba63ad4c7
+    last_write_checksum: sha1:91041231ef35fef8fda2ca4d460a9b3d8739769b
+    pristine_git_object: 1acd490874008f840ce49b45b31dce35aa57ed9d
   docs/models/components/provideroverloadedresponseerrordata.md:
     id: 380ab6674a54
     last_write_checksum: sha1:d23bc108199ad8f6d98bb6934db669082c6663dd
@@ -3811,8 +3811,8 @@ trackedFiles:
     pristine_git_object: 27c027bfd8182229c0582473bd0431f57fc79fa5
   docs/models/components/providerresponseprovidername.md:
     id: 3968e328a0d9
-    last_write_checksum: sha1:6513cc415432f1fe9593f9ffad45290aa3a390fd
-    pristine_git_object: ac5c829086d12a7860802555c2476f7c6552a05e
+    last_write_checksum: sha1:1be142f76b74a62ed969d9ff8fe8089d0bc8e35d
+    pristine_git_object: aa273d9029440550f6ea51e2486260ed15276062
   docs/models/components/providersort.md:
     id: 71c85ab8ce29
     last_write_checksum: sha1:0d931a0e0cf1eb4287ff158481cdb0fe12a85f59
@@ -4871,8 +4871,8 @@ trackedFiles:
     pristine_git_object: 2260c5b2a1f7d1e5b1dc8b4c16bfb8884f30dab6
   docs/models/components/videogenerationrequestoptions.md:
     id: dac33c2710a2
-    last_write_checksum: sha1:d7defe737afa79516e0a03bb02374fed50a63ef5
-    pristine_git_object: fbe0f3cac8419873a303358953050a486b829a63
+    last_write_checksum: sha1:8b809fcd74289272aeadac749349074efcf26d00
+    pristine_git_object: c7b42ba23885e0cce795fbe6086f3dc51498017a
   docs/models/components/videogenerationrequestprovider.md:
     id: bb4a860baf13
     last_write_checksum: sha1:fc05557fd07c4eb7334794d30fbdd322cddedeb0
@@ -5623,8 +5623,8 @@ trackedFiles:
     pristine_git_object: d032d3ee22532bb48bca0569e1fcf47e6a569e2d
   docs/models/operations/provider.md:
     id: c28b3c085f4e
-    last_write_checksum: sha1:0b7c767c53fa674b723ad1a690b9ade15db20545
-    pristine_git_object: 5d8376e0d576f4bfc2ece0c2cc518887c7fdcbde
+    last_write_checksum: sha1:94171a091f79f6be78658b8bf56665a9ea831907
+    pristine_git_object: 0f995280c70b9c937eea700531f76e69caf990b6
   docs/models/operations/queryanalyticsdata1.md:
     id: ecb6e11852f5
     last_write_checksum: sha1:a55813c57010d0613c1e70ee1a9232fdcf98775c
@@ -6351,8 +6351,8 @@ trackedFiles:
     pristine_git_object: fe179d527f9b877e8812d18c2c8989ada720c7b8
   models/components/byokproviderslug.go:
     id: 13d55e8b344b
-    last_write_checksum: sha1:cfef2976d28f99f2753b911aa4e4696a96e1da7d
-    pristine_git_object: 1e34423fb06782688dfa9fdb9a9a554efcaec6aa
+    last_write_checksum: sha1:57f6e0bb5743db86cc697b82e92269e508f1a887
+    pristine_git_object: 2ff60869df6083f6fbe46a998dff3b725bd3251f
   models/components/capabilitydescriptor.go:
     id: 61addd6d2068
     last_write_checksum: sha1:2c89a741740517ea931188941fa2160212d4e75e
@@ -6947,8 +6947,8 @@ trackedFiles:
     pristine_git_object: 28114c5238b4b1ae8c7abf84c5c61740bba2f9bc
   models/components/imagegenerationrequest.go:
     id: 2a1c3242c506
-    last_write_checksum: sha1:b13f25f4c043e983ed4ecfb95bf06a35bc9b51a6
-    pristine_git_object: 8fb61d156ddbbb3cf4ac4a7d02a1d3db489e60fa
+    last_write_checksum: sha1:0b3e4929c582e3e493b1a2c4c83168b05a3a66ee
+    pristine_git_object: c1643849d7c499741aefbc6733ae197f696f126c
   models/components/imagegenerationresponse.go:
     id: bfcc44d3ad67
     last_write_checksum: sha1:95da63214157d54ea2392780ee251c7855a36446
@@ -7583,12 +7583,12 @@ trackedFiles:
     pristine_git_object: c50b74b336dc92f3e72e52d5e3954ae9554aeee1
   models/components/providername.go:
     id: 7ecf3a6869c5
-    last_write_checksum: sha1:34e7d5ecf05a72736465202a1dac4873da66cbe7
-    pristine_git_object: 1c2fcec0a32ac10ac6221c5a3e5edc8615f304e0
+    last_write_checksum: sha1:219f51a23a181bf57ea269267988c4653899b6c5
+    pristine_git_object: 0bcd297889c9244e79744055c828e4ea9f902abc
   models/components/provideroptions.go:
     id: 83f8e5feb563
-    last_write_checksum: sha1:1d059b944e0ede348ccfe8429de4aaa5980ddd1d
-    pristine_git_object: 13c4e0936212445ea659e0fa3bca03c27d85737e
+    last_write_checksum: sha1:763fb6e1f889d1573983dcc2be9f642a1bd9576b
+    pristine_git_object: 2189af99ae28d129b7765d751a6bc8ebd164fd30
   models/components/provideroverloadedresponseerrordata.go:
     id: 4e228708c428
     last_write_checksum: sha1:4ecd1f1efbdf106340872d720ebb8bb9891be205
@@ -7599,8 +7599,8 @@ trackedFiles:
     pristine_git_object: 9e3efd1a613ef7511800ce2318a0447c19d3831b
   models/components/providerresponse.go:
     id: d7f4a6aea47d
-    last_write_checksum: sha1:9df909f401d66e60f0b7ca0028483cc04f637a25
-    pristine_git_object: c58f4b57e87d0f17d02e34063620f03c0b726eab
+    last_write_checksum: sha1:9057f1383207d45b7ab6004e40b2424e775001d3
+    pristine_git_object: 3375df5635aae80a98a1e16a40becac70504847f
   models/components/providersort.go:
     id: c183c158e614
     last_write_checksum: sha1:d56d1125483e113e3f1c1cb7dc566ef0837b485e
@@ -8031,8 +8031,8 @@ trackedFiles:
     pristine_git_object: e97f0f8d1507e076871b9c3644c5fa556157d209
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:1e9c187afc2875de64d9fd6d643aee1d860319cc
-    pristine_git_object: 7c066d53203f4c5599d4e75993f99fd20991b5cf
+    last_write_checksum: sha1:7e859fcea2f75df43bcea36c47115687035d5538
+    pristine_git_object: a4ca19523bd78d726c6e114cf1917c421a47c91c
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
     last_write_checksum: sha1:b1196ebd395a89b9f03ce3207738055473c33532
@@ -8323,8 +8323,8 @@ trackedFiles:
     pristine_git_object: 7e8658b39f97e1dfd660939cf59ae0727ae997ba
   models/operations/listbyokkeys.go:
     id: e40d557d5875
-    last_write_checksum: sha1:050ee96a4eec08596957d8fbbf295d8e8b2f2233
-    pristine_git_object: 86ead5a94bbea186f9f3bdb50c673701e6a8aba2
+    last_write_checksum: sha1:956b4727590483a9add5a43b2b34af3181f901e8
+    pristine_git_object: 72f51d4a797eda3af22085b86b1180e4ce3ea9b1
   models/operations/listendpoints.go:
     id: c56c221a535d
     last_write_checksum: sha1:a233c86cd9e267260fc2f3d33dc8990b805aec53
@@ -8519,8 +8519,8 @@ trackedFiles:
     pristine_git_object: de50129e03ba061879287c7c5790b8dc69174726
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:305e58321c61a7fbaeeea222b211c7be552f3082
-    pristine_git_object: 4bac7037271e2016e5fb6a792269e7303f2cd24b
+    last_write_checksum: sha1:dc5a08986ff6082c0d9f78b8e734b4d2c421c019
+    pristine_git_object: cb0d65ee31f43c3c410c5ef878623d5d7e623832
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10029,6 +10029,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.VideoGeneration.GetVideoContent()`:  `response.status[200]` **Changed** (Breaking ⚠️)
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Quiver` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Quiver` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(quiver)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(quiver)` **Added**\n  *  `response.Data.Provider.Enum(quiver)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(quiver)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(quiver)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(quiver)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(quiver)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(quiver)` **Added**\n* `OpenRouter.Images.Generate()`:  `request.Request` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Quiver` **Added**\n"
