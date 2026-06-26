@@ -114,9 +114,11 @@ type OutputFusionServerToolItem struct {
 	FailureReason *string `json:"failure_reason,omitzero"`
 	ID            *string `json:"id,omitzero"`
 	// Analysis models that produced a response in this fusion run, with each model's full panel content.
-	Responses []Response                     `json:"responses,omitzero"`
-	Status    ToolCallStatus                 `json:"status"`
-	Type      OutputFusionServerToolItemType `json:"type"`
+	Responses []Response `json:"responses,omitzero"`
+	// Web pages the analysis panels and judge retrieved via web search during this fusion run, deduplicated by URL across the whole run. Present when at least one model cited a source.
+	Sources []FusionSource                 `json:"sources,omitzero"`
+	Status  ToolCallStatus                 `json:"status"`
+	Type    OutputFusionServerToolItemType `json:"type"`
 }
 
 func (o OutputFusionServerToolItem) MarshalJSON() ([]byte, error) {
@@ -170,6 +172,13 @@ func (o *OutputFusionServerToolItem) GetResponses() []Response {
 		return nil
 	}
 	return o.Responses
+}
+
+func (o *OutputFusionServerToolItem) GetSources() []FusionSource {
+	if o == nil {
+		return nil
+	}
+	return o.Sources
 }
 
 func (o *OutputFusionServerToolItem) GetStatus() ToolCallStatus {
