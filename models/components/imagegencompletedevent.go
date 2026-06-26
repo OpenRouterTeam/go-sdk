@@ -38,6 +38,8 @@ type ImageGenCompletedEvent struct {
 	B64JSON string `json:"b64_json"`
 	// Unix timestamp (seconds) when the image was generated
 	Created int64 `json:"created"`
+	// Media type (MIME type) of the image. Omitted when the output is a standard raster format (PNG). Present for non-raster outputs such as SVG (`image/svg+xml`).
+	MediaType *string `json:"media_type,omitzero"`
 	// The event type
 	Type ImageGenCompletedEventType `json:"type"`
 	// Token and cost usage for the image generation request, when available
@@ -67,6 +69,13 @@ func (i *ImageGenCompletedEvent) GetCreated() int64 {
 		return 0
 	}
 	return i.Created
+}
+
+func (i *ImageGenCompletedEvent) GetMediaType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MediaType
 }
 
 func (i *ImageGenCompletedEvent) GetType() ImageGenCompletedEventType {
