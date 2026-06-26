@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 7c501988ce44d1932c134cb5441a0225
+  docChecksum: 1fcd3d6976d5ff61364676af020251ac
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.5.7
-  configChecksum: 8a9c6a7ef25264dbd15111c0d2dcd526
+  releaseVersion: 0.5.8
+  configChecksum: 4550140a58346ccb5d73ab72466668ce
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 19338386-3c13-46be-a9c6-bd8e54c4f8e3
-  pristine_commit_hash: 2232f9f09da3e2502139463916fd919fb9a183f3
-  pristine_tree_hash: 34c1a73903269f8c8045fa7bf6a146e816158f24
+  generation_id: e8d5e385-5a22-4fe5-8ab9-59641fe8af0f
+  pristine_commit_hash: 98c9cba523f110cdd827b22bc1c0d9b93762a60e
+  pristine_tree_hash: f4aa99e73e642c4dcca9c7aa683d7b83f403688f
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1977,6 +1977,10 @@ trackedFiles:
     id: 8e3f9efb833d
     last_write_checksum: sha1:6bbfeac38614e3078f85eadf6b8ea6a435602753
     pristine_git_object: 8a15d3d15c1da57b977e452c67e5ed0c3dfe7dc8
+  docs/models/components/fusionsource.md:
+    id: d161f100e224
+    last_write_checksum: sha1:b3f4ee14711921424ba6fc18c93395a11b40fd7a
+    pristine_git_object: 01ec27f3c9f4b9e4a6c61c2322de2ef158221420
   docs/models/components/generationcontentdata.md:
     id: d1de7373e133
     last_write_checksum: sha1:a2db60dea82258b2de4d077d4bccb42b838b7acf
@@ -3379,8 +3383,8 @@ trackedFiles:
     pristine_git_object: 1987f56f43d1dd8ad4b618c7426bc18f074f9414
   docs/models/components/outputfusionservertoolitem.md:
     id: 2a947617585f
-    last_write_checksum: sha1:c6bd44b69573f46f31caa49000f0b830851119a2
-    pristine_git_object: be0896fd1465d45a8d380904e77b842d316e2b3f
+    last_write_checksum: sha1:bddf981e5423e57d4fa1b06b620b5fde259982d0
+    pristine_git_object: 7c37101580d308a6c682f3bb3ac56a390b92ed1e
   docs/models/components/outputfusionservertoolitemtype.md:
     id: 4fefb9d36a69
     last_write_checksum: sha1:410fa0c96a5f0f103d630f2ed117cbc5835cc058
@@ -6873,6 +6877,10 @@ trackedFiles:
     id: 71c8e6ea7f3c
     last_write_checksum: sha1:4a1e878958fb2c8482b21504335f48f9d729e515
     pristine_git_object: 2b632880f266578dd2fbfd639e97a5b2c0d183dc
+  models/components/fusionsource.go:
+    id: a87b7441f055
+    last_write_checksum: sha1:bc1c2f1f0678cdff3760adb6e738d1d65b2eabf0
+    pristine_git_object: f3f216115ad78c92ecfcd47b9256f1261c214e63
   models/components/generationcontentdata.go:
     id: 98d05ea3b77f
     last_write_checksum: sha1:ce7d246b14f8f890dc30293f2e83e223a1d88ed0
@@ -7411,8 +7419,8 @@ trackedFiles:
     pristine_git_object: 95266edfde27383058c25d408011d94c0633b83b
   models/components/outputfusionservertoolitem.go:
     id: 6feb234fff56
-    last_write_checksum: sha1:f630970d7bcbd640d1eb8d272ab2ad3132e94ec8
-    pristine_git_object: daaca2f894214f9786f63636ef2359c62f5180ee
+    last_write_checksum: sha1:297b7b2f8bc9fece2311c9a0f1fd7095b8488343
+    pristine_git_object: 8f31bdee034224aad71f5a54cec39f773ed9ebe8
   models/components/outputimagegenerationcallitem.go:
     id: 88c7154213e2
     last_write_checksum: sha1:407703dda084eeb495f321a3130e8a4ee1cb5078
@@ -8519,8 +8527,8 @@ trackedFiles:
     pristine_git_object: de50129e03ba061879287c7c5790b8dc69174726
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:dc5a08986ff6082c0d9f78b8e734b4d2c421c019
-    pristine_git_object: cb0d65ee31f43c3c410c5ef878623d5d7e623832
+    last_write_checksum: sha1:c7aeafea41bf8a3c682e572d6501b13a2c84c7b3
+    pristine_git_object: 5dfcbddee450cbae8a2e9803cbf2441572e67c33
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10029,4 +10037,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Quiver` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Quiver` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(quiver)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(quiver)` **Added**\n  *  `response.Data.Provider.Enum(quiver)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(quiver)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(quiver)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(quiver)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(quiver)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(quiver)` **Added**\n* `OpenRouter.Images.Generate()`:  `request.Request` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(quiver)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Quiver` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(OutputFusionServerToolItem).Sources` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(OutputFusionServerToolItem).Sources` **Added**\n"
