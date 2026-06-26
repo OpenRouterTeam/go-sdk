@@ -700,7 +700,7 @@ func (s *VideoGeneration) GetVideoContent(ctx context.Context, jobID string, ind
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
-	req.Header.Set("Accept", "application/octet-stream")
+	req.Header.Set("Accept", "video/mp4")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 
 	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
@@ -815,7 +815,7 @@ func (s *VideoGeneration) GetVideoContent(ctx context.Context, jobID string, ind
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/octet-stream`):
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `video/mp4`):
 			return httpRes.Body, nil
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

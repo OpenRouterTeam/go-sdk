@@ -25,6 +25,7 @@ const (
 	AcceptHeaderEnumTextEventStream        AcceptHeaderEnum = "text/event-stream"
 	AcceptHeaderEnumAudioWildcard          AcceptHeaderEnum = "audio/*"
 	AcceptHeaderEnumApplicationOctetStream AcceptHeaderEnum = "application/octet-stream"
+	AcceptHeaderEnumVideoMp4               AcceptHeaderEnum = "video/mp4"
 )
 
 func (e AcceptHeaderEnum) ToPointer() *AcceptHeaderEnum {

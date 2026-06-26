@@ -1181,7 +1181,7 @@ func (s *Guardrails) Get(ctx context.Context, id string, opts ...operations.Opti
 }
 
 // Update a guardrail
-// Update an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Update an existing guardrail. Collection fields use replace semantics: send the full desired set on every update. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) Update(ctx context.Context, id string, updateGuardrailRequest components.UpdateGuardrailRequest, opts ...operations.Option) (*components.UpdateGuardrailResponse, error) {
 	request := operations.UpdateGuardrailRequest{
 		ID:                     id,
@@ -1809,7 +1809,7 @@ func (s *Guardrails) ListGuardrailKeyAssignments(ctx context.Context, id string,
 }
 
 // BulkAssignKeys - Bulk assign keys to a guardrail
-// Assign multiple API keys to a specific guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Assign multiple API keys to a specific guardrail. A key may hold at most one guardrail; assigning replaces any existing assignment. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) BulkAssignKeys(ctx context.Context, id string, bulkAssignKeysRequest components.BulkAssignKeysRequest, opts ...operations.Option) (*components.BulkAssignKeysResponse, error) {
 	request := operations.BulkAssignKeysToGuardrailRequest{
 		ID:                    id,
