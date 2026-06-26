@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: b2e74c374be899937472aafbcd4d761c
+  docChecksum: c9627431063b499d3bdd72af6f15fdb8
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.5.3
-  configChecksum: 8288871b3114c2ac749181e6a6bfbe83
+  releaseVersion: 0.5.4
+  configChecksum: 291326ae2b7b7028ea176ad46d138476
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 5263bfe9-f835-4fd6-bd86-c0a7b7b39d8c
-  pristine_commit_hash: 22f8df994ca139a1e54f55488f3c522a58f934c7
-  pristine_tree_hash: da3cee1a5de3951defd09af4a864e95adee8f94c
+  generation_id: cadf5f1e-9c0a-44d1-acbe-6b21b018e038
+  pristine_commit_hash: d60f1cf2a6d71046e15be2245e0f4fe9f82c727e
+  pristine_tree_hash: 54bc2c8f536ff1f77507900c97b2a932f3789286
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3783,8 +3783,8 @@ trackedFiles:
     pristine_git_object: 4435c68a7a79cb6de367f59df362769f9b03e945
   docs/models/components/pricing.md:
     id: 832eb2c258a0
-    last_write_checksum: sha1:c11eed12ad0da6921f0ba33b27117f3cd2391b5d
-    pristine_git_object: 7bb4de0bc8d322f861cc987ca538bae5a2b9f0fa
+    last_write_checksum: sha1:7391d199f7f7efe94ebb924da5af476bea8743be
+    pristine_git_object: 9db1b9903912125af7b68bb12ea72d1aed5d536d
   docs/models/components/promptinjectionscanscope.md:
     id: 7c50b46a550d
     last_write_checksum: sha1:8bb86edd3636e5f34ea4419f7bb43495b561bb21
@@ -3831,8 +3831,8 @@ trackedFiles:
     pristine_git_object: f90ea68120bc04f2ade913ecafaa44bcbae971ab
   docs/models/components/publicpricing.md:
     id: 66a96bedf542
-    last_write_checksum: sha1:cf12b0613adaebbaf63280a6acd2c6025f04c29c
-    pristine_git_object: ca0d14042c2ec81f229a0d9374a5a606b3e722e1
+    last_write_checksum: sha1:cbca296718b34622af27a73bc06231c619b6fac7
+    pristine_git_object: d7e59f6ce55a98eeead8566529ac144d6784602a
   docs/models/components/quantization.md:
     id: e461b19658b5
     last_write_checksum: sha1:a83bd7aec9da186d0d16467e2bb523c538b46762
@@ -7611,12 +7611,12 @@ trackedFiles:
     pristine_git_object: d913116c1e97092574832d3b377d2d1735055cd7
   models/components/publicendpoint.go:
     id: "32378212e204"
-    last_write_checksum: sha1:2b8dcbf1ffc033ed1baacd8b4c57b50fe2b773bb
-    pristine_git_object: 19483e7eace8238e29376477d1e4dcaa0852248d
+    last_write_checksum: sha1:2189da00f6e97aca4d407df2423dac6ddaa90e11
+    pristine_git_object: 61256d34f893bb9ce67c939cc1cb11fd8abe8721
   models/components/publicpricing.go:
     id: 8596f6c62439
-    last_write_checksum: sha1:bc15cbe8c17ee18fbb4845e298860b0d74f9b94d
-    pristine_git_object: f01bd3c3b0409d4507187289e4ce6a136152b096
+    last_write_checksum: sha1:29245315b887c13c96fca561c0651f10e7fdc3e2
+    pristine_git_object: 9f22f751a99663fac0a989606feeb4a8908333fd
   models/components/quantization.go:
     id: 601f1d07ead7
     last_write_checksum: sha1:6908b4e7f3d9ae701504858de96ed83e5d9e9283
@@ -8519,8 +8519,8 @@ trackedFiles:
     pristine_git_object: de50129e03ba061879287c7c5790b8dc69174726
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:38c6a920670b10c6f31c9ddd20b805043166b78f
-    pristine_git_object: 49f7f7a8595992973ed2dc5680b0a03aaa5b92cd
+    last_write_checksum: sha1:f8364e5ade611410fc04d4dd125a330e3499bb34
+    pristine_git_object: f51cf30a4b04f0ca7ea9d9518717290380c60b65
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10028,3 +10028,11 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Embeddings.ListModels()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**
+  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**
+  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].Pricing.InputCacheWrite1h` **Added**
+  * `OpenRouter.Models.Get()`:  `response.Data.Pricing.InputCacheWrite1h` **Added**
+  * `OpenRouter.Models.List()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**
+  * `OpenRouter.Models.ListForUser()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**

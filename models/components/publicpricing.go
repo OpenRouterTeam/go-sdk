@@ -22,8 +22,10 @@ type PublicPricing struct {
 	InputAudioCache *string `json:"input_audio_cache,omitzero"`
 	// Price in USD per cached input token (read)
 	InputCacheRead *string `json:"input_cache_read,omitzero"`
-	// Price in USD per cached input token (write)
+	// Price per cache-write token, in USD per token. For providers with multiple cache TTLs (e.g. Anthropic), this is the default (5-minute) cache-write rate.
 	InputCacheWrite *string `json:"input_cache_write,omitzero"`
+	// Price per 1-hour cache-write token, in USD per token. Only present for providers that price an extended (1-hour) cache TTL separately, such as Anthropic.
+	InputCacheWrite1h *string `json:"input_cache_write_1h,omitzero"`
 	// Price in USD per internal reasoning token
 	InternalReasoning *string `json:"internal_reasoning,omitzero"`
 	// Price in USD per token for prompt (input) processing
@@ -102,6 +104,13 @@ func (p *PublicPricing) GetInputCacheWrite() *string {
 		return nil
 	}
 	return p.InputCacheWrite
+}
+
+func (p *PublicPricing) GetInputCacheWrite1h() *string {
+	if p == nil {
+		return nil
+	}
+	return p.InputCacheWrite1h
 }
 
 func (p *PublicPricing) GetInternalReasoning() *string {
