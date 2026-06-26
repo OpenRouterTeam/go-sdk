@@ -73,13 +73,14 @@ func (e *ImageGenerationRequestBackground) IsExact() bool {
 	return false
 }
 
-// ImageGenerationRequestOutputFormat - Encoding of the returned image bytes.
+// ImageGenerationRequestOutputFormat - Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`.
 type ImageGenerationRequestOutputFormat string
 
 const (
 	ImageGenerationRequestOutputFormatPng  ImageGenerationRequestOutputFormat = "png"
 	ImageGenerationRequestOutputFormatJpeg ImageGenerationRequestOutputFormat = "jpeg"
 	ImageGenerationRequestOutputFormatWebp ImageGenerationRequestOutputFormat = "webp"
+	ImageGenerationRequestOutputFormatSvg  ImageGenerationRequestOutputFormat = "svg"
 )
 
 func (e ImageGenerationRequestOutputFormat) ToPointer() *ImageGenerationRequestOutputFormat {
@@ -90,7 +91,7 @@ func (e ImageGenerationRequestOutputFormat) ToPointer() *ImageGenerationRequestO
 func (e *ImageGenerationRequestOutputFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "png", "jpeg", "webp":
+		case "png", "jpeg", "webp", "svg":
 			return true
 		}
 	}
@@ -189,6 +190,7 @@ type ImageGenerationRequestOptions struct {
 	Perplexity          map[string]any `json:"perplexity,omitzero"`
 	Phala               map[string]any `json:"phala,omitzero"`
 	Poolside            map[string]any `json:"poolside,omitzero"`
+	Quiver              map[string]any `json:"quiver,omitzero"`
 	Recraft             map[string]any `json:"recraft,omitzero"`
 	Recursal            map[string]any `json:"recursal,omitzero"`
 	Reflection          map[string]any `json:"reflection,omitzero"`
@@ -861,6 +863,13 @@ func (i *ImageGenerationRequestOptions) GetPoolside() map[string]any {
 	return i.Poolside
 }
 
+func (i *ImageGenerationRequestOptions) GetQuiver() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Quiver
+}
+
 func (i *ImageGenerationRequestOptions) GetRecraft() map[string]any {
 	if i == nil {
 		return nil
@@ -1151,7 +1160,7 @@ type ImageGenerationRequest struct {
 	N *int64 `json:"n,omitzero"`
 	// Compression level (0-100) for webp/jpeg output. Ignored for png and by providers without a compression knob.
 	OutputCompression *int64 `json:"output_compression,omitzero"`
-	// Encoding of the returned image bytes.
+	// Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`.
 	OutputFormat *ImageGenerationRequestOutputFormat `json:"output_format,omitzero"`
 	// Text description of the desired image
 	Prompt string `json:"prompt"`

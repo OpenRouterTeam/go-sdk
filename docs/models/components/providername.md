@@ -104,6 +104,7 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameVenice`          | Venice                        |
 | `ProviderNameWafer`           | Wafer                         |
 | `ProviderNameWandB`           | WandB                         |
+| `ProviderNameQuiver`          | Quiver                        |
 | `ProviderNameXiaomi`          | Xiaomi                        |
 | `ProviderNameXAi`             | xAI                           |
 | `ProviderNameZAi`             | Z.AI                          |
