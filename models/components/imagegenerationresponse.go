@@ -9,6 +9,8 @@ import (
 type ImageGenerationResponseData struct {
 	// Base64-encoded image bytes
 	B64JSON string `json:"b64_json"`
+	// Media type (MIME type) of the image. Omitted when the output is a standard raster format (PNG). Present for non-raster outputs such as SVG (`image/svg+xml`).
+	MediaType *string `json:"media_type,omitzero"`
 }
 
 func (i *ImageGenerationResponseData) GetB64JSON() string {
@@ -16,6 +18,13 @@ func (i *ImageGenerationResponseData) GetB64JSON() string {
 		return ""
 	}
 	return i.B64JSON
+}
+
+func (i *ImageGenerationResponseData) GetMediaType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MediaType
 }
 
 // ImageGenerationResponse - Image generation response

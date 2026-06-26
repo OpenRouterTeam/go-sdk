@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: c9627431063b499d3bdd72af6f15fdb8
+  docChecksum: ec1731e7b6ee5324498fab8b8b66f31b
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.5.4
-  configChecksum: 291326ae2b7b7028ea176ad46d138476
+  releaseVersion: 0.5.5
+  configChecksum: 5a242d394d6a41cf360a738163285e41
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: cadf5f1e-9c0a-44d1-acbe-6b21b018e038
-  pristine_commit_hash: d60f1cf2a6d71046e15be2245e0f4fe9f82c727e
-  pristine_tree_hash: 54bc2c8f536ff1f77507900c97b2a932f3789286
+  generation_id: 958ddefe-f355-46f3-b032-cfe8ddaa9ed4
+  pristine_commit_hash: 181aba7f330b000a5a43439de46d2c99b44bfbd2
+  pristine_tree_hash: 69d322ab058ab868e0ceeb454ff7b2765d2e18dd
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2079,8 +2079,8 @@ trackedFiles:
     pristine_git_object: 5230c40a6fd4cef3ce656c200f51bfdb037f1e42
   docs/models/components/imagegencompletedevent.md:
     id: 3c79abd694bd
-    last_write_checksum: sha1:cfddf3876cbda31fc236878837de014ed979701f
-    pristine_git_object: 09403c920304a997dc7a3c88d1e3b14e26ed3908
+    last_write_checksum: sha1:b972c0bac0f4aa1ea2502c6c85bc7a4d698c9dec
+    pristine_git_object: e6e3c5367c44ea882f1ff5c3ef449d8fa9cc0567
   docs/models/components/imagegencompletedeventtype.md:
     id: f4abb715f03f
     last_write_checksum: sha1:7e20bafbce8d4d9a7f65b63263ea0a549238f220
@@ -2123,8 +2123,8 @@ trackedFiles:
     pristine_git_object: 0d64d0b04cd71f9292c0fc6e01f5c9bb9cbb4abf
   docs/models/components/imagegenerationresponsedata.md:
     id: e5bf680c7579
-    last_write_checksum: sha1:1d27db05d971c242c7b4124d186d7e639cef955f
-    pristine_git_object: 31f605187568ace889a7b704ec6c8c69f5bd7f24
+    last_write_checksum: sha1:99b8001e5d74bf0addbfb6daa015a79e18a9c4e0
+    pristine_git_object: 3cb510daeab3210d2e8aec1431afd65cf5228360
   docs/models/components/imagegenerationservertool.md:
     id: 4a798aa40aa3
     last_write_checksum: sha1:478d9566970159e435a52b8bd2dd4cb541bdf511
@@ -6943,16 +6943,16 @@ trackedFiles:
     pristine_git_object: ccd898823b4fc8e4083b2c18579191742d8847cf
   models/components/imagegencompletedevent.go:
     id: 1b8cfd75301e
-    last_write_checksum: sha1:9755a728f83eeabc20398af68d905e83cc16ee20
-    pristine_git_object: 8c49e5d6302ac08c96c0cc610bedd8803a5e3455
+    last_write_checksum: sha1:f06626a34d7ed7eeb72db66c7e063d0b4d9d28df
+    pristine_git_object: 28114c5238b4b1ae8c7abf84c5c61740bba2f9bc
   models/components/imagegenerationrequest.go:
     id: 2a1c3242c506
     last_write_checksum: sha1:b13f25f4c043e983ed4ecfb95bf06a35bc9b51a6
     pristine_git_object: 8fb61d156ddbbb3cf4ac4a7d02a1d3db489e60fa
   models/components/imagegenerationresponse.go:
     id: bfcc44d3ad67
-    last_write_checksum: sha1:2611ac211acb397b47a0ca26948effc4c559e56d
-    pristine_git_object: 6ad5d69557f553d8e620221f3c972a66ffa1ac01
+    last_write_checksum: sha1:95da63214157d54ea2392780ee251c7855a36446
+    pristine_git_object: efabf9a6a81ee47ff891240e4ef5faf7b8a83694
   models/components/imagegenerationservertool.go:
     id: 14b49b05209e
     last_write_checksum: sha1:7b93a2148f3fece3d2a399db0d8e1d72ab16685e
@@ -8519,8 +8519,8 @@ trackedFiles:
     pristine_git_object: de50129e03ba061879287c7c5790b8dc69174726
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:f8364e5ade611410fc04d4dd125a330e3499bb34
-    pristine_git_object: f51cf30a4b04f0ca7ea9d9518717290380c60b65
+    last_write_checksum: sha1:8bdc5898c5019e34ecb497929d9c01b2e7ed68e2
+    pristine_git_object: 641bbf38cece4a9afae50044be15b925fc9619ec
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10030,9 +10030,4 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Embeddings.ListModels()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**
-  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**
-  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].Pricing.InputCacheWrite1h` **Added**
-  * `OpenRouter.Models.Get()`:  `response.Data.Pricing.InputCacheWrite1h` **Added**
-  * `OpenRouter.Models.List()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**
-  * `OpenRouter.Models.ListForUser()`:  `response.Data[].Pricing.InputCacheWrite1h` **Added**
+  * `OpenRouter.Images.Generate()`:  `response` **Changed**
