@@ -42,8 +42,10 @@ const (
 	BYOKProviderSlugGoogleAiStudio  BYOKProviderSlug = "google-ai-studio"
 	BYOKProviderSlugGoogleVertex    BYOKProviderSlug = "google-vertex"
 	BYOKProviderSlugGroq            BYOKProviderSlug = "groq"
+	BYOKProviderSlugHeygen          BYOKProviderSlug = "heygen"
 	BYOKProviderSlugInception       BYOKProviderSlug = "inception"
 	BYOKProviderSlugInceptron       BYOKProviderSlug = "inceptron"
+	BYOKProviderSlugInferactVllm    BYOKProviderSlug = "inferact-vllm"
 	BYOKProviderSlugInferenceNet    BYOKProviderSlug = "inference-net"
 	BYOKProviderSlugInfermatic      BYOKProviderSlug = "infermatic"
 	BYOKProviderSlugInflection      BYOKProviderSlug = "inflection"
@@ -71,9 +73,11 @@ const (
 	BYOKProviderSlugPerplexity      BYOKProviderSlug = "perplexity"
 	BYOKProviderSlugPhala           BYOKProviderSlug = "phala"
 	BYOKProviderSlugPoolside        BYOKProviderSlug = "poolside"
+	BYOKProviderSlugQuiver          BYOKProviderSlug = "quiver"
 	BYOKProviderSlugRecraft         BYOKProviderSlug = "recraft"
 	BYOKProviderSlugReka            BYOKProviderSlug = "reka"
 	BYOKProviderSlugRelace          BYOKProviderSlug = "relace"
+	BYOKProviderSlugSakanaAi        BYOKProviderSlug = "sakana-ai"
 	BYOKProviderSlugSambanova       BYOKProviderSlug = "sambanova"
 	BYOKProviderSlugSeed            BYOKProviderSlug = "seed"
 	BYOKProviderSlugSiliconflow     BYOKProviderSlug = "siliconflow"
@@ -81,6 +85,7 @@ const (
 	BYOKProviderSlugStepfun         BYOKProviderSlug = "stepfun"
 	BYOKProviderSlugStreamlake      BYOKProviderSlug = "streamlake"
 	BYOKProviderSlugSwitchpoint     BYOKProviderSlug = "switchpoint"
+	BYOKProviderSlugTenstorrent     BYOKProviderSlug = "tenstorrent"
 	BYOKProviderSlugTogether        BYOKProviderSlug = "together"
 	BYOKProviderSlugUpstage         BYOKProviderSlug = "upstage"
 	BYOKProviderSlugVenice          BYOKProviderSlug = "venice"
@@ -99,7 +104,7 @@ func (e BYOKProviderSlug) ToPointer() *BYOKProviderSlug {
 func (e *BYOKProviderSlug) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "crusoe", "darkbloom", "decart", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "inception", "inceptron", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "liquid", "mancer", "mara", "minimax", "mistral", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "recraft", "reka", "relace", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "together", "upstage", "venice", "wafer", "wandb", "xai", "xiaomi", "z-ai":
+		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "crusoe", "darkbloom", "decart", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "liquid", "mancer", "mara", "minimax", "mistral", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "sakana-ai", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tenstorrent", "together", "upstage", "venice", "wafer", "wandb", "xai", "xiaomi", "z-ai":
 			return true
 		}
 	}

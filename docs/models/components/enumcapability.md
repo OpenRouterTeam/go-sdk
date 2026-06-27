@@ -1,0 +1,11 @@
+# EnumCapability
+
+A parameter that accepts one of a discrete set of string values.
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `Type`                                                                         | [components.EnumCapabilityType](../../models/components/enumcapabilitytype.md) | :heavy_check_mark:                                                             | N/A                                                                            |
+| `Values`                                                                       | []`string`                                                                     | :heavy_check_mark:                                                             | N/A                                                                            |

@@ -37,7 +37,7 @@ type Preview20250311WebSearchServerTool struct {
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API. "perplexity" uses the Perplexity Search API (raw ranked results).
 	Engine  *WebSearchEngineEnum                                     `json:"engine,omitzero"`
 	Filters optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
-	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, Parallel, and Perplexity engines; ignored with native provider search.
+	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, Parallel, and Perplexity engines; ignored with native provider search. Perplexity supports a maximum of 20; values above 20 are clamped.
 	MaxResults *int64 `json:"max_results,omitzero"`
 	// Size of the search context for web search tools
 	SearchContextSize *SearchContextSizeEnum                                          `json:"search_context_size,omitzero"`

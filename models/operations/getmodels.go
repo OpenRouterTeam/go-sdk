@@ -41,18 +41,20 @@ func (e *GetModelsCategory) IsExact() bool {
 	return false
 }
 
-// GetModelsSort - Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date). When omitted, the existing default ordering is preserved.
+// GetModelsSort - Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low (Artificial Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
 type GetModelsSort string
 
 const (
-	GetModelsSortMostPopular         GetModelsSort = "most-popular"
-	GetModelsSortNewest              GetModelsSort = "newest"
-	GetModelsSortTopWeekly           GetModelsSort = "top-weekly"
-	GetModelsSortPricingLowToHigh    GetModelsSort = "pricing-low-to-high"
-	GetModelsSortPricingHighToLow    GetModelsSort = "pricing-high-to-low"
-	GetModelsSortContextHighToLow    GetModelsSort = "context-high-to-low"
-	GetModelsSortThroughputHighToLow GetModelsSort = "throughput-high-to-low"
-	GetModelsSortLatencyLowToHigh    GetModelsSort = "latency-low-to-high"
+	GetModelsSortMostPopular             GetModelsSort = "most-popular"
+	GetModelsSortNewest                  GetModelsSort = "newest"
+	GetModelsSortTopWeekly               GetModelsSort = "top-weekly"
+	GetModelsSortPricingLowToHigh        GetModelsSort = "pricing-low-to-high"
+	GetModelsSortPricingHighToLow        GetModelsSort = "pricing-high-to-low"
+	GetModelsSortContextHighToLow        GetModelsSort = "context-high-to-low"
+	GetModelsSortThroughputHighToLow     GetModelsSort = "throughput-high-to-low"
+	GetModelsSortLatencyLowToHigh        GetModelsSort = "latency-low-to-high"
+	GetModelsSortIntelligenceHighToLow   GetModelsSort = "intelligence-high-to-low"
+	GetModelsSortDesignArenaEloHighToLow GetModelsSort = "design-arena-elo-high-to-low"
 )
 
 func (e GetModelsSort) ToPointer() *GetModelsSort {
@@ -63,7 +65,7 @@ func (e GetModelsSort) ToPointer() *GetModelsSort {
 func (e *GetModelsSort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "most-popular", "newest", "top-weekly", "pricing-low-to-high", "pricing-high-to-low", "context-high-to-low", "throughput-high-to-low", "latency-low-to-high":
+		case "most-popular", "newest", "top-weekly", "pricing-low-to-high", "pricing-high-to-low", "context-high-to-low", "throughput-high-to-low", "latency-low-to-high", "intelligence-high-to-low", "design-arena-elo-high-to-low":
 			return true
 		}
 	}
@@ -148,7 +150,7 @@ type GetModelsRequest struct {
 	SupportedParameters *string `queryParam:"style=form,explode=true,name=supported_parameters"`
 	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, audio, embeddings) or "all" to include all models. Defaults to "text".
 	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
-	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date). When omitted, the existing default ordering is preserved.
+	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low (Artificial Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
 	Sort *GetModelsSort `queryParam:"style=form,explode=true,name=sort"`
 	// Free-text search by model name or slug.
 	Q *string `queryParam:"style=form,explode=true,name=q"`

@@ -9,7 +9,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-value := components.FusionServerToolConfigEffortXhigh
+value := components.FusionServerToolConfigEffortMax
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.FusionServerToolConfigEffort("custom_value")
@@ -20,6 +20,7 @@ custom := components.FusionServerToolConfigEffort("custom_value")
 
 | Name                                  | Value                                 |
 | ------------------------------------- | ------------------------------------- |
+| `FusionServerToolConfigEffortMax`     | max                                   |
 | `FusionServerToolConfigEffortXhigh`   | xhigh                                 |
 | `FusionServerToolConfigEffortHigh`    | high                                  |
 | `FusionServerToolConfigEffortMedium`  | medium                                |

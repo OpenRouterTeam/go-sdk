@@ -42,12 +42,14 @@ const (
 	ProviderNameGoogle          ProviderName = "Google"
 	ProviderNameGoogleAiStudio  ProviderName = "Google AI Studio"
 	ProviderNameGroq            ProviderName = "Groq"
+	ProviderNameHeyGen          ProviderName = "HeyGen"
 	ProviderNameInception       ProviderName = "Inception"
 	ProviderNameInceptron       ProviderName = "Inceptron"
 	ProviderNameInferenceNet    ProviderName = "InferenceNet"
 	ProviderNameIonstream       ProviderName = "Ionstream"
 	ProviderNameInfermatic      ProviderName = "Infermatic"
 	ProviderNameIoNet           ProviderName = "Io Net"
+	ProviderNameInferactVLlm    ProviderName = "Inferact vLLM"
 	ProviderNameInflection      ProviderName = "Inflection"
 	ProviderNameLiquid          ProviderName = "Liquid"
 	ProviderNameMara            ProviderName = "Mara"
@@ -74,6 +76,7 @@ const (
 	ProviderNameRecraft         ProviderName = "Recraft"
 	ProviderNameReka            ProviderName = "Reka"
 	ProviderNameRelace          ProviderName = "Relace"
+	ProviderNameSakanaAi        ProviderName = "Sakana AI"
 	ProviderNameSambaNova       ProviderName = "SambaNova"
 	ProviderNameSeed            ProviderName = "Seed"
 	ProviderNameSiliconFlow     ProviderName = "SiliconFlow"
@@ -82,11 +85,13 @@ const (
 	ProviderNameStealth         ProviderName = "Stealth"
 	ProviderNameStreamLake      ProviderName = "StreamLake"
 	ProviderNameSwitchpoint     ProviderName = "Switchpoint"
+	ProviderNameTenstorrent     ProviderName = "Tenstorrent"
 	ProviderNameTogether        ProviderName = "Together"
 	ProviderNameUpstage         ProviderName = "Upstage"
 	ProviderNameVenice          ProviderName = "Venice"
 	ProviderNameWafer           ProviderName = "Wafer"
 	ProviderNameWandB           ProviderName = "WandB"
+	ProviderNameQuiver          ProviderName = "Quiver"
 	ProviderNameXiaomi          ProviderName = "Xiaomi"
 	ProviderNameXAi             ProviderName = "xAI"
 	ProviderNameZAi             ProviderName = "Z.AI"
@@ -101,7 +106,7 @@ func (e ProviderName) ToPointer() *ProviderName {
 func (e *ProviderName) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crucible", "Crusoe", "Darkbloom", "Decart", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Together", "Upstage", "Venice", "Wafer", "WandB", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+		case "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crucible", "Crusoe", "Darkbloom", "Decart", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "HeyGen", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inferact vLLM", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "Sakana AI", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Tenstorrent", "Together", "Upstage", "Venice", "Wafer", "WandB", "Quiver", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
 			return true
 		}
 	}

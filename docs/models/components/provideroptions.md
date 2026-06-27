@@ -1,6 +1,6 @@
 # ProviderOptions
 
-Provider-specific options keyed by provider slug. The options for the matched provider are spread into the upstream request body.
+Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 
 
 ## Fields
@@ -52,11 +52,13 @@ Provider-specific options keyed by provider slug. The options for the matched pr
 | `GoogleVertex`        | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Gopomelo`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Groq`                | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `Heygen`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Huggingface`         | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Hyperbolic`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `HyperbolicQuantized` | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Inception`           | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Inceptron`           | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `InferactVllm`        | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `InferenceNet`        | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Infermatic`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Inflection`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
@@ -95,12 +97,14 @@ Provider-specific options keyed by provider slug. The options for the matched pr
 | `Perplexity`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Phala`               | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Poolside`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `Quiver`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Recraft`             | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Recursal`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Reflection`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Reka`                | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Relace`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Replicate`           | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `SakanaAi`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Sambanova`           | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `SambanovaCloaked`    | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Seed`                | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
@@ -112,6 +116,7 @@ Provider-specific options keyed by provider slug. The options for the matched pr
 | `Streamlake`          | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Switchpoint`         | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Targon`              | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
+| `Tenstorrent`         | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Together`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `TogetherLite`        | map[string]`any`      | :heavy_minus_sign:    | N/A                   |
 | `Ubicloud`            | map[string]`any`      | :heavy_minus_sign:    | N/A                   |

@@ -56,8 +56,10 @@ custom := components.BYOKProviderSlug("custom_value")
 | `BYOKProviderSlugGoogleAiStudio`  | google-ai-studio                  |
 | `BYOKProviderSlugGoogleVertex`    | google-vertex                     |
 | `BYOKProviderSlugGroq`            | groq                              |
+| `BYOKProviderSlugHeygen`          | heygen                            |
 | `BYOKProviderSlugInception`       | inception                         |
 | `BYOKProviderSlugInceptron`       | inceptron                         |
+| `BYOKProviderSlugInferactVllm`    | inferact-vllm                     |
 | `BYOKProviderSlugInferenceNet`    | inference-net                     |
 | `BYOKProviderSlugInfermatic`      | infermatic                        |
 | `BYOKProviderSlugInflection`      | inflection                        |
@@ -85,9 +87,11 @@ custom := components.BYOKProviderSlug("custom_value")
 | `BYOKProviderSlugPerplexity`      | perplexity                        |
 | `BYOKProviderSlugPhala`           | phala                             |
 | `BYOKProviderSlugPoolside`        | poolside                          |
+| `BYOKProviderSlugQuiver`          | quiver                            |
 | `BYOKProviderSlugRecraft`         | recraft                           |
 | `BYOKProviderSlugReka`            | reka                              |
 | `BYOKProviderSlugRelace`          | relace                            |
+| `BYOKProviderSlugSakanaAi`        | sakana-ai                         |
 | `BYOKProviderSlugSambanova`       | sambanova                         |
 | `BYOKProviderSlugSeed`            | seed                              |
 | `BYOKProviderSlugSiliconflow`     | siliconflow                       |
@@ -95,6 +99,7 @@ custom := components.BYOKProviderSlug("custom_value")
 | `BYOKProviderSlugStepfun`         | stepfun                           |
 | `BYOKProviderSlugStreamlake`      | streamlake                        |
 | `BYOKProviderSlugSwitchpoint`     | switchpoint                       |
+| `BYOKProviderSlugTenstorrent`     | tenstorrent                       |
 | `BYOKProviderSlugTogether`        | together                          |
 | `BYOKProviderSlugUpstage`         | upstage                           |
 | `BYOKProviderSlugVenice`          | venice                            |

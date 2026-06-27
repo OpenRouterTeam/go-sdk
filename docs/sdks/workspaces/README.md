@@ -11,6 +11,9 @@ Workspaces endpoints
 * [Delete](#delete) - Delete a workspace
 * [Get](#get) - Get a workspace
 * [Update](#update) - Update a workspace
+* [ListBudgets](#listbudgets) - List workspace budgets
+* [DeleteBudget](#deletebudget) - Delete a workspace budget
+* [SetBudget](#setbudget) - Create or update a workspace budget
 * [BulkAddMembers](#bulkaddmembers) - Bulk add members to a workspace
 * [BulkRemoveMembers](#bulkremovemembers) - Bulk remove members from a workspace
 
@@ -149,7 +152,7 @@ func main() {
 
 ## Delete
 
-Delete an existing workspace. The default workspace cannot be deleted. Workspaces with active API keys cannot be deleted. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+Delete an existing workspace. The default workspace cannot be deleted. Workspaces with active API keys cannot be deleted; remove the keys first. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -317,6 +320,179 @@ func main() {
 | sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
 | sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
 | sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListBudgets
+
+List all budgets configured for a workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listWorkspaceBudgets" method="get" path="/workspaces/{id}/budgets" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Workspaces.ListBudgets(ctx, "production")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The workspace ID (UUID) or slug                          | production                                               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.ListWorkspaceBudgetsResponse](../../models/components/listworkspacebudgetsresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## DeleteBudget
+
+Remove the budget for a given interval. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="deleteWorkspaceBudget" method="delete" path="/workspaces/{id}/budgets/{interval}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Workspaces.DeleteBudget(ctx, "production", components.WorkspaceBudgetIntervalMonthly)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `id`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The workspace ID (UUID) or slug                                                          | production                                                                               |
+| `interval`                                                                               | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval.md) | :heavy_check_mark:                                                                       | Budget reset interval. Use "lifetime" for a one-time budget that never resets.           | monthly                                                                                  |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.md)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
+
+### Response
+
+**[*components.DeleteWorkspaceBudgetResponse](../../models/components/deleteworkspacebudgetresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## SetBudget
+
+Create or update the budget for a given interval. Budget limits must strictly decrease as the interval narrows (lifetime > monthly > weekly > daily). [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="upsertWorkspaceBudget" method="put" path="/workspaces/{id}/budgets/{interval}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Workspaces.SetBudget(ctx, "production", components.WorkspaceBudgetIntervalMonthly, components.UpsertWorkspaceBudgetRequest{
+        LimitUsd: 100.0,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        | Example                                                                                            |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |                                                                                                    |
+| `id`                                                                                               | `string`                                                                                           | :heavy_check_mark:                                                                                 | The workspace ID (UUID) or slug                                                                    | production                                                                                         |
+| `interval`                                                                                         | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval.md)           | :heavy_check_mark:                                                                                 | Budget reset interval. Use "lifetime" for a one-time budget that never resets.                     | monthly                                                                                            |
+| `upsertWorkspaceBudgetRequest`                                                                     | [components.UpsertWorkspaceBudgetRequest](../../models/components/upsertworkspacebudgetrequest.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                | {<br/>"limit_usd": 100<br/>}                                                                       |
+| `opts`                                                                                             | [][operations.Option](../../models/operations/option.md)                                           | :heavy_minus_sign:                                                                                 | The options for this request.                                                                      |                                                                                                    |
+
+### Response
+
+**[*components.UpsertWorkspaceBudgetResponse](../../models/components/upsertworkspacebudgetresponse.md), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
 | sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
 | sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |

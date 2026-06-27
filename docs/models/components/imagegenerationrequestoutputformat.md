@@ -1,0 +1,26 @@
+# ImageGenerationRequestOutputFormat
+
+Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ImageGenerationRequestOutputFormatPng
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ImageGenerationRequestOutputFormat("custom_value")
+```
+
+
+## Values
+
+| Name                                     | Value                                    |
+| ---------------------------------------- | ---------------------------------------- |
+| `ImageGenerationRequestOutputFormatPng`  | png                                      |
+| `ImageGenerationRequestOutputFormatJpeg` | jpeg                                     |
+| `ImageGenerationRequestOutputFormatWebp` | webp                                     |
+| `ImageGenerationRequestOutputFormatSvg`  | svg                                      |

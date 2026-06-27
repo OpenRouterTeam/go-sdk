@@ -55,12 +55,14 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameGoogle`          | Google                        |
 | `ProviderNameGoogleAiStudio`  | Google AI Studio              |
 | `ProviderNameGroq`            | Groq                          |
+| `ProviderNameHeyGen`          | HeyGen                        |
 | `ProviderNameInception`       | Inception                     |
 | `ProviderNameInceptron`       | Inceptron                     |
 | `ProviderNameInferenceNet`    | InferenceNet                  |
 | `ProviderNameIonstream`       | Ionstream                     |
 | `ProviderNameInfermatic`      | Infermatic                    |
 | `ProviderNameIoNet`           | Io Net                        |
+| `ProviderNameInferactVLlm`    | Inferact vLLM                 |
 | `ProviderNameInflection`      | Inflection                    |
 | `ProviderNameLiquid`          | Liquid                        |
 | `ProviderNameMara`            | Mara                          |
@@ -87,6 +89,7 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameRecraft`         | Recraft                       |
 | `ProviderNameReka`            | Reka                          |
 | `ProviderNameRelace`          | Relace                        |
+| `ProviderNameSakanaAi`        | Sakana AI                     |
 | `ProviderNameSambaNova`       | SambaNova                     |
 | `ProviderNameSeed`            | Seed                          |
 | `ProviderNameSiliconFlow`     | SiliconFlow                   |
@@ -95,11 +98,13 @@ custom := components.ProviderName("custom_value")
 | `ProviderNameStealth`         | Stealth                       |
 | `ProviderNameStreamLake`      | StreamLake                    |
 | `ProviderNameSwitchpoint`     | Switchpoint                   |
+| `ProviderNameTenstorrent`     | Tenstorrent                   |
 | `ProviderNameTogether`        | Together                      |
 | `ProviderNameUpstage`         | Upstage                       |
 | `ProviderNameVenice`          | Venice                        |
 | `ProviderNameWafer`           | Wafer                         |
 | `ProviderNameWandB`           | WandB                         |
+| `ProviderNameQuiver`          | Quiver                        |
 | `ProviderNameXiaomi`          | Xiaomi                        |
 | `ProviderNameXAi`             | xAI                           |
 | `ProviderNameZAi`             | Z.AI                          |

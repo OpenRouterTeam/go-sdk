@@ -2188,6 +2188,38 @@ components:
       required:
         - type
       type: object
+    ApiErrorType:
+      description: Canonical OpenRouter error type, stable across all API formats
+      enum:
+        - context_length_exceeded
+        - max_tokens_exceeded
+        - token_limit_exceeded
+        - string_too_long
+        - authentication
+        - permission_denied
+        - payment_required
+        - rate_limit_exceeded
+        - provider_overloaded
+        - provider_unavailable
+        - invalid_request
+        - invalid_prompt
+        - not_found
+        - precondition_failed
+        - payload_too_large
+        - unprocessable
+        - content_policy_violation
+        - refusal
+        - invalid_image
+        - image_too_large
+        - image_too_small
+        - unsupported_image_format
+        - image_not_found
+        - image_download_failed
+        - server
+        - timeout
+        - unmapped
+      example: rate_limit_exceeded
+      type: string
     ApplyPatchCallItem:
       description: >-
         A tool call emitted by the model requesting a V4A patch operation. The client applies the patch and echoes an
@@ -3645,10 +3677,6 @@ components:
       oneOf:
         - $ref: '#/components/schemas/ContainerAutoEnvironment'
         - $ref: '#/components/schemas/ContainerReferenceEnvironment'
-    BigNumberUnion:
-      description: Price per million prompt tokens
-      example: 1000
-      type: string
     BooleanCapability:
       description: A supported-or-not flag. Present means the parameter is accepted.
       example:
@@ -3984,8 +4012,10 @@ components:
         - google-ai-studio
         - google-vertex
         - groq
+        - heygen
         - inception
         - inceptron
+        - inferact-vllm
         - inference-net
         - infermatic
         - inflection
@@ -4013,9 +4043,11 @@ components:
         - perplexity
         - phala
         - poolside
+        - quiver
         - recraft
         - reka
         - relace
+        - sakana-ai
         - sambanova
         - seed
         - siliconflow
@@ -4023,6 +4055,7 @@ components:
         - stepfun
         - streamlake
         - switchpoint
+        - tenstorrent
         - together
         - upstage
         - venice
@@ -5076,6 +5109,8 @@ components:
           example:
             code: 429
             message: Rate limit exceeded
+            metadata:
+              error_type: rate_limit_exceeded
           properties:
             code:
               description: Error code
@@ -5086,6 +5121,17 @@ components:
               description: Error message
               example: Rate limit exceeded
               type: string
+            metadata:
+              description: Structured error metadata
+              properties:
+                error_type:
+                  $ref: '#/components/schemas/ApiErrorType'
+                provider_code:
+                  description: Upstream provider-specific error code, when available
+                  type: string
+              required:
+                - error_type
+              type: object
           required:
             - message
             - code
@@ -8178,6 +8224,7 @@ components:
           enum:
             - general-high
             - general-budget
+            - general-fast
           example: general-high
           type: string
         tools:
@@ -8325,8 +8372,8 @@ components:
           type: object
         temperature:
           description: >-
-            Sampling temperature forwarded to panelist and judge inner calls. When omitted, the provider's default
-            applies.
+            Temperature forwarded to panelist inner calls. The judge always runs at temperature 0 regardless of this
+            value. When omitted, the provider's default applies.
           example: 0.7
           format: double
           type: number
@@ -8357,6 +8404,22 @@ components:
             type: object
           maxItems: 8
           type: array
+      type: object
+    FusionSource:
+      description: A web page retrieved via web search during a fusion run.
+      example:
+        title: Example article title
+        url: https://example.com/article
+      properties:
+        title:
+          description: Title of the retrieved web page.
+          type: string
+        url:
+          description: URL of the web page a panel or the judge retrieved during the run.
+          type: string
+      required:
+        - url
+        - title
       type: object
     GenerationContentData:
       description: Stored prompt and completion content
@@ -9269,6 +9332,12 @@ components:
         created:
           description: Unix timestamp (seconds) when the image was generated
           type: integer
+        media_type:
+          description: >-
+            Media type (MIME type) of the image. Omitted when the output is a standard raster format (PNG). Present for
+            non-raster outputs such as SVG (`image/svg+xml`).
+          example: image/svg+xml
+          type: string
         type:
           description: The event type
           enum:
@@ -9341,11 +9410,14 @@ components:
           example: 100
           type: integer
         output_format:
-          description: Encoding of the returned image bytes.
+          description: >-
+            Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported
+            by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`.
           enum:
             - png
             - jpeg
             - webp
+            - svg
           example: png
           type: string
         prompt:
@@ -9427,6 +9499,12 @@ components:
             properties:
               b64_json:
                 description: Base64-encoded image bytes
+                type: string
+              media_type:
+                description: >-
+                  Media type (MIME type) of the image. Omitted when the output is a standard raster format (PNG).
+                  Present for non-raster outputs such as SVG (`image/svg+xml`).
+                example: image/svg+xml
                 type: string
             required:
               - b64_json
@@ -11472,9 +11550,12 @@ components:
       type: object
     MessagesErrorDetail:
       example:
+        error_type: invalid_request
         message: Invalid request parameters
         type: invalid_request_error
       properties:
+        error_type:
+          $ref: '#/components/schemas/ApiErrorType'
         message:
           type: string
         type:
@@ -11487,12 +11568,15 @@ components:
       description: Error event in the stream
       example:
         error:
+          error_type: provider_overloaded
           message: Overloaded
           type: overloaded_error
         type: error
       properties:
         error:
           properties:
+            error_type:
+              $ref: '#/components/schemas/ApiErrorType'
             message:
               type: string
             type:
@@ -11501,6 +11585,8 @@ components:
             - type
             - message
           type: object
+        openrouter_metadata:
+          $ref: '#/components/schemas/OpenRouterMetadata'
         type:
           enum:
             - error
@@ -12420,12 +12506,14 @@ components:
                 - Google
                 - Google AI Studio
                 - Groq
+                - HeyGen
                 - Inception
                 - Inceptron
                 - InferenceNet
                 - Ionstream
                 - Infermatic
                 - Io Net
+                - Inferact vLLM
                 - Inflection
                 - Liquid
                 - Mara
@@ -12452,6 +12540,7 @@ components:
                 - Recraft
                 - Reka
                 - Relace
+                - Sakana AI
                 - SambaNova
                 - Seed
                 - SiliconFlow
@@ -12460,11 +12549,13 @@ components:
                 - Stealth
                 - StreamLake
                 - Switchpoint
+                - Tenstorrent
                 - Together
                 - Upstage
                 - Venice
                 - Wafer
                 - WandB
+                - Quiver
                 - Xiaomi
                 - xAI
                 - Z.AI
@@ -15574,6 +15665,8 @@ components:
       allOf:
         - $ref: '#/components/schemas/BaseResponsesResult'
         - properties:
+            error_type:
+              $ref: '#/components/schemas/ApiErrorType'
             openrouter_metadata:
               $ref: '#/components/schemas/OpenRouterMetadata'
             output:
@@ -16217,6 +16310,13 @@ components:
             required:
               - model
             type: object
+          type: array
+        sources:
+          description: >-
+            Web pages the analysis panels and judge retrieved via web search during this fusion run, deduplicated by URL
+            across the whole run. Present when at least one model cited a source.
+          items:
+            $ref: '#/components/schemas/FusionSource'
           type: array
         status:
           $ref: '#/components/schemas/ToolCallStatus'
@@ -17825,12 +17925,14 @@ components:
         - Google
         - Google AI Studio
         - Groq
+        - HeyGen
         - Inception
         - Inceptron
         - InferenceNet
         - Ionstream
         - Infermatic
         - Io Net
+        - Inferact vLLM
         - Inflection
         - Liquid
         - Mara
@@ -17857,6 +17959,7 @@ components:
         - Recraft
         - Reka
         - Relace
+        - Sakana AI
         - SambaNova
         - Seed
         - SiliconFlow
@@ -17865,11 +17968,13 @@ components:
         - Stealth
         - StreamLake
         - Switchpoint
+        - Tenstorrent
         - Together
         - Upstage
         - Venice
         - Wafer
         - WandB
+        - Quiver
         - Xiaomi
         - xAI
         - Z.AI
@@ -18064,6 +18169,10 @@ components:
           additionalProperties:
             nullable: true
           type: object
+        heygen:
+          additionalProperties:
+            nullable: true
+          type: object
         huggingface:
           additionalProperties:
             nullable: true
@@ -18081,6 +18190,10 @@ components:
             nullable: true
           type: object
         inceptron:
+          additionalProperties:
+            nullable: true
+          type: object
+        inferact-vllm:
           additionalProperties:
             nullable: true
           type: object
@@ -18236,6 +18349,10 @@ components:
           additionalProperties:
             nullable: true
           type: object
+        quiver:
+          additionalProperties:
+            nullable: true
+          type: object
         recraft:
           additionalProperties:
             nullable: true
@@ -18257,6 +18374,10 @@ components:
             nullable: true
           type: object
         replicate:
+          additionalProperties:
+            nullable: true
+          type: object
+        sakana-ai:
           additionalProperties:
             nullable: true
           type: object
@@ -18301,6 +18422,10 @@ components:
             nullable: true
           type: object
         targon:
+          additionalProperties:
+            nullable: true
+          type: object
+        tenstorrent:
           additionalProperties:
             nullable: true
           type: object
@@ -18443,23 +18568,20 @@ components:
             prompt and completion.
           properties:
             audio:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: Price per audio unit
+              description: Maximum price in USD per audio unit
+              type: string
             completion:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: Price per million completion tokens
+              description: Maximum price in USD per million completion tokens
+              type: string
             image:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: Price per image
+              description: Maximum price in USD per image
+              type: string
             prompt:
-              $ref: '#/components/schemas/BigNumberUnion'
+              description: Maximum price in USD per million prompt tokens
+              type: string
             request:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: Price per request
+              description: Maximum price in USD per request
+              type: string
           type: object
         only:
           description: >-
@@ -18622,12 +18744,14 @@ components:
             - Google
             - Google AI Studio
             - Groq
+            - HeyGen
             - Inception
             - Inceptron
             - InferenceNet
             - Ionstream
             - Infermatic
             - Io Net
+            - Inferact vLLM
             - Inflection
             - Liquid
             - Mara
@@ -18654,6 +18778,7 @@ components:
             - Recraft
             - Reka
             - Relace
+            - Sakana AI
             - SambaNova
             - Seed
             - SiliconFlow
@@ -18662,11 +18787,13 @@ components:
             - Stealth
             - StreamLake
             - Switchpoint
+            - Tenstorrent
             - Together
             - Upstage
             - Venice
             - Wafer
             - WandB
+            - Quiver
             - Xiaomi
             - xAI
             - Z.AI
@@ -18777,60 +18904,57 @@ components:
         pricing:
           properties:
             audio:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per audio input token
+              type: string
             audio_output:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per audio output token
+              type: string
             completion:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per token for completion (output) generation
+              type: string
             discount:
+              description: >-
+                Fractional discount applied to this endpoint's pricing; the price is multiplied by (1 - discount) (0 =
+                no discount, 1 = free)
               format: double
               type: number
             image:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per input image
+              type: string
             image_output:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per output image
+              type: string
             image_token:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per image token
+              type: string
             input_audio_cache:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per cached audio input token
+              type: string
             input_cache_read:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per cached input token (read)
+              type: string
             input_cache_write:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: >-
+                Price per cache-write token, in USD per token. For providers with multiple cache TTLs (e.g. Anthropic),
+                this is the default (5-minute) cache-write rate.
+              type: string
+            input_cache_write_1h:
+              description: >-
+                Price per 1-hour cache-write token, in USD per token. Only present for providers that price an extended
+                (1-hour) cache TTL separately, such as Anthropic.
+              type: string
             internal_reasoning:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per internal reasoning token
+              type: string
             prompt:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per token for prompt (input) processing
+              type: string
             request:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per request
+              type: string
             web_search:
-              allOf:
-                - $ref: '#/components/schemas/BigNumberUnion'
-                - description: A number or string value representing a large number
+              description: Price in USD per web search
+              type: string
           required:
             - prompt
             - completion
@@ -18904,60 +19028,57 @@ components:
         request: '0'
       properties:
         audio:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per audio input token
+          type: string
         audio_output:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per audio output token
+          type: string
         completion:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per token for completion (output) generation
+          type: string
         discount:
+          description: >-
+            Fractional discount applied to this endpoint's pricing; the price is multiplied by (1 - discount) (0 = no
+            discount, 1 = free)
           format: double
           type: number
         image:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per input image
+          type: string
         image_output:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per output image
+          type: string
         image_token:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per image token
+          type: string
         input_audio_cache:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per cached audio input token
+          type: string
         input_cache_read:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per cached input token (read)
+          type: string
         input_cache_write:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: >-
+            Price per cache-write token, in USD per token. For providers with multiple cache TTLs (e.g. Anthropic), this
+            is the default (5-minute) cache-write rate.
+          type: string
+        input_cache_write_1h:
+          description: >-
+            Price per 1-hour cache-write token, in USD per token. Only present for providers that price an extended
+            (1-hour) cache TTL separately, such as Anthropic.
+          type: string
         internal_reasoning:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per internal reasoning token
+          type: string
         prompt:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per token for prompt (input) processing
+          type: string
         request:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per request
+          type: string
         web_search:
-          allOf:
-            - $ref: '#/components/schemas/BigNumberUnion'
-            - description: A number or string value representing a large number
+          description: Price in USD per web search
+          type: string
       required:
         - prompt
         - completion
@@ -20781,6 +20902,195 @@ components:
             - 4K
         seed:
           type: boolean
+      type: object
+    TaskClassificationItem:
+      example:
+        category_token_share: 0.48
+        category_usage_share: 0.51
+        display_name: Code Generation
+        macro_category: code
+        models:
+          - id: openai/gpt-4.1-mini
+            tag_token_share: 0.75
+            tag_usage_share: 0.55
+          - id: anthropic/claude-sonnet-4
+            tag_token_share: 0.12
+            tag_usage_share: 0.2
+        tag: code:general_impl
+        token_share: 0.31
+        usage_share: 0.23
+      properties:
+        category_token_share:
+          description: >-
+            Fraction of this classification's token volume within its macro-category (0–1). Sums to 1 across all
+            classifications sharing the same `macro_category`.
+          example: 0.48
+          format: double
+          type: number
+        category_usage_share:
+          description: >-
+            Fraction of this classification's usage within its macro-category (0–1). Sums to 1 across all
+            classifications sharing the same `macro_category`.
+          example: 0.51
+          format: double
+          type: number
+        display_name:
+          description: Human-readable label for the classification.
+          example: Code Generation
+          type: string
+        macro_category:
+          description: 'Coarse grouping derived from the tag prefix: `code`, `data`, `agent`, or `general`.'
+          example: code
+          type: string
+        models:
+          description: >-
+            Top models for this classification by request volume, sorted descending. Each entry reports the model's
+            share of this classification's requests and tokens.
+          items:
+            $ref: '#/components/schemas/TaskClassificationModel'
+          type: array
+        tag:
+          description: Classification tag identifier (e.g. `code:general_impl`, `agent:web_search`).
+          example: code:general_impl
+          type: string
+        token_share:
+          description: >-
+            Fraction of classified sampled token volume (prompt + completion) attributed to this classification (0–1).
+            The unclassified `other` bucket is excluded from the denominator.
+          example: 0.31
+          format: double
+          type: number
+        usage_share:
+          description: >-
+            Fraction of classified sampled requests attributed to this classification (0–1). The unclassified `other`
+            bucket is excluded from the denominator.
+          example: 0.23
+          format: double
+          type: number
+      required:
+        - tag
+        - display_name
+        - macro_category
+        - usage_share
+        - token_share
+        - category_usage_share
+        - category_token_share
+        - models
+      type: object
+    TaskClassificationMacroCategory:
+      example:
+        key: code
+        label: Code
+        token_share: 0.52
+        usage_share: 0.45
+      properties:
+        key:
+          description: Macro-category identifier.
+          example: code
+          type: string
+        label:
+          description: Human-readable label for the macro-category.
+          example: Code
+          type: string
+        token_share:
+          description: Combined token share of all classifications in this macro-category (0–1).
+          example: 0.52
+          format: double
+          type: number
+        usage_share:
+          description: Combined usage share of all classifications in this macro-category (0–1).
+          example: 0.45
+          format: double
+          type: number
+      required:
+        - key
+        - label
+        - usage_share
+        - token_share
+      type: object
+    TaskClassificationModel:
+      example:
+        id: openai/gpt-4.1-mini
+        tag_token_share: 0.75
+        tag_usage_share: 0.55
+      properties:
+        id:
+          description: Model identifier (permaslug).
+          example: openai/gpt-4.1-mini
+          type: string
+        tag_token_share:
+          description: >-
+            Fraction of this classification's sampled token volume attributed to this model (0–1). Sums to ≤1 across the
+            returned models (only top-N are included and unattributed requests are excluded).
+          example: 0.75
+          format: double
+          type: number
+        tag_usage_share:
+          description: >-
+            Fraction of this classification's sampled requests attributed to this model (0–1). Sums to ≤1 across the
+            returned models (only top-N are included and unattributed requests are excluded).
+          example: 0.55
+          format: double
+          type: number
+      required:
+        - id
+        - tag_usage_share
+        - tag_token_share
+      type: object
+    TaskClassificationResponse:
+      example:
+        data:
+          as_of: '2026-06-17'
+          classifications:
+            - category_token_share: 0.48
+              category_usage_share: 0.51
+              display_name: Code Generation
+              macro_category: code
+              models:
+                - id: openai/gpt-4.1-mini
+                  tag_token_share: 0.75
+                  tag_usage_share: 0.55
+              tag: code:general_impl
+              token_share: 0.31
+              usage_share: 0.23
+          macro_categories:
+            - key: code
+              label: Code
+              token_share: 0.52
+              usage_share: 0.45
+          window_days: 7
+      properties:
+        data:
+          properties:
+            as_of:
+              description: >-
+                UTC date (YYYY-MM-DD) of the window upper bound (yesterday). Data is exclusive of the current incomplete
+                UTC day. This is the expected latest date in the snapshot; it does not confirm data presence for that
+                date.
+              example: '2026-06-17'
+              type: string
+            classifications:
+              description: Per-task classification market-share data, sorted by usage_share descending.
+              items:
+                $ref: '#/components/schemas/TaskClassificationItem'
+              type: array
+            macro_categories:
+              description: Aggregate market-share data per macro-category (code, data, agent, general).
+              items:
+                $ref: '#/components/schemas/TaskClassificationMacroCategory'
+              type: array
+            window_days:
+              description: Number of trailing days covered by this snapshot.
+              example: 7
+              type: integer
+          required:
+            - window_days
+            - as_of
+            - classifications
+            - macro_categories
+          type: object
+      required:
+        - data
       type: object
     TextConfig:
       description: Text output configuration including format and verbosity
@@ -24118,8 +24428,10 @@ paths:
               - google-ai-studio
               - google-vertex
               - groq
+              - heygen
               - inception
               - inceptron
+              - inferact-vllm
               - inference-net
               - infermatic
               - inflection
@@ -24147,9 +24459,11 @@ paths:
               - perplexity
               - phala
               - poolside
+              - quiver
               - recraft
               - reka
               - relace
+              - sakana-ai
               - sambanova
               - seed
               - siliconflow
@@ -24157,6 +24471,7 @@ paths:
               - stepfun
               - streamlake
               - switchpoint
+              - tenstorrent
               - together
               - upstage
               - venice
@@ -24228,7 +24543,8 @@ paths:
       description: >-
         Create a new bring-your-own-key (BYOK) provider credential. The raw key is encrypted at rest and never returned
         in API responses. Defaults to the authenticated entity's default workspace; use the `workspace_id` body field to
-        scope to a different workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+        scope to a different workspace. Treat the raw key as write-only; it is never returned after creation.
+        [Management key](/docs/guides/overview/auth/management-api-keys) required.
       operationId: createBYOKKey
       requestBody:
         content:
@@ -24781,6 +25097,112 @@ paths:
       x-speakeasy-group: chat
       x-speakeasy-name-override: send
       x-speakeasy-stream-request-field: stream
+  /classifications/task:
+    get:
+      description: |-
+        Returns the market-share breakdown of OpenRouter traffic by task classification
+        (e.g. code generation, web search, summarization) over a trailing time window.
+
+        Each classification reports its share of classified sampled requests (`usage_share`)
+        and classified sampled token volume (`token_share`) as fractions between 0 and 1.
+        The unclassified `other` bucket is excluded. Absolute volumes are not exposed
+        because the underlying data is sampled.
+
+        Each classification also includes a `models` array listing the top models by
+        request volume within that classification, with their within-tag usage and token shares.
+
+        Classifications are grouped into macro-categories (Code, Data, Agent, General)
+        with aggregate shares provided for each.
+
+        Authenticate with any valid OpenRouter API key (same key used for inference).
+        Rate-limited to 30 requests/minute per key and 500 requests/day per account.
+
+        When republishing or quoting this data, cite as:
+        "Source: OpenRouter (openrouter.ai/rankings), as of {as_of}."
+      operationId: getTaskClassifications
+      parameters:
+        - description: Trailing time window for the classification data. Currently only `7d` (trailing 7 days) is supported.
+          in: query
+          name: window
+          required: false
+          schema:
+            default: 7d
+            description: Trailing time window for the classification data. Currently only `7d` (trailing 7 days) is supported.
+            enum:
+              - 7d
+            example: 7d
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                data:
+                  as_of: '2026-06-17'
+                  classifications:
+                    - category_token_share: 0.48
+                      category_usage_share: 0.51
+                      display_name: Code Generation
+                      macro_category: code
+                      models:
+                        - id: openai/gpt-4.1-mini
+                          tag_token_share: 0.75
+                          tag_usage_share: 0.55
+                      tag: code:general_impl
+                      token_share: 0.31
+                      usage_share: 0.23
+                  macro_categories:
+                    - key: code
+                      label: Code
+                      token_share: 0.52
+                      usage_share: 0.45
+                  window_days: 7
+              schema:
+                $ref: '#/components/schemas/TaskClassificationResponse'
+          description: Task classification market-share data for the requested trailing window.
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '429':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 429
+                  message: Rate limit exceeded
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsResponse'
+          description: Too Many Requests - Rate limit exceeded
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Task classification market share
+      tags:
+        - Classifications
   /credits:
     get:
       description: >-
@@ -26802,7 +27224,9 @@ paths:
         - Guardrails
       x-speakeasy-name-override: get
     patch:
-      description: Update an existing guardrail. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      description: >-
+        Update an existing guardrail. Collection fields use replace semantics: send the full desired set on every
+        update. [Management key](/docs/guides/overview/auth/management-api-keys) required.
       operationId: updateGuardrail
       parameters:
         - description: The unique identifier of the guardrail to update
@@ -26996,8 +27420,8 @@ paths:
         type: offsetLimit
     post:
       description: >-
-        Assign multiple API keys to a specific guardrail. [Management
-        key](/docs/guides/overview/auth/management-api-keys) required.
+        Assign multiple API keys to a specific guardrail. A key may hold at most one guardrail; assigning replaces any
+        existing assignment. [Management key](/docs/guides/overview/auth/management-api-keys) required.
       operationId: bulkAssignKeysToGuardrail
       parameters:
         - description: The unique identifier of the guardrail
@@ -28349,7 +28773,8 @@ paths:
       x-speakeasy-name-override: list
     post:
       description: >-
-        Create a new API key for the authenticated user. [Management
+        Create a new API key for the authenticated user. The plaintext `key` is returned only in this response. Treat it
+        as a write-only, sensitive value; it cannot be retrieved later. [Management
         key](/docs/guides/overview/auth/management-api-keys) required.
       operationId: createKeys
       requestBody:
@@ -29672,8 +30097,10 @@ paths:
             Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side.
             Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low
             (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular,
-            top-weekly (tokens processed in the last week), newest (creation date). When omitted, the existing default
-            ordering is preserved.
+            top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low (Artificial
+            Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models
+            without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is
+            preserved.
           in: query
           name: sort
           required: false
@@ -29682,8 +30109,10 @@ paths:
               Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side.
               Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low
               (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular,
-              top-weekly (tokens processed in the last week), newest (creation date). When omitted, the existing default
-              ordering is preserved.
+              top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low
+              (Artificial Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across
+              arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing
+              default ordering is preserved.
             enum:
               - most-popular
               - newest
@@ -29693,6 +30122,8 @@ paths:
               - context-high-to-low
               - throughput-high-to-low
               - latency-low-to-high
+              - intelligence-high-to-low
+              - design-arena-elo-high-to-low
             example: newest
             type: string
         - description: Return results as RSS feed
@@ -32759,12 +33190,14 @@ paths:
       responses:
         '200':
           content:
-            application/octet-stream:
+            video/mp4:
               example: <binary video data>
               schema:
                 format: binary
                 type: string
-          description: Video content stream
+          description: >-
+            Video content stream. The body is the raw video bytes proxied from the upstream provider, and the
+            Content-Type reflects the provider media type (video/mp4).
         '400':
           content:
             application/json:
@@ -33053,7 +33486,7 @@ paths:
     delete:
       description: >-
         Delete an existing workspace. The default workspace cannot be deleted. Workspaces with active API keys cannot be
-        deleted. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+        deleted; remove the keys first. [Management key](/docs/guides/overview/auth/management-api-keys) required.
       operationId: deleteWorkspace
       parameters:
         - description: The workspace ID (UUID) or slug
@@ -33725,6 +34158,8 @@ tags:
     name: Benchmarks
   - description: Chat completion endpoints
     name: Chat
+  - description: Task classification market-share endpoints
+    name: Classifications
   - description: Credit management endpoints
     name: Credits
   - description: Datasets endpoints

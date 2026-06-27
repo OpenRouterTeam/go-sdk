@@ -37,11 +37,11 @@ func main() {
     )
 
     res, err := s.VideoGeneration.Generate(ctx, components.VideoGenerationRequest{
-        AspectRatio: components.AspectRatioOneHundredAndSixtyNine.ToPointer(),
+        AspectRatio: components.VideoGenerationRequestAspectRatioOneHundredAndSixtyNine.ToPointer(),
         Duration: openrouter.Pointer[int64](8),
         Model: "google/veo-3.1",
         Prompt: "A serene mountain landscape at sunset",
-        Resolution: components.ResolutionSevenHundredAndTwentyp.ToPointer(),
+        Resolution: components.VideoGenerationRequestResolutionSevenHundredAndTwentyp.ToPointer(),
     })
     if err != nil {
         log.Fatal(err)

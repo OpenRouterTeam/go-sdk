@@ -50,6 +50,10 @@ func (r *ResponsesStreamingResponse) GetDataResponseCustomToolCallInputDone() *C
 	return r.GetData().CustomToolCallInputDoneEvent
 }
 
+func (r *ResponsesStreamingResponse) GetDataResponseDebug() *DebugEvent {
+	return r.GetData().DebugEvent
+}
+
 func (r *ResponsesStreamingResponse) GetDataResponseFailed() *StreamEventsResponseFailed {
 	return r.GetData().StreamEventsResponseFailed
 }

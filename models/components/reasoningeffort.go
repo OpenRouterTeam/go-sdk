@@ -5,6 +5,7 @@ package components
 type ReasoningEffort string
 
 const (
+	ReasoningEffortMax     ReasoningEffort = "max"
 	ReasoningEffortXhigh   ReasoningEffort = "xhigh"
 	ReasoningEffortHigh    ReasoningEffort = "high"
 	ReasoningEffortMedium  ReasoningEffort = "medium"
@@ -21,7 +22,7 @@ func (e ReasoningEffort) ToPointer() *ReasoningEffort {
 func (e *ReasoningEffort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "xhigh", "high", "medium", "low", "minimal", "none":
+		case "max", "xhigh", "high", "medium", "low", "minimal", "none":
 			return true
 		}
 	}

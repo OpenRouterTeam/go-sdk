@@ -1098,7 +1098,9 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 type ResponsesRequest struct {
 	Background optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl     *AnthropicCacheControlDirective            `json:"cache_control,omitzero"`
+	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	// Debug options for inspecting request transformations (streaming only)
+	Debug            *ChatDebugOptions                          `json:"debug,omitzero"`
 	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
 	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
 	ImageConfig map[string]ImageConfig                                    `json:"image_config,omitzero"`
@@ -1172,6 +1174,13 @@ func (r *ResponsesRequest) GetCacheControl() *AnthropicCacheControlDirective {
 		return nil
 	}
 	return r.CacheControl
+}
+
+func (r *ResponsesRequest) GetDebug() *ChatDebugOptions {
+	if r == nil {
+		return nil
+	}
+	return r.Debug
 }
 
 func (r *ResponsesRequest) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {

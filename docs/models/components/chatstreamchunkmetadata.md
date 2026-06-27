@@ -1,0 +1,11 @@
+# ChatStreamChunkMetadata
+
+Structured error metadata
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        | Example                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `ErrorType`                                                        | [components.APIErrorType](../../models/components/apierrortype.md) | :heavy_check_mark:                                                 | Canonical OpenRouter error type, stable across all API formats     | rate_limit_exceeded                                                |
+| `ProviderCode`                                                     | `*string`                                                          | :heavy_minus_sign:                                                 | Upstream provider-specific error code, when available              |                                                                    |
