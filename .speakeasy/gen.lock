@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1fcd3d6976d5ff61364676af020251ac
+  docChecksum: 2c2efdf630c425faccb6c9174f50e90f
   docVersion: 1.0.0
   speakeasyVersion: 1.761.1
   generationVersion: 2.879.6
-  releaseVersion: 0.5.8
-  configChecksum: 4550140a58346ccb5d73ab72466668ce
+  releaseVersion: 0.5.9
+  configChecksum: 08005534c2b3729352440c7e95e6f912
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: e8d5e385-5a22-4fe5-8ab9-59641fe8af0f
-  pristine_commit_hash: 98c9cba523f110cdd827b22bc1c0d9b93762a60e
-  pristine_tree_hash: f4aa99e73e642c4dcca9c7aa683d7b83f403688f
+  generation_id: ec0106e0-1541-40af-92be-5f0a41140170
+  pristine_commit_hash: 95f2095da59ca5fab40aeb463e6fc1e144aa9ab2
+  pristine_tree_hash: f7d049380012f5af0cb2b70ed75f38076675c6b6
 features:
   go:
     acceptHeaders: 2.81.2
@@ -807,12 +807,12 @@ trackedFiles:
     pristine_git_object: 8237b57963dad5a7109c1b11917c8a9dc4a283a6
   docs/models/components/chatcontentimagedetail.md:
     id: 26e325aa2c47
-    last_write_checksum: sha1:1daec9071dc27add6a8c9adc3577d89ed24ad21f
-    pristine_git_object: fd3b23f5805a35261505994f065504ea46d264bb
+    last_write_checksum: sha1:fbe53a4b1989c0fd22fc7332705f2dee85dbfd06
+    pristine_git_object: e4a964c6f625aa3b0ddbbdfa6c1394d27f9b340f
   docs/models/components/chatcontentimageimageurl.md:
     id: c660df83f713
-    last_write_checksum: sha1:9565befd11eff08684422bb94eb5cabd337a2a75
-    pristine_git_object: 38fd6ba9f759af4472e35f3802f3ee2167272112
+    last_write_checksum: sha1:5f05d36502dd5af1492a8d08aaf5824efc643a01
+    pristine_git_object: c4cfdcc9e82e97c2b0a6d8f3c1475408e4c33f50
   docs/models/components/chatcontentimagetype.md:
     id: 55282f384169
     last_write_checksum: sha1:d70bde2d608755df468ad8c73731808cb89e8110
@@ -6391,8 +6391,8 @@ trackedFiles:
     pristine_git_object: db77b9a5dbd2663e5b433d482509f5b9c4fc434c
   models/components/chatcontentimage.go:
     id: 18712f591fb9
-    last_write_checksum: sha1:698fd5383258d1b67f24fc13f22cfbb2d2fda7dd
-    pristine_git_object: f1bff84c465ad2a0d617ba473dd0b09af83d018c
+    last_write_checksum: sha1:8a3be532cc3890fabf844ec55b4ecc3e855cb7a8
+    pristine_git_object: 3b004191c146c5345f58b6ff8750b49edb4ea6e7
   models/components/chatcontentitems.go:
     id: cbddcb5c57c6
     last_write_checksum: sha1:7768aedbd1aa64509774a2dda76de3b0a6d9add2
@@ -8527,8 +8527,8 @@ trackedFiles:
     pristine_git_object: de50129e03ba061879287c7c5790b8dc69174726
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:c7aeafea41bf8a3c682e572d6501b13a2c84c7b3
-    pristine_git_object: 5dfcbddee450cbae8a2e9803cbf2441572e67c33
+    last_write_checksum: sha1:f3bf42d9215414e12406a763a326376f1b980621
+    pristine_git_object: 42ae74086714b40643e710ce4cbf509e7209b204
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10037,4 +10037,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(OutputFusionServerToolItem).Sources` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(OutputFusionServerToolItem).Sources` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Messages[].union(user).Content.union(Array<ChatContentItems>)[].union(image_url).ImageUrl.Detail.Enum(original)` **Added**\n  *  `response.Choices[].Message.Content.union(Array<ChatContentItems>)[].union(image_url).ImageUrl.Detail.Enum(original)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Messages[].union(user).Content.union(Array<ChatContentItems>)[].union(image_url).ImageUrl.Detail.Enum(original)` **Added**\n"
