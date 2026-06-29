@@ -8,13 +8,14 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// ChatContentImageDetail - Image detail level for vision models
+// ChatContentImageDetail - Image detail level for vision models. `original` is an OpenRouter extension (not in the OpenAI Chat Completions spec) requesting true original-resolution media; it is downgraded to `high` for providers that lack an original-resolution tier.
 type ChatContentImageDetail string
 
 const (
-	ChatContentImageDetailAuto ChatContentImageDetail = "auto"
-	ChatContentImageDetailLow  ChatContentImageDetail = "low"
-	ChatContentImageDetailHigh ChatContentImageDetail = "high"
+	ChatContentImageDetailAuto     ChatContentImageDetail = "auto"
+	ChatContentImageDetailLow      ChatContentImageDetail = "low"
+	ChatContentImageDetailHigh     ChatContentImageDetail = "high"
+	ChatContentImageDetailOriginal ChatContentImageDetail = "original"
 )
 
 func (e ChatContentImageDetail) ToPointer() *ChatContentImageDetail {
@@ -25,7 +26,7 @@ func (e ChatContentImageDetail) ToPointer() *ChatContentImageDetail {
 func (e *ChatContentImageDetail) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "low", "high":
+		case "auto", "low", "high", "original":
 			return true
 		}
 	}
@@ -33,7 +34,7 @@ func (e *ChatContentImageDetail) IsExact() bool {
 }
 
 type ChatContentImageImageURL struct {
-	// Image detail level for vision models
+	// Image detail level for vision models. `original` is an OpenRouter extension (not in the OpenAI Chat Completions spec) requesting true original-resolution media; it is downgraded to `high` for providers that lack an original-resolution tier.
 	Detail *ChatContentImageDetail `json:"detail,omitzero"`
 	// URL of the image (data: URLs supported)
 	URL string `json:"url"`
