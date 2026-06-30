@@ -1,9 +1,0 @@
-# Dimension
-
-
-## Fields
-
-| Field                                       | Type                                        | Required                                    | Description                                 | Example                                     |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| `DisplayLabel`                              | `string`                                    | :heavy_check_mark:                          | Human-readable label                        | Model                                       |
-| `Name`                                      | `string`                                    | :heavy_check_mark:                          | Dimension identifier used in query requests | model                                       |

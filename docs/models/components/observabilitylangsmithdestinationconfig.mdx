@@ -1,0 +1,13 @@
+---
+title: "ObservabilityLangsmithDestinationConfig"
+---
+
+## Fields
+
+| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `APIKey`                                                                              | `string`                                                                              | :heavy_check_mark:                                                                    | N/A                                                                                   |
+| `Endpoint`                                                                            | `*string`                                                                             | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `Headers`                                                                             | map[string]`string`                                                                   | :heavy_minus_sign:                                                                    | Custom HTTP headers to include in requests to this destination.                       |
+| `Project`                                                                             | `*string`                                                                             | :heavy_minus_sign:                                                                    | The name for this project, such as pr-openrouter-demo. Defaults to "main" if not set. |
+| `WorkspaceID`                                                                         | `*string`                                                                             | :heavy_minus_sign:                                                                    | Required for org-scoped API keys. Find this in your LangSmith workspace settings.     |

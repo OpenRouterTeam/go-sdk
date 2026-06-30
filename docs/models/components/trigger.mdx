@@ -1,0 +1,30 @@
+---
+title: "Trigger"
+---
+
+## Supported Types
+
+### AnthropicInputTokensTrigger
+
+```go
+trigger := components.CreateTriggerInputTokens(components.AnthropicInputTokensTrigger{/* values here */})
+```
+
+### AnthropicToolUsesTrigger
+
+```go
+trigger := components.CreateTriggerToolUses(components.AnthropicToolUsesTrigger{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch trigger.Type {
+	case components.TriggerTypeInputTokens:
+		// trigger.AnthropicInputTokensTrigger is populated
+	case components.TriggerTypeToolUses:
+		// trigger.AnthropicToolUsesTrigger is populated
+}
+```

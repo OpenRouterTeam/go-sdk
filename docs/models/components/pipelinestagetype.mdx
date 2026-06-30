@@ -1,0 +1,29 @@
+---
+title: "PipelineStageType"
+---
+
+Categorical kind of a pipeline stage. Multiple plugins can share a type (e.g. all guardrail-level plugins emit `guardrail`); the `name` field disambiguates which plugin emitted it.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.PipelineStageTypeGuardrail
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PipelineStageType("custom_value")
+```
+
+
+## Values
+
+| Name                                  | Value                                 |
+| ------------------------------------- | ------------------------------------- |
+| `PipelineStageTypeGuardrail`          | guardrail                             |
+| `PipelineStageTypePlugin`             | plugin                                |
+| `PipelineStageTypeServerTools`        | server_tools                          |
+| `PipelineStageTypeResponseHealing`    | response_healing                      |
+| `PipelineStageTypeContextCompression` | context_compression                   |

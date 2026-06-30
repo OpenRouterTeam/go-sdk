@@ -1,9 +1,0 @@
-# ContentPartInputAudio
-
-
-## Fields
-
-| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  | Example                                                                                      |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `InputAudio`                                                                                 | [components.MultimodalMedia](../../models/components/multimodalmedia.md)                     | :heavy_check_mark:                                                                           | N/A                                                                                          | {<br/>"data": "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAA...",<br/>"format": "wav"<br/>} |
-| `Type`                                                                                       | [components.ContentPartInputAudioType](../../models/components/contentpartinputaudiotype.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |                                                                                              |

@@ -33,9 +33,10 @@ generation:
     generateTests: false
     generateNewTests: true
     skipResponseBodyAssertions: false
+  documentation: mintlify
   preApplyUnionDiscriminators: true
 go:
-  version: 0.5.9
+  version: 0.5.10
   additionalDependencies: {}
   baseErrorName: OpenRouterError
   clientServerStatusCodesAsErrors: true

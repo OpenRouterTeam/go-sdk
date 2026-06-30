@@ -1,0 +1,30 @@
+---
+title: "AnthropicDocumentBlockParamContent1"
+---
+
+## Supported Types
+
+### AnthropicImageBlockParam
+
+```go
+anthropicDocumentBlockParamContent1 := components.CreateAnthropicDocumentBlockParamContent1Image(components.AnthropicImageBlockParam{/* values here */})
+```
+
+### AnthropicTextBlockParam
+
+```go
+anthropicDocumentBlockParamContent1 := components.CreateAnthropicDocumentBlockParamContent1Text(components.AnthropicTextBlockParam{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicDocumentBlockParamContent1.Type {
+	case components.AnthropicDocumentBlockParamContent1TypeImage:
+		// anthropicDocumentBlockParamContent1.AnthropicImageBlockParam is populated
+	case components.AnthropicDocumentBlockParamContent1TypeText:
+		// anthropicDocumentBlockParamContent1.AnthropicTextBlockParam is populated
+}
+```
