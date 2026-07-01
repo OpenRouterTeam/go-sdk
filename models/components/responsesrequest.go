@@ -408,6 +408,7 @@ const (
 	ResponsesRequestToolUnionTypeOpenrouterAdvisor                  ResponsesRequestToolUnionType = "openrouter:advisor"
 	ResponsesRequestToolUnionTypeOpenrouterSubagent                 ResponsesRequestToolUnionType = "openrouter:subagent"
 	ResponsesRequestToolUnionTypeOpenrouterDatetime                 ResponsesRequestToolUnionType = "openrouter:datetime"
+	ResponsesRequestToolUnionTypeOpenrouterFiles                    ResponsesRequestToolUnionType = "openrouter:files"
 	ResponsesRequestToolUnionTypeOpenrouterFusion                   ResponsesRequestToolUnionType = "openrouter:fusion"
 	ResponsesRequestToolUnionTypeOpenrouterImageGeneration          ResponsesRequestToolUnionType = "openrouter:image_generation"
 	ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels ResponsesRequestToolUnionType = "openrouter:experimental__search_models"
@@ -436,6 +437,7 @@ type ResponsesRequestToolUnion struct {
 	AdvisorServerToolOpenRouter         *AdvisorServerToolOpenRouter         `queryParam:"inline" union:"member"`
 	SubagentServerToolOpenRouter        *SubagentServerToolOpenRouter        `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
+	FilesServerTool                     *FilesServerTool                     `queryParam:"inline" union:"member"`
 	FusionServerToolOpenRouter          *FusionServerToolOpenRouter          `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
 	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
@@ -649,6 +651,18 @@ func CreateResponsesRequestToolUnionOpenrouterDatetime(openrouterDatetime Dateti
 	return ResponsesRequestToolUnion{
 		DatetimeServerTool: &openrouterDatetime,
 		Type:               typ,
+	}
+}
+
+func CreateResponsesRequestToolUnionOpenrouterFiles(openrouterFiles FilesServerTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterFiles
+
+	typStr := FilesServerToolType(typ)
+	openrouterFiles.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		FilesServerTool: &openrouterFiles,
+		Type:            typ,
 	}
 }
 
@@ -913,6 +927,15 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.DatetimeServerTool = datetimeServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterDatetime
 		return nil
+	case "openrouter:files":
+		filesServerTool := new(FilesServerTool)
+		if err := utils.UnmarshalJSON(data, &filesServerTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:files) type FilesServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.FilesServerTool = filesServerTool
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterFiles
+		return nil
 	case "openrouter:fusion":
 		fusionServerToolOpenRouter := new(FusionServerToolOpenRouter)
 		if err := utils.UnmarshalJSON(data, &fusionServerToolOpenRouter, "", true, nil); err != nil {
@@ -1057,6 +1080,10 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 
 	if u.DatetimeServerTool != nil {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
+	}
+
+	if u.FilesServerTool != nil {
+		return utils.MarshalJSON(u.FilesServerTool, "", true)
 	}
 
 	if u.FusionServerToolOpenRouter != nil {
