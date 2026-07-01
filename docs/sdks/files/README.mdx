@@ -1,0 +1,323 @@
+---
+title: "Files"
+description: "Files endpoints"
+---
+
+## Overview
+
+Files endpoints
+
+### Available Operations
+
+* [List](#list) - List files
+* [Upload](#upload) - Upload a file
+* [Delete](#delete) - Delete a file
+* [Retrieve](#retrieve) - Get file metadata
+* [Download](#download) - Download file content
+
+## List
+
+Lists files belonging to the workspace of the authenticating API key.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Files.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |                                                                                |
+| `limit`                                                                        | `*int64`                                                                       | :heavy_minus_sign:                                                             | Maximum number of files to return (1–1000).                                    | 100                                                                            |
+| `cursor`                                                                       | `*string`                                                                      | :heavy_minus_sign:                                                             | Opaque pagination cursor from a previous response.                             | eyJjdXJzb3IiOiJmaWxlXzAxMUNOaGE4aUNKY1Uxd1hOUjZxNFY4dyJ9                       |
+| `workspaceID`                                                                  | `*string`                                                                      | :heavy_minus_sign:                                                             | Workspace to scope the request to. Defaults to the caller’s default workspace. | a103d8b6-42f0-4e50-9a3c-bf41e2c3c1a7                                           |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.mdx)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |                                                                                |
+
+### Response
+
+**[*operations.ListFilesResponse](../../models/operations/listfilesresponse.mdx), error**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| sdkerrors.BadRequestResponseError      | 400                                    | application/json                       |
+| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
+| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
+| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
+| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
+
+## Upload
+
+Uploads a file to be referenced in future API calls. The file is stored under the workspace of the authenticating API key. Maximum file size: 100 MB.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    example, fileErr := os.Open("example.file")
+    if fileErr != nil {
+        panic(fileErr)
+    }
+
+    res, err := s.Files.Upload(ctx, operations.UploadFileRequestBody{
+        File: operations.File{
+            FileName: "example.file",
+            Content: example,
+        },
+    }, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |                                                                                      |
+| `requestBody`                                                                        | [operations.UploadFileRequestBody](../../models/operations/uploadfilerequestbody.mdx) | :heavy_check_mark:                                                                   | N/A                                                                                  |                                                                                      |
+| `workspaceID`                                                                        | `*string`                                                                            | :heavy_minus_sign:                                                                   | Workspace to scope the request to. Defaults to the caller’s default workspace.       | a103d8b6-42f0-4e50-9a3c-bf41e2c3c1a7                                                 |
+| `opts`                                                                               | [][operations.Option](../../models/operations/option.mdx)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |                                                                                      |
+
+### Response
+
+**[*components.FileMetadata](../../models/components/filemetadata.mdx), error**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| sdkerrors.BadRequestResponseError      | 400                                    | application/json                       |
+| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
+| sdkerrors.ForbiddenResponseError       | 403                                    | application/json                       |
+| sdkerrors.PayloadTooLargeResponseError | 413                                    | application/json                       |
+| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
+| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
+| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
+
+## Delete
+
+Deletes a file owned by the requesting workspace. Deletion is irreversible.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Files.Delete(ctx, "file_011CNha8iCJcU1wXNR6q4V8w", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |                                                                                |
+| `fileID`                                                                       | `string`                                                                       | :heavy_check_mark:                                                             | N/A                                                                            | file_011CNha8iCJcU1wXNR6q4V8w                                                  |
+| `workspaceID`                                                                  | `*string`                                                                      | :heavy_minus_sign:                                                             | Workspace to scope the request to. Defaults to the caller’s default workspace. | a103d8b6-42f0-4e50-9a3c-bf41e2c3c1a7                                           |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.mdx)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |                                                                                |
+
+### Response
+
+**[*components.FileDeleteResponse](../../models/components/filedeleteresponse.mdx), error**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
+| sdkerrors.NotFoundResponseError        | 404                                    | application/json                       |
+| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
+| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
+| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
+
+## Retrieve
+
+Retrieves metadata for a single file owned by the requesting workspace.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Files.Retrieve(ctx, "file_011CNha8iCJcU1wXNR6q4V8w", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |                                                                                |
+| `fileID`                                                                       | `string`                                                                       | :heavy_check_mark:                                                             | N/A                                                                            | file_011CNha8iCJcU1wXNR6q4V8w                                                  |
+| `workspaceID`                                                                  | `*string`                                                                      | :heavy_minus_sign:                                                             | Workspace to scope the request to. Defaults to the caller’s default workspace. | a103d8b6-42f0-4e50-9a3c-bf41e2c3c1a7                                           |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.mdx)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |                                                                                |
+
+### Response
+
+**[*components.FileMetadata](../../models/components/filemetadata.mdx), error**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
+| sdkerrors.NotFoundResponseError        | 404                                    | application/json                       |
+| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
+| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
+| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
+
+## Download
+
+Downloads the raw bytes of a file. Only files created server-side are downloadable; uploaded files return 400.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Files.Download(ctx, "file_011CNha8iCJcU1wXNR6q4V8w", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |                                                                                |
+| `fileID`                                                                       | `string`                                                                       | :heavy_check_mark:                                                             | N/A                                                                            | file_011CNha8iCJcU1wXNR6q4V8w                                                  |
+| `workspaceID`                                                                  | `*string`                                                                      | :heavy_minus_sign:                                                             | Workspace to scope the request to. Defaults to the caller’s default workspace. | a103d8b6-42f0-4e50-9a3c-bf41e2c3c1a7                                           |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.mdx)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |                                                                                |
+
+### Response
+
+**[io.ReadCloser](../../.mdx), error**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| sdkerrors.BadRequestResponseError      | 400                                    | application/json                       |
+| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
+| sdkerrors.NotFoundResponseError        | 404                                    | application/json                       |
+| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
+| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
+| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |

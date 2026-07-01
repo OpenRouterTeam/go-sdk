@@ -1,0 +1,39 @@
+---
+title: "Subcategory"
+---
+
+Marketplace subcategory to filter by (e.g. `cli-agent`). Takes precedence over `category` for the actual filter; when `category` is also supplied the pair must be consistent.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.SubcategoryCliAgent
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.Subcategory("custom_value")
+```
+
+
+## Values
+
+| Name                          | Value                         |
+| ----------------------------- | ----------------------------- |
+| `SubcategoryCliAgent`         | cli-agent                     |
+| `SubcategoryIdeExtension`     | ide-extension                 |
+| `SubcategoryCloudAgent`       | cloud-agent                   |
+| `SubcategoryProgrammingApp`   | programming-app               |
+| `SubcategoryNativeAppBuilder` | native-app-builder            |
+| `SubcategoryCreativeWriting`  | creative-writing              |
+| `SubcategoryVideoGen`         | video-gen                     |
+| `SubcategoryImageGen`         | image-gen                     |
+| `SubcategoryAudioGen`         | audio-gen                     |
+| `SubcategoryRoleplay`         | roleplay                      |
+| `SubcategoryGame`             | game                          |
+| `SubcategoryWritingAssistant` | writing-assistant             |
+| `SubcategoryGeneralChat`      | general-chat                  |
+| `SubcategoryPersonalAgent`    | personal-agent                |
+| `SubcategoryLegal`            | legal                         |

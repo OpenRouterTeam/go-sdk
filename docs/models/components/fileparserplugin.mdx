@@ -1,0 +1,11 @@
+---
+title: "FileParserPlugin"
+---
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `Enabled`                                                                          | `*bool`                                                                            | :heavy_minus_sign:                                                                 | Set to false to disable the file-parser plugin for this request. Defaults to true. |                                                                                    |
+| `ID`                                                                               | [components.FileParserPluginID](../../models/components/fileparserpluginid.mdx)     | :heavy_check_mark:                                                                 | N/A                                                                                |                                                                                    |
+| `Pdf`                                                                              | [*components.PDFParserOptions](../../models/components/pdfparseroptions.mdx)        | :heavy_minus_sign:                                                                 | Options for PDF parsing.                                                           | \{<br/>"engine": "cloudflare-ai"<br/>}                                              |

@@ -1,0 +1,14 @@
+---
+title: "MessagesAdvisorToolResultBlock"
+---
+
+Advisor tool result from a prior assistant turn, replayed back to the model on the next turn. Mirrors the block Anthropic returns in assistant content when the `advisor_20260301` tool runs.
+
+
+## Fields
+
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Content`                                                                                                      | map[string]`any`                                                                                               | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `ToolUseID`                                                                                                    | `string`                                                                                                       | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `Type`                                                                                                         | [components.MessagesAdvisorToolResultBlockType](../../models/components/messagesadvisortoolresultblocktype.mdx) | :heavy_check_mark:                                                                                             | N/A                                                                                                            |

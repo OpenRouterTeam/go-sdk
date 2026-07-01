@@ -1,0 +1,57 @@
+---
+title: "StopServerToolsWhenCondition"
+---
+
+A single condition that, when met, halts the server-tool agent loop.
+
+
+## Supported Types
+
+### StopServerToolsWhenFinishReasonIs
+
+```go
+stopServerToolsWhenCondition := components.CreateStopServerToolsWhenConditionFinishReasonIs(components.StopServerToolsWhenFinishReasonIs{/* values here */})
+```
+
+### StopServerToolsWhenHasToolCall
+
+```go
+stopServerToolsWhenCondition := components.CreateStopServerToolsWhenConditionHasToolCall(components.StopServerToolsWhenHasToolCall{/* values here */})
+```
+
+### StopServerToolsWhenMaxCost
+
+```go
+stopServerToolsWhenCondition := components.CreateStopServerToolsWhenConditionMaxCost(components.StopServerToolsWhenMaxCost{/* values here */})
+```
+
+### StopServerToolsWhenMaxTokensUsed
+
+```go
+stopServerToolsWhenCondition := components.CreateStopServerToolsWhenConditionMaxTokensUsed(components.StopServerToolsWhenMaxTokensUsed{/* values here */})
+```
+
+### StopServerToolsWhenStepCountIs
+
+```go
+stopServerToolsWhenCondition := components.CreateStopServerToolsWhenConditionStepCountIs(components.StopServerToolsWhenStepCountIs{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch stopServerToolsWhenCondition.Type {
+	case components.StopServerToolsWhenConditionTypeFinishReasonIs:
+		// stopServerToolsWhenCondition.StopServerToolsWhenFinishReasonIs is populated
+	case components.StopServerToolsWhenConditionTypeHasToolCall:
+		// stopServerToolsWhenCondition.StopServerToolsWhenHasToolCall is populated
+	case components.StopServerToolsWhenConditionTypeMaxCost:
+		// stopServerToolsWhenCondition.StopServerToolsWhenMaxCost is populated
+	case components.StopServerToolsWhenConditionTypeMaxTokensUsed:
+		// stopServerToolsWhenCondition.StopServerToolsWhenMaxTokensUsed is populated
+	case components.StopServerToolsWhenConditionTypeStepCountIs:
+		// stopServerToolsWhenCondition.StopServerToolsWhenStepCountIs is populated
+}
+```
