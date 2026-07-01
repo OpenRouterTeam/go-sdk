@@ -131,6 +131,7 @@ const (
 	ChatFunctionToolUnionTypeAdvisorServerToolOpenRouter         ChatFunctionToolUnionType = "AdvisorServerTool_OpenRouter"
 	ChatFunctionToolUnionTypeBashServerTool                      ChatFunctionToolUnionType = "BashServerTool"
 	ChatFunctionToolUnionTypeDatetimeServerTool                  ChatFunctionToolUnionType = "DatetimeServerTool"
+	ChatFunctionToolUnionTypeFilesServerTool                     ChatFunctionToolUnionType = "FilesServerTool"
 	ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter ChatFunctionToolUnionType = "ImageGenerationServerTool_OpenRouter"
 	ChatFunctionToolUnionTypeChatSearchModelsServerTool          ChatFunctionToolUnionType = "ChatSearchModelsServerTool"
 	ChatFunctionToolUnionTypeSubagentServerToolOpenRouter        ChatFunctionToolUnionType = "SubagentServerTool_OpenRouter"
@@ -145,6 +146,7 @@ type ChatFunctionTool struct {
 	AdvisorServerToolOpenRouter         *AdvisorServerToolOpenRouter         `queryParam:"inline" union:"member"`
 	BashServerTool                      *BashServerTool                      `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
+	FilesServerTool                     *FilesServerTool                     `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
 	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
 	SubagentServerToolOpenRouter        *SubagentServerToolOpenRouter        `queryParam:"inline" union:"member"`
@@ -188,6 +190,15 @@ func CreateChatFunctionToolDatetimeServerTool(datetimeServerTool DatetimeServerT
 	return ChatFunctionTool{
 		DatetimeServerTool: &datetimeServerTool,
 		Type:               typ,
+	}
+}
+
+func CreateChatFunctionToolFilesServerTool(filesServerTool FilesServerTool) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeFilesServerTool
+
+	return ChatFunctionTool{
+		FilesServerTool: &filesServerTool,
+		Type:            typ,
 	}
 }
 
@@ -282,6 +293,14 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var filesServerTool FilesServerTool = FilesServerTool{}
+	if err := utils.UnmarshalJSON(data, &filesServerTool, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeFilesServerTool,
+			Value: &filesServerTool,
+		})
+	}
+
 	var imageGenerationServerToolOpenRouter ImageGenerationServerToolOpenRouter = ImageGenerationServerToolOpenRouter{}
 	if err := utils.UnmarshalJSON(data, &imageGenerationServerToolOpenRouter, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -355,6 +374,9 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 	case ChatFunctionToolUnionTypeDatetimeServerTool:
 		u.DatetimeServerTool = best.Value.(*DatetimeServerTool)
 		return nil
+	case ChatFunctionToolUnionTypeFilesServerTool:
+		u.FilesServerTool = best.Value.(*FilesServerTool)
+		return nil
 	case ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter:
 		u.ImageGenerationServerToolOpenRouter = best.Value.(*ImageGenerationServerToolOpenRouter)
 		return nil
@@ -393,6 +415,10 @@ func (u ChatFunctionTool) MarshalJSON() ([]byte, error) {
 
 	if u.DatetimeServerTool != nil {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
+	}
+
+	if u.FilesServerTool != nil {
+		return utils.MarshalJSON(u.FilesServerTool, "", true)
 	}
 
 	if u.ImageGenerationServerToolOpenRouter != nil {

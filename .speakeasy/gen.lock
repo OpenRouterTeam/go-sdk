@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 2c2efdf630c425faccb6c9174f50e90f
+  docChecksum: 0ed85e578744026ea2d22b674a569ce4
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.9
+  releaseVersion: 0.5.10
   configChecksum: c8075b1a5362c2a97e5227863bc98f18
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 90506047-e441-44bf-9e7c-40c0bd237fd0
-  pristine_commit_hash: 39c783c813d7c74bf93cbb43a0a8252be25b44f9
-  pristine_tree_hash: fb4e241cfd1211583698d094d5c7a72b960de242
+  generation_id: a5fc6e6f-e318-48c0-9ef5-0382a7faac6c
+  pristine_commit_hash: 3d400278af17127ef1f963679c8158d56854b58d
+  pristine_tree_hash: 4f2138af0b93ec6b8ec0e36c18df0b78ee51773d
 features:
   go:
     acceptHeaders: 2.81.2
@@ -895,8 +895,8 @@ trackedFiles:
     pristine_git_object: e73650184d39cfcbac5804d5c45aadb600ea4fbb
   docs/models/components/chatfunctiontool.mdx:
     id: a5e42518489f
-    last_write_checksum: sha1:23a77686781b89d68e68fb4ab3ca256ca0b64b08
-    pristine_git_object: 44cb027f0d866b58b0c35cab55455abbd921e79e
+    last_write_checksum: sha1:a5085c077618c9622e69ba163f778067fc904687
+    pristine_git_object: 6f966ae7e292fe51cc0517033ee2e8d9c785e915
   docs/models/components/chatfunctiontoolfunction.mdx:
     id: bd709ba7f018
     last_write_checksum: sha1:5bd1dc9b8ae49cef17c760cc4c82e535eed25aa8
@@ -1725,6 +1725,18 @@ trackedFiles:
     id: 0d2057774478
     last_write_checksum: sha1:a9a00e4f454a5070e6202b2ba724f46a9817e1ca
     pristine_git_object: 2172e4bd3d02281cf4bfcb79258880567e14a030
+  docs/models/components/filesservertool.mdx:
+    id: 89053daf86af
+    last_write_checksum: sha1:b9dbff0cc4f43f92c814a525bdaee17aa8623d45
+    pristine_git_object: 8dc641af42f51174e615b2f336081e04bafeca3a
+  docs/models/components/filesservertoolconfig.mdx:
+    id: eacf1389d396
+    last_write_checksum: sha1:bea44aab79ccddb9dff37eb6dc30ef8cf8a13872
+    pristine_git_object: 2a1990e4b9a54b1974af9e1581e177ef2340723e
+  docs/models/components/filesservertooltype.mdx:
+    id: 2f1147cdf5b2
+    last_write_checksum: sha1:8ba831298bbc493c34e8275e5e46a40f86d6131f
+    pristine_git_object: 18e09bb582aef0da4ed3a8064aff6d24750a7daf
   docs/models/components/filters.mdx:
     id: c6e70fabad86
     last_write_checksum: sha1:f641379676f2b2f2ac638591674320ff0f50c352
@@ -4111,8 +4123,8 @@ trackedFiles:
     pristine_git_object: 4d316cae247dbf0a3d941adb22b706d78a82795a
   docs/models/components/responsesrequesttoolunion.mdx:
     id: 8f7d9aa9bb30
-    last_write_checksum: sha1:4bac88a3e468345dc14687e801d387de8a31d53e
-    pristine_git_object: 40e3e0cbae8144d16df5255ee7ce8a65a4b61bf1
+    last_write_checksum: sha1:000ef26c48422fd75d205f2188530fdab3839067
+    pristine_git_object: ce7eb3cf070052076731e93e23535da4410260df
   docs/models/components/responsesrequesttype.mdx:
     id: 6369679e0a1b
     last_write_checksum: sha1:11a383d48af1ee3e536062c98816f97b7d8a7903
@@ -5951,8 +5963,8 @@ trackedFiles:
     pristine_git_object: fb4140bf9321ff9b57a769abe1b3e7ddd61c8542
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:e22ddc8dd0efa97df1b80a8589c2c77738529677
-    pristine_git_object: 68531025c2cc47619df9dd436f31c6992a7a5837
+    last_write_checksum: sha1:4d254fc386e7e933f2bae7d9f025c358595d9a15
+    pristine_git_object: ddbd7334856b5023884b94fcf190fa263d27bd30
   guardrails.go:
     id: eb364a316712
     last_write_checksum: sha1:5a7086a50846829f9b37ad634eba749863711aba
@@ -6439,8 +6451,8 @@ trackedFiles:
     pristine_git_object: 229607fc482e8f37a16da91b45d761bc4b53362a
   models/components/chatfunctiontool.go:
     id: 2404feb24575
-    last_write_checksum: sha1:8d6a77abe85e317532bd3f736a779880bc12b50e
-    pristine_git_object: 2cbb2508cb21b5eb2d4f2b9ba34c399c2da81bc3
+    last_write_checksum: sha1:83ebc0675af90dda9f3b8a47270a430f904043a7
+    pristine_git_object: 7c5f65a1d97f2113efed99987e679f3f04515a7d
   models/components/chatjsonschemaconfig.go:
     id: 927e3d07c53d
     last_write_checksum: sha1:732bb6d2e0cae555e8794fb0304b17ddc3691ff9
@@ -6785,6 +6797,14 @@ trackedFiles:
     id: 6cebb45225e3
     last_write_checksum: sha1:ba200630f463f31fb65c582f4013b7d472a0ff5a
     pristine_git_object: a8e115ba6242e280516ed0069ee24f9817cb7ad0
+  models/components/filesservertool.go:
+    id: bb53f6365d23
+    last_write_checksum: sha1:cdc5782461ea772f2a4d7fdfec6598728d8a83d5
+    pristine_git_object: 05b6f74062a72a6ea33e1ac6827f595d493c7ee3
+  models/components/filesservertoolconfig.go:
+    id: 2fd06375081d
+    last_write_checksum: sha1:1e2df333cca3f2f0eea901c0bb7dfa3c9d9c4dd8
+    pristine_git_object: 73522512407b85258be9fe8d56c706f566ebf25f
   models/components/forbiddenresponseerrordata.go:
     id: c22e7663c6b8
     last_write_checksum: sha1:47738634725c86e3daacf5441d8cdc13618a10ef
@@ -7743,8 +7763,8 @@ trackedFiles:
     pristine_git_object: 3cf92771c9f58c8259dfda5ea5d91161d0c84519
   models/components/responsesrequest.go:
     id: 3fbf1b29b488
-    last_write_checksum: sha1:c5042e513d37176305a48e7b3c3adf7dfb205e1d
-    pristine_git_object: 3b08c5cb781c013b906b566676db08acbffe3a82
+    last_write_checksum: sha1:9d63680d3f3769d20c46d7cb470e73006b08ccec
+    pristine_git_object: 87cbceed4e5b931d1c8e556d40f5d47ab8d6265d
   models/components/responsesstreamingresponse.go:
     id: f5d13584dda6
     last_write_checksum: sha1:42cb41bc27e970f9e5a751daebbb7817f9a12d41
@@ -10037,3 +10057,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Tools[].union(openrouter:files)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(FilesServerTool)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(FilesServerTool)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Tools[].union(openrouter:files)` **Added**\n"
