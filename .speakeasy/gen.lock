@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 0ed85e578744026ea2d22b674a569ce4
+  docChecksum: a368a2c4593e628f287affe000e0be79
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.10
-  configChecksum: c8075b1a5362c2a97e5227863bc98f18
+  releaseVersion: 0.5.11
+  configChecksum: 8a8de31eb25134f8dce33979c4854927
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a5fc6e6f-e318-48c0-9ef5-0382a7faac6c
-  pristine_commit_hash: 3d400278af17127ef1f963679c8158d56854b58d
-  pristine_tree_hash: 4f2138af0b93ec6b8ec0e36c18df0b78ee51773d
+  generation_id: 1998ac0d-24e2-4e1a-9170-57cb5ace8883
+  pristine_commit_hash: b974bf9aa6019e84246f60d495d84ea2b620f932
+  pristine_tree_hash: 5e54556611360fe3887d5f6ea2575831b0659b56
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2541,6 +2541,10 @@ trackedFiles:
     id: 888d0cd446fd
     last_write_checksum: sha1:603fdccd925770f7eeec718a7e0b92231c161da1
     pristine_git_object: 58334bbddb4f17d5c37a79bb49860c656ea48aff
+  docs/models/components/listworkspacemembersresponse.mdx:
+    id: 6facadb2540b
+    last_write_checksum: sha1:1dad29bfe1aa00b69e0550bc88e40d60c4029bda
+    pristine_git_object: 101bed62aa004108620f952b6521494d6e41b852
   docs/models/components/listworkspacesresponse.mdx:
     id: b1b1ce2b0164
     last_write_checksum: sha1:2094d6fcea483641e95ca49cb4f8d4cfe4299db3
@@ -5593,6 +5597,14 @@ trackedFiles:
     id: acc7b39841a0
     last_write_checksum: sha1:3bc37492af274806f3b4023e6dd07ea0f90e9525
     pristine_git_object: 3bf9ad7112b8e1b8b12961f74db1c67c6e4a97f5
+  docs/models/operations/listworkspacemembersrequest.mdx:
+    id: ecb8f3ead673
+    last_write_checksum: sha1:ffaffbbe27f7c1ff7c37b411ab488f97ada2153d
+    pristine_git_object: 1d615f5d34c3825811b1fba0e9b41d1ce0818acd
+  docs/models/operations/listworkspacemembersresponse.mdx:
+    id: b36649eae9ce
+    last_write_checksum: sha1:7ab2cbcdb55e937715883ebabfe38718256992d9
+    pristine_git_object: 6aea6b68f346a481528226c7e6e2ba2da61e6123
   docs/models/operations/listworkspacesrequest.mdx:
     id: 93ebc6db0167
     last_write_checksum: sha1:529d1109ae770e95844067d00b39c55e75c71c61
@@ -5943,8 +5955,8 @@ trackedFiles:
     pristine_git_object: 8be1c038485e25109e3b2d8cb91f72aad8bd8cea
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
-    last_write_checksum: sha1:debb3d797a79f89525fa8ead57dd382082a02241
-    pristine_git_object: 5e48aa1fbe89dd6def5efa7b0eac6b3e5b59967f
+    last_write_checksum: sha1:22641c2906914e333e365af70c903b3006bc1485
+    pristine_git_object: b0a9298be5aa687108be7c1f185c5e3fa344df56
   embeddings.go:
     id: f7354b2d5b3e
     last_write_checksum: sha1:a079e4ccd13549c84cd10eedd718c35283799acb
@@ -7141,6 +7153,10 @@ trackedFiles:
     id: 5c4fb3fd8183
     last_write_checksum: sha1:f21c95e69ee04aadfc28a433c869d9fbee89371e
     pristine_git_object: 995435f531051a0e89462a29f1b6c2af3135da79
+  models/components/listworkspacemembersresponse.go:
+    id: 2c3c7a51453a
+    last_write_checksum: sha1:70d4cf90dee735490135309f55dddd6b8a44ef9a
+    pristine_git_object: 69dd74e6258d99a7f523eb0cbe87d6241453bb35
   models/components/listworkspacesresponse.go:
     id: 81eba39ab7bf
     last_write_checksum: sha1:e8839ef3dee6df2c308da509c447d575ad831558
@@ -8429,6 +8445,10 @@ trackedFiles:
     id: e9191ff02490
     last_write_checksum: sha1:1424694c8199a8dd401cc238bc0e2bbf6b8aa7cf
     pristine_git_object: ed4fa3cddfc70f41d1fb50eff6f53129cbe2bed4
+  models/operations/listworkspacemembers.go:
+    id: c6b8ca2e71ca
+    last_write_checksum: sha1:2a3abec4dbc89a3656fb1f5a4a58d1eff28df175
+    pristine_git_object: 4145d99917e715da5a7ebf10a5269a67ab3f86c8
   models/operations/listworkspaces.go:
     id: 7f1148e33437
     last_write_checksum: sha1:3e72a65ba1f2a6e6c05b91501ed574a386d45458
@@ -8547,8 +8567,8 @@ trackedFiles:
     pristine_git_object: 3dc1d1bf3c5e7387b73f1bbb0b6b456dd5e7ee9d
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:2af6e9240dcf56a59769a5dd8e8f926e9ff7db1e
-    pristine_git_object: b28d7ad986f6c072ab7a51ae595233207d11b2d7
+    last_write_checksum: sha1:e0a9e21636d4ed2bf2527a4c9286ec7b3bcdea88
+    pristine_git_object: e3d72a4a9aa2a5c1cb40f0b0879bbc1a2eddf903
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -8615,8 +8635,8 @@ trackedFiles:
     pristine_git_object: aa4df35502a56e74188df460f027f7e832c8dc31
   workspaces.go:
     id: 643517773c6f
-    last_write_checksum: sha1:9699350b5c5819e1ccf97b4467b8396d3a0834f2
-    pristine_git_object: 72066c2170b83d17dd24341734da2724ceaf98fb
+    last_write_checksum: sha1:de0a031961f5c2649f88ff6b64b2beee2dc20787
+    pristine_git_object: 40dba76b25b861602c49708786edda8aed5de19d
 examples:
   createResponses:
     speakeasy-default-create-responses:
@@ -10056,5 +10076,23 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+  listWorkspaceMembers:
+    speakeasy-default-list-workspace-members:
+      parameters:
+        path:
+          id: "production"
+      responses:
+        "200":
+          application/json: {"data": [{"created_at": "2025-08-24T10:30:00Z", "id": "660e8400-e29b-41d4-a716-446655440000", "role": "member", "user_id": "user_abc123", "workspace_id": "550e8400-e29b-41d4-a716-446655440000"}], "total_count": 1}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Tools[].union(openrouter:files)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(FilesServerTool)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(FilesServerTool)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Tools[].union(openrouter:files)` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Workspaces.ListMembers()`: **Added**
