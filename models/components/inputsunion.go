@@ -989,6 +989,7 @@ const (
 	InputsUnion1TypeOutputFusionServerToolItem          InputsUnion1Type = "OutputFusionServerToolItem"
 	InputsUnion1TypeOutputAdvisorServerToolItem         InputsUnion1Type = "OutputAdvisorServerToolItem"
 	InputsUnion1TypeOutputSubagentServerToolItem        InputsUnion1Type = "OutputSubagentServerToolItem"
+	InputsUnion1TypeOutputFilesServerToolItem           InputsUnion1Type = "OutputFilesServerToolItem"
 	InputsUnion1TypeLocalShellCallItem                  InputsUnion1Type = "LocalShellCallItem"
 	InputsUnion1TypeLocalShellCallOutputItem            InputsUnion1Type = "LocalShellCallOutputItem"
 	InputsUnion1TypeShellCallItem                       InputsUnion1Type = "ShellCallItem"
@@ -1037,6 +1038,7 @@ type InputsUnion1 struct {
 	OutputFusionServerToolItem          *OutputFusionServerToolItem          `queryParam:"inline" union:"member"`
 	OutputAdvisorServerToolItem         *OutputAdvisorServerToolItem         `queryParam:"inline" union:"member"`
 	OutputSubagentServerToolItem        *OutputSubagentServerToolItem        `queryParam:"inline" union:"member"`
+	OutputFilesServerToolItem           *OutputFilesServerToolItem           `queryParam:"inline" union:"member"`
 	LocalShellCallItem                  *LocalShellCallItem                  `queryParam:"inline" union:"member"`
 	LocalShellCallOutputItem            *LocalShellCallOutputItem            `queryParam:"inline" union:"member"`
 	ShellCallItem                       *ShellCallItem                       `queryParam:"inline" union:"member"`
@@ -1347,6 +1349,15 @@ func CreateInputsUnion1OutputSubagentServerToolItem(outputSubagentServerToolItem
 	return InputsUnion1{
 		OutputSubagentServerToolItem: &outputSubagentServerToolItem,
 		Type:                         typ,
+	}
+}
+
+func CreateInputsUnion1OutputFilesServerToolItem(outputFilesServerToolItem OutputFilesServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputFilesServerToolItem
+
+	return InputsUnion1{
+		OutputFilesServerToolItem: &outputFilesServerToolItem,
+		Type:                      typ,
 	}
 }
 
@@ -1727,6 +1738,14 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var outputFilesServerToolItem OutputFilesServerToolItem = OutputFilesServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputFilesServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputFilesServerToolItem,
+			Value: &outputFilesServerToolItem,
+		})
+	}
+
 	var localShellCallItem LocalShellCallItem = LocalShellCallItem{}
 	if err := utils.UnmarshalJSON(data, &localShellCallItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -1935,6 +1954,9 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeOutputSubagentServerToolItem:
 		u.OutputSubagentServerToolItem = best.Value.(*OutputSubagentServerToolItem)
 		return nil
+	case InputsUnion1TypeOutputFilesServerToolItem:
+		u.OutputFilesServerToolItem = best.Value.(*OutputFilesServerToolItem)
+		return nil
 	case InputsUnion1TypeLocalShellCallItem:
 		u.LocalShellCallItem = best.Value.(*LocalShellCallItem)
 		return nil
@@ -2107,6 +2129,10 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 
 	if u.OutputSubagentServerToolItem != nil {
 		return utils.MarshalJSON(u.OutputSubagentServerToolItem, "", true)
+	}
+
+	if u.OutputFilesServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputFilesServerToolItem, "", true)
 	}
 
 	if u.LocalShellCallItem != nil {

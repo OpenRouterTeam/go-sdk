@@ -202,6 +202,12 @@ inputsUnion1 := components.CreateInputsUnion1OutputAdvisorServerToolItem(compone
 inputsUnion1 := components.CreateInputsUnion1OutputSubagentServerToolItem(components.OutputSubagentServerToolItem{/* values here */})
 ```
 
+### OutputFilesServerToolItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1OutputFilesServerToolItem(components.OutputFilesServerToolItem{/* values here */})
+```
+
 ### LocalShellCallItem
 
 ```go
@@ -346,6 +352,8 @@ switch inputsUnion1.Type {
 		// inputsUnion1.OutputAdvisorServerToolItem is populated
 	case components.InputsUnion1TypeOutputSubagentServerToolItem:
 		// inputsUnion1.OutputSubagentServerToolItem is populated
+	case components.InputsUnion1TypeOutputFilesServerToolItem:
+		// inputsUnion1.OutputFilesServerToolItem is populated
 	case components.InputsUnion1TypeLocalShellCallItem:
 		// inputsUnion1.LocalShellCallItem is populated
 	case components.InputsUnion1TypeLocalShellCallOutputItem:

@@ -103,6 +103,12 @@ outputItems := components.CreateOutputItemsOpenrouterExperimentalSearchModels(co
 outputItems := components.CreateOutputItemsOpenrouterFileSearch(components.OutputFileSearchServerToolItem{/* values here */})
 ```
 
+### OutputFilesServerToolItem
+
+```go
+outputItems := components.CreateOutputItemsOpenrouterFiles(components.OutputFilesServerToolItem{/* values here */})
+```
+
 ### OutputFusionServerToolItem
 
 ```go
@@ -219,6 +225,8 @@ switch outputItems.Type {
 		// outputItems.OutputSearchModelsServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterFileSearch:
 		// outputItems.OutputFileSearchServerToolItem is populated
+	case components.OutputItemsTypeOpenrouterFiles:
+		// outputItems.OutputFilesServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterFusion:
 		// outputItems.OutputFusionServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterImageGeneration:
