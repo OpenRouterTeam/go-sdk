@@ -28,6 +28,7 @@ const (
 	OutputItemsTypeOpenrouterDatetime                 OutputItemsType = "openrouter:datetime"
 	OutputItemsTypeOpenrouterExperimentalSearchModels OutputItemsType = "openrouter:experimental__search_models"
 	OutputItemsTypeOpenrouterFileSearch               OutputItemsType = "openrouter:file_search"
+	OutputItemsTypeOpenrouterFiles                    OutputItemsType = "openrouter:files"
 	OutputItemsTypeOpenrouterFusion                   OutputItemsType = "openrouter:fusion"
 	OutputItemsTypeOpenrouterImageGeneration          OutputItemsType = "openrouter:image_generation"
 	OutputItemsTypeOpenrouterMcp                      OutputItemsType = "openrouter:mcp"
@@ -74,6 +75,7 @@ type OutputItems struct {
 	OutputFusionServerToolItem          *OutputFusionServerToolItem          `queryParam:"inline" union:"member"`
 	OutputAdvisorServerToolItem         *OutputAdvisorServerToolItem         `queryParam:"inline" union:"member"`
 	OutputSubagentServerToolItem        *OutputSubagentServerToolItem        `queryParam:"inline" union:"member"`
+	OutputFilesServerToolItem           *OutputFilesServerToolItem           `queryParam:"inline" union:"member"`
 	OutputCustomToolCallItem            *OutputCustomToolCallItem            `queryParam:"inline" union:"member"`
 	UnknownRaw                          json.RawMessage                      `json:"-" union:"unknown"`
 
@@ -269,6 +271,18 @@ func CreateOutputItemsOpenrouterFileSearch(openrouterFileSearch OutputFileSearch
 	return OutputItems{
 		OutputFileSearchServerToolItem: &openrouterFileSearch,
 		Type:                           typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterFiles(openrouterFiles OutputFilesServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterFiles
+
+	typStr := OutputFilesServerToolItemType(typ)
+	openrouterFiles.Type = typStr
+
+	return OutputItems{
+		OutputFilesServerToolItem: &openrouterFiles,
+		Type:                      typ,
 	}
 }
 
@@ -606,6 +620,15 @@ func (u *OutputItems) UnmarshalJSON(data []byte) error {
 		u.OutputFileSearchServerToolItem = outputFileSearchServerToolItem
 		u.Type = OutputItemsTypeOpenrouterFileSearch
 		return nil
+	case "openrouter:files":
+		outputFilesServerToolItem := new(OutputFilesServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputFilesServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:files) type OutputFilesServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputFilesServerToolItem = outputFilesServerToolItem
+		u.Type = OutputItemsTypeOpenrouterFiles
+		return nil
 	case "openrouter:fusion":
 		outputFusionServerToolItem := new(OutputFusionServerToolItem)
 		if err := utils.UnmarshalJSON(data, &outputFusionServerToolItem, "", true, nil); err != nil {
@@ -842,6 +865,10 @@ func (u OutputItems) MarshalJSON() ([]byte, error) {
 
 	if u.OutputSubagentServerToolItem != nil {
 		return utils.MarshalJSON(u.OutputSubagentServerToolItem, "", true)
+	}
+
+	if u.OutputFilesServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputFilesServerToolItem, "", true)
 	}
 
 	if u.OutputCustomToolCallItem != nil {

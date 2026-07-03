@@ -122,6 +122,10 @@ func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterFileSearch() *Outp
 	return s.GetItem().OutputFileSearchServerToolItem
 }
 
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterFiles() *OutputFilesServerToolItem {
+	return s.GetItem().OutputFilesServerToolItem
+}
+
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterFusion() *OutputFusionServerToolItem {
 	return s.GetItem().OutputFusionServerToolItem
 }
