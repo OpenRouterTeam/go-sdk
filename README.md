@@ -335,6 +335,7 @@ func main() {
 * [ListBudgets](docs/sdks/workspaces/README.md#listbudgets) - List workspace budgets
 * [DeleteBudget](docs/sdks/workspaces/README.md#deletebudget) - Delete a workspace budget
 * [SetBudget](docs/sdks/workspaces/README.md#setbudget) - Create or update a workspace budget
+* [ListMembers](docs/sdks/workspaces/README.md#listmembers) - List workspace members
 * [BulkAddMembers](docs/sdks/workspaces/README.md#bulkaddmembers) - Bulk add members to a workspace
 * [BulkRemoveMembers](docs/sdks/workspaces/README.md#bulkremovemembers) - Bulk remove members from a workspace
 
