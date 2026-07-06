@@ -154,8 +154,11 @@ jobs:
             "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" regen-checkout
           cd regen-checkout
 
-          # Version comes from the branch's own gen.lock (the regen already set it).
-          scripts/bump-examples.sh --docs-only
+          # Resolve the version once from the branch's own gen.lock (the regen
+          # already set it) and reuse it for both the bump and the commit
+          # message, so the label can't drift from what was actually written.
+          VERSION=$(awk '/^  releaseVersion: / { print "v" $2; exit }' .speakeasy/gen.lock)
+          scripts/bump-examples.sh --docs-only "$VERSION"
 
           if git diff --quiet; then
             echo "Doc versions already in sync — nothing to commit"
@@ -165,7 +168,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "docs: sync install snippets to $(awk '/^  releaseVersion: / { print "v" $2; exit }' .speakeasy/gen.lock)"
+          git commit -m "docs: sync install snippets to ${VERSION}"
           git push origin "HEAD:${HEAD_REF}"
           echo "::notice title=docs-synced::Bumped doc versions on $HEAD_REF before merge (PR #$PR_NUM)"
 
