@@ -101,7 +101,10 @@ jobs:
             exit 0
           fi
 
+          HEAD_REF=$(echo "$PR_JSON" | jq -r --argjson num "$PR_NUM" \
+            '[.[] | select(.number == $num)] | .[0].headRefName // empty')
           echo "pr_num=$PR_NUM" >> "$GITHUB_OUTPUT"
+          echo "head_ref=$HEAD_REF" >> "$GITHUB_OUTPUT"
           echo "$PR_JSON" > /tmp/speakeasy_pr_json.json
 
       - name: Close superseded Speakeasy PRs
@@ -131,6 +134,43 @@ jobs:
               || echo "::warning::Failed to close PR #$N (continuing)"
             sleep 1
           done
+
+      # Rewrite the doc install snippets (README/OVERVIEW/doc.go/examples,
+      # example_test.go) to the release version ON the regen branch, before the
+      # merge. pkg.go.dev renders the README from the release tag's tree, and the
+      # tag points at this PR's squash-merge commit — so without a pre-merge doc
+      # bump, each release's pkg.go.dev README shows the *previous* version until
+      # the next release. Docs-only: pure text rewrite, no network/published tag.
+      - name: Sync doc versions on regen branch
+        if: steps.pr.outputs.pr_num != '' && steps.pr.outputs.head_ref != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          HEAD_REF: ${{ steps.pr.outputs.head_ref }}
+          PR_NUM: ${{ steps.pr.outputs.pr_num }}
+        run: |
+          set -euo pipefail
+
+          git clone --branch "$HEAD_REF" --depth 1 \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" regen-checkout
+          cd regen-checkout
+
+          # Resolve the version once from the branch's own gen.lock (the regen
+          # already set it) and reuse it for both the bump and the commit
+          # message, so the label can't drift from what was actually written.
+          VERSION=$(awk '/^  releaseVersion: / { print "v" $2; exit }' .speakeasy/gen.lock)
+          scripts/bump-examples.sh --docs-only "$VERSION"
+
+          if git diff --quiet; then
+            echo "Doc versions already in sync — nothing to commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "docs: sync install snippets to ${VERSION}"
+          git push origin "HEAD:${HEAD_REF}"
+          echo "::notice title=docs-synced::Bumped doc versions on $HEAD_REF before merge (PR #$PR_NUM)"
 
       - name: Auto-merge Speakeasy PR
         if: steps.pr.outputs.pr_num != ''
