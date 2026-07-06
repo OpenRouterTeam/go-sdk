@@ -51,7 +51,7 @@ This should match the version in [README.md](../README.md) and `.speakeasy/gen.l
 To use a different version:
 
 ```bash
-go get github.com/OpenRouterTeam/go-sdk@v0.5.9
+go get github.com/OpenRouterTeam/go-sdk@v0.5.12
 go run .
 ```
 
