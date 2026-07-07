@@ -1,0 +1,26 @@
+---
+title: "PriceSource"
+---
+
+Price source for the Pareto frontier cost axis. "prompt" uses catalog list price (endpoint.pricing.prompt). "weighted_avg" uses traffic-weighted effective input price from ClickHouse, falling back to prompt price for models without traffic data. Defaults to "prompt".
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.PriceSourcePrompt
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PriceSource("custom_value")
+```
+
+
+## Values
+
+| Name                     | Value                    |
+| ------------------------ | ------------------------ |
+| `PriceSourcePrompt`      | prompt                   |
+| `PriceSourceWeightedAvg` | weighted_avg             |

@@ -313,6 +313,7 @@ func main() {
 ### [Stt](docs/sdks/stt/README.md)
 
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
+* [CreateTranscriptionMultipart](docs/sdks/stt/README.md#createtranscriptionmultipart) - Create transcription
 
 ### [Tts](docs/sdks/tts/README.md)
 
