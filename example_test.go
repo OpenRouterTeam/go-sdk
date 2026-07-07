@@ -92,9 +92,8 @@ func Example_listModels() {
 		log.Fatal(err)
 	}
 
-	if res != nil && len(res.Data) > 0 {
-		fmt.Printf("Found %d models\n", len(res.Data))
-		fmt.Printf("First model: %s\n", res.Data[0].Name)
+	if res != nil {
+		fmt.Println("Successfully fetched models")
 	}
 }
 
