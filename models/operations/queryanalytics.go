@@ -9,6 +9,303 @@ import (
 	"time"
 )
 
+// ClassifierDimensions - Group results by custom classifier tags, breaking down metrics by the specified dimension values. Requires an active classifier on the workspace.
+type ClassifierDimensions struct {
+	// UUID of the classifier whose tags to group by.
+	ClassifierID   string   `json:"classifier_id"`
+	DimensionNames []string `json:"dimension_names,omitzero"`
+	// When true, also include generations that have no tag from this classifier. Defaults to false, which returns only classified generations.
+	IncludeNulls *bool `json:"include_nulls,omitzero"`
+}
+
+func (c ClassifierDimensions) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ClassifierDimensions) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *ClassifierDimensions) GetClassifierID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ClassifierID
+}
+
+func (c *ClassifierDimensions) GetDimensionNames() []string {
+	if c == nil {
+		return nil
+	}
+	return c.DimensionNames
+}
+
+func (c *ClassifierDimensions) GetIncludeNulls() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IncludeNulls
+}
+
+type ValueClassifierFiltersType string
+
+const (
+	ValueClassifierFiltersTypeStr    ValueClassifierFiltersType = "str"
+	ValueClassifierFiltersTypeNumber ValueClassifierFiltersType = "number"
+)
+
+type ValueClassifierFilters struct {
+	Str    *string  `queryParam:"inline" union:"member"`
+	Number *float64 `queryParam:"inline" union:"member"`
+
+	Type ValueClassifierFiltersType
+}
+
+func CreateValueClassifierFiltersStr(str string) ValueClassifierFilters {
+	typ := ValueClassifierFiltersTypeStr
+
+	return ValueClassifierFilters{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateValueClassifierFiltersNumber(number float64) ValueClassifierFilters {
+	typ := ValueClassifierFiltersTypeNumber
+
+	return ValueClassifierFilters{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func (u *ValueClassifierFilters) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ValueClassifierFiltersTypeStr,
+			Value: &str,
+		})
+	}
+
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ValueClassifierFiltersTypeNumber,
+			Value: &number,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ValueClassifierFilters", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ValueClassifierFilters", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ValueClassifierFiltersType)
+	switch best.Type {
+	case ValueClassifierFiltersTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case ValueClassifierFiltersTypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ValueClassifierFilters", string(data))
+}
+
+func (u ValueClassifierFilters) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type ValueClassifierFilters: all fields are null")
+}
+
+type ClassifierFiltersValueType string
+
+const (
+	ClassifierFiltersValueTypeStr                           ClassifierFiltersValueType = "str"
+	ClassifierFiltersValueTypeNumber                        ClassifierFiltersValueType = "number"
+	ClassifierFiltersValueTypeArrayOfValueClassifierFilters ClassifierFiltersValueType = "arrayOfValueClassifierFilters"
+)
+
+// ClassifierFiltersValue - Filter value. Use a scalar (string or number) for eq/neq, or an array for in/not_in.
+type ClassifierFiltersValue struct {
+	Str                           *string                  `queryParam:"inline" union:"member"`
+	Number                        *float64                 `queryParam:"inline" union:"member"`
+	ArrayOfValueClassifierFilters []ValueClassifierFilters `queryParam:"inline" union:"member"`
+
+	Type ClassifierFiltersValueType
+}
+
+func CreateClassifierFiltersValueStr(str string) ClassifierFiltersValue {
+	typ := ClassifierFiltersValueTypeStr
+
+	return ClassifierFiltersValue{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateClassifierFiltersValueNumber(number float64) ClassifierFiltersValue {
+	typ := ClassifierFiltersValueTypeNumber
+
+	return ClassifierFiltersValue{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateClassifierFiltersValueArrayOfValueClassifierFilters(arrayOfValueClassifierFilters []ValueClassifierFilters) ClassifierFiltersValue {
+	typ := ClassifierFiltersValueTypeArrayOfValueClassifierFilters
+
+	return ClassifierFiltersValue{
+		ArrayOfValueClassifierFilters: arrayOfValueClassifierFilters,
+		Type:                          typ,
+	}
+}
+
+func (u *ClassifierFiltersValue) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ClassifierFiltersValueTypeStr,
+			Value: &str,
+		})
+	}
+
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ClassifierFiltersValueTypeNumber,
+			Value: &number,
+		})
+	}
+
+	var arrayOfValueClassifierFilters []ValueClassifierFilters = []ValueClassifierFilters{}
+	if err := utils.UnmarshalJSON(data, &arrayOfValueClassifierFilters, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ClassifierFiltersValueTypeArrayOfValueClassifierFilters,
+			Value: arrayOfValueClassifierFilters,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ClassifierFiltersValue", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ClassifierFiltersValue", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ClassifierFiltersValueType)
+	switch best.Type {
+	case ClassifierFiltersValueTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case ClassifierFiltersValueTypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case ClassifierFiltersValueTypeArrayOfValueClassifierFilters:
+		u.ArrayOfValueClassifierFilters = best.Value.([]ValueClassifierFilters)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ClassifierFiltersValue", string(data))
+}
+
+func (u ClassifierFiltersValue) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.ArrayOfValueClassifierFilters != nil {
+		return utils.MarshalJSON(u.ArrayOfValueClassifierFilters, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type ClassifierFiltersValue: all fields are null")
+}
+
+type ClassifierFiltersFilter struct {
+	// Classifier dimension name to filter on (snake_case identifier, e.g. "department", "work_type").
+	Field string `json:"field"`
+	// Filter operator. Only equality/set operators are supported (eq, neq, in, not_in) — ordered comparisons are not available because classification values are strings.
+	Operator string `json:"operator"`
+	// Filter value. Use a scalar (string or number) for eq/neq, or an array for in/not_in.
+	Value ClassifierFiltersValue `json:"value"`
+}
+
+func (c *ClassifierFiltersFilter) GetField() string {
+	if c == nil {
+		return ""
+	}
+	return c.Field
+}
+
+func (c *ClassifierFiltersFilter) GetOperator() string {
+	if c == nil {
+		return ""
+	}
+	return c.Operator
+}
+
+func (c *ClassifierFiltersFilter) GetValue() ClassifierFiltersValue {
+	if c == nil {
+		return ClassifierFiltersValue{}
+	}
+	return c.Value
+}
+
+// ClassifierFilters - Filter results to generations with specific classifier tag values. Can be combined with classifier_dimensions (must use the same classifier_id) or used independently with standard dimensions.
+type ClassifierFilters struct {
+	// UUID of the classifier whose tags to filter by. Must match classifier_dimensions.classifier_id when both are specified.
+	ClassifierID string                    `json:"classifier_id"`
+	Filters      []ClassifierFiltersFilter `json:"filters"`
+}
+
+func (c *ClassifierFilters) GetClassifierID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ClassifierID
+}
+
+func (c *ClassifierFilters) GetFilters() []ClassifierFiltersFilter {
+	if c == nil {
+		return []ClassifierFiltersFilter{}
+	}
+	return c.Filters
+}
+
 type Value2Type string
 
 const (
@@ -317,8 +614,12 @@ func (t *TimeRange) GetStart() time.Time {
 }
 
 type QueryAnalyticsRequest struct {
-	Dimensions []string `json:"dimensions,omitzero"`
-	Filters    []Filter `json:"filters,omitzero"`
+	// Group results by custom classifier tags, breaking down metrics by the specified dimension values. Requires an active classifier on the workspace.
+	ClassifierDimensions *ClassifierDimensions `json:"classifier_dimensions,omitzero"`
+	// Filter results to generations with specific classifier tag values. Can be combined with classifier_dimensions (must use the same classifier_id) or used independently with standard dimensions.
+	ClassifierFilters *ClassifierFilters `json:"classifier_filters,omitzero"`
+	Dimensions        []string           `json:"dimensions,omitzero"`
+	Filters           []Filter           `json:"filters,omitzero"`
 	// Time granularity
 	Granularity *string `json:"granularity,omitzero"`
 	// Maximum rows per distinct combination of dimensions. When omitted on time-series queries (granularity + dimensions), auto-computed to avoid truncating time windows. Explicit values override the default and may truncate time buckets if set lower than the number of buckets in the range. Ignored when no dimensions are specified.
@@ -339,6 +640,20 @@ func (q *QueryAnalyticsRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (q *QueryAnalyticsRequest) GetClassifierDimensions() *ClassifierDimensions {
+	if q == nil {
+		return nil
+	}
+	return q.ClassifierDimensions
+}
+
+func (q *QueryAnalyticsRequest) GetClassifierFilters() *ClassifierFilters {
+	if q == nil {
+		return nil
+	}
+	return q.ClassifierFilters
 }
 
 func (q *QueryAnalyticsRequest) GetDimensions() []string {
