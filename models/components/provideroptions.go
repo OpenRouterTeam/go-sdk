@@ -39,6 +39,7 @@ type ProviderOptions struct {
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
+	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
 	Deepseek            map[string]any `json:"deepseek,omitzero"`
 	Dekallm             map[string]any `json:"dekallm,omitzero"`
@@ -356,6 +357,13 @@ func (p *ProviderOptions) GetDecart() map[string]any {
 		return nil
 	}
 	return p.Decart
+}
+
+func (p *ProviderOptions) GetDeepgram() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Deepgram
 }
 
 func (p *ProviderOptions) GetDeepinfra() map[string]any {
