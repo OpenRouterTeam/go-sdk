@@ -237,9 +237,32 @@ jobs:
           fi
 
           MERGE_METHOD=""
+          # Retry direct merges: right after the doc-sync push GitHub is still
+          # recomputing mergeability, and merge attempts fail transiently with
+          # "Pull Request is not mergeable" even though the PR ends up CLEAN.
+          merge_with_retry() {
+            local pr=$1
+            local attempts=8
+            local interval=15
+
+            for attempt in $(seq 1 "$attempts"); do
+              if gh pr merge "$pr" --repo "$REPO" --squash --delete-branch 2> /tmp/gh-direct-merge.err; then
+                return 0
+              fi
+              if ! grep -qi 'not mergeable' /tmp/gh-direct-merge.err; then
+                cat /tmp/gh-direct-merge.err >&2
+                return 1
+              fi
+              echo "PR #$pr not mergeable yet (mergeability recompute) — retrying in ${interval}s (attempt $attempt/$attempts)..."
+              sleep "$interval"
+            done
+            cat /tmp/gh-direct-merge.err >&2
+            return 1
+          }
+
           # Prefer GitHub auto-merge when required checks exist; otherwise
           # squash-merge directly after checks pass (sdk-release-prs.yaml pattern).
-          AUTO_MERGE_NOOP_PATTERN='is in clean status|protected branch rules|Branch does not have required protected branch rules'
+          AUTO_MERGE_NOOP_PATTERN='is in clean status|protected branch rules|Branch does not have required protected branch rules|not mergeable'
           if gh pr merge "$PR_NUM" --repo "$REPO" --squash --auto --delete-branch 2> /tmp/gh-merge.err; then
             MERGE_METHOD="auto-merge queued"
             echo "Auto-merge enabled for Speakeasy PR #$PR_NUM"
@@ -247,7 +270,7 @@ jobs:
             echo "Auto-merge not applicable — waiting for checks, then merging PR #$PR_NUM directly"
             cat /tmp/gh-merge.err >&2
             wait_for_checks "$PR_NUM"
-            gh pr merge "$PR_NUM" --repo "$REPO" --squash --delete-branch
+            merge_with_retry "$PR_NUM"
             MERGE_METHOD="direct squash (checks passed)"
           else
             echo "::error::Failed to enable auto-merge on Speakeasy PR #$PR_NUM"
