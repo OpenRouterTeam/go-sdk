@@ -118,3 +118,6 @@ jobs:
         run: scripts/verify-examples.sh
         env:
           PINNED_BUILD: auto
+          # On Speakeasy release PRs the examples necessarily lag gen.lock's
+          # new releaseVersion until the post-merge bump job runs — allow it.
+          ALLOW_PENDING_RELEASE: ${{ startsWith(github.head_ref, 'speakeasy-sdk-regen-') && '1' || '0' }}
