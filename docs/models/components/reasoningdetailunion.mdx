@@ -13,6 +13,12 @@ Reasoning detail union schema
 reasoningDetailUnion := components.CreateReasoningDetailUnionReasoningEncrypted(components.ReasoningDetailEncrypted{/* values here */})
 ```
 
+### ReasoningDetailServerToolCall
+
+```go
+reasoningDetailUnion := components.CreateReasoningDetailUnionReasoningServerToolCall(components.ReasoningDetailServerToolCall{/* values here */})
+```
+
 ### ReasoningDetailSummary
 
 ```go
@@ -33,6 +39,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch reasoningDetailUnion.Type {
 	case components.ReasoningDetailUnionTypeReasoningEncrypted:
 		// reasoningDetailUnion.ReasoningDetailEncrypted is populated
+	case components.ReasoningDetailUnionTypeReasoningServerToolCall:
+		// reasoningDetailUnion.ReasoningDetailServerToolCall is populated
 	case components.ReasoningDetailUnionTypeReasoningSummary:
 		// reasoningDetailUnion.ReasoningDetailSummary is populated
 	case components.ReasoningDetailUnionTypeReasoningText:

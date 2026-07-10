@@ -1,0 +1,38 @@
+---
+title: "AgentMessageItemContentUnion"
+---
+
+## Supported Types
+
+### InputText
+
+```go
+agentMessageItemContentUnion := components.CreateAgentMessageItemContentUnionInputText(components.InputText{/* values here */})
+```
+
+### AgentMessageItemContentInputImage
+
+```go
+agentMessageItemContentUnion := components.CreateAgentMessageItemContentUnionInputImage(components.AgentMessageItemContentInputImage{/* values here */})
+```
+
+### ContentEncryptedContent
+
+```go
+agentMessageItemContentUnion := components.CreateAgentMessageItemContentUnionEncryptedContent(components.ContentEncryptedContent{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch agentMessageItemContentUnion.Type {
+	case components.AgentMessageItemContentUnionTypeInputText:
+		// agentMessageItemContentUnion.InputText is populated
+	case components.AgentMessageItemContentUnionTypeInputImage:
+		// agentMessageItemContentUnion.AgentMessageItemContentInputImage is populated
+	case components.AgentMessageItemContentUnionTypeEncryptedContent:
+		// agentMessageItemContentUnion.ContentEncryptedContent is populated
+}
+```

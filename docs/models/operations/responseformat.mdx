@@ -1,0 +1,26 @@
+---
+title: "ResponseFormat"
+---
+
+The response format. "json" (default) returns \{ text, usage }; "verbose_json" additionally returns task, language, duration, and segment-level timestamps (OpenAI-compatible providers only).
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.ResponseFormatJSON
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.ResponseFormat("custom_value")
+```
+
+
+## Values
+
+| Name                        | Value                       |
+| --------------------------- | --------------------------- |
+| `ResponseFormatJSON`        | json                        |
+| `ResponseFormatVerboseJSON` | verbose_json                |

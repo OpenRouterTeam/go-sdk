@@ -84,28 +84,6 @@ func (i *InputImageMask) GetImageURL() *string {
 	return i.ImageURL
 }
 
-type ModelEnum string
-
-const (
-	ModelEnumGptImage1     ModelEnum = "gpt-image-1"
-	ModelEnumGptImage1Mini ModelEnum = "gpt-image-1-mini"
-)
-
-func (e ModelEnum) ToPointer() *ModelEnum {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ModelEnum) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "gpt-image-1", "gpt-image-1-mini":
-			return true
-		}
-	}
-	return false
-}
-
 type Moderation string
 
 const (
@@ -175,30 +153,6 @@ func (e *ImageGenerationServerToolQuality) IsExact() bool {
 	return false
 }
 
-type Size string
-
-const (
-	SizeOneThousandAndTwentyFourx1024           Size = "1024x1024"
-	SizeOneThousandAndTwentyFourx1536           Size = "1024x1536"
-	SizeOneThousandFiveHundredAndThirtySixx1024 Size = "1536x1024"
-	SizeAuto                                    Size = "auto"
-)
-
-func (e Size) ToPointer() *Size {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Size) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "1024x1024", "1024x1536", "1536x1024", "auto":
-			return true
-		}
-	}
-	return false
-}
-
 type ImageGenerationServerToolType string
 
 const (
@@ -227,13 +181,13 @@ type ImageGenerationServerTool struct {
 	Background        *ImageGenerationServerToolBackground             `json:"background,omitzero"`
 	InputFidelity     optionalnullable.OptionalNullable[InputFidelity] `json:"input_fidelity,omitzero"`
 	InputImageMask    *InputImageMask                                  `json:"input_image_mask,omitzero"`
-	Model             *ModelEnum                                       `json:"model,omitzero"`
+	Model             *string                                          `json:"model,omitzero"`
 	Moderation        *Moderation                                      `json:"moderation,omitzero"`
 	OutputCompression *int64                                           `json:"output_compression,omitzero"`
 	OutputFormat      *ImageGenerationServerToolOutputFormat           `json:"output_format,omitzero"`
 	PartialImages     *int64                                           `json:"partial_images,omitzero"`
 	Quality           *ImageGenerationServerToolQuality                `json:"quality,omitzero"`
-	Size              *Size                                            `json:"size,omitzero"`
+	Size              *string                                          `json:"size,omitzero"`
 	Type              ImageGenerationServerToolType                    `json:"type"`
 }
 
@@ -269,7 +223,7 @@ func (i *ImageGenerationServerTool) GetInputImageMask() *InputImageMask {
 	return i.InputImageMask
 }
 
-func (i *ImageGenerationServerTool) GetModel() *ModelEnum {
+func (i *ImageGenerationServerTool) GetModel() *string {
 	if i == nil {
 		return nil
 	}
@@ -311,7 +265,7 @@ func (i *ImageGenerationServerTool) GetQuality() *ImageGenerationServerToolQuali
 	return i.Quality
 }
 
-func (i *ImageGenerationServerTool) GetSize() *Size {
+func (i *ImageGenerationServerTool) GetSize() *string {
 	if i == nil {
 		return nil
 	}

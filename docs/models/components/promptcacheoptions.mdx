@@ -1,0 +1,13 @@
+---
+title: "PromptCacheOptions"
+---
+
+Request-level prompt-cache controls. `mode: "explicit"` disables OpenAI-managed breakpoints so only blocks marked with `prompt_cache_breakpoint` are cached. Only supported by OpenAI GPT-5.6 and newer.
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `Mode`                                                                                 | [components.PromptCacheOptionsMode](../../models/components/promptcacheoptionsmode.mdx) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `TTL`                                                                                  | optionalnullable.OptionalNullable[`string`]                                            | :heavy_minus_sign:                                                                     | N/A                                                                                    |

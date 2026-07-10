@@ -41,7 +41,7 @@ func (e *GetModelsCategory) IsExact() bool {
 	return false
 }
 
-// GetModelsSort - Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low (Artificial Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
+// GetModelsSort - Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
 type GetModelsSort string
 
 const (
@@ -54,6 +54,8 @@ const (
 	GetModelsSortThroughputHighToLow     GetModelsSort = "throughput-high-to-low"
 	GetModelsSortLatencyLowToHigh        GetModelsSort = "latency-low-to-high"
 	GetModelsSortIntelligenceHighToLow   GetModelsSort = "intelligence-high-to-low"
+	GetModelsSortCodingHighToLow         GetModelsSort = "coding-high-to-low"
+	GetModelsSortAgenticHighToLow        GetModelsSort = "agentic-high-to-low"
 	GetModelsSortDesignArenaEloHighToLow GetModelsSort = "design-arena-elo-high-to-low"
 )
 
@@ -65,7 +67,7 @@ func (e GetModelsSort) ToPointer() *GetModelsSort {
 func (e *GetModelsSort) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "most-popular", "newest", "top-weekly", "pricing-low-to-high", "pricing-high-to-low", "context-high-to-low", "throughput-high-to-low", "latency-low-to-high", "intelligence-high-to-low", "design-arena-elo-high-to-low":
+		case "most-popular", "newest", "top-weekly", "pricing-low-to-high", "pricing-high-to-low", "context-high-to-low", "throughput-high-to-low", "latency-low-to-high", "intelligence-high-to-low", "coding-high-to-low", "agentic-high-to-low", "design-arena-elo-high-to-low":
 			return true
 		}
 	}
@@ -150,7 +152,7 @@ type GetModelsRequest struct {
 	SupportedParameters *string `queryParam:"style=form,explode=true,name=supported_parameters"`
 	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, audio, embeddings) or "all" to include all models. Defaults to "text".
 	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
-	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low (Artificial Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
+	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
 	Sort *GetModelsSort `queryParam:"style=form,explode=true,name=sort"`
 	// Free-text search by model name or slug.
 	Q *string `queryParam:"style=form,explode=true,name=q"`
@@ -174,6 +176,30 @@ type GetModelsRequest struct {
 	Zdr *Zdr `queryParam:"style=form,explode=true,name=zdr"`
 	// Filter to models with endpoints in the given data region. Currently only "eu" is supported.
 	Region *Region `queryParam:"style=form,explode=true,name=region"`
+	// Minimum completion (output) price in $/M tokens.
+	MinOutputPrice optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_output_price"`
+	// Maximum completion (output) price in $/M tokens.
+	MaxOutputPrice optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=max_output_price"`
+	// Minimum model age in days since its creation date.
+	MinAgeDays optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=min_age_days"`
+	// Maximum model age in days since its creation date.
+	MaxAgeDays optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=max_age_days"`
+	// Minimum Artificial Analysis intelligence index.
+	MinIntelligenceIndex optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_intelligence_index"`
+	// Maximum Artificial Analysis intelligence index.
+	MaxIntelligenceIndex optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=max_intelligence_index"`
+	// Minimum Artificial Analysis coding index.
+	MinCodingIndex optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_coding_index"`
+	// Maximum Artificial Analysis coding index.
+	MaxCodingIndex optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=max_coding_index"`
+	// Minimum Artificial Analysis agentic index.
+	MinAgenticIndex optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_agentic_index"`
+	// Maximum Artificial Analysis agentic index.
+	MaxAgenticIndex optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=max_agentic_index"`
+	// Minimum tool-calling success rate, as a fraction in [0, 1] (e.g. 0.9 = 90% of requests finishing with a tool_calls finish reason).
+	MinToolSuccessRate optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_tool_success_rate"`
+	// Maximum tool-calling success rate, as a fraction in [0, 1].
+	MaxToolSuccessRate optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=max_tool_success_rate"`
 }
 
 func (g *GetModelsRequest) GetCategory() *GetModelsCategory {
@@ -279,4 +305,88 @@ func (g *GetModelsRequest) GetRegion() *Region {
 		return nil
 	}
 	return g.Region
+}
+
+func (g *GetModelsRequest) GetMinOutputPrice() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MinOutputPrice
+}
+
+func (g *GetModelsRequest) GetMaxOutputPrice() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MaxOutputPrice
+}
+
+func (g *GetModelsRequest) GetMinAgeDays() optionalnullable.OptionalNullable[int64] {
+	if g == nil {
+		return nil
+	}
+	return g.MinAgeDays
+}
+
+func (g *GetModelsRequest) GetMaxAgeDays() optionalnullable.OptionalNullable[int64] {
+	if g == nil {
+		return nil
+	}
+	return g.MaxAgeDays
+}
+
+func (g *GetModelsRequest) GetMinIntelligenceIndex() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MinIntelligenceIndex
+}
+
+func (g *GetModelsRequest) GetMaxIntelligenceIndex() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MaxIntelligenceIndex
+}
+
+func (g *GetModelsRequest) GetMinCodingIndex() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MinCodingIndex
+}
+
+func (g *GetModelsRequest) GetMaxCodingIndex() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MaxCodingIndex
+}
+
+func (g *GetModelsRequest) GetMinAgenticIndex() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MinAgenticIndex
+}
+
+func (g *GetModelsRequest) GetMaxAgenticIndex() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MaxAgenticIndex
+}
+
+func (g *GetModelsRequest) GetMinToolSuccessRate() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MinToolSuccessRate
+}
+
+func (g *GetModelsRequest) GetMaxToolSuccessRate() optionalnullable.OptionalNullable[float64] {
+	if g == nil {
+		return nil
+	}
+	return g.MaxToolSuccessRate
 }

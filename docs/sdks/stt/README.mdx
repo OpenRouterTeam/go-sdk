@@ -10,10 +10,11 @@ Speech-to-text endpoints
 ### Available Operations
 
 * [CreateTranscription](#createtranscription) - Create transcription
+* [CreateTranscriptionMultipart](#createtranscriptionmultipart) - Create transcription
 
 ## CreateTranscription
 
-Transcribes audio into text. Accepts base64-encoded audio input and returns the transcribed text.
+Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
 
 ### Example Usage
 
@@ -59,6 +60,80 @@ func main() {
 | `ctx`                                                          | [context.Context](https://pkg.go.dev/context#Context)          | :heavy_check_mark:                                             | The context to use for the request.                            |
 | `request`                                                      | [components.STTRequest](../../models/components/sttrequest.mdx) | :heavy_check_mark:                                             | The request object to use for the request.                     |
 | `opts`                                                         | [][operations.Option](../../models/operations/option.mdx)       | :heavy_minus_sign:                                             | The options for this request.                                  |
+
+### Response
+
+**[*components.STTResponse](../../models/components/sttresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.PaymentRequiredResponseError    | 402                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.EdgeNetworkTimeoutResponseError | 524                                       | application/json                          |
+| sdkerrors.ProviderOverloadedResponseError | 529                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## CreateTranscriptionMultipart
+
+Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    example, fileErr := os.Open("example.file")
+    if fileErr != nil {
+        panic(fileErr)
+    }
+
+    res, err := s.Stt.CreateTranscriptionMultipart(ctx, operations.CreateAudioTranscriptionsMultipartRequest{
+        File: operations.CreateAudioTranscriptionsMultipartFile{
+            FileName: "example.file",
+            Content: example,
+        },
+        Language: openrouter.Pointer("en"),
+        Model: "openai/whisper-large-v3",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                                        | :heavy_check_mark:                                                                                                           | The context to use for the request.                                                                                          |
+| `request`                                                                                                                    | [operations.CreateAudioTranscriptionsMultipartRequest](../../models/operations/createaudiotranscriptionsmultipartrequest.mdx) | :heavy_check_mark:                                                                                                           | The request object to use for the request.                                                                                   |
+| `opts`                                                                                                                       | [][operations.Option](../../models/operations/option.mdx)                                                                     | :heavy_minus_sign:                                                                                                           | The options for this request.                                                                                                |
 
 ### Response
 

@@ -1001,7 +1001,10 @@ const (
 	InputsUnion1TypeCustomToolCallItem                  InputsUnion1Type = "CustomToolCallItem"
 	InputsUnion1TypeCustomToolCallOutputItem            InputsUnion1Type = "CustomToolCallOutputItem"
 	InputsUnion1TypeCompactionItem                      InputsUnion1Type = "CompactionItem"
+	InputsUnion1TypeContextCompactionItem               InputsUnion1Type = "ContextCompactionItem"
 	InputsUnion1TypeItemReferenceItem                   InputsUnion1Type = "ItemReferenceItem"
+	InputsUnion1TypeAdditionalToolsItem                 InputsUnion1Type = "AdditionalToolsItem"
+	InputsUnion1TypeAgentMessageItem                    InputsUnion1Type = "AgentMessageItem"
 )
 
 type InputsUnion1 struct {
@@ -1050,7 +1053,10 @@ type InputsUnion1 struct {
 	CustomToolCallItem                  *CustomToolCallItem                  `queryParam:"inline" union:"member"`
 	CustomToolCallOutputItem            *CustomToolCallOutputItem            `queryParam:"inline" union:"member"`
 	CompactionItem                      *CompactionItem                      `queryParam:"inline" union:"member"`
+	ContextCompactionItem               *ContextCompactionItem               `queryParam:"inline" union:"member"`
 	ItemReferenceItem                   *ItemReferenceItem                   `queryParam:"inline" union:"member"`
+	AdditionalToolsItem                 *AdditionalToolsItem                 `queryParam:"inline" union:"member"`
+	AgentMessageItem                    *AgentMessageItem                    `queryParam:"inline" union:"member"`
 
 	Type InputsUnion1Type
 }
@@ -1460,12 +1466,39 @@ func CreateInputsUnion1CompactionItem(compactionItem CompactionItem) InputsUnion
 	}
 }
 
+func CreateInputsUnion1ContextCompactionItem(contextCompactionItem ContextCompactionItem) InputsUnion1 {
+	typ := InputsUnion1TypeContextCompactionItem
+
+	return InputsUnion1{
+		ContextCompactionItem: &contextCompactionItem,
+		Type:                  typ,
+	}
+}
+
 func CreateInputsUnion1ItemReferenceItem(itemReferenceItem ItemReferenceItem) InputsUnion1 {
 	typ := InputsUnion1TypeItemReferenceItem
 
 	return InputsUnion1{
 		ItemReferenceItem: &itemReferenceItem,
 		Type:              typ,
+	}
+}
+
+func CreateInputsUnion1AdditionalToolsItem(additionalToolsItem AdditionalToolsItem) InputsUnion1 {
+	typ := InputsUnion1TypeAdditionalToolsItem
+
+	return InputsUnion1{
+		AdditionalToolsItem: &additionalToolsItem,
+		Type:                typ,
+	}
+}
+
+func CreateInputsUnion1AgentMessageItem(agentMessageItem AgentMessageItem) InputsUnion1 {
+	typ := InputsUnion1TypeAgentMessageItem
+
+	return InputsUnion1{
+		AgentMessageItem: &agentMessageItem,
+		Type:             typ,
 	}
 }
 
@@ -1834,11 +1867,35 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var contextCompactionItem ContextCompactionItem = ContextCompactionItem{}
+	if err := utils.UnmarshalJSON(data, &contextCompactionItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeContextCompactionItem,
+			Value: &contextCompactionItem,
+		})
+	}
+
 	var itemReferenceItem ItemReferenceItem = ItemReferenceItem{}
 	if err := utils.UnmarshalJSON(data, &itemReferenceItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  InputsUnion1TypeItemReferenceItem,
 			Value: &itemReferenceItem,
+		})
+	}
+
+	var additionalToolsItem AdditionalToolsItem = AdditionalToolsItem{}
+	if err := utils.UnmarshalJSON(data, &additionalToolsItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeAdditionalToolsItem,
+			Value: &additionalToolsItem,
+		})
+	}
+
+	var agentMessageItem AgentMessageItem = AgentMessageItem{}
+	if err := utils.UnmarshalJSON(data, &agentMessageItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeAgentMessageItem,
+			Value: &agentMessageItem,
 		})
 	}
 
@@ -1990,8 +2047,17 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeCompactionItem:
 		u.CompactionItem = best.Value.(*CompactionItem)
 		return nil
+	case InputsUnion1TypeContextCompactionItem:
+		u.ContextCompactionItem = best.Value.(*ContextCompactionItem)
+		return nil
 	case InputsUnion1TypeItemReferenceItem:
 		u.ItemReferenceItem = best.Value.(*ItemReferenceItem)
+		return nil
+	case InputsUnion1TypeAdditionalToolsItem:
+		u.AdditionalToolsItem = best.Value.(*AdditionalToolsItem)
+		return nil
+	case InputsUnion1TypeAgentMessageItem:
+		u.AgentMessageItem = best.Value.(*AgentMessageItem)
 		return nil
 	}
 
@@ -2179,8 +2245,20 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CompactionItem, "", true)
 	}
 
+	if u.ContextCompactionItem != nil {
+		return utils.MarshalJSON(u.ContextCompactionItem, "", true)
+	}
+
 	if u.ItemReferenceItem != nil {
 		return utils.MarshalJSON(u.ItemReferenceItem, "", true)
+	}
+
+	if u.AdditionalToolsItem != nil {
+		return utils.MarshalJSON(u.AdditionalToolsItem, "", true)
+	}
+
+	if u.AgentMessageItem != nil {
+		return utils.MarshalJSON(u.AgentMessageItem, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsUnion1: all fields are null")

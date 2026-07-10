@@ -245,6 +245,7 @@ func main() {
 
 * [GetGeneration](docs/sdks/generations/README.md#getgeneration) - Get request & usage metadata for a generation
 * [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt and completion content for a generation
+* [SubmitFeedback](docs/sdks/generations/README.md#submitfeedback) - Submit feedback for a generation
 
 ### [Guardrails](docs/sdks/guardrails/README.md)
 
@@ -313,6 +314,7 @@ func main() {
 ### [Stt](docs/sdks/stt/README.md)
 
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
+* [CreateTranscriptionMultipart](docs/sdks/stt/README.md#createtranscriptionmultipart) - Create transcription
 
 ### [Tts](docs/sdks/tts/README.md)
 

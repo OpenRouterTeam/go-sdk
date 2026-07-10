@@ -12,18 +12,20 @@ import (
 type ReasoningDetailUnionType string
 
 const (
-	ReasoningDetailUnionTypeReasoningEncrypted ReasoningDetailUnionType = "reasoning.encrypted"
-	ReasoningDetailUnionTypeReasoningSummary   ReasoningDetailUnionType = "reasoning.summary"
-	ReasoningDetailUnionTypeReasoningText      ReasoningDetailUnionType = "reasoning.text"
-	ReasoningDetailUnionTypeUnknown            ReasoningDetailUnionType = "UNKNOWN"
+	ReasoningDetailUnionTypeReasoningEncrypted      ReasoningDetailUnionType = "reasoning.encrypted"
+	ReasoningDetailUnionTypeReasoningServerToolCall ReasoningDetailUnionType = "reasoning.server_tool_call"
+	ReasoningDetailUnionTypeReasoningSummary        ReasoningDetailUnionType = "reasoning.summary"
+	ReasoningDetailUnionTypeReasoningText           ReasoningDetailUnionType = "reasoning.text"
+	ReasoningDetailUnionTypeUnknown                 ReasoningDetailUnionType = "UNKNOWN"
 )
 
 // ReasoningDetailUnion - Reasoning detail union schema
 type ReasoningDetailUnion struct {
-	ReasoningDetailSummary   *ReasoningDetailSummary   `queryParam:"inline" union:"member"`
-	ReasoningDetailEncrypted *ReasoningDetailEncrypted `queryParam:"inline" union:"member"`
-	ReasoningDetailText      *ReasoningDetailText      `queryParam:"inline" union:"member"`
-	UnknownRaw               json.RawMessage           `json:"-" union:"unknown"`
+	ReasoningDetailSummary        *ReasoningDetailSummary        `queryParam:"inline" union:"member"`
+	ReasoningDetailEncrypted      *ReasoningDetailEncrypted      `queryParam:"inline" union:"member"`
+	ReasoningDetailText           *ReasoningDetailText           `queryParam:"inline" union:"member"`
+	ReasoningDetailServerToolCall *ReasoningDetailServerToolCall `queryParam:"inline" union:"member"`
+	UnknownRaw                    json.RawMessage                `json:"-" union:"unknown"`
 
 	Type ReasoningDetailUnionType
 }
@@ -37,6 +39,18 @@ func CreateReasoningDetailUnionReasoningEncrypted(reasoningEncrypted ReasoningDe
 	return ReasoningDetailUnion{
 		ReasoningDetailEncrypted: &reasoningEncrypted,
 		Type:                     typ,
+	}
+}
+
+func CreateReasoningDetailUnionReasoningServerToolCall(reasoningServerToolCall ReasoningDetailServerToolCall) ReasoningDetailUnion {
+	typ := ReasoningDetailUnionTypeReasoningServerToolCall
+
+	typStr := ReasoningDetailServerToolCallType(typ)
+	reasoningServerToolCall.Type = typStr
+
+	return ReasoningDetailUnion{
+		ReasoningDetailServerToolCall: &reasoningServerToolCall,
+		Type:                          typ,
 	}
 }
 
@@ -107,6 +121,15 @@ func (u *ReasoningDetailUnion) UnmarshalJSON(data []byte) error {
 		u.ReasoningDetailEncrypted = reasoningDetailEncrypted
 		u.Type = ReasoningDetailUnionTypeReasoningEncrypted
 		return nil
+	case "reasoning.server_tool_call":
+		reasoningDetailServerToolCall := new(ReasoningDetailServerToolCall)
+		if err := utils.UnmarshalJSON(data, &reasoningDetailServerToolCall, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == reasoning.server_tool_call) type ReasoningDetailServerToolCall within ReasoningDetailUnion: %w", string(data), err)
+		}
+
+		u.ReasoningDetailServerToolCall = reasoningDetailServerToolCall
+		u.Type = ReasoningDetailUnionTypeReasoningServerToolCall
+		return nil
 	case "reasoning.summary":
 		reasoningDetailSummary := new(ReasoningDetailSummary)
 		if err := utils.UnmarshalJSON(data, &reasoningDetailSummary, "", true, nil); err != nil {
@@ -144,6 +167,10 @@ func (u ReasoningDetailUnion) MarshalJSON() ([]byte, error) {
 
 	if u.ReasoningDetailText != nil {
 		return utils.MarshalJSON(u.ReasoningDetailText, "", true)
+	}
+
+	if u.ReasoningDetailServerToolCall != nil {
+		return utils.MarshalJSON(u.ReasoningDetailServerToolCall, "", true)
 	}
 
 	if u.UnknownRaw != nil {

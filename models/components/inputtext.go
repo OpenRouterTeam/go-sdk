@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type InputTextType string
@@ -33,8 +34,10 @@ func (e *InputTextType) UnmarshalJSON(data []byte) error {
 
 // InputText - Text input content item
 type InputText struct {
-	Text string        `json:"text"`
-	Type InputTextType `json:"type"`
+	// Marks an explicit prompt-cache boundary on this content block. Everything through the block carrying this marker is part of the candidate cached prefix. Only supported by OpenAI GPT-5.6 and newer.
+	PromptCacheBreakpoint optionalnullable.OptionalNullable[PromptCacheBreakpoint] `json:"prompt_cache_breakpoint,omitzero"`
+	Text                  string                                                   `json:"text"`
+	Type                  InputTextType                                            `json:"type"`
 }
 
 func (i InputText) MarshalJSON() ([]byte, error) {
@@ -46,6 +49,13 @@ func (i *InputText) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (i *InputText) GetPromptCacheBreakpoint() optionalnullable.OptionalNullable[PromptCacheBreakpoint] {
+	if i == nil {
+		return nil
+	}
+	return i.PromptCacheBreakpoint
 }
 
 func (i *InputText) GetText() string {

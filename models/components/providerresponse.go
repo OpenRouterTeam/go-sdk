@@ -143,6 +143,29 @@ func (e *ProviderResponseProviderName) IsExact() bool {
 	return false
 }
 
+// RoutedServiceTier - The service tier this request was routed to (e.g. flex, priority). The tier actually applied and billed is determined by the provider response and may differ.
+type RoutedServiceTier string
+
+const (
+	RoutedServiceTierFlex     RoutedServiceTier = "flex"
+	RoutedServiceTierPriority RoutedServiceTier = "priority"
+)
+
+func (e RoutedServiceTier) ToPointer() *RoutedServiceTier {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RoutedServiceTier) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "flex", "priority":
+			return true
+		}
+	}
+	return false
+}
+
 // ProviderResponse - Details of a provider response for a generation attempt
 type ProviderResponse struct {
 	// Internal endpoint identifier
@@ -157,6 +180,8 @@ type ProviderResponse struct {
 	ModelPermaslug *string `json:"model_permaslug,omitzero"`
 	// Name of the provider
 	ProviderName *ProviderResponseProviderName `json:"provider_name,omitzero"`
+	// The service tier this request was routed to (e.g. flex, priority). The tier actually applied and billed is determined by the provider response and may differ.
+	RoutedServiceTier *RoutedServiceTier `json:"routed_service_tier,omitzero"`
 	// HTTP status code from the provider
 	Status *int64 `json:"status"`
 }
@@ -201,6 +226,13 @@ func (p *ProviderResponse) GetProviderName() *ProviderResponseProviderName {
 		return nil
 	}
 	return p.ProviderName
+}
+
+func (p *ProviderResponse) GetRoutedServiceTier() *RoutedServiceTier {
+	if p == nil {
+		return nil
+	}
+	return p.RoutedServiceTier
 }
 
 func (p *ProviderResponse) GetStatus() *int64 {

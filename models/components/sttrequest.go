@@ -30,6 +30,29 @@ func (s *STTRequestProvider) GetOptions() *ProviderOptions {
 	return s.Options
 }
 
+// STTRequestResponseFormat - Output format. "json" (default) returns { text, usage }. "verbose_json" additionally returns task, language, duration, and segment-level timestamps; only supported by OpenAI-compatible providers.
+type STTRequestResponseFormat string
+
+const (
+	STTRequestResponseFormatJSON        STTRequestResponseFormat = "json"
+	STTRequestResponseFormatVerboseJSON STTRequestResponseFormat = "verbose_json"
+)
+
+func (e STTRequestResponseFormat) ToPointer() *STTRequestResponseFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *STTRequestResponseFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "verbose_json":
+			return true
+		}
+	}
+	return false
+}
+
 // STTRequest - Speech-to-text request input. Accepts a JSON body with input_audio containing base64-encoded audio.
 type STTRequest struct {
 	// Base64-encoded audio to transcribe
@@ -40,8 +63,12 @@ type STTRequest struct {
 	Model string `json:"model"`
 	// Provider-specific passthrough configuration
 	Provider *STTRequestProvider `json:"provider,omitzero"`
+	// Output format. "json" (default) returns { text, usage }. "verbose_json" additionally returns task, language, duration, and segment-level timestamps; only supported by OpenAI-compatible providers.
+	ResponseFormat *STTRequestResponseFormat `json:"response_format,omitzero"`
 	// Sampling temperature for transcription
 	Temperature *float64 `json:"temperature,omitzero"`
+	// Timestamp detail levels to include when response_format is "verbose_json". "segment" returns segment-level timestamps; "word" additionally returns word-level timestamps in the words array. Ignored unless response_format is "verbose_json".
+	TimestampGranularities []STTTimestampGranularity `json:"timestamp_granularities,omitzero"`
 }
 
 func (s STTRequest) MarshalJSON() ([]byte, error) {
@@ -83,9 +110,23 @@ func (s *STTRequest) GetProvider() *STTRequestProvider {
 	return s.Provider
 }
 
+func (s *STTRequest) GetResponseFormat() *STTRequestResponseFormat {
+	if s == nil {
+		return nil
+	}
+	return s.ResponseFormat
+}
+
 func (s *STTRequest) GetTemperature() *float64 {
 	if s == nil {
 		return nil
 	}
 	return s.Temperature
+}
+
+func (s *STTRequest) GetTimestampGranularities() []STTTimestampGranularity {
+	if s == nil {
+		return nil
+	}
+	return s.TimestampGranularities
 }
