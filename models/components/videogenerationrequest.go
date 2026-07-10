@@ -69,6 +69,7 @@ type VideoGenerationRequestOptions struct {
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
+	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
 	Deepseek            map[string]any `json:"deepseek,omitzero"`
 	Dekallm             map[string]any `json:"dekallm,omitzero"`
@@ -386,6 +387,13 @@ func (v *VideoGenerationRequestOptions) GetDecart() map[string]any {
 		return nil
 	}
 	return v.Decart
+}
+
+func (v *VideoGenerationRequestOptions) GetDeepgram() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Deepgram
 }
 
 func (v *VideoGenerationRequestOptions) GetDeepinfra() map[string]any {

@@ -131,6 +131,7 @@ type ImageGenerationRequestOptions struct {
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
+	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
 	Deepseek            map[string]any `json:"deepseek,omitzero"`
 	Dekallm             map[string]any `json:"dekallm,omitzero"`
@@ -448,6 +449,13 @@ func (i *ImageGenerationRequestOptions) GetDecart() map[string]any {
 		return nil
 	}
 	return i.Decart
+}
+
+func (i *ImageGenerationRequestOptions) GetDeepgram() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Deepgram
 }
 
 func (i *ImageGenerationRequestOptions) GetDeepinfra() map[string]any {
