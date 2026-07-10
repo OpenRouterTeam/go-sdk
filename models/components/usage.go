@@ -8,7 +8,8 @@ import (
 )
 
 type InputTokensDetails struct {
-	CachedTokens int64 `json:"cached_tokens"`
+	CacheWriteTokens optionalnullable.OptionalNullable[int64] `json:"cache_write_tokens,omitzero"`
+	CachedTokens     int64                                    `json:"cached_tokens"`
 }
 
 func (i InputTokensDetails) MarshalJSON() ([]byte, error) {
@@ -20,6 +21,13 @@ func (i *InputTokensDetails) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (i *InputTokensDetails) GetCacheWriteTokens() optionalnullable.OptionalNullable[int64] {
+	if i == nil {
+		return nil
+	}
+	return i.CacheWriteTokens
 }
 
 func (i *InputTokensDetails) GetCachedTokens() int64 {

@@ -142,6 +142,104 @@ components:
       required:
         - data
       type: object
+    AdditionalToolsItem:
+      description: Additional tools made available to the model at this point in the input
+      example:
+        role: developer
+        tools:
+          - name: get_weather
+            parameters:
+              properties:
+                location:
+                  type: string
+              type: object
+            type: function
+        type: additional_tools
+      properties:
+        id:
+          nullable: true
+          type: string
+        role:
+          enum:
+            - unknown
+            - user
+            - assistant
+            - system
+            - critic
+            - discriminator
+            - developer
+            - tool
+          type: string
+          x-speakeasy-unknown-values: allow
+        tools:
+          items:
+            anyOf:
+              - allOf:
+                  - $ref: '#/components/schemas/FunctionTool'
+                  - properties: {}
+                    type: object
+                description: Function tool definition
+                example:
+                  description: Get the current weather in a location
+                  name: get_weather
+                  parameters:
+                    properties:
+                      location:
+                        description: The city and state
+                        type: string
+                      unit:
+                        enum:
+                          - celsius
+                          - fahrenheit
+                        type: string
+                        x-speakeasy-unknown-values: allow
+                    required:
+                      - location
+                    type: object
+                  type: function
+              - $ref: '#/components/schemas/Preview_WebSearchServerTool'
+              - $ref: '#/components/schemas/Preview_20250311_WebSearchServerTool'
+              - $ref: '#/components/schemas/Legacy_WebSearchServerTool'
+              - $ref: '#/components/schemas/WebSearchServerTool'
+              - $ref: '#/components/schemas/FileSearchServerTool'
+              - $ref: '#/components/schemas/ComputerUseServerTool'
+              - $ref: '#/components/schemas/CodeInterpreterServerTool'
+              - $ref: '#/components/schemas/McpServerTool'
+              - $ref: '#/components/schemas/ImageGenerationServerTool'
+              - $ref: '#/components/schemas/CodexLocalShellTool'
+              - $ref: '#/components/schemas/ShellServerTool'
+              - $ref: '#/components/schemas/ApplyPatchServerTool'
+              - $ref: '#/components/schemas/CustomTool'
+              - $ref: '#/components/schemas/AdvisorServerTool_OpenRouter'
+              - $ref: '#/components/schemas/SubagentServerTool_OpenRouter'
+              - $ref: '#/components/schemas/DatetimeServerTool'
+              - $ref: '#/components/schemas/FilesServerTool'
+              - $ref: '#/components/schemas/FusionServerTool_OpenRouter'
+              - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
+              - $ref: '#/components/schemas/ChatSearchModelsServerTool'
+              - $ref: '#/components/schemas/WebFetchServerTool'
+              - $ref: '#/components/schemas/WebSearchServerTool_OpenRouter'
+              - $ref: '#/components/schemas/ApplyPatchServerTool_OpenRouter'
+              - $ref: '#/components/schemas/BashServerTool'
+              - $ref: '#/components/schemas/ShellServerTool_OpenRouter'
+              - additionalProperties:
+                  nullable: true
+                properties:
+                  type:
+                    type: string
+                required:
+                  - type
+                type: object
+          type: array
+        type:
+          enum:
+            - additional_tools
+          type: string
+      required:
+        - type
+        - role
+        - tools
+      type: object
     AdvisorNestedTool:
       additionalProperties:
         nullable: true
@@ -258,6 +356,72 @@ components:
           items:
             $ref: '#/components/schemas/AdvisorNestedTool'
           type: array
+      type: object
+    AgentMessageItem:
+      additionalProperties:
+        nullable: true
+      description: A message routed between agents in a multi-agent session
+      example:
+        author: /root/worker
+        content:
+          - text: Task complete.
+            type: input_text
+        recipient: /root
+        type: agent_message
+      properties:
+        agent:
+          additionalProperties:
+            nullable: true
+          nullable: true
+          properties:
+            agent_name:
+              type: string
+          required:
+            - agent_name
+          type: object
+        author:
+          type: string
+        content:
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/InputText'
+              - allOf:
+                  - $ref: '#/components/schemas/InputImage'
+                  - properties: {}
+                    type: object
+                description: Image input content item
+                example:
+                  detail: auto
+                  image_url: https://example.com/image.jpg
+                  type: input_image
+              - additionalProperties:
+                  nullable: true
+                properties:
+                  encrypted_content:
+                    type: string
+                  type:
+                    enum:
+                      - encrypted_content
+                    type: string
+                required:
+                  - type
+                  - encrypted_content
+                type: object
+          type: array
+        id:
+          nullable: true
+          type: string
+        recipient:
+          type: string
+        type:
+          enum:
+            - agent_message
+          type: string
+      required:
+        - type
+        - author
+        - recipient
+        - content
       type: object
     AnnotationAddedEvent:
       allOf:
@@ -3091,8 +3255,12 @@ components:
         summary: auto
       nullable: true
       properties:
+        context:
+          $ref: '#/components/schemas/ReasoningContext'
         effort:
           $ref: '#/components/schemas/ReasoningEffort'
+        mode:
+          $ref: '#/components/schemas/ReasoningMode'
         summary:
           $ref: '#/components/schemas/ReasoningSummaryVerbosity'
       type: object
@@ -4036,7 +4204,7 @@ components:
         - recraft
         - reka
         - relace
-        - sakana-ai
+        - sakana
         - sambanova
         - seed
         - siliconflow
@@ -4526,6 +4694,7 @@ components:
         - $ref: '#/components/schemas/BashServerTool'
         - $ref: '#/components/schemas/DatetimeServerTool'
         - $ref: '#/components/schemas/FilesServerTool'
+        - $ref: '#/components/schemas/FusionServerTool_OpenRouter'
         - $ref: '#/components/schemas/ImageGenerationServerTool_OpenRouter'
         - $ref: '#/components/schemas/ChatSearchModelsServerTool'
         - $ref: '#/components/schemas/SubagentServerTool_OpenRouter'
@@ -5744,6 +5913,8 @@ components:
         - type
       type: object
     CompactionItem:
+      additionalProperties:
+        nullable: true
       description: A context compaction marker with encrypted summary
       example:
         encrypted_content: enc_abc123...
@@ -6191,6 +6362,27 @@ components:
       required:
         - type
         - video_url
+      type: object
+    ContextCompactionItem:
+      additionalProperties:
+        nullable: true
+      description: A context compaction marker with an optional encrypted summary
+      example:
+        encrypted_content: enc_abc123...
+        type: context_compaction
+      properties:
+        encrypted_content:
+          nullable: true
+          type: string
+        id:
+          nullable: true
+          type: string
+        type:
+          enum:
+            - context_compaction
+          type: string
+      required:
+        - type
       type: object
     ContextCompressionEngine:
       description: The compression engine to use. Defaults to "middle-out".
@@ -8306,7 +8498,7 @@ components:
           $ref: '#/components/schemas/AnthropicCacheControlDirective'
         max_completion_tokens:
           description: >-
-            Maximum number of output tokens (including reasoning tokens) each panelist and the judge model may produce per inner call. Controls the total output budget so reasoning-heavy models like GPT-5.5 do not exhaust their token allowance before producing visible text. When omitted, the provider's default applies.
+            Maximum number of output tokens (including reasoning tokens) each panelist and the judge model may produce per inner call. Controls the total output budget so reasoning-heavy models like GPT-5.5 do not exhaust their token allowance before producing visible text. When omitted, panelists default to 32000 and the judge to 50000.
           example: 16384
           type: integer
         max_tool_calls:
@@ -9298,8 +9490,8 @@ components:
           type: integer
         media_type:
           description: >-
-            Media type (MIME type) of the image. Omitted when the output is a standard raster format (PNG). Present for non-raster outputs such as SVG (`image/svg+xml`).
-          example: image/svg+xml
+            Media type (MIME type) of the image, e.g. `image/png`, `image/jpeg`, `image/webp`, `image/svg+xml`. May be omitted if the format could not be determined.
+          example: image/png
           type: string
         type:
           description: The event type
@@ -9427,7 +9619,7 @@ components:
           type: integer
         size:
           description: >-
-            Optional. A convenience shorthand for output dimensions — pass a tier ("2K", "4K") or explicit pixels ("2048x2048") and we normalize it to the right dimensions for the chosen provider. Interchangeable with resolution + aspect_ratio; use those directly for enumerated, per-model discoverable values. Conflicting size + resolution/aspect_ratio is rejected.
+            Optional. A convenience shorthand for output dimensions — pass a tier ("2K", "4K") or explicit pixels ("2048x2048") and we normalize it to the right dimensions for the chosen provider. A tier size is equivalent to setting `resolution` and combines with `aspect_ratio`. An explicit pixel size is authoritative: a mismatched `resolution` or `aspect_ratio` alongside it is rejected with a 400.
           example: 2K
           type: string
         stream:
@@ -9463,8 +9655,8 @@ components:
                 type: string
               media_type:
                 description: >-
-                  Media type (MIME type) of the image. Omitted when the output is a standard raster format (PNG). Present for non-raster outputs such as SVG (`image/svg+xml`).
-                example: image/svg+xml
+                  Media type (MIME type) of the image, e.g. `image/png`, `image/jpeg`, `image/webp`, `image/svg+xml`. May be omitted if the format could not be determined.
+                example: image/png
                 type: string
             required:
               - b64_json
@@ -9505,11 +9697,7 @@ components:
               type: string
           type: object
         model:
-          enum:
-            - gpt-image-1
-            - gpt-image-1-mini
           type: string
-          x-speakeasy-unknown-values: allow
         moderation:
           enum:
             - auto
@@ -9536,13 +9724,7 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
         size:
-          enum:
-            - 1024x1024
-            - 1024x1536
-            - 1536x1024
-            - auto
           type: string
-          x-speakeasy-unknown-values: allow
         type:
           enum:
             - image_generation
@@ -9764,6 +9946,35 @@ components:
         - type
         - error
       type: object
+    ImageGenTextChunkEvent:
+      description: Emitted when a text chunk becomes available during streaming generation of text-based formats (e.g. SVG)
+      example:
+        phase: content
+        text: <svg xmlns="http://www.w3.org/2000/svg">
+        type: image_generation.text_chunk
+      properties:
+        phase:
+          description: >-
+            The generation phase this chunk belongs to. `content` is the renderable output; `reasoning` and `draft` are intermediate provider phases.
+          enum:
+            - content
+            - reasoning
+            - draft
+          type: string
+          x-speakeasy-unknown-values: allow
+        text:
+          description: A text fragment of the image being generated (e.g. partial SVG markup)
+          type: string
+        type:
+          description: The event type
+          enum:
+            - image_generation.text_chunk
+          type: string
+      required:
+        - type
+        - text
+        - phase
+      type: object
     ImageModelArchitecture:
       example:
         input_modalities:
@@ -9969,6 +10180,7 @@ components:
         data:
           anyOf:
             - $ref: '#/components/schemas/ImageGenPartialImageEvent'
+            - $ref: '#/components/schemas/ImageGenTextChunkEvent'
             - $ref: '#/components/schemas/ImageGenCompletedEvent'
             - $ref: '#/components/schemas/ImageGenStreamErrorEvent'
       required:
@@ -10304,7 +10516,10 @@ components:
               - $ref: '#/components/schemas/CustomToolCallItem'
               - $ref: '#/components/schemas/CustomToolCallOutputItem'
               - $ref: '#/components/schemas/CompactionItem'
+              - $ref: '#/components/schemas/ContextCompactionItem'
               - $ref: '#/components/schemas/ItemReferenceItem'
+              - $ref: '#/components/schemas/AdditionalToolsItem'
+              - $ref: '#/components/schemas/AgentMessageItem'
           type: array
       description: Input for a response request - can be a string or array of items
       example:
@@ -10316,6 +10531,8 @@ components:
         text: Hello, how can I help you?
         type: input_text
       properties:
+        prompt_cache_breakpoint:
+          $ref: '#/components/schemas/PromptCacheBreakpoint'
         text:
           type: string
         type:
@@ -15479,6 +15696,9 @@ components:
           type: integer
         input_tokens_details:
           properties:
+            cache_write_tokens:
+              nullable: true
+              type: integer
             cached_tokens:
               type: integer
           required:
@@ -17349,6 +17569,7 @@ components:
         enabled: true
         id: pareto-router
         min_coding_score: 0.8
+        price_source: prompt
       properties:
         enabled:
           description: Set to false to disable the pareto-router plugin for this request. Defaults to true.
@@ -17359,12 +17580,20 @@ components:
           type: string
         min_coding_score:
           description: >-
-            Minimum desired coding score between 0 and 1, where 1 is best. Higher values select from stronger coding models (sourced from Artificial Analysis coding percentiles). Maps internally to one of three tiers (low, medium, high). Omit to use the router default tier.
+            Minimum coding quality score between 0 and 1. Maps to internal quality tiers: >= 0.66 → high (top coding models), >= 0.33 → medium (strong modern flagships), < 0.33 → low (capable coders above the median). Omit to default to the highest tier (equivalent to >= 0.66).
           example: 0.8
           format: double
           maximum: 1
           minimum: 0
           type: number
+        price_source:
+          description: >-
+            Price source for the Pareto frontier cost axis. "prompt" uses catalog list price (endpoint.pricing.prompt). "weighted_avg" uses traffic-weighted effective input price from ClickHouse, falling back to prompt price for models without traffic data. Defaults to "prompt".
+          enum:
+            - prompt
+            - weighted_avg
+          type: string
+          x-speakeasy-unknown-values: allow
       required:
         - id
       type: object
@@ -17861,6 +18090,38 @@ components:
           type: string
       required:
         - type
+      type: object
+    PromptCacheBreakpoint:
+      description: >-
+        Marks an explicit prompt-cache boundary on this content block. Everything through the block carrying this marker is part of the candidate cached prefix. Only supported by OpenAI GPT-5.6 and newer.
+      example:
+        mode: explicit
+      nullable: true
+      properties:
+        mode:
+          enum:
+            - explicit
+          type: string
+      required:
+        - mode
+      type: object
+    PromptCacheOptions:
+      description: >-
+        Request-level prompt-cache controls. `mode: "explicit"` disables OpenAI-managed breakpoints so only blocks marked with `prompt_cache_breakpoint` are cached. Only supported by OpenAI GPT-5.6 and newer.
+      example:
+        mode: explicit
+        ttl: 30m
+      nullable: true
+      properties:
+        mode:
+          enum:
+            - explicit
+          type: string
+        ttl:
+          nullable: true
+          type: string
+      required:
+        - mode
       type: object
     PromptInjectionScanScope:
       description: >-
@@ -18362,7 +18623,7 @@ components:
           additionalProperties:
             nullable: true
           type: object
-        sakana-ai:
+        sakana:
           additionalProperties:
             nullable: true
           type: object
@@ -18777,6 +19038,15 @@ components:
           example: OpenAI
           type: string
           x-speakeasy-unknown-values: allow
+        routed_service_tier:
+          description: >-
+            The service tier this request was routed to (e.g. flex, priority). The tier actually applied and billed is determined by the provider response and may differ.
+          enum:
+            - flex
+            - priority
+          example: priority
+          type: string
+          x-speakeasy-unknown-values: allow
         status:
           description: HTTP status code from the provider
           example: 200
@@ -19185,6 +19455,18 @@ components:
       example:
         enabled: true
         summary: auto
+    ReasoningContext:
+      description: >-
+        Controls which reasoning is available to the model. `auto` uses the model default (same as omitting); `all_turns` includes reasoning from earlier turns passed in input; `current_turn` limits to the current turn only. Only supported by OpenAI GPT-5.6 and newer.
+      enum:
+        - auto
+        - all_turns
+        - current_turn
+        - null
+      example: all_turns
+      nullable: true
+      type: string
+      x-speakeasy-unknown-values: allow
     ReasoningDeltaEvent:
       allOf:
         - $ref: '#/components/schemas/BaseReasoningDeltaEvent'
@@ -19220,6 +19502,42 @@ components:
       required:
         - type
         - data
+      type: object
+    ReasoningDetailServerToolCall:
+      description: >-
+        Record of an OpenRouter server-tool invocation (e.g. openrouter:fusion), carried in reasoning_details so a prior tool call can be rehydrated into a later turn of the same conversation.
+      example:
+        arguments: '{"prompt":"Compare carbon tax proposals"}'
+        result: '{"status":"ok","models":["openai/gpt-4o"]}'
+        tool_call_id: call_abc123
+        tool_name: openrouter:fusion
+        type: reasoning.server_tool_call
+      properties:
+        arguments:
+          type: string
+        format:
+          $ref: '#/components/schemas/ReasoningFormat'
+        id:
+          nullable: true
+          type: string
+        index:
+          type: integer
+        result:
+          type: string
+        tool_call_id:
+          nullable: true
+          type: string
+        tool_name:
+          type: string
+        type:
+          enum:
+            - reasoning.server_tool_call
+          type: string
+      required:
+        - type
+        - tool_name
+        - arguments
+        - result
       type: object
     ReasoningDetailSummary:
       description: Reasoning detail summary schema
@@ -19276,6 +19594,7 @@ components:
       discriminator:
         mapping:
           reasoning.encrypted: '#/components/schemas/ReasoningDetailEncrypted'
+          reasoning.server_tool_call: '#/components/schemas/ReasoningDetailServerToolCall'
           reasoning.summary: '#/components/schemas/ReasoningDetailSummary'
           reasoning.text: '#/components/schemas/ReasoningDetailText'
         propertyName: type
@@ -19286,6 +19605,7 @@ components:
         - $ref: '#/components/schemas/ReasoningDetailSummary'
         - $ref: '#/components/schemas/ReasoningDetailEncrypted'
         - $ref: '#/components/schemas/ReasoningDetailText'
+        - $ref: '#/components/schemas/ReasoningDetailServerToolCall'
     ReasoningDoneEvent:
       allOf:
         - $ref: '#/components/schemas/BaseReasoningDoneEvent'
@@ -19348,6 +19668,17 @@ components:
           - text: Step by step analysis
             type: summary_text
         type: reasoning
+    ReasoningMode:
+      description: >-
+        Selects the reasoning mode. `standard` is the default; `pro` engages deeper reasoning on models that support it, billed at standard token rates. Only supported by OpenAI GPT-5.6 and newer.
+      enum:
+        - standard
+        - pro
+        - null
+      example: standard
+      nullable: true
+      type: string
+      x-speakeasy-unknown-values: allow
     ReasoningSummaryPartAddedEvent:
       allOf:
         - $ref: '#/components/schemas/BaseReasoningSummaryPartAddedEvent'
@@ -19634,6 +19965,7 @@ components:
             - empty_image_file
             - failed_to_download_image
             - image_file_not_found
+            - bio_policy
           type: string
           x-speakeasy-unknown-values: allow
         message:
@@ -19748,6 +20080,8 @@ components:
         prompt_cache_key:
           nullable: true
           type: string
+        prompt_cache_options:
+          $ref: '#/components/schemas/PromptCacheOptions'
         provider:
           $ref: '#/components/schemas/ProviderPreferences'
         reasoning:
@@ -20671,11 +21005,28 @@ components:
             options:
               $ref: '#/components/schemas/ProviderOptions'
           type: object
+        response_format:
+          description: >-
+            Output format. "json" (default) returns { text, usage }. "verbose_json" additionally returns task, language, duration, and segment-level timestamps; only supported by OpenAI-compatible providers.
+          enum:
+            - json
+            - verbose_json
+          example: json
+          type: string
+          x-speakeasy-unknown-values: allow
         temperature:
           description: Sampling temperature for transcription
           example: 0
           format: double
           type: number
+        timestamp_granularities:
+          description: >-
+            Timestamp detail levels to include when response_format is "verbose_json". "segment" returns segment-level timestamps; "word" additionally returns word-level timestamps in the words array. Ignored unless response_format is "verbose_json".
+          example:
+            - segment
+          items:
+            $ref: '#/components/schemas/STTTimestampGranularity'
+          type: array
       required:
         - model
         - input_audio
@@ -20691,6 +21042,24 @@ components:
           seconds: 9.2
           total_tokens: 113
       properties:
+        duration:
+          description: Duration of the input audio in seconds, present when response_format is verbose_json
+          example: 9.2
+          format: double
+          type: number
+        language:
+          description: Detected or forced language, present when response_format is verbose_json
+          example: english
+          type: string
+        segments:
+          description: Timestamped transcript segments, present when response_format is verbose_json
+          items:
+            $ref: '#/components/schemas/STTSegment'
+          type: array
+        task:
+          description: The task performed, present when response_format is verbose_json
+          example: transcribe
+          type: string
         text:
           description: The transcribed text
           example: >-
@@ -20698,9 +21067,88 @@ components:
           type: string
         usage:
           $ref: '#/components/schemas/STTUsage'
+        words:
+          description: Timestamped words, present when the provider returns word-level timestamps
+          items:
+            $ref: '#/components/schemas/STTWord'
+          type: array
       required:
         - text
       type: object
+    STTSegment:
+      description: A timestamped transcript segment, returned when response_format is verbose_json
+      example:
+        avg_logprob: -0.28
+        compression_ratio: 1.13
+        end: 3.2
+        id: 0
+        no_speech_prob: 0.01
+        seek: 0
+        start: 0
+        temperature: 0
+        text: Hello there.
+        tokens:
+          - 50364
+          - 2425
+          - 456
+      properties:
+        avg_logprob:
+          description: Average log probability of the segment
+          format: double
+          type: number
+        compression_ratio:
+          description: Compression ratio of the segment
+          format: double
+          type: number
+        end:
+          description: Segment end time in seconds
+          example: 3.2
+          format: double
+          type: number
+        id:
+          description: Segment index within the transcript
+          example: 0
+          type: integer
+        no_speech_prob:
+          description: Probability the segment contains no speech
+          format: double
+          type: number
+        seek:
+          description: Seek offset of the segment
+          example: 0
+          type: integer
+        start:
+          description: Segment start time in seconds
+          example: 0
+          format: double
+          type: number
+        temperature:
+          description: Temperature used for the segment
+          format: double
+          type: number
+        text:
+          description: Transcribed text of the segment
+          example: Hello there.
+          type: string
+        tokens:
+          description: Token IDs of the segment
+          items:
+            type: integer
+          type: array
+      required:
+        - id
+        - start
+        - end
+        - text
+      type: object
+    STTTimestampGranularity:
+      description: A timestamp detail level for verbose_json transcription responses.
+      enum:
+        - word
+        - segment
+      example: word
+      type: string
+      x-speakeasy-unknown-values: allow
     STTUsage:
       description: Aggregated usage statistics for the request
       example:
@@ -20732,6 +21180,32 @@ components:
           description: Total number of tokens used (input + output)
           example: 113
           type: integer
+      type: object
+    STTWord:
+      description: A timestamped word, returned when the provider includes word-level timestamps
+      example:
+        end: 0.4
+        start: 0
+        word: Hello
+      properties:
+        end:
+          description: Word end time in seconds
+          example: 0.4
+          format: double
+          type: number
+        start:
+          description: Word start time in seconds
+          example: 0
+          format: double
+          type: number
+        word:
+          description: The transcribed word
+          example: Hello
+          type: string
+      required:
+        - word
+        - start
+        - end
       type: object
     SubagentNestedTool:
       additionalProperties:
@@ -20829,6 +21303,59 @@ components:
           items:
             $ref: '#/components/schemas/SubagentNestedTool'
           type: array
+      type: object
+    SubmitGenerationFeedbackRequest:
+      description: Structured feedback about a specific generation
+      example:
+        category: incorrect_response
+        comment: The model repeated the same paragraph three times.
+        generation_id: gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG
+      properties:
+        category:
+          description: The category of feedback being reported
+          enum:
+            - latency
+            - incoherence
+            - incorrect_response
+            - formatting
+            - billing
+            - api_error
+            - other
+          example: incorrect_response
+          type: string
+          x-speakeasy-unknown-values: allow
+        comment:
+          description: An optional free-text comment describing the feedback
+          example: The model repeated the same paragraph three times.
+          maxLength: 1000
+          type: string
+        generation_id:
+          description: The generation to submit feedback on
+          example: gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG
+          minLength: 1
+          type: string
+      required:
+        - generation_id
+        - category
+      type: object
+    SubmitGenerationFeedbackResponse:
+      description: Confirmation that the feedback was recorded
+      example:
+        data:
+          success: true
+      properties:
+        data:
+          properties:
+            success:
+              const: true
+              description: Whether the feedback was recorded
+              example: true
+              type: boolean
+          required:
+            - success
+          type: object
+      required:
+        - data
       type: object
     SupportedParameters:
       additionalProperties:
@@ -23682,7 +24209,8 @@ paths:
       x-speakeasy-name-override: createSpeech
   /audio/transcriptions:
     post:
-      description: Transcribes audio into text. Accepts base64-encoded audio input and returns the transcribed text.
+      description: >-
+        Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
       operationId: createAudioTranscriptions
       requestBody:
         content:
@@ -23695,6 +24223,49 @@ paths:
               model: openai/whisper-large-v3
             schema:
               $ref: '#/components/schemas/STTRequest'
+          multipart/form-data:
+            example:
+              file: audio.wav
+              language: en
+              model: openai/whisper-large-v3
+            schema:
+              properties:
+                file:
+                  description: >-
+                    The audio file to transcribe. The format is derived from the filename extension or the file part content type. Max 25 MB; send larger files as base64 JSON via input_audio.
+                  format: binary
+                  type: string
+                language:
+                  description: The language of the input audio (ISO-639-1).
+                  type: string
+                model:
+                  description: The model to use for transcription.
+                  type: string
+                response_format:
+                  description: >-
+                    The response format. "json" (default) returns { text, usage }; "verbose_json" additionally returns task, language, duration, and segment-level timestamps (OpenAI-compatible providers only).
+                  enum:
+                    - json
+                    - verbose_json
+                  type: string
+                  x-speakeasy-unknown-values: allow
+                temperature:
+                  description: The sampling temperature.
+                  type: number
+                timestamp_granularities[]:
+                  description: >-
+                    Timestamp detail levels to include when response_format is "verbose_json". "word" additionally returns word-level timestamps in the words array.
+                  items:
+                    enum:
+                      - word
+                      - segment
+                    type: string
+                    x-speakeasy-unknown-values: allow
+                  type: array
+              required:
+                - file
+                - model
+              type: object
         required: true
       responses:
         '200':
@@ -24343,7 +24914,7 @@ paths:
               - recraft
               - reka
               - relace
-              - sakana-ai
+              - sakana
               - sambanova
               - seed
               - siliconflow
@@ -25400,6 +25971,13 @@ paths:
         reserved permaslug `other` and is always returned last within its date, so callers
         can compute `top-50 traffic / total daily traffic` without a second request.
 
+        Optional filters slice the dataset. `period` (`day`/`week`/`month`) sets the time
+        grain. `modality` and `context_bucket` narrow the exact dataset by output/input
+        modality (or tool-calling activity) and request context length. `category` and
+        `language_type` instead read a sampled, upsampled dataset whose `total_tokens` are
+        weekly-grain estimates — they cannot be combined with each other or with the exact
+        filters, and reject `period=day` with a 400.
+
         Authenticate with any valid OpenRouter API key (same key used for inference).
         Rate-limited to 30 requests/minute per key and 500 requests/day per account.
 
@@ -25434,6 +26012,93 @@ paths:
             example: '2026-05-11'
             pattern: ^\d{4}-\d{2}-\d{2}$
             type: string
+        - description: >-
+            Time grain of each row. `day` (default) returns the per-UTC-day series; `week` buckets by ISO week start; `month` buckets by month start. With `category` or `language_type` only `week` (default) and `month` are available — `day` is rejected with a 400 because those datasets are aggregated weekly. For those sampled datasets `period=month` buckets each week by its week-start month, so totals are approximate at month boundaries.
+          in: query
+          name: period
+          required: false
+          schema:
+            description: >-
+              Time grain of each row. `day` (default) returns the per-UTC-day series; `week` buckets by ISO week start; `month` buckets by month start. With `category` or `language_type` only `week` (default) and `month` are available — `day` is rejected with a 400 because those datasets are aggregated weekly. For those sampled datasets `period=month` buckets each week by its week-start month, so totals are approximate at month boundaries.
+            enum:
+              - day
+              - week
+              - month
+            example: day
+            type: string
+            x-speakeasy-unknown-values: allow
+        - description: >-
+            Restrict to models for a modality surface: `text` / `image_output` match output modality, `image` / `audio` match input modality, and `tool_calling` keeps only rows that recorded at least one tool call. Exact dataset — cannot be combined with `category` or `language_type`.
+          in: query
+          name: modality
+          required: false
+          schema:
+            description: >-
+              Restrict to models for a modality surface: `text` / `image_output` match output modality, `image` / `audio` match input modality, and `tool_calling` keeps only rows that recorded at least one tool call. Exact dataset — cannot be combined with `category` or `language_type`.
+            enum:
+              - text
+              - image
+              - image_output
+              - audio
+              - tool_calling
+            example: text
+            type: string
+            x-speakeasy-unknown-values: allow
+        - description: >-
+            Restrict to requests whose context length falls in this bucket (`1K`, `10K`, `100K`, `1M`, or `10M`). Exact dataset — cannot be combined with `category` or `language_type`.
+          in: query
+          name: context_bucket
+          required: false
+          schema:
+            description: >-
+              Restrict to requests whose context length falls in this bucket (`1K`, `10K`, `100K`, `1M`, or `10M`). Exact dataset — cannot be combined with `category` or `language_type`.
+            enum:
+              - 1K
+              - 10K
+              - 100K
+              - 1M
+              - 10M
+            example: 100K
+            type: string
+            x-speakeasy-unknown-values: allow
+        - description: >-
+            Restrict to a use-case category (e.g. `programming`, `roleplay`). Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `language_type`.
+          in: query
+          name: category
+          required: false
+          schema:
+            description: >-
+              Restrict to a use-case category (e.g. `programming`, `roleplay`). Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `language_type`.
+            enum:
+              - programming
+              - roleplay
+              - marketing
+              - marketing/seo
+              - technology
+              - science
+              - translation
+              - legal
+              - finance
+              - health
+              - trivia
+              - academia
+            example: programming
+            type: string
+            x-speakeasy-unknown-values: allow
+        - description: >-
+            Restrict to natural-language or programming-language tagged activity. Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `category`.
+          in: query
+          name: language_type
+          required: false
+          schema:
+            description: >-
+              Restrict to natural-language or programming-language tagged activity. Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `category`.
+            enum:
+              - natural
+              - programming
+            example: natural
+            type: string
+            x-speakeasy-unknown-values: allow
       responses:
         '200':
           content:
@@ -26737,6 +27402,85 @@ paths:
       summary: Get stored prompt and completion content for a generation
       tags:
         - Generations
+  /generation/feedback:
+    post:
+      description: >-
+        Submit structured feedback on a generation the authenticated user made. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+      operationId: submitGenerationFeedback
+      requestBody:
+        content:
+          application/json:
+            example:
+              category: incorrect_response
+              comment: The model repeated the same paragraph three times.
+              generation_id: gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG
+            schema:
+              $ref: '#/components/schemas/SubmitGenerationFeedbackRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                data:
+                  success: true
+              schema:
+                $ref: '#/components/schemas/SubmitGenerationFeedbackResponse'
+          description: Feedback recorded successfully
+        '400':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 400
+                  message: Invalid request parameters
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+          description: Bad Request - Invalid request parameters or malformed input
+        '401':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 401
+                  message: Missing Authentication header
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: Unauthorized - Authentication required or invalid credentials
+        '404':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: Resource not found
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+          description: Not Found - Resource does not exist
+        '429':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 429
+                  message: Rate limit exceeded
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsResponse'
+          description: Too Many Requests - Rate limit exceeded
+        '500':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 500
+                  message: Internal Server Error
+              schema:
+                $ref: '#/components/schemas/InternalServerResponse'
+          description: Internal Server Error - Unexpected server error
+      summary: Submit feedback for a generation
+      tags:
+        - Generations
+      x-speakeasy-name-override: submitFeedback
   /guardrails:
     get:
       description: >-
@@ -27901,6 +28645,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundResponse'
           description: Not Found - Resource does not exist
+        '413':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 413
+                  message: Request payload too large
+              schema:
+                $ref: '#/components/schemas/PayloadTooLargeResponse'
+          description: Payload Too Large - Request payload exceeds size limits
         '429':
           content:
             application/json:
@@ -29905,13 +30659,13 @@ paths:
             example: text
             type: string
         - description: >-
-            Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low (Artificial Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
+            Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
           in: query
           name: sort
           required: false
           schema:
             description: >-
-              Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low (Artificial Analysis intelligence index), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
+              Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
             enum:
               - most-popular
               - newest
@@ -29922,6 +30676,8 @@ paths:
               - throughput-high-to-low
               - latency-low-to-high
               - intelligence-high-to-low
+              - coding-high-to-low
+              - agentic-high-to-low
               - design-arena-elo-high-to-low
             example: newest
             type: string
@@ -30028,6 +30784,130 @@ paths:
               - eu
             example: eu
             type: string
+        - description: Minimum completion (output) price in $/M tokens.
+          in: query
+          name: min_output_price
+          required: false
+          schema:
+            description: Minimum completion (output) price in $/M tokens.
+            example: 0
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Maximum completion (output) price in $/M tokens.
+          in: query
+          name: max_output_price
+          required: false
+          schema:
+            description: Maximum completion (output) price in $/M tokens.
+            example: 10
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Minimum model age in days since its creation date.
+          in: query
+          name: min_age_days
+          required: false
+          schema:
+            description: Minimum model age in days since its creation date.
+            example: 0
+            minimum: 0
+            nullable: true
+            type: integer
+        - description: Maximum model age in days since its creation date.
+          in: query
+          name: max_age_days
+          required: false
+          schema:
+            description: Maximum model age in days since its creation date.
+            example: 90
+            minimum: 0
+            nullable: true
+            type: integer
+        - description: Minimum Artificial Analysis intelligence index.
+          in: query
+          name: min_intelligence_index
+          required: false
+          schema:
+            description: Minimum Artificial Analysis intelligence index.
+            example: 50
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Maximum Artificial Analysis intelligence index.
+          in: query
+          name: max_intelligence_index
+          required: false
+          schema:
+            description: Maximum Artificial Analysis intelligence index.
+            example: 100
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Minimum Artificial Analysis coding index.
+          in: query
+          name: min_coding_index
+          required: false
+          schema:
+            description: Minimum Artificial Analysis coding index.
+            example: 50
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Maximum Artificial Analysis coding index.
+          in: query
+          name: max_coding_index
+          required: false
+          schema:
+            description: Maximum Artificial Analysis coding index.
+            example: 100
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Minimum Artificial Analysis agentic index.
+          in: query
+          name: min_agentic_index
+          required: false
+          schema:
+            description: Minimum Artificial Analysis agentic index.
+            example: 50
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Maximum Artificial Analysis agentic index.
+          in: query
+          name: max_agentic_index
+          required: false
+          schema:
+            description: Maximum Artificial Analysis agentic index.
+            example: 100
+            minimum: 0
+            nullable: true
+            type: number
+        - description: >-
+            Minimum tool-calling success rate, as a fraction in [0, 1] (e.g. 0.9 = 90% of requests finishing with a tool_calls finish reason).
+          in: query
+          name: min_tool_success_rate
+          required: false
+          schema:
+            description: >-
+              Minimum tool-calling success rate, as a fraction in [0, 1] (e.g. 0.9 = 90% of requests finishing with a tool_calls finish reason).
+            example: 0.9
+            maximum: 1
+            minimum: 0
+            nullable: true
+            type: number
+        - description: Maximum tool-calling success rate, as a fraction in [0, 1].
+          in: query
+          name: max_tool_success_rate
+          required: false
+          schema:
+            description: Maximum tool-calling success rate, as a fraction in [0, 1].
+            example: 1
+            maximum: 1
+            minimum: 0
+            nullable: true
+            type: number
       responses:
         '200':
           content:

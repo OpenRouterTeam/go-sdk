@@ -8,10 +8,21 @@ import (
 
 // ReasoningConfig - Configuration for reasoning mode in the response
 type ReasoningConfig struct {
-	Effort    optionalnullable.OptionalNullable[ReasoningEffort]           `json:"effort,omitzero"`
+	// Controls which reasoning is available to the model. `auto` uses the model default (same as omitting); `all_turns` includes reasoning from earlier turns passed in input; `current_turn` limits to the current turn only. Only supported by OpenAI GPT-5.6 and newer.
+	Context optionalnullable.OptionalNullable[ReasoningContext] `json:"context,omitzero"`
+	Effort  optionalnullable.OptionalNullable[ReasoningEffort]  `json:"effort,omitzero"`
+	// Selects the reasoning mode. `standard` is the default; `pro` engages deeper reasoning on models that support it, billed at standard token rates. Only supported by OpenAI GPT-5.6 and newer.
+	Mode      optionalnullable.OptionalNullable[ReasoningMode]             `json:"mode,omitzero"`
 	Summary   optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] `json:"summary,omitzero"`
 	Enabled   optionalnullable.OptionalNullable[bool]                      `json:"enabled,omitzero"`
 	MaxTokens optionalnullable.OptionalNullable[int64]                     `json:"max_tokens,omitzero"`
+}
+
+func (r *ReasoningConfig) GetContext() optionalnullable.OptionalNullable[ReasoningContext] {
+	if r == nil {
+		return nil
+	}
+	return r.Context
 }
 
 func (r *ReasoningConfig) GetEffort() optionalnullable.OptionalNullable[ReasoningEffort] {
@@ -19,6 +30,13 @@ func (r *ReasoningConfig) GetEffort() optionalnullable.OptionalNullable[Reasonin
 		return nil
 	}
 	return r.Effort
+}
+
+func (r *ReasoningConfig) GetMode() optionalnullable.OptionalNullable[ReasoningMode] {
+	if r == nil {
+		return nil
+	}
+	return r.Mode
 }
 
 func (r *ReasoningConfig) GetSummary() optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] {

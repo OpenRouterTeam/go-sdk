@@ -30,20 +30,20 @@ func (s *SpeechRequestProvider) GetOptions() *ProviderOptions {
 	return s.Options
 }
 
-// ResponseFormatEnum - Audio output format
-type ResponseFormatEnum string
+// SpeechRequestResponseFormat - Audio output format
+type SpeechRequestResponseFormat string
 
 const (
-	ResponseFormatEnumMp3 ResponseFormatEnum = "mp3"
-	ResponseFormatEnumPcm ResponseFormatEnum = "pcm"
+	SpeechRequestResponseFormatMp3 SpeechRequestResponseFormat = "mp3"
+	SpeechRequestResponseFormatPcm SpeechRequestResponseFormat = "pcm"
 )
 
-func (e ResponseFormatEnum) ToPointer() *ResponseFormatEnum {
+func (e SpeechRequestResponseFormat) ToPointer() *SpeechRequestResponseFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ResponseFormatEnum) IsExact() bool {
+func (e *SpeechRequestResponseFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "mp3", "pcm":
@@ -62,7 +62,7 @@ type SpeechRequest struct {
 	// Provider-specific passthrough configuration
 	Provider *SpeechRequestProvider `json:"provider,omitzero"`
 	// Audio output format
-	ResponseFormat *ResponseFormatEnum `default:"pcm" json:"response_format"`
+	ResponseFormat *SpeechRequestResponseFormat `default:"pcm" json:"response_format"`
 	// Playback speed multiplier. Only used by models that support it (e.g. OpenAI TTS). Ignored by other providers.
 	Speed *float64 `json:"speed,omitzero"`
 	// Voice identifier (provider-specific).
@@ -101,7 +101,7 @@ func (s *SpeechRequest) GetProvider() *SpeechRequestProvider {
 	return s.Provider
 }
 
-func (s *SpeechRequest) GetResponseFormat() *ResponseFormatEnum {
+func (s *SpeechRequest) GetResponseFormat() *SpeechRequestResponseFormat {
 	if s == nil {
 		return nil
 	}

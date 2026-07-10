@@ -105,7 +105,7 @@ type ProviderOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
-	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
+	Sakana              map[string]any `json:"sakana,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
 	Seed                map[string]any `json:"seed,omitzero"`
@@ -820,11 +820,11 @@ func (p *ProviderOptions) GetReplicate() map[string]any {
 	return p.Replicate
 }
 
-func (p *ProviderOptions) GetSakanaAi() map[string]any {
+func (p *ProviderOptions) GetSakana() map[string]any {
 	if p == nil {
 		return nil
 	}
-	return p.SakanaAi
+	return p.Sakana
 }
 
 func (p *ProviderOptions) GetSambanova() map[string]any {

@@ -10,6 +10,12 @@ title: "ImageStreamingResponseData"
 imageStreamingResponseData := components.CreateImageStreamingResponseDataImageGenerationPartialImage(components.ImageGenPartialImageEvent{/* values here */})
 ```
 
+### ImageGenTextChunkEvent
+
+```go
+imageStreamingResponseData := components.CreateImageStreamingResponseDataImageGenerationTextChunk(components.ImageGenTextChunkEvent{/* values here */})
+```
+
 ### ImageGenCompletedEvent
 
 ```go
@@ -30,6 +36,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch imageStreamingResponseData.Type {
 	case components.ImageStreamingResponseDataTypeImageGenerationPartialImage:
 		// imageStreamingResponseData.ImageGenPartialImageEvent is populated
+	case components.ImageStreamingResponseDataTypeImageGenerationTextChunk:
+		// imageStreamingResponseData.ImageGenTextChunkEvent is populated
 	case components.ImageStreamingResponseDataTypeImageGenerationCompleted:
 		// imageStreamingResponseData.ImageGenCompletedEvent is populated
 	case components.ImageStreamingResponseDataTypeError:

@@ -1150,6 +1150,8 @@ type ResponsesRequest struct {
 	PreviousResponseID optionalnullable.OptionalNullable[string]               `json:"previous_response_id,omitzero"`
 	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
 	PromptCacheKey     optionalnullable.OptionalNullable[string]               `json:"prompt_cache_key,omitzero"`
+	// Request-level prompt-cache controls. `mode: "explicit"` disables OpenAI-managed breakpoints so only blocks marked with `prompt_cache_breakpoint` are cached. Only supported by OpenAI GPT-5.6 and newer.
+	PromptCacheOptions optionalnullable.OptionalNullable[PromptCacheOptions] `json:"prompt_cache_options,omitzero"`
 	// When multiple model providers are available, optionally indicate your routing preference.
 	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Configuration for reasoning mode in the response
@@ -1327,6 +1329,13 @@ func (r *ResponsesRequest) GetPromptCacheKey() optionalnullable.OptionalNullable
 		return nil
 	}
 	return r.PromptCacheKey
+}
+
+func (r *ResponsesRequest) GetPromptCacheOptions() optionalnullable.OptionalNullable[PromptCacheOptions] {
+	if r == nil {
+		return nil
+	}
+	return r.PromptCacheOptions
 }
 
 func (r *ResponsesRequest) GetProvider() optionalnullable.OptionalNullable[ProviderPreferences] {

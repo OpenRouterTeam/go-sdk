@@ -135,7 +135,7 @@ type VideoGenerationRequestOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
-	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
+	Sakana              map[string]any `json:"sakana,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
 	Seed                map[string]any `json:"seed,omitzero"`
@@ -850,11 +850,11 @@ func (v *VideoGenerationRequestOptions) GetReplicate() map[string]any {
 	return v.Replicate
 }
 
-func (v *VideoGenerationRequestOptions) GetSakanaAi() map[string]any {
+func (v *VideoGenerationRequestOptions) GetSakana() map[string]any {
 	if v == nil {
 		return nil
 	}
-	return v.SakanaAi
+	return v.Sakana
 }
 
 func (v *VideoGenerationRequestOptions) GetSambanova() map[string]any {

@@ -1,0 +1,14 @@
+---
+title: "SubmitGenerationFeedbackRequest"
+---
+
+Structured feedback about a specific generation
+
+
+## Fields
+
+| Field                                                      | Type                                                       | Required                                                   | Description                                                | Example                                                    |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `Category`                                                 | [components.Category](../../models/components/category.mdx) | :heavy_check_mark:                                         | The category of feedback being reported                    | incorrect_response                                         |
+| `Comment`                                                  | `*string`                                                  | :heavy_minus_sign:                                         | An optional free-text comment describing the feedback      | The model repeated the same paragraph three times.         |
+| `GenerationID`                                             | `string`                                                   | :heavy_check_mark:                                         | The generation to submit feedback on                       | gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG                           |

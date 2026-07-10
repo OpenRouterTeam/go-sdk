@@ -37,6 +37,12 @@ chatFunctionTool := components.CreateChatFunctionToolDatetimeServerTool(componen
 chatFunctionTool := components.CreateChatFunctionToolFilesServerTool(components.FilesServerTool{/* values here */})
 ```
 
+### FusionServerToolOpenRouter
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolFusionServerToolOpenRouter(components.FusionServerToolOpenRouter{/* values here */})
+```
+
 ### ImageGenerationServerToolOpenRouter
 
 ```go
@@ -89,6 +95,8 @@ switch chatFunctionTool.Type {
 		// chatFunctionTool.DatetimeServerTool is populated
 	case components.ChatFunctionToolUnionTypeFilesServerTool:
 		// chatFunctionTool.FilesServerTool is populated
+	case components.ChatFunctionToolUnionTypeFusionServerToolOpenRouter:
+		// chatFunctionTool.FusionServerToolOpenRouter is populated
 	case components.ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter:
 		// chatFunctionTool.ImageGenerationServerToolOpenRouter is populated
 	case components.ChatFunctionToolUnionTypeChatSearchModelsServerTool:

@@ -1,0 +1,31 @@
+---
+title: "Category"
+---
+
+The category of feedback being reported
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.CategoryLatency
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.Category("custom_value")
+```
+
+
+## Values
+
+| Name                        | Value                       |
+| --------------------------- | --------------------------- |
+| `CategoryLatency`           | latency                     |
+| `CategoryIncoherence`       | incoherence                 |
+| `CategoryIncorrectResponse` | incorrect_response          |
+| `CategoryFormatting`        | formatting                  |
+| `CategoryBilling`           | billing                     |
+| `CategoryAPIError`          | api_error                   |
+| `CategoryOther`             | other                       |

@@ -197,7 +197,7 @@ type ImageGenerationRequestOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
-	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
+	Sakana              map[string]any `json:"sakana,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
 	Seed                map[string]any `json:"seed,omitzero"`
@@ -912,11 +912,11 @@ func (i *ImageGenerationRequestOptions) GetReplicate() map[string]any {
 	return i.Replicate
 }
 
-func (i *ImageGenerationRequestOptions) GetSakanaAi() map[string]any {
+func (i *ImageGenerationRequestOptions) GetSakana() map[string]any {
 	if i == nil {
 		return nil
 	}
-	return i.SakanaAi
+	return i.Sakana
 }
 
 func (i *ImageGenerationRequestOptions) GetSambanova() map[string]any {
@@ -1172,7 +1172,7 @@ type ImageGenerationRequest struct {
 	Resolution *ImageGenerationRequestResolution `json:"resolution,omitzero"`
 	// If specified, the generation will sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed for all providers.
 	Seed *int64 `json:"seed,omitzero"`
-	// Optional. A convenience shorthand for output dimensions — pass a tier ("2K", "4K") or explicit pixels ("2048x2048") and we normalize it to the right dimensions for the chosen provider. Interchangeable with resolution + aspect_ratio; use those directly for enumerated, per-model discoverable values. Conflicting size + resolution/aspect_ratio is rejected.
+	// Optional. A convenience shorthand for output dimensions — pass a tier ("2K", "4K") or explicit pixels ("2048x2048") and we normalize it to the right dimensions for the chosen provider. A tier size is equivalent to setting `resolution` and combines with `aspect_ratio`. An explicit pixel size is authoritative: a mismatched `resolution` or `aspect_ratio` alongside it is rejected with a 400.
 	Size *string `json:"size,omitzero"`
 	// If true, partial images are streamed as SSE events as they become available. Only supported by providers with native streaming (currently OpenAI). Non-streaming providers ignore this flag and return a buffered response.
 	Stream *bool `json:"stream,omitzero"`

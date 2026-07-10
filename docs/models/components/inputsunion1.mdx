@@ -274,10 +274,28 @@ inputsUnion1 := components.CreateInputsUnion1CustomToolCallOutputItem(components
 inputsUnion1 := components.CreateInputsUnion1CompactionItem(components.CompactionItem{/* values here */})
 ```
 
+### ContextCompactionItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1ContextCompactionItem(components.ContextCompactionItem{/* values here */})
+```
+
 ### ItemReferenceItem
 
 ```go
 inputsUnion1 := components.CreateInputsUnion1ItemReferenceItem(components.ItemReferenceItem{/* values here */})
+```
+
+### AdditionalToolsItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1AdditionalToolsItem(components.AdditionalToolsItem{/* values here */})
+```
+
+### AgentMessageItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1AgentMessageItem(components.AgentMessageItem{/* values here */})
 ```
 
 ## Union Discrimination
@@ -376,7 +394,13 @@ switch inputsUnion1.Type {
 		// inputsUnion1.CustomToolCallOutputItem is populated
 	case components.InputsUnion1TypeCompactionItem:
 		// inputsUnion1.CompactionItem is populated
+	case components.InputsUnion1TypeContextCompactionItem:
+		// inputsUnion1.ContextCompactionItem is populated
 	case components.InputsUnion1TypeItemReferenceItem:
 		// inputsUnion1.ItemReferenceItem is populated
+	case components.InputsUnion1TypeAdditionalToolsItem:
+		// inputsUnion1.AdditionalToolsItem is populated
+	case components.InputsUnion1TypeAgentMessageItem:
+		// inputsUnion1.AgentMessageItem is populated
 }
 ```

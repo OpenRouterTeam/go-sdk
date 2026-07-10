@@ -31,12 +31,37 @@ func (e *ParetoRouterPluginID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PriceSource - Price source for the Pareto frontier cost axis. "prompt" uses catalog list price (endpoint.pricing.prompt). "weighted_avg" uses traffic-weighted effective input price from ClickHouse, falling back to prompt price for models without traffic data. Defaults to "prompt".
+type PriceSource string
+
+const (
+	PriceSourcePrompt      PriceSource = "prompt"
+	PriceSourceWeightedAvg PriceSource = "weighted_avg"
+)
+
+func (e PriceSource) ToPointer() *PriceSource {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PriceSource) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "prompt", "weighted_avg":
+			return true
+		}
+	}
+	return false
+}
+
 type ParetoRouterPlugin struct {
 	// Set to false to disable the pareto-router plugin for this request. Defaults to true.
 	Enabled *bool                `json:"enabled,omitzero"`
 	ID      ParetoRouterPluginID `json:"id"`
-	// Minimum desired coding score between 0 and 1, where 1 is best. Higher values select from stronger coding models (sourced from Artificial Analysis coding percentiles). Maps internally to one of three tiers (low, medium, high). Omit to use the router default tier.
+	// Minimum coding quality score between 0 and 1. Maps to internal quality tiers: >= 0.66 → high (top coding models), >= 0.33 → medium (strong modern flagships), < 0.33 → low (capable coders above the median). Omit to default to the highest tier (equivalent to >= 0.66).
 	MinCodingScore *float64 `json:"min_coding_score,omitzero"`
+	// Price source for the Pareto frontier cost axis. "prompt" uses catalog list price (endpoint.pricing.prompt). "weighted_avg" uses traffic-weighted effective input price from ClickHouse, falling back to prompt price for models without traffic data. Defaults to "prompt".
+	PriceSource *PriceSource `json:"price_source,omitzero"`
 }
 
 func (p ParetoRouterPlugin) MarshalJSON() ([]byte, error) {
@@ -69,4 +94,11 @@ func (p *ParetoRouterPlugin) GetMinCodingScore() *float64 {
 		return nil
 	}
 	return p.MinCodingScore
+}
+
+func (p *ParetoRouterPlugin) GetPriceSource() *PriceSource {
+	if p == nil {
+		return nil
+	}
+	return p.PriceSource
 }
