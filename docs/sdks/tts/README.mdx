@@ -37,9 +37,9 @@ func main() {
 
     res, err := s.Tts.CreateSpeech(ctx, components.SpeechRequest{
         Input: "Hello world",
-        Model: "elevenlabs/eleven-turbo-v2",
+        Model: "mistralai/voxtral-mini-tts-2603",
         Speed: openrouter.Pointer[float64](1.0),
-        Voice: "alloy",
+        Voice: "en_paul_neutral",
     })
     if err != nil {
         log.Fatal(err)
