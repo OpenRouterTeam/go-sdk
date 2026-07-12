@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: a6cc4ddcaeaf6bb8e1ed88a93412d826
+  docChecksum: ac5fe5fbbb970415b5c4de85fb328cdf
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.16
-  configChecksum: 931ab64cee53d6a466d73404b4a71457
+  releaseVersion: 0.5.17
+  configChecksum: fc7ca0c677ba6248d8123f242b424141
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a184b262-ebe8-44c2-828d-02d0c4bc1322
-  pristine_commit_hash: bdab856924f72352f89bdb880576342364bdcd7e
-  pristine_tree_hash: 1a625c69a82fb898259065cefee5d0141411d99b
+  generation_id: 904acbb4-59ce-450c-80d9-2c2d5c95f3f1
+  pristine_commit_hash: e4d41ba4ef25c9ad5395d61810e2df4f3ff3e839
+  pristine_tree_hash: 0560f808ec981afa5168015f2a0c7c2e2e442227
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4375,8 +4375,8 @@ trackedFiles:
     pristine_git_object: e2787b1e7be4600fe347c8d90077895fb86ff3a5
   docs/models/components/speechrequest.mdx:
     id: 572bb1b07290
-    last_write_checksum: sha1:0eef27f2b573e3f4c5268b76c5fe4090f8ab43cf
-    pristine_git_object: ad66b0e193f78462e64836bed2003618ffb4990a
+    last_write_checksum: sha1:037cfbe99d247fc8ad6c64babbbfba1e5f55bd6c
+    pristine_git_object: f0492e91d5baea2390eabab3de17d75a6c349a5f
   docs/models/components/speechrequestprovider.mdx:
     id: 70ddc64fe615
     last_write_checksum: sha1:0b345acd1029103dca5e9dbe7e3480cad15266d7
@@ -6159,8 +6159,8 @@ trackedFiles:
     pristine_git_object: 82330b9e23ffdc5850e391a0e39c3efa36538edf
   docs/sdks/tts/README.mdx:
     id: cd1132543884
-    last_write_checksum: sha1:c822531b2e14ffec07d16395f3813c8dad1248b5
-    pristine_git_object: e98c71f676fe89afa37b31d3acfe7296f8831e6b
+    last_write_checksum: sha1:db06fb7d332c276221b3719d3195645ce4256af2
+    pristine_git_object: 02b71e92b8d69a69e82ecad897b1a2869ca4e7a0
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
     last_write_checksum: sha1:d89e48fadaa7295062d562b3a17bf4e8c4e7b161
@@ -8843,8 +8843,8 @@ trackedFiles:
     pristine_git_object: 3dc1d1bf3c5e7387b73f1bbb0b6b456dd5e7ee9d
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:07b5619ebcffc45a159c6e712e4886a9d866528e
-    pristine_git_object: 861480eb77c6f8e65191ff50fe3f200135b76530
+    last_write_checksum: sha1:118c91d8f3481e15e1d14e65823132c9d1daf084
+    pristine_git_object: 99a774fc754c9efc283126528c9ad52a7f5372ee
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9580,7 +9580,7 @@ examples:
   createAudioSpeech:
     speakeasy-default-create-audio-speech:
       requestBody:
-        application/json: {"input": "Hello world", "model": "elevenlabs/eleven-turbo-v2", "response_format": "pcm", "voice": "alloy"}
+        application/json: {"input": "Hello world", "model": "mistralai/voxtral-mini-tts-2603", "response_format": "pcm", "voice": "en_paul_neutral"}
       responses:
         "200":
           audio/*: "<binary audio data>"
@@ -10414,4 +10414,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(meta)` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(meta)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(meta)` **Added**\n  *  `response.Data.Provider.Enum(meta)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(meta)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(meta)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(meta)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(meta)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(meta)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(meta)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(meta)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(meta)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(meta)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(meta)` **Added**\n"
