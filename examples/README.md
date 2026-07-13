@@ -43,7 +43,7 @@ cd ../generation && go run .
 Each example pins a released SDK version in `go.mod`:
 
 ```go
-require github.com/OpenRouterTeam/go-sdk v0.5.17
+require github.com/OpenRouterTeam/go-sdk v0.5.18
 ```
 
 This should match the version in [README.md](../README.md) and `.speakeasy/gen.lock` `releaseVersion`. CI runs `scripts/bump-examples.sh` after releases to keep these in sync.
@@ -51,7 +51,7 @@ This should match the version in [README.md](../README.md) and `.speakeasy/gen.l
 To use a different version:
 
 ```bash
-go get github.com/OpenRouterTeam/go-sdk@v0.5.17
+go get github.com/OpenRouterTeam/go-sdk@v0.5.18
 go run .
 ```
 
