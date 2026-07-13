@@ -13,10 +13,10 @@ Response format configuration
 responseFormat := components.CreateResponseFormatGrammar(components.ChatFormatGrammarConfig{/* values here */})
 ```
 
-### FormatJSONObjectConfig
+### ChatFormatJSONObjectConfig
 
 ```go
-responseFormat := components.CreateResponseFormatJSONObject(components.FormatJSONObjectConfig{/* values here */})
+responseFormat := components.CreateResponseFormatJSONObject(components.ChatFormatJSONObjectConfig{/* values here */})
 ```
 
 ### ChatFormatJSONSchemaConfig
@@ -46,7 +46,7 @@ switch responseFormat.Type {
 	case components.ResponseFormatTypeGrammar:
 		// responseFormat.ChatFormatGrammarConfig is populated
 	case components.ResponseFormatTypeJSONObject:
-		// responseFormat.FormatJSONObjectConfig is populated
+		// responseFormat.ChatFormatJSONObjectConfig is populated
 	case components.ResponseFormatTypeJSONSchema:
 		// responseFormat.ChatFormatJSONSchemaConfig is populated
 	case components.ResponseFormatTypePython:

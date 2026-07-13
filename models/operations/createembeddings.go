@@ -761,34 +761,6 @@ func (e *Object) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// CostDetails - Breakdown of upstream inference costs
-type CostDetails struct {
-	UpstreamInferenceCompletionsCost float64                                    `json:"upstream_inference_completions_cost"`
-	UpstreamInferenceCost            optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
-	UpstreamInferencePromptCost      float64                                    `json:"upstream_inference_prompt_cost"`
-}
-
-func (c *CostDetails) GetUpstreamInferenceCompletionsCost() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.UpstreamInferenceCompletionsCost
-}
-
-func (c *CostDetails) GetUpstreamInferenceCost() optionalnullable.OptionalNullable[float64] {
-	if c == nil {
-		return nil
-	}
-	return c.UpstreamInferenceCost
-}
-
-func (c *CostDetails) GetUpstreamInferencePromptCost() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.UpstreamInferencePromptCost
-}
-
 // PromptTokensDetails - Per-modality token breakdown. Only present when the input contains 2+ modalities (e.g. text + image) and the upstream provider returns modality-level usage data. Only non-zero modality counts are included.
 type PromptTokensDetails struct {
 	// Number of audio tokens in the input
@@ -843,7 +815,7 @@ type CreateEmbeddingsUsage struct {
 	// Cost of the request in credits
 	Cost *float64 `json:"cost,omitzero"`
 	// Breakdown of upstream inference costs
-	CostDetails optionalnullable.OptionalNullable[CostDetails] `json:"cost_details,omitzero"`
+	CostDetails optionalnullable.OptionalNullable[components.CostDetails] `json:"cost_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
 	IsByok *bool `json:"is_byok,omitzero"`
 	// Number of tokens in the input
@@ -872,7 +844,7 @@ func (c *CreateEmbeddingsUsage) GetCost() *float64 {
 	return c.Cost
 }
 
-func (c *CreateEmbeddingsUsage) GetCostDetails() optionalnullable.OptionalNullable[CostDetails] {
+func (c *CreateEmbeddingsUsage) GetCostDetails() optionalnullable.OptionalNullable[components.CostDetails] {
 	if c == nil {
 		return nil
 	}

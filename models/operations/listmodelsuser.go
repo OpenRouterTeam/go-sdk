@@ -2,6 +2,12 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+)
+
 type ListModelsUserSecurity struct {
 	Bearer string `security:"scheme,type=http,subtype=bearer,name=Authorization,env=openrouter_bearer"`
 }
@@ -11,4 +17,49 @@ func (l *ListModelsUserSecurity) GetBearer() string {
 		return ""
 	}
 	return l.Bearer
+}
+
+type ListModelsUserRequest struct {
+	// Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned
+	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of records to return (max 1000). When both offset and limit are omitted, the full list is returned
+	Limit *int64 `default:"500" queryParam:"style=form,explode=true,name=limit"`
+}
+
+func (l ListModelsUserRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListModelsUserRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *ListModelsUserRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
+	if l == nil {
+		return nil
+	}
+	return l.Offset
+}
+
+func (l *ListModelsUserRequest) GetLimit() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Limit
+}
+
+type ListModelsUserResponse struct {
+	Result components.ModelsListResponse
+
+	Next func() (*ListModelsUserResponse, error)
+}
+
+func (l *ListModelsUserResponse) GetResult() components.ModelsListResponse {
+	if l == nil {
+		return components.ModelsListResponse{}
+	}
+	return l.Result
 }

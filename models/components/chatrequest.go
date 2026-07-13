@@ -397,7 +397,7 @@ const (
 // ResponseFormat - Response format configuration
 type ResponseFormat struct {
 	ChatFormatTextConfig       *ChatFormatTextConfig       `queryParam:"inline" union:"member"`
-	FormatJSONObjectConfig     *FormatJSONObjectConfig     `queryParam:"inline" union:"member"`
+	ChatFormatJSONObjectConfig *ChatFormatJSONObjectConfig `queryParam:"inline" union:"member"`
 	ChatFormatJSONSchemaConfig *ChatFormatJSONSchemaConfig `queryParam:"inline" union:"member"`
 	ChatFormatGrammarConfig    *ChatFormatGrammarConfig    `queryParam:"inline" union:"member"`
 	ChatFormatPythonConfig     *ChatFormatPythonConfig     `queryParam:"inline" union:"member"`
@@ -417,15 +417,15 @@ func CreateResponseFormatGrammar(grammar ChatFormatGrammarConfig) ResponseFormat
 	}
 }
 
-func CreateResponseFormatJSONObject(jsonObject FormatJSONObjectConfig) ResponseFormat {
+func CreateResponseFormatJSONObject(jsonObject ChatFormatJSONObjectConfig) ResponseFormat {
 	typ := ResponseFormatTypeJSONObject
 
-	typStr := FormatJSONObjectConfigType(typ)
+	typStr := ChatFormatJSONObjectConfigType(typ)
 	jsonObject.Type = typStr
 
 	return ResponseFormat{
-		FormatJSONObjectConfig: &jsonObject,
-		Type:                   typ,
+		ChatFormatJSONObjectConfig: &jsonObject,
+		Type:                       typ,
 	}
 }
 
@@ -487,12 +487,12 @@ func (u *ResponseFormat) UnmarshalJSON(data []byte) error {
 		u.Type = ResponseFormatTypeGrammar
 		return nil
 	case "json_object":
-		formatJSONObjectConfig := new(FormatJSONObjectConfig)
-		if err := utils.UnmarshalJSON(data, &formatJSONObjectConfig, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == json_object) type FormatJSONObjectConfig within ResponseFormat: %w", string(data), err)
+		chatFormatJSONObjectConfig := new(ChatFormatJSONObjectConfig)
+		if err := utils.UnmarshalJSON(data, &chatFormatJSONObjectConfig, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == json_object) type ChatFormatJSONObjectConfig within ResponseFormat: %w", string(data), err)
 		}
 
-		u.FormatJSONObjectConfig = formatJSONObjectConfig
+		u.ChatFormatJSONObjectConfig = chatFormatJSONObjectConfig
 		u.Type = ResponseFormatTypeJSONObject
 		return nil
 	case "json_schema":
@@ -532,8 +532,8 @@ func (u ResponseFormat) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ChatFormatTextConfig, "", true)
 	}
 
-	if u.FormatJSONObjectConfig != nil {
-		return utils.MarshalJSON(u.FormatJSONObjectConfig, "", true)
+	if u.ChatFormatJSONObjectConfig != nil {
+		return utils.MarshalJSON(u.ChatFormatJSONObjectConfig, "", true)
 	}
 
 	if u.ChatFormatJSONSchemaConfig != nil {
@@ -945,9 +945,9 @@ func (c *ChatRequest) GetResponseFormatGrammar() *ChatFormatGrammarConfig {
 	return nil
 }
 
-func (c *ChatRequest) GetResponseFormatJSONObject() *FormatJSONObjectConfig {
+func (c *ChatRequest) GetResponseFormatJSONObject() *ChatFormatJSONObjectConfig {
 	if v := c.GetResponseFormat(); v != nil {
-		return v.FormatJSONObjectConfig
+		return v.ChatFormatJSONObjectConfig
 	}
 	return nil
 }

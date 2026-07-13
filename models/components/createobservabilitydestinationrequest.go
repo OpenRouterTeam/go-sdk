@@ -53,7 +53,7 @@ type CreateObservabilityDestinationRequest struct {
 	// Whether this destination should be enabled immediately.
 	Enabled *bool `default:"true" json:"enabled"`
 	// Optional structured filter rules controlling which events are forwarded.
-	FilterRules optionalnullable.OptionalNullable[ObservabilityFilterRulesConfig] `json:"filter_rules,omitzero"`
+	FilterRules optionalnullable.OptionalNullable[ObservabilityFilterRulesConfigNullable] `json:"filter_rules,omitzero"`
 	// Human-readable name for the destination.
 	Name string `json:"name"`
 	// When true, request/response bodies are not forwarded — only metadata.
@@ -98,7 +98,7 @@ func (c *CreateObservabilityDestinationRequest) GetEnabled() *bool {
 	return c.Enabled
 }
 
-func (c *CreateObservabilityDestinationRequest) GetFilterRules() optionalnullable.OptionalNullable[ObservabilityFilterRulesConfig] {
+func (c *CreateObservabilityDestinationRequest) GetFilterRules() optionalnullable.OptionalNullable[ObservabilityFilterRulesConfigNullable] {
 	if c == nil {
 		return nil
 	}

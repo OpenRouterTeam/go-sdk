@@ -13,8 +13,8 @@ type UpdateObservabilityDestinationRequest struct {
 	// Provider-specific configuration fields to update. Masked values are ignored; unset fields keep their current value.
 	Config map[string]any `json:"config,omitzero"`
 	// Whether the destination is enabled.
-	Enabled     *bool                                                             `json:"enabled,omitzero"`
-	FilterRules optionalnullable.OptionalNullable[ObservabilityFilterRulesConfig] `json:"filter_rules,omitzero"`
+	Enabled     *bool                                                                     `json:"enabled,omitzero"`
+	FilterRules optionalnullable.OptionalNullable[ObservabilityFilterRulesConfigNullable] `json:"filter_rules,omitzero"`
 	// Human-readable name for the destination.
 	Name *string `json:"name,omitzero"`
 	// When true, request/response bodies are not forwarded — only metadata.
@@ -55,7 +55,7 @@ func (u *UpdateObservabilityDestinationRequest) GetEnabled() *bool {
 	return u.Enabled
 }
 
-func (u *UpdateObservabilityDestinationRequest) GetFilterRules() optionalnullable.OptionalNullable[ObservabilityFilterRulesConfig] {
+func (u *UpdateObservabilityDestinationRequest) GetFilterRules() optionalnullable.OptionalNullable[ObservabilityFilterRulesConfigNullable] {
 	if u == nil {
 		return nil
 	}

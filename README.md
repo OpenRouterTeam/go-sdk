@@ -143,6 +143,7 @@ import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -154,12 +155,24 @@ func main() {
 
 	res, err := s.Models.ListForUser(ctx, operations.ListModelsUserSecurity{
 		Bearer: os.Getenv("OPENROUTER_BEARER"),
-	})
+	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500))
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		// handle response
+		for {
+			// handle items
+
+			res, err = res.Next()
+
+			if err != nil {
+				// handle error
+			}
+
+			if res == nil {
+				break
+			}
+		}
 	}
 }
 
@@ -422,7 +435,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Byok.List(ctx, optionalnullable.From[int64](nil), nil, nil, nil)
+	res, err := s.Byok.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

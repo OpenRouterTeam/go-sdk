@@ -124,10 +124,10 @@ additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionFus
 additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionImageGenerationServerToolOpenRouter(components.ImageGenerationServerToolOpenRouter{/* values here */})
 ```
 
-### ChatSearchModelsServerTool
+### SearchModelsServerToolOpenRouter
 
 ```go
-additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionChatSearchModelsServerTool(components.ChatSearchModelsServerTool{/* values here */})
+additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionSearchModelsServerToolOpenRouter(components.SearchModelsServerToolOpenRouter{/* values here */})
 ```
 
 ### WebFetchServerTool
@@ -212,8 +212,8 @@ switch additionalToolsItemToolUnion.Type {
 		// additionalToolsItemToolUnion.FusionServerToolOpenRouter is populated
 	case components.AdditionalToolsItemToolUnionTypeImageGenerationServerToolOpenRouter:
 		// additionalToolsItemToolUnion.ImageGenerationServerToolOpenRouter is populated
-	case components.AdditionalToolsItemToolUnionTypeChatSearchModelsServerTool:
-		// additionalToolsItemToolUnion.ChatSearchModelsServerTool is populated
+	case components.AdditionalToolsItemToolUnionTypeSearchModelsServerToolOpenRouter:
+		// additionalToolsItemToolUnion.SearchModelsServerToolOpenRouter is populated
 	case components.AdditionalToolsItemToolUnionTypeWebFetchServerTool:
 		// additionalToolsItemToolUnion.WebFetchServerTool is populated
 	case components.AdditionalToolsItemToolUnionTypeWebSearchServerToolOpenRouter:

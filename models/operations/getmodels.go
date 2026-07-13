@@ -5,6 +5,8 @@ package operations
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
@@ -146,6 +148,10 @@ func (e *Region) UnmarshalJSON(data []byte) error {
 }
 
 type GetModelsRequest struct {
+	// Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned
+	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of records to return (max 1000). When both offset and limit are omitted, the full list is returned
+	Limit *int64 `default:"500" queryParam:"style=form,explode=true,name=limit"`
 	// Filter models by use case category
 	Category *GetModelsCategory `queryParam:"style=form,explode=true,name=category"`
 	// Filter models by supported parameter (comma-separated)
@@ -200,6 +206,31 @@ type GetModelsRequest struct {
 	MinToolSuccessRate optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_tool_success_rate"`
 	// Maximum tool-calling success rate, as a fraction in [0, 1].
 	MaxToolSuccessRate optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=max_tool_success_rate"`
+}
+
+func (g GetModelsRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetModelsRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GetModelsRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetModelsRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
 }
 
 func (g *GetModelsRequest) GetCategory() *GetModelsCategory {
@@ -389,4 +420,17 @@ func (g *GetModelsRequest) GetMaxToolSuccessRate() optionalnullable.OptionalNull
 		return nil
 	}
 	return g.MaxToolSuccessRate
+}
+
+type GetModelsResponse struct {
+	Result components.ModelsListResponse
+
+	Next func() (*GetModelsResponse, error)
+}
+
+func (g *GetModelsResponse) GetResult() components.ModelsListResponse {
+	if g == nil {
+		return components.ModelsListResponse{}
+	}
+	return g.Result
 }

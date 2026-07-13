@@ -22,16 +22,16 @@ citation := components.CreateCitationContentBlockLocation(components.AnthropicCi
 citation := components.CreateCitationPageLocation(components.AnthropicCitationPageLocationParam{/* values here */})
 ```
 
-### AnthropicCitationSearchResultLocation
+### AnthropicCitationSearchResultLocationParam
 
 ```go
-citation := components.CreateCitationSearchResultLocation(components.AnthropicCitationSearchResultLocation{/* values here */})
+citation := components.CreateCitationSearchResultLocation(components.AnthropicCitationSearchResultLocationParam{/* values here */})
 ```
 
-### AnthropicCitationWebSearchResultLocation
+### AnthropicCitationWebSearchResultLocationParam
 
 ```go
-citation := components.CreateCitationWebSearchResultLocation(components.AnthropicCitationWebSearchResultLocation{/* values here */})
+citation := components.CreateCitationWebSearchResultLocation(components.AnthropicCitationWebSearchResultLocationParam{/* values here */})
 ```
 
 ## Union Discrimination
@@ -47,8 +47,8 @@ switch citation.Type {
 	case components.CitationTypePageLocation:
 		// citation.AnthropicCitationPageLocationParam is populated
 	case components.CitationTypeSearchResultLocation:
-		// citation.AnthropicCitationSearchResultLocation is populated
+		// citation.AnthropicCitationSearchResultLocationParam is populated
 	case components.CitationTypeWebSearchResultLocation:
-		// citation.AnthropicCitationWebSearchResultLocation is populated
+		// citation.AnthropicCitationWebSearchResultLocationParam is populated
 }
 ```

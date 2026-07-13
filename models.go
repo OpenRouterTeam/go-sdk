@@ -12,7 +12,9 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"github.com/OpenRouterTeam/go-sdk/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -285,7 +287,7 @@ func (s *Models) Get(ctx context.Context, author string, slug string, opts ...op
 }
 
 // List all models and their properties
-func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest, opts ...operations.Option) (*components.ModelsListResponse, error) {
+func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest, opts ...operations.Option) (*operations.GetModelsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -446,6 +448,54 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 		}
 	}
 
+	res := &operations.GetModelsResponse{}
+	res.Next = func() (*operations.GetModelsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offsetVal, ok := request.Offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if request.Limit != nil {
+			l = int(*request.Limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+		request.Offset = optionalnullable.From(&nOS)
+
+		return s.List(
+			ctx,
+			request,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -460,7 +510,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -530,7 +580,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
 
@@ -790,7 +840,12 @@ func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...op
 
 // ListForUser - List models filtered by user provider preferences, privacy settings, and guardrails
 // List models filtered by user provider preferences, [privacy settings](https://openrouter.ai/docs/guides/privacy/provider-logging), and [guardrails](https://openrouter.ai/docs/guides/features/guardrails). If requesting through `eu.openrouter.ai/api/v1/...` the results will be filtered to models that satisfy [EU in-region routing](https://openrouter.ai/docs/guides/privacy/provider-logging#enterprise-eu-in-region-routing).
-func (s *Models) ListForUser(ctx context.Context, security operations.ListModelsUserSecurity, opts ...operations.Option) (*components.ModelsListResponse, error) {
+func (s *Models) ListForUser(ctx context.Context, security operations.ListModelsUserSecurity, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListModelsUserResponse, error) {
+	request := operations.ListModelsUserRequest{
+		Offset: offset,
+		Limit:  limit,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -841,6 +896,10 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, utils.AsSecuritySource(security)); err != nil {
 		return nil, err
@@ -947,6 +1006,55 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 		}
 	}
 
+	res := &operations.ListModelsUserResponse{}
+	res.Next = func() (*operations.ListModelsUserResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.ListForUser(
+			ctx,
+			security,
+			optionalnullable.From(&nOS),
+			limit,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -961,7 +1069,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1052,6 +1160,6 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
