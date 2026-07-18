@@ -39,7 +39,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Byok.List(ctx, optionalnullable.From[int64](nil), nil, nil, nil)
+    res, err := s.Byok.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, nil)
     if err != nil {
         log.Fatal(err)
     }

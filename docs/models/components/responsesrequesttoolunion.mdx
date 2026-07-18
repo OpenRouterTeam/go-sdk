@@ -124,10 +124,10 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenroute
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterImageGeneration(components.ImageGenerationServerToolOpenRouter{/* values here */})
 ```
 
-### ChatSearchModelsServerTool
+### SearchModelsServerToolOpenRouter
 
 ```go
-responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(components.ChatSearchModelsServerTool{/* values here */})
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(components.SearchModelsServerToolOpenRouter{/* values here */})
 ```
 
 ### WebFetchServerTool
@@ -207,7 +207,7 @@ switch responsesRequestToolUnion.Type {
 	case components.ResponsesRequestToolUnionTypeOpenrouterImageGeneration:
 		// responsesRequestToolUnion.ImageGenerationServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels:
-		// responsesRequestToolUnion.ChatSearchModelsServerTool is populated
+		// responsesRequestToolUnion.SearchModelsServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterWebFetch:
 		// responsesRequestToolUnion.WebFetchServerTool is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterWebSearch:

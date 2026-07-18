@@ -169,7 +169,7 @@ const (
 	AdditionalToolsItemToolUnionTypeFilesServerTool                     AdditionalToolsItemToolUnionType = "FilesServerTool"
 	AdditionalToolsItemToolUnionTypeFusionServerToolOpenRouter          AdditionalToolsItemToolUnionType = "FusionServerTool_OpenRouter"
 	AdditionalToolsItemToolUnionTypeImageGenerationServerToolOpenRouter AdditionalToolsItemToolUnionType = "ImageGenerationServerTool_OpenRouter"
-	AdditionalToolsItemToolUnionTypeChatSearchModelsServerTool          AdditionalToolsItemToolUnionType = "ChatSearchModelsServerTool"
+	AdditionalToolsItemToolUnionTypeSearchModelsServerToolOpenRouter    AdditionalToolsItemToolUnionType = "SearchModelsServerTool_OpenRouter"
 	AdditionalToolsItemToolUnionTypeWebFetchServerTool                  AdditionalToolsItemToolUnionType = "WebFetchServerTool"
 	AdditionalToolsItemToolUnionTypeWebSearchServerToolOpenRouter       AdditionalToolsItemToolUnionType = "WebSearchServerTool_OpenRouter"
 	AdditionalToolsItemToolUnionTypeApplyPatchServerToolOpenRouter      AdditionalToolsItemToolUnionType = "ApplyPatchServerTool_OpenRouter"
@@ -199,7 +199,7 @@ type AdditionalToolsItemToolUnion struct {
 	FilesServerTool                     *FilesServerTool                     `queryParam:"inline" union:"member"`
 	FusionServerToolOpenRouter          *FusionServerToolOpenRouter          `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
-	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	SearchModelsServerToolOpenRouter    *SearchModelsServerToolOpenRouter    `queryParam:"inline" union:"member"`
 	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	WebSearchServerToolOpenRouter       *WebSearchServerToolOpenRouter       `queryParam:"inline" union:"member"`
 	ApplyPatchServerToolOpenRouter      *ApplyPatchServerToolOpenRouter      `queryParam:"inline" union:"member"`
@@ -390,12 +390,12 @@ func CreateAdditionalToolsItemToolUnionImageGenerationServerToolOpenRouter(image
 	}
 }
 
-func CreateAdditionalToolsItemToolUnionChatSearchModelsServerTool(chatSearchModelsServerTool ChatSearchModelsServerTool) AdditionalToolsItemToolUnion {
-	typ := AdditionalToolsItemToolUnionTypeChatSearchModelsServerTool
+func CreateAdditionalToolsItemToolUnionSearchModelsServerToolOpenRouter(searchModelsServerToolOpenRouter SearchModelsServerToolOpenRouter) AdditionalToolsItemToolUnion {
+	typ := AdditionalToolsItemToolUnionTypeSearchModelsServerToolOpenRouter
 
 	return AdditionalToolsItemToolUnion{
-		ChatSearchModelsServerTool: &chatSearchModelsServerTool,
-		Type:                       typ,
+		SearchModelsServerToolOpenRouter: &searchModelsServerToolOpenRouter,
+		Type:                             typ,
 	}
 }
 
@@ -618,11 +618,11 @@ func (u *AdditionalToolsItemToolUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var chatSearchModelsServerTool ChatSearchModelsServerTool = ChatSearchModelsServerTool{}
-	if err := utils.UnmarshalJSON(data, &chatSearchModelsServerTool, "", true, nil); err == nil {
+	var searchModelsServerToolOpenRouter SearchModelsServerToolOpenRouter = SearchModelsServerToolOpenRouter{}
+	if err := utils.UnmarshalJSON(data, &searchModelsServerToolOpenRouter, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AdditionalToolsItemToolUnionTypeChatSearchModelsServerTool,
-			Value: &chatSearchModelsServerTool,
+			Type:  AdditionalToolsItemToolUnionTypeSearchModelsServerToolOpenRouter,
+			Value: &searchModelsServerToolOpenRouter,
 		})
 	}
 
@@ -747,8 +747,8 @@ func (u *AdditionalToolsItemToolUnion) UnmarshalJSON(data []byte) error {
 	case AdditionalToolsItemToolUnionTypeImageGenerationServerToolOpenRouter:
 		u.ImageGenerationServerToolOpenRouter = best.Value.(*ImageGenerationServerToolOpenRouter)
 		return nil
-	case AdditionalToolsItemToolUnionTypeChatSearchModelsServerTool:
-		u.ChatSearchModelsServerTool = best.Value.(*ChatSearchModelsServerTool)
+	case AdditionalToolsItemToolUnionTypeSearchModelsServerToolOpenRouter:
+		u.SearchModelsServerToolOpenRouter = best.Value.(*SearchModelsServerToolOpenRouter)
 		return nil
 	case AdditionalToolsItemToolUnionTypeWebFetchServerTool:
 		u.WebFetchServerTool = best.Value.(*WebFetchServerTool)
@@ -854,8 +854,8 @@ func (u AdditionalToolsItemToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ImageGenerationServerToolOpenRouter, "", true)
 	}
 
-	if u.ChatSearchModelsServerTool != nil {
-		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	if u.SearchModelsServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.SearchModelsServerToolOpenRouter, "", true)
 	}
 
 	if u.WebFetchServerTool != nil {

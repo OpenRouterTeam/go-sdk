@@ -21,11 +21,11 @@ const (
 )
 
 type Citation struct {
-	AnthropicCitationCharLocationParam         *AnthropicCitationCharLocationParam         `queryParam:"inline" union:"member"`
-	AnthropicCitationPageLocationParam         *AnthropicCitationPageLocationParam         `queryParam:"inline" union:"member"`
-	AnthropicCitationContentBlockLocationParam *AnthropicCitationContentBlockLocationParam `queryParam:"inline" union:"member"`
-	AnthropicCitationWebSearchResultLocation   *AnthropicCitationWebSearchResultLocation   `queryParam:"inline" union:"member"`
-	AnthropicCitationSearchResultLocation      *AnthropicCitationSearchResultLocation      `queryParam:"inline" union:"member"`
+	AnthropicCitationCharLocationParam            *AnthropicCitationCharLocationParam            `queryParam:"inline" union:"member"`
+	AnthropicCitationPageLocationParam            *AnthropicCitationPageLocationParam            `queryParam:"inline" union:"member"`
+	AnthropicCitationContentBlockLocationParam    *AnthropicCitationContentBlockLocationParam    `queryParam:"inline" union:"member"`
+	AnthropicCitationWebSearchResultLocationParam *AnthropicCitationWebSearchResultLocationParam `queryParam:"inline" union:"member"`
+	AnthropicCitationSearchResultLocationParam    *AnthropicCitationSearchResultLocationParam    `queryParam:"inline" union:"member"`
 
 	Type CitationType
 }
@@ -66,27 +66,27 @@ func CreateCitationPageLocation(pageLocation AnthropicCitationPageLocationParam)
 	}
 }
 
-func CreateCitationSearchResultLocation(searchResultLocation AnthropicCitationSearchResultLocation) Citation {
+func CreateCitationSearchResultLocation(searchResultLocation AnthropicCitationSearchResultLocationParam) Citation {
 	typ := CitationTypeSearchResultLocation
 
-	typStr := AnthropicCitationSearchResultLocationType(typ)
+	typStr := AnthropicCitationSearchResultLocationParamType(typ)
 	searchResultLocation.Type = typStr
 
 	return Citation{
-		AnthropicCitationSearchResultLocation: &searchResultLocation,
-		Type:                                  typ,
+		AnthropicCitationSearchResultLocationParam: &searchResultLocation,
+		Type: typ,
 	}
 }
 
-func CreateCitationWebSearchResultLocation(webSearchResultLocation AnthropicCitationWebSearchResultLocation) Citation {
+func CreateCitationWebSearchResultLocation(webSearchResultLocation AnthropicCitationWebSearchResultLocationParam) Citation {
 	typ := CitationTypeWebSearchResultLocation
 
-	typStr := AnthropicCitationWebSearchResultLocationType(typ)
+	typStr := AnthropicCitationWebSearchResultLocationParamType(typ)
 	webSearchResultLocation.Type = typStr
 
 	return Citation{
-		AnthropicCitationWebSearchResultLocation: &webSearchResultLocation,
-		Type:                                     typ,
+		AnthropicCitationWebSearchResultLocationParam: &webSearchResultLocation,
+		Type: typ,
 	}
 }
 
@@ -130,21 +130,21 @@ func (u *Citation) UnmarshalJSON(data []byte) error {
 		u.Type = CitationTypePageLocation
 		return nil
 	case "search_result_location":
-		anthropicCitationSearchResultLocation := new(AnthropicCitationSearchResultLocation)
-		if err := utils.UnmarshalJSON(data, &anthropicCitationSearchResultLocation, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == search_result_location) type AnthropicCitationSearchResultLocation within Citation: %w", string(data), err)
+		anthropicCitationSearchResultLocationParam := new(AnthropicCitationSearchResultLocationParam)
+		if err := utils.UnmarshalJSON(data, &anthropicCitationSearchResultLocationParam, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == search_result_location) type AnthropicCitationSearchResultLocationParam within Citation: %w", string(data), err)
 		}
 
-		u.AnthropicCitationSearchResultLocation = anthropicCitationSearchResultLocation
+		u.AnthropicCitationSearchResultLocationParam = anthropicCitationSearchResultLocationParam
 		u.Type = CitationTypeSearchResultLocation
 		return nil
 	case "web_search_result_location":
-		anthropicCitationWebSearchResultLocation := new(AnthropicCitationWebSearchResultLocation)
-		if err := utils.UnmarshalJSON(data, &anthropicCitationWebSearchResultLocation, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == web_search_result_location) type AnthropicCitationWebSearchResultLocation within Citation: %w", string(data), err)
+		anthropicCitationWebSearchResultLocationParam := new(AnthropicCitationWebSearchResultLocationParam)
+		if err := utils.UnmarshalJSON(data, &anthropicCitationWebSearchResultLocationParam, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == web_search_result_location) type AnthropicCitationWebSearchResultLocationParam within Citation: %w", string(data), err)
 		}
 
-		u.AnthropicCitationWebSearchResultLocation = anthropicCitationWebSearchResultLocation
+		u.AnthropicCitationWebSearchResultLocationParam = anthropicCitationWebSearchResultLocationParam
 		u.Type = CitationTypeWebSearchResultLocation
 		return nil
 	}
@@ -165,12 +165,12 @@ func (u Citation) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.AnthropicCitationContentBlockLocationParam, "", true)
 	}
 
-	if u.AnthropicCitationWebSearchResultLocation != nil {
-		return utils.MarshalJSON(u.AnthropicCitationWebSearchResultLocation, "", true)
+	if u.AnthropicCitationWebSearchResultLocationParam != nil {
+		return utils.MarshalJSON(u.AnthropicCitationWebSearchResultLocationParam, "", true)
 	}
 
-	if u.AnthropicCitationSearchResultLocation != nil {
-		return utils.MarshalJSON(u.AnthropicCitationSearchResultLocation, "", true)
+	if u.AnthropicCitationSearchResultLocationParam != nil {
+		return utils.MarshalJSON(u.AnthropicCitationSearchResultLocationParam, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Citation: all fields are null")

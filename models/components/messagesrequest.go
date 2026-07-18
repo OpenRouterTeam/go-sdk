@@ -2601,7 +2601,7 @@ const (
 	MessagesRequestToolUnionTypeBashServerTool                      MessagesRequestToolUnionType = "BashServerTool"
 	MessagesRequestToolUnionTypeDatetimeServerTool                  MessagesRequestToolUnionType = "DatetimeServerTool"
 	MessagesRequestToolUnionTypeImageGenerationServerToolOpenRouter MessagesRequestToolUnionType = "ImageGenerationServerTool_OpenRouter"
-	MessagesRequestToolUnionTypeChatSearchModelsServerTool          MessagesRequestToolUnionType = "ChatSearchModelsServerTool"
+	MessagesRequestToolUnionTypeMessagesSearchModelsServerTool      MessagesRequestToolUnionType = "MessagesSearchModelsServerTool"
 	MessagesRequestToolUnionTypeWebFetchServerTool                  MessagesRequestToolUnionType = "WebFetchServerTool"
 	MessagesRequestToolUnionTypeOpenRouterWebSearchServerTool       MessagesRequestToolUnionType = "OpenRouterWebSearchServerTool"
 	MessagesRequestToolUnionTypeMessagesRequestTool                 MessagesRequestToolUnionType = "MessagesRequest_tool"
@@ -2617,7 +2617,7 @@ type MessagesRequestToolUnion struct {
 	BashServerTool                      *BashServerTool                      `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
-	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	MessagesSearchModelsServerTool      *MessagesSearchModelsServerTool      `queryParam:"inline" union:"member"`
 	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	OpenRouterWebSearchServerTool       *OpenRouterWebSearchServerTool       `queryParam:"inline" union:"member"`
 	MessagesRequestTool                 *MessagesRequestTool                 `queryParam:"inline" union:"member"`
@@ -2706,12 +2706,12 @@ func CreateMessagesRequestToolUnionImageGenerationServerToolOpenRouter(imageGene
 	}
 }
 
-func CreateMessagesRequestToolUnionChatSearchModelsServerTool(chatSearchModelsServerTool ChatSearchModelsServerTool) MessagesRequestToolUnion {
-	typ := MessagesRequestToolUnionTypeChatSearchModelsServerTool
+func CreateMessagesRequestToolUnionMessagesSearchModelsServerTool(messagesSearchModelsServerTool MessagesSearchModelsServerTool) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeMessagesSearchModelsServerTool
 
 	return MessagesRequestToolUnion{
-		ChatSearchModelsServerTool: &chatSearchModelsServerTool,
-		Type:                       typ,
+		MessagesSearchModelsServerTool: &messagesSearchModelsServerTool,
+		Type:                           typ,
 	}
 }
 
@@ -2819,11 +2819,11 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var chatSearchModelsServerTool ChatSearchModelsServerTool = ChatSearchModelsServerTool{}
-	if err := utils.UnmarshalJSON(data, &chatSearchModelsServerTool, "", true, nil); err == nil {
+	var messagesSearchModelsServerTool MessagesSearchModelsServerTool = MessagesSearchModelsServerTool{}
+	if err := utils.UnmarshalJSON(data, &messagesSearchModelsServerTool, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  MessagesRequestToolUnionTypeChatSearchModelsServerTool,
-			Value: &chatSearchModelsServerTool,
+			Type:  MessagesRequestToolUnionTypeMessagesSearchModelsServerTool,
+			Value: &messagesSearchModelsServerTool,
 		})
 	}
 
@@ -2891,8 +2891,8 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 	case MessagesRequestToolUnionTypeImageGenerationServerToolOpenRouter:
 		u.ImageGenerationServerToolOpenRouter = best.Value.(*ImageGenerationServerToolOpenRouter)
 		return nil
-	case MessagesRequestToolUnionTypeChatSearchModelsServerTool:
-		u.ChatSearchModelsServerTool = best.Value.(*ChatSearchModelsServerTool)
+	case MessagesRequestToolUnionTypeMessagesSearchModelsServerTool:
+		u.MessagesSearchModelsServerTool = best.Value.(*MessagesSearchModelsServerTool)
 		return nil
 	case MessagesRequestToolUnionTypeWebFetchServerTool:
 		u.WebFetchServerTool = best.Value.(*WebFetchServerTool)
@@ -2945,8 +2945,8 @@ func (u MessagesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ImageGenerationServerToolOpenRouter, "", true)
 	}
 
-	if u.ChatSearchModelsServerTool != nil {
-		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	if u.MessagesSearchModelsServerTool != nil {
+		return utils.MarshalJSON(u.MessagesSearchModelsServerTool, "", true)
 	}
 
 	if u.WebFetchServerTool != nil {

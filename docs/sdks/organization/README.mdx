@@ -35,7 +35,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Organization.ListMembers(ctx, optionalnullable.From[int64](nil), nil)
+    res, err := s.Organization.ListMembers(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50))
     if err != nil {
         log.Fatal(err)
     }

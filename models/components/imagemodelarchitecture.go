@@ -4,14 +4,14 @@ package components
 
 type ImageModelArchitecture struct {
 	// Supported input modalities
-	InputModalities []InputModality `json:"input_modalities"`
+	InputModalities []ImageInputModality `json:"input_modalities"`
 	// Supported output modalities
 	OutputModalities []ImageOutputModality `json:"output_modalities"`
 }
 
-func (i *ImageModelArchitecture) GetInputModalities() []InputModality {
+func (i *ImageModelArchitecture) GetInputModalities() []ImageInputModality {
 	if i == nil {
-		return []InputModality{}
+		return []ImageInputModality{}
 	}
 	return i.InputModalities
 }

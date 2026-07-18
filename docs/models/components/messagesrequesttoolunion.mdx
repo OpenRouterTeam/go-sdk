@@ -58,10 +58,10 @@ messagesRequestToolUnion := components.CreateMessagesRequestToolUnionDatetimeSer
 messagesRequestToolUnion := components.CreateMessagesRequestToolUnionImageGenerationServerToolOpenRouter(components.ImageGenerationServerToolOpenRouter{/* values here */})
 ```
 
-### ChatSearchModelsServerTool
+### MessagesSearchModelsServerTool
 
 ```go
-messagesRequestToolUnion := components.CreateMessagesRequestToolUnionChatSearchModelsServerTool(components.ChatSearchModelsServerTool{/* values here */})
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionMessagesSearchModelsServerTool(components.MessagesSearchModelsServerTool{/* values here */})
 ```
 
 ### WebFetchServerTool
@@ -106,8 +106,8 @@ switch messagesRequestToolUnion.Type {
 		// messagesRequestToolUnion.DatetimeServerTool is populated
 	case components.MessagesRequestToolUnionTypeImageGenerationServerToolOpenRouter:
 		// messagesRequestToolUnion.ImageGenerationServerToolOpenRouter is populated
-	case components.MessagesRequestToolUnionTypeChatSearchModelsServerTool:
-		// messagesRequestToolUnion.ChatSearchModelsServerTool is populated
+	case components.MessagesRequestToolUnionTypeMessagesSearchModelsServerTool:
+		// messagesRequestToolUnion.MessagesSearchModelsServerTool is populated
 	case components.MessagesRequestToolUnionTypeWebFetchServerTool:
 		// messagesRequestToolUnion.WebFetchServerTool is populated
 	case components.MessagesRequestToolUnionTypeOpenRouterWebSearchServerTool:
