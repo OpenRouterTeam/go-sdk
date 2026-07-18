@@ -26,8 +26,8 @@ func main() {
 		log.Fatal("empty models response")
 	}
 
-	fmt.Printf("%d models (showing first %d)\n", len(res.Data), listLimit)
-	for i, model := range res.Data {
+	fmt.Printf("%d models (showing first %d)\n", len(res.Result.Data), listLimit)
+	for i, model := range res.Result.Data {
 		if i >= listLimit {
 			break
 		}
