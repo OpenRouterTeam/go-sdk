@@ -4,6 +4,12 @@ title: "MessagesRequestPlugin"
 
 ## Supported Types
 
+### AutoBetaRouterPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginAutoBetaRouter(components.AutoBetaRouterPlugin{/* values here */})
+```
+
 ### AutoRouterPlugin
 
 ```go
@@ -64,6 +70,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch messagesRequestPlugin.Type {
+	case components.MessagesRequestPluginTypeAutoBetaRouter:
+		// messagesRequestPlugin.AutoBetaRouterPlugin is populated
 	case components.MessagesRequestPluginTypeAutoRouter:
 		// messagesRequestPlugin.AutoRouterPlugin is populated
 	case components.MessagesRequestPluginTypeContextCompression:

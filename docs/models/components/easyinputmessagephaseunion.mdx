@@ -19,12 +19,6 @@ easyInputMessagePhaseUnion := components.CreateEasyInputMessagePhaseUnionEasyInp
 easyInputMessagePhaseUnion := components.CreateEasyInputMessagePhaseUnionEasyInputMessagePhaseFinalAnswer(components.EasyInputMessagePhaseFinalAnswer{/* values here */})
 ```
 
-### 
-
-```go
-easyInputMessagePhaseUnion := components.CreateEasyInputMessagePhaseUnionAny(any{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -35,7 +29,5 @@ switch easyInputMessagePhaseUnion.Type {
 		// easyInputMessagePhaseUnion.EasyInputMessagePhaseCommentary is populated
 	case components.EasyInputMessagePhaseUnionTypeEasyInputMessagePhaseFinalAnswer:
 		// easyInputMessagePhaseUnion.EasyInputMessagePhaseFinalAnswer is populated
-	case components.EasyInputMessagePhaseUnionTypeAny:
-		// easyInputMessagePhaseUnion.Any is populated
 }
 ```

@@ -309,13 +309,11 @@ type FiltersUnionType string
 const (
 	FiltersUnionTypeFilters        FiltersUnionType = "filters"
 	FiltersUnionTypeCompoundFilter FiltersUnionType = "CompoundFilter"
-	FiltersUnionTypeAny            FiltersUnionType = "any"
 )
 
 type FiltersUnion struct {
 	Filters        *Filters        `queryParam:"inline" union:"member"`
 	CompoundFilter *CompoundFilter `queryParam:"inline" union:"member"`
-	Any            any             `queryParam:"inline" union:"member"`
 
 	Type FiltersUnionType
 }
@@ -335,15 +333,6 @@ func CreateFiltersUnionCompoundFilter(compoundFilter CompoundFilter) FiltersUnio
 	return FiltersUnion{
 		CompoundFilter: &compoundFilter,
 		Type:           typ,
-	}
-}
-
-func CreateFiltersUnionAny(anyT any) FiltersUnion {
-	typ := FiltersUnionTypeAny
-
-	return FiltersUnion{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -368,14 +357,6 @@ func (u *FiltersUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  FiltersUnionTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for FiltersUnion", string(data))
 	}
@@ -395,9 +376,6 @@ func (u *FiltersUnion) UnmarshalJSON(data []byte) error {
 	case FiltersUnionTypeCompoundFilter:
 		u.CompoundFilter = best.Value.(*CompoundFilter)
 		return nil
-	case FiltersUnionTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for FiltersUnion", string(data))
@@ -410,10 +388,6 @@ func (u FiltersUnion) MarshalJSON() ([]byte, error) {
 
 	if u.CompoundFilter != nil {
 		return utils.MarshalJSON(u.CompoundFilter, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type FiltersUnion: all fields are null")

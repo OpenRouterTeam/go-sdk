@@ -4,6 +4,12 @@ title: "ResponsesRequestPlugin"
 
 ## Supported Types
 
+### AutoBetaRouterPlugin
+
+```go
+responsesRequestPlugin := components.CreateResponsesRequestPluginAutoBetaRouter(components.AutoBetaRouterPlugin{/* values here */})
+```
+
 ### AutoRouterPlugin
 
 ```go
@@ -64,6 +70,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch responsesRequestPlugin.Type {
+	case components.ResponsesRequestPluginTypeAutoBetaRouter:
+		// responsesRequestPlugin.AutoBetaRouterPlugin is populated
 	case components.ResponsesRequestPluginTypeAutoRouter:
 		// responsesRequestPlugin.AutoRouterPlugin is populated
 	case components.ResponsesRequestPluginTypeContextCompression:

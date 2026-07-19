@@ -4,6 +4,12 @@ title: "ChatRequestPlugin"
 
 ## Supported Types
 
+### AutoBetaRouterPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginAutoBetaRouter(components.AutoBetaRouterPlugin{/* values here */})
+```
+
 ### AutoRouterPlugin
 
 ```go
@@ -64,6 +70,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch chatRequestPlugin.Type {
+	case components.ChatRequestPluginTypeAutoBetaRouter:
+		// chatRequestPlugin.AutoBetaRouterPlugin is populated
 	case components.ChatRequestPluginTypeAutoRouter:
 		// chatRequestPlugin.AutoRouterPlugin is populated
 	case components.ChatRequestPluginTypeContextCompression:

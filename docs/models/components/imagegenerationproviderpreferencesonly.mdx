@@ -1,0 +1,30 @@
+---
+title: "ImageGenerationProviderPreferencesOnly"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+imageGenerationProviderPreferencesOnly := components.CreateImageGenerationProviderPreferencesOnlyProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+imageGenerationProviderPreferencesOnly := components.CreateImageGenerationProviderPreferencesOnlyStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch imageGenerationProviderPreferencesOnly.Type {
+	case components.ImageGenerationProviderPreferencesOnlyTypeProviderName:
+		// imageGenerationProviderPreferencesOnly.ProviderName is populated
+	case components.ImageGenerationProviderPreferencesOnlyTypeStr:
+		// imageGenerationProviderPreferencesOnly.Str is populated
+}
+```

@@ -16,12 +16,6 @@ baseInputsUnion := components.CreateBaseInputsUnionStr(string{/* values here */}
 baseInputsUnion := components.CreateBaseInputsUnionArrayOfBaseInputsUnion1([]components.BaseInputsUnion1{/* values here */})
 ```
 
-### 
-
-```go
-baseInputsUnion := components.CreateBaseInputsUnionAny(any{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -32,7 +26,5 @@ switch baseInputsUnion.Type {
 		// baseInputsUnion.Str is populated
 	case components.BaseInputsUnionTypeArrayOfBaseInputsUnion1:
 		// baseInputsUnion.ArrayOfBaseInputsUnion1 is populated
-	case components.BaseInputsUnionTypeAny:
-		// baseInputsUnion.Any is populated
 }
 ```

@@ -176,14 +176,12 @@ type OutputMessageItemPhaseUnionType string
 const (
 	OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseCommentary  OutputMessageItemPhaseUnionType = "OutputMessageItem_phase_Commentary"
 	OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer OutputMessageItemPhaseUnionType = "OutputMessageItem_phase_FinalAnswer"
-	OutputMessageItemPhaseUnionTypeAny                               OutputMessageItemPhaseUnionType = "any"
 )
 
 // OutputMessageItemPhaseUnion - The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
 type OutputMessageItemPhaseUnion struct {
 	OutputMessageItemPhaseCommentary  *OutputMessageItemPhaseCommentary  `queryParam:"inline" union:"member"`
 	OutputMessageItemPhaseFinalAnswer *OutputMessageItemPhaseFinalAnswer `queryParam:"inline" union:"member"`
-	Any                               any                                `queryParam:"inline" union:"member"`
 
 	Type OutputMessageItemPhaseUnionType
 }
@@ -203,15 +201,6 @@ func CreateOutputMessageItemPhaseUnionOutputMessageItemPhaseFinalAnswer(outputMe
 	return OutputMessageItemPhaseUnion{
 		OutputMessageItemPhaseFinalAnswer: &outputMessageItemPhaseFinalAnswer,
 		Type:                              typ,
-	}
-}
-
-func CreateOutputMessageItemPhaseUnionAny(anyT any) OutputMessageItemPhaseUnion {
-	typ := OutputMessageItemPhaseUnionTypeAny
-
-	return OutputMessageItemPhaseUnion{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -236,14 +225,6 @@ func (u *OutputMessageItemPhaseUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OutputMessageItemPhaseUnionTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
 	}
@@ -263,9 +244,6 @@ func (u *OutputMessageItemPhaseUnion) UnmarshalJSON(data []byte) error {
 	case OutputMessageItemPhaseUnionTypeOutputMessageItemPhaseFinalAnswer:
 		u.OutputMessageItemPhaseFinalAnswer = best.Value.(*OutputMessageItemPhaseFinalAnswer)
 		return nil
-	case OutputMessageItemPhaseUnionTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OutputMessageItemPhaseUnion", string(data))
@@ -278,10 +256,6 @@ func (u OutputMessageItemPhaseUnion) MarshalJSON() ([]byte, error) {
 
 	if u.OutputMessageItemPhaseFinalAnswer != nil {
 		return utils.MarshalJSON(u.OutputMessageItemPhaseFinalAnswer, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type OutputMessageItemPhaseUnion: all fields are null")

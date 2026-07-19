@@ -387,13 +387,11 @@ type InputsContent2Type string
 const (
 	InputsContent2TypeArrayOfInputsContent1 InputsContent2Type = "arrayOfInputsContent1"
 	InputsContent2TypeStr                   InputsContent2Type = "str"
-	InputsContent2TypeAny                   InputsContent2Type = "any"
 )
 
 type InputsContent2 struct {
 	ArrayOfInputsContent1 []InputsContent1 `queryParam:"inline" union:"member"`
 	Str                   *string          `queryParam:"inline" union:"member"`
-	Any                   any              `queryParam:"inline" union:"member"`
 
 	Type InputsContent2Type
 }
@@ -412,15 +410,6 @@ func CreateInputsContent2Str(str string) InputsContent2 {
 
 	return InputsContent2{
 		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateInputsContent2Any(anyT any) InputsContent2 {
-	typ := InputsContent2TypeAny
-
-	return InputsContent2{
-		Any:  anyT,
 		Type: typ,
 	}
 }
@@ -446,14 +435,6 @@ func (u *InputsContent2) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsContent2TypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsContent2", string(data))
 	}
@@ -473,9 +454,6 @@ func (u *InputsContent2) UnmarshalJSON(data []byte) error {
 	case InputsContent2TypeStr:
 		u.Str = best.Value.(*string)
 		return nil
-	case InputsContent2TypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsContent2", string(data))
@@ -488,10 +466,6 @@ func (u InputsContent2) MarshalJSON() ([]byte, error) {
 
 	if u.Str != nil {
 		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsContent2: all fields are null")
@@ -548,14 +522,12 @@ type InputsPhaseUnionType string
 const (
 	InputsPhaseUnionTypeInputsPhaseCommentary  InputsPhaseUnionType = "Inputs_phase_Commentary"
 	InputsPhaseUnionTypeInputsPhaseFinalAnswer InputsPhaseUnionType = "Inputs_phase_FinalAnswer"
-	InputsPhaseUnionTypeAny                    InputsPhaseUnionType = "any"
 )
 
 // InputsPhaseUnion - The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
 type InputsPhaseUnion struct {
 	InputsPhaseCommentary  *InputsPhaseCommentary  `queryParam:"inline" union:"member"`
 	InputsPhaseFinalAnswer *InputsPhaseFinalAnswer `queryParam:"inline" union:"member"`
-	Any                    any                     `queryParam:"inline" union:"member"`
 
 	Type InputsPhaseUnionType
 }
@@ -575,15 +547,6 @@ func CreateInputsPhaseUnionInputsPhaseFinalAnswer(inputsPhaseFinalAnswer InputsP
 	return InputsPhaseUnion{
 		InputsPhaseFinalAnswer: &inputsPhaseFinalAnswer,
 		Type:                   typ,
-	}
-}
-
-func CreateInputsPhaseUnionAny(anyT any) InputsPhaseUnion {
-	typ := InputsPhaseUnionTypeAny
-
-	return InputsPhaseUnion{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -608,14 +571,6 @@ func (u *InputsPhaseUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsPhaseUnionTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsPhaseUnion", string(data))
 	}
@@ -635,9 +590,6 @@ func (u *InputsPhaseUnion) UnmarshalJSON(data []byte) error {
 	case InputsPhaseUnionTypeInputsPhaseFinalAnswer:
 		u.InputsPhaseFinalAnswer = best.Value.(*InputsPhaseFinalAnswer)
 		return nil
-	case InputsPhaseUnionTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsPhaseUnion", string(data))
@@ -650,10 +602,6 @@ func (u InputsPhaseUnion) MarshalJSON() ([]byte, error) {
 
 	if u.InputsPhaseFinalAnswer != nil {
 		return utils.MarshalJSON(u.InputsPhaseFinalAnswer, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsPhaseUnion: all fields are null")

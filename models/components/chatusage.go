@@ -87,37 +87,6 @@ func (c *ChatUsagePromptTokensDetails) GetVideoTokens() *int64 {
 	return c.VideoTokens
 }
 
-// ServerToolUseDetails - Usage for server-side tool execution (e.g., web search)
-type ServerToolUseDetails struct {
-	// Number of OpenRouter server tool calls that executed and produced a result
-	ToolCallsExecuted optionalnullable.OptionalNullable[int64] `json:"tool_calls_executed,omitzero"`
-	// Total number of OpenRouter server-orchestrated tool calls the model requested, across all tool types. Provider-native tools (e.g. native web search) are not counted here.
-	ToolCallsRequested optionalnullable.OptionalNullable[int64] `json:"tool_calls_requested,omitzero"`
-	// Number of web searches performed by server-side tools. For server-orchestrated tool calls a web search is also counted in tool_calls_requested; provider-native web search may report web_search_requests only. Do not sum the two.
-	WebSearchRequests optionalnullable.OptionalNullable[int64] `json:"web_search_requests,omitzero"`
-}
-
-func (s *ServerToolUseDetails) GetToolCallsExecuted() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
-		return nil
-	}
-	return s.ToolCallsExecuted
-}
-
-func (s *ServerToolUseDetails) GetToolCallsRequested() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
-		return nil
-	}
-	return s.ToolCallsRequested
-}
-
-func (s *ServerToolUseDetails) GetWebSearchRequests() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
-		return nil
-	}
-	return s.WebSearchRequests
-}
-
 // ChatUsage - Token usage statistics
 type ChatUsage struct {
 	// Number of tokens in the completion

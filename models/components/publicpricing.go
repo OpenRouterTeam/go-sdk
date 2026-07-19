@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
 // PublicPricing - Pricing information for the model
 type PublicPricing struct {
 	// Price in USD per audio input token
@@ -28,12 +32,25 @@ type PublicPricing struct {
 	InputCacheWrite1h *string `json:"input_cache_write_1h,omitzero"`
 	// Price in USD per internal reasoning token
 	InternalReasoning *string `json:"internal_reasoning,omitzero"`
+	// Conditional overrides of the base pricing (e.g. long-context or time-based pricing). An entry applies when all of its condition fields (e.g. min_prompt_tokens, or the utc_start/utc_end time window) match the request; among applicable entries, later entries win per key; price keys absent from an entry inherit the base price. The top-level pricing keys always reflect the price that applies under default conditions.
+	Overrides []PricingOverride `json:"overrides,omitzero"`
 	// Price in USD per token for prompt (input) processing
 	Prompt string `json:"prompt"`
 	// Price in USD per request
 	Request *string `json:"request,omitzero"`
 	// Price in USD per web search
 	WebSearch *string `json:"web_search,omitzero"`
+}
+
+func (p PublicPricing) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PublicPricing) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PublicPricing) GetAudio() *string {
@@ -118,6 +135,13 @@ func (p *PublicPricing) GetInternalReasoning() *string {
 		return nil
 	}
 	return p.InternalReasoning
+}
+
+func (p *PublicPricing) GetOverrides() []PricingOverride {
+	if p == nil {
+		return nil
+	}
+	return p.Overrides
 }
 
 func (p *PublicPricing) GetPrompt() string {

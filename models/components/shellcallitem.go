@@ -47,29 +47,6 @@ func (s *ShellCallItemAction) GetTimeoutMs() optionalnullable.OptionalNullable[i
 	return s.TimeoutMs
 }
 
-type ShellCallItemStatus string
-
-const (
-	ShellCallItemStatusInProgress ShellCallItemStatus = "in_progress"
-	ShellCallItemStatusCompleted  ShellCallItemStatus = "completed"
-	ShellCallItemStatusIncomplete ShellCallItemStatus = "incomplete"
-)
-
-func (e ShellCallItemStatus) ToPointer() *ShellCallItemStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ShellCallItemStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "in_progress", "completed", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 type ShellCallItemType string
 
 const (
@@ -95,12 +72,12 @@ func (e *ShellCallItemType) UnmarshalJSON(data []byte) error {
 
 // ShellCallItem - A shell command execution call (newer variant)
 type ShellCallItem struct {
-	Action      ShellCallItemAction                                    `json:"action"`
-	CallID      string                                                 `json:"call_id"`
-	Environment optionalnullable.OptionalNullable[any]                 `json:"environment,omitzero"`
-	ID          optionalnullable.OptionalNullable[string]              `json:"id,omitzero"`
-	Status      optionalnullable.OptionalNullable[ShellCallItemStatus] `json:"status,omitzero"`
-	Type        ShellCallItemType                                      `json:"type"`
+	Action      ShellCallItemAction                               `json:"action"`
+	CallID      string                                            `json:"call_id"`
+	Environment any                                               `json:"environment,omitzero"`
+	ID          optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
+	Status      optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
+	Type        ShellCallItemType                                 `json:"type"`
 }
 
 func (s ShellCallItem) MarshalJSON() ([]byte, error) {
@@ -128,7 +105,7 @@ func (s *ShellCallItem) GetCallID() string {
 	return s.CallID
 }
 
-func (s *ShellCallItem) GetEnvironment() optionalnullable.OptionalNullable[any] {
+func (s *ShellCallItem) GetEnvironment() any {
 	if s == nil {
 		return nil
 	}
@@ -142,7 +119,7 @@ func (s *ShellCallItem) GetID() optionalnullable.OptionalNullable[string] {
 	return s.ID
 }
 
-func (s *ShellCallItem) GetStatus() optionalnullable.OptionalNullable[ShellCallItemStatus] {
+func (s *ShellCallItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
 	if s == nil {
 		return nil
 	}

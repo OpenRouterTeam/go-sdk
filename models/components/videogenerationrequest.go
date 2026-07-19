@@ -78,6 +78,7 @@ type VideoGenerationRequestOptions struct {
 	FakeProvider        map[string]any `json:"fake-provider,omitzero"`
 	Featherless         map[string]any `json:"featherless,omitzero"`
 	Fireworks           map[string]any `json:"fireworks,omitzero"`
+	FishAudio           map[string]any `json:"fish-audio,omitzero"`
 	Friendli            map[string]any `json:"friendli,omitzero"`
 	Gmicloud            map[string]any `json:"gmicloud,omitzero"`
 	GoogleAiStudio      map[string]any `json:"google-ai-studio,omitzero"`
@@ -98,6 +99,7 @@ type VideoGenerationRequestOptions struct {
 	IoNet               map[string]any `json:"io-net,omitzero"`
 	Ionstream           map[string]any `json:"ionstream,omitzero"`
 	Klusterai           map[string]any `json:"klusterai,omitzero"`
+	Krea                map[string]any `json:"krea,omitzero"`
 	Lambda              map[string]any `json:"lambda,omitzero"`
 	Lepton              map[string]any `json:"lepton,omitzero"`
 	Liquid              map[string]any `json:"liquid,omitzero"`
@@ -136,6 +138,7 @@ type VideoGenerationRequestOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
+	SailResearch        map[string]any `json:"sail-research,omitzero"`
 	Sakana              map[string]any `json:"sakana,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
@@ -148,6 +151,7 @@ type VideoGenerationRequestOptions struct {
 	Streamlake          map[string]any `json:"streamlake,omitzero"`
 	Switchpoint         map[string]any `json:"switchpoint,omitzero"`
 	Targon              map[string]any `json:"targon,omitzero"`
+	Tencent             map[string]any `json:"tencent,omitzero"`
 	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
@@ -452,6 +456,13 @@ func (v *VideoGenerationRequestOptions) GetFireworks() map[string]any {
 	return v.Fireworks
 }
 
+func (v *VideoGenerationRequestOptions) GetFishAudio() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.FishAudio
+}
+
 func (v *VideoGenerationRequestOptions) GetFriendli() map[string]any {
 	if v == nil {
 		return nil
@@ -590,6 +601,13 @@ func (v *VideoGenerationRequestOptions) GetKlusterai() map[string]any {
 		return nil
 	}
 	return v.Klusterai
+}
+
+func (v *VideoGenerationRequestOptions) GetKrea() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Krea
 }
 
 func (v *VideoGenerationRequestOptions) GetLambda() map[string]any {
@@ -858,6 +876,13 @@ func (v *VideoGenerationRequestOptions) GetReplicate() map[string]any {
 	return v.Replicate
 }
 
+func (v *VideoGenerationRequestOptions) GetSailResearch() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.SailResearch
+}
+
 func (v *VideoGenerationRequestOptions) GetSakana() map[string]any {
 	if v == nil {
 		return nil
@@ -940,6 +965,13 @@ func (v *VideoGenerationRequestOptions) GetTargon() map[string]any {
 		return nil
 	}
 	return v.Targon
+}
+
+func (v *VideoGenerationRequestOptions) GetTencent() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Tencent
 }
 
 func (v *VideoGenerationRequestOptions) GetTenstorrent() map[string]any {

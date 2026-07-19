@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
 type Pricing struct {
 	// Price in USD per audio input token
 	Audio *string `json:"audio,omitzero"`
@@ -27,12 +31,25 @@ type Pricing struct {
 	InputCacheWrite1h *string `json:"input_cache_write_1h,omitzero"`
 	// Price in USD per internal reasoning token
 	InternalReasoning *string `json:"internal_reasoning,omitzero"`
+	// Conditional overrides of the base pricing (e.g. long-context or time-based pricing). An entry applies when all of its condition fields (e.g. min_prompt_tokens, or the utc_start/utc_end time window) match the request; among applicable entries, later entries win per key; price keys absent from an entry inherit the base price. The top-level pricing keys always reflect the price that applies under default conditions.
+	Overrides []PricingOverride `json:"overrides,omitzero"`
 	// Price in USD per token for prompt (input) processing
 	Prompt string `json:"prompt"`
 	// Price in USD per request
 	Request *string `json:"request,omitzero"`
 	// Price in USD per web search
 	WebSearch *string `json:"web_search,omitzero"`
+}
+
+func (p Pricing) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Pricing) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *Pricing) GetAudio() *string {
@@ -119,6 +136,13 @@ func (p *Pricing) GetInternalReasoning() *string {
 	return p.InternalReasoning
 }
 
+func (p *Pricing) GetOverrides() []PricingOverride {
+	if p == nil {
+		return nil
+	}
+	return p.Overrides
+}
+
 func (p *Pricing) GetPrompt() string {
 	if p == nil {
 		return ""
@@ -140,35 +164,6 @@ func (p *Pricing) GetWebSearch() *string {
 	return p.WebSearch
 }
 
-type PublicEndpointQuantization string
-
-const (
-	PublicEndpointQuantizationInt4    PublicEndpointQuantization = "int4"
-	PublicEndpointQuantizationInt8    PublicEndpointQuantization = "int8"
-	PublicEndpointQuantizationFp4     PublicEndpointQuantization = "fp4"
-	PublicEndpointQuantizationFp6     PublicEndpointQuantization = "fp6"
-	PublicEndpointQuantizationFp8     PublicEndpointQuantization = "fp8"
-	PublicEndpointQuantizationFp16    PublicEndpointQuantization = "fp16"
-	PublicEndpointQuantizationBf16    PublicEndpointQuantization = "bf16"
-	PublicEndpointQuantizationFp32    PublicEndpointQuantization = "fp32"
-	PublicEndpointQuantizationUnknown PublicEndpointQuantization = "unknown"
-)
-
-func (e PublicEndpointQuantization) ToPointer() *PublicEndpointQuantization {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PublicEndpointQuantization) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "int4", "int8", "fp4", "fp6", "fp8", "fp16", "bf16", "fp32", "unknown":
-			return true
-		}
-	}
-	return false
-}
-
 // PublicEndpoint - Information about a specific model endpoint
 type PublicEndpoint struct {
 	ContextLength int64 `json:"context_length"`
@@ -177,17 +172,17 @@ type PublicEndpoint struct {
 	MaxCompletionTokens *int64           `json:"max_completion_tokens"`
 	MaxPromptTokens     *int64           `json:"max_prompt_tokens"`
 	// The unique identifier for the model (permaslug)
-	ModelID                 string                      `json:"model_id"`
-	ModelName               string                      `json:"model_name"`
-	Name                    string                      `json:"name"`
-	Pricing                 Pricing                     `json:"pricing"`
-	ProviderName            ProviderName                `json:"provider_name"`
-	Quantization            *PublicEndpointQuantization `json:"quantization"`
-	Status                  *EndpointStatus             `json:"status,omitzero"`
-	SupportedParameters     []Parameter                 `json:"supported_parameters"`
-	SupportsImplicitCaching bool                        `json:"supports_implicit_caching"`
-	Tag                     string                      `json:"tag"`
-	ThroughputLast30m       *PercentileStats            `json:"throughput_last_30m"`
+	ModelID                 string           `json:"model_id"`
+	ModelName               string           `json:"model_name"`
+	Name                    string           `json:"name"`
+	Pricing                 Pricing          `json:"pricing"`
+	ProviderName            ProviderName     `json:"provider_name"`
+	Quantization            *Quantization    `json:"quantization"`
+	Status                  *EndpointStatus  `json:"status,omitzero"`
+	SupportedParameters     []Parameter      `json:"supported_parameters"`
+	SupportsImplicitCaching bool             `json:"supports_implicit_caching"`
+	Tag                     string           `json:"tag"`
+	ThroughputLast30m       *PercentileStats `json:"throughput_last_30m"`
 	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
 	UptimeLast1d  *float64 `json:"uptime_last_1d"`
 	UptimeLast30m *float64 `json:"uptime_last_30m"`
@@ -258,7 +253,7 @@ func (p *PublicEndpoint) GetProviderName() ProviderName {
 	return p.ProviderName
 }
 
-func (p *PublicEndpoint) GetQuantization() *PublicEndpointQuantization {
+func (p *PublicEndpoint) GetQuantization() *Quantization {
 	if p == nil {
 		return nil
 	}

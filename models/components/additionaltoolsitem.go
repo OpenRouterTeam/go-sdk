@@ -68,26 +68,26 @@ func (a *AdditionalToolsItemTool) GetAdditionalProperties() map[string]any {
 	return a.AdditionalProperties
 }
 
-type AdditionalToolsItemTypeFunction string
+type AdditionalToolsItemToolType string
 
 const (
-	AdditionalToolsItemTypeFunctionFunction AdditionalToolsItemTypeFunction = "function"
+	AdditionalToolsItemToolTypeFunction AdditionalToolsItemToolType = "function"
 )
 
-func (e AdditionalToolsItemTypeFunction) ToPointer() *AdditionalToolsItemTypeFunction {
+func (e AdditionalToolsItemToolType) ToPointer() *AdditionalToolsItemToolType {
 	return &e
 }
-func (e *AdditionalToolsItemTypeFunction) UnmarshalJSON(data []byte) error {
+func (e *AdditionalToolsItemToolType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "function":
-		*e = AdditionalToolsItemTypeFunction(v)
+		*e = AdditionalToolsItemToolType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for AdditionalToolsItemTypeFunction: %v", v)
+		return fmt.Errorf("invalid value for AdditionalToolsItemToolType: %v", v)
 	}
 }
 
@@ -97,7 +97,7 @@ type AdditionalToolsItemToolFunction struct {
 	Name        string                                    `json:"name"`
 	Parameters  map[string]any                            `json:"parameters"`
 	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
-	Type        AdditionalToolsItemTypeFunction           `json:"type"`
+	Type        AdditionalToolsItemToolType               `json:"type"`
 }
 
 func (a AdditionalToolsItemToolFunction) MarshalJSON() ([]byte, error) {
@@ -139,9 +139,9 @@ func (a *AdditionalToolsItemToolFunction) GetStrict() optionalnullable.OptionalN
 	return a.Strict
 }
 
-func (a *AdditionalToolsItemToolFunction) GetType() AdditionalToolsItemTypeFunction {
+func (a *AdditionalToolsItemToolFunction) GetType() AdditionalToolsItemToolType {
 	if a == nil {
-		return AdditionalToolsItemTypeFunction("")
+		return AdditionalToolsItemToolType("")
 	}
 	return a.Type
 }
@@ -163,6 +163,7 @@ const (
 	AdditionalToolsItemToolUnionTypeShellServerTool                     AdditionalToolsItemToolUnionType = "ShellServerTool"
 	AdditionalToolsItemToolUnionTypeApplyPatchServerTool                AdditionalToolsItemToolUnionType = "ApplyPatchServerTool"
 	AdditionalToolsItemToolUnionTypeCustomTool                          AdditionalToolsItemToolUnionType = "CustomTool"
+	AdditionalToolsItemToolUnionTypeNamespaceTool                       AdditionalToolsItemToolUnionType = "NamespaceTool"
 	AdditionalToolsItemToolUnionTypeAdvisorServerToolOpenRouter         AdditionalToolsItemToolUnionType = "AdvisorServerTool_OpenRouter"
 	AdditionalToolsItemToolUnionTypeSubagentServerToolOpenRouter        AdditionalToolsItemToolUnionType = "SubagentServerTool_OpenRouter"
 	AdditionalToolsItemToolUnionTypeDatetimeServerTool                  AdditionalToolsItemToolUnionType = "DatetimeServerTool"
@@ -193,6 +194,7 @@ type AdditionalToolsItemToolUnion struct {
 	ShellServerTool                     *ShellServerTool                     `queryParam:"inline" union:"member"`
 	ApplyPatchServerTool                *ApplyPatchServerTool                `queryParam:"inline" union:"member"`
 	CustomTool                          *CustomTool                          `queryParam:"inline" union:"member"`
+	NamespaceTool                       *NamespaceTool                       `queryParam:"inline" union:"member"`
 	AdvisorServerToolOpenRouter         *AdvisorServerToolOpenRouter         `queryParam:"inline" union:"member"`
 	SubagentServerToolOpenRouter        *SubagentServerToolOpenRouter        `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
@@ -333,6 +335,15 @@ func CreateAdditionalToolsItemToolUnionCustomTool(customTool CustomTool) Additio
 	return AdditionalToolsItemToolUnion{
 		CustomTool: &customTool,
 		Type:       typ,
+	}
+}
+
+func CreateAdditionalToolsItemToolUnionNamespaceTool(namespaceTool NamespaceTool) AdditionalToolsItemToolUnion {
+	typ := AdditionalToolsItemToolUnionTypeNamespaceTool
+
+	return AdditionalToolsItemToolUnion{
+		NamespaceTool: &namespaceTool,
+		Type:          typ,
 	}
 }
 
@@ -570,6 +581,14 @@ func (u *AdditionalToolsItemToolUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var namespaceTool NamespaceTool = NamespaceTool{}
+	if err := utils.UnmarshalJSON(data, &namespaceTool, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  AdditionalToolsItemToolUnionTypeNamespaceTool,
+			Value: &namespaceTool,
+		})
+	}
+
 	var advisorServerToolOpenRouter AdvisorServerToolOpenRouter = AdvisorServerToolOpenRouter{}
 	if err := utils.UnmarshalJSON(data, &advisorServerToolOpenRouter, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -729,6 +748,9 @@ func (u *AdditionalToolsItemToolUnion) UnmarshalJSON(data []byte) error {
 	case AdditionalToolsItemToolUnionTypeCustomTool:
 		u.CustomTool = best.Value.(*CustomTool)
 		return nil
+	case AdditionalToolsItemToolUnionTypeNamespaceTool:
+		u.NamespaceTool = best.Value.(*NamespaceTool)
+		return nil
 	case AdditionalToolsItemToolUnionTypeAdvisorServerToolOpenRouter:
 		u.AdvisorServerToolOpenRouter = best.Value.(*AdvisorServerToolOpenRouter)
 		return nil
@@ -828,6 +850,10 @@ func (u AdditionalToolsItemToolUnion) MarshalJSON() ([]byte, error) {
 
 	if u.CustomTool != nil {
 		return utils.MarshalJSON(u.CustomTool, "", true)
+	}
+
+	if u.NamespaceTool != nil {
+		return utils.MarshalJSON(u.NamespaceTool, "", true)
 	}
 
 	if u.AdvisorServerToolOpenRouter != nil {

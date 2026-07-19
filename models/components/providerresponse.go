@@ -22,7 +22,6 @@ const (
 	ProviderResponseProviderNameLynn2           ProviderResponseProviderName = "Lynn 2"
 	ProviderResponseProviderNameLynn            ProviderResponseProviderName = "Lynn"
 	ProviderResponseProviderNameMancer          ProviderResponseProviderName = "Mancer"
-	ProviderResponseProviderNameMeta            ProviderResponseProviderName = "Meta"
 	ProviderResponseProviderNameModal           ProviderResponseProviderName = "Modal"
 	ProviderResponseProviderNameNineteen        ProviderResponseProviderName = "Nineteen"
 	ProviderResponseProviderNameOctoAi          ProviderResponseProviderName = "OctoAI"
@@ -68,6 +67,7 @@ const (
 	ProviderResponseProviderNameDigitalOcean    ProviderResponseProviderName = "DigitalOcean"
 	ProviderResponseProviderNameFeatherless     ProviderResponseProviderName = "Featherless"
 	ProviderResponseProviderNameFireworks       ProviderResponseProviderName = "Fireworks"
+	ProviderResponseProviderNameFishAudio       ProviderResponseProviderName = "Fish Audio"
 	ProviderResponseProviderNameFriendli        ProviderResponseProviderName = "Friendli"
 	ProviderResponseProviderNameGmiCloud        ProviderResponseProviderName = "GMICloud"
 	ProviderResponseProviderNameGoogle          ProviderResponseProviderName = "Google"
@@ -85,6 +85,7 @@ const (
 	ProviderResponseProviderNameLiquid          ProviderResponseProviderName = "Liquid"
 	ProviderResponseProviderNameMara            ProviderResponseProviderName = "Mara"
 	ProviderResponseProviderNameMancer2         ProviderResponseProviderName = "Mancer 2"
+	ProviderResponseProviderNameMeta            ProviderResponseProviderName = "Meta"
 	ProviderResponseProviderNameMinimax         ProviderResponseProviderName = "Minimax"
 	ProviderResponseProviderNameModelRun        ProviderResponseProviderName = "ModelRun"
 	ProviderResponseProviderNameMistral         ProviderResponseProviderName = "Mistral"
@@ -107,6 +108,7 @@ const (
 	ProviderResponseProviderNameRecraft         ProviderResponseProviderName = "Recraft"
 	ProviderResponseProviderNameReka            ProviderResponseProviderName = "Reka"
 	ProviderResponseProviderNameRelace          ProviderResponseProviderName = "Relace"
+	ProviderResponseProviderNameSailResearch    ProviderResponseProviderName = "Sail Research"
 	ProviderResponseProviderNameSakanaAi        ProviderResponseProviderName = "Sakana AI"
 	ProviderResponseProviderNameSambaNova       ProviderResponseProviderName = "SambaNova"
 	ProviderResponseProviderNameSeed            ProviderResponseProviderName = "Seed"
@@ -116,6 +118,7 @@ const (
 	ProviderResponseProviderNameStealth         ProviderResponseProviderName = "Stealth"
 	ProviderResponseProviderNameStreamLake      ProviderResponseProviderName = "StreamLake"
 	ProviderResponseProviderNameSwitchpoint     ProviderResponseProviderName = "Switchpoint"
+	ProviderResponseProviderNameTencent         ProviderResponseProviderName = "Tencent"
 	ProviderResponseProviderNameTenstorrent     ProviderResponseProviderName = "Tenstorrent"
 	ProviderResponseProviderNameTogether        ProviderResponseProviderName = "Together"
 	ProviderResponseProviderNameUpstage         ProviderResponseProviderName = "Upstage"
@@ -123,6 +126,7 @@ const (
 	ProviderResponseProviderNameWafer           ProviderResponseProviderName = "Wafer"
 	ProviderResponseProviderNameWandB           ProviderResponseProviderName = "WandB"
 	ProviderResponseProviderNameQuiver          ProviderResponseProviderName = "Quiver"
+	ProviderResponseProviderNameKrea            ProviderResponseProviderName = "Krea"
 	ProviderResponseProviderNameXiaomi          ProviderResponseProviderName = "Xiaomi"
 	ProviderResponseProviderNameXAi             ProviderResponseProviderName = "xAI"
 	ProviderResponseProviderNameZAi             ProviderResponseProviderName = "Z.AI"
@@ -137,7 +141,7 @@ func (e ProviderResponseProviderName) ToPointer() *ProviderResponseProviderName 
 func (e *ProviderResponseProviderName) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Meta", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crucible", "Crusoe", "Darkbloom", "Decart", "Deepgram", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "HeyGen", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inferact vLLM", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "Sakana AI", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Tenstorrent", "Together", "Upstage", "Venice", "Wafer", "WandB", "Quiver", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crucible", "Crusoe", "Darkbloom", "Decart", "Deepgram", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Fish Audio", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "HeyGen", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inferact vLLM", "Inflection", "Liquid", "Mara", "Mancer 2", "Meta", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "Sail Research", "Sakana AI", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Tencent", "Tenstorrent", "Together", "Upstage", "Venice", "Wafer", "WandB", "Quiver", "Krea", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
 			return true
 		}
 	}

@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type MessagesMessageParamTypeCompaction string
@@ -34,7 +33,7 @@ func (e *MessagesMessageParamTypeCompaction) UnmarshalJSON(data []byte) error {
 }
 
 type ContentCompaction struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective    `json:"cache_control,omitzero"`
 	Content      *string                            `json:"content"`
 	Type         MessagesMessageParamTypeCompaction `json:"type"`
@@ -263,7 +262,7 @@ func (e *TypeWebSearchToolResult) UnmarshalJSON(data []byte) error {
 }
 
 type ContentWebSearchToolResult struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective   `json:"cache_control,omitzero"`
 	Content      MessagesMessageParamContentUnion3 `json:"content"`
 	ToolUseID    string                            `json:"tool_use_id"`
@@ -333,12 +332,12 @@ func (e *TypeServerToolUse) UnmarshalJSON(data []byte) error {
 }
 
 type ContentServerToolUse struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl *AnthropicCacheControlDirective        `json:"cache_control,omitzero"`
-	ID           string                                 `json:"id"`
-	Input        optionalnullable.OptionalNullable[any] `json:"input,omitzero"`
-	Name         string                                 `json:"name"`
-	Type         TypeServerToolUse                      `json:"type"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
+	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	ID           string                          `json:"id"`
+	Input        any                             `json:"input,omitzero"`
+	Name         string                          `json:"name"`
+	Type         TypeServerToolUse               `json:"type"`
 }
 
 func (c ContentServerToolUse) MarshalJSON() ([]byte, error) {
@@ -366,7 +365,7 @@ func (c *ContentServerToolUse) GetID() string {
 	return c.ID
 }
 
-func (c *ContentServerToolUse) GetInput() optionalnullable.OptionalNullable[any] {
+func (c *ContentServerToolUse) GetInput() any {
 	if c == nil {
 		return nil
 	}
@@ -833,7 +832,7 @@ func (e *TypeToolResult) UnmarshalJSON(data []byte) error {
 }
 
 type ContentToolResult struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective    `json:"cache_control,omitzero"`
 	Content      *MessagesMessageParamContentUnion2 `json:"content,omitzero"`
 	IsError      *bool                              `json:"is_error,omitzero"`
@@ -911,12 +910,12 @@ func (e *TypeToolUse) UnmarshalJSON(data []byte) error {
 }
 
 type ContentToolUse struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl *AnthropicCacheControlDirective        `json:"cache_control,omitzero"`
-	ID           string                                 `json:"id"`
-	Input        optionalnullable.OptionalNullable[any] `json:"input,omitzero"`
-	Name         string                                 `json:"name"`
-	Type         TypeToolUse                            `json:"type"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
+	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	ID           string                          `json:"id"`
+	Input        any                             `json:"input,omitzero"`
+	Name         string                          `json:"name"`
+	Type         TypeToolUse                     `json:"type"`
 }
 
 func (c ContentToolUse) MarshalJSON() ([]byte, error) {
@@ -944,7 +943,7 @@ func (c *ContentToolUse) GetID() string {
 	return c.ID
 }
 
-func (c *ContentToolUse) GetInput() optionalnullable.OptionalNullable[any] {
+func (c *ContentToolUse) GetInput() any {
 	if c == nil {
 		return nil
 	}

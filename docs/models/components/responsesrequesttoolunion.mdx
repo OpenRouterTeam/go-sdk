@@ -88,6 +88,12 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionApplyPatc
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionCustom(components.CustomTool{/* values here */})
 ```
 
+### NamespaceTool
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionNamespace(components.NamespaceTool{/* values here */})
+```
+
 ### AdvisorServerToolOpenRouter
 
 ```go
@@ -194,6 +200,8 @@ switch responsesRequestToolUnion.Type {
 		// responsesRequestToolUnion.ApplyPatchServerTool is populated
 	case components.ResponsesRequestToolUnionTypeCustom:
 		// responsesRequestToolUnion.CustomTool is populated
+	case components.ResponsesRequestToolUnionTypeNamespace:
+		// responsesRequestToolUnion.NamespaceTool is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterAdvisor:
 		// responsesRequestToolUnion.AdvisorServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterSubagent:

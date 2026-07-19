@@ -88,6 +88,12 @@ openResponsesResultToolUnion := components.CreateOpenResponsesResultToolUnionApp
 openResponsesResultToolUnion := components.CreateOpenResponsesResultToolUnionCustom(components.CustomTool{/* values here */})
 ```
 
+### NamespaceTool
+
+```go
+openResponsesResultToolUnion := components.CreateOpenResponsesResultToolUnionNamespace(components.NamespaceTool{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -122,6 +128,8 @@ switch openResponsesResultToolUnion.Type {
 		// openResponsesResultToolUnion.ApplyPatchServerTool is populated
 	case components.OpenResponsesResultToolUnionTypeCustom:
 		// openResponsesResultToolUnion.CustomTool is populated
+	case components.OpenResponsesResultToolUnionTypeNamespace:
+		// openResponsesResultToolUnion.NamespaceTool is populated
 	default:
 		// Unknown type - use openResponsesResultToolUnion.GetUnknownRaw() for raw JSON
 }

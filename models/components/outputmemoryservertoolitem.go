@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type ActionEnum string
@@ -57,12 +56,12 @@ func (e *OutputMemoryServerToolItemType) UnmarshalJSON(data []byte) error {
 
 // OutputMemoryServerToolItem - An openrouter:memory server tool output item
 type OutputMemoryServerToolItem struct {
-	Action *ActionEnum                            `json:"action,omitzero"`
-	ID     *string                                `json:"id,omitzero"`
-	Key    *string                                `json:"key,omitzero"`
-	Status ToolCallStatus                         `json:"status"`
-	Type   OutputMemoryServerToolItemType         `json:"type"`
-	Value  optionalnullable.OptionalNullable[any] `json:"value,omitzero"`
+	Action *ActionEnum                    `json:"action,omitzero"`
+	ID     *string                        `json:"id,omitzero"`
+	Key    *string                        `json:"key,omitzero"`
+	Status ToolCallStatus                 `json:"status"`
+	Type   OutputMemoryServerToolItemType `json:"type"`
+	Value  any                            `json:"value,omitzero"`
 }
 
 func (o OutputMemoryServerToolItem) MarshalJSON() ([]byte, error) {
@@ -111,7 +110,7 @@ func (o *OutputMemoryServerToolItem) GetType() OutputMemoryServerToolItemType {
 	return o.Type
 }
 
-func (o *OutputMemoryServerToolItem) GetValue() optionalnullable.OptionalNullable[any] {
+func (o *OutputMemoryServerToolItem) GetValue() any {
 	if o == nil {
 		return nil
 	}

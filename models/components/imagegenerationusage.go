@@ -152,6 +152,7 @@ func (s *ServerToolUse) GetWebSearchRequests() optionalnullable.OptionalNullable
 
 // ImageGenerationUsage - Token and cost usage for the image generation request, when available
 type ImageGenerationUsage struct {
+	CacheCreation optionalnullable.OptionalNullable[AnthropicCacheCreation] `json:"cache_creation,omitzero"`
 	// The tokens generated
 	CompletionTokens        int64                                                                          `json:"completion_tokens"`
 	CompletionTokensDetails optionalnullable.OptionalNullable[ImageGenerationUsageCompletionTokensDetails] `json:"completion_tokens_details,omitzero"`
@@ -184,6 +185,13 @@ func (i *ImageGenerationUsage) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (i *ImageGenerationUsage) GetCacheCreation() optionalnullable.OptionalNullable[AnthropicCacheCreation] {
+	if i == nil {
+		return nil
+	}
+	return i.CacheCreation
 }
 
 func (i *ImageGenerationUsage) GetCompletionTokens() int64 {

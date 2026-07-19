@@ -297,29 +297,6 @@ func (u FunctionCallOutputItemOutputUnion2) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type FunctionCallOutputItemOutputUnion2: all fields are null")
 }
 
-type FunctionCallOutputItemStatus string
-
-const (
-	FunctionCallOutputItemStatusInProgress FunctionCallOutputItemStatus = "in_progress"
-	FunctionCallOutputItemStatusCompleted  FunctionCallOutputItemStatus = "completed"
-	FunctionCallOutputItemStatusIncomplete FunctionCallOutputItemStatus = "incomplete"
-)
-
-func (e FunctionCallOutputItemStatus) ToPointer() *FunctionCallOutputItemStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionCallOutputItemStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "in_progress", "completed", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 type FunctionCallOutputItemTypeFunctionCallOutput string
 
 const (
@@ -345,11 +322,11 @@ func (e *FunctionCallOutputItemTypeFunctionCallOutput) UnmarshalJSON(data []byte
 
 // FunctionCallOutputItem - The output from a function call execution
 type FunctionCallOutputItem struct {
-	CallID string                                                          `json:"call_id"`
-	ID     optionalnullable.OptionalNullable[string]                       `json:"id,omitzero"`
-	Output FunctionCallOutputItemOutputUnion2                              `json:"output"`
-	Status optionalnullable.OptionalNullable[FunctionCallOutputItemStatus] `json:"status,omitzero"`
-	Type   FunctionCallOutputItemTypeFunctionCallOutput                    `json:"type"`
+	CallID string                                            `json:"call_id"`
+	ID     optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
+	Output FunctionCallOutputItemOutputUnion2                `json:"output"`
+	Status optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
+	Type   FunctionCallOutputItemTypeFunctionCallOutput      `json:"type"`
 }
 
 func (f FunctionCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -384,7 +361,7 @@ func (f *FunctionCallOutputItem) GetOutput() FunctionCallOutputItemOutputUnion2 
 	return f.Output
 }
 
-func (f *FunctionCallOutputItem) GetStatus() optionalnullable.OptionalNullable[FunctionCallOutputItemStatus] {
+func (f *FunctionCallOutputItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
 	if f == nil {
 		return nil
 	}

@@ -19,12 +19,6 @@ outputMessagePhaseUnion := components.CreateOutputMessagePhaseUnionOutputMessage
 outputMessagePhaseUnion := components.CreateOutputMessagePhaseUnionOutputMessagePhaseFinalAnswer(components.OutputMessagePhaseFinalAnswer{/* values here */})
 ```
 
-### 
-
-```go
-outputMessagePhaseUnion := components.CreateOutputMessagePhaseUnionAny(any{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -35,7 +29,5 @@ switch outputMessagePhaseUnion.Type {
 		// outputMessagePhaseUnion.OutputMessagePhaseCommentary is populated
 	case components.OutputMessagePhaseUnionTypeOutputMessagePhaseFinalAnswer:
 		// outputMessagePhaseUnion.OutputMessagePhaseFinalAnswer is populated
-	case components.OutputMessagePhaseUnionTypeAny:
-		// outputMessagePhaseUnion.Any is populated
 }
 ```

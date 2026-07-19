@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
@@ -35,6 +36,17 @@ func (e *PromptCacheOptionsMode) UnmarshalJSON(data []byte) error {
 type PromptCacheOptions struct {
 	Mode PromptCacheOptionsMode                    `json:"mode"`
 	TTL  optionalnullable.OptionalNullable[string] `json:"ttl,omitzero"`
+}
+
+func (p PromptCacheOptions) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PromptCacheOptions) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PromptCacheOptions) GetMode() PromptCacheOptionsMode {

@@ -128,6 +128,7 @@ const (
 	OpenResponsesResultToolUnionTypeShell                    OpenResponsesResultToolUnionType = "shell"
 	OpenResponsesResultToolUnionTypeApplyPatch               OpenResponsesResultToolUnionType = "apply_patch"
 	OpenResponsesResultToolUnionTypeCustom                   OpenResponsesResultToolUnionType = "custom"
+	OpenResponsesResultToolUnionTypeNamespace                OpenResponsesResultToolUnionType = "namespace"
 	OpenResponsesResultToolUnionTypeUnknown                  OpenResponsesResultToolUnionType = "UNKNOWN"
 )
 
@@ -146,6 +147,7 @@ type OpenResponsesResultToolUnion struct {
 	ShellServerTool                    *ShellServerTool                    `queryParam:"inline" union:"member"`
 	ApplyPatchServerTool               *ApplyPatchServerTool               `queryParam:"inline" union:"member"`
 	CustomTool                         *CustomTool                         `queryParam:"inline" union:"member"`
+	NamespaceTool                      *NamespaceTool                      `queryParam:"inline" union:"member"`
 	UnknownRaw                         json.RawMessage                     `json:"-" union:"unknown"`
 
 	Type OpenResponsesResultToolUnionType
@@ -319,6 +321,18 @@ func CreateOpenResponsesResultToolUnionCustom(custom CustomTool) OpenResponsesRe
 	}
 }
 
+func CreateOpenResponsesResultToolUnionNamespace(namespace NamespaceTool) OpenResponsesResultToolUnion {
+	typ := OpenResponsesResultToolUnionTypeNamespace
+
+	typStr := NamespaceToolType(typ)
+	namespace.Type = typStr
+
+	return OpenResponsesResultToolUnion{
+		NamespaceTool: &namespace,
+		Type:          typ,
+	}
+}
+
 func CreateOpenResponsesResultToolUnionUnknown(raw json.RawMessage) OpenResponsesResultToolUnion {
 	return OpenResponsesResultToolUnion{
 		UnknownRaw: raw,
@@ -479,6 +493,15 @@ func (u *OpenResponsesResultToolUnion) UnmarshalJSON(data []byte) error {
 		u.CustomTool = customTool
 		u.Type = OpenResponsesResultToolUnionTypeCustom
 		return nil
+	case "namespace":
+		namespaceTool := new(NamespaceTool)
+		if err := utils.UnmarshalJSON(data, &namespaceTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == namespace) type NamespaceTool within OpenResponsesResultToolUnion: %w", string(data), err)
+		}
+
+		u.NamespaceTool = namespaceTool
+		u.Type = OpenResponsesResultToolUnionTypeNamespace
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OpenResponsesResultToolUnionTypeUnknown
@@ -544,10 +567,193 @@ func (u OpenResponsesResultToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CustomTool, "", true)
 	}
 
+	if u.NamespaceTool != nil {
+		return utils.MarshalJSON(u.NamespaceTool, "", true)
+	}
+
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
 	return nil, errors.New("could not marshal union type OpenResponsesResultToolUnion: all fields are null")
+}
+
+type InputTokensDetails struct {
+	CacheWriteTokens optionalnullable.OptionalNullable[int64] `json:"cache_write_tokens,omitzero"`
+	CachedTokens     int64                                    `json:"cached_tokens"`
+}
+
+func (i InputTokensDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputTokensDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputTokensDetails) GetCacheWriteTokens() optionalnullable.OptionalNullable[int64] {
+	if i == nil {
+		return nil
+	}
+	return i.CacheWriteTokens
+}
+
+func (i *InputTokensDetails) GetCachedTokens() int64 {
+	if i == nil {
+		return 0
+	}
+	return i.CachedTokens
+}
+
+type OutputTokensDetails struct {
+	ReasoningTokens int64 `json:"reasoning_tokens"`
+}
+
+func (o OutputTokensDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputTokensDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputTokensDetails) GetReasoningTokens() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.ReasoningTokens
+}
+
+type UsageCostDetails struct {
+	UpstreamInferenceCost       optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
+	UpstreamInferenceInputCost  float64                                    `json:"upstream_inference_input_cost"`
+	UpstreamInferenceOutputCost float64                                    `json:"upstream_inference_output_cost"`
+}
+
+func (u UsageCostDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UsageCostDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UsageCostDetails) GetUpstreamInferenceCost() optionalnullable.OptionalNullable[float64] {
+	if u == nil {
+		return nil
+	}
+	return u.UpstreamInferenceCost
+}
+
+func (u *UsageCostDetails) GetUpstreamInferenceInputCost() float64 {
+	if u == nil {
+		return 0.0
+	}
+	return u.UpstreamInferenceInputCost
+}
+
+func (u *UsageCostDetails) GetUpstreamInferenceOutputCost() float64 {
+	if u == nil {
+		return 0.0
+	}
+	return u.UpstreamInferenceOutputCost
+}
+
+type Usage struct {
+	InputTokens         int64               `json:"input_tokens"`
+	InputTokensDetails  InputTokensDetails  `json:"input_tokens_details"`
+	OutputTokens        int64               `json:"output_tokens"`
+	OutputTokensDetails OutputTokensDetails `json:"output_tokens_details"`
+	TotalTokens         int64               `json:"total_tokens"`
+	// Cost of the completion
+	Cost        optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
+	CostDetails *UsageCostDetails                          `json:"cost_details,omitzero"`
+	// Whether a request was made using a Bring Your Own Key configuration
+	IsByok *bool `json:"is_byok,omitzero"`
+	// Usage for server-side tool execution (e.g., web search)
+	ServerToolUseDetails optionalnullable.OptionalNullable[ServerToolUseDetails] `json:"server_tool_use_details,omitzero"`
+}
+
+func (u Usage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *Usage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *Usage) GetInputTokens() int64 {
+	if u == nil {
+		return 0
+	}
+	return u.InputTokens
+}
+
+func (u *Usage) GetInputTokensDetails() InputTokensDetails {
+	if u == nil {
+		return InputTokensDetails{}
+	}
+	return u.InputTokensDetails
+}
+
+func (u *Usage) GetOutputTokens() int64 {
+	if u == nil {
+		return 0
+	}
+	return u.OutputTokens
+}
+
+func (u *Usage) GetOutputTokensDetails() OutputTokensDetails {
+	if u == nil {
+		return OutputTokensDetails{}
+	}
+	return u.OutputTokensDetails
+}
+
+func (u *Usage) GetTotalTokens() int64 {
+	if u == nil {
+		return 0
+	}
+	return u.TotalTokens
+}
+
+func (u *Usage) GetCost() optionalnullable.OptionalNullable[float64] {
+	if u == nil {
+		return nil
+	}
+	return u.Cost
+}
+
+func (u *Usage) GetCostDetails() *UsageCostDetails {
+	if u == nil {
+		return nil
+	}
+	return u.CostDetails
+}
+
+func (u *Usage) GetIsByok() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IsByok
+}
+
+func (u *Usage) GetServerToolUseDetails() optionalnullable.OptionalNullable[ServerToolUseDetails] {
+	if u == nil {
+		return nil
+	}
+	return u.ServerToolUseDetails
 }
 
 // OpenResponsesResult - Complete non-streaming response from the Responses API
@@ -574,12 +780,14 @@ type OpenResponsesResult struct {
 	PreviousResponseID optionalnullable.OptionalNullable[string]               `json:"previous_response_id,omitzero"`
 	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
 	PromptCacheKey     optionalnullable.OptionalNullable[string]               `json:"prompt_cache_key,omitzero"`
-	Reasoning          optionalnullable.OptionalNullable[BaseReasoningConfig]  `json:"reasoning,omitzero"`
-	SafetyIdentifier   optionalnullable.OptionalNullable[string]               `json:"safety_identifier,omitzero"`
-	ServiceTier        optionalnullable.OptionalNullable[string]               `json:"service_tier,omitzero"`
-	Status             OpenAIResponsesResponseStatus                           `json:"status"`
-	Store              *bool                                                   `json:"store,omitzero"`
-	Temperature        *float64                                                `json:"temperature"`
+	// Request-level prompt-cache controls. `mode: "explicit"` disables OpenAI-managed breakpoints so only blocks marked with `prompt_cache_breakpoint` are cached. Only supported by OpenAI GPT-5.6 and newer.
+	PromptCacheOptions optionalnullable.OptionalNullable[PromptCacheOptions]  `json:"prompt_cache_options,omitzero"`
+	Reasoning          optionalnullable.OptionalNullable[BaseReasoningConfig] `json:"reasoning,omitzero"`
+	SafetyIdentifier   optionalnullable.OptionalNullable[string]              `json:"safety_identifier,omitzero"`
+	ServiceTier        optionalnullable.OptionalNullable[string]              `json:"service_tier,omitzero"`
+	Status             OpenAIResponsesResponseStatus                          `json:"status"`
+	Store              *bool                                                  `json:"store,omitzero"`
+	Temperature        *float64                                               `json:"temperature"`
 	// Text output configuration including format and verbosity
 	Text        *TextExtendedConfig                           `json:"text,omitzero"`
 	ToolChoice  OpenAIResponsesToolChoiceUnion                `json:"tool_choice"`
@@ -744,6 +952,13 @@ func (o *OpenResponsesResult) GetPromptCacheKey() optionalnullable.OptionalNulla
 		return nil
 	}
 	return o.PromptCacheKey
+}
+
+func (o *OpenResponsesResult) GetPromptCacheOptions() optionalnullable.OptionalNullable[PromptCacheOptions] {
+	if o == nil {
+		return nil
+	}
+	return o.PromptCacheOptions
 }
 
 func (o *OpenResponsesResult) GetReasoning() optionalnullable.OptionalNullable[BaseReasoningConfig] {
