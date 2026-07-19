@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: aeba69c60c012cd6590f29c0236b83a8
+  docChecksum: bcf596b1a50bd8bb8272a06038c2ef60
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.19
-  configChecksum: 0633f2b4ffde738fd89743f228ad3aa4
+  releaseVersion: 0.5.20
+  configChecksum: b469cb8670ab4019825ac9e633ec2376
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f8477e2a-e755-4893-a9c8-e544a3c28572
-  pristine_commit_hash: 16854ddfe80c6b8415c51f431ddbcbb65daa018f
-  pristine_tree_hash: 858d435bac8aacb498247682a796e64b42a848db
+  generation_id: 37185543-4b0b-445b-bdc2-d262ace57be7
+  pristine_commit_hash: 441549f2e25e47bf167ab5392cdfff2d46e37252
+  pristine_tree_hash: a3e4336748d54d17654aa6cf258cd08c651f97a7
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5127,8 +5127,8 @@ trackedFiles:
     pristine_git_object: 356e37f2116bfe858633037b8b14f49a0f13b39e
   docs/models/components/videogenerationrequest.mdx:
     id: cd475ed04a42
-    last_write_checksum: sha1:92049a3ce63df244578670003c01f5ba3221dec9
-    pristine_git_object: 89ca2dfd490dee972d841d2868862b4ac665609f
+    last_write_checksum: sha1:8fbb81600cb1b634a016d30fa801aca9edc1288d
+    pristine_git_object: 93f84109f74cd0052235163b46fdc5555fb4bbda
   docs/models/components/videogenerationrequestaspectratio.mdx:
     id: 828b3d2d4e1a
     last_write_checksum: sha1:adfb933047a751837e83f58372e2a3535d736951
@@ -6267,8 +6267,8 @@ trackedFiles:
     pristine_git_object: 02b71e92b8d69a69e82ecad897b1a2869ca4e7a0
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
-    last_write_checksum: sha1:d89e48fadaa7295062d562b3a17bf4e8c4e7b161
-    pristine_git_object: 8be1c038485e25109e3b2d8cb91f72aad8bd8cea
+    last_write_checksum: sha1:0a7943bee5486f2e27dee50984508fa01d989afd
+    pristine_git_object: 4604686ee6b95b50345a1c16f16668c166e0e97c
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
     last_write_checksum: sha1:0053fd3d22ea23645369b94d7d2d086554bf5cdf
@@ -8507,8 +8507,8 @@ trackedFiles:
     pristine_git_object: f4b994164e03872a8e2ef6d20c8d272dc5861e1c
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:d8159872a72712caffdf7d0961c38b03903a5fce
-    pristine_git_object: 41d6212a5d80a85f5790d96d80b745540a17f57d
+    last_write_checksum: sha1:6546d9e4b9e7afca6d33af79d5910d3c45c96408
+    pristine_git_object: 48480f5ac10c5db56ac1d7983e29ea8905672e2c
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
     last_write_checksum: sha1:b1196ebd395a89b9f03ce3207738055473c33532
@@ -9007,8 +9007,8 @@ trackedFiles:
     pristine_git_object: 3dc1d1bf3c5e7387b73f1bbb0b6b456dd5e7ee9d
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:01423b6ab10f6939a9c0bf1419b0136f5ff7a608
-    pristine_git_object: 604609e1307c20826cb5ed25947e459556eb3d09
+    last_write_checksum: sha1:e615c611fb639eae34d1f31caea3a9c5822ea51a
+    pristine_git_object: eb8f31fce0d63cde14317413a1fe1160b1d29071
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9715,7 +9715,7 @@ examples:
   createVideos:
     speakeasy-default-create-videos:
       requestBody:
-        application/json: {"model": "google/veo-3.1", "prompt": "A serene mountain landscape at sunset"}
+        application/json: {"model": "google/veo-3.1"}
       responses:
         "202":
           application/json: {"id": "job-abc123", "polling_url": "/api/v1/videos/job-abc123", "status": "pending"}
@@ -10634,3 +10634,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Prompt` **Changed**\n"

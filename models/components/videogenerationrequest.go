@@ -1115,7 +1115,8 @@ type VideoGenerationRequest struct {
 	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (currently BytePlus Seedance 2.0); other providers use image references and ignore the rest.
 	InputReferences []InputReference `json:"input_references,omitzero"`
 	Model           string           `json:"model"`
-	Prompt          string           `json:"prompt"`
+	// Text prompt describing the video to generate. Optional for models that support generating a video from image input alone; required by all other models.
+	Prompt *string `json:"prompt,omitzero"`
 	// Provider-specific passthrough configuration
 	Provider *VideoGenerationRequestProvider `json:"provider,omitzero"`
 	// Resolution of the generated video
@@ -1186,9 +1187,9 @@ func (v *VideoGenerationRequest) GetModel() string {
 	return v.Model
 }
 
-func (v *VideoGenerationRequest) GetPrompt() string {
+func (v *VideoGenerationRequest) GetPrompt() *string {
 	if v == nil {
-		return ""
+		return nil
 	}
 	return v.Prompt
 }

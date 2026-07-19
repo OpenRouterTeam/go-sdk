@@ -42,7 +42,7 @@ func main() {
         AspectRatio: components.VideoGenerationRequestAspectRatioOneHundredAndSixtyNine.ToPointer(),
         Duration: openrouter.Pointer[int64](8),
         Model: "google/veo-3.1",
-        Prompt: "A serene mountain landscape at sunset",
+        Prompt: openrouter.Pointer("A serene mountain landscape at sunset"),
         Resolution: components.VideoGenerationRequestResolutionSevenHundredAndTwentyp.ToPointer(),
     })
     if err != nil {
