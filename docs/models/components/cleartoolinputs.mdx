@@ -16,12 +16,6 @@ clearToolInputs := components.CreateClearToolInputsBoolean(bool{/* values here *
 clearToolInputs := components.CreateClearToolInputsArrayOfStr([]string{/* values here */})
 ```
 
-### 
-
-```go
-clearToolInputs := components.CreateClearToolInputsAny(any{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -32,7 +26,5 @@ switch clearToolInputs.Type {
 		// clearToolInputs.Boolean is populated
 	case components.ClearToolInputsTypeArrayOfStr:
 		// clearToolInputs.ArrayOfStr is populated
-	case components.ClearToolInputsTypeAny:
-		// clearToolInputs.Any is populated
 }
 ```

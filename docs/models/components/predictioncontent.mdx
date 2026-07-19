@@ -1,0 +1,30 @@
+---
+title: "PredictionContent"
+---
+
+## Supported Types
+
+### 
+
+```go
+predictionContent := components.CreatePredictionContentStr(string{/* values here */})
+```
+
+### 
+
+```go
+predictionContent := components.CreatePredictionContentArrayOfPredictionContentText([]components.PredictionContentText{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch predictionContent.Type {
+	case components.PredictionContentTypeStr:
+		// predictionContent.Str is populated
+	case components.PredictionContentTypeArrayOfPredictionContentText:
+		// predictionContent.ArrayOfPredictionContentText is populated
+}
+```

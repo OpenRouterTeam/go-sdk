@@ -128,6 +128,7 @@ func main() {
         EnforceZdrGoogle: optionalnullable.From(openrouter.Pointer(false)),
         EnforceZdrOpenai: optionalnullable.From(openrouter.Pointer(true)),
         EnforceZdrOther: optionalnullable.From(openrouter.Pointer(false)),
+        EnforceZdrXai: optionalnullable.From(openrouter.Pointer(false)),
         IgnoredModels: optionalnullable.From[[]string](nil),
         IgnoredProviders: optionalnullable.From[[]string](nil),
         LimitUsd: optionalnullable.From(openrouter.Pointer[float64](50.0)),

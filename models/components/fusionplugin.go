@@ -4,6 +4,7 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
@@ -55,9 +56,406 @@ func (e *PresetEnum) IsExact() bool {
 	return false
 }
 
+type Parameters2Type string
+
+const (
+	Parameters2TypeStr     Parameters2Type = "str"
+	Parameters2TypeNumber  Parameters2Type = "number"
+	Parameters2TypeBoolean Parameters2Type = "boolean"
+)
+
+type Parameters2 struct {
+	Str     *string  `queryParam:"inline" union:"member"`
+	Number  *float64 `queryParam:"inline" union:"member"`
+	Boolean *bool    `queryParam:"inline" union:"member"`
+
+	Type Parameters2Type
+}
+
+func CreateParameters2Str(str string) Parameters2 {
+	typ := Parameters2TypeStr
+
+	return Parameters2{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateParameters2Number(number float64) Parameters2 {
+	typ := Parameters2TypeNumber
+
+	return Parameters2{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateParameters2Boolean(boolean bool) Parameters2 {
+	typ := Parameters2TypeBoolean
+
+	return Parameters2{
+		Boolean: &boolean,
+		Type:    typ,
+	}
+}
+
+func (u *Parameters2) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters2TypeStr,
+			Value: &str,
+		})
+	}
+
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters2TypeNumber,
+			Value: &number,
+		})
+	}
+
+	var boolean bool = false
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters2TypeBoolean,
+			Value: &boolean,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters2", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters2", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(Parameters2Type)
+	switch best.Type {
+	case Parameters2TypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case Parameters2TypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case Parameters2TypeBoolean:
+		u.Boolean = best.Value.(*bool)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters2", string(data))
+}
+
+func (u Parameters2) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.Boolean != nil {
+		return utils.MarshalJSON(u.Boolean, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type Parameters2: all fields are null")
+}
+
+type Parameters1Type string
+
+const (
+	Parameters1TypeStr     Parameters1Type = "str"
+	Parameters1TypeNumber  Parameters1Type = "number"
+	Parameters1TypeBoolean Parameters1Type = "boolean"
+)
+
+type Parameters1 struct {
+	Str     *string  `queryParam:"inline" union:"member"`
+	Number  *float64 `queryParam:"inline" union:"member"`
+	Boolean *bool    `queryParam:"inline" union:"member"`
+
+	Type Parameters1Type
+}
+
+func CreateParameters1Str(str string) Parameters1 {
+	typ := Parameters1TypeStr
+
+	return Parameters1{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateParameters1Number(number float64) Parameters1 {
+	typ := Parameters1TypeNumber
+
+	return Parameters1{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateParameters1Boolean(boolean bool) Parameters1 {
+	typ := Parameters1TypeBoolean
+
+	return Parameters1{
+		Boolean: &boolean,
+		Type:    typ,
+	}
+}
+
+func (u *Parameters1) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters1TypeStr,
+			Value: &str,
+		})
+	}
+
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters1TypeNumber,
+			Value: &number,
+		})
+	}
+
+	var boolean bool = false
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters1TypeBoolean,
+			Value: &boolean,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters1", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters1", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(Parameters1Type)
+	switch best.Type {
+	case Parameters1TypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case Parameters1TypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case Parameters1TypeBoolean:
+		u.Boolean = best.Value.(*bool)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters1", string(data))
+}
+
+func (u Parameters1) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.Boolean != nil {
+		return utils.MarshalJSON(u.Boolean, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type Parameters1: all fields are null")
+}
+
+type Parameters3Type string
+
+const (
+	Parameters3TypeStr                Parameters3Type = "str"
+	Parameters3TypeNumber             Parameters3Type = "number"
+	Parameters3TypeBoolean            Parameters3Type = "boolean"
+	Parameters3TypeArrayOfParameters1 Parameters3Type = "arrayOfParameters1"
+	Parameters3TypeMapOfParameters2   Parameters3Type = "mapOfParameters2"
+)
+
+type Parameters3 struct {
+	Str                *string                 `queryParam:"inline" union:"member"`
+	Number             *float64                `queryParam:"inline" union:"member"`
+	Boolean            *bool                   `queryParam:"inline" union:"member"`
+	ArrayOfParameters1 []*Parameters1          `queryParam:"inline" union:"member"`
+	MapOfParameters2   map[string]*Parameters2 `queryParam:"inline" union:"member"`
+
+	Type Parameters3Type
+}
+
+func CreateParameters3Str(str string) Parameters3 {
+	typ := Parameters3TypeStr
+
+	return Parameters3{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateParameters3Number(number float64) Parameters3 {
+	typ := Parameters3TypeNumber
+
+	return Parameters3{
+		Number: &number,
+		Type:   typ,
+	}
+}
+
+func CreateParameters3Boolean(boolean bool) Parameters3 {
+	typ := Parameters3TypeBoolean
+
+	return Parameters3{
+		Boolean: &boolean,
+		Type:    typ,
+	}
+}
+
+func CreateParameters3ArrayOfParameters1(arrayOfParameters1 []*Parameters1) Parameters3 {
+	typ := Parameters3TypeArrayOfParameters1
+
+	return Parameters3{
+		ArrayOfParameters1: arrayOfParameters1,
+		Type:               typ,
+	}
+}
+
+func CreateParameters3MapOfParameters2(mapOfParameters2 map[string]*Parameters2) Parameters3 {
+	typ := Parameters3TypeMapOfParameters2
+
+	return Parameters3{
+		MapOfParameters2: mapOfParameters2,
+		Type:             typ,
+	}
+}
+
+func (u *Parameters3) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters3TypeStr,
+			Value: &str,
+		})
+	}
+
+	var number float64 = float64(0)
+	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters3TypeNumber,
+			Value: &number,
+		})
+	}
+
+	var boolean bool = false
+	if err := utils.UnmarshalJSON(data, &boolean, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters3TypeBoolean,
+			Value: &boolean,
+		})
+	}
+
+	var arrayOfParameters1 []*Parameters1 = []*Parameters1{}
+	if err := utils.UnmarshalJSON(data, &arrayOfParameters1, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters3TypeArrayOfParameters1,
+			Value: arrayOfParameters1,
+		})
+	}
+
+	var mapOfParameters2 map[string]*Parameters2 = map[string]*Parameters2{}
+	if err := utils.UnmarshalJSON(data, &mapOfParameters2, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  Parameters3TypeMapOfParameters2,
+			Value: mapOfParameters2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters3", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters3", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(Parameters3Type)
+	switch best.Type {
+	case Parameters3TypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case Parameters3TypeNumber:
+		u.Number = best.Value.(*float64)
+		return nil
+	case Parameters3TypeBoolean:
+		u.Boolean = best.Value.(*bool)
+		return nil
+	case Parameters3TypeArrayOfParameters1:
+		u.ArrayOfParameters1 = best.Value.([]*Parameters1)
+		return nil
+	case Parameters3TypeMapOfParameters2:
+		u.MapOfParameters2 = best.Value.(map[string]*Parameters2)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Parameters3", string(data))
+}
+
+func (u Parameters3) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.Number != nil {
+		return utils.MarshalJSON(u.Number, "", true)
+	}
+
+	if u.Boolean != nil {
+		return utils.MarshalJSON(u.Boolean, "", true)
+	}
+
+	if u.ArrayOfParameters1 != nil {
+		return utils.MarshalJSON(u.ArrayOfParameters1, "", true)
+	}
+
+	if u.MapOfParameters2 != nil {
+		return utils.MarshalJSON(u.MapOfParameters2, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type Parameters3: all fields are null")
+}
+
 type FusionPluginTool struct {
 	// Optional configuration forwarded as the tool's `parameters` object.
-	Parameters map[string]any `json:"parameters,omitzero"`
+	Parameters map[string]*Parameters3 `json:"parameters,omitzero"`
 	// Server tool type identifier (e.g. "openrouter:web_search", "openrouter:web_fetch").
 	Type string `json:"type"`
 }
@@ -73,7 +471,7 @@ func (f *FusionPluginTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FusionPluginTool) GetParameters() map[string]any {
+func (f *FusionPluginTool) GetParameters() map[string]*Parameters3 {
 	if f == nil {
 		return nil
 	}

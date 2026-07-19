@@ -88,6 +88,12 @@ additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionApp
 additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionCustomTool(components.CustomTool{/* values here */})
 ```
 
+### NamespaceTool
+
+```go
+additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionNamespaceTool(components.NamespaceTool{/* values here */})
+```
+
 ### AdvisorServerToolOpenRouter
 
 ```go
@@ -200,6 +206,8 @@ switch additionalToolsItemToolUnion.Type {
 		// additionalToolsItemToolUnion.ApplyPatchServerTool is populated
 	case components.AdditionalToolsItemToolUnionTypeCustomTool:
 		// additionalToolsItemToolUnion.CustomTool is populated
+	case components.AdditionalToolsItemToolUnionTypeNamespaceTool:
+		// additionalToolsItemToolUnion.NamespaceTool is populated
 	case components.AdditionalToolsItemToolUnionTypeAdvisorServerToolOpenRouter:
 		// additionalToolsItemToolUnion.AdvisorServerToolOpenRouter is populated
 	case components.AdditionalToolsItemToolUnionTypeSubagentServerToolOpenRouter:

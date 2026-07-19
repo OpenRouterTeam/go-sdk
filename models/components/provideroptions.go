@@ -48,6 +48,7 @@ type ProviderOptions struct {
 	FakeProvider        map[string]any `json:"fake-provider,omitzero"`
 	Featherless         map[string]any `json:"featherless,omitzero"`
 	Fireworks           map[string]any `json:"fireworks,omitzero"`
+	FishAudio           map[string]any `json:"fish-audio,omitzero"`
 	Friendli            map[string]any `json:"friendli,omitzero"`
 	Gmicloud            map[string]any `json:"gmicloud,omitzero"`
 	GoogleAiStudio      map[string]any `json:"google-ai-studio,omitzero"`
@@ -68,6 +69,7 @@ type ProviderOptions struct {
 	IoNet               map[string]any `json:"io-net,omitzero"`
 	Ionstream           map[string]any `json:"ionstream,omitzero"`
 	Klusterai           map[string]any `json:"klusterai,omitzero"`
+	Krea                map[string]any `json:"krea,omitzero"`
 	Lambda              map[string]any `json:"lambda,omitzero"`
 	Lepton              map[string]any `json:"lepton,omitzero"`
 	Liquid              map[string]any `json:"liquid,omitzero"`
@@ -106,6 +108,7 @@ type ProviderOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
+	SailResearch        map[string]any `json:"sail-research,omitzero"`
 	Sakana              map[string]any `json:"sakana,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
@@ -118,6 +121,7 @@ type ProviderOptions struct {
 	Streamlake          map[string]any `json:"streamlake,omitzero"`
 	Switchpoint         map[string]any `json:"switchpoint,omitzero"`
 	Targon              map[string]any `json:"targon,omitzero"`
+	Tencent             map[string]any `json:"tencent,omitzero"`
 	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
@@ -422,6 +426,13 @@ func (p *ProviderOptions) GetFireworks() map[string]any {
 	return p.Fireworks
 }
 
+func (p *ProviderOptions) GetFishAudio() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.FishAudio
+}
+
 func (p *ProviderOptions) GetFriendli() map[string]any {
 	if p == nil {
 		return nil
@@ -560,6 +571,13 @@ func (p *ProviderOptions) GetKlusterai() map[string]any {
 		return nil
 	}
 	return p.Klusterai
+}
+
+func (p *ProviderOptions) GetKrea() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Krea
 }
 
 func (p *ProviderOptions) GetLambda() map[string]any {
@@ -828,6 +846,13 @@ func (p *ProviderOptions) GetReplicate() map[string]any {
 	return p.Replicate
 }
 
+func (p *ProviderOptions) GetSailResearch() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.SailResearch
+}
+
 func (p *ProviderOptions) GetSakana() map[string]any {
 	if p == nil {
 		return nil
@@ -910,6 +935,13 @@ func (p *ProviderOptions) GetTargon() map[string]any {
 		return nil
 	}
 	return p.Targon
+}
+
+func (p *ProviderOptions) GetTencent() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Tencent
 }
 
 func (p *ProviderOptions) GetTenstorrent() map[string]any {

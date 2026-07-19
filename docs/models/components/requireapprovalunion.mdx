@@ -22,12 +22,6 @@ requireApprovalUnion := components.CreateRequireApprovalUnionRequireApprovalAlwa
 requireApprovalUnion := components.CreateRequireApprovalUnionRequireApprovalNever(components.RequireApprovalNever{/* values here */})
 ```
 
-### 
-
-```go
-requireApprovalUnion := components.CreateRequireApprovalUnionAny(any{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -40,7 +34,5 @@ switch requireApprovalUnion.Type {
 		// requireApprovalUnion.RequireApprovalAlways is populated
 	case components.RequireApprovalUnionTypeRequireApprovalNever:
 		// requireApprovalUnion.RequireApprovalNever is populated
-	case components.RequireApprovalUnionTypeAny:
-		// requireApprovalUnion.Any is populated
 }
 ```

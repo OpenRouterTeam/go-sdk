@@ -36,6 +36,7 @@ func (e *Modality) IsExact() bool {
 type ChatRequestPluginType string
 
 const (
+	ChatRequestPluginTypeAutoBetaRouter     ChatRequestPluginType = "auto-beta-router"
 	ChatRequestPluginTypeAutoRouter         ChatRequestPluginType = "auto-router"
 	ChatRequestPluginTypeContextCompression ChatRequestPluginType = "context-compression"
 	ChatRequestPluginTypeFileParser         ChatRequestPluginType = "file-parser"
@@ -49,6 +50,7 @@ const (
 
 type ChatRequestPlugin struct {
 	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
+	AutoBetaRouterPlugin     *AutoBetaRouterPlugin     `queryParam:"inline" union:"member"`
 	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
 	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
 	WebFetchPlugin           *WebFetchPlugin           `queryParam:"inline" union:"member"`
@@ -59,6 +61,18 @@ type ChatRequestPlugin struct {
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 
 	Type ChatRequestPluginType
+}
+
+func CreateChatRequestPluginAutoBetaRouter(autoBetaRouter AutoBetaRouterPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeAutoBetaRouter
+
+	typStr := AutoBetaRouterPluginID(typ)
+	autoBetaRouter.ID = typStr
+
+	return ChatRequestPlugin{
+		AutoBetaRouterPlugin: &autoBetaRouter,
+		Type:                 typ,
+	}
 }
 
 func CreateChatRequestPluginAutoRouter(autoRouter AutoRouterPlugin) ChatRequestPlugin {
@@ -181,6 +195,15 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.ID {
+	case "auto-beta-router":
+		autoBetaRouterPlugin := new(AutoBetaRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &autoBetaRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-beta-router) type AutoBetaRouterPlugin within ChatRequestPlugin: %w", string(data), err)
+		}
+
+		u.AutoBetaRouterPlugin = autoBetaRouterPlugin
+		u.Type = ChatRequestPluginTypeAutoBetaRouter
+		return nil
 	case "auto-router":
 		autoRouterPlugin := new(AutoRouterPlugin)
 		if err := utils.UnmarshalJSON(data, &autoRouterPlugin, "", true, nil); err != nil {
@@ -270,6 +293,10 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 	if u.AutoRouterPlugin != nil {
 		return utils.MarshalJSON(u.AutoRouterPlugin, "", true)
+	}
+
+	if u.AutoBetaRouterPlugin != nil {
+		return utils.MarshalJSON(u.AutoBetaRouterPlugin, "", true)
 	}
 
 	if u.ModerationPlugin != nil {
@@ -582,14 +609,12 @@ type StopType string
 const (
 	StopTypeStr        StopType = "str"
 	StopTypeArrayOfStr StopType = "arrayOfStr"
-	StopTypeAny        StopType = "any"
 )
 
 // Stop sequences (up to 4)
 type Stop struct {
 	Str        *string  `queryParam:"inline" union:"member"`
 	ArrayOfStr []string `queryParam:"inline" union:"member"`
-	Any        any      `queryParam:"inline" union:"member"`
 
 	Type StopType
 }
@@ -609,15 +634,6 @@ func CreateStopArrayOfStr(arrayOfStr []string) Stop {
 	return Stop{
 		ArrayOfStr: arrayOfStr,
 		Type:       typ,
-	}
-}
-
-func CreateStopAny(anyT any) Stop {
-	typ := StopTypeAny
-
-	return Stop{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -642,14 +658,6 @@ func (u *Stop) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  StopTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Stop", string(data))
 	}
@@ -669,9 +677,6 @@ func (u *Stop) UnmarshalJSON(data []byte) error {
 	case StopTypeArrayOfStr:
 		u.ArrayOfStr = best.Value.([]string)
 		return nil
-	case StopTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Stop", string(data))
@@ -686,16 +691,12 @@ func (u Stop) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ArrayOfStr, "", true)
 	}
 
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
-	}
-
 	return nil, errors.New("could not marshal union type Stop: all fields are null")
 }
 
 // ChatRequest - Chat completion request parameters
 type ChatRequest struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
 	Debug *ChatDebugOptions `json:"debug,omitzero"`
@@ -727,8 +728,13 @@ type ChatRequest struct {
 	ParallelToolCalls optionalnullable.OptionalNullable[bool] `json:"parallel_tool_calls,omitzero"`
 	// Plugins you want to enable for this request, including their settings.
 	Plugins []ChatRequestPlugin `json:"plugins,omitzero"`
+	// Static predicted output content. Supported models can use this to reduce latency when much of the response is known in advance.
+	Prediction optionalnullable.OptionalNullable[Prediction] `json:"prediction,omitzero"`
 	// Presence penalty (-2.0 to 2.0)
 	PresencePenalty optionalnullable.OptionalNullable[float64] `json:"presence_penalty,omitzero"`
+	PromptCacheKey  optionalnullable.OptionalNullable[string]  `json:"prompt_cache_key,omitzero"`
+	// Request-level prompt-cache controls. `mode: "explicit"` disables OpenAI-managed breakpoints so only blocks marked with `prompt_cache_breakpoint` are cached. Only supported by OpenAI GPT-5.6 and newer.
+	PromptCacheOptions optionalnullable.OptionalNullable[PromptCacheOptions] `json:"prompt_cache_options,omitzero"`
 	// When multiple model providers are available, optionally indicate your routing preference.
 	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Configuration options for reasoning models
@@ -896,11 +902,32 @@ func (c *ChatRequest) GetPlugins() []ChatRequestPlugin {
 	return c.Plugins
 }
 
+func (c *ChatRequest) GetPrediction() optionalnullable.OptionalNullable[Prediction] {
+	if c == nil {
+		return nil
+	}
+	return c.Prediction
+}
+
 func (c *ChatRequest) GetPresencePenalty() optionalnullable.OptionalNullable[float64] {
 	if c == nil {
 		return nil
 	}
 	return c.PresencePenalty
+}
+
+func (c *ChatRequest) GetPromptCacheKey() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.PromptCacheKey
+}
+
+func (c *ChatRequest) GetPromptCacheOptions() optionalnullable.OptionalNullable[PromptCacheOptions] {
+	if c == nil {
+		return nil
+	}
+	return c.PromptCacheOptions
 }
 
 func (c *ChatRequest) GetProvider() optionalnullable.OptionalNullable[ProviderPreferences] {

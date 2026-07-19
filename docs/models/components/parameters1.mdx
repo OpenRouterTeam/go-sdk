@@ -1,0 +1,38 @@
+---
+title: "Parameters1"
+---
+
+## Supported Types
+
+### 
+
+```go
+parameters1 := components.CreateParameters1Str(string{/* values here */})
+```
+
+### 
+
+```go
+parameters1 := components.CreateParameters1Number(float64{/* values here */})
+```
+
+### 
+
+```go
+parameters1 := components.CreateParameters1Boolean(bool{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch parameters1.Type {
+	case components.Parameters1TypeStr:
+		// parameters1.Str is populated
+	case components.Parameters1TypeNumber:
+		// parameters1.Number is populated
+	case components.Parameters1TypeBoolean:
+		// parameters1.Boolean is populated
+}
+```

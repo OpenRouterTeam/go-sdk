@@ -2,47 +2,6 @@
 
 package components
 
-// Tokenizer type used by the model
-type Tokenizer string
-
-const (
-	TokenizerRouter   Tokenizer = "Router"
-	TokenizerMedia    Tokenizer = "Media"
-	TokenizerOther    Tokenizer = "Other"
-	TokenizerGpt      Tokenizer = "GPT"
-	TokenizerClaude   Tokenizer = "Claude"
-	TokenizerGemini   Tokenizer = "Gemini"
-	TokenizerGemma    Tokenizer = "Gemma"
-	TokenizerGrok     Tokenizer = "Grok"
-	TokenizerCohere   Tokenizer = "Cohere"
-	TokenizerNova     Tokenizer = "Nova"
-	TokenizerQwen     Tokenizer = "Qwen"
-	TokenizerYi       Tokenizer = "Yi"
-	TokenizerDeepSeek Tokenizer = "DeepSeek"
-	TokenizerMistral  Tokenizer = "Mistral"
-	TokenizerLlama2   Tokenizer = "Llama2"
-	TokenizerLlama3   Tokenizer = "Llama3"
-	TokenizerLlama4   Tokenizer = "Llama4"
-	TokenizerPaLm     Tokenizer = "PaLM"
-	TokenizerRwkv     Tokenizer = "RWKV"
-	TokenizerQwen3    Tokenizer = "Qwen3"
-)
-
-func (e Tokenizer) ToPointer() *Tokenizer {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Tokenizer) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "Router", "Media", "Other", "GPT", "Claude", "Gemini", "Gemma", "Grok", "Cohere", "Nova", "Qwen", "Yi", "DeepSeek", "Mistral", "Llama2", "Llama3", "Llama4", "PaLM", "RWKV", "Qwen3":
-			return true
-		}
-	}
-	return false
-}
-
 // Architecture - Model architecture information
 type Architecture struct {
 	// Supported input modalities
@@ -53,7 +12,7 @@ type Architecture struct {
 	Modality *string `json:"modality"`
 	// Supported output modalities
 	OutputModalities []OutputModality `json:"output_modalities"`
-	Tokenizer        *Tokenizer       `json:"tokenizer"`
+	Tokenizer        *ModelGroup      `json:"tokenizer"`
 }
 
 func (a *Architecture) GetInputModalities() []InputModality {
@@ -84,7 +43,7 @@ func (a *Architecture) GetOutputModalities() []OutputModality {
 	return a.OutputModalities
 }
 
-func (a *Architecture) GetTokenizer() *Tokenizer {
+func (a *Architecture) GetTokenizer() *ModelGroup {
 	if a == nil {
 		return nil
 	}

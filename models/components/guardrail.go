@@ -20,7 +20,7 @@ type Guardrail struct {
 	CreatedAt string `json:"created_at"`
 	// Description of the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
+	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, enforce_zdr_xai, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
@@ -30,8 +30,10 @@ type Guardrail struct {
 	EnforceZdrGoogle optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_google,omitzero"`
 	// Whether to enforce zero data retention for OpenAI models. Falls back to enforce_zdr when not provided.
 	EnforceZdrOpenai optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_openai,omitzero"`
-	// Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, or Google. Falls back to enforce_zdr when not provided.
+	// Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, Google, or xAI. Falls back to enforce_zdr when not provided.
 	EnforceZdrOther optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_other,omitzero"`
+	// Whether to enforce zero data retention for xAI models. Falls back to enforce_zdr when not provided.
+	EnforceZdrXai optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_xai,omitzero"`
 	// Unique identifier for the guardrail
 	ID string `json:"id"`
 	// Array of model canonical_slugs to exclude from routing
@@ -136,6 +138,13 @@ func (g *Guardrail) GetEnforceZdrOther() optionalnullable.OptionalNullable[bool]
 		return nil
 	}
 	return g.EnforceZdrOther
+}
+
+func (g *Guardrail) GetEnforceZdrXai() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnforceZdrXai
 }
 
 func (g *Guardrail) GetID() string {

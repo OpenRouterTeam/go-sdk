@@ -10,7 +10,7 @@ import (
 )
 
 type McpListToolsItemTool struct {
-	Annotations optionalnullable.OptionalNullable[any]    `json:"annotations,omitzero"`
+	Annotations any                                       `json:"annotations,omitzero"`
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
 	InputSchema map[string]any                            `json:"input_schema"`
 	Name        string                                    `json:"name"`
@@ -27,7 +27,7 @@ func (m *McpListToolsItemTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (m *McpListToolsItemTool) GetAnnotations() optionalnullable.OptionalNullable[any] {
+func (m *McpListToolsItemTool) GetAnnotations() any {
 	if m == nil {
 		return nil
 	}

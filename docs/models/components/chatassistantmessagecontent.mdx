@@ -19,12 +19,6 @@ chatAssistantMessageContent := components.CreateChatAssistantMessageContentStr(s
 chatAssistantMessageContent := components.CreateChatAssistantMessageContentArrayOfChatContentItems([]components.ChatContentItems{/* values here */})
 ```
 
-### 
-
-```go
-chatAssistantMessageContent := components.CreateChatAssistantMessageContentAny(any{/* values here */})
-```
-
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -35,7 +29,5 @@ switch chatAssistantMessageContent.Type {
 		// chatAssistantMessageContent.Str is populated
 	case components.ChatAssistantMessageContentTypeArrayOfChatContentItems:
 		// chatAssistantMessageContent.ArrayOfChatContentItems is populated
-	case components.ChatAssistantMessageContentTypeAny:
-		// chatAssistantMessageContent.Any is populated
 }
 ```
