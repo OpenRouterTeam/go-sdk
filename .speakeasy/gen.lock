@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: bcf596b1a50bd8bb8272a06038c2ef60
+  docChecksum: 7b93b007c53a376d255211927a9bb4f9
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.20
-  configChecksum: b469cb8670ab4019825ac9e633ec2376
+  releaseVersion: 0.5.21
+  configChecksum: 439817a7c19b0199a13dc7336d44ac09
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 37185543-4b0b-445b-bdc2-d262ace57be7
-  pristine_commit_hash: 441549f2e25e47bf167ab5392cdfff2d46e37252
-  pristine_tree_hash: a3e4336748d54d17654aa6cf258cd08c651f97a7
+  generation_id: b9396858-3d17-4afd-9c4b-820c6dbd844f
+  pristine_commit_hash: b8a49df27ce9f47daddc34c3323e9dc8ed8da7b6
+  pristine_tree_hash: 42a8a7f2d3845fbda65c9bb75143b088c2855796
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6207,8 +6207,8 @@ trackedFiles:
     pristine_git_object: fe50a5a543037b859e6b9671d7a652f82d73fc10
   docs/sdks/endpoints/README.mdx:
     id: 62dfac9f7b71
-    last_write_checksum: sha1:25dca9bac222654d87f3fffa21e59e341184c3d0
-    pristine_git_object: b28c01cbf24ed5ce8af10580812729c9a0e4217e
+    last_write_checksum: sha1:2295f7bba3abe6fb0c1e89c54df1c244bf290cb0
+    pristine_git_object: 844044ad6d1c3d29314dee5b5accfac86245ff19
   docs/sdks/files/README.mdx:
     id: 1a0c257e330c
     last_write_checksum: sha1:9d987fe3021cbccf91c5b24890d4f00e8ab1de85
@@ -6227,8 +6227,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
-    last_write_checksum: sha1:a17b69c0dfb950333afea5d95e81d742a0de4db5
-    pristine_git_object: 17812135ca826cd8d4f88ad3b3ce83090ac63103
+    last_write_checksum: sha1:b3bfd420176667d6aea6fc9561ddf8e148fea091
+    pristine_git_object: 55fa4cbfc63f6ffc4380ed12979df558eee9b78e
   docs/sdks/oauth/README.mdx:
     id: 42b5079343d2
     last_write_checksum: sha1:0bd838fa6e85527b8f9b755957186ddbc473d466
@@ -6279,8 +6279,8 @@ trackedFiles:
     pristine_git_object: 5d969cd3620e3f2e42de9d07c2faf8577b201f25
   endpoints.go:
     id: fca50a3c2336
-    last_write_checksum: sha1:2580761728a9574c87bf7356358889d695467bb6
-    pristine_git_object: 2ce8a37c30d493fb7576821d578a2d5a9bc869d6
+    last_write_checksum: sha1:4ff8dcc824651a38c91f51bf1754dec818104b0e
+    pristine_git_object: 5f6a868dfd1c4fe9d1589a2e2afc14af039179f2
   files.go:
     id: 2321d71bc458
     last_write_checksum: sha1:38b954d0d68ade28ebbcc10007394b71a780d6d4
@@ -6367,8 +6367,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   models.go:
     id: 3af78faf181b
-    last_write_checksum: sha1:fc00e24ef59a1ba9b664d72f03f452dcf19861ba
-    pristine_git_object: f30e841a56537552a68a2602720a0afac2b5392b
+    last_write_checksum: sha1:51643e658b2965cb023c72920fb9ede28f43d72a
+    pristine_git_object: 2da72b96d2f7e930b895adf20e334113e72afdd8
   models/components/aabenchmarkentry.go:
     id: 4c2460857b24
     last_write_checksum: sha1:f1dcb4e0a7a18fc3b6c701e6608ac599c5a0f280
@@ -9007,8 +9007,8 @@ trackedFiles:
     pristine_git_object: 3dc1d1bf3c5e7387b73f1bbb0b6b456dd5e7ee9d
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:e615c611fb639eae34d1f31caea3a9c5822ea51a
-    pristine_git_object: eb8f31fce0d63cde14317413a1fe1160b1d29071
+    last_write_checksum: sha1:68b5085517ea0cf72462981720760157ce7064eb
+    pristine_git_object: 313e75cdee355a358889c040b42a38679e237804
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9242,6 +9242,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getModels:
     speakeasy-default-get-models:
       parameters:
@@ -9255,6 +9257,8 @@ examples:
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listModelsUser:
     speakeasy-default-list-models-user:
       parameters:
@@ -9270,6 +9274,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listEndpoints:
     speakeasy-default-list-endpoints:
       parameters:
@@ -9283,6 +9289,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listEndpointsZdr:
     speakeasy-default-list-endpoints-zdr:
       responses:
@@ -9290,6 +9298,8 @@ examples:
           application/json: {"data": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_implicit_caching": true, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}]}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listProviders:
     speakeasy-default-list-providers:
       responses:
@@ -10260,6 +10270,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listObservabilityDestinations:
     speakeasy-default-list-observability-destinations:
       parameters:
@@ -10634,4 +10646,11 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Prompt` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `error.status[403]` **Added**
+  * `OpenRouter.Endpoints.List()`:  `error.status[403]` **Added**
+  * `OpenRouter.Models.Get()`:  `error.status[403]` **Added**
+  * `OpenRouter.Models.List()`:  `error.status[403]` **Added**
+  * `OpenRouter.Models.Count()`:  `error.status[403]` **Added**
+  * `OpenRouter.Models.ListForUser()`:  `error.status[403]` **Added**
