@@ -33,7 +33,7 @@ func (e *SubagentServerToolOpenRouterType) UnmarshalJSON(data []byte) error {
 
 // SubagentServerToolOpenRouter - OpenRouter built-in server tool: delegates self-contained tasks to a smaller, cheaper, faster worker model (any OpenRouter model) mid-generation and returns its outcome. The worker may run as a sub-agent with its own tools.
 type SubagentServerToolOpenRouter struct {
-	// Configuration for the openrouter:subagent server tool.
+	// Configuration for one openrouter:subagent server tool entry.
 	Parameters *SubagentServerToolConfig        `json:"parameters,omitzero"`
 	Type       SubagentServerToolOpenRouterType `json:"type"`
 }
