@@ -1243,7 +1243,8 @@ type ResponsesRequest struct {
 	Input           *InputsUnion                              `json:"input,omitzero"`
 	Instructions    optionalnullable.OptionalNullable[string] `json:"instructions,omitzero"`
 	MaxOutputTokens optionalnullable.OptionalNullable[int64]  `json:"max_output_tokens,omitzero"`
-	MaxToolCalls    optionalnullable.OptionalNullable[int64]  `json:"max_tool_calls,omitzero"`
+	// Maximum number of server-tool (e.g. `openrouter:web_search`) agent steps the model may take during a request. Defaults to 30, which is also the maximum. Ignored when `stop_server_tools_when` is set.
+	MaxToolCalls optionalnullable.OptionalNullable[int64] `json:"max_tool_calls,omitzero"`
 	// Metadata key-value pairs for the request. Keys must be ≤64 characters and cannot contain brackets. Values must be ≤512 characters. Maximum 16 pairs allowed.
 	Metadata optionalnullable.OptionalNullable[map[string]string] `json:"metadata,omitzero"`
 	// Output modalities for the response. Supported values are "text" and "image".
