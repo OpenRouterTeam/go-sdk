@@ -753,7 +753,7 @@ type ChatRequest struct {
 	SessionID *string `json:"session_id,omitzero"`
 	// Stop sequences (up to 4)
 	Stop optionalnullable.OptionalNullable[Stop] `json:"stop,omitzero"`
-	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`.
+	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`. When a condition fires while the model is still emitting tool calls, the pending tool calls are executed and one final turn is made with tool calls disabled so the response ends with a natural-language answer instead of an unfinished tool call.
 	StopServerToolsWhen []StopServerToolsWhenCondition `json:"stop_server_tools_when,omitzero"`
 	// Enable streaming response
 	Stream *bool `default:"false" json:"stream"`
