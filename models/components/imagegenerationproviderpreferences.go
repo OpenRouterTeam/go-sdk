@@ -289,6 +289,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
+	Runway              map[string]any `json:"runway,omitzero"`
 	SailResearch        map[string]any `json:"sail-research,omitzero"`
 	Sakana              map[string]any `json:"sakana,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
@@ -1025,6 +1026,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetReplicate() map[string]an
 		return nil
 	}
 	return i.Replicate
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetRunway() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Runway
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetSailResearch() map[string]any {
