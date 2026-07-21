@@ -1,3 +1,5 @@
+![hero illustration](./assets/banner.png)
+
 # OpenRouter Go SDK
 
 The [OpenRouter SDK](https://openrouter.ai/docs/sdks/go/api-reference/chat) is a Go client for building AI-powered features with OpenRouter. It gives you type-safe access to 400+ models across providers through an OpenAI-compatible API, plus OpenRouter-specific features like provider routing, guardrails, and analytics.
