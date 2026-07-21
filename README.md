@@ -11,7 +11,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.5.27
+> go get github.com/OpenRouterTeam/go-sdk@v0.5.28
 > ```
 
 <!-- No Summary [summary] -->
