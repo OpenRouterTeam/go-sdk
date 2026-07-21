@@ -28,6 +28,7 @@ const (
 	BYOKProviderSlugClarifai        BYOKProviderSlug = "clarifai"
 	BYOKProviderSlugCloudflare      BYOKProviderSlug = "cloudflare"
 	BYOKProviderSlugCohere          BYOKProviderSlug = "cohere"
+	BYOKProviderSlugCoreweave       BYOKProviderSlug = "coreweave"
 	BYOKProviderSlugCrusoe          BYOKProviderSlug = "crusoe"
 	BYOKProviderSlugDarkbloom       BYOKProviderSlug = "darkbloom"
 	BYOKProviderSlugDecart          BYOKProviderSlug = "decart"
@@ -111,7 +112,7 @@ func (e BYOKProviderSlug) ToPointer() *BYOKProviderSlug {
 func (e *BYOKProviderSlug) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "crusoe", "darkbloom", "decart", "deepgram", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "fish-audio", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "krea", "liquid", "mancer", "mara", "meta", "minimax", "mistral", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "runway", "sail-research", "sakana", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tencent", "tenstorrent", "together", "upstage", "venice", "wafer", "wandb", "xai", "xiaomi", "z-ai":
+		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "coreweave", "crusoe", "darkbloom", "decart", "deepgram", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "fish-audio", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "krea", "liquid", "mancer", "mara", "meta", "minimax", "mistral", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "runway", "sail-research", "sakana", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tencent", "tenstorrent", "together", "upstage", "venice", "wafer", "wandb", "xai", "xiaomi", "z-ai":
 			return true
 		}
 	}

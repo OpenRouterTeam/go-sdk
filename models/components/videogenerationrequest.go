@@ -64,6 +64,7 @@ type VideoGenerationRequestOptions struct {
 	Clarifai            map[string]any `json:"clarifai,omitzero"`
 	Cloudflare          map[string]any `json:"cloudflare,omitzero"`
 	Cohere              map[string]any `json:"cohere,omitzero"`
+	Coreweave           map[string]any `json:"coreweave,omitzero"`
 	Crofai              map[string]any `json:"crofai,omitzero"`
 	Crucible            map[string]any `json:"crucible,omitzero"`
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
@@ -357,6 +358,13 @@ func (v *VideoGenerationRequestOptions) GetCohere() map[string]any {
 		return nil
 	}
 	return v.Cohere
+}
+
+func (v *VideoGenerationRequestOptions) GetCoreweave() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Coreweave
 }
 
 func (v *VideoGenerationRequestOptions) GetCrofai() map[string]any {
