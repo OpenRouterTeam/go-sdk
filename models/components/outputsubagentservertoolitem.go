@@ -36,8 +36,12 @@ type OutputSubagentServerToolItem struct {
 	// Error message when the subagent task did not produce an outcome.
 	Error *string `json:"error,omitzero"`
 	ID    *string `json:"id,omitzero"`
+	// Provider-safe function name of the specific subagent instance that produced this item (e.g. `openrouter_subagent__1`). Present only on items from non-default instances — the second and later subagent entries in the request `tools` array. The first (default) instance omits it, even when multiple subagents are configured. When a replayed item echoes this field back, the transcript rehydrates the call under that instance's tool. This identity is positional: it is derived from the index of the subagent entry in the request `tools` array, so keep the order of subagent entries stable across requests in a conversation.
+	InstanceName *string `json:"instance_name,omitzero"`
 	// Slug of the worker model that executed the task.
 	Model *string `json:"model,omitzero"`
+	// Configured name of the subagent that executed the task (the `name` on its tool entry). Present only for named subagents; omitted for an unnamed (default) subagent.
+	Name *string `json:"name,omitzero"`
 	// The worker model's result (the outcome text returned to the delegating model).
 	Outcome *string        `json:"outcome,omitzero"`
 	Status  ToolCallStatus `json:"status"`
@@ -73,11 +77,25 @@ func (o *OutputSubagentServerToolItem) GetID() *string {
 	return o.ID
 }
 
+func (o *OutputSubagentServerToolItem) GetInstanceName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.InstanceName
+}
+
 func (o *OutputSubagentServerToolItem) GetModel() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Model
+}
+
+func (o *OutputSubagentServerToolItem) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
 }
 
 func (o *OutputSubagentServerToolItem) GetOutcome() *string {
