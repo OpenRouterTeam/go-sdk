@@ -82,6 +82,18 @@ messagesRequestToolUnion := components.CreateMessagesRequestToolUnionOpenRouterW
 messagesRequestToolUnion := components.CreateMessagesRequestToolUnionMessagesRequestTool(components.MessagesRequestTool{/* values here */})
 ```
 
+### AnthropicToolSearchToolBm25
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionAnthropicToolSearchToolBm25(components.AnthropicToolSearchToolBm25{/* values here */})
+```
+
+### AnthropicToolSearchToolRegex
+
+```go
+messagesRequestToolUnion := components.CreateMessagesRequestToolUnionAnthropicToolSearchToolRegex(components.AnthropicToolSearchToolRegex{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -114,5 +126,9 @@ switch messagesRequestToolUnion.Type {
 		// messagesRequestToolUnion.OpenRouterWebSearchServerTool is populated
 	case components.MessagesRequestToolUnionTypeMessagesRequestTool:
 		// messagesRequestToolUnion.MessagesRequestTool is populated
+	case components.MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25:
+		// messagesRequestToolUnion.AnthropicToolSearchToolBm25 is populated
+	case components.MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex:
+		// messagesRequestToolUnion.AnthropicToolSearchToolRegex is populated
 }
 ```

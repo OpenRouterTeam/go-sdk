@@ -2552,6 +2552,8 @@ const (
 	MessagesRequestToolUnionTypeWebFetchServerTool                  MessagesRequestToolUnionType = "WebFetchServerTool"
 	MessagesRequestToolUnionTypeOpenRouterWebSearchServerTool       MessagesRequestToolUnionType = "OpenRouterWebSearchServerTool"
 	MessagesRequestToolUnionTypeMessagesRequestTool                 MessagesRequestToolUnionType = "MessagesRequest_tool"
+	MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25         MessagesRequestToolUnionType = "AnthropicToolSearchToolBm25"
+	MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex        MessagesRequestToolUnionType = "AnthropicToolSearchToolRegex"
 )
 
 type MessagesRequestToolUnion struct {
@@ -2568,6 +2570,8 @@ type MessagesRequestToolUnion struct {
 	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	OpenRouterWebSearchServerTool       *OpenRouterWebSearchServerTool       `queryParam:"inline" union:"member"`
 	MessagesRequestTool                 *MessagesRequestTool                 `queryParam:"inline" union:"member"`
+	AnthropicToolSearchToolBm25         *AnthropicToolSearchToolBm25         `queryParam:"inline" union:"member"`
+	AnthropicToolSearchToolRegex        *AnthropicToolSearchToolRegex        `queryParam:"inline" union:"member"`
 
 	Type MessagesRequestToolUnionType
 }
@@ -2689,6 +2693,24 @@ func CreateMessagesRequestToolUnionMessagesRequestTool(messagesRequestTool Messa
 	}
 }
 
+func CreateMessagesRequestToolUnionAnthropicToolSearchToolBm25(anthropicToolSearchToolBm25 AnthropicToolSearchToolBm25) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25
+
+	return MessagesRequestToolUnion{
+		AnthropicToolSearchToolBm25: &anthropicToolSearchToolBm25,
+		Type:                        typ,
+	}
+}
+
+func CreateMessagesRequestToolUnionAnthropicToolSearchToolRegex(anthropicToolSearchToolRegex AnthropicToolSearchToolRegex) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex
+
+	return MessagesRequestToolUnion{
+		AnthropicToolSearchToolRegex: &anthropicToolSearchToolRegex,
+		Type:                         typ,
+	}
+}
+
 func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -2798,6 +2820,22 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var anthropicToolSearchToolBm25 AnthropicToolSearchToolBm25 = AnthropicToolSearchToolBm25{}
+	if err := utils.UnmarshalJSON(data, &anthropicToolSearchToolBm25, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25,
+			Value: &anthropicToolSearchToolBm25,
+		})
+	}
+
+	var anthropicToolSearchToolRegex AnthropicToolSearchToolRegex = AnthropicToolSearchToolRegex{}
+	if err := utils.UnmarshalJSON(data, &anthropicToolSearchToolRegex, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex,
+			Value: &anthropicToolSearchToolRegex,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesRequestToolUnion", string(data))
 	}
@@ -2849,6 +2887,12 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		return nil
 	case MessagesRequestToolUnionTypeMessagesRequestTool:
 		u.MessagesRequestTool = best.Value.(*MessagesRequestTool)
+		return nil
+	case MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25:
+		u.AnthropicToolSearchToolBm25 = best.Value.(*AnthropicToolSearchToolBm25)
+		return nil
+	case MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex:
+		u.AnthropicToolSearchToolRegex = best.Value.(*AnthropicToolSearchToolRegex)
 		return nil
 	}
 
@@ -2908,6 +2952,14 @@ func (u MessagesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.MessagesRequestTool, "", true)
 	}
 
+	if u.AnthropicToolSearchToolBm25 != nil {
+		return utils.MarshalJSON(u.AnthropicToolSearchToolBm25, "", true)
+	}
+
+	if u.AnthropicToolSearchToolRegex != nil {
+		return utils.MarshalJSON(u.AnthropicToolSearchToolRegex, "", true)
+	}
+
 	return nil, errors.New("could not marshal union type MessagesRequestToolUnion: all fields are null")
 }
 
@@ -2934,7 +2986,7 @@ type MessagesRequest struct {
 	SessionID     *string                                  `json:"session_id,omitzero"`
 	Speed         optionalnullable.OptionalNullable[Speed] `json:"speed,omitzero"`
 	StopSequences []string                                 `json:"stop_sequences,omitzero"`
-	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`.
+	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`. When a condition fires while the model is still emitting tool calls, the pending tool calls are executed and one final turn is made with tool calls disabled so the response ends with a natural-language answer instead of an unfinished tool call.
 	StopServerToolsWhen []StopServerToolsWhenCondition `json:"stop_server_tools_when,omitzero"`
 	Stream              *bool                          `json:"stream,omitzero"`
 	System              *System                        `json:"system,omitzero"`
