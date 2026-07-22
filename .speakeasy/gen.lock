@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ec7285f3b9ff2917de83effe24966ce5
+  docChecksum: f2f27857286d9eae514f6097b5f90102
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.34
-  configChecksum: 8137ad6723c6b9961ce7585939a1674b
+  releaseVersion: 0.5.35
+  configChecksum: 87ab3581b0e41ed3b25843d2582d5755
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 2aa9cdde-d1de-47b1-b1ba-888318ddc391
-  pristine_commit_hash: d291ae869a5007c91e57d1d19a1e6d43f7ab0be9
-  pristine_tree_hash: 97c45f08a19be068be55892924b32be7ef8fb264
+  generation_id: 13908d76-44ec-442d-8e78-225d448a4656
+  pristine_commit_hash: 4bcd9e6ad0d2d5b7c5078268c390441e5cc5639d
+  pristine_tree_hash: a5b7448d3cc64f9b5c8cebb0f97ec6e529c74c5f
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3851,8 +3851,8 @@ trackedFiles:
     pristine_git_object: cd8b9e04241914d58dde0173d7a7c50483ea40a0
   docs/models/components/paretorouterplugin.mdx:
     id: 49b7128c77fb
-    last_write_checksum: sha1:d57343ae2f8360078570d83ed2a80358900d3fe1
-    pristine_git_object: bfc2a2bbfd08db68797dea1203b31d60efc3cb62
+    last_write_checksum: sha1:f8bf455c0f43d7efa3fb44e29da79b26150e4cfb
+    pristine_git_object: c499f4b7bbcf7a7e86762e84499bac0dbe08f97d
   docs/models/components/paretorouterpluginid.mdx:
     id: 93880ad92803
     last_write_checksum: sha1:2c5e2ec2ae67bd13eb93c4ec4cec95e72716641c
@@ -3991,8 +3991,8 @@ trackedFiles:
     pristine_git_object: d10e5b19b8adde01ec7946f04bc86c45ba40176a
   docs/models/components/pricesource.mdx:
     id: ccfda6f9be10
-    last_write_checksum: sha1:a58dc076e6fce35a05a0c3688e083161f6361486
-    pristine_git_object: 2146c679605687413d938afc41c3069409c3317a
+    last_write_checksum: sha1:1de5c74dbc69a42c9d14d423fdc60f26ed92fc28
+    pristine_git_object: 1c727feb9ada936d2a3ddd4cd16e218f0baaa9f9
   docs/models/components/pricing.mdx:
     id: 624a492324e1
     last_write_checksum: sha1:351a0911cf1aa4e0ea42c08f443b6e8f38ec9228
@@ -7955,8 +7955,8 @@ trackedFiles:
     pristine_git_object: 7152944455cd0fc41be909780466e490c100a736
   models/components/paretorouterplugin.go:
     id: 90e5ef61fd02
-    last_write_checksum: sha1:45aed10239b344ec6e70707f7f836d9530013215
-    pristine_git_object: f486a03afe057d7218b94db6e68c6cb24fcc6ef7
+    last_write_checksum: sha1:97a4045f98fc098f0137a5a17950eb3b7fb2e914
+    pristine_git_object: 8ecdcf999121536416bca273495fce6511175949
   models/components/payloadtoolargeresponseerrordata.go:
     id: 95d0664d624f
     last_write_checksum: sha1:70d8b54dcc6912cec34b5f59f385f01d40d5da1b
@@ -9039,8 +9039,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:2d9ccfb13cc163d22f0dce9126f35b6a50dda85f
-    pristine_git_object: d2f466d96d044cad5360da2e05d6980c57b2e52c
+    last_write_checksum: sha1:848754126b237c73275838c3f7ef516f8627f276
+    pristine_git_object: 69c0ab923065091f1f100f9d5b73150d41fce097
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10686,4 +10686,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(auto-router).PinModel` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest` **Changed**\n  *  `response.Choices[].Message.Model` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`:  `request.ChatRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(auto-router).PinModel` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(auto-router).PinModel` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(pareto-router).MaxPrice` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(pareto-router).MaxPrice` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(pareto-router).MaxPrice` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(pareto-router).MaxPrice` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(pareto-router).MaxPrice` **Added**\n"
