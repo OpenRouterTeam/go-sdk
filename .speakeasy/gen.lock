@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: e82920e16a6cd2104114e752f864ab11
+  docChecksum: 109e857436393786a40f4fc9bf9614a1
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.31
-  configChecksum: 6e53291a0e384fb7bd6429d36371169e
+  releaseVersion: 0.5.32
+  configChecksum: c23356a4f4f95fed8976ad4dfc0c98a8
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 581079aa-7e21-4237-9a26-5a1d4256ccf9
-  pristine_commit_hash: ff410f8813e924aa70ce71aef996931bab4cc3a8
-  pristine_tree_hash: 383d65127764940507026ab0d0fcdc4bcd673b33
+  generation_id: 1b7e66db-1cca-439e-858e-8781c9f01cb9
+  pristine_commit_hash: 509817a8730314d23e01ab9b120f68ce530db51c
+  pristine_tree_hash: 01de6833213ab9c546f46694b1b08368e7b713ef
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3567,16 +3567,16 @@ trackedFiles:
     pristine_git_object: 6e58ba16672c5be2c9e8d4b04cebafe84e90ad7a
   docs/models/components/outputimagegenerationcallitem.mdx:
     id: f0e4984d118d
-    last_write_checksum: sha1:f523ba684a5378b8096e8d8d350c3f7d99d17249
-    pristine_git_object: 09f1ef37deb60a2c7e73ad2a4988eade07e0ecc3
+    last_write_checksum: sha1:cd4b34e6ef3091217b22a53f75528251314c7b51
+    pristine_git_object: 9bd9a25d8baf30053b504f81656a2651a61ce9ec
   docs/models/components/outputimagegenerationcallitemtype.mdx:
     id: 2da7fe422190
     last_write_checksum: sha1:d3642d61820ef52a11f22d539082423dc1061b83
     pristine_git_object: c217f90bf7f3d568294889d78e16cb12e4f0b6ce
   docs/models/components/outputimagegenerationservertoolitem.mdx:
     id: 3e563428b914
-    last_write_checksum: sha1:6efa24603c45a289d8fb71e72602403b2c3b77df
-    pristine_git_object: 51b506900118a5c92d77f93998ea236133e0bda7
+    last_write_checksum: sha1:6876cf98a5465ba5a55e1685ff2a82cb08d0af65
+    pristine_git_object: 39c6b62bb6f2e35acffef408dc70eb38c589e6f5
   docs/models/components/outputimagegenerationservertoolitemtype.mdx:
     id: 1e8088ff6373
     last_write_checksum: sha1:c212a196f0884c0168125d766ca4b5caa53ce1ca
@@ -7871,12 +7871,12 @@ trackedFiles:
     pristine_git_object: 8f31bdee034224aad71f5a54cec39f773ed9ebe8
   models/components/outputimagegenerationcallitem.go:
     id: 88c7154213e2
-    last_write_checksum: sha1:407703dda084eeb495f321a3130e8a4ee1cb5078
-    pristine_git_object: a504d020d146cb5868d0d1d93d2fcd785a751f7e
+    last_write_checksum: sha1:f76e9a5379c174c6ccf613634bf41afd163c704b
+    pristine_git_object: d10aaa68110b025653e16c249384c047bab699d0
   models/components/outputimagegenerationservertoolitem.go:
     id: f26dc21678a4
-    last_write_checksum: sha1:d5025ab69eddcddd8e04b1025a00ec257d8c8385
-    pristine_git_object: b513b7d5db43aaa3c18201aada2c6fa314a59b23
+    last_write_checksum: sha1:ddc7550dfc40681b4121d55d445fee25333ef9fd
+    pristine_git_object: ddc4fb876443027fce82325efd89717fb3a554ae
   models/components/outputitemimagegenerationcall.go:
     id: a2b10f0ffca9
     last_write_checksum: sha1:3919164ff81221524a7858f62b7964bb925c4741
@@ -9039,8 +9039,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:04b2b9e0e386f91c3049b315685fd4dc0961a8ff
-    pristine_git_object: db007e1a67a0695c489c13ebe5c2c222378e6577
+    last_write_checksum: sha1:ef4078a04a3233318fedbbb926b4528a4f446582
+    pristine_git_object: 50c32dd8755bff994b8447f19672e3039f8e46f0
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10686,3 +10686,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed**\n"
