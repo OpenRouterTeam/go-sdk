@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 50463ce1516e5e2e8f7c40de680733ae
+  docChecksum: e82920e16a6cd2104114e752f864ab11
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.30
-  configChecksum: 831120e33c4836d2f9f954dadbe646ce
+  releaseVersion: 0.5.31
+  configChecksum: 6e53291a0e384fb7bd6429d36371169e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: d2d317b4-a31f-4a6e-8af4-52d682d66016
-  pristine_commit_hash: e6f2d2d20971327a32e8e0880f4198aab35cd387
-  pristine_tree_hash: 084132dd6a84b2a8dcbf2f2d3a38c72341a3d8da
+  generation_id: 581079aa-7e21-4237-9a26-5a1d4256ccf9
+  pristine_commit_hash: ff410f8813e924aa70ce71aef996931bab4cc3a8
+  pristine_tree_hash: 383d65127764940507026ab0d0fcdc4bcd673b33
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1031,8 +1031,8 @@ trackedFiles:
     pristine_git_object: 4728530da5147f9dc066956959494d257ca0e122
   docs/models/components/chatrequest.mdx:
     id: bc6c608cb0e9
-    last_write_checksum: sha1:4ee8aec193e31ad7b137c2faffc4eb3b00097e41
-    pristine_git_object: ba149fc13415d8e2172486b082db03157b5e4387
+    last_write_checksum: sha1:8e9ebe16092f90acfd168ad506baf437143c2ee5
+    pristine_git_object: 03aa5f26b03641b056ef6fdb20444ff8f1243822
   docs/models/components/chatrequesteffort.mdx:
     id: 729964d11ad8
     last_write_checksum: sha1:a37762a8c306e54c067d4c306f600996cf85c5bd
@@ -4347,8 +4347,8 @@ trackedFiles:
     pristine_git_object: c9169a1a5dd2857ce43489b73a1b308968c1e491
   docs/models/components/responsesrequest.mdx:
     id: 1e7388fceb73
-    last_write_checksum: sha1:d6ee5216b613de65410d561768e235d3110570af
-    pristine_git_object: f4c5f30ede5bd8e848a5e8be22d09309f549b25a
+    last_write_checksum: sha1:085a03dd3e9816a8c600f0458a0f599e3f460f8a
+    pristine_git_object: fda0329540c9244acbf04a2754351e88229d9106
   docs/models/components/responsesrequestplugin.mdx:
     id: f825cd32ebe8
     last_write_checksum: sha1:69c512790c54c2b2ccb6602a72372cb41b0713a1
@@ -6851,8 +6851,8 @@ trackedFiles:
     pristine_git_object: 01d9b75ce8c5d57a84a8b3eb39f6d803c6396116
   models/components/chatrequest.go:
     id: 3e77961c64d1
-    last_write_checksum: sha1:1c78573ba55b2c2f52cadd67c68ffbe27f55c037
-    pristine_git_object: 29f4bc447585029e58f490d74cc93a8a7da43b1b
+    last_write_checksum: sha1:6dc4d951fb2056bf9acaa6b1f121ed9762bc9f19
+    pristine_git_object: c26969f9590f356e2192c16c6e9c9b79d4a24318
   models/components/chatresult.go:
     id: c5506a624942
     last_write_checksum: sha1:fbc9ac21aee30b5929647d10b305707f3168ce53
@@ -8219,8 +8219,8 @@ trackedFiles:
     pristine_git_object: d3a39a5d74ba2cff19c8f8c0a16fab39d977e158
   models/components/responsesrequest.go:
     id: 3fbf1b29b488
-    last_write_checksum: sha1:aeffc9544604334e35faf81373e6f8ba458f1525
-    pristine_git_object: 9be1db420b5e2729132e2bf102e0142d4aa33f4f
+    last_write_checksum: sha1:31110a484f200b2c2f81febc05a67497bcd5941c
+    pristine_git_object: f334b9ec3e2abf8c615960e5a6b5f6309f63d292
   models/components/responsesstreamingresponse.go:
     id: f5d13584dda6
     last_write_checksum: sha1:42cb41bc27e970f9e5a751daebbb7817f9a12d41
@@ -9039,8 +9039,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:aa48c3a43ee16e0e969fd44f47b1cba8031ed8c9
-    pristine_git_object: f25f0cd699942cf4a1e12f54f526b43ff03db21f
+    last_write_checksum: sha1:04b2b9e0e386f91c3049b315685fd4dc0961a8ff
+    pristine_git_object: db007e1a67a0695c489c13ebe5c2c222378e6577
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10686,9 +10686,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Workspaces.List()`:  `response.Data[].DefaultGuardrailId` **Added**
-  * `OpenRouter.Workspaces.Create()`:  `response.Data.DefaultGuardrailId` **Added**
-  * `OpenRouter.Workspaces.Get()`:  `response.Data.DefaultGuardrailId` **Added**
-  * `OpenRouter.Workspaces.Update()`:  `response.Data.DefaultGuardrailId` **Added**

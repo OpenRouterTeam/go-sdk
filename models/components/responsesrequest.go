@@ -1264,7 +1264,8 @@ type ResponsesRequest struct {
 	// When multiple model providers are available, optionally indicate your routing preference.
 	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Configuration for reasoning mode in the response
-	Reasoning        optionalnullable.OptionalNullable[ReasoningConfig]             `json:"reasoning,omitzero"`
+	Reasoning optionalnullable.OptionalNullable[ReasoningConfig] `json:"reasoning,omitzero"`
+	// Recommended per-end-user identifier for abuse isolation. Use a stable ID, hash, or pseudonym. When a provider requires a user identity, OpenRouter folds it into the hashed identity sent upstream and never forwards it raw. If omitted, requests use an account-level identity, so provider policy blocks can affect the whole account.
 	SafetyIdentifier optionalnullable.OptionalNullable[string]                      `json:"safety_identifier,omitzero"`
 	ServiceTier      optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
