@@ -2860,7 +2860,7 @@ components:
         allowed_models:
           - 'anthropic/*'
           - 'openai/gpt-4o'
-        cost_quality_tradeoff: 7
+        cost_quality_tradeoff: 9
         enabled: true
         id: 'auto-beta-router'
       properties:
@@ -2874,8 +2874,8 @@ components:
             type: 'string'
           type: 'array'
         cost_quality_tradeoff:
-          description: 'Balances routing between cost and quality on a 0-10 scale. The auto-beta-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 7.'
-          example: 7
+          description: 'Balances routing between cost and quality on a 0-10 scale. The auto-beta-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 9.'
+          example: 9
           maximum: 10
           minimum: 0
           type: 'integer'
@@ -7194,6 +7194,7 @@ components:
         data:
           created_at: '2025-08-24T10:30:00Z'
           created_by: 'user_abc123'
+          default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
           default_image_model: 'openai/dall-e-3'
           default_provider_sort: 'price'
           default_text_model: 'openai/gpt-4o'
@@ -9411,6 +9412,7 @@ components:
         data:
           created_at: '2025-08-24T10:30:00Z'
           created_by: 'user_abc123'
+          default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
           default_image_model: 'openai/dall-e-3'
           default_provider_sort: 'price'
           default_text_model: 'openai/gpt-4o'
@@ -11521,6 +11523,7 @@ components:
         data:
           - created_at: '2025-08-24T10:30:00Z'
             created_by: 'user_abc123'
+            default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
             default_image_model: 'openai/dall-e-3'
             default_provider_sort: 'price'
             default_text_model: 'openai/gpt-4o'
@@ -23175,6 +23178,7 @@ components:
         data:
           created_at: '2025-08-24T10:30:00Z'
           created_by: 'user_abc123'
+          default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
           default_image_model: 'openai/dall-e-3'
           default_provider_sort: 'price'
           default_text_model: 'openai/gpt-4o'
@@ -24076,6 +24080,7 @@ components:
       example:
         created_at: '2025-08-24T10:30:00Z'
         created_by: 'user_abc123'
+        default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
         default_image_model: 'openai/dall-e-3'
         default_provider_sort: 'price'
         default_text_model: 'openai/gpt-4o'
@@ -24100,6 +24105,11 @@ components:
           type:
             - 'string'
             - 'null'
+        default_guardrail_id:
+          description: 'Deterministic ID of the workspace''s implicitly-created default guardrail'
+          example: '595d5849-7e86-51fd-a7c0-705c34e4afff'
+          format: 'uuid'
+          type: 'string'
         default_image_model:
           description: 'Default image model for this workspace'
           example: 'openai/dall-e-3'
@@ -24170,6 +24180,7 @@ components:
             - 'null'
       required:
         - 'id'
+        - 'default_guardrail_id'
         - 'name'
         - 'slug'
         - 'description'
@@ -34927,6 +34938,7 @@ paths:
                 data:
                   - created_at: '2025-08-24T10:30:00Z'
                     created_by: 'user_abc123'
+                    default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
                     default_image_model: 'openai/dall-e-3'
                     default_provider_sort: 'price'
                     default_text_model: 'openai/gpt-4o'
@@ -35003,6 +35015,7 @@ paths:
                 data:
                   created_at: '2025-08-24T10:30:00Z'
                   created_by: 'user_abc123'
+                  default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
                   default_image_model: 'openai/dall-e-3'
                   default_provider_sort: 'price'
                   default_text_model: 'openai/gpt-4o'
@@ -35161,6 +35174,7 @@ paths:
                 data:
                   created_at: '2025-08-24T10:30:00Z'
                   created_by: 'user_abc123'
+                  default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
                   default_image_model: 'openai/dall-e-3'
                   default_provider_sort: 'price'
                   default_text_model: 'openai/gpt-4o'
@@ -35241,6 +35255,7 @@ paths:
                 data:
                   created_at: '2025-08-24T10:30:00Z'
                   created_by: 'user_abc123'
+                  default_guardrail_id: '595d5849-7e86-51fd-a7c0-705c34e4afff'
                   default_image_model: 'openai/dall-e-3'
                   default_provider_sort: 'price'
                   default_text_model: 'openai/gpt-4o'
