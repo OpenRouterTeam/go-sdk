@@ -34,7 +34,7 @@ func (e *AutoBetaRouterPluginID) UnmarshalJSON(data []byte) error {
 type AutoBetaRouterPlugin struct {
 	// List of model patterns to filter which models the auto-beta-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, uses the default supported models list.
 	AllowedModels []string `json:"allowed_models,omitzero"`
-	// Balances routing between cost and quality on a 0-10 scale. The auto-beta-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 7.
+	// Balances routing between cost and quality on a 0-10 scale. The auto-beta-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 9.
 	CostQualityTradeoff *int64 `json:"cost_quality_tradeoff,omitzero"`
 	// Set to false to disable the auto-beta-router plugin for this request. Defaults to true.
 	Enabled *bool                  `json:"enabled,omitzero"`
