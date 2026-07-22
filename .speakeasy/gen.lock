@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: fb50c7b9c42e30d0cef2c5a1a45478f5
+  docChecksum: ec7285f3b9ff2917de83effe24966ce5
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.33
-  configChecksum: 27b3331af33a76dfbe09350ec8a2079a
+  releaseVersion: 0.5.34
+  configChecksum: 8137ad6723c6b9961ce7585939a1674b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 81cfba64-ce0b-4e30-8df7-e5e0b079e729
-  pristine_commit_hash: 28882b1b454189725acbb5f11c2a1ec4fbdedf99
-  pristine_tree_hash: 5144ce15e46df5961937c4b8edb968cb753963e2
+  generation_id: 2aa9cdde-d1de-47b1-b1ba-888318ddc391
+  pristine_commit_hash: d291ae869a5007c91e57d1d19a1e6d43f7ab0be9
+  pristine_tree_hash: 97c45f08a19be068be55892924b32be7ef8fb264
 features:
   go:
     acceptHeaders: 2.81.2
@@ -659,8 +659,8 @@ trackedFiles:
     pristine_git_object: 20d629486cc3445f46673c817c1e6175a403c31c
   docs/models/components/autorouterplugin.mdx:
     id: 947ca182eebc
-    last_write_checksum: sha1:beb7dd10dcc4fa8019bb10ac2f39e21d95091b50
-    pristine_git_object: 7947513f93122b8d5346c313d86ba2224a15881d
+    last_write_checksum: sha1:85716d992d4ce17ea9ce7fdccd6f027c922fa2d8
+    pristine_git_object: f2dfaf60259a4308fbfb525399c19ffd14eb5c0f
   docs/models/components/autorouterpluginid.mdx:
     id: b5b627d7888a
     last_write_checksum: sha1:5ddb57cf84e8a6e22db7f4bb9c41bf89b643730c
@@ -843,8 +843,8 @@ trackedFiles:
     pristine_git_object: 791d7db4bb0e81c00c693d144eb135ecf2fdc087
   docs/models/components/chatassistantmessage.mdx:
     id: 07b763c0a234
-    last_write_checksum: sha1:7f09a72b3020e7f2b951bf8141a5b24f5111db8e
-    pristine_git_object: 0b5870c67f22d38aa26916092f1cfc6ff53108c9
+    last_write_checksum: sha1:8421f16585cc9cd5d01ac64b5a56aae2a7eaaa49
+    pristine_git_object: d41ea38d27ab1d376f8d3609c35faac7e8ba4a43
   docs/models/components/chatassistantmessagecontent.mdx:
     id: 61221c71352a
     last_write_checksum: sha1:5367d3b49aaef63fd4db01c34a9954392319da50
@@ -6651,8 +6651,8 @@ trackedFiles:
     pristine_git_object: 5b6c99199a850022c34d0bd97b9c73d4d5efb55f
   models/components/autorouterplugin.go:
     id: 854f76942e3c
-    last_write_checksum: sha1:d8d901badf15d922b0b97da03f10493a02a6948b
-    pristine_git_object: d1f1b575b850e31d45f9a0ba6e41491c353e2df8
+    last_write_checksum: sha1:1e1468c40bd606b60aff869627ac1347dc828e25
+    pristine_git_object: b644fceac06eb74ff7084a145741c0ab5715fbfd
   models/components/badgatewayresponseerrordata.go:
     id: 53b7c495de19
     last_write_checksum: sha1:c2422191e609c2ed91acd8fe9d908320a28b7839
@@ -6755,8 +6755,8 @@ trackedFiles:
     pristine_git_object: 767bd5c2821776ae742a40e974f1e02b75da7ac3
   models/components/chatassistantmessage.go:
     id: b75e28b456fa
-    last_write_checksum: sha1:22ee751eb4f1bad408b19e490b39c0252e7af82b
-    pristine_git_object: 67273e425b7c08c3fcc70741f23ef21470e34aaa
+    last_write_checksum: sha1:854a74fb3507e0ca47e99035b02b30167f1e6e7c
+    pristine_git_object: a992787c118bba070677b20dad2cff00ca4a8485
   models/components/chataudiooutput.go:
     id: 48cfe604ebb1
     last_write_checksum: sha1:e1b9785885be3fd9be87d8ea538c32fb3314f831
@@ -9039,8 +9039,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:635fd43be96a899d73d3ab9e0036d11a082c63a8
-    pristine_git_object: e602c0b7d71fab915b38dcc37457e9b119474779
+    last_write_checksum: sha1:2d9ccfb13cc163d22f0dce9126f35b6a50dda85f
+    pristine_git_object: d2f466d96d044cad5360da2e05d6980c57b2e52c
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10686,3 +10686,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(auto-router).PinModel` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest` **Changed**\n  *  `response.Choices[].Message.Model` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`:  `request.ChatRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(auto-router).PinModel` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(auto-router).PinModel` **Added**\n"
