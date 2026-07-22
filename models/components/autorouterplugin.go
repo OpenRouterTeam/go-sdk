@@ -39,6 +39,8 @@ type AutoRouterPlugin struct {
 	// Set to false to disable the auto-router plugin for this request. Defaults to true.
 	Enabled *bool              `json:"enabled,omitzero"`
 	ID      AutoRouterPluginID `json:"id"`
+	// When true, reuses the model from the most recent assistant message's `model` attribute for subsequent turns. Defaults to false.
+	PinModel *bool `json:"pin_model,omitzero"`
 }
 
 func (a AutoRouterPlugin) MarshalJSON() ([]byte, error) {
@@ -78,4 +80,11 @@ func (a *AutoRouterPlugin) GetID() AutoRouterPluginID {
 		return AutoRouterPluginID("")
 	}
 	return a.ID
+}
+
+func (a *AutoRouterPlugin) GetPinModel() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.PinModel
 }
