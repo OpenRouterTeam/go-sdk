@@ -293,6 +293,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Runway              map[string]any `json:"runway,omitzero"`
 	SailResearch        map[string]any `json:"sail-research,omitzero"`
 	Sakana              map[string]any `json:"sakana,omitzero"`
+	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
 	Seed                map[string]any `json:"seed,omitzero"`
@@ -313,6 +314,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Venice              map[string]any `json:"venice,omitzero"`
 	Wafer               map[string]any `json:"wafer,omitzero"`
 	Wandb               map[string]any `json:"wandb,omitzero"`
+	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
 	Xai                 map[string]any `json:"xai,omitzero"`
 	Xiaomi              map[string]any `json:"xiaomi,omitzero"`
 	ZAi                 map[string]any `json:"z-ai,omitzero"`
@@ -1057,6 +1059,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetSakana() map[string]any {
 	return i.Sakana
 }
 
+func (i *ImageGenerationProviderPreferencesOptions) GetSakanaAi() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.SakanaAi
+}
+
 func (i *ImageGenerationProviderPreferencesOptions) GetSambanova() map[string]any {
 	if i == nil {
 		return nil
@@ -1195,6 +1204,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetWandb() map[string]any {
 		return nil
 	}
 	return i.Wandb
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetWandbLegacy() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.WandbLegacy
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetXai() map[string]any {
