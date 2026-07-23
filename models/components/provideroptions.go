@@ -112,6 +112,7 @@ type ProviderOptions struct {
 	Runway              map[string]any `json:"runway,omitzero"`
 	SailResearch        map[string]any `json:"sail-research,omitzero"`
 	Sakana              map[string]any `json:"sakana,omitzero"`
+	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
 	Seed                map[string]any `json:"seed,omitzero"`
@@ -132,6 +133,7 @@ type ProviderOptions struct {
 	Venice              map[string]any `json:"venice,omitzero"`
 	Wafer               map[string]any `json:"wafer,omitzero"`
 	Wandb               map[string]any `json:"wandb,omitzero"`
+	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
 	Xai                 map[string]any `json:"xai,omitzero"`
 	Xiaomi              map[string]any `json:"xiaomi,omitzero"`
 	ZAi                 map[string]any `json:"z-ai,omitzero"`
@@ -876,6 +878,13 @@ func (p *ProviderOptions) GetSakana() map[string]any {
 	return p.Sakana
 }
 
+func (p *ProviderOptions) GetSakanaAi() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.SakanaAi
+}
+
 func (p *ProviderOptions) GetSambanova() map[string]any {
 	if p == nil {
 		return nil
@@ -1014,6 +1023,13 @@ func (p *ProviderOptions) GetWandb() map[string]any {
 		return nil
 	}
 	return p.Wandb
+}
+
+func (p *ProviderOptions) GetWandbLegacy() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.WandbLegacy
 }
 
 func (p *ProviderOptions) GetXai() map[string]any {
