@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type MessagesMessageParamTypeCompaction string
@@ -35,10 +34,9 @@ func (e *MessagesMessageParamTypeCompaction) UnmarshalJSON(data []byte) error {
 
 type ContentCompaction struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
-	CacheControl     *AnthropicCacheControlDirective           `json:"cache_control,omitzero"`
-	Content          *string                                   `json:"content"`
-	EncryptedContent optionalnullable.OptionalNullable[string] `json:"encrypted_content,omitzero"`
-	Type             MessagesMessageParamTypeCompaction        `json:"type"`
+	CacheControl *AnthropicCacheControlDirective    `json:"cache_control,omitzero"`
+	Content      *string                            `json:"content"`
+	Type         MessagesMessageParamTypeCompaction `json:"type"`
 }
 
 func (c ContentCompaction) MarshalJSON() ([]byte, error) {
@@ -64,13 +62,6 @@ func (c *ContentCompaction) GetContent() *string {
 		return nil
 	}
 	return c.Content
-}
-
-func (c *ContentCompaction) GetEncryptedContent() optionalnullable.OptionalNullable[string] {
-	if c == nil {
-		return nil
-	}
-	return c.EncryptedContent
 }
 
 func (c *ContentCompaction) GetType() MessagesMessageParamTypeCompaction {
