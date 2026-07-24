@@ -500,32 +500,32 @@ func (c *ContentThinking) GetType() TypeThinking {
 	return c.Type
 }
 
-type TypeToolReference string
+type MessagesMessageParamTypeToolReference string
 
 const (
-	TypeToolReferenceToolReference TypeToolReference = "tool_reference"
+	MessagesMessageParamTypeToolReferenceToolReference MessagesMessageParamTypeToolReference = "tool_reference"
 )
 
-func (e TypeToolReference) ToPointer() *TypeToolReference {
+func (e MessagesMessageParamTypeToolReference) ToPointer() *MessagesMessageParamTypeToolReference {
 	return &e
 }
-func (e *TypeToolReference) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeToolReference) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "tool_reference":
-		*e = TypeToolReference(v)
+		*e = MessagesMessageParamTypeToolReference(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeToolReference: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeToolReference: %v", v)
 	}
 }
 
 type ContentToolReference struct {
-	ToolName string            `json:"tool_name"`
-	Type     TypeToolReference `json:"type"`
+	ToolName string                                `json:"tool_name"`
+	Type     MessagesMessageParamTypeToolReference `json:"type"`
 }
 
 func (c ContentToolReference) MarshalJSON() ([]byte, error) {
@@ -546,9 +546,9 @@ func (c *ContentToolReference) GetToolName() string {
 	return c.ToolName
 }
 
-func (c *ContentToolReference) GetType() TypeToolReference {
+func (c *ContentToolReference) GetType() MessagesMessageParamTypeToolReference {
 	if c == nil {
-		return TypeToolReference("")
+		return MessagesMessageParamTypeToolReference("")
 	}
 	return c.Type
 }
@@ -600,7 +600,7 @@ func CreateMessagesMessageParamContentUnion1Image(image AnthropicImageBlockParam
 func CreateMessagesMessageParamContentUnion1ToolReference(toolReference ContentToolReference) MessagesMessageParamContentUnion1 {
 	typ := MessagesMessageParamContentUnion1TypeToolReference
 
-	typStr := TypeToolReference(typ)
+	typStr := MessagesMessageParamTypeToolReference(typ)
 	toolReference.Type = typStr
 
 	return MessagesMessageParamContentUnion1{
@@ -979,6 +979,8 @@ const (
 	MessagesMessageParamContentUnion4TypeSearchResult        MessagesMessageParamContentUnion4Type = "search_result"
 	MessagesMessageParamContentUnion4TypeCompaction          MessagesMessageParamContentUnion4Type = "compaction"
 	MessagesMessageParamContentUnion4TypeAdvisorToolResult   MessagesMessageParamContentUnion4Type = "advisor_tool_result"
+	MessagesMessageParamContentUnion4TypeToolAddition        MessagesMessageParamContentUnion4Type = "tool_addition"
+	MessagesMessageParamContentUnion4TypeToolRemoval         MessagesMessageParamContentUnion4Type = "tool_removal"
 )
 
 type MessagesMessageParamContentUnion4 struct {
@@ -994,6 +996,8 @@ type MessagesMessageParamContentUnion4 struct {
 	AnthropicSearchResultBlockParam *AnthropicSearchResultBlockParam `queryParam:"inline" union:"member"`
 	ContentCompaction               *ContentCompaction               `queryParam:"inline" union:"member"`
 	MessagesAdvisorToolResultBlock  *MessagesAdvisorToolResultBlock  `queryParam:"inline" union:"member"`
+	MessagesToolAdditionBlock       *MessagesToolAdditionBlock       `queryParam:"inline" union:"member"`
+	MessagesToolRemovalBlock        *MessagesToolRemovalBlock        `queryParam:"inline" union:"member"`
 
 	Type MessagesMessageParamContentUnion4Type
 }
@@ -1142,6 +1146,30 @@ func CreateMessagesMessageParamContentUnion4AdvisorToolResult(advisorToolResult 
 	}
 }
 
+func CreateMessagesMessageParamContentUnion4ToolAddition(toolAddition MessagesToolAdditionBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeToolAddition
+
+	typStr := TypeToolAddition(typ)
+	toolAddition.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesToolAdditionBlock: &toolAddition,
+		Type:                      typ,
+	}
+}
+
+func CreateMessagesMessageParamContentUnion4ToolRemoval(toolRemoval MessagesToolRemovalBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeToolRemoval
+
+	typStr := TypeToolRemoval(typ)
+	toolRemoval.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesToolRemovalBlock: &toolRemoval,
+		Type:                     typ,
+	}
+}
+
 func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1262,6 +1290,24 @@ func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 		u.MessagesAdvisorToolResultBlock = messagesAdvisorToolResultBlock
 		u.Type = MessagesMessageParamContentUnion4TypeAdvisorToolResult
 		return nil
+	case "tool_addition":
+		messagesToolAdditionBlock := new(MessagesToolAdditionBlock)
+		if err := utils.UnmarshalJSON(data, &messagesToolAdditionBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tool_addition) type MessagesToolAdditionBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesToolAdditionBlock = messagesToolAdditionBlock
+		u.Type = MessagesMessageParamContentUnion4TypeToolAddition
+		return nil
+	case "tool_removal":
+		messagesToolRemovalBlock := new(MessagesToolRemovalBlock)
+		if err := utils.UnmarshalJSON(data, &messagesToolRemovalBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tool_removal) type MessagesToolRemovalBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesToolRemovalBlock = messagesToolRemovalBlock
+		u.Type = MessagesMessageParamContentUnion4TypeToolRemoval
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesMessageParamContentUnion4", string(data))
@@ -1314,6 +1360,14 @@ func (u MessagesMessageParamContentUnion4) MarshalJSON() ([]byte, error) {
 
 	if u.MessagesAdvisorToolResultBlock != nil {
 		return utils.MarshalJSON(u.MessagesAdvisorToolResultBlock, "", true)
+	}
+
+	if u.MessagesToolAdditionBlock != nil {
+		return utils.MarshalJSON(u.MessagesToolAdditionBlock, "", true)
+	}
+
+	if u.MessagesToolRemovalBlock != nil {
+		return utils.MarshalJSON(u.MessagesToolRemovalBlock, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesMessageParamContentUnion4: all fields are null")
