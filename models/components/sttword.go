@@ -6,6 +6,8 @@ package components
 type STTWord struct {
 	// Word end time in seconds
 	End float64 `json:"end"`
+	// Speaker index for the word, present when the provider returns diarization data
+	Speaker *int64 `json:"speaker,omitzero"`
 	// Word start time in seconds
 	Start float64 `json:"start"`
 	// The transcribed word
@@ -17,6 +19,13 @@ func (s *STTWord) GetEnd() float64 {
 		return 0.0
 	}
 	return s.End
+}
+
+func (s *STTWord) GetSpeaker() *int64 {
+	if s == nil {
+		return nil
+	}
+	return s.Speaker
 }
 
 func (s *STTWord) GetStart() float64 {

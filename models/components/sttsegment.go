@@ -20,6 +20,8 @@ type STTSegment struct {
 	NoSpeechProb *float64 `json:"no_speech_prob,omitzero"`
 	// Seek offset of the segment
 	Seek *int64 `json:"seek,omitzero"`
+	// Speaker index for the segment, present when the provider returns diarization data
+	Speaker *int64 `json:"speaker,omitzero"`
 	// Segment start time in seconds
 	Start float64 `json:"start"`
 	// Temperature used for the segment
@@ -81,6 +83,13 @@ func (s *STTSegment) GetSeek() *int64 {
 		return nil
 	}
 	return s.Seek
+}
+
+func (s *STTSegment) GetSpeaker() *int64 {
+	if s == nil {
+		return nil
+	}
+	return s.Speaker
 }
 
 func (s *STTSegment) GetStart() float64 {

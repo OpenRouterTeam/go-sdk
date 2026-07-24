@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8263b790e23957b31ed4c5e537900561
+  docChecksum: 6b48e5d50e6a46455185dfb4bef7d0f5
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.36
-  configChecksum: 1dc0883231b3a274da97b6bf2130ad81
+  releaseVersion: 0.5.37
+  configChecksum: a3b6bbba966b5535874435e3eaffc4e8
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: fd4045aa-1228-48a2-9ec2-ba3733eb8cfe
-  pristine_commit_hash: bf6a5a8ab73efd0da12f7e0a9da36afe9c076262
-  pristine_tree_hash: d4b9f5f8f8b946ea7ac56937048868502eb74176
+  generation_id: a77cc3d7-baf4-4853-9d9b-a24a7f390c49
+  pristine_commit_hash: 2cefeee4e3369c662f2c50ea8a65b052b2bbdeca
+  pristine_tree_hash: a2d86e10e40620a79f05ba6ef5fb1e9d4a67c60a
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4639,8 +4639,8 @@ trackedFiles:
     pristine_git_object: af35c3c3449d358ad63f8ada1cdca5056c5902af
   docs/models/components/sttsegment.mdx:
     id: 73dea2b691f2
-    last_write_checksum: sha1:ce061554762ce1ab24e69a0bbd77264e47d30173
-    pristine_git_object: 7cd09302ef5774deef449c04df5028255b66338d
+    last_write_checksum: sha1:37e3fe4886b8f86b63be5dce46c6b3b14e21893e
+    pristine_git_object: e813724519946e5ffabc5da25fd6f601c62b24c1
   docs/models/components/stttimestampgranularity.mdx:
     id: f29f5cc7575f
     last_write_checksum: sha1:9f28ec18b5db1e481667e58011f8b3d54635306a
@@ -4651,8 +4651,8 @@ trackedFiles:
     pristine_git_object: 23197551f77f6840891b78eb3e087b67dfe55503
   docs/models/components/sttword.mdx:
     id: ce10f5b92f97
-    last_write_checksum: sha1:a110adeb69f42dd431475b3c41654f48076a5b5d
-    pristine_git_object: c163f3e117cd0cb75499bb398c99c655c33c9e24
+    last_write_checksum: sha1:3d5fb9680d6319b5570b26da11881937b8e2f131
+    pristine_git_object: b49994a66c9bdc50a1f6672117b556ff5de15159
   docs/models/components/subagentnestedtool.mdx:
     id: be72626671b3
     last_write_checksum: sha1:d91f3eebba473ec2042ddd9d7123d64610f545df
@@ -8375,8 +8375,8 @@ trackedFiles:
     pristine_git_object: 6ecec301f75673b6d684b90ca951835758eb1789
   models/components/sttsegment.go:
     id: 19181ec4bf51
-    last_write_checksum: sha1:ce79b81cad861a84a0307a2e8da74d072146f62d
-    pristine_git_object: 4a4ad981e751a5ef8912db6f546a8e609d95ff7d
+    last_write_checksum: sha1:3da111b092bad7826ac3f4045ec3db9f1d35fcfa
+    pristine_git_object: 86e1719eeda69261f81f4de965ef34eddeae452f
   models/components/stttimestampgranularity.go:
     id: 86d09f7a7aae
     last_write_checksum: sha1:c6cb314d7ca5243ac34eaecfb31f18afe258c671
@@ -8387,8 +8387,8 @@ trackedFiles:
     pristine_git_object: c2794e7a6c13d0b0d6b8febc31083b4573a64e8a
   models/components/sttword.go:
     id: ca74824ac677
-    last_write_checksum: sha1:a6034071aa8f51f874e1dc32ae3331709cead386
-    pristine_git_object: 75d515ef61aaee31edbf88614efb7a5e185f7c1e
+    last_write_checksum: sha1:e29616e5ee64d675c5f4f6c2d6f804f43e599c37
+    pristine_git_object: d343d61268b79f42287623c828b9dab7728d939e
   models/components/subagentnestedtool.go:
     id: 2970b4baa28b
     last_write_checksum: sha1:60e17add4fa32fa30c1bc3b2e602e7b1520800e9
@@ -9039,8 +9039,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:427fd427bfd6a10015135dc67587550bcb5bf8cf
-    pristine_git_object: 3fb45fb255ef81a39adfcdbb2ea26dd47b3f87ba
+    last_write_checksum: sha1:e6911849a7fc99909e14ff9a217ad8004307f522
+    pristine_git_object: e400c6c5fbb21af3b6e309a7e528215fce6b9161
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10686,4 +10686,7 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options` **Changed**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options` **Changed**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider` **Changed**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider` **Changed**\n  *  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider.Options` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Stt.CreateTranscription()`:  `response` **Changed**
+  * `OpenRouter.Stt.CreateTranscriptionMultipart()`:  `response` **Changed**
