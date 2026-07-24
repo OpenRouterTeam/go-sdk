@@ -312,6 +312,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
 	Upstage             map[string]any `json:"upstage,omitzero"`
 	Venice              map[string]any `json:"venice,omitzero"`
+	Voyageai            map[string]any `json:"voyageai,omitzero"`
 	Wafer               map[string]any `json:"wafer,omitzero"`
 	Wandb               map[string]any `json:"wandb,omitzero"`
 	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
@@ -1190,6 +1191,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetVenice() map[string]any {
 		return nil
 	}
 	return i.Venice
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetVoyageai() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Voyageai
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetWafer() map[string]any {

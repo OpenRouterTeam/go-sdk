@@ -68,26 +68,26 @@ func (a *AdditionalToolsItemTool) GetAdditionalProperties() map[string]any {
 	return a.AdditionalProperties
 }
 
-type AdditionalToolsItemToolType string
+type AdditionalToolsItemTypeFunction string
 
 const (
-	AdditionalToolsItemToolTypeFunction AdditionalToolsItemToolType = "function"
+	AdditionalToolsItemTypeFunctionFunction AdditionalToolsItemTypeFunction = "function"
 )
 
-func (e AdditionalToolsItemToolType) ToPointer() *AdditionalToolsItemToolType {
+func (e AdditionalToolsItemTypeFunction) ToPointer() *AdditionalToolsItemTypeFunction {
 	return &e
 }
-func (e *AdditionalToolsItemToolType) UnmarshalJSON(data []byte) error {
+func (e *AdditionalToolsItemTypeFunction) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "function":
-		*e = AdditionalToolsItemToolType(v)
+		*e = AdditionalToolsItemTypeFunction(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for AdditionalToolsItemToolType: %v", v)
+		return fmt.Errorf("invalid value for AdditionalToolsItemTypeFunction: %v", v)
 	}
 }
 
@@ -97,7 +97,7 @@ type AdditionalToolsItemToolFunction struct {
 	Name        string                                    `json:"name"`
 	Parameters  map[string]any                            `json:"parameters"`
 	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
-	Type        AdditionalToolsItemToolType               `json:"type"`
+	Type        AdditionalToolsItemTypeFunction           `json:"type"`
 }
 
 func (a AdditionalToolsItemToolFunction) MarshalJSON() ([]byte, error) {
@@ -139,9 +139,9 @@ func (a *AdditionalToolsItemToolFunction) GetStrict() optionalnullable.OptionalN
 	return a.Strict
 }
 
-func (a *AdditionalToolsItemToolFunction) GetType() AdditionalToolsItemToolType {
+func (a *AdditionalToolsItemToolFunction) GetType() AdditionalToolsItemTypeFunction {
 	if a == nil {
-		return AdditionalToolsItemToolType("")
+		return AdditionalToolsItemTypeFunction("")
 	}
 	return a.Type
 }

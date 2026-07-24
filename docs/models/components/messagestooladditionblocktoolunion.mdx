@@ -1,0 +1,38 @@
+---
+title: "MessagesToolAdditionBlockToolUnion"
+---
+
+## Supported Types
+
+### MessagesToolAdditionBlockToolToolReference
+
+```go
+messagesToolAdditionBlockToolUnion := components.CreateMessagesToolAdditionBlockToolUnionToolReference(components.MessagesToolAdditionBlockToolToolReference{/* values here */})
+```
+
+### MessagesToolAdditionBlockToolMcpToolReference
+
+```go
+messagesToolAdditionBlockToolUnion := components.CreateMessagesToolAdditionBlockToolUnionMcpToolReference(components.MessagesToolAdditionBlockToolMcpToolReference{/* values here */})
+```
+
+### MessagesToolAdditionBlockToolMcpToolsetReference
+
+```go
+messagesToolAdditionBlockToolUnion := components.CreateMessagesToolAdditionBlockToolUnionMcpToolsetReference(components.MessagesToolAdditionBlockToolMcpToolsetReference{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch messagesToolAdditionBlockToolUnion.Type {
+	case components.MessagesToolAdditionBlockToolUnionTypeToolReference:
+		// messagesToolAdditionBlockToolUnion.MessagesToolAdditionBlockToolToolReference is populated
+	case components.MessagesToolAdditionBlockToolUnionTypeMcpToolReference:
+		// messagesToolAdditionBlockToolUnion.MessagesToolAdditionBlockToolMcpToolReference is populated
+	case components.MessagesToolAdditionBlockToolUnionTypeMcpToolsetReference:
+		// messagesToolAdditionBlockToolUnion.MessagesToolAdditionBlockToolMcpToolsetReference is populated
+}
+```
