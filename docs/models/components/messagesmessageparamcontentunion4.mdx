@@ -76,6 +76,18 @@ messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamConten
 messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4AdvisorToolResult(components.MessagesAdvisorToolResultBlock{/* values here */})
 ```
 
+### MessagesToolAdditionBlock
+
+```go
+messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4ToolAddition(components.MessagesToolAdditionBlock{/* values here */})
+```
+
+### MessagesToolRemovalBlock
+
+```go
+messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4ToolRemoval(components.MessagesToolRemovalBlock{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -106,5 +118,9 @@ switch messagesMessageParamContentUnion4.Type {
 		// messagesMessageParamContentUnion4.ContentCompaction is populated
 	case components.MessagesMessageParamContentUnion4TypeAdvisorToolResult:
 		// messagesMessageParamContentUnion4.MessagesAdvisorToolResultBlock is populated
+	case components.MessagesMessageParamContentUnion4TypeToolAddition:
+		// messagesMessageParamContentUnion4.MessagesToolAdditionBlock is populated
+	case components.MessagesMessageParamContentUnion4TypeToolRemoval:
+		// messagesMessageParamContentUnion4.MessagesToolRemovalBlock is populated
 }
 ```

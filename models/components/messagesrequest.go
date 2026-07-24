@@ -2484,6 +2484,7 @@ func (e *ToolTypeCustom) UnmarshalJSON(data []byte) error {
 type ToolCustom struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	DeferLoading *bool                           `json:"defer_loading,omitzero"`
 	Description  *string                         `json:"description,omitzero"`
 	InputSchema  InputSchema                     `json:"input_schema"`
 	Name         string                          `json:"name"`
@@ -2506,6 +2507,13 @@ func (t *ToolCustom) GetCacheControl() *AnthropicCacheControlDirective {
 		return nil
 	}
 	return t.CacheControl
+}
+
+func (t *ToolCustom) GetDeferLoading() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.DeferLoading
 }
 
 func (t *ToolCustom) GetDescription() *string {
