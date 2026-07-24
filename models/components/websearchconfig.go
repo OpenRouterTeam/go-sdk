@@ -19,6 +19,8 @@ type WebSearchConfig struct {
 	MaxResults *int64 `json:"max_results,omitzero"`
 	// Maximum total number of search results across all search calls in a single request. Once this limit is reached, the tool will stop returning new results. Useful for controlling cost and context size in agentic loops. Defaults to 50 when not specified.
 	MaxTotalResults *int64 `json:"max_total_results,omitzero"`
+	// Maximum number of web searches the model may perform in a single request. Once reached, further search calls return an error result instead of executing. Applies to the Exa, Firecrawl, Parallel, and Perplexity engines. With native provider search, forwarded only to Anthropic (as `max_uses`); other native search providers have no equivalent parameter and ignore it.
+	MaxUses *int64 `json:"max_uses,omitzero"`
 	// How much context to retrieve per result. Applies to Exa, Parallel, and Perplexity engines; ignored with native provider search and Firecrawl. For Exa, pins a fixed per-result character cap (low=5,000, medium=15,000, high=30,000); when omitted, Exa picks an adaptive size per query and document (typically ~2,000–4,000 characters per result). For Parallel, controls the total characters across all results; when omitted, Parallel uses its own default size. For Perplexity, maps directly to the Search API's native search_context_size parameter. Overridden by `max_characters` when both are set.
 	SearchContextSize *SearchQualityLevel `json:"search_context_size,omitzero"`
 	// Approximate user location for location-biased results.
@@ -76,6 +78,13 @@ func (w *WebSearchConfig) GetMaxTotalResults() *int64 {
 		return nil
 	}
 	return w.MaxTotalResults
+}
+
+func (w *WebSearchConfig) GetMaxUses() *int64 {
+	if w == nil {
+		return nil
+	}
+	return w.MaxUses
 }
 
 func (w *WebSearchConfig) GetSearchContextSize() *SearchQualityLevel {
