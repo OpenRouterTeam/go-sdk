@@ -131,6 +131,7 @@ type ProviderOptions struct {
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
 	Upstage             map[string]any `json:"upstage,omitzero"`
 	Venice              map[string]any `json:"venice,omitzero"`
+	Voyageai            map[string]any `json:"voyageai,omitzero"`
 	Wafer               map[string]any `json:"wafer,omitzero"`
 	Wandb               map[string]any `json:"wandb,omitzero"`
 	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
@@ -1009,6 +1010,13 @@ func (p *ProviderOptions) GetVenice() map[string]any {
 		return nil
 	}
 	return p.Venice
+}
+
+func (p *ProviderOptions) GetVoyageai() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Voyageai
 }
 
 func (p *ProviderOptions) GetWafer() map[string]any {

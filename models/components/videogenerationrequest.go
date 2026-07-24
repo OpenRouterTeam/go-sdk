@@ -161,6 +161,7 @@ type VideoGenerationRequestOptions struct {
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
 	Upstage             map[string]any `json:"upstage,omitzero"`
 	Venice              map[string]any `json:"venice,omitzero"`
+	Voyageai            map[string]any `json:"voyageai,omitzero"`
 	Wafer               map[string]any `json:"wafer,omitzero"`
 	Wandb               map[string]any `json:"wandb,omitzero"`
 	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
@@ -1039,6 +1040,13 @@ func (v *VideoGenerationRequestOptions) GetVenice() map[string]any {
 		return nil
 	}
 	return v.Venice
+}
+
+func (v *VideoGenerationRequestOptions) GetVoyageai() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Voyageai
 }
 
 func (v *VideoGenerationRequestOptions) GetWafer() map[string]any {
