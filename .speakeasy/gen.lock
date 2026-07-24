@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 2fb3dffac98f0be22b14a87f4813ca6e
+  docChecksum: f8d12766b51b0efd5eb3d0c97a24fb44
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.5.40
-  configChecksum: d558b203ffbc3b635d86c4add4c092ba
+  releaseVersion: 0.6.0
+  configChecksum: cb1174ae09c02b14c5c142b5cbd1c980
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: e0049d10-ba40-4914-8089-6b11d2dbbe4e
-  pristine_commit_hash: 9cde8a4818d4094cdcf215b57cc8d60d71827c8f
-  pristine_tree_hash: 683f16bcde08f8c072e0779e0504955d04b62c31
+  generation_id: 1434667b-61cd-4cc0-baa6-5d3e955ad2e3
+  pristine_commit_hash: 7e8298aaffcac7fb33b206a4d30732ab5e56afc2
+  pristine_tree_hash: 4bf28642bf72ce0acd1673e10c0176126653c1c1
 features:
   go:
     acceptHeaders: 2.81.2
@@ -83,12 +83,16 @@ trackedFiles:
     pristine_git_object: 4acca9340f91aacbf9eab4307eca7797b2de38f1
   beta.go:
     id: 812d10ba6460
-    last_write_checksum: sha1:29a9869fb709d85d44a7e6b4042a99519ca12c51
-    pristine_git_object: cb62d236fdbe9bcc88c2a32038292fe082c4c75d
+    last_write_checksum: sha1:790cfa84a813aae9ac5b3983e87f506643f7a50c
+    pristine_git_object: f321f99f8a1f40a66ad2cc7e21fcf354456eead9
   betaanalytics.go:
     id: 310965b88eac
     last_write_checksum: sha1:32edeb7d8708727f9fe9b4e5943a0e14f3dde342
     pristine_git_object: c48c63a64ae8e6b213e79503e08b7610fc017b4d
+  betaresponses.go:
+    id: 27742c35105a
+    last_write_checksum: sha1:bb6f8d89fdc3308eecb67eaa2c3d74bc59e056bb
+    pristine_git_object: a16ada41ee9142d31c238697fca17dd6420fcacd
   byok.go:
     id: 020bd36a4af9
     last_write_checksum: sha1:dc93ebf0a62b67107cae4c5562da350cdf69c344
@@ -6237,6 +6241,10 @@ trackedFiles:
     id: 239279ebf01b
     last_write_checksum: sha1:c08592d159150c43df6efe8b1a0ea6b0a4b15a7b
     pristine_git_object: d0021f47e36a165ce89168e1503225717c55c07d
+  docs/sdks/betaresponses/README.mdx:
+    id: 8a1e987c9840
+    last_write_checksum: sha1:1642fd227a38ad969baa86407f6abc0f43c15275
+    pristine_git_object: 71d14851ffbee2884a7ead21b5ef4efc8f997b2e
   docs/sdks/byok/README.mdx:
     id: 17792f3b180d
     last_write_checksum: sha1:0817a141aef353366e1606bb2e5b3aa47e5419ed
@@ -6311,8 +6319,8 @@ trackedFiles:
     pristine_git_object: 830fed4502c2d99b0152b5adeb10ed4def40b81b
   docs/sdks/responses/README.mdx:
     id: abab319e080e
-    last_write_checksum: sha1:b6e5a2774a68fe8c1dcfa13c79889590662e8aa0
-    pristine_git_object: a94b949e12c811f73326bb9c7e15fcbd35413c9a
+    last_write_checksum: sha1:488bbeb7cc8788fc6cb5a966f6d8b083e2c72dbb
+    pristine_git_object: e3538140a4849c1c54b5e908eb579243b406ba4c
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
     last_write_checksum: sha1:25694fe87986a80108433d78764b9e722d65e616
@@ -9079,8 +9087,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:2bfcde2108e62ae8ce7ed33b2f5b921de998ed95
-    pristine_git_object: 458b08b8519401c6541e412c74a7e2f7838eb65f
+    last_write_checksum: sha1:44a0ca873ae0d22bd5cc78c892e3a0911f1dec61
+    pristine_git_object: 03195a2d0a1c391d3c9e3a2ee6f3dc5562db69d3
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9107,8 +9115,8 @@ trackedFiles:
     pristine_git_object: 8a8bfc2f563f7f08b46927f547e25216cc35334e
   responses.go:
     id: 1e889220bc3b
-    last_write_checksum: sha1:4e8411138a3cd61214616ac69dd9656f50f80055
-    pristine_git_object: 02ef24cc99adfe0b8b7721b1428e8ea6d3852082
+    last_write_checksum: sha1:f9511678ecff4c74ae60a53beeb5d090a9ad09cf
+    pristine_git_object: 9567d7ff933d95e4ff4b2919c365f4b7381129a0
   retry/config.go:
     id: 82d673cb0389
     last_write_checksum: sha1:102d1953fbd7e9f312c4442c71ccca2eaaeaa27d
@@ -10726,6 +10734,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Presets.CreatePresetsMessages()`:  `request.MessagesRequest` **Changed**

@@ -18,15 +18,15 @@ import (
 	"net/url"
 )
 
-// Responses - responses endpoints
-type Responses struct {
+// BetaResponses - Deprecated alias of responses. Use responses instead; scheduled for removal (sunset date TBD).
+type BetaResponses struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newResponses(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Responses {
-	return &Responses{
+func newBetaResponses(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *BetaResponses {
+	return &BetaResponses{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -35,7 +35,7 @@ func newResponses(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks 
 
 // Send - Create a response
 // Creates a streaming or non-streaming response using OpenResponses API format
-func (s *Responses) Send(ctx context.Context, responsesRequest components.ResponsesRequest, xOpenRouterMetadata *components.MetadataLevel, opts ...operations.Option) (*operations.CreateResponsesResponse, error) {
+func (s *BetaResponses) Send(ctx context.Context, responsesRequest components.ResponsesRequest, xOpenRouterMetadata *components.MetadataLevel, opts ...operations.Option) (*operations.CreateResponsesResponse, error) {
 	request := operations.CreateResponsesRequest{
 		ResponsesRequest:    responsesRequest,
 		XOpenRouterMetadata: xOpenRouterMetadata,
