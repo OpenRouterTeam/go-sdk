@@ -39,6 +39,8 @@ type LegacyWebSearchServerTool struct {
 	Filters optionalnullable.OptionalNullable[WebSearchDomainFilter] `json:"filters,omitzero"`
 	// Maximum number of search results to return per search call. Defaults to 5. Applies to Exa, Firecrawl, Parallel, and Perplexity engines; ignored with native provider search. Perplexity supports a maximum of 20; values above 20 are clamped.
 	MaxResults *int64 `json:"max_results,omitzero"`
+	// Maximum number of web searches the model may perform in a single request. Once reached, further search calls return an error result instead of executing. Applies to the Exa, Firecrawl, Parallel, and Perplexity engines. With native provider search, forwarded only to Anthropic (as `max_uses`); other native search providers have no equivalent parameter and ignore it.
+	MaxUses *int64 `json:"max_uses,omitzero"`
 	// Size of the search context for web search tools
 	SearchContextSize *SearchContextSizeEnum        `json:"search_context_size,omitzero"`
 	Type              LegacyWebSearchServerToolType `json:"type"`
@@ -76,6 +78,13 @@ func (l *LegacyWebSearchServerTool) GetMaxResults() *int64 {
 		return nil
 	}
 	return l.MaxResults
+}
+
+func (l *LegacyWebSearchServerTool) GetMaxUses() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.MaxUses
 }
 
 func (l *LegacyWebSearchServerTool) GetSearchContextSize() *SearchContextSizeEnum {
