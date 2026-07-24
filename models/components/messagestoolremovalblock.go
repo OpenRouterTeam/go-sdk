@@ -4,9 +4,124 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
+
+type MessagesToolRemovalBlockTypeMcpToolsetReference string
+
+const (
+	MessagesToolRemovalBlockTypeMcpToolsetReferenceMcpToolsetReference MessagesToolRemovalBlockTypeMcpToolsetReference = "mcp_toolset_reference"
+)
+
+func (e MessagesToolRemovalBlockTypeMcpToolsetReference) ToPointer() *MessagesToolRemovalBlockTypeMcpToolsetReference {
+	return &e
+}
+func (e *MessagesToolRemovalBlockTypeMcpToolsetReference) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "mcp_toolset_reference":
+		*e = MessagesToolRemovalBlockTypeMcpToolsetReference(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for MessagesToolRemovalBlockTypeMcpToolsetReference: %v", v)
+	}
+}
+
+type MessagesToolRemovalBlockToolMcpToolsetReference struct {
+	ServerName string                                          `json:"server_name"`
+	Type       MessagesToolRemovalBlockTypeMcpToolsetReference `json:"type"`
+}
+
+func (m MessagesToolRemovalBlockToolMcpToolsetReference) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MessagesToolRemovalBlockToolMcpToolsetReference) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MessagesToolRemovalBlockToolMcpToolsetReference) GetServerName() string {
+	if m == nil {
+		return ""
+	}
+	return m.ServerName
+}
+
+func (m *MessagesToolRemovalBlockToolMcpToolsetReference) GetType() MessagesToolRemovalBlockTypeMcpToolsetReference {
+	if m == nil {
+		return MessagesToolRemovalBlockTypeMcpToolsetReference("")
+	}
+	return m.Type
+}
+
+type MessagesToolRemovalBlockTypeMcpToolReference string
+
+const (
+	MessagesToolRemovalBlockTypeMcpToolReferenceMcpToolReference MessagesToolRemovalBlockTypeMcpToolReference = "mcp_tool_reference"
+)
+
+func (e MessagesToolRemovalBlockTypeMcpToolReference) ToPointer() *MessagesToolRemovalBlockTypeMcpToolReference {
+	return &e
+}
+func (e *MessagesToolRemovalBlockTypeMcpToolReference) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "mcp_tool_reference":
+		*e = MessagesToolRemovalBlockTypeMcpToolReference(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for MessagesToolRemovalBlockTypeMcpToolReference: %v", v)
+	}
+}
+
+type MessagesToolRemovalBlockToolMcpToolReference struct {
+	Name       string                                       `json:"name"`
+	ServerName string                                       `json:"server_name"`
+	Type       MessagesToolRemovalBlockTypeMcpToolReference `json:"type"`
+}
+
+func (m MessagesToolRemovalBlockToolMcpToolReference) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MessagesToolRemovalBlockToolMcpToolReference) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MessagesToolRemovalBlockToolMcpToolReference) GetName() string {
+	if m == nil {
+		return ""
+	}
+	return m.Name
+}
+
+func (m *MessagesToolRemovalBlockToolMcpToolReference) GetServerName() string {
+	if m == nil {
+		return ""
+	}
+	return m.ServerName
+}
+
+func (m *MessagesToolRemovalBlockToolMcpToolReference) GetType() MessagesToolRemovalBlockTypeMcpToolReference {
+	if m == nil {
+		return MessagesToolRemovalBlockTypeMcpToolReference("")
+	}
+	return m.Type
+}
 
 type MessagesToolRemovalBlockTypeToolReference string
 
@@ -31,34 +146,146 @@ func (e *MessagesToolRemovalBlockTypeToolReference) UnmarshalJSON(data []byte) e
 	}
 }
 
-type MessagesToolRemovalBlockTool struct {
+type MessagesToolRemovalBlockToolToolReference struct {
 	Name string                                    `json:"name"`
 	Type MessagesToolRemovalBlockTypeToolReference `json:"type"`
 }
 
-func (m MessagesToolRemovalBlockTool) MarshalJSON() ([]byte, error) {
+func (m MessagesToolRemovalBlockToolToolReference) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(m, "", false)
 }
 
-func (m *MessagesToolRemovalBlockTool) UnmarshalJSON(data []byte) error {
+func (m *MessagesToolRemovalBlockToolToolReference) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *MessagesToolRemovalBlockTool) GetName() string {
+func (m *MessagesToolRemovalBlockToolToolReference) GetName() string {
 	if m == nil {
 		return ""
 	}
 	return m.Name
 }
 
-func (m *MessagesToolRemovalBlockTool) GetType() MessagesToolRemovalBlockTypeToolReference {
+func (m *MessagesToolRemovalBlockToolToolReference) GetType() MessagesToolRemovalBlockTypeToolReference {
 	if m == nil {
 		return MessagesToolRemovalBlockTypeToolReference("")
 	}
 	return m.Type
+}
+
+type MessagesToolRemovalBlockToolUnionType string
+
+const (
+	MessagesToolRemovalBlockToolUnionTypeToolReference       MessagesToolRemovalBlockToolUnionType = "tool_reference"
+	MessagesToolRemovalBlockToolUnionTypeMcpToolReference    MessagesToolRemovalBlockToolUnionType = "mcp_tool_reference"
+	MessagesToolRemovalBlockToolUnionTypeMcpToolsetReference MessagesToolRemovalBlockToolUnionType = "mcp_toolset_reference"
+)
+
+type MessagesToolRemovalBlockToolUnion struct {
+	MessagesToolRemovalBlockToolToolReference       *MessagesToolRemovalBlockToolToolReference       `queryParam:"inline" union:"member"`
+	MessagesToolRemovalBlockToolMcpToolReference    *MessagesToolRemovalBlockToolMcpToolReference    `queryParam:"inline" union:"member"`
+	MessagesToolRemovalBlockToolMcpToolsetReference *MessagesToolRemovalBlockToolMcpToolsetReference `queryParam:"inline" union:"member"`
+
+	Type MessagesToolRemovalBlockToolUnionType
+}
+
+func CreateMessagesToolRemovalBlockToolUnionToolReference(toolReference MessagesToolRemovalBlockToolToolReference) MessagesToolRemovalBlockToolUnion {
+	typ := MessagesToolRemovalBlockToolUnionTypeToolReference
+
+	typStr := MessagesToolRemovalBlockTypeToolReference(typ)
+	toolReference.Type = typStr
+
+	return MessagesToolRemovalBlockToolUnion{
+		MessagesToolRemovalBlockToolToolReference: &toolReference,
+		Type: typ,
+	}
+}
+
+func CreateMessagesToolRemovalBlockToolUnionMcpToolReference(mcpToolReference MessagesToolRemovalBlockToolMcpToolReference) MessagesToolRemovalBlockToolUnion {
+	typ := MessagesToolRemovalBlockToolUnionTypeMcpToolReference
+
+	typStr := MessagesToolRemovalBlockTypeMcpToolReference(typ)
+	mcpToolReference.Type = typStr
+
+	return MessagesToolRemovalBlockToolUnion{
+		MessagesToolRemovalBlockToolMcpToolReference: &mcpToolReference,
+		Type: typ,
+	}
+}
+
+func CreateMessagesToolRemovalBlockToolUnionMcpToolsetReference(mcpToolsetReference MessagesToolRemovalBlockToolMcpToolsetReference) MessagesToolRemovalBlockToolUnion {
+	typ := MessagesToolRemovalBlockToolUnionTypeMcpToolsetReference
+
+	typStr := MessagesToolRemovalBlockTypeMcpToolsetReference(typ)
+	mcpToolsetReference.Type = typStr
+
+	return MessagesToolRemovalBlockToolUnion{
+		MessagesToolRemovalBlockToolMcpToolsetReference: &mcpToolsetReference,
+		Type: typ,
+	}
+}
+
+func (u *MessagesToolRemovalBlockToolUnion) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.Type {
+	case "tool_reference":
+		messagesToolRemovalBlockToolToolReference := new(MessagesToolRemovalBlockToolToolReference)
+		if err := utils.UnmarshalJSON(data, &messagesToolRemovalBlockToolToolReference, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tool_reference) type MessagesToolRemovalBlockToolToolReference within MessagesToolRemovalBlockToolUnion: %w", string(data), err)
+		}
+
+		u.MessagesToolRemovalBlockToolToolReference = messagesToolRemovalBlockToolToolReference
+		u.Type = MessagesToolRemovalBlockToolUnionTypeToolReference
+		return nil
+	case "mcp_tool_reference":
+		messagesToolRemovalBlockToolMcpToolReference := new(MessagesToolRemovalBlockToolMcpToolReference)
+		if err := utils.UnmarshalJSON(data, &messagesToolRemovalBlockToolMcpToolReference, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == mcp_tool_reference) type MessagesToolRemovalBlockToolMcpToolReference within MessagesToolRemovalBlockToolUnion: %w", string(data), err)
+		}
+
+		u.MessagesToolRemovalBlockToolMcpToolReference = messagesToolRemovalBlockToolMcpToolReference
+		u.Type = MessagesToolRemovalBlockToolUnionTypeMcpToolReference
+		return nil
+	case "mcp_toolset_reference":
+		messagesToolRemovalBlockToolMcpToolsetReference := new(MessagesToolRemovalBlockToolMcpToolsetReference)
+		if err := utils.UnmarshalJSON(data, &messagesToolRemovalBlockToolMcpToolsetReference, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == mcp_toolset_reference) type MessagesToolRemovalBlockToolMcpToolsetReference within MessagesToolRemovalBlockToolUnion: %w", string(data), err)
+		}
+
+		u.MessagesToolRemovalBlockToolMcpToolsetReference = messagesToolRemovalBlockToolMcpToolsetReference
+		u.Type = MessagesToolRemovalBlockToolUnionTypeMcpToolsetReference
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesToolRemovalBlockToolUnion", string(data))
+}
+
+func (u MessagesToolRemovalBlockToolUnion) MarshalJSON() ([]byte, error) {
+	if u.MessagesToolRemovalBlockToolToolReference != nil {
+		return utils.MarshalJSON(u.MessagesToolRemovalBlockToolToolReference, "", true)
+	}
+
+	if u.MessagesToolRemovalBlockToolMcpToolReference != nil {
+		return utils.MarshalJSON(u.MessagesToolRemovalBlockToolMcpToolReference, "", true)
+	}
+
+	if u.MessagesToolRemovalBlockToolMcpToolsetReference != nil {
+		return utils.MarshalJSON(u.MessagesToolRemovalBlockToolMcpToolsetReference, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type MessagesToolRemovalBlockToolUnion: all fields are null")
 }
 
 type TypeToolRemoval string
@@ -86,8 +313,10 @@ func (e *TypeToolRemoval) UnmarshalJSON(data []byte) error {
 
 // MessagesToolRemovalBlock - Removes a tool from the conversation mid-conversation without invalidating the prompt cache. Only valid in `role: "system"` messages. Not supported on Claude Sonnet 5 or models older than Claude Opus 4.8.
 type MessagesToolRemovalBlock struct {
-	Tool MessagesToolRemovalBlockTool `json:"tool"`
-	Type TypeToolRemoval              `json:"type"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
+	CacheControl *AnthropicCacheControlDirective   `json:"cache_control,omitzero"`
+	Tool         MessagesToolRemovalBlockToolUnion `json:"tool"`
+	Type         TypeToolRemoval                   `json:"type"`
 }
 
 func (m MessagesToolRemovalBlock) MarshalJSON() ([]byte, error) {
@@ -101,11 +330,30 @@ func (m *MessagesToolRemovalBlock) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (m *MessagesToolRemovalBlock) GetTool() MessagesToolRemovalBlockTool {
+func (m *MessagesToolRemovalBlock) GetCacheControl() *AnthropicCacheControlDirective {
 	if m == nil {
-		return MessagesToolRemovalBlockTool{}
+		return nil
+	}
+	return m.CacheControl
+}
+
+func (m *MessagesToolRemovalBlock) GetTool() MessagesToolRemovalBlockToolUnion {
+	if m == nil {
+		return MessagesToolRemovalBlockToolUnion{}
 	}
 	return m.Tool
+}
+
+func (m *MessagesToolRemovalBlock) GetToolToolReference() *MessagesToolRemovalBlockToolToolReference {
+	return m.GetTool().MessagesToolRemovalBlockToolToolReference
+}
+
+func (m *MessagesToolRemovalBlock) GetToolMcpToolReference() *MessagesToolRemovalBlockToolMcpToolReference {
+	return m.GetTool().MessagesToolRemovalBlockToolMcpToolReference
+}
+
+func (m *MessagesToolRemovalBlock) GetToolMcpToolsetReference() *MessagesToolRemovalBlockToolMcpToolsetReference {
+	return m.GetTool().MessagesToolRemovalBlockToolMcpToolsetReference
 }
 
 func (m *MessagesToolRemovalBlock) GetType() TypeToolRemoval {
