@@ -32,6 +32,7 @@ type ProviderOptions struct {
 	Chutes              map[string]any `json:"chutes,omitzero"`
 	Cirrascale          map[string]any `json:"cirrascale,omitzero"`
 	Clarifai            map[string]any `json:"clarifai,omitzero"`
+	ClaudeOnAws         map[string]any `json:"claude-on-aws,omitzero"`
 	Cloudflare          map[string]any `json:"cloudflare,omitzero"`
 	Cohere              map[string]any `json:"cohere,omitzero"`
 	Coreweave           map[string]any `json:"coreweave,omitzero"`
@@ -317,6 +318,13 @@ func (p *ProviderOptions) GetClarifai() map[string]any {
 		return nil
 	}
 	return p.Clarifai
+}
+
+func (p *ProviderOptions) GetClaudeOnAws() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.ClaudeOnAws
 }
 
 func (p *ProviderOptions) GetCloudflare() map[string]any {
