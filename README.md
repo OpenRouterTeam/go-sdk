@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.5.43
+> go get github.com/OpenRouterTeam/go-sdk@v0.6.0
 > ```
 
 <!-- No Summary [summary] -->
@@ -24,7 +24,7 @@ The OpenRouter Go SDK wraps the [OpenRouter API](https://openrouter.ai/docs) wit
 
 - **Chat completions** with streaming and non-streaming responses
 - **Embeddings, rerank, TTS, and video generation**
-- **Beta Responses API** for agent-style workflows
+- **Responses API** for agent-style workflows
 - **Platform APIs** for API keys, credits, models, providers, guardrails, workspaces, and analytics
 - **Configurable retries**, custom HTTP clients, and typed API errors
 
@@ -209,9 +209,9 @@ func main() {
 * [GetAnalyticsMeta](docs/sdks/betaanalytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
 * [QueryAnalytics](docs/sdks/betaanalytics/README.md#queryanalytics) - Query analytics data
 
-### [Beta.Responses](docs/sdks/responses/README.md)
+### [Beta.Responses](docs/sdks/betaresponses/README.md)
 
-* [Send](docs/sdks/responses/README.md#send) - Create a response
+* [Send](docs/sdks/betaresponses/README.md#send) - Create a response
 
 ### [Byok](docs/sdks/byok/README.md)
 
@@ -326,6 +326,10 @@ func main() {
 
 * [Rerank](docs/sdks/rerank/README.md#rerank) - Submit a rerank request
 
+### [Responses](docs/sdks/responses/README.md)
+
+* [Send](docs/sdks/responses/README.md#send) - Create a response
+
 ### [Stt](docs/sdks/stt/README.md)
 
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
@@ -359,7 +363,7 @@ func main() {
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
-<!-- Start Server-sent event streaming [eventstream] -->
+<!-- No Server-sent event streaming [eventstream] -->
 ## Server-sent event streaming
 
 [Server-sent events][mdn-sse] are used to stream content from certain
@@ -386,7 +390,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+	res, err := s.Responses.Send(ctx, components.ResponsesRequest{
 		Input: openrouter.Pointer(components.CreateInputsUnionStr(
 			"Tell me a joke",
 		)),
@@ -409,7 +413,6 @@ func main() {
 ```
 
 [mdn-sse]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
-<!-- End Server-sent event streaming [eventstream] -->
 
 <!-- Start Pagination [pagination] -->
 ## Pagination

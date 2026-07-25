@@ -1,11 +1,11 @@
 ---
-title: "Responses"
-description: "responses endpoints"
+title: "Beta.Responses"
+description: "Deprecated alias of responses. Use responses instead; scheduled for removal (sunset date TBD)."
 ---
 
 ## Overview
 
-responses endpoints
+Deprecated alias of responses. Use responses instead; scheduled for removal (sunset date TBD).
 
 ### Available Operations
 
@@ -35,7 +35,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Responses.Send(ctx, components.ResponsesRequest{}, nil)
+    res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{}, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -70,7 +70,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Responses.Send(ctx, components.ResponsesRequest{}, nil)
+    res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{}, nil)
     if err != nil {
         log.Fatal(err)
     }

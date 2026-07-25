@@ -104,6 +104,8 @@ type OpenRouter struct {
 	Providers *Providers
 	// Rerank endpoints
 	Rerank *Rerank
+	// responses endpoints
+	Responses *Responses
 	// Video Generation endpoints
 	VideoGeneration *VideoGeneration
 	// Workspaces endpoints
@@ -199,9 +201,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.5.43",
+		SDKVersion: "0.6.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.5.43 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.6.0 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -251,6 +253,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Presets = newPresets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Providers = newProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Rerank = newRerank(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Responses = newResponses(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.VideoGeneration = newVideoGeneration(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Workspaces = newWorkspaces(sdk, sdk.sdkConfiguration, sdk.hooks)
 
