@@ -62,6 +62,7 @@ type VideoGenerationRequestOptions struct {
 	Chutes              map[string]any `json:"chutes,omitzero"`
 	Cirrascale          map[string]any `json:"cirrascale,omitzero"`
 	Clarifai            map[string]any `json:"clarifai,omitzero"`
+	ClaudeOnAws         map[string]any `json:"claude-on-aws,omitzero"`
 	Cloudflare          map[string]any `json:"cloudflare,omitzero"`
 	Cohere              map[string]any `json:"cohere,omitzero"`
 	Coreweave           map[string]any `json:"coreweave,omitzero"`
@@ -347,6 +348,13 @@ func (v *VideoGenerationRequestOptions) GetClarifai() map[string]any {
 		return nil
 	}
 	return v.Clarifai
+}
+
+func (v *VideoGenerationRequestOptions) GetClaudeOnAws() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.ClaudeOnAws
 }
 
 func (v *VideoGenerationRequestOptions) GetCloudflare() map[string]any {
