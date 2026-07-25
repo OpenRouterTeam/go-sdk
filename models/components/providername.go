@@ -5,6 +5,7 @@ package components
 type ProviderName string
 
 const (
+	ProviderNameModal               ProviderName = "Modal"
 	ProviderNameAkashMl             ProviderName = "AkashML"
 	ProviderNameAi21                ProviderName = "AI21"
 	ProviderNameAionLabs            ProviderName = "AionLabs"
@@ -116,7 +117,7 @@ func (e ProviderName) ToPointer() *ProviderName {
 func (e *ProviderName) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Claude Platform on AWS", "Clarifai", "Cloudflare", "Cohere", "CoreWeave", "Crucible", "Crusoe", "Darkbloom", "Decart", "Deepgram", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Fish Audio", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "HeyGen", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inferact vLLM", "Inflection", "Liquid", "Mara", "Mancer 2", "Meta", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "VoyageAI by MongoDB", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "Sail Research", "Sakana AI", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Tencent", "Tenstorrent", "Together", "Upstage", "Venice", "Wafer", "WandB", "Quiver", "Krea", "Runway", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+		case "Modal", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Claude Platform on AWS", "Clarifai", "Cloudflare", "Cohere", "CoreWeave", "Crucible", "Crusoe", "Darkbloom", "Decart", "Deepgram", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Fish Audio", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "HeyGen", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inferact vLLM", "Inflection", "Liquid", "Mara", "Mancer 2", "Meta", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "VoyageAI by MongoDB", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "Sail Research", "Sakana AI", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Tencent", "Tenstorrent", "Together", "Upstage", "Venice", "Wafer", "WandB", "Quiver", "Krea", "Runway", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
 			return true
 		}
 	}
