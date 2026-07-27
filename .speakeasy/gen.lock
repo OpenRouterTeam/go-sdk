@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: f0ccb71879b8da0a0b1645a8e02d080e
+  docChecksum: 91efaf7442b6ca814ede9d98930d4247
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.6.3
-  configChecksum: a4b7d8a5100796bc672735c5f38a1fed
+  releaseVersion: 0.6.4
+  configChecksum: e1829308ebcc02170e805283a1ddf84a
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 4fde9be9-56ec-430b-b949-3520f4aefd30
-  pristine_commit_hash: 170c3a6bdf99ee916d3fa606f852cc6e7d591aff
-  pristine_tree_hash: 2482194ef78c69012b3167be371809b0367c0601
+  generation_id: 61a9d435-a216-4942-a081-4b30282f17cd
+  pristine_commit_hash: 49ecca184160b74917e4f90c8c9ce6447d773cfc
+  pristine_tree_hash: bcf931f1f42a693bf04aee7664deef8a29b26abd
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4255,8 +4255,8 @@ trackedFiles:
     pristine_git_object: 386da9719db54ef4d5beefea3534b05f7a1f2fe0
   docs/models/components/reasoningformat.mdx:
     id: 4477afa80f99
-    last_write_checksum: sha1:2ea6d14f20f9c5dc6d0807b28f4db19a5b22a8dd
-    pristine_git_object: 98e1defcfa7fc4d49fb54686be6310adce109735
+    last_write_checksum: sha1:acc3b7670e930983db53822080cb1d12a89b4475
+    pristine_git_object: 5e20a4745681286545dfbb28f3a310a50304701b
   docs/models/components/reasoningitem.mdx:
     id: 9494f24e80dd
     last_write_checksum: sha1:d821ea4c17de4822b5246257352e6b9e3b0d57b8
@@ -8239,8 +8239,8 @@ trackedFiles:
     pristine_git_object: d982d284425d408ff3d2cf667432bab97757cc56
   models/components/reasoningformat.go:
     id: e5f348ffa489
-    last_write_checksum: sha1:580aef3241d075a6d3f892f51e16349a8ef29d0a
-    pristine_git_object: ecb46884808d6ad8c5b3742b054dee82c5cbaf3b
+    last_write_checksum: sha1:e20e401a441a5fda5036064f43a616665980a3a1
+    pristine_git_object: 5f6d15c49f9757eb5c0b061b676a90fbbf01b019
   models/components/reasoningitem.go:
     id: 2f78917bcc4e
     last_write_checksum: sha1:08d5995ae59b53fba68ecbf6132c209dfb31fec9
@@ -9127,8 +9127,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:65616b1a256bebe07a113dda50f39d900dfaab7b
-    pristine_git_object: 7804f80a41277fad9a513c58dc26bedfafb3335c
+    last_write_checksum: sha1:b7f9aeab52e9ce69489cb28a0387c499ca0cf196
+    pristine_git_object: 5e336bd806003191e1548ce7a6a9d8061ea0991f
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10774,4 +10774,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Quantizations[]` **Changed**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Quantizations[]` **Changed**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Quantizations[]` **Changed**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].Quantization` **Changed**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].Quantization` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Quantizations[]` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Quantizations[]` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Quantizations[]` **Changed**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Quantizations[]` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Quantizations[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (8)).Format.Enum(bedrockOpenaiResponsesV1)` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Messages[].union(assistant).ReasoningDetails[].union(reasoning.server_tool_call).Format.Enum(bedrockOpenaiResponsesV1)` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Messages[].union(assistant).ReasoningDetails[].union(reasoning.summary).Format.Enum(bedrockOpenaiResponsesV1)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (8)).Format.Enum(bedrockOpenaiResponsesV1)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (8)).Format.Enum(bedrockOpenaiResponsesV1)` **Added**\n  *  `response` **Changed**\n"
