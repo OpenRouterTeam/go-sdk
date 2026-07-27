@@ -8,8 +8,11 @@ const (
 	QuantizationInt4    Quantization = "int4"
 	QuantizationInt8    Quantization = "int8"
 	QuantizationFp4     Quantization = "fp4"
+	QuantizationMxfp4   Quantization = "mxfp4"
+	QuantizationNvfp4   Quantization = "nvfp4"
 	QuantizationFp6     Quantization = "fp6"
 	QuantizationFp8     Quantization = "fp8"
+	QuantizationMxfp8   Quantization = "mxfp8"
 	QuantizationFp16    Quantization = "fp16"
 	QuantizationBf16    Quantization = "bf16"
 	QuantizationFp32    Quantization = "fp32"
@@ -24,7 +27,7 @@ func (e Quantization) ToPointer() *Quantization {
 func (e *Quantization) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "int4", "int8", "fp4", "fp6", "fp8", "fp16", "bf16", "fp32", "unknown":
+		case "int4", "int8", "fp4", "mxfp4", "nvfp4", "fp6", "fp8", "mxfp8", "fp16", "bf16", "fp32", "unknown":
 			return true
 		}
 	}
