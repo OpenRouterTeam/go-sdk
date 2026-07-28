@@ -31,7 +31,7 @@ func (e *FusionServerToolOpenRouterType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// FusionServerToolOpenRouter - OpenRouter built-in server tool: fans out the user prompt to a panel of analysis models, then asks a judge model to summarize their collective output as structured JSON the outer model can synthesize from.
+// FusionServerToolOpenRouter - OpenRouter built-in server tool: fans out the user prompt to a panel of analysis models, then asks an analyst model to summarize their collective output as structured JSON the outer model can synthesize from.
 type FusionServerToolOpenRouter struct {
 	// Configuration for the openrouter:fusion server tool.
 	Parameters *FusionServerToolConfig        `json:"parameters,omitzero"`
