@@ -1,0 +1,29 @@
+---
+title: "AutoRouterPluginCostTier"
+---
+
+Shorthand for cost_quality_tradeoff. Higher tiers spend more on better models: low = 9, medium = 7, high = 5, xhigh = 3, and max = 1. Numeric cost_quality_tradeoff takes precedence when both are provided.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AutoRouterPluginCostTierLow
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.AutoRouterPluginCostTier("custom_value")
+```
+
+
+## Values
+
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `AutoRouterPluginCostTierLow`    | low                              |
+| `AutoRouterPluginCostTierMedium` | medium                           |
+| `AutoRouterPluginCostTierHigh`   | high                             |
+| `AutoRouterPluginCostTierXhigh`  | xhigh                            |
+| `AutoRouterPluginCostTierMax`    | max                              |
