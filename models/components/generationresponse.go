@@ -34,12 +34,13 @@ func (e *APIType) IsExact() bool {
 	return false
 }
 
-// DataRegion - The data region this generation was routed through. 'europe' for EU-routed requests, 'global' otherwise.
+// DataRegion - The data region this generation was routed through: 'global', 'europe', or 'us'.
 type DataRegion string
 
 const (
 	DataRegionGlobal DataRegion = "global"
 	DataRegionEurope DataRegion = "europe"
+	DataRegionUs     DataRegion = "us"
 )
 
 func (e DataRegion) ToPointer() *DataRegion {
@@ -50,7 +51,7 @@ func (e DataRegion) ToPointer() *DataRegion {
 func (e *DataRegion) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "global", "europe":
+		case "global", "europe", "us":
 			return true
 		}
 	}
@@ -69,7 +70,7 @@ type GenerationResponseData struct {
 	Cancelled *bool `json:"cancelled"`
 	// ISO 8601 timestamp of when the generation was created
 	CreatedAt string `json:"created_at"`
-	// The data region this generation was routed through. 'europe' for EU-routed requests, 'global' otherwise.
+	// The data region this generation was routed through: 'global', 'europe', or 'us'.
 	DataRegion DataRegion `json:"data_region"`
 	// External user identifier
 	ExternalUser *string `json:"external_user"`
