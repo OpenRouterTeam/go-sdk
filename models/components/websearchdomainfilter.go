@@ -9,6 +9,7 @@ import (
 
 type WebSearchDomainFilter struct {
 	AllowedDomains  optionalnullable.OptionalNullable[[]string] `json:"allowed_domains,omitzero"`
+	BlockedDomains  optionalnullable.OptionalNullable[[]string] `json:"blocked_domains,omitzero"`
 	ExcludedDomains optionalnullable.OptionalNullable[[]string] `json:"excluded_domains,omitzero"`
 }
 
@@ -28,6 +29,13 @@ func (w *WebSearchDomainFilter) GetAllowedDomains() optionalnullable.OptionalNul
 		return nil
 	}
 	return w.AllowedDomains
+}
+
+func (w *WebSearchDomainFilter) GetBlockedDomains() optionalnullable.OptionalNullable[[]string] {
+	if w == nil {
+		return nil
+	}
+	return w.BlockedDomains
 }
 
 func (w *WebSearchDomainFilter) GetExcludedDomains() optionalnullable.OptionalNullable[[]string] {
