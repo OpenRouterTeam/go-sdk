@@ -104,18 +104,18 @@ func (e *OutputFusionServerToolItemType) UnmarshalJSON(data []byte) error {
 
 // OutputFusionServerToolItem - An openrouter:fusion server tool output item
 type OutputFusionServerToolItem struct {
-	// Structured analysis produced by the fusion judge model.
+	// Structured analysis produced by the fusion analyst model.
 	Analysis *FusionAnalysisResult `json:"analysis,omitzero"`
 	// Error message when the fusion run did not produce an analysis result.
 	Error *string `json:"error,omitzero"`
 	// Models that were requested as part of the analysis panel but did not produce a response. Present when at least one requested analysis model failed. The fusion result is still usable but was produced from a degraded panel.
 	FailedModels []FailedModel `json:"failed_models,omitzero"`
-	// Typed failure reason when the fusion run failed. Possible values include: all_panels_failed, insufficient_credits, rate_limited, judge_not_valid_json, judge_schema_mismatch, judge_upstream_error, judge_empty_completion.
+	// Typed failure reason when the fusion run failed. Possible values include: all_panels_failed, insufficient_credits, rate_limited, judge_not_valid_json, judge_schema_mismatch, judge_upstream_error, judge_empty_completion. The four analysis-stage codes keep their pre-rename `judge_` spelling so existing consumers keep matching.
 	FailureReason *string `json:"failure_reason,omitzero"`
 	ID            *string `json:"id,omitzero"`
 	// Analysis models that produced a response in this fusion run, with each model's full panel content.
 	Responses []Response `json:"responses,omitzero"`
-	// Web pages the analysis panels and judge retrieved via web search during this fusion run, deduplicated by URL across the whole run. Present when at least one model cited a source.
+	// Web pages the analysis panels and analyst retrieved via web search during this fusion run, deduplicated by URL across the whole run. Present when at least one model cited a source.
 	Sources []FusionSource                 `json:"sources,omitzero"`
 	Status  ToolCallStatus                 `json:"status"`
 	Type    OutputFusionServerToolItemType `json:"type"`

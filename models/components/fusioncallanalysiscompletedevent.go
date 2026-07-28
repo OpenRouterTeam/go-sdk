@@ -31,9 +31,9 @@ func (e *FusionCallAnalysisCompletedEventType) UnmarshalJSON(data []byte) error 
 	}
 }
 
-// FusionCallAnalysisCompletedEvent - Emitted when the fusion judge completes with the structured analysis.
+// FusionCallAnalysisCompletedEvent - Emitted when the fusion analyst completes with the structured analysis.
 type FusionCallAnalysisCompletedEvent struct {
-	// Structured analysis produced by the fusion judge model.
+	// Structured analysis produced by the fusion analyst model.
 	Analysis       FusionAnalysisResult                 `json:"analysis"`
 	ItemID         string                               `json:"item_id"`
 	OutputIndex    int64                                `json:"output_index"`
