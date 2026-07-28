@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: b1b97d8a130035c7e2c8c16e7658c298
+  docChecksum: 57216b1393a9b3ff701c282957d2512c
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.1
-  configChecksum: 92bb1efbc5832b93ad22ecdf5725d5f4
+  releaseVersion: 0.7.2
+  configChecksum: 25aa6a3a07a52d79ddc2c37077c9cafd
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: eccbd3e4-90b9-4fcb-aabf-3df9dd374f13
-  pristine_commit_hash: b1b3fe2c0f62caa9f9701b5908c0de3f3e05dcd2
-  pristine_tree_hash: 3133bf14a364e5ad47c63a73e5c7506a2dac5f8c
+  generation_id: 039aa633-ad3f-4bf1-b339-10abf126b91e
+  pristine_commit_hash: 673a4b593b07415f2fe08615c492d7cd409b6aee
+  pristine_tree_hash: 85a732aa153a5ff98877d929e3a1077b177d6712
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5583,8 +5583,8 @@ trackedFiles:
     pristine_git_object: d5e78b429aba6a73ff48891c65cdb3ca254d05bb
   docs/models/operations/deletefilerequest.mdx:
     id: 09572e0d323d
-    last_write_checksum: sha1:44fe6161fa4770b2e79680f8ec7e08bdf387cfaa
-    pristine_git_object: 95ffdc475f59ecb6395a8f6c9450ae57b2569d33
+    last_write_checksum: sha1:30460f8ed049472517a6eb7d1b5113b8d3fc1002
+    pristine_git_object: ffd97cfe0fae31716530b459d3d0f8f17d270255
   docs/models/operations/deleteguardrailrequest.mdx:
     id: e0a51928fb8e
     last_write_checksum: sha1:9ff7b85421c4693ff156cc7c3dc969122a641a5c
@@ -5639,8 +5639,8 @@ trackedFiles:
     pristine_git_object: 8fa1f1795c19e1754c33e52f93b28352060a4200
   docs/models/operations/downloadfilecontentrequest.mdx:
     id: 417167d13cb0
-    last_write_checksum: sha1:b814ce64138242dd8e03342d8b89bbe5ef5bef0e
-    pristine_git_object: c417d24e879fa327b12c0a27a1ec178db371bb3e
+    last_write_checksum: sha1:71ec79b03a76ace6d113cd8d5de4d62a29f07786
+    pristine_git_object: 090e94c555814dc4c5efca4df517e5f105c113f9
   docs/models/operations/embedding.mdx:
     id: 530657f66b4b
     last_write_checksum: sha1:039775e4a03231e4a5c32515ddfdf2bc34966240
@@ -5715,8 +5715,8 @@ trackedFiles:
     pristine_git_object: 95054719f940a281c7029f7a271345875e0ae4fb
   docs/models/operations/getfilemetadatarequest.mdx:
     id: c0c091f58c77
-    last_write_checksum: sha1:321f6e0f11b9228852b8adb5617c53fcb94cd6a5
-    pristine_git_object: 917416597b3c0f41447b68db650b4e931f2e54d9
+    last_write_checksum: sha1:31c1b52b7a9956d4f98c1d2c59298ee1aed989a8
+    pristine_git_object: ecdb3955bcd75614b5f3924acd51945059364bd8
   docs/models/operations/getgenerationrequest.mdx:
     id: 66a008944ef9
     last_write_checksum: sha1:642b31dbbe37a2f18278b25af71d7365b3d836a8
@@ -5855,12 +5855,12 @@ trackedFiles:
     pristine_git_object: 3aed99b5d423057ffda86f513517ca99fb7ede7b
   docs/models/operations/listfilesrequest.mdx:
     id: ddcc860462bc
-    last_write_checksum: sha1:070f57c9ad77e9adae520feae1f82113ab5fb0a8
-    pristine_git_object: 24b3809fa6324743ad87d13ae9a016bf1c474c1c
+    last_write_checksum: sha1:10a2714f62a149fcf51ae03b76b1945bacac679f
+    pristine_git_object: 7c73b6962e52a45a827a829027cc7d1e884cd0f7
   docs/models/operations/listfilesresponse.mdx:
     id: 1cb87ee926d8
-    last_write_checksum: sha1:a817e389283da2f4bff6aea493b895b487b7fe8f
-    pristine_git_object: 68693f04cc8b0740f07f2cbb4c365abbb2526527
+    last_write_checksum: sha1:dbca135982b7a3a14509cff62aff3c475c1615f7
+    pristine_git_object: 3b3a9d707c6658ec040d24cb8cac51606a78a2db
   docs/models/operations/listgenerationcontentrequest.mdx:
     id: 61aa0e040571
     last_write_checksum: sha1:54af8f20479bfcc2bc5fed0b8459cc5453a74fd6
@@ -6315,8 +6315,8 @@ trackedFiles:
     pristine_git_object: 844044ad6d1c3d29314dee5b5accfac86245ff19
   docs/sdks/files/README.mdx:
     id: 1a0c257e330c
-    last_write_checksum: sha1:9d987fe3021cbccf91c5b24890d4f00e8ab1de85
-    pristine_git_object: 3439a712d13e155d48e56683eaba79e3877aebff
+    last_write_checksum: sha1:88f8491d435c299c880d41aa427acc1755929a77
+    pristine_git_object: 1e161f99d04a3a4063e9425d97b068624ba5239a
   docs/sdks/generations/README.mdx:
     id: a754fecc8514
     last_write_checksum: sha1:43bf66415aa9e97fd288f2b4857b35207ab42ba9
@@ -9127,8 +9127,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:4d43cfcc08db771553736f56f0f18618f9d143b9
-    pristine_git_object: 9cd35c3dd755f5920e97f576bd810c1f367be8c1
+    last_write_checksum: sha1:3f330658b1c900a4ddc6d7e50fb7263ad04afa8d
+    pristine_git_object: e37fc6e67712f265fa4688bc706c10f0dc617fdb
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10305,7 +10305,7 @@ examples:
     speakeasy-default-list-files:
       responses:
         "200":
-          application/json: {"cursor": null, "data": [{"created_at": "2025-01-01T00:00:00Z", "downloadable": false, "filename": "document.pdf", "id": "file_011CNha8iCJcU1wXNR6q4V8w", "mime_type": "application/pdf", "size_bytes": 1024000, "type": "file"}], "first_id": "file_011CNha8iCJcU1wXNR6q4V8w", "has_more": false, "last_id": "file_011CNha8iCJcU1wXNR6q4V8w"}
+          application/json: {"cursor": null, "data": [{"created_at": "2025-01-01T00:00:00Z", "downloadable": false, "filename": "document.pdf", "id": "or_file_011CNha8iCJcU1wXNR6q4V8w", "mime_type": "application/pdf", "size_bytes": 1024000, "type": "file"}], "first_id": "or_file_011CNha8iCJcU1wXNR6q4V8w", "has_more": false, "last_id": "or_file_011CNha8iCJcU1wXNR6q4V8w"}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -10320,7 +10320,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file"}
       responses:
         "200":
-          application/json: {"created_at": "2025-01-01T00:00:00Z", "downloadable": false, "filename": "document.pdf", "id": "file_011CNha8iCJcU1wXNR6q4V8w", "mime_type": "application/pdf", "size_bytes": 1024000, "type": "file"}
+          application/json: {"created_at": "2025-01-01T00:00:00Z", "downloadable": false, "filename": "document.pdf", "id": "or_file_011CNha8iCJcU1wXNR6q4V8w", "mime_type": "application/pdf", "size_bytes": 1024000, "type": "file"}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -10340,7 +10340,7 @@ examples:
           file_id: "file_011CNha8iCJcU1wXNR6q4V8w"
       responses:
         "200":
-          application/json: {"id": "file_011CNha8iCJcU1wXNR6q4V8w", "type": "file_deleted"}
+          application/json: {"id": "or_file_011CNha8iCJcU1wXNR6q4V8w", "type": "file_deleted"}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "404":
@@ -10356,7 +10356,7 @@ examples:
           file_id: "file_011CNha8iCJcU1wXNR6q4V8w"
       responses:
         "200":
-          application/json: {"created_at": "2025-01-01T00:00:00Z", "downloadable": false, "filename": "document.pdf", "id": "file_011CNha8iCJcU1wXNR6q4V8w", "mime_type": "application/pdf", "size_bytes": 1024000, "type": "file"}
+          application/json: {"created_at": "2025-01-01T00:00:00Z", "downloadable": false, "filename": "document.pdf", "id": "or_file_011CNha8iCJcU1wXNR6q4V8w", "mime_type": "application/pdf", "size_bytes": 1024000, "type": "file"}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "404":
@@ -10774,4 +10774,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(Preview_WebSearchServerTool).Filters.BlockedDomains` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(Preview_WebSearchServerTool).Filters.BlockedDomains` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(Preview_WebSearchServerTool).Filters.BlockedDomains` **Added**\n  *  `response` **Changed**\n"
