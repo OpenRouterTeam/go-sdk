@@ -18,7 +18,7 @@ import (
 	"net/url"
 )
 
-// Responses - responses endpoints
+// OpenAI-compatible Responses API endpoints
 type Responses struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
