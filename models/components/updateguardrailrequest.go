@@ -18,6 +18,12 @@ type UpdateGuardrailRequest struct {
 	ContentFilters optionalnullable.OptionalNullable[[]ContentFilterEntry] `json:"content_filters,omitzero"`
 	// New description for the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
+	// Whether this guardrail allows free endpoints that publish prompts.
+	EnableFreeModelPublication optionalnullable.OptionalNullable[bool] `json:"enable_free_model_publication,omitzero"`
+	// Whether this guardrail allows free endpoints that train on request data.
+	EnableFreeModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_free_model_training,omitzero"`
+	// Whether this guardrail allows paid endpoints that train on request data.
+	EnablePaidModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_paid_model_training,omitzero"`
 	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, enforce_zdr_xai, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -90,6 +96,27 @@ func (u *UpdateGuardrailRequest) GetDescription() optionalnullable.OptionalNulla
 		return nil
 	}
 	return u.Description
+}
+
+func (u *UpdateGuardrailRequest) GetEnableFreeModelPublication() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnableFreeModelPublication
+}
+
+func (u *UpdateGuardrailRequest) GetEnableFreeModelTraining() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnableFreeModelTraining
+}
+
+func (u *UpdateGuardrailRequest) GetEnablePaidModelTraining() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnablePaidModelTraining
 }
 
 func (u *UpdateGuardrailRequest) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
