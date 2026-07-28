@@ -20,6 +20,12 @@ type Guardrail struct {
 	CreatedAt string `json:"created_at"`
 	// Description of the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
+	// Whether this guardrail allows free endpoints that publish prompts.
+	EnableFreeModelPublication optionalnullable.OptionalNullable[bool] `json:"enable_free_model_publication,omitzero"`
+	// Whether this guardrail allows free endpoints that train on request data.
+	EnableFreeModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_free_model_training,omitzero"`
+	// Whether this guardrail allows paid endpoints that train on request data.
+	EnablePaidModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_paid_model_training,omitzero"`
 	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, enforce_zdr_xai, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -105,6 +111,27 @@ func (g *Guardrail) GetDescription() optionalnullable.OptionalNullable[string] {
 		return nil
 	}
 	return g.Description
+}
+
+func (g *Guardrail) GetEnableFreeModelPublication() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnableFreeModelPublication
+}
+
+func (g *Guardrail) GetEnableFreeModelTraining() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnableFreeModelTraining
+}
+
+func (g *Guardrail) GetEnablePaidModelTraining() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnablePaidModelTraining
 }
 
 func (g *Guardrail) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
