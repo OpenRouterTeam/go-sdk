@@ -8,6 +8,7 @@ type Source string
 const (
 	SourceArtificialAnalysis Source = "artificial-analysis"
 	SourceDesignArena        Source = "design-arena"
+	SourceOpenrouter         Source = "openrouter"
 )
 
 func (e Source) ToPointer() *Source {
@@ -18,7 +19,7 @@ func (e Source) ToPointer() *Source {
 func (e *Source) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "artificial-analysis", "design-arena":
+		case "artificial-analysis", "design-arena", "openrouter":
 			return true
 		}
 	}
