@@ -1,0 +1,26 @@
+---
+title: "FileProvider"
+---
+
+Store or read this file on the named provider using your own API key for it. Omit to use OpenRouter storage.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.FileProviderOpenai
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.FileProvider("custom_value")
+```
+
+
+## Values
+
+| Name                    | Value                   |
+| ----------------------- | ----------------------- |
+| `FileProviderOpenai`    | openai                  |
+| `FileProviderAnthropic` | anthropic               |
