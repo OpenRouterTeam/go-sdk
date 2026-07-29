@@ -61,12 +61,12 @@ func main() {
 | Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
-| `request`                                                                              | [components.ImageGenerationRequest](../../models/components/imagegenerationrequest.mdx) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
-| `opts`                                                                                 | [][operations.Option](../../models/operations/option.mdx)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
+| `request`                                                                              | [components.ImageGenerationRequest](../../models/components/imagegenerationrequest) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `opts`                                                                                 | [][operations.Option](../../models/operations/option)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
 ### Response
 
-**[*operations.CreateImagesResponse](../../models/operations/createimagesresponse.mdx), error**
+**[*operations.CreateImagesResponse](../../models/operations/createimagesresponse), error**
 
 ### Errors
 
@@ -123,11 +123,11 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
-**[*components.ImageModelsListResponse](../../models/components/imagemodelslistresponse.mdx), error**
+**[*components.ImageModelsListResponse](../../models/components/imagemodelslistresponse), error**
 
 ### Errors
 
@@ -176,11 +176,11 @@ func main() {
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `author`                                                 | `string`                                                 | :heavy_check_mark:                                       | Model author/organization                                | bytedance-seed                                           |
 | `slug`                                                   | `string`                                                 | :heavy_check_mark:                                       | Model slug                                               | seedream-4.5                                             |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
 
-**[*components.ImageModelEndpointsResponse](../../models/components/imagemodelendpointsresponse.mdx), error**
+**[*components.ImageModelEndpointsResponse](../../models/components/imagemodelendpointsresponse), error**
 
 ### Errors
 

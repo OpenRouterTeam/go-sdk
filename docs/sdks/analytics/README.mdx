@@ -52,11 +52,11 @@ func main() {
 | `date`                                                                    | `*string`                                                                 | :heavy_minus_sign:                                                        | Filter by a single UTC date in the last 30 days (YYYY-MM-DD format).      | 2025-08-24                                                                |
 | `apiKeyHash`                                                              | `*string`                                                                 | :heavy_minus_sign:                                                        | Filter by API key hash (SHA-256 hex string, as returned by the keys API). | abc123def456...                                                           |
 | `userID`                                                                  | `*string`                                                                 | :heavy_minus_sign:                                                        | Filter by org member user ID. Only applicable for organization accounts.  | user_abc123                                                               |
-| `opts`                                                                    | [][operations.Option](../../models/operations/option.mdx)                  | :heavy_minus_sign:                                                        | The options for this request.                                             |                                                                           |
+| `opts`                                                                    | [][operations.Option](../../models/operations/option)                  | :heavy_minus_sign:                                                        | The options for this request.                                             |                                                                           |
 
 ### Response
 
-**[*components.ActivityResponse](../../models/components/activityresponse.mdx), error**
+**[*components.ActivityResponse](../../models/components/activityresponse), error**
 
 ### Errors
 
