@@ -3,8 +3,17 @@
 package components
 
 type UpsertWorkspaceBudgetRequest struct {
+	// Whether to include BYOK (bring-your-own-key) spend when enforcing the workspace's budgets. This is a workspace-wide setting: it applies to every budget interval (daily, weekly, monthly, and lifetime), not just the interval being upserted in this request. Omit to leave the current setting unchanged.
+	IncludeByokInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
 	// Spending limit in USD. Must be greater than 0.
 	LimitUsd float64 `json:"limit_usd"`
+}
+
+func (u *UpsertWorkspaceBudgetRequest) GetIncludeByokInBudgets() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IncludeByokInBudgets
 }
 
 func (u *UpsertWorkspaceBudgetRequest) GetLimitUsd() float64 {

@@ -4,6 +4,8 @@ package components
 
 type UpsertWorkspaceBudgetResponse struct {
 	Data WorkspaceBudget `json:"data"`
+	// Whether BYOK (bring-your-own-key) spend is included when enforcing the workspace's budgets. This is a workspace-wide setting that applies to all budget intervals (daily, weekly, monthly, and lifetime).
+	IncludeByokInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
 }
 
 func (u *UpsertWorkspaceBudgetResponse) GetData() WorkspaceBudget {
@@ -11,4 +13,11 @@ func (u *UpsertWorkspaceBudgetResponse) GetData() WorkspaceBudget {
 		return WorkspaceBudget{}
 	}
 	return u.Data
+}
+
+func (u *UpsertWorkspaceBudgetResponse) GetIncludeByokInBudgets() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IncludeByokInBudgets
 }
