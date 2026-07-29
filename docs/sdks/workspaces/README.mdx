@@ -74,11 +74,11 @@ func main() {
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
 | `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
 
-**[*operations.ListWorkspacesResponse](../../models/operations/listworkspacesresponse.mdx), error**
+**[*operations.ListWorkspacesResponse](../../models/operations/listworkspacesresponse), error**
 
 ### Errors
 
@@ -135,12 +135,12 @@ func main() {
 | Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
-| `request`                                                                              | [components.CreateWorkspaceRequest](../../models/components/createworkspacerequest.mdx) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
-| `opts`                                                                                 | [][operations.Option](../../models/operations/option.mdx)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
+| `request`                                                                              | [components.CreateWorkspaceRequest](../../models/components/createworkspacerequest) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `opts`                                                                                 | [][operations.Option](../../models/operations/option)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
 ### Response
 
-**[*components.CreateWorkspaceResponse](../../models/components/createworkspaceresponse.mdx), error**
+**[*components.CreateWorkspaceResponse](../../models/components/createworkspaceresponse), error**
 
 ### Errors
 
@@ -191,11 +191,11 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The workspace ID (UUID) or slug                          | production                                               |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
 
-**[*components.DeleteWorkspaceResponse](../../models/components/deleteworkspaceresponse.mdx), error**
+**[*components.DeleteWorkspaceResponse](../../models/components/deleteworkspaceresponse), error**
 
 ### Errors
 
@@ -247,11 +247,11 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The workspace ID (UUID) or slug                          | production                                               |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
 
-**[*components.GetWorkspaceResponse](../../models/components/getworkspaceresponse.mdx), error**
+**[*components.GetWorkspaceResponse](../../models/components/getworkspaceresponse), error**
 
 ### Errors
 
@@ -305,12 +305,12 @@ func main() {
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |                                                                                        |
 | `id`                                                                                   | `string`                                                                               | :heavy_check_mark:                                                                     | The workspace ID (UUID) or slug                                                        | production                                                                             |
-| `updateWorkspaceRequest`                                                               | [components.UpdateWorkspaceRequest](../../models/components/updateworkspacerequest.mdx) | :heavy_check_mark:                                                                     | N/A                                                                                    | \{<br/>"name": "Updated Workspace",<br/>"slug": "updated-workspace"<br/>}               |
-| `opts`                                                                                 | [][operations.Option](../../models/operations/option.mdx)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |                                                                                        |
+| `updateWorkspaceRequest`                                                               | [components.UpdateWorkspaceRequest](../../models/components/updateworkspacerequest) | :heavy_check_mark:                                                                     | N/A                                                                                    | \{<br/>"name": "Updated Workspace",<br/>"slug": "updated-workspace"<br/>}               |
+| `opts`                                                                                 | [][operations.Option](../../models/operations/option)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |                                                                                        |
 
 ### Response
 
-**[*components.UpdateWorkspaceResponse](../../models/components/updateworkspaceresponse.mdx), error**
+**[*components.UpdateWorkspaceResponse](../../models/components/updateworkspaceresponse), error**
 
 ### Errors
 
@@ -362,11 +362,11 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The workspace ID (UUID) or slug                          | production                                               |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
 
-**[*components.ListWorkspaceBudgetsResponse](../../models/components/listworkspacebudgetsresponse.mdx), error**
+**[*components.ListWorkspaceBudgetsResponse](../../models/components/listworkspacebudgetsresponse), error**
 
 ### Errors
 
@@ -417,12 +417,12 @@ func main() {
 | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
 | `id`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The workspace ID (UUID) or slug                                                          | production                                                                               |
-| `interval`                                                                               | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval.mdx) | :heavy_check_mark:                                                                       | Budget reset interval. Use "lifetime" for a one-time budget that never resets.           | monthly                                                                                  |
-| `opts`                                                                                   | [][operations.Option](../../models/operations/option.mdx)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
+| `interval`                                                                               | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval) | :heavy_check_mark:                                                                       | Budget reset interval. Use "lifetime" for a one-time budget that never resets.           | monthly                                                                                  |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
 
 ### Response
 
-**[*components.DeleteWorkspaceBudgetResponse](../../models/components/deleteworkspacebudgetresponse.mdx), error**
+**[*components.DeleteWorkspaceBudgetResponse](../../models/components/deleteworkspacebudgetresponse), error**
 
 ### Errors
 
@@ -475,13 +475,13 @@ func main() {
 | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |                                                                                                    |
 | `id`                                                                                               | `string`                                                                                           | :heavy_check_mark:                                                                                 | The workspace ID (UUID) or slug                                                                    | production                                                                                         |
-| `interval`                                                                                         | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval.mdx)           | :heavy_check_mark:                                                                                 | Budget reset interval. Use "lifetime" for a one-time budget that never resets.                     | monthly                                                                                            |
-| `upsertWorkspaceBudgetRequest`                                                                     | [components.UpsertWorkspaceBudgetRequest](../../models/components/upsertworkspacebudgetrequest.mdx) | :heavy_check_mark:                                                                                 | N/A                                                                                                | \{<br/>"limit_usd": 100<br/>}                                                                       |
-| `opts`                                                                                             | [][operations.Option](../../models/operations/option.mdx)                                           | :heavy_minus_sign:                                                                                 | The options for this request.                                                                      |                                                                                                    |
+| `interval`                                                                                         | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval)           | :heavy_check_mark:                                                                                 | Budget reset interval. Use "lifetime" for a one-time budget that never resets.                     | monthly                                                                                            |
+| `upsertWorkspaceBudgetRequest`                                                                     | [components.UpsertWorkspaceBudgetRequest](../../models/components/upsertworkspacebudgetrequest) | :heavy_check_mark:                                                                                 | N/A                                                                                                | \{<br/>"limit_usd": 100<br/>}                                                                       |
+| `opts`                                                                                             | [][operations.Option](../../models/operations/option)                                           | :heavy_minus_sign:                                                                                 | The options for this request.                                                                      |                                                                                                    |
 
 ### Response
 
-**[*components.UpsertWorkspaceBudgetResponse](../../models/components/upsertworkspacebudgetresponse.mdx), error**
+**[*components.UpsertWorkspaceBudgetResponse](../../models/components/upsertworkspacebudgetresponse), error**
 
 ### Errors
 
@@ -547,11 +547,11 @@ func main() {
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The workspace ID (UUID) or slug                          | production                                               |
 | `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
 | `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
 
 ### Response
 
-**[*operations.ListWorkspaceMembersResponse](../../models/operations/listworkspacemembersresponse.mdx), error**
+**[*operations.ListWorkspaceMembersResponse](../../models/operations/listworkspacemembersresponse), error**
 
 ### Errors
 
@@ -608,12 +608,12 @@ func main() {
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |                                                                                                        |
 | `id`                                                                                                   | `string`                                                                                               | :heavy_check_mark:                                                                                     | The workspace ID (UUID) or slug                                                                        | production                                                                                             |
-| `bulkAddWorkspaceMembersRequest`                                                                       | [components.BulkAddWorkspaceMembersRequest](../../models/components/bulkaddworkspacemembersrequest.mdx) | :heavy_check_mark:                                                                                     | N/A                                                                                                    | \{<br/>"user_ids": [<br/>"user_abc123",<br/>"user_def456"<br/>]<br/>}                                   |
-| `opts`                                                                                                 | [][operations.Option](../../models/operations/option.mdx)                                               | :heavy_minus_sign:                                                                                     | The options for this request.                                                                          |                                                                                                        |
+| `bulkAddWorkspaceMembersRequest`                                                                       | [components.BulkAddWorkspaceMembersRequest](../../models/components/bulkaddworkspacemembersrequest) | :heavy_check_mark:                                                                                     | N/A                                                                                                    | \{<br/>"user_ids": [<br/>"user_abc123",<br/>"user_def456"<br/>]<br/>}                                   |
+| `opts`                                                                                                 | [][operations.Option](../../models/operations/option)                                               | :heavy_minus_sign:                                                                                     | The options for this request.                                                                          |                                                                                                        |
 
 ### Response
 
-**[*components.BulkAddWorkspaceMembersResponse](../../models/components/bulkaddworkspacemembersresponse.mdx), error**
+**[*components.BulkAddWorkspaceMembersResponse](../../models/components/bulkaddworkspacemembersresponse), error**
 
 ### Errors
 
@@ -671,12 +671,12 @@ func main() {
 | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                        | :heavy_check_mark:                                                                                           | The context to use for the request.                                                                          |                                                                                                              |
 | `id`                                                                                                         | `string`                                                                                                     | :heavy_check_mark:                                                                                           | The workspace ID (UUID) or slug                                                                              | production                                                                                                   |
-| `bulkRemoveWorkspaceMembersRequest`                                                                          | [components.BulkRemoveWorkspaceMembersRequest](../../models/components/bulkremoveworkspacemembersrequest.mdx) | :heavy_check_mark:                                                                                           | N/A                                                                                                          | \{<br/>"user_ids": [<br/>"user_abc123",<br/>"user_def456"<br/>]<br/>}                                         |
-| `opts`                                                                                                       | [][operations.Option](../../models/operations/option.mdx)                                                     | :heavy_minus_sign:                                                                                           | The options for this request.                                                                                |                                                                                                              |
+| `bulkRemoveWorkspaceMembersRequest`                                                                          | [components.BulkRemoveWorkspaceMembersRequest](../../models/components/bulkremoveworkspacemembersrequest) | :heavy_check_mark:                                                                                           | N/A                                                                                                          | \{<br/>"user_ids": [<br/>"user_abc123",<br/>"user_def456"<br/>]<br/>}                                         |
+| `opts`                                                                                                       | [][operations.Option](../../models/operations/option)                                                     | :heavy_minus_sign:                                                                                           | The options for this request.                                                                                |                                                                                                              |
 
 ### Response
 
-**[*components.BulkRemoveWorkspaceMembersResponse](../../models/components/bulkremoveworkspacemembersresponse.mdx), error**
+**[*components.BulkRemoveWorkspaceMembersResponse](../../models/components/bulkremoveworkspacemembersresponse), error**
 
 ### Errors
 

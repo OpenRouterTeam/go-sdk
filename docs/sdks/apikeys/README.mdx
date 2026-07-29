@@ -54,11 +54,11 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |
+| `opts`                                                   | [][operations.Option](../../models/operations/option) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
 
-**[*operations.GetCurrentKeyResponse](../../models/operations/getcurrentkeyresponse.mdx), error**
+**[*operations.GetCurrentKeyResponse](../../models/operations/getcurrentkeyresponse), error**
 
 ### Errors
 
@@ -110,11 +110,11 @@ func main() {
 | `includeDisabled`                                                                        | `*bool`                                                                                  | :heavy_minus_sign:                                                                       | Whether to include disabled API keys in the response                                     | false                                                                                    |
 | `offset`                                                                                 | optionalnullable.OptionalNullable[`int64`]                                               | :heavy_minus_sign:                                                                       | Number of API keys to skip for pagination                                                | 0                                                                                        |
 | `workspaceID`                                                                            | `*string`                                                                                | :heavy_minus_sign:                                                                       | Filter API keys by workspace ID. By default, keys in the default workspace are returned. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                     |
-| `opts`                                                                                   | [][operations.Option](../../models/operations/option.mdx)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
 
 ### Response
 
-**[*operations.ListResponse](../../models/operations/listresponse.mdx), error**
+**[*operations.ListResponse](../../models/operations/listresponse), error**
 
 ### Errors
 
@@ -173,12 +173,12 @@ func main() {
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
-| `request`                                                                    | [operations.CreateKeysRequest](../../models/operations/createkeysrequest.mdx) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
-| `opts`                                                                       | [][operations.Option](../../models/operations/option.mdx)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
+| `request`                                                                    | [operations.CreateKeysRequest](../../models/operations/createkeysrequest) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| `opts`                                                                       | [][operations.Option](../../models/operations/option)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
 
 ### Response
 
-**[*operations.CreateKeysResponse](../../models/operations/createkeysresponse.mdx), error**
+**[*operations.CreateKeysResponse](../../models/operations/createkeysresponse), error**
 
 ### Errors
 
@@ -230,11 +230,11 @@ func main() {
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |                                                                  |
 | `hash`                                                           | `string`                                                         | :heavy_check_mark:                                               | The hash identifier of the API key to delete                     | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943 |
-| `opts`                                                           | [][operations.Option](../../models/operations/option.mdx)         | :heavy_minus_sign:                                               | The options for this request.                                    |                                                                  |
+| `opts`                                                           | [][operations.Option](../../models/operations/option)         | :heavy_minus_sign:                                               | The options for this request.                                    |                                                                  |
 
 ### Response
 
-**[*operations.DeleteKeysResponse](../../models/operations/deletekeysresponse.mdx), error**
+**[*operations.DeleteKeysResponse](../../models/operations/deletekeysresponse), error**
 
 ### Errors
 
@@ -285,11 +285,11 @@ func main() {
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |                                                                  |
 | `hash`                                                           | `string`                                                         | :heavy_check_mark:                                               | The hash identifier of the API key to retrieve                   | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943 |
-| `opts`                                                           | [][operations.Option](../../models/operations/option.mdx)         | :heavy_minus_sign:                                               | The options for this request.                                    |                                                                  |
+| `opts`                                                           | [][operations.Option](../../models/operations/option)         | :heavy_minus_sign:                                               | The options for this request.                                    |                                                                  |
 
 ### Response
 
-**[*operations.GetKeyResponse](../../models/operations/getkeyresponse.mdx), error**
+**[*operations.GetKeyResponse](../../models/operations/getkeyresponse), error**
 
 ### Errors
 
@@ -348,12 +348,12 @@ func main() {
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                                     | :heavy_check_mark:                                                                                                        | The context to use for the request.                                                                                       |                                                                                                                           |
 | `hash`                                                                                                                    | `string`                                                                                                                  | :heavy_check_mark:                                                                                                        | The hash identifier of the API key to update                                                                              | f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943                                                          |
-| `requestBody`                                                                                                             | [operations.UpdateKeysRequestBody](../../models/operations/updatekeysrequestbody.mdx)                                      | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       | \{<br/>"disabled": false,<br/>"include_byok_in_limit": true,<br/>"limit": 75,<br/>"limit_reset": "daily",<br/>"name": "Updated API Key Name"<br/>} |
-| `opts`                                                                                                                    | [][operations.Option](../../models/operations/option.mdx)                                                                  | :heavy_minus_sign:                                                                                                        | The options for this request.                                                                                             |                                                                                                                           |
+| `requestBody`                                                                                                             | [operations.UpdateKeysRequestBody](../../models/operations/updatekeysrequestbody)                                      | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       | \{<br/>"disabled": false,<br/>"include_byok_in_limit": true,<br/>"limit": 75,<br/>"limit_reset": "daily",<br/>"name": "Updated API Key Name"<br/>} |
+| `opts`                                                                                                                    | [][operations.Option](../../models/operations/option)                                                                  | :heavy_minus_sign:                                                                                                        | The options for this request.                                                                                             |                                                                                                                           |
 
 ### Response
 
-**[*operations.UpdateKeysResponse](../../models/operations/updatekeysresponse.mdx), error**
+**[*operations.UpdateKeysResponse](../../models/operations/updatekeysresponse), error**
 
 ### Errors
 
