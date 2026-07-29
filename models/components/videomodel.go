@@ -110,17 +110,26 @@ const (
 	SupportedSizeOneThousandOneHundredAndTwentyx480     SupportedSize = "1120x480"
 	SupportedSizeOneThousandTwoHundredAndEightyx720     SupportedSize = "1280x720"
 	SupportedSizeOneThousandFourHundredAndFortyx1080    SupportedSize = "1440x1080"
+	SupportedSizeOneThousandFourHundredAndFortyx1440    SupportedSize = "1440x1440"
+	SupportedSizeOneThousandFourHundredAndFortyx1920    SupportedSize = "1440x1920"
+	SupportedSizeOneThousandFourHundredAndFortyx2160    SupportedSize = "1440x2160"
+	SupportedSizeOneThousandFourHundredAndFortyx2560    SupportedSize = "1440x2560"
+	SupportedSizeOneThousandFourHundredAndFortyx3360    SupportedSize = "1440x3360"
 	SupportedSizeOneThousandSixHundredAndTwentyx1080    SupportedSize = "1620x1080"
 	SupportedSizeOneThousandSixHundredAndEightyx720     SupportedSize = "1680x720"
 	SupportedSizeOneThousandNineHundredAndTwentyx1080   SupportedSize = "1920x1080"
+	SupportedSizeOneThousandNineHundredAndTwentyx1440   SupportedSize = "1920x1440"
+	SupportedSizeTwoThousandOneHundredAndSixtyx1440     SupportedSize = "2160x1440"
 	SupportedSizeTwoThousandOneHundredAndSixtyx2160     SupportedSize = "2160x2160"
 	SupportedSizeTwoThousandOneHundredAndSixtyx2880     SupportedSize = "2160x2880"
 	SupportedSizeTwoThousandOneHundredAndSixtyx3240     SupportedSize = "2160x3240"
 	SupportedSizeTwoThousandOneHundredAndSixtyx3840     SupportedSize = "2160x3840"
 	SupportedSizeTwoThousandOneHundredAndSixtyx5040     SupportedSize = "2160x5040"
 	SupportedSizeTwoThousandFiveHundredAndTwentyx1080   SupportedSize = "2520x1080"
+	SupportedSizeTwoThousandFiveHundredAndSixtyx1440    SupportedSize = "2560x1440"
 	SupportedSizeTwoThousandEightHundredAndEightyx2160  SupportedSize = "2880x2160"
 	SupportedSizeThreeThousandTwoHundredAndFortyx2160   SupportedSize = "3240x2160"
+	SupportedSizeThreeThousandThreeHundredAndSixtyx1440 SupportedSize = "3360x1440"
 	SupportedSizeThreeThousandEightHundredAndFortyx2160 SupportedSize = "3840x2160"
 	SupportedSizeFiveThousandAndFortyx2160              SupportedSize = "5040x2160"
 )
@@ -133,7 +142,7 @@ func (e SupportedSize) ToPointer() *SupportedSize {
 func (e *SupportedSize) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "480x480", "480x640", "480x720", "480x854", "480x1120", "640x480", "720x480", "720x720", "720x960", "720x1080", "720x1280", "720x1680", "854x480", "960x720", "1080x720", "1080x1080", "1080x1440", "1080x1620", "1080x1920", "1080x2520", "1120x480", "1280x720", "1440x1080", "1620x1080", "1680x720", "1920x1080", "2160x2160", "2160x2880", "2160x3240", "2160x3840", "2160x5040", "2520x1080", "2880x2160", "3240x2160", "3840x2160", "5040x2160":
+		case "480x480", "480x640", "480x720", "480x854", "480x1120", "640x480", "720x480", "720x720", "720x960", "720x1080", "720x1280", "720x1680", "854x480", "960x720", "1080x720", "1080x1080", "1080x1440", "1080x1620", "1080x1920", "1080x2520", "1120x480", "1280x720", "1440x1080", "1440x1440", "1440x1920", "1440x2160", "1440x2560", "1440x3360", "1620x1080", "1680x720", "1920x1080", "1920x1440", "2160x1440", "2160x2160", "2160x2880", "2160x3240", "2160x3840", "2160x5040", "2520x1080", "2560x1440", "2880x2160", "3240x2160", "3360x1440", "3840x2160", "5040x2160":
 			return true
 		}
 	}
