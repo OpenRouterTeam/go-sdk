@@ -67,8 +67,10 @@ type AutoBetaRouterPlugin struct {
 	// Named cost/quality setting. For auto-beta-router, tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Numeric cost_quality_tradeoff takes precedence and retains ceiling behavior.
 	CostTier *AutoBetaRouterPluginCostTier `json:"cost_tier,omitzero"`
 	// Set to false to disable the auto-beta-router plugin for this request. Defaults to true.
-	Enabled *bool                  `json:"enabled,omitzero"`
-	ID      AutoBetaRouterPluginID `json:"id"`
+	Enabled *bool `json:"enabled,omitzero"`
+	// List of model patterns to exclude from auto-beta-router selection. Supports wildcards (e.g., "meta-llama/*" excludes all Llama models). Applied after allowed_models, so an excluded pattern always wins over an allowed one.
+	ExcludedModels []string               `json:"excluded_models,omitzero"`
+	ID             AutoBetaRouterPluginID `json:"id"`
 }
 
 func (a AutoBetaRouterPlugin) MarshalJSON() ([]byte, error) {
@@ -108,6 +110,13 @@ func (a *AutoBetaRouterPlugin) GetEnabled() *bool {
 		return nil
 	}
 	return a.Enabled
+}
+
+func (a *AutoBetaRouterPlugin) GetExcludedModels() []string {
+	if a == nil {
+		return nil
+	}
+	return a.ExcludedModels
 }
 
 func (a *AutoBetaRouterPlugin) GetID() AutoBetaRouterPluginID {

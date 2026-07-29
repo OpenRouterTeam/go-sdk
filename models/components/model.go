@@ -9,6 +9,8 @@ import (
 
 // Model - Information about an AI model available on OpenRouter
 type Model struct {
+	// Concrete model targeted by this tilde-latest alias, when applicable
+	AliasTarget *ModelAliasTarget `json:"alias_target,omitzero"`
 	// Model architecture information
 	Architecture ModelArchitecture `json:"architecture"`
 	// Third-party benchmark rankings for this model. Omitted when no benchmark data is available.
@@ -58,6 +60,13 @@ func (m *Model) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (m *Model) GetAliasTarget() *ModelAliasTarget {
+	if m == nil {
+		return nil
+	}
+	return m.AliasTarget
 }
 
 func (m *Model) GetArchitecture() ModelArchitecture {
