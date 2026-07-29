@@ -11,7 +11,7 @@ type VideoGenerationUsage struct {
 	// The cost of the video generation in USD.
 	Cost optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
 	// Whether the request was made using a Bring Your Own Key configuration.
-	IsByok *bool `json:"is_byok,omitzero"`
+	IsBYOK *bool `json:"is_byok,omitzero"`
 }
 
 func (v *VideoGenerationUsage) GetCost() optionalnullable.OptionalNullable[float64] {
@@ -21,9 +21,9 @@ func (v *VideoGenerationUsage) GetCost() optionalnullable.OptionalNullable[float
 	return v.Cost
 }
 
-func (v *VideoGenerationUsage) GetIsByok() *bool {
+func (v *VideoGenerationUsage) GetIsBYOK() *bool {
 	if v == nil {
 		return nil
 	}
-	return v.IsByok
+	return v.IsBYOK
 }

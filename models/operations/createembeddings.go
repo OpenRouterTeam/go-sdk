@@ -817,7 +817,7 @@ type CreateEmbeddingsUsage struct {
 	// Breakdown of upstream inference costs
 	CostDetails optionalnullable.OptionalNullable[components.CostDetails] `json:"cost_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
-	IsByok *bool `json:"is_byok,omitzero"`
+	IsBYOK *bool `json:"is_byok,omitzero"`
 	// Number of tokens in the input
 	PromptTokens int64 `json:"prompt_tokens"`
 	// Per-modality token breakdown. Only present when the input contains 2+ modalities (e.g. text + image) and the upstream provider returns modality-level usage data. Only non-zero modality counts are included.
@@ -851,11 +851,11 @@ func (c *CreateEmbeddingsUsage) GetCostDetails() optionalnullable.OptionalNullab
 	return c.CostDetails
 }
 
-func (c *CreateEmbeddingsUsage) GetIsByok() *bool {
+func (c *CreateEmbeddingsUsage) GetIsBYOK() *bool {
 	if c == nil {
 		return nil
 	}
-	return c.IsByok
+	return c.IsBYOK
 }
 
 func (c *CreateEmbeddingsUsage) GetPromptTokens() int64 {

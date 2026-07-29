@@ -182,7 +182,7 @@ type ProviderResponse struct {
 	// Upstream provider response identifier
 	ID *string `json:"id,omitzero"`
 	// Whether the request used a bring-your-own-key
-	IsByok *bool `json:"is_byok,omitzero"`
+	IsBYOK *bool `json:"is_byok,omitzero"`
 	// Response latency in milliseconds
 	Latency *float64 `json:"latency,omitzero"`
 	// Canonical model slug
@@ -209,11 +209,11 @@ func (p *ProviderResponse) GetID() *string {
 	return p.ID
 }
 
-func (p *ProviderResponse) GetIsByok() *bool {
+func (p *ProviderResponse) GetIsBYOK() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.IsByok
+	return p.IsBYOK
 }
 
 func (p *ProviderResponse) GetLatency() *float64 {

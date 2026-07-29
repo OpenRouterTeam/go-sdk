@@ -36,7 +36,7 @@ type UpdateKeysRequestBody struct {
 	// Whether to disable the API key
 	Disabled *bool `json:"disabled,omitzero"`
 	// Whether to include BYOK usage in the limit
-	IncludeByokInLimit *bool `json:"include_byok_in_limit,omitzero"`
+	IncludeBYOKInLimit *bool `json:"include_byok_in_limit,omitzero"`
 	// New spending limit for the API key in USD
 	Limit optionalnullable.OptionalNullable[float64] `json:"limit,omitzero"`
 	// New limit reset type for the API key (daily, weekly, monthly, or null for no reset). Resets happen automatically at midnight UTC, and weeks are Monday through Sunday.
@@ -52,11 +52,11 @@ func (u *UpdateKeysRequestBody) GetDisabled() *bool {
 	return u.Disabled
 }
 
-func (u *UpdateKeysRequestBody) GetIncludeByokInLimit() *bool {
+func (u *UpdateKeysRequestBody) GetIncludeBYOKInLimit() *bool {
 	if u == nil {
 		return nil
 	}
-	return u.IncludeByokInLimit
+	return u.IncludeBYOKInLimit
 }
 
 func (u *UpdateKeysRequestBody) GetLimit() optionalnullable.OptionalNullable[float64] {
@@ -103,13 +103,13 @@ func (u *UpdateKeysRequest) GetRequestBody() UpdateKeysRequestBody {
 // UpdateKeysData - The updated API key information
 type UpdateKeysData struct {
 	// Total external BYOK usage (in USD) for the API key
-	ByokUsage float64 `json:"byok_usage"`
+	BYOKUsage float64 `json:"byok_usage"`
 	// External BYOK usage (in USD) for the current UTC day
-	ByokUsageDaily float64 `json:"byok_usage_daily"`
+	BYOKUsageDaily float64 `json:"byok_usage_daily"`
 	// External BYOK usage (in USD) for current UTC month
-	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
+	BYOKUsageMonthly float64 `json:"byok_usage_monthly"`
 	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
-	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
+	BYOKUsageWeekly float64 `json:"byok_usage_weekly"`
 	// ISO 8601 timestamp of when the API key was created
 	CreatedAt string `json:"created_at"`
 	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
@@ -121,7 +121,7 @@ type UpdateKeysData struct {
 	// Unique hash identifier for the API key
 	Hash string `json:"hash"`
 	// Whether to include external BYOK usage in the credit limit
-	IncludeByokInLimit bool `json:"include_byok_in_limit"`
+	IncludeBYOKInLimit bool `json:"include_byok_in_limit"`
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
@@ -157,32 +157,32 @@ func (u *UpdateKeysData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (u *UpdateKeysData) GetByokUsage() float64 {
+func (u *UpdateKeysData) GetBYOKUsage() float64 {
 	if u == nil {
 		return 0.0
 	}
-	return u.ByokUsage
+	return u.BYOKUsage
 }
 
-func (u *UpdateKeysData) GetByokUsageDaily() float64 {
+func (u *UpdateKeysData) GetBYOKUsageDaily() float64 {
 	if u == nil {
 		return 0.0
 	}
-	return u.ByokUsageDaily
+	return u.BYOKUsageDaily
 }
 
-func (u *UpdateKeysData) GetByokUsageMonthly() float64 {
+func (u *UpdateKeysData) GetBYOKUsageMonthly() float64 {
 	if u == nil {
 		return 0.0
 	}
-	return u.ByokUsageMonthly
+	return u.BYOKUsageMonthly
 }
 
-func (u *UpdateKeysData) GetByokUsageWeekly() float64 {
+func (u *UpdateKeysData) GetBYOKUsageWeekly() float64 {
 	if u == nil {
 		return 0.0
 	}
-	return u.ByokUsageWeekly
+	return u.BYOKUsageWeekly
 }
 
 func (u *UpdateKeysData) GetCreatedAt() string {
@@ -220,11 +220,11 @@ func (u *UpdateKeysData) GetHash() string {
 	return u.Hash
 }
 
-func (u *UpdateKeysData) GetIncludeByokInLimit() bool {
+func (u *UpdateKeysData) GetIncludeBYOKInLimit() bool {
 	if u == nil {
 		return false
 	}
-	return u.IncludeByokInLimit
+	return u.IncludeBYOKInLimit
 }
 
 func (u *UpdateKeysData) GetLabel() string {

@@ -62,15 +62,15 @@ type OpenRouter struct {
 	Analytics *Analytics
 	Beta      *Beta
 	// Text-to-speech endpoints
-	Tts *Tts
+	TTS *TTS
 	// Speech-to-text endpoints
-	Stt *Stt
+	STT *STT
 	// OAuth authentication endpoints
 	OAuth *OAuth
 	// Benchmarks endpoints
 	Benchmarks *Benchmarks
 	// BYOK endpoints
-	Byok *Byok
+	BYOK *BYOK
 	Chat *Chat
 	// Task classification market-share endpoints
 	Classifications *Classifications
@@ -201,9 +201,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.7.7",
+		SDKVersion: "0.7.8",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.7.7 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.7.8 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -231,11 +231,11 @@ func New(opts ...SDKOption) *OpenRouter {
 
 	sdk.Analytics = newAnalytics(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Beta = newBeta(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Tts = newTts(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Stt = newStt(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.TTS = newTTS(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.STT = newSTT(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Benchmarks = newBenchmarks(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Byok = newByok(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.BYOK = newBYOK(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Classifications = newClassifications(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)

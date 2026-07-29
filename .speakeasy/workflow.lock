@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:626d55e6af1e29e10cedecc444d539bd6731900c0bcd3d480ce3fda252af00d8
         sourceBlobDigest: sha256:1233e044b845ae8af9e8472362d598969451121cacdb5705f0b1d3db13970735
         codeSamplesNamespace: open-router-chat-completions-api-go-code-samples
-        codeSamplesRevisionDigest: sha256:98460523bb1cdaaea6be6bf6d1bb53002040fd43a62a1139a1b4264f582bf8b4
+        codeSamplesRevisionDigest: sha256:6bb91ed0caede1bffb3925c0b15ffe283518af8467d9b659045861bbd4c577fb
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: 1.787.0

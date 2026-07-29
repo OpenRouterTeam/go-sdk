@@ -13,8 +13,8 @@ const (
 	APITypeCompletions APIType = "completions"
 	APITypeEmbeddings  APIType = "embeddings"
 	APITypeRerank      APIType = "rerank"
-	APITypeTts         APIType = "tts"
-	APITypeStt         APIType = "stt"
+	APITypeTTS         APIType = "tts"
+	APITypeSTT         APIType = "stt"
 	APITypeVideo       APIType = "video"
 	APITypeImage       APIType = "image"
 )
@@ -83,7 +83,7 @@ type GenerationResponseData struct {
 	// Unique identifier for the generation
 	ID string `json:"id"`
 	// Whether this used bring-your-own-key
-	IsByok bool `json:"is_byok"`
+	IsBYOK bool `json:"is_byok"`
 	// Total latency in milliseconds
 	Latency *float64 `json:"latency"`
 	// Model used for the generation
@@ -227,11 +227,11 @@ func (g *GenerationResponseData) GetID() string {
 	return g.ID
 }
 
-func (g *GenerationResponseData) GetIsByok() bool {
+func (g *GenerationResponseData) GetIsBYOK() bool {
 	if g == nil {
 		return false
 	}
-	return g.IsByok
+	return g.IsBYOK
 }
 
 func (g *GenerationResponseData) GetLatency() *float64 {

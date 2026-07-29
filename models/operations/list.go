@@ -40,13 +40,13 @@ func (l *ListRequest) GetWorkspaceID() *string {
 
 type ListData struct {
 	// Total external BYOK usage (in USD) for the API key
-	ByokUsage float64 `json:"byok_usage"`
+	BYOKUsage float64 `json:"byok_usage"`
 	// External BYOK usage (in USD) for the current UTC day
-	ByokUsageDaily float64 `json:"byok_usage_daily"`
+	BYOKUsageDaily float64 `json:"byok_usage_daily"`
 	// External BYOK usage (in USD) for current UTC month
-	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
+	BYOKUsageMonthly float64 `json:"byok_usage_monthly"`
 	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
-	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
+	BYOKUsageWeekly float64 `json:"byok_usage_weekly"`
 	// ISO 8601 timestamp of when the API key was created
 	CreatedAt string `json:"created_at"`
 	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
@@ -58,7 +58,7 @@ type ListData struct {
 	// Unique hash identifier for the API key
 	Hash string `json:"hash"`
 	// Whether to include external BYOK usage in the credit limit
-	IncludeByokInLimit bool `json:"include_byok_in_limit"`
+	IncludeBYOKInLimit bool `json:"include_byok_in_limit"`
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
@@ -94,32 +94,32 @@ func (l *ListData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (l *ListData) GetByokUsage() float64 {
+func (l *ListData) GetBYOKUsage() float64 {
 	if l == nil {
 		return 0.0
 	}
-	return l.ByokUsage
+	return l.BYOKUsage
 }
 
-func (l *ListData) GetByokUsageDaily() float64 {
+func (l *ListData) GetBYOKUsageDaily() float64 {
 	if l == nil {
 		return 0.0
 	}
-	return l.ByokUsageDaily
+	return l.BYOKUsageDaily
 }
 
-func (l *ListData) GetByokUsageMonthly() float64 {
+func (l *ListData) GetBYOKUsageMonthly() float64 {
 	if l == nil {
 		return 0.0
 	}
-	return l.ByokUsageMonthly
+	return l.BYOKUsageMonthly
 }
 
-func (l *ListData) GetByokUsageWeekly() float64 {
+func (l *ListData) GetBYOKUsageWeekly() float64 {
 	if l == nil {
 		return 0.0
 	}
-	return l.ByokUsageWeekly
+	return l.BYOKUsageWeekly
 }
 
 func (l *ListData) GetCreatedAt() string {
@@ -157,11 +157,11 @@ func (l *ListData) GetHash() string {
 	return l.Hash
 }
 
-func (l *ListData) GetIncludeByokInLimit() bool {
+func (l *ListData) GetIncludeBYOKInLimit() bool {
 	if l == nil {
 		return false
 	}
-	return l.IncludeByokInLimit
+	return l.IncludeBYOKInLimit
 }
 
 func (l *ListData) GetLabel() string {

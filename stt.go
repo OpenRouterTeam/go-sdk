@@ -17,15 +17,15 @@ import (
 	"net/url"
 )
 
-// Stt - Speech-to-text endpoints
-type Stt struct {
+// STT - Speech-to-text endpoints
+type STT struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newStt(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Stt {
-	return &Stt{
+func newSTT(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *STT {
+	return &STT{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -34,7 +34,7 @@ func newStt(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks
 
 // CreateTranscription - Create transcription
 // Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
-func (s *Stt) CreateTranscription(ctx context.Context, request components.STTRequest, opts ...operations.Option) (*components.STTResponse, error) {
+func (s *STT) CreateTranscription(ctx context.Context, request components.STTRequest, opts ...operations.Option) (*components.STTResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -456,7 +456,7 @@ func (s *Stt) CreateTranscription(ctx context.Context, request components.STTReq
 
 // CreateTranscriptionMultipart - Create transcription
 // Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
-func (s *Stt) CreateTranscriptionMultipart(ctx context.Context, request operations.CreateAudioTranscriptionsMultipartRequest, opts ...operations.Option) (*components.STTResponse, error) {
+func (s *STT) CreateTranscriptionMultipart(ctx context.Context, request operations.CreateAudioTranscriptionsMultipartRequest, opts ...operations.Option) (*components.STTResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

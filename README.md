@@ -213,7 +213,7 @@ func main() {
 
 * [Send](docs/sdks/betaresponses/README.md#send) - Create a response
 
-### [Byok](docs/sdks/byok/README.md)
+### [BYOK](docs/sdks/byok/README.md)
 
 * [List](docs/sdks/byok/README.md#list) - List BYOK provider credentials
 * [Create](docs/sdks/byok/README.md#create) - Create a BYOK provider credential
@@ -330,12 +330,12 @@ func main() {
 
 * [Send](docs/sdks/responses/README.md#send) - Create a response
 
-### [Stt](docs/sdks/stt/README.md)
+### [STT](docs/sdks/stt/README.md)
 
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
 * [CreateTranscriptionMultipart](docs/sdks/stt/README.md#createtranscriptionmultipart) - Create transcription
 
-### [Tts](docs/sdks/tts/README.md)
+### [TTS](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
 
@@ -440,7 +440,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Byok.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, nil)
+	res, err := s.BYOK.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
