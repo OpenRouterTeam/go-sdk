@@ -4,48 +4,150 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
 type FileDeleteResponseType string
 
 const (
-	FileDeleteResponseTypeFileDeleted FileDeleteResponseType = "file_deleted"
+	FileDeleteResponseTypeAnthropic  FileDeleteResponseType = "anthropic"
+	FileDeleteResponseTypeOpenai     FileDeleteResponseType = "openai"
+	FileDeleteResponseTypeOpenrouter FileDeleteResponseType = "openrouter"
+	FileDeleteResponseTypeUnknown    FileDeleteResponseType = "UNKNOWN"
 )
 
-func (e FileDeleteResponseType) ToPointer() *FileDeleteResponseType {
-	return &e
+// FileDeleteResponse - Confirmation that a file was deleted, in the negotiated shape.
+type FileDeleteResponse struct {
+	OpenRouterFileDeleted *OpenRouterFileDeleted `queryParam:"inline" union:"member"`
+	OpenAIFileDeleted     *OpenAIFileDeleted     `queryParam:"inline" union:"member"`
+	AnthropicFileDeleted  *AnthropicFileDeleted  `queryParam:"inline" union:"member"`
+	UnknownRaw            json.RawMessage        `json:"-" union:"unknown"`
+
+	Type FileDeleteResponseType
 }
-func (e *FileDeleteResponseType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+func CreateFileDeleteResponseAnthropic(anthropic AnthropicFileDeleted) FileDeleteResponse {
+	typ := FileDeleteResponseTypeAnthropic
+
+	typStr := AnthropicFileDeletedShape(typ)
+	anthropic.Shape = typStr
+
+	return FileDeleteResponse{
+		AnthropicFileDeleted: &anthropic,
+		Type:                 typ,
 	}
-	switch v {
-	case "file_deleted":
-		*e = FileDeleteResponseType(v)
+}
+
+func CreateFileDeleteResponseOpenai(openai OpenAIFileDeleted) FileDeleteResponse {
+	typ := FileDeleteResponseTypeOpenai
+
+	typStr := OpenAIFileDeletedShape(typ)
+	openai.Shape = typStr
+
+	return FileDeleteResponse{
+		OpenAIFileDeleted: &openai,
+		Type:              typ,
+	}
+}
+
+func CreateFileDeleteResponseOpenrouter(openrouter OpenRouterFileDeleted) FileDeleteResponse {
+	typ := FileDeleteResponseTypeOpenrouter
+
+	typStr := OpenRouterFileDeletedShape(typ)
+	openrouter.Shape = typStr
+
+	return FileDeleteResponse{
+		OpenRouterFileDeleted: &openrouter,
+		Type:                  typ,
+	}
+}
+
+func CreateFileDeleteResponseUnknown(raw json.RawMessage) FileDeleteResponse {
+	return FileDeleteResponse{
+		UnknownRaw: raw,
+		Type:       FileDeleteResponseTypeUnknown,
+	}
+}
+
+func (u FileDeleteResponse) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u FileDeleteResponse) IsUnknown() bool {
+	return u.Type == FileDeleteResponseTypeUnknown
+}
+
+func (u *FileDeleteResponse) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Shape string `json:"_shape"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FileDeleteResponseTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FileDeleteResponseTypeUnknown
+		return nil
+	}
+
+	switch dis.Shape {
+	case "anthropic":
+		anthropicFileDeleted := new(AnthropicFileDeleted)
+		if err := utils.UnmarshalJSON(data, &anthropicFileDeleted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Shape == anthropic) type AnthropicFileDeleted within FileDeleteResponse: %w", string(data), err)
+		}
+
+		u.AnthropicFileDeleted = anthropicFileDeleted
+		u.Type = FileDeleteResponseTypeAnthropic
+		return nil
+	case "openai":
+		openAIFileDeleted := new(OpenAIFileDeleted)
+		if err := utils.UnmarshalJSON(data, &openAIFileDeleted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Shape == openai) type OpenAIFileDeleted within FileDeleteResponse: %w", string(data), err)
+		}
+
+		u.OpenAIFileDeleted = openAIFileDeleted
+		u.Type = FileDeleteResponseTypeOpenai
+		return nil
+	case "openrouter":
+		openRouterFileDeleted := new(OpenRouterFileDeleted)
+		if err := utils.UnmarshalJSON(data, &openRouterFileDeleted, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Shape == openrouter) type OpenRouterFileDeleted within FileDeleteResponse: %w", string(data), err)
+		}
+
+		u.OpenRouterFileDeleted = openRouterFileDeleted
+		u.Type = FileDeleteResponseTypeOpenrouter
 		return nil
 	default:
-		return fmt.Errorf("invalid value for FileDeleteResponseType: %v", v)
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FileDeleteResponseTypeUnknown
+		return nil
 	}
+
 }
 
-// FileDeleteResponse - Confirmation that a file was deleted.
-type FileDeleteResponse struct {
-	ID   string                 `json:"id"`
-	Type FileDeleteResponseType `json:"type"`
-}
-
-func (f *FileDeleteResponse) GetID() string {
-	if f == nil {
-		return ""
+func (u FileDeleteResponse) MarshalJSON() ([]byte, error) {
+	if u.OpenRouterFileDeleted != nil {
+		return utils.MarshalJSON(u.OpenRouterFileDeleted, "", true)
 	}
-	return f.ID
-}
 
-func (f *FileDeleteResponse) GetType() FileDeleteResponseType {
-	if f == nil {
-		return FileDeleteResponseType("")
+	if u.OpenAIFileDeleted != nil {
+		return utils.MarshalJSON(u.OpenAIFileDeleted, "", true)
 	}
-	return f.Type
+
+	if u.AnthropicFileDeleted != nil {
+		return utils.MarshalJSON(u.AnthropicFileDeleted, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type FileDeleteResponse: all fields are null")
 }

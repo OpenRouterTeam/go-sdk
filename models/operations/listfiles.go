@@ -6,6 +6,29 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
+// Order - Sort direction. Only `asc` is supported by OpenRouter storage.
+type Order string
+
+const (
+	OrderAsc  Order = "asc"
+	OrderDesc Order = "desc"
+)
+
+func (e Order) ToPointer() *Order {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Order) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "asc", "desc":
+			return true
+		}
+	}
+	return false
+}
+
 type ListFilesRequest struct {
 	// Maximum number of files to return (1–1000).
 	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
@@ -13,6 +36,16 @@ type ListFilesRequest struct {
 	Cursor *string `queryParam:"style=form,explode=true,name=cursor"`
 	// Workspace to scope the request to. Defaults to the caller’s default workspace.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
+	// Store or read this file on the named provider using your own API key for it. Omit to use OpenRouter storage.
+	Provider *components.FileProvider `queryParam:"style=form,explode=true,name=provider"`
+	// OpenAI-style forward cursor: the id to list after.
+	After *string `queryParam:"style=form,explode=true,name=after"`
+	// Anthropic-style forward cursor: the id to list after.
+	AfterID *string `queryParam:"style=form,explode=true,name=after_id"`
+	// Anthropic-style reverse cursor. Not supported by OpenRouter storage.
+	BeforeID *string `queryParam:"style=form,explode=true,name=before_id"`
+	// Sort direction. Only `asc` is supported by OpenRouter storage.
+	Order *Order `queryParam:"style=form,explode=true,name=order"`
 }
 
 func (l *ListFilesRequest) GetLimit() *int64 {
@@ -36,6 +69,41 @@ func (l *ListFilesRequest) GetWorkspaceID() *string {
 	return l.WorkspaceID
 }
 
+func (l *ListFilesRequest) GetProvider() *components.FileProvider {
+	if l == nil {
+		return nil
+	}
+	return l.Provider
+}
+
+func (l *ListFilesRequest) GetAfter() *string {
+	if l == nil {
+		return nil
+	}
+	return l.After
+}
+
+func (l *ListFilesRequest) GetAfterID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.AfterID
+}
+
+func (l *ListFilesRequest) GetBeforeID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.BeforeID
+}
+
+func (l *ListFilesRequest) GetOrder() *Order {
+	if l == nil {
+		return nil
+	}
+	return l.Order
+}
+
 type ListFilesResponse struct {
 	Result components.FileListResponse
 
@@ -47,4 +115,16 @@ func (l *ListFilesResponse) GetResult() components.FileListResponse {
 		return components.FileListResponse{}
 	}
 	return l.Result
+}
+
+func (l *ListFilesResponse) GetResultAnthropic() *components.AnthropicFileList {
+	return l.GetResult().AnthropicFileList
+}
+
+func (l *ListFilesResponse) GetResultOpenai() *components.OpenAIFileList {
+	return l.GetResult().OpenAIFileList
+}
+
+func (l *ListFilesResponse) GetResultOpenrouter() *components.OpenRouterFileList {
+	return l.GetResult().OpenRouterFileList
 }

@@ -2,15 +2,42 @@
 title: "FileListResponse"
 ---
 
-A page of files belonging to the requesting workspace.
+A page of files, in the negotiated shape.
 
 
-## Fields
+## Supported Types
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `Cursor`                                                              | `*string`                                                             | :heavy_check_mark:                                                    | Opaque cursor for the next page; null when there are no more results. |
-| `Data`                                                                | [][components.FileMetadata](../../models/components/filemetadata.mdx)  | :heavy_check_mark:                                                    | N/A                                                                   |
-| `FirstID`                                                             | `*string`                                                             | :heavy_check_mark:                                                    | N/A                                                                   |
-| `HasMore`                                                             | `bool`                                                                | :heavy_check_mark:                                                    | N/A                                                                   |
-| `LastID`                                                              | `*string`                                                             | :heavy_check_mark:                                                    | N/A                                                                   |
+### AnthropicFileList
+
+```go
+fileListResponse := components.CreateFileListResponseAnthropic(components.AnthropicFileList{/* values here */})
+```
+
+### OpenAIFileList
+
+```go
+fileListResponse := components.CreateFileListResponseOpenai(components.OpenAIFileList{/* values here */})
+```
+
+### OpenRouterFileList
+
+```go
+fileListResponse := components.CreateFileListResponseOpenrouter(components.OpenRouterFileList{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch fileListResponse.Type {
+	case components.FileListResponseTypeAnthropic:
+		// fileListResponse.AnthropicFileList is populated
+	case components.FileListResponseTypeOpenai:
+		// fileListResponse.OpenAIFileList is populated
+	case components.FileListResponseTypeOpenrouter:
+		// fileListResponse.OpenRouterFileList is populated
+	default:
+		// Unknown type - use fileListResponse.GetUnknownRaw() for raw JSON
+}
+```

@@ -2,47 +2,152 @@
 
 package components
 
-// FileListResponse - A page of files belonging to the requesting workspace.
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
+type FileListResponseType string
+
+const (
+	FileListResponseTypeAnthropic  FileListResponseType = "anthropic"
+	FileListResponseTypeOpenai     FileListResponseType = "openai"
+	FileListResponseTypeOpenrouter FileListResponseType = "openrouter"
+	FileListResponseTypeUnknown    FileListResponseType = "UNKNOWN"
+)
+
+// FileListResponse - A page of files, in the negotiated shape.
 type FileListResponse struct {
-	// Opaque cursor for the next page; null when there are no more results.
-	Cursor  *string        `json:"cursor"`
-	Data    []FileMetadata `json:"data"`
-	FirstID *string        `json:"first_id"`
-	HasMore bool           `json:"has_more"`
-	LastID  *string        `json:"last_id"`
+	OpenRouterFileList *OpenRouterFileList `queryParam:"inline" union:"member"`
+	OpenAIFileList     *OpenAIFileList     `queryParam:"inline" union:"member"`
+	AnthropicFileList  *AnthropicFileList  `queryParam:"inline" union:"member"`
+	UnknownRaw         json.RawMessage     `json:"-" union:"unknown"`
+
+	Type FileListResponseType
 }
 
-func (f *FileListResponse) GetCursor() *string {
-	if f == nil {
+func CreateFileListResponseAnthropic(anthropic AnthropicFileList) FileListResponse {
+	typ := FileListResponseTypeAnthropic
+
+	typStr := AnthropicFileListShape(typ)
+	anthropic.Shape = typStr
+
+	return FileListResponse{
+		AnthropicFileList: &anthropic,
+		Type:              typ,
+	}
+}
+
+func CreateFileListResponseOpenai(openai OpenAIFileList) FileListResponse {
+	typ := FileListResponseTypeOpenai
+
+	typStr := OpenAIFileListShape(typ)
+	openai.Shape = typStr
+
+	return FileListResponse{
+		OpenAIFileList: &openai,
+		Type:           typ,
+	}
+}
+
+func CreateFileListResponseOpenrouter(openrouter OpenRouterFileList) FileListResponse {
+	typ := FileListResponseTypeOpenrouter
+
+	typStr := OpenRouterFileListShape(typ)
+	openrouter.Shape = typStr
+
+	return FileListResponse{
+		OpenRouterFileList: &openrouter,
+		Type:               typ,
+	}
+}
+
+func CreateFileListResponseUnknown(raw json.RawMessage) FileListResponse {
+	return FileListResponse{
+		UnknownRaw: raw,
+		Type:       FileListResponseTypeUnknown,
+	}
+}
+
+func (u FileListResponse) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u FileListResponse) IsUnknown() bool {
+	return u.Type == FileListResponseTypeUnknown
+}
+
+func (u *FileListResponse) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Shape string `json:"_shape"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FileListResponseTypeUnknown
 		return nil
 	}
-	return f.Cursor
-}
-
-func (f *FileListResponse) GetData() []FileMetadata {
-	if f == nil {
-		return []FileMetadata{}
-	}
-	return f.Data
-}
-
-func (f *FileListResponse) GetFirstID() *string {
-	if f == nil {
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FileListResponseTypeUnknown
 		return nil
 	}
-	return f.FirstID
-}
 
-func (f *FileListResponse) GetHasMore() bool {
-	if f == nil {
-		return false
-	}
-	return f.HasMore
-}
+	switch dis.Shape {
+	case "anthropic":
+		anthropicFileList := new(AnthropicFileList)
+		if err := utils.UnmarshalJSON(data, &anthropicFileList, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Shape == anthropic) type AnthropicFileList within FileListResponse: %w", string(data), err)
+		}
 
-func (f *FileListResponse) GetLastID() *string {
-	if f == nil {
+		u.AnthropicFileList = anthropicFileList
+		u.Type = FileListResponseTypeAnthropic
+		return nil
+	case "openai":
+		openAIFileList := new(OpenAIFileList)
+		if err := utils.UnmarshalJSON(data, &openAIFileList, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Shape == openai) type OpenAIFileList within FileListResponse: %w", string(data), err)
+		}
+
+		u.OpenAIFileList = openAIFileList
+		u.Type = FileListResponseTypeOpenai
+		return nil
+	case "openrouter":
+		openRouterFileList := new(OpenRouterFileList)
+		if err := utils.UnmarshalJSON(data, &openRouterFileList, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Shape == openrouter) type OpenRouterFileList within FileListResponse: %w", string(data), err)
+		}
+
+		u.OpenRouterFileList = openRouterFileList
+		u.Type = FileListResponseTypeOpenrouter
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = FileListResponseTypeUnknown
 		return nil
 	}
-	return f.LastID
+
+}
+
+func (u FileListResponse) MarshalJSON() ([]byte, error) {
+	if u.OpenRouterFileList != nil {
+		return utils.MarshalJSON(u.OpenRouterFileList, "", true)
+	}
+
+	if u.OpenAIFileList != nil {
+		return utils.MarshalJSON(u.OpenAIFileList, "", true)
+	}
+
+	if u.AnthropicFileList != nil {
+		return utils.MarshalJSON(u.AnthropicFileList, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type FileListResponse: all fields are null")
 }

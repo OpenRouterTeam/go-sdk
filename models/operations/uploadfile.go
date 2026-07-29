@@ -2,6 +2,10 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type UploadFileFile struct {
 	FileName string `multipartForm:"name=fileName"`
 	// This field accepts []byte data or io.Reader implementations, such as *os.File.
@@ -35,8 +39,10 @@ func (u *UploadFileRequestBody) GetFile() UploadFileFile {
 
 type UploadFileRequest struct {
 	// Workspace to scope the request to. Defaults to the caller’s default workspace.
-	WorkspaceID *string               `queryParam:"style=form,explode=true,name=workspace_id"`
-	RequestBody UploadFileRequestBody `request:"mediaType=multipart/form-data"`
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
+	// Store or read this file on the named provider using your own API key for it. Omit to use OpenRouter storage.
+	Provider    *components.FileProvider `queryParam:"style=form,explode=true,name=provider"`
+	RequestBody UploadFileRequestBody    `request:"mediaType=multipart/form-data"`
 }
 
 func (u *UploadFileRequest) GetWorkspaceID() *string {
@@ -44,6 +50,13 @@ func (u *UploadFileRequest) GetWorkspaceID() *string {
 		return nil
 	}
 	return u.WorkspaceID
+}
+
+func (u *UploadFileRequest) GetProvider() *components.FileProvider {
+	if u == nil {
+		return nil
+	}
+	return u.Provider
 }
 
 func (u *UploadFileRequest) GetRequestBody() UploadFileRequestBody {
