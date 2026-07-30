@@ -1,0 +1,33 @@
+---
+title: "KeepMembers"
+---
+
+Required. Whether to keep workspace members after deleting the mapping. `false` **removes** the members this mapping granted access to; `true` deletes the mapping while leaving membership intact as manually-managed. There is deliberately no default — omitting it returns `400` so the destructive path cannot be reached by accident. Mirrors the dashboard, whose `DeleteMappingSchema.keepMembers` is likewise required.
+
+
+## Supported Types
+
+### KeepMembersEnum
+
+```go
+keepMembers := operations.CreateKeepMembersKeepMembersEnum(operations.KeepMembersEnum{/* values here */})
+```
+
+### 
+
+```go
+keepMembers := operations.CreateKeepMembersBoolean(bool{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch keepMembers.Type {
+	case operations.KeepMembersTypeKeepMembersEnum:
+		// keepMembers.KeepMembersEnum is populated
+	case operations.KeepMembersTypeBoolean:
+		// keepMembers.Boolean is populated
+}
+```

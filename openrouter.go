@@ -106,6 +106,8 @@ type OpenRouter struct {
 	Rerank *Rerank
 	// OpenAI-compatible Responses API endpoints
 	Responses *Responses
+	// SCIM endpoints
+	Scim *Scim
 	// Video Generation endpoints
 	VideoGeneration *VideoGeneration
 	// Workspaces endpoints
@@ -201,9 +203,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.7.13",
+		SDKVersion: "0.7.14",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.7.13 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.7.14 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -254,6 +256,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Providers = newProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Rerank = newRerank(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Responses = newResponses(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Scim = newScim(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.VideoGeneration = newVideoGeneration(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Workspaces = newWorkspaces(sdk, sdk.sdkConfiguration, sdk.hooks)
 

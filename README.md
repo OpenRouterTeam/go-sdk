@@ -330,6 +330,15 @@ func main() {
 
 * [Send](docs/sdks/responses/README.md#send) - Create a response
 
+### [Scim](docs/sdks/scim/README.md)
+
+* [ListMappings](docs/sdks/scim/README.md#listmappings) - List SCIM group mappings
+* [Create](docs/sdks/scim/README.md#create) - Create a SCIM group mapping
+* [Delete](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping
+* [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
+* [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
+* [ListGroups](docs/sdks/scim/README.md#listgroups) - List SCIM groups
+
 ### [STT](docs/sdks/stt/README.md)
 
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
