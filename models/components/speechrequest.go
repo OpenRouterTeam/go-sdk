@@ -66,7 +66,7 @@ type SpeechRequest struct {
 	// Playback speed multiplier. Only used by models that support it (e.g. OpenAI TTS). Ignored by other providers.
 	Speed *float64 `json:"speed,omitzero"`
 	// Voice identifier (provider-specific).
-	Voice string `json:"voice"`
+	Voice *string `json:"voice,omitzero"`
 }
 
 func (s SpeechRequest) MarshalJSON() ([]byte, error) {
@@ -115,9 +115,9 @@ func (s *SpeechRequest) GetSpeed() *float64 {
 	return s.Speed
 }
 
-func (s *SpeechRequest) GetVoice() string {
+func (s *SpeechRequest) GetVoice() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.Voice
 }

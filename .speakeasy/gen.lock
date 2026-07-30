@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ed5d9b8fed96b8a5464302cf6e586597
+  docChecksum: e1b07f8b05663c248d1dd769a8592319
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.11
-  configChecksum: 165e953d13eeaec3fc2cabd20335f58e
+  releaseVersion: 0.7.12
+  configChecksum: 42cb90dfe972f15610ccb8ee7ead75ed
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: c63b1b7a-8870-460c-82ea-9aa32506daf9
-  pristine_commit_hash: aaf9da68753b5a80689cd966d8be71bff6a4549b
-  pristine_tree_hash: e114b8496408ff07f76a58c76b79959acf37577a
+  generation_id: 5b34b103-ef06-4344-9447-99abb8a0858c
+  pristine_commit_hash: 6bc3ae365a648d670b9a80a181b52f6100912baa
+  pristine_tree_hash: 8f3dc63a1065ded9403e2069d26921c97458aca7
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4687,8 +4687,8 @@ trackedFiles:
     pristine_git_object: e2787b1e7be4600fe347c8d90077895fb86ff3a5
   docs/models/components/speechrequest.mdx:
     id: 572bb1b07290
-    last_write_checksum: sha1:037cfbe99d247fc8ad6c64babbbfba1e5f55bd6c
-    pristine_git_object: f0492e91d5baea2390eabab3de17d75a6c349a5f
+    last_write_checksum: sha1:227681d17757b2ea3475c2539177bf3ecbbc401f
+    pristine_git_object: 71c4bbd192661b0d7d78102069f5465b806cfd3a
   docs/models/components/speechrequestprovider.mdx:
     id: 70ddc64fe615
     last_write_checksum: sha1:0b345acd1029103dca5e9dbe7e3480cad15266d7
@@ -6499,8 +6499,8 @@ trackedFiles:
     pristine_git_object: 82330b9e23ffdc5850e391a0e39c3efa36538edf
   docs/sdks/tts/README.mdx:
     id: cd1132543884
-    last_write_checksum: sha1:db06fb7d332c276221b3719d3195645ce4256af2
-    pristine_git_object: 02b71e92b8d69a69e82ecad897b1a2869ca4e7a0
+    last_write_checksum: sha1:3859420595e121f0948dfe8ada4d6eb04865a5a0
+    pristine_git_object: e4a1d0535eb46babec24fad19f3664fcc9ca07b7
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
     last_write_checksum: sha1:0a7943bee5486f2e27dee50984508fa01d989afd
@@ -8563,8 +8563,8 @@ trackedFiles:
     pristine_git_object: 696bbae97193bc399544e814a3e9d99a24522909
   models/components/speechrequest.go:
     id: c5f83d3285eb
-    last_write_checksum: sha1:d473f983fbaeb8462b53fb0d6cbfac241334a323
-    pristine_git_object: 379da4b797b949279ce6a44b2292f06611fa79ad
+    last_write_checksum: sha1:b3e1fbb4099d7505a7c799283be18c54bbf266e8
+    pristine_git_object: ad5e9fd0de60f6bae13d93dc49f29d26f16eeaee
   models/components/stopservertoolswhencondition.go:
     id: 6c12d61377dc
     last_write_checksum: sha1:600037f2c92bb83b31cc6469a5ce9a169ee82b09
@@ -9307,8 +9307,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:0aecb52d1299ac4e065a9a571561d3814e314287
-    pristine_git_object: 9c9f6c7338aeef0e3b98aee2a1163e4a2d30e84f
+    last_write_checksum: sha1:bcf2bb951a3628249e9a3e113a43670bda26c92c
+    pristine_git_object: 96ac51b2678b635552c325ee4ca37b6a946b3592
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10092,7 +10092,7 @@ examples:
   createAudioSpeech:
     speakeasy-default-create-audio-speech:
       requestBody:
-        application/json: {"input": "Hello world", "model": "mistralai/voxtral-mini-tts-2603", "response_format": "pcm", "voice": "en_paul_neutral"}
+        application/json: {"input": "Hello world", "model": "mistralai/voxtral-mini-tts-2603", "response_format": "pcm"}
       responses:
         "200":
           audio/*: "<binary audio data>"
@@ -10982,4 +10982,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Resolution.Enum(768p)` **Added**\n* `OpenRouter.VideoGeneration.ListVideosModels()`:  `response.Data[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Voice` **Changed**\n"

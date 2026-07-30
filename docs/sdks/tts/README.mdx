@@ -39,7 +39,7 @@ func main() {
         Input: "Hello world",
         Model: "mistralai/voxtral-mini-tts-2603",
         Speed: openrouter.Pointer[float64](1.0),
-        Voice: "en_paul_neutral",
+        Voice: openrouter.Pointer("en_paul_neutral"),
     })
     if err != nil {
         log.Fatal(err)
