@@ -308,6 +308,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Targon              map[string]any `json:"targon,omitzero"`
 	Tencent             map[string]any `json:"tencent,omitzero"`
 	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
+	Thinkingmachines    map[string]any `json:"thinkingmachines,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
@@ -1164,6 +1165,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetTenstorrent() map[string]
 		return nil
 	}
 	return i.Tenstorrent
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetThinkingmachines() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Thinkingmachines
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetTogether() map[string]any {

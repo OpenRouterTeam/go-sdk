@@ -157,6 +157,7 @@ type VideoGenerationRequestOptions struct {
 	Targon              map[string]any `json:"targon,omitzero"`
 	Tencent             map[string]any `json:"tencent,omitzero"`
 	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
+	Thinkingmachines    map[string]any `json:"thinkingmachines,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
@@ -1013,6 +1014,13 @@ func (v *VideoGenerationRequestOptions) GetTenstorrent() map[string]any {
 		return nil
 	}
 	return v.Tenstorrent
+}
+
+func (v *VideoGenerationRequestOptions) GetThinkingmachines() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Thinkingmachines
 }
 
 func (v *VideoGenerationRequestOptions) GetTogether() map[string]any {
