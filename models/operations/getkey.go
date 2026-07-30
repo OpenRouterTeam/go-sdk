@@ -23,13 +23,13 @@ func (g *GetKeyRequest) GetHash() string {
 // GetKeyData - The API key information
 type GetKeyData struct {
 	// Total external BYOK usage (in USD) for the API key
-	ByokUsage float64 `json:"byok_usage"`
+	BYOKUsage float64 `json:"byok_usage"`
 	// External BYOK usage (in USD) for the current UTC day
-	ByokUsageDaily float64 `json:"byok_usage_daily"`
+	BYOKUsageDaily float64 `json:"byok_usage_daily"`
 	// External BYOK usage (in USD) for current UTC month
-	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
+	BYOKUsageMonthly float64 `json:"byok_usage_monthly"`
 	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
-	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
+	BYOKUsageWeekly float64 `json:"byok_usage_weekly"`
 	// ISO 8601 timestamp of when the API key was created
 	CreatedAt string `json:"created_at"`
 	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
@@ -41,7 +41,7 @@ type GetKeyData struct {
 	// Unique hash identifier for the API key
 	Hash string `json:"hash"`
 	// Whether to include external BYOK usage in the credit limit
-	IncludeByokInLimit bool `json:"include_byok_in_limit"`
+	IncludeBYOKInLimit bool `json:"include_byok_in_limit"`
 	// Human-readable label for the API key
 	Label string `json:"label"`
 	// Spending limit for the API key in USD
@@ -77,32 +77,32 @@ func (g *GetKeyData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GetKeyData) GetByokUsage() float64 {
+func (g *GetKeyData) GetBYOKUsage() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsage
+	return g.BYOKUsage
 }
 
-func (g *GetKeyData) GetByokUsageDaily() float64 {
+func (g *GetKeyData) GetBYOKUsageDaily() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsageDaily
+	return g.BYOKUsageDaily
 }
 
-func (g *GetKeyData) GetByokUsageMonthly() float64 {
+func (g *GetKeyData) GetBYOKUsageMonthly() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsageMonthly
+	return g.BYOKUsageMonthly
 }
 
-func (g *GetKeyData) GetByokUsageWeekly() float64 {
+func (g *GetKeyData) GetBYOKUsageWeekly() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsageWeekly
+	return g.BYOKUsageWeekly
 }
 
 func (g *GetKeyData) GetCreatedAt() string {
@@ -140,11 +140,11 @@ func (g *GetKeyData) GetHash() string {
 	return g.Hash
 }
 
-func (g *GetKeyData) GetIncludeByokInLimit() bool {
+func (g *GetKeyData) GetIncludeBYOKInLimit() bool {
 	if g == nil {
 		return false
 	}
-	return g.IncludeByokInLimit
+	return g.IncludeBYOKInLimit
 }
 
 func (g *GetKeyData) GetLabel() string {

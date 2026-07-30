@@ -1,5 +1,5 @@
 ---
-title: "Stt"
+title: "STT"
 description: "Speech-to-text endpoints"
 ---
 
@@ -36,7 +36,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Stt.CreateTranscription(ctx, components.STTRequest{
+    res, err := s.STT.CreateTranscription(ctx, components.STTRequest{
         InputAudio: components.STTInputAudio{
             Data: "UklGRiQA...",
             Format: "wav",
@@ -110,7 +110,7 @@ func main() {
         panic(fileErr)
     }
 
-    res, err := s.Stt.CreateTranscriptionMultipart(ctx, operations.CreateAudioTranscriptionsMultipartRequest{
+    res, err := s.STT.CreateTranscriptionMultipart(ctx, operations.CreateAudioTranscriptionsMultipartRequest{
         File: operations.CreateAudioTranscriptionsMultipartFile{
             FileName: "example.file",
             Content: example,

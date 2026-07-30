@@ -4,7 +4,7 @@ package components
 
 type ActivityItem struct {
 	// BYOK inference cost in USD (external credits spent)
-	ByokUsageInference float64 `json:"byok_usage_inference"`
+	BYOKUsageInference float64 `json:"byok_usage_inference"`
 	// Total completion tokens generated
 	CompletionTokens int64 `json:"completion_tokens"`
 	// Date of the activity (YYYY-MM-DD format)
@@ -27,11 +27,11 @@ type ActivityItem struct {
 	Usage float64 `json:"usage"`
 }
 
-func (a *ActivityItem) GetByokUsageInference() float64 {
+func (a *ActivityItem) GetBYOKUsageInference() float64 {
 	if a == nil {
 		return 0.0
 	}
-	return a.ByokUsageInference
+	return a.BYOKUsageInference
 }
 
 func (a *ActivityItem) GetCompletionTokens() int64 {

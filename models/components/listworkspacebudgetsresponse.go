@@ -6,7 +6,7 @@ type ListWorkspaceBudgetsResponse struct {
 	// List of budgets configured for the workspace
 	Data []WorkspaceBudget `json:"data"`
 	// Whether BYOK (bring-your-own-key) spend is included when enforcing the workspace's budgets. This is a workspace-wide setting that applies to all budget intervals (daily, weekly, monthly, and lifetime).
-	IncludeByokInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
+	IncludeBYOKInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
 }
 
 func (l *ListWorkspaceBudgetsResponse) GetData() []WorkspaceBudget {
@@ -16,9 +16,9 @@ func (l *ListWorkspaceBudgetsResponse) GetData() []WorkspaceBudget {
 	return l.Data
 }
 
-func (l *ListWorkspaceBudgetsResponse) GetIncludeByokInBudgets() *bool {
+func (l *ListWorkspaceBudgetsResponse) GetIncludeBYOKInBudgets() *bool {
 	if l == nil {
 		return nil
 	}
-	return l.IncludeByokInBudgets
+	return l.IncludeBYOKInBudgets
 }

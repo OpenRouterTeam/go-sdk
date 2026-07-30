@@ -458,7 +458,7 @@ func main() {
     )
 
     res, err := s.Workspaces.SetBudget(ctx, "production", components.WorkspaceBudgetIntervalMonthly, components.UpsertWorkspaceBudgetRequest{
-        IncludeByokInBudgets: openrouter.Pointer(true),
+        IncludeBYOKInBudgets: openrouter.Pointer(true),
         LimitUsd: 100.0,
     })
     if err != nil {

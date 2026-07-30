@@ -677,7 +677,7 @@ type Usage struct {
 	Cost        optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
 	CostDetails *UsageCostDetails                          `json:"cost_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
-	IsByok *bool `json:"is_byok,omitzero"`
+	IsBYOK *bool `json:"is_byok,omitzero"`
 	// Usage for server-side tool execution (e.g., web search)
 	ServerToolUseDetails optionalnullable.OptionalNullable[ServerToolUseDetails] `json:"server_tool_use_details,omitzero"`
 }
@@ -742,11 +742,11 @@ func (u *Usage) GetCostDetails() *UsageCostDetails {
 	return u.CostDetails
 }
 
-func (u *Usage) GetIsByok() *bool {
+func (u *Usage) GetIsBYOK() *bool {
 	if u == nil {
 		return nil
 	}
-	return u.IsByok
+	return u.IsBYOK
 }
 
 func (u *Usage) GetServerToolUseDetails() optionalnullable.OptionalNullable[ServerToolUseDetails] {

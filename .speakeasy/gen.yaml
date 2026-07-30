@@ -36,10 +36,17 @@ generation:
   documentation: mintlify
   preApplyUnionDiscriminators: true
 go:
-  version: 0.7.12
+  version: 0.7.13
   additionalDependencies: {}
   baseErrorName: OpenRouterError
   clientServerStatusCodesAsErrors: true
+  customCasings:
+    byok:
+      initialism: true
+    stt:
+      initialism: true
+    tts:
+      initialism: true
   defaultErrorName: APIError
   enableCustomCodeRegions: false
   enableSkipDeserialization: false

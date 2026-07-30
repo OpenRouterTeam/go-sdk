@@ -44,19 +44,19 @@ func (r *RateLimit) GetRequests() int64 {
 // GetCurrentKeyData - Current API key information
 type GetCurrentKeyData struct {
 	// Total external BYOK usage (in USD) for the API key
-	ByokUsage float64 `json:"byok_usage"`
+	BYOKUsage float64 `json:"byok_usage"`
 	// External BYOK usage (in USD) for the current UTC day
-	ByokUsageDaily float64 `json:"byok_usage_daily"`
+	BYOKUsageDaily float64 `json:"byok_usage_daily"`
 	// External BYOK usage (in USD) for current UTC month
-	ByokUsageMonthly float64 `json:"byok_usage_monthly"`
+	BYOKUsageMonthly float64 `json:"byok_usage_monthly"`
 	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
-	ByokUsageWeekly float64 `json:"byok_usage_weekly"`
+	BYOKUsageWeekly float64 `json:"byok_usage_weekly"`
 	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
 	CreatorUserID *string `json:"creator_user_id"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
 	// Whether to include external BYOK usage in the credit limit
-	IncludeByokInLimit bool `json:"include_byok_in_limit"`
+	IncludeBYOKInLimit bool `json:"include_byok_in_limit"`
 	// Whether this is a free tier API key
 	IsFreeTier bool `json:"is_free_tier"`
 	// Whether this is a management key
@@ -98,32 +98,32 @@ func (g *GetCurrentKeyData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GetCurrentKeyData) GetByokUsage() float64 {
+func (g *GetCurrentKeyData) GetBYOKUsage() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsage
+	return g.BYOKUsage
 }
 
-func (g *GetCurrentKeyData) GetByokUsageDaily() float64 {
+func (g *GetCurrentKeyData) GetBYOKUsageDaily() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsageDaily
+	return g.BYOKUsageDaily
 }
 
-func (g *GetCurrentKeyData) GetByokUsageMonthly() float64 {
+func (g *GetCurrentKeyData) GetBYOKUsageMonthly() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsageMonthly
+	return g.BYOKUsageMonthly
 }
 
-func (g *GetCurrentKeyData) GetByokUsageWeekly() float64 {
+func (g *GetCurrentKeyData) GetBYOKUsageWeekly() float64 {
 	if g == nil {
 		return 0.0
 	}
-	return g.ByokUsageWeekly
+	return g.BYOKUsageWeekly
 }
 
 func (g *GetCurrentKeyData) GetCreatorUserID() *string {
@@ -140,11 +140,11 @@ func (g *GetCurrentKeyData) GetExpiresAt() optionalnullable.OptionalNullable[tim
 	return g.ExpiresAt
 }
 
-func (g *GetCurrentKeyData) GetIncludeByokInLimit() bool {
+func (g *GetCurrentKeyData) GetIncludeBYOKInLimit() bool {
 	if g == nil {
 		return false
 	}
-	return g.IncludeByokInLimit
+	return g.IncludeBYOKInLimit
 }
 
 func (g *GetCurrentKeyData) GetIsFreeTier() bool {

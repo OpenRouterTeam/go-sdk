@@ -47,7 +47,7 @@ type Guardrail struct {
 	// List of provider IDs to exclude from routing
 	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
-	IncludeByokInBudgets bool `json:"include_byok_in_budgets"`
+	IncludeBYOKInBudgets bool `json:"include_byok_in_budgets"`
 	// Spending limit in USD
 	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
 	// Name of the guardrail
@@ -197,11 +197,11 @@ func (g *Guardrail) GetIgnoredProviders() optionalnullable.OptionalNullable[[]st
 	return g.IgnoredProviders
 }
 
-func (g *Guardrail) GetIncludeByokInBudgets() bool {
+func (g *Guardrail) GetIncludeBYOKInBudgets() bool {
 	if g == nil {
 		return false
 	}
-	return g.IncludeByokInBudgets
+	return g.IncludeBYOKInBudgets
 }
 
 func (g *Guardrail) GetLimitUsd() optionalnullable.OptionalNullable[float64] {

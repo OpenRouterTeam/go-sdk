@@ -98,7 +98,7 @@ type ChatUsage struct {
 	// Breakdown of upstream inference costs
 	CostDetails optionalnullable.OptionalNullable[CostDetails] `json:"cost_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
-	IsByok *bool `json:"is_byok,omitzero"`
+	IsBYOK *bool `json:"is_byok,omitzero"`
 	// Number of tokens in the prompt
 	PromptTokens int64 `json:"prompt_tokens"`
 	// Detailed prompt token usage
@@ -148,11 +148,11 @@ func (c *ChatUsage) GetCostDetails() optionalnullable.OptionalNullable[CostDetai
 	return c.CostDetails
 }
 
-func (c *ChatUsage) GetIsByok() *bool {
+func (c *ChatUsage) GetIsBYOK() *bool {
 	if c == nil {
 		return nil
 	}
-	return c.IsByok
+	return c.IsBYOK
 }
 
 func (c *ChatUsage) GetPromptTokens() int64 {

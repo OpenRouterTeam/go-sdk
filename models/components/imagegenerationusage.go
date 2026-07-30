@@ -161,7 +161,7 @@ type ImageGenerationUsage struct {
 	// Breakdown of upstream inference costs
 	CostDetails optionalnullable.OptionalNullable[CostDetails] `json:"cost_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
-	IsByok     *bool                                                        `json:"is_byok,omitzero"`
+	IsBYOK     *bool                                                        `json:"is_byok,omitzero"`
 	Iterations optionalnullable.OptionalNullable[[]AnthropicUsageIteration] `json:"iterations,omitzero"`
 	// Including images, input audio, and tools if any
 	PromptTokens int64 `json:"prompt_tokens"`
@@ -222,11 +222,11 @@ func (i *ImageGenerationUsage) GetCostDetails() optionalnullable.OptionalNullabl
 	return i.CostDetails
 }
 
-func (i *ImageGenerationUsage) GetIsByok() *bool {
+func (i *ImageGenerationUsage) GetIsBYOK() *bool {
 	if i == nil {
 		return nil
 	}
-	return i.IsByok
+	return i.IsBYOK
 }
 
 func (i *ImageGenerationUsage) GetIterations() optionalnullable.OptionalNullable[[]AnthropicUsageIteration] {

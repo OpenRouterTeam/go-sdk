@@ -20,7 +20,7 @@ type Workspace struct {
 	// Unique identifier for the workspace
 	ID string `json:"id"`
 	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
-	IncludeByokInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
+	IncludeBYOKInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
 	// Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
 	IoLoggingAPIKeyIds []int64 `json:"io_logging_api_key_ids"`
 	// Sampling rate for I/O logging (0.0001-1). 1 means 100% of requests are logged.
@@ -95,11 +95,11 @@ func (w *Workspace) GetID() string {
 	return w.ID
 }
 
-func (w *Workspace) GetIncludeByokInBudgets() *bool {
+func (w *Workspace) GetIncludeBYOKInBudgets() *bool {
 	if w == nil {
 		return nil
 	}
-	return w.IncludeByokInBudgets
+	return w.IncludeBYOKInBudgets
 }
 
 func (w *Workspace) GetIoLoggingAPIKeyIds() []int64 {

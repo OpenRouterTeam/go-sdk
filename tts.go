@@ -18,15 +18,15 @@ import (
 	"net/url"
 )
 
-// Tts - Text-to-speech endpoints
-type Tts struct {
+// TTS - Text-to-speech endpoints
+type TTS struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newTts(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Tts {
-	return &Tts{
+func newTTS(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *TTS {
+	return &TTS{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -35,7 +35,7 @@ func newTts(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks
 
 // CreateSpeech - Create speech
 // Synthesizes audio from the input text. Returns a raw audio bytestream in the requested format (e.g. mp3, pcm, wav).
-func (s *Tts) CreateSpeech(ctx context.Context, request components.SpeechRequest, opts ...operations.Option) (io.ReadCloser, error) {
+func (s *TTS) CreateSpeech(ctx context.Context, request components.SpeechRequest, opts ...operations.Option) (io.ReadCloser, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
