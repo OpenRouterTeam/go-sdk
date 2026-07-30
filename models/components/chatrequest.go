@@ -578,12 +578,13 @@ func (u ResponseFormat) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ResponseFormat: all fields are null")
 }
 
-// ChatRequestServiceTier - The service tier to use for processing this request.
+// ChatRequestServiceTier - The service tier to use for processing this request. `fast` is accepted as an alias for `priority`.
 type ChatRequestServiceTier string
 
 const (
 	ChatRequestServiceTierAuto     ChatRequestServiceTier = "auto"
 	ChatRequestServiceTierDefault  ChatRequestServiceTier = "default"
+	ChatRequestServiceTierFast     ChatRequestServiceTier = "fast"
 	ChatRequestServiceTierFlex     ChatRequestServiceTier = "flex"
 	ChatRequestServiceTierPriority ChatRequestServiceTier = "priority"
 	ChatRequestServiceTierScale    ChatRequestServiceTier = "scale"
@@ -597,7 +598,7 @@ func (e ChatRequestServiceTier) ToPointer() *ChatRequestServiceTier {
 func (e *ChatRequestServiceTier) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "default", "flex", "priority", "scale":
+		case "auto", "default", "fast", "flex", "priority", "scale":
 			return true
 		}
 	}
@@ -747,7 +748,7 @@ type ChatRequest struct {
 	ResponseFormat *ResponseFormat `json:"response_format,omitzero"`
 	// Random seed for deterministic outputs
 	Seed optionalnullable.OptionalNullable[int64] `json:"seed,omitzero"`
-	// The service tier to use for processing this request.
+	// The service tier to use for processing this request. `fast` is accepted as an alias for `priority`.
 	ServiceTier optionalnullable.OptionalNullable[ChatRequestServiceTier] `json:"service_tier,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
