@@ -127,6 +127,7 @@ type ProviderOptions struct {
 	Targon              map[string]any `json:"targon,omitzero"`
 	Tencent             map[string]any `json:"tencent,omitzero"`
 	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
+	Thinkingmachines    map[string]any `json:"thinkingmachines,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
@@ -983,6 +984,13 @@ func (p *ProviderOptions) GetTenstorrent() map[string]any {
 		return nil
 	}
 	return p.Tenstorrent
+}
+
+func (p *ProviderOptions) GetThinkingmachines() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Thinkingmachines
 }
 
 func (p *ProviderOptions) GetTogether() map[string]any {
