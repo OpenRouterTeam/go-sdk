@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ed5d9b8fed96b8a5464302cf6e586597
+  docChecksum: e1b07f8b05663c248d1dd769a8592319
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.12
-  configChecksum: c09c7f2488c992b30e5ad0da22be7140
+  releaseVersion: 0.7.13
+  configChecksum: 12a85506172b2fd88dbae837af2871dc
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 9270f3c7-5757-434e-b9e3-cee9de720c6b
-  pristine_commit_hash: cfe9aea14694bc7b8f553bd38b69e5403af6f38c
-  pristine_tree_hash: 7597ca566619ab5af108244cde8b1be9d669baa9
+  generation_id: 5d8ca042-0436-4b7f-900b-3ecf50eeb8e4
+  pristine_commit_hash: a5770a9ca9c63813d7f3bab23bc2e7da1d0bc921
+  pristine_tree_hash: 3c6607d1aa77f4a811a71731f50bef871aca3c2a
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4687,8 +4687,8 @@ trackedFiles:
     pristine_git_object: e2787b1e7be4600fe347c8d90077895fb86ff3a5
   docs/models/components/speechrequest.mdx:
     id: 572bb1b07290
-    last_write_checksum: sha1:037cfbe99d247fc8ad6c64babbbfba1e5f55bd6c
-    pristine_git_object: f0492e91d5baea2390eabab3de17d75a6c349a5f
+    last_write_checksum: sha1:227681d17757b2ea3475c2539177bf3ecbbc401f
+    pristine_git_object: 71c4bbd192661b0d7d78102069f5465b806cfd3a
   docs/models/components/speechrequestprovider.mdx:
     id: 70ddc64fe615
     last_write_checksum: sha1:0b345acd1029103dca5e9dbe7e3480cad15266d7
@@ -6499,8 +6499,8 @@ trackedFiles:
     pristine_git_object: 8465a4f0fb1bc378a534dd27b1d4dd2f90907548
   docs/sdks/tts/README.mdx:
     id: cd1132543884
-    last_write_checksum: sha1:6da1d056fd089e5edd014e83f3475511573fc097
-    pristine_git_object: 1a56d9499af51e275da178ddfe45bbb0829a9adf
+    last_write_checksum: sha1:8b45db18dfe4412ee7cae9698bb39faa9013b64c
+    pristine_git_object: 064b776ab025925a2104d17391ca8770f9e2f967
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
     last_write_checksum: sha1:0a7943bee5486f2e27dee50984508fa01d989afd
@@ -8563,8 +8563,8 @@ trackedFiles:
     pristine_git_object: 696bbae97193bc399544e814a3e9d99a24522909
   models/components/speechrequest.go:
     id: c5f83d3285eb
-    last_write_checksum: sha1:d473f983fbaeb8462b53fb0d6cbfac241334a323
-    pristine_git_object: 379da4b797b949279ce6a44b2292f06611fa79ad
+    last_write_checksum: sha1:b3e1fbb4099d7505a7c799283be18c54bbf266e8
+    pristine_git_object: ad5e9fd0de60f6bae13d93dc49f29d26f16eeaee
   models/components/stopservertoolswhencondition.go:
     id: 6c12d61377dc
     last_write_checksum: sha1:600037f2c92bb83b31cc6469a5ce9a169ee82b09
@@ -9307,8 +9307,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:a586a0aec580b4f9159aca56eb243a042c358ee5
-    pristine_git_object: 667521464e4b56f236686e34f7bd520ca45c9c27
+    last_write_checksum: sha1:b31562eda7f773ce680f0575b32096270ae51f35
+    pristine_git_object: c15f7b2445f4da054be00a5cccc0b4fe8714f840
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10092,7 +10092,7 @@ examples:
   createAudioSpeech:
     speakeasy-default-create-audio-speech:
       requestBody:
-        application/json: {"input": "Hello world", "model": "mistralai/voxtral-mini-tts-2603", "response_format": "pcm", "voice": "en_paul_neutral"}
+        application/json: {"input": "Hello world", "model": "mistralai/voxtral-mini-tts-2603", "response_format": "pcm"}
       responses:
         "200":
           audio/*: "<binary audio data>"
