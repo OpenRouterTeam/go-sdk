@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8c9bfc518d0410e3a84772a97c24fd2d
+  docChecksum: 8d70790915c56a5debacbacebe8e51d2
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.16
-  configChecksum: 9b2fd8e2964ddc530f8c4d87fcf46ce9
+  releaseVersion: 0.7.17
+  configChecksum: 65dfa90a431f799a217bc1d905b87185
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 025d1e41-268c-4a60-ac9c-0c54b8cbf1b2
-  pristine_commit_hash: 0c4229bd66ba1f05546c5d6935b8970194f656a4
-  pristine_tree_hash: a2b197aa779b3aac2984fdd79844d1b102d14743
+  generation_id: f7dd3c6b-a3f4-4afd-81be-496952b95a7b
+  pristine_commit_hash: 65a9f146885b1ec62152caf1836553255ee667f0
+  pristine_tree_hash: 406d296dd42685e20a120aa742f508ef133cad9c
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2551,8 +2551,8 @@ trackedFiles:
     pristine_git_object: cc663c5d34aa11f735e77c83b742e8805fcfe453
   docs/models/components/inputsmessage.mdx:
     id: a25fa40ce73a
-    last_write_checksum: sha1:e25ebcab73497d61951a5afefc21731bb90e3d39
-    pristine_git_object: cb2b10ab1ddac94a779e2d06ec1c3ade69e3b1a2
+    last_write_checksum: sha1:07c76cb353ffac242e8067892d3ef0933975108b
+    pristine_git_object: 4bc50ecbaf51d3708db090ab9d364220635c8386
   docs/models/components/inputsphasecommentary.mdx:
     id: 1f6888fced42
     last_write_checksum: sha1:8c2ee971eb7af98a619d30a98be3ad29a3296b66
@@ -7803,8 +7803,8 @@ trackedFiles:
     pristine_git_object: 8e38594648004638203af9762846ed39a7d71c6c
   models/components/inputsunion.go:
     id: 9cf7a037c7f6
-    last_write_checksum: sha1:e3037d591060a6dde64578abd1b03374ed862904
-    pristine_git_object: 845744daebbde2e6be50a294f9e38eb1266000e0
+    last_write_checksum: sha1:db2f58c50e58024e2e70d9bdd4be2a37083c07eb
+    pristine_git_object: 43f3868902bf0a265297585ed2b2ea0bff1a229c
   models/components/inputtext.go:
     id: f421355aad33
     last_write_checksum: sha1:ddf5a37cef4acf0297fa3d8f72f43fd693ae0044
@@ -9459,8 +9459,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:c69a08c86cccc4bc87359d00a85cb4ba0ef96e3d
-    pristine_git_object: eb51ebf443b4bf4179e78ce26da93a32c45ef629
+    last_write_checksum: sha1:9693cd5788f3ae07265e4730085bb0cf73891de2
+    pristine_git_object: 98f9ef2d6152a64d6d28bb31af43855e867bd36e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11235,4 +11235,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.ServiceTier.Enum(fast)` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.ServiceTier.Enum(fast)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.ServiceTier.Enum(fast)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.ServiceTier.Enum(fast)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.ServiceTier.Enum(fast)` **Added**\n  *  `response` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (7)).Type` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (7)).Type` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (7)).Type` **Changed**\n"

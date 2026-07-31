@@ -845,7 +845,7 @@ type InputsMessage struct {
 	Phase  optionalnullable.OptionalNullable[InputsPhaseUnion] `json:"phase,omitzero"`
 	Role   InputsRole                                          `json:"role"`
 	Status *InputsStatusUnion1                                 `json:"status,omitzero"`
-	Type   InputsTypeMessage                                   `json:"type"`
+	Type   *InputsTypeMessage                                  `default:"message" json:"type"`
 }
 
 func (i InputsMessage) MarshalJSON() ([]byte, error) {
@@ -894,9 +894,9 @@ func (i *InputsMessage) GetStatus() *InputsStatusUnion1 {
 	return i.Status
 }
 
-func (i *InputsMessage) GetType() InputsTypeMessage {
+func (i *InputsMessage) GetType() *InputsTypeMessage {
 	if i == nil {
-		return InputsTypeMessage("")
+		return nil
 	}
 	return i.Type
 }
