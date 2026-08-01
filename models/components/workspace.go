@@ -7,7 +7,7 @@ type Workspace struct {
 	CreatedAt string `json:"created_at"`
 	// User ID of the workspace creator
 	CreatedBy *string `json:"created_by"`
-	// Deterministic ID of the workspace's implicitly-created default guardrail
+	// Deterministic ID derived from the workspace ID. The default guardrail is materialized when its configuration is first written.
 	DefaultGuardrailID string `json:"default_guardrail_id"`
 	// Default image model for this workspace
 	DefaultImageModel *string `json:"default_image_model"`

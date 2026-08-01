@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8d70790915c56a5debacbacebe8e51d2
+  docChecksum: 630836dd61151eefefaccf23d29038f5
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.17
-  configChecksum: 65dfa90a431f799a217bc1d905b87185
+  releaseVersion: 0.7.18
+  configChecksum: e42e25715d6512c7e677f8ed79a7352d
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f7dd3c6b-a3f4-4afd-81be-496952b95a7b
-  pristine_commit_hash: 65a9f146885b1ec62152caf1836553255ee667f0
-  pristine_tree_hash: 406d296dd42685e20a120aa742f508ef133cad9c
+  generation_id: 397d59c5-ac27-49d4-8e90-e948d91ad73c
+  pristine_commit_hash: aa1a0e790504bf54369efc51ed7f872ab1744a78
+  pristine_tree_hash: 6544ad25e5550f5e92faece0c5434cece5d87c65
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5575,8 +5575,8 @@ trackedFiles:
     pristine_git_object: 7d1bf63d8fd4511aa7caada7a7406be6d19bfbac
   docs/models/components/workspace.mdx:
     id: b43c41cd1819
-    last_write_checksum: sha1:000633de3226e0d04370a890d86e45a3e7e41792
-    pristine_git_object: 19ca89be8d3dfd456eb1cd943f3a603ca4952822
+    last_write_checksum: sha1:4b61b628847d02c6eebd9c44752dd080600786b8
+    pristine_git_object: fbc88f05aed300119a8e47284f476c155ff3800f
   docs/models/components/workspacebudget.mdx:
     id: ac7e013b7185
     last_write_checksum: sha1:107876a88ce53b0aedf04bd40050e93f53d87e06
@@ -6543,8 +6543,8 @@ trackedFiles:
     pristine_git_object: 4b03e3aaa9c883062814485b3b57f4238bc0cdfe
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
-    last_write_checksum: sha1:6e9ac2ec9c5378b83d82c7f3cf4e04bf6e9e998a
-    pristine_git_object: c68197d0e8346c23107bad00edb6c2b294831a3b
+    last_write_checksum: sha1:5e238c648ac9f5d1de95e1f17c2003da0e8d4f4c
+    pristine_git_object: ceb9190c48138bb0d43a03aefa9da01644eb0c41
   docs/sdks/images/README.mdx:
     id: 534a6c102c4f
     last_write_checksum: sha1:fef3a5f9d92e1b02098a1555dbaacecf48c73fb0
@@ -6623,8 +6623,8 @@ trackedFiles:
     pristine_git_object: ddbd7334856b5023884b94fcf190fa263d27bd30
   guardrails.go:
     id: eb364a316712
-    last_write_checksum: sha1:bb248eef26aa953268abc756a60c2429520f9673
-    pristine_git_object: b48569fd700f4a0754dd3afa75bd8a4a0f2cfc9d
+    last_write_checksum: sha1:0b96b00585572b7f8b117454a88c67899c13df9e
+    pristine_git_object: 49736b9378fc9abc8cbe0fc39576d42f48641e1a
   images.go:
     id: d0bc8e6fab7e
     last_write_checksum: sha1:c9af5f01aba5c6a9e23f179d8f57adc1ebfd66b3
@@ -9035,8 +9035,8 @@ trackedFiles:
     pristine_git_object: 21c0dbc5870aa4c465dea76620e75bf704ae75ef
   models/components/workspace.go:
     id: "5823361002e2"
-    last_write_checksum: sha1:f93a679d57edfbdf1d15e5841b6c6e97238aa92f
-    pristine_git_object: cb6f6d52876a3dbb29f0442b2f9678558326ff4b
+    last_write_checksum: sha1:961638b8dbe47be4b14ca6ac1c3ef10154d6f481
+    pristine_git_object: 3483d6e52a71fe584e3bd1e03d49134e8beaabab
   models/components/workspacebudget.go:
     id: ecb4d9612e06
     last_write_checksum: sha1:0c7678120abbcabe36f147ff233b10106218975e
@@ -9459,8 +9459,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:9693cd5788f3ae07265e4730085bb0cf73891de2
-    pristine_git_object: 98f9ef2d6152a64d6d28bb31af43855e867bd36e
+    last_write_checksum: sha1:415a2045a1ccf3a74b84db8ed78491d9a6ebbab6
+    pristine_git_object: 05e3ff6577afdc54e5192e9b55870eacdd1fe08e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11235,4 +11235,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (7)).Type` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (7)).Type` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(class (7)).Type` **Changed**\n"
