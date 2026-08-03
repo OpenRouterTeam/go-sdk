@@ -1,0 +1,33 @@
+---
+title: "SpeechInputReference"
+---
+
+Reference content part for stateless voice cloning
+
+
+## Supported Types
+
+### SpeechInputReferenceAudio
+
+```go
+speechInputReference := components.CreateSpeechInputReferenceInputAudio(components.SpeechInputReferenceAudio{/* values here */})
+```
+
+### SpeechInputReferenceText
+
+```go
+speechInputReference := components.CreateSpeechInputReferenceText(components.SpeechInputReferenceText{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch speechInputReference.Type {
+	case components.SpeechInputReferenceTypeInputAudio:
+		// speechInputReference.SpeechInputReferenceAudio is populated
+	case components.SpeechInputReferenceTypeText:
+		// speechInputReference.SpeechInputReferenceText is populated
+}
+```

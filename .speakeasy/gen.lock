@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: b59b48776c24d7338f69dd47cc98028b
+  docChecksum: e180eb78e94f8c8587758df57023922f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.19
-  configChecksum: dc26bda9bf436d9aec44e33ab186181a
+  releaseVersion: 0.7.20
+  configChecksum: 047e2c591b88f315dc4a780740e27bf9
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b0990615-06ba-464b-95a5-023aa39e0080
-  pristine_commit_hash: b447fa15fee1866e079a5aa366f9f7a34e726f8e
-  pristine_tree_hash: 4f48646611800841f7e575078405ffc3b7d9d8b0
+  generation_id: c3569fc7-0bd5-4f2f-a991-38a738039a35
+  pristine_commit_hash: 369d0f25a23c40f508b7008c981e2519cfc2ec7c
+  pristine_tree_hash: 2ea8c85971fd3186d192afa4bd4819fb33a8b35e
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4287,8 +4287,8 @@ trackedFiles:
     pristine_git_object: aa7bef7f413a5addb48282d7113b5ae76183f467
   docs/models/components/publicendpoint.mdx:
     id: 63d6ef18c590
-    last_write_checksum: sha1:3fafb78a57c1c77a8c63bf3286572abc28fefa2e
-    pristine_git_object: 3293a6bf9bea29745f56ffc7a03269de7565bc4a
+    last_write_checksum: sha1:1a7d721338c6a2a935eaef3facf4afe66509fd05
+    pristine_git_object: 9d415cd13f5621e517d2ce2078e994b3e351e5eb
   docs/models/components/publicpricing.mdx:
     id: c23229563aba
     last_write_checksum: sha1:bfc74c17989b9ad338568c72e1b78a86f9a39232
@@ -4725,10 +4725,34 @@ trackedFiles:
     id: dd351827ae88
     last_write_checksum: sha1:e89954abbfd5142acdd4c9944747e3527436e0d8
     pristine_git_object: e2787b1e7be4600fe347c8d90077895fb86ff3a5
+  docs/models/components/speechinputreference.mdx:
+    id: c9a45ff446df
+    last_write_checksum: sha1:6b318eed9fd5de580dafe916fa7bb5403df8a6d5
+    pristine_git_object: 3c918c413a58aebb4ee402e921eb5a79d1945f9f
+  docs/models/components/speechinputreferenceaudio.mdx:
+    id: b4e20c639be3
+    last_write_checksum: sha1:b85edf8e0d0ff33129aa8148fa44913a5784433e
+    pristine_git_object: e52e761ac3fb4585faf11e37b92edd1de121dbab
+  docs/models/components/speechinputreferenceaudioinput.mdx:
+    id: d153391b6207
+    last_write_checksum: sha1:3a2d89f72314e97e97051828ba3eef291ca66909
+    pristine_git_object: 9896ac9a006671e9a9615e5796d3c04834e742e2
+  docs/models/components/speechinputreferenceaudiotype.mdx:
+    id: 7b2fdf1f469f
+    last_write_checksum: sha1:813639ff290657da9ec1e6be7f253cb8b4454215
+    pristine_git_object: f189c672b74e77e0eb2b1362f894d086174023c8
+  docs/models/components/speechinputreferencetext.mdx:
+    id: df0d7f7523b2
+    last_write_checksum: sha1:2ed32228b8d0dc2f7658e2eb6b3fb85ea3cd8ba1
+    pristine_git_object: 919b6cb8a7e99d11fd3af9b972ff17e1d907513f
+  docs/models/components/speechinputreferencetexttype.mdx:
+    id: fc7d503a8e34
+    last_write_checksum: sha1:4cf4bf648ac7a69a281925ad790940d263747544
+    pristine_git_object: d11bcca08713060dd9e5b41ad311978fcabddfbf
   docs/models/components/speechrequest.mdx:
     id: 572bb1b07290
-    last_write_checksum: sha1:227681d17757b2ea3475c2539177bf3ecbbc401f
-    pristine_git_object: 71c4bbd192661b0d7d78102069f5465b806cfd3a
+    last_write_checksum: sha1:cadec910761055150d2ad579752938d580ea64ff
+    pristine_git_object: 7b09542fe2d0ae6da975397f4aa0df5ac5548c5e
   docs/models/components/speechrequestprovider.mdx:
     id: 70ddc64fe615
     last_write_checksum: sha1:0b345acd1029103dca5e9dbe7e3480cad15266d7
@@ -8471,8 +8495,8 @@ trackedFiles:
     pristine_git_object: d913116c1e97092574832d3b377d2d1735055cd7
   models/components/publicendpoint.go:
     id: "32378212e204"
-    last_write_checksum: sha1:5ab3e37172f912ded4a0f544870073c79720261d
-    pristine_git_object: 65a5368a07a583ce89d7a71ddbb663a83c27b675
+    last_write_checksum: sha1:0ef683a0266f96f6492e0a3061e31c91526e3d56
+    pristine_git_object: 7cba73205b11dd8bbb82c056f621f4a207c67774
   models/components/publicpricing.go:
     id: 8596f6c62439
     last_write_checksum: sha1:27958df794cc170d479c41ce42c79839ce3118b3
@@ -8689,10 +8713,26 @@ trackedFiles:
     id: 39591930569e
     last_write_checksum: sha1:63e7ab8c1ed737caf24e9d682054667d59a39c5f
     pristine_git_object: 696bbae97193bc399544e814a3e9d99a24522909
+  models/components/speechinputreference.go:
+    id: 8b017b7a2135
+    last_write_checksum: sha1:915119c639d516b210bffff9be313582b13b13a5
+    pristine_git_object: 43f57bafa4bc9e7eca380fea8326783b078fd44c
+  models/components/speechinputreferenceaudio.go:
+    id: a7dd0b13a05b
+    last_write_checksum: sha1:df07caf6da980c041c6fb5c18c0370097190a4e1
+    pristine_git_object: 643f74859da5072bc20ba2dd77bf20fa989f412a
+  models/components/speechinputreferenceaudioinput.go:
+    id: 36ea0aa95c87
+    last_write_checksum: sha1:dcba790bbb7b46d468fce335c95d5a6ce9617ccc
+    pristine_git_object: 738c1a9e9f54465459343b39343ef951026cbcef
+  models/components/speechinputreferencetext.go:
+    id: da29d62e1fb5
+    last_write_checksum: sha1:4e95a077b5d17341c96cdbfa9090dc850b92ce5a
+    pristine_git_object: 0b13751c25b0c24645772f69b4a034eb6738b95c
   models/components/speechrequest.go:
     id: c5f83d3285eb
-    last_write_checksum: sha1:b3e1fbb4099d7505a7c799283be18c54bbf266e8
-    pristine_git_object: ad5e9fd0de60f6bae13d93dc49f29d26f16eeaee
+    last_write_checksum: sha1:2452f7e88f6644f3209687d68cee1d853082d59d
+    pristine_git_object: da4ca5a72f4daa109242d0250f639ebcdaa806fd
   models/components/stopservertoolswhencondition.go:
     id: 6c12d61377dc
     last_write_checksum: sha1:600037f2c92bb83b31cc6469a5ce9a169ee82b09
@@ -9463,8 +9503,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:0b60c793ce8befe84ca9d355256ab2beca1f6c13
-    pristine_git_object: eb52332e8efb83c536b1862a84954363a0110961
+    last_write_checksum: sha1:ec10b3c1edeefa3a5d2e54acbffd5f58ab5cc192
+    pristine_git_object: 6842b2acce752eafd2bae34df284611a463a47f1
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9744,7 +9784,7 @@ examples:
           slug: "<value>"
       responses:
         "200":
-          application/json: {"data": {"architecture": {"input_modalities": ["text"], "instruct_type": "chatml", "modality": "text->text", "output_modalities": ["text"], "tokenizer": "GPT"}, "created": 1692901234, "description": "GPT-4 is a large multimodal model that can solve difficult problems with greater accuracy.", "endpoints": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_implicit_caching": true, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}], "id": "openai/gpt-4", "name": "GPT-4"}}
+          application/json: {"data": {"architecture": {"input_modalities": ["text"], "instruct_type": "chatml", "modality": "text->text", "output_modalities": ["text"], "tokenizer": "GPT"}, "created": 1692901234, "description": "GPT-4 is a large multimodal model that can solve difficult problems with greater accuracy.", "endpoints": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_implicit_caching": true, "supports_voice_cloning": false, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}], "id": "openai/gpt-4", "name": "GPT-4"}}
         "404":
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
@@ -9755,7 +9795,7 @@ examples:
     speakeasy-default-list-endpoints-zdr:
       responses:
         "200":
-          application/json: {"data": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_implicit_caching": true, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}]}
+          application/json: {"data": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_implicit_caching": true, "supports_voice_cloning": false, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}]}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
@@ -11239,4 +11279,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Analytics.GetUserActivity()`: \n  *  `request` **Changed**\n  *  `response.Data[].WorkspaceId` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.WorkspaceId` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.InputReferences` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].SupportsVoiceCloning` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].SupportsVoiceCloning` **Added**\n"

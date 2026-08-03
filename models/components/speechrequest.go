@@ -57,6 +57,8 @@ func (e *SpeechRequestResponseFormat) IsExact() bool {
 type SpeechRequest struct {
 	// Text to synthesize
 	Input string `json:"input"`
+	// Reference content for stateless voice cloning: one `input_audio` part carrying the voice sample, optionally accompanied by one `text` part with its transcript. Only routed to endpoints that support voice cloning.
+	InputReferences []SpeechInputReference `json:"input_references,omitzero"`
 	// TTS model identifier
 	Model string `json:"model"`
 	// Provider-specific passthrough configuration
@@ -85,6 +87,13 @@ func (s *SpeechRequest) GetInput() string {
 		return ""
 	}
 	return s.Input
+}
+
+func (s *SpeechRequest) GetInputReferences() []SpeechInputReference {
+	if s == nil {
+		return nil
+	}
+	return s.InputReferences
 }
 
 func (s *SpeechRequest) GetModel() string {
