@@ -2,6 +2,35 @@
 
 package operations
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// GroupBy - Set to 'workspace' to split each row per workspace and include `workspace_id` on every item. Omitted by default, in which case rows are aggregated across workspaces (by date, model, and endpoint) and `workspace_id` is not returned — preserving the historical response shape.
+type GroupBy string
+
+const (
+	GroupByWorkspace GroupBy = "workspace"
+)
+
+func (e GroupBy) ToPointer() *GroupBy {
+	return &e
+}
+func (e *GroupBy) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "workspace":
+		*e = GroupBy(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GroupBy: %v", v)
+	}
+}
+
 type GetUserActivityRequest struct {
 	// Filter by a single UTC date in the last 30 days (YYYY-MM-DD format).
 	Date *string `queryParam:"style=form,explode=true,name=date"`
@@ -9,6 +38,10 @@ type GetUserActivityRequest struct {
 	APIKeyHash *string `queryParam:"style=form,explode=true,name=api_key_hash"`
 	// Filter by org member user ID. Only applicable for organization accounts.
 	UserID *string `queryParam:"style=form,explode=true,name=user_id"`
+	// Set to 'workspace' to split each row per workspace and include `workspace_id` on every item. Omitted by default, in which case rows are aggregated across workspaces (by date, model, and endpoint) and `workspace_id` is not returned — preserving the historical response shape.
+	GroupBy *GroupBy `queryParam:"style=form,explode=true,name=group_by"`
+	// Filter by workspace ID (UUID). Returns only activity attributed to that workspace. The workspace must belong to the authenticated account.
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
 func (g *GetUserActivityRequest) GetDate() *string {
@@ -30,4 +63,18 @@ func (g *GetUserActivityRequest) GetUserID() *string {
 		return nil
 	}
 	return g.UserID
+}
+
+func (g *GetUserActivityRequest) GetGroupBy() *GroupBy {
+	if g == nil {
+		return nil
+	}
+	return g.GroupBy
+}
+
+func (g *GetUserActivityRequest) GetWorkspaceID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.WorkspaceID
 }

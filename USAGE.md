@@ -16,7 +16,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
