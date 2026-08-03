@@ -148,6 +148,8 @@ type GenerationResponseData struct {
 	UserAgent *string `json:"user_agent"`
 	// The resolved web search engine used for this generation (e.g. exa, firecrawl, parallel)
 	WebSearchEngine *string `json:"web_search_engine"`
+	// ID of the workspace this generation is attributed to. Null for accounts without workspaces. Generations created before workspace resolution existed are attributed to the account default workspace.
+	WorkspaceID *string `json:"workspace_id"`
 }
 
 func (g *GenerationResponseData) GetAPIType() *APIType {
@@ -456,6 +458,13 @@ func (g *GenerationResponseData) GetWebSearchEngine() *string {
 		return nil
 	}
 	return g.WebSearchEngine
+}
+
+func (g *GenerationResponseData) GetWorkspaceID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.WorkspaceID
 }
 
 // GenerationResponse - Generation response

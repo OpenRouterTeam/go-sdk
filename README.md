@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.18
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.19
 > ```
 
 <!-- No Summary [summary] -->
@@ -83,7 +83,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -124,7 +124,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -498,7 +498,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, operations.WithRetries(
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -549,7 +549,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -600,7 +600,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 
 		var e *sdkerrors.BadRequestResponseError
@@ -675,7 +675,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -707,7 +707,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
