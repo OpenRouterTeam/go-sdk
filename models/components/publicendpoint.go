@@ -172,22 +172,35 @@ type PublicEndpoint struct {
 	MaxCompletionTokens *int64           `json:"max_completion_tokens"`
 	MaxPromptTokens     *int64           `json:"max_prompt_tokens"`
 	// The unique identifier for the model (permaslug)
-	ModelID                 string           `json:"model_id"`
-	ModelName               string           `json:"model_name"`
-	Name                    string           `json:"name"`
-	Pricing                 Pricing          `json:"pricing"`
-	ProviderName            ProviderName     `json:"provider_name"`
-	Quantization            *Quantization    `json:"quantization"`
-	Status                  *EndpointStatus  `json:"status,omitzero"`
-	SupportedParameters     []Parameter      `json:"supported_parameters"`
-	SupportsImplicitCaching bool             `json:"supports_implicit_caching"`
-	Tag                     string           `json:"tag"`
-	ThroughputLast30m       *PercentileStats `json:"throughput_last_30m"`
+	ModelID                 string          `json:"model_id"`
+	ModelName               string          `json:"model_name"`
+	Name                    string          `json:"name"`
+	Pricing                 Pricing         `json:"pricing"`
+	ProviderName            ProviderName    `json:"provider_name"`
+	Quantization            *Quantization   `json:"quantization"`
+	Status                  *EndpointStatus `json:"status,omitzero"`
+	SupportedParameters     []Parameter     `json:"supported_parameters"`
+	SupportsImplicitCaching bool            `json:"supports_implicit_caching"`
+	// Whether this TTS endpoint accepts inline reference audio (`input_references`) for stateless voice cloning. Requests carrying reference audio are only routed to endpoints where this is true.
+	SupportsVoiceCloning *bool            `default:"false" json:"supports_voice_cloning"`
+	Tag                  string           `json:"tag"`
+	ThroughputLast30m    *PercentileStats `json:"throughput_last_30m"`
 	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
 	UptimeLast1d  *float64 `json:"uptime_last_1d"`
 	UptimeLast30m *float64 `json:"uptime_last_30m"`
 	// Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
 	UptimeLast5m *float64 `json:"uptime_last_5m"`
+}
+
+func (p PublicEndpoint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PublicEndpoint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PublicEndpoint) GetContextLength() int64 {
@@ -279,6 +292,13 @@ func (p *PublicEndpoint) GetSupportsImplicitCaching() bool {
 		return false
 	}
 	return p.SupportsImplicitCaching
+}
+
+func (p *PublicEndpoint) GetSupportsVoiceCloning() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SupportsVoiceCloning
 }
 
 func (p *PublicEndpoint) GetTag() string {
