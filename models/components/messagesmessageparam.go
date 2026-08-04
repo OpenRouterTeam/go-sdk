@@ -976,20 +976,22 @@ func (c *ContentToolUse) GetType() TypeToolUse {
 type MessagesMessageParamContentUnion4Type string
 
 const (
-	MessagesMessageParamContentUnion4TypeText                MessagesMessageParamContentUnion4Type = "text"
-	MessagesMessageParamContentUnion4TypeImage               MessagesMessageParamContentUnion4Type = "image"
-	MessagesMessageParamContentUnion4TypeDocument            MessagesMessageParamContentUnion4Type = "document"
-	MessagesMessageParamContentUnion4TypeToolUse             MessagesMessageParamContentUnion4Type = "tool_use"
-	MessagesMessageParamContentUnion4TypeToolResult          MessagesMessageParamContentUnion4Type = "tool_result"
-	MessagesMessageParamContentUnion4TypeThinking            MessagesMessageParamContentUnion4Type = "thinking"
-	MessagesMessageParamContentUnion4TypeRedactedThinking    MessagesMessageParamContentUnion4Type = "redacted_thinking"
-	MessagesMessageParamContentUnion4TypeServerToolUse       MessagesMessageParamContentUnion4Type = "server_tool_use"
-	MessagesMessageParamContentUnion4TypeWebSearchToolResult MessagesMessageParamContentUnion4Type = "web_search_tool_result"
-	MessagesMessageParamContentUnion4TypeSearchResult        MessagesMessageParamContentUnion4Type = "search_result"
-	MessagesMessageParamContentUnion4TypeCompaction          MessagesMessageParamContentUnion4Type = "compaction"
-	MessagesMessageParamContentUnion4TypeAdvisorToolResult   MessagesMessageParamContentUnion4Type = "advisor_tool_result"
-	MessagesMessageParamContentUnion4TypeToolAddition        MessagesMessageParamContentUnion4Type = "tool_addition"
-	MessagesMessageParamContentUnion4TypeToolRemoval         MessagesMessageParamContentUnion4Type = "tool_removal"
+	MessagesMessageParamContentUnion4TypeText                      MessagesMessageParamContentUnion4Type = "text"
+	MessagesMessageParamContentUnion4TypeImage                     MessagesMessageParamContentUnion4Type = "image"
+	MessagesMessageParamContentUnion4TypeDocument                  MessagesMessageParamContentUnion4Type = "document"
+	MessagesMessageParamContentUnion4TypeToolUse                   MessagesMessageParamContentUnion4Type = "tool_use"
+	MessagesMessageParamContentUnion4TypeToolResult                MessagesMessageParamContentUnion4Type = "tool_result"
+	MessagesMessageParamContentUnion4TypeThinking                  MessagesMessageParamContentUnion4Type = "thinking"
+	MessagesMessageParamContentUnion4TypeRedactedThinking          MessagesMessageParamContentUnion4Type = "redacted_thinking"
+	MessagesMessageParamContentUnion4TypeServerToolUse             MessagesMessageParamContentUnion4Type = "server_tool_use"
+	MessagesMessageParamContentUnion4TypeWebSearchToolResult       MessagesMessageParamContentUnion4Type = "web_search_tool_result"
+	MessagesMessageParamContentUnion4TypeSearchResult              MessagesMessageParamContentUnion4Type = "search_result"
+	MessagesMessageParamContentUnion4TypeCompaction                MessagesMessageParamContentUnion4Type = "compaction"
+	MessagesMessageParamContentUnion4TypeAdvisorToolResult         MessagesMessageParamContentUnion4Type = "advisor_tool_result"
+	MessagesMessageParamContentUnion4TypeToolAddition              MessagesMessageParamContentUnion4Type = "tool_addition"
+	MessagesMessageParamContentUnion4TypeToolRemoval               MessagesMessageParamContentUnion4Type = "tool_removal"
+	MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult MessagesMessageParamContentUnion4Type = "openrouter_shell_tool_result"
+	MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult  MessagesMessageParamContentUnion4Type = "openrouter_bash_tool_result"
 )
 
 type MessagesMessageParamContentUnion4 struct {
@@ -1007,6 +1009,8 @@ type MessagesMessageParamContentUnion4 struct {
 	MessagesAdvisorToolResultBlock  *MessagesAdvisorToolResultBlock  `queryParam:"inline" union:"member"`
 	MessagesToolAdditionBlock       *MessagesToolAdditionBlock       `queryParam:"inline" union:"member"`
 	MessagesToolRemovalBlock        *MessagesToolRemovalBlock        `queryParam:"inline" union:"member"`
+	MessagesShellToolResultBlock    *MessagesShellToolResultBlock    `queryParam:"inline" union:"member"`
+	MessagesBashToolResultBlock     *MessagesBashToolResultBlock     `queryParam:"inline" union:"member"`
 
 	Type MessagesMessageParamContentUnion4Type
 }
@@ -1179,6 +1183,30 @@ func CreateMessagesMessageParamContentUnion4ToolRemoval(toolRemoval MessagesTool
 	}
 }
 
+func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouterShellToolResult MessagesShellToolResultBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult
+
+	typStr := MessagesShellToolResultBlockType(typ)
+	openrouterShellToolResult.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesShellToolResultBlock: &openrouterShellToolResult,
+		Type:                         typ,
+	}
+}
+
+func CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(openrouterBashToolResult MessagesBashToolResultBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
+
+	typStr := MessagesBashToolResultBlockType(typ)
+	openrouterBashToolResult.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesBashToolResultBlock: &openrouterBashToolResult,
+		Type:                        typ,
+	}
+}
+
 func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1317,6 +1345,24 @@ func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 		u.MessagesToolRemovalBlock = messagesToolRemovalBlock
 		u.Type = MessagesMessageParamContentUnion4TypeToolRemoval
 		return nil
+	case "openrouter_shell_tool_result":
+		messagesShellToolResultBlock := new(MessagesShellToolResultBlock)
+		if err := utils.UnmarshalJSON(data, &messagesShellToolResultBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter_shell_tool_result) type MessagesShellToolResultBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesShellToolResultBlock = messagesShellToolResultBlock
+		u.Type = MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult
+		return nil
+	case "openrouter_bash_tool_result":
+		messagesBashToolResultBlock := new(MessagesBashToolResultBlock)
+		if err := utils.UnmarshalJSON(data, &messagesBashToolResultBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter_bash_tool_result) type MessagesBashToolResultBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesBashToolResultBlock = messagesBashToolResultBlock
+		u.Type = MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesMessageParamContentUnion4", string(data))
@@ -1377,6 +1423,14 @@ func (u MessagesMessageParamContentUnion4) MarshalJSON() ([]byte, error) {
 
 	if u.MessagesToolRemovalBlock != nil {
 		return utils.MarshalJSON(u.MessagesToolRemovalBlock, "", true)
+	}
+
+	if u.MessagesShellToolResultBlock != nil {
+		return utils.MarshalJSON(u.MessagesShellToolResultBlock, "", true)
+	}
+
+	if u.MessagesBashToolResultBlock != nil {
+		return utils.MarshalJSON(u.MessagesBashToolResultBlock, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesMessageParamContentUnion4: all fields are null")

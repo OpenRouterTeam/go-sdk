@@ -514,6 +514,8 @@ func (u Value1) MarshalJSON() ([]byte, error) {
 type Filter struct {
 	// Dimension to filter on. Use the /meta endpoint for available dimensions.
 	Field string `json:"field"`
+	// Include rows where the dimension has no value. Applies only to the `in` and `not_in` operators and dimensions that have an unset bucket.
+	IncludeUnset *bool `json:"include_unset,omitzero"`
 	// Filter operator
 	Operator string `json:"operator"`
 	// Filter value (scalar or array depending on operator). Several dimensions are enriched in responses (returned as human-readable labels), but filters must use the underlying ID: `api_key_id` — numeric ID (from generation metadata) or key hash (64-char hex from GET /api/v1/keys, resolved server-side); `user` — Clerk user ID (e.g. "user_abc123"), not the display name; `workspace` — workspace UUID, not the workspace name (filtering or grouping by the account default workspace also covers activity recorded before workspace resolution existed, which is attributed to that default workspace); `app` — numeric app ID, not the app title; `model` — permaslug (e.g. "openai/gpt-4o"), not the display name. Other dimensions (provider, origin, country, etc.) are not enriched and accept the value as returned.
@@ -525,6 +527,13 @@ func (f *Filter) GetField() string {
 		return ""
 	}
 	return f.Field
+}
+
+func (f *Filter) GetIncludeUnset() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.IncludeUnset
 }
 
 func (f *Filter) GetOperator() string {

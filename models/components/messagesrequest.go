@@ -2562,6 +2562,7 @@ const (
 	MessagesRequestToolUnionTypeMessagesRequestTool                 MessagesRequestToolUnionType = "MessagesRequest_tool"
 	MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25         MessagesRequestToolUnionType = "AnthropicToolSearchToolBm25"
 	MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex        MessagesRequestToolUnionType = "AnthropicToolSearchToolRegex"
+	MessagesRequestToolUnionTypeShellServerToolOpenRouter           MessagesRequestToolUnionType = "ShellServerTool_OpenRouter"
 )
 
 type MessagesRequestToolUnion struct {
@@ -2580,6 +2581,7 @@ type MessagesRequestToolUnion struct {
 	MessagesRequestTool                 *MessagesRequestTool                 `queryParam:"inline" union:"member"`
 	AnthropicToolSearchToolBm25         *AnthropicToolSearchToolBm25         `queryParam:"inline" union:"member"`
 	AnthropicToolSearchToolRegex        *AnthropicToolSearchToolRegex        `queryParam:"inline" union:"member"`
+	ShellServerToolOpenRouter           *ShellServerToolOpenRouter           `queryParam:"inline" union:"member"`
 
 	Type MessagesRequestToolUnionType
 }
@@ -2719,6 +2721,15 @@ func CreateMessagesRequestToolUnionAnthropicToolSearchToolRegex(anthropicToolSea
 	}
 }
 
+func CreateMessagesRequestToolUnionShellServerToolOpenRouter(shellServerToolOpenRouter ShellServerToolOpenRouter) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeShellServerToolOpenRouter
+
+	return MessagesRequestToolUnion{
+		ShellServerToolOpenRouter: &shellServerToolOpenRouter,
+		Type:                      typ,
+	}
+}
+
 func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -2844,6 +2855,14 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var shellServerToolOpenRouter ShellServerToolOpenRouter = ShellServerToolOpenRouter{}
+	if err := utils.UnmarshalJSON(data, &shellServerToolOpenRouter, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  MessagesRequestToolUnionTypeShellServerToolOpenRouter,
+			Value: &shellServerToolOpenRouter,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesRequestToolUnion", string(data))
 	}
@@ -2901,6 +2920,9 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		return nil
 	case MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex:
 		u.AnthropicToolSearchToolRegex = best.Value.(*AnthropicToolSearchToolRegex)
+		return nil
+	case MessagesRequestToolUnionTypeShellServerToolOpenRouter:
+		u.ShellServerToolOpenRouter = best.Value.(*ShellServerToolOpenRouter)
 		return nil
 	}
 
@@ -2966,6 +2988,10 @@ func (u MessagesRequestToolUnion) MarshalJSON() ([]byte, error) {
 
 	if u.AnthropicToolSearchToolRegex != nil {
 		return utils.MarshalJSON(u.AnthropicToolSearchToolRegex, "", true)
+	}
+
+	if u.ShellServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.ShellServerToolOpenRouter, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesRequestToolUnion: all fields are null")

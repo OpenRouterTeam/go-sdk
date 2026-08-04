@@ -88,6 +88,18 @@ messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamConten
 messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4ToolRemoval(components.MessagesToolRemovalBlock{/* values here */})
 ```
 
+### MessagesShellToolResultBlock
+
+```go
+messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(components.MessagesShellToolResultBlock{/* values here */})
+```
+
+### MessagesBashToolResultBlock
+
+```go
+messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(components.MessagesBashToolResultBlock{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -122,5 +134,9 @@ switch messagesMessageParamContentUnion4.Type {
 		// messagesMessageParamContentUnion4.MessagesToolAdditionBlock is populated
 	case components.MessagesMessageParamContentUnion4TypeToolRemoval:
 		// messagesMessageParamContentUnion4.MessagesToolRemovalBlock is populated
+	case components.MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult:
+		// messagesMessageParamContentUnion4.MessagesShellToolResultBlock is populated
+	case components.MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult:
+		// messagesMessageParamContentUnion4.MessagesBashToolResultBlock is populated
 }
 ```

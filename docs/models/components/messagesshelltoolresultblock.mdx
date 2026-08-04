@@ -1,0 +1,14 @@
+---
+title: "MessagesShellToolResultBlock"
+---
+
+Output of an `openrouter:shell` call from a prior assistant turn. Accepted on replay and dropped before the provider request — Anthropic has no equivalent block.
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `Content`                                                                                                  | map[string]`any`                                                                                           | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `ToolUseID`                                                                                                | `string`                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `Type`                                                                                                     | [components.MessagesShellToolResultBlockType](../../models/components/messagesshelltoolresultblocktype.mdx) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
