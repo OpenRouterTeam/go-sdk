@@ -16,6 +16,7 @@ Workspaces endpoints
 * [Update](#update) - Update a workspace
 * [ListBudgets](#listbudgets) - List workspace budgets
 * [DeleteBudget](#deletebudget) - Delete a workspace budget
+* [GetBudget](#getbudget) - Get a workspace budget
 * [SetBudget](#setbudget) - Create or update a workspace budget
 * [ListMembers](#listmembers) - List workspace members
 * [BulkAddMembers](#bulkaddmembers) - Bulk add members to a workspace
@@ -428,6 +429,64 @@ func main() {
 
 | Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetBudget
+
+Retrieve the budget for a given interval. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Workspaces.GetBudget(ctx, "production", components.WorkspaceBudgetIntervalMonthly)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | :heavy_check_mark:                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `id`                                                                                     | `string`                                                                                 | :heavy_check_mark:                                                                       | The workspace ID (UUID) or slug                                                          | production                                                                               |
+| `interval`                                                                               | [components.WorkspaceBudgetInterval](../../models/components/workspacebudgetinterval.mdx) | :heavy_check_mark:                                                                       | Budget reset interval. Use "lifetime" for a one-time budget that never resets.           | monthly                                                                                  |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.mdx)                                 | :heavy_minus_sign:                                                                       | The options for this request.                                                            |                                                                                          |
+
+### Response
+
+**[*components.GetWorkspaceBudgetResponse](../../models/components/getworkspacebudgetresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
 | sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
 | sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |

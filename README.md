@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.20
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.21
 > ```
 
 <!-- No Summary [summary] -->
@@ -364,6 +364,7 @@ func main() {
 * [Update](docs/sdks/workspaces/README.md#update) - Update a workspace
 * [ListBudgets](docs/sdks/workspaces/README.md#listbudgets) - List workspace budgets
 * [DeleteBudget](docs/sdks/workspaces/README.md#deletebudget) - Delete a workspace budget
+* [GetBudget](docs/sdks/workspaces/README.md#getbudget) - Get a workspace budget
 * [SetBudget](docs/sdks/workspaces/README.md#setbudget) - Create or update a workspace budget
 * [ListMembers](docs/sdks/workspaces/README.md#listmembers) - List workspace members
 * [BulkAddMembers](docs/sdks/workspaces/README.md#bulkaddmembers) - Bulk add members to a workspace
