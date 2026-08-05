@@ -31,7 +31,7 @@ func (e *FilesServerToolType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// FilesServerTool - OpenRouter built-in server tool: read, write, edit, and list workspace files via the Files API. Requires the `x-openrouter-file-ids: openrouter` request header.
+// FilesServerTool - OpenRouter built-in server tool: read, write, edit, and list workspace files via the Files API. Requires an authenticated request; files come from the API key's workspace (or the default workspace for keys without one).
 type FilesServerTool struct {
 	// Configuration for the openrouter:files server tool
 	Parameters *FilesServerToolConfig `json:"parameters,omitzero"`
