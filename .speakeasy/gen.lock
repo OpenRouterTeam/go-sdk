@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 4b914fe083858d1a8117777cff740332
+  docChecksum: a99a314ff1ccb7e8ec2f43d9edad1029
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.24
-  configChecksum: 8229dfec5f4a0f862d9fce0ae1ea8fec
+  releaseVersion: 0.7.25
+  configChecksum: c2f3832d69fdc2e0393a7e3a3df94066
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: c8ae8e90-c01c-4476-8235-043e8804dc13
-  pristine_commit_hash: 24be689869fd3cedc28cb60fcfa5e1ea290655e8
-  pristine_tree_hash: 0c0fcc7630e22eda3bc5fefce77375b19fb9a996
+  generation_id: 2bc9953f-ef38-48fd-a3cc-dff541616535
+  pristine_commit_hash: 3cc6ac62038954a6a1b44af7ffb86d5d35387eb6
+  pristine_tree_hash: 3ad923ff4ccd9a239bdf69466b0323334e4d8552
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1895,8 +1895,8 @@ trackedFiles:
     pristine_git_object: 2172e4bd3d02281cf4bfcb79258880567e14a030
   docs/models/components/filesservertool.mdx:
     id: 89053daf86af
-    last_write_checksum: sha1:b9dbff0cc4f43f92c814a525bdaee17aa8623d45
-    pristine_git_object: 8dc641af42f51174e615b2f336081e04bafeca3a
+    last_write_checksum: sha1:cfcbc61eca97f06821e0c1ed91ef46b8a7b40a8e
+    pristine_git_object: ab8dab343a38bdaef014b8da932d283e4944c9ac
   docs/models/components/filesservertoolconfig.mdx:
     id: eacf1389d396
     last_write_checksum: sha1:bea44aab79ccddb9dff37eb6dc30ef8cf8a13872
@@ -7567,8 +7567,8 @@ trackedFiles:
     pristine_git_object: c0d0e65c80349d55d06be601801fee8a52fd4044
   models/components/filesservertool.go:
     id: bb53f6365d23
-    last_write_checksum: sha1:cdc5782461ea772f2a4d7fdfec6598728d8a83d5
-    pristine_git_object: 05b6f74062a72a6ea33e1ac6827f595d493c7ee3
+    last_write_checksum: sha1:bcde2502d2d1186da2991f5eeac32ced2aa9ecc0
+    pristine_git_object: 59af9839a44bc3d82097852d5c024506a99f0eba
   models/components/filesservertoolconfig.go:
     id: 2fd06375081d
     last_write_checksum: sha1:1e2df333cca3f2f0eea901c0bb7dfa3c9d9c4dd8
@@ -9543,8 +9543,8 @@ trackedFiles:
     pristine_git_object: ac4076c581f3e01e0720f0cfc99db5f5db066f61
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:afc140c9902fefa6581758b0af213074ec89db5d
-    pristine_git_object: 7fa720deefcde5fe956a3400a891d256d2e9079d
+    last_write_checksum: sha1:efc737b49f2fb606675264419608f2fb26e1e9ef
+    pristine_git_object: 35f832de7ebad7506cef1b181d3145b760f2fc4a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
