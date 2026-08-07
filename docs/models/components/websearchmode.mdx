@@ -1,0 +1,33 @@
+---
+title: "WebSearchMode"
+---
+
+Engine-native search mode. Exa supports instant, fast, auto (default), deep-lite, deep, and deep-reasoning. Parallel supports turbo (default), basic, and advanced. Modes unsupported by the selected engine are ignored.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.WebSearchModeInstant
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.WebSearchMode("custom_value")
+```
+
+
+## Values
+
+| Name                         | Value                        |
+| ---------------------------- | ---------------------------- |
+| `WebSearchModeInstant`       | instant                      |
+| `WebSearchModeFast`          | fast                         |
+| `WebSearchModeAuto`          | auto                         |
+| `WebSearchModeDeepLite`      | deep-lite                    |
+| `WebSearchModeDeep`          | deep                         |
+| `WebSearchModeDeepReasoning` | deep-reasoning               |
+| `WebSearchModeTurbo`         | turbo                        |
+| `WebSearchModeBasic`         | basic                        |
+| `WebSearchModeAdvanced`      | advanced                     |
