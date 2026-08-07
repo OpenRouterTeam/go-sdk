@@ -72,8 +72,14 @@ func (e *ObservabilityPosthogDestinationType) UnmarshalJSON(data []byte) error {
 
 type ObservabilityPosthogDestination struct {
 	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
-	APIKeyHashes []string                              `json:"api_key_hashes"`
-	Config       ObservabilityPosthogDestinationConfig `json:"config"`
+	APIKeyHashes []string `json:"api_key_hashes"`
+	// When true, include cost and billing generation metadata.
+	BroadcastGenerationCost bool `json:"broadcast_generation_cost"`
+	// When true, include identity generation metadata.
+	BroadcastGenerationIdentity bool `json:"broadcast_generation_identity"`
+	// When true, include request-context generation metadata.
+	BroadcastGenerationRequestContext bool                                  `json:"broadcast_generation_request_context"`
+	Config                            ObservabilityPosthogDestinationConfig `json:"config"`
 	// ISO timestamp of when the destination was created.
 	CreatedAt string `json:"created_at"`
 	// Whether this destination is currently enabled.
@@ -111,6 +117,27 @@ func (o *ObservabilityPosthogDestination) GetAPIKeyHashes() []string {
 		return nil
 	}
 	return o.APIKeyHashes
+}
+
+func (o *ObservabilityPosthogDestination) GetBroadcastGenerationCost() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationCost
+}
+
+func (o *ObservabilityPosthogDestination) GetBroadcastGenerationIdentity() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationIdentity
+}
+
+func (o *ObservabilityPosthogDestination) GetBroadcastGenerationRequestContext() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationRequestContext
 }
 
 func (o *ObservabilityPosthogDestination) GetConfig() ObservabilityPosthogDestinationConfig {

@@ -80,8 +80,14 @@ func (e *ObservabilityBraintrustDestinationType) UnmarshalJSON(data []byte) erro
 
 type ObservabilityBraintrustDestination struct {
 	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
-	APIKeyHashes []string                                 `json:"api_key_hashes"`
-	Config       ObservabilityBraintrustDestinationConfig `json:"config"`
+	APIKeyHashes []string `json:"api_key_hashes"`
+	// When true, include cost and billing generation metadata.
+	BroadcastGenerationCost bool `json:"broadcast_generation_cost"`
+	// When true, include identity generation metadata.
+	BroadcastGenerationIdentity bool `json:"broadcast_generation_identity"`
+	// When true, include request-context generation metadata.
+	BroadcastGenerationRequestContext bool                                     `json:"broadcast_generation_request_context"`
+	Config                            ObservabilityBraintrustDestinationConfig `json:"config"`
 	// ISO timestamp of when the destination was created.
 	CreatedAt string `json:"created_at"`
 	// Whether this destination is currently enabled.
@@ -119,6 +125,27 @@ func (o *ObservabilityBraintrustDestination) GetAPIKeyHashes() []string {
 		return nil
 	}
 	return o.APIKeyHashes
+}
+
+func (o *ObservabilityBraintrustDestination) GetBroadcastGenerationCost() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationCost
+}
+
+func (o *ObservabilityBraintrustDestination) GetBroadcastGenerationIdentity() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationIdentity
+}
+
+func (o *ObservabilityBraintrustDestination) GetBroadcastGenerationRequestContext() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationRequestContext
 }
 
 func (o *ObservabilityBraintrustDestination) GetConfig() ObservabilityBraintrustDestinationConfig {
