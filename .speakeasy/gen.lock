@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: cc957356631ef7dd981c7a0c92e5d65a
+  docChecksum: aa643c5d6e3f6098584d6ceef2a9eeea
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.28
-  configChecksum: 742e14c2810ac11c325d69511723173e
+  releaseVersion: 0.7.29
+  configChecksum: 12ca0ac494780c9840838d620953403f
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: e59aa461-364a-4866-8846-5c9104291ce3
-  pristine_commit_hash: f8f7aa1bb998caec7104e8e5eb186b4e09b968b7
-  pristine_tree_hash: b93f1e1f6cee876ddb8823681c25c679b1d1f06b
+  generation_id: 515b9fb0-fb24-46f2-9142-fa6b2982be36
+  pristine_commit_hash: 6227a0043f319b1793ccbc92c1bdeee077abca56
+  pristine_tree_hash: 2b31829211bd2e4099244b526f605b286cbcd916
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2539,8 +2539,8 @@ trackedFiles:
     pristine_git_object: ac8f1f63c7759998140c1a73a5a79262e840438a
   docs/models/components/inputreference.mdx:
     id: 55d18f309fe9
-    last_write_checksum: sha1:8a0a108d36311a3c69e83c38e96fd6b9ab7ae7c3
-    pristine_git_object: 034db5c192724eb9b3896301ffe907399ac90d12
+    last_write_checksum: sha1:1fe40e13a71fc20c6afa73c709b31c1fc35d25ab
+    pristine_git_object: 8b27527db606902128bad252bb1d24fb075f5658
   docs/models/components/inputschema.mdx:
     id: 7a45fa0cc6ed
     last_write_checksum: sha1:d0bb61beb9f78926a0284262c3e1212845dd0b73
@@ -5451,8 +5451,8 @@ trackedFiles:
     pristine_git_object: 356e37f2116bfe858633037b8b14f49a0f13b39e
   docs/models/components/videogenerationrequest.mdx:
     id: cd475ed04a42
-    last_write_checksum: sha1:8fbb81600cb1b634a016d30fa801aca9edc1288d
-    pristine_git_object: 93f84109f74cd0052235163b46fdc5555fb4bbda
+    last_write_checksum: sha1:88e0a8fdfdf5f010299c6b64b32c058d9ea7dd66
+    pristine_git_object: 693c9bb576f1d0588b7f5f5d6edb863516ca9cb2
   docs/models/components/videogenerationrequestaspectratio.mdx:
     id: 828b3d2d4e1a
     last_write_checksum: sha1:adfb933047a751837e83f58372e2a3535d736951
@@ -7859,8 +7859,8 @@ trackedFiles:
     pristine_git_object: 995d3c9d915411272b1482d8d0b526096862b5bf
   models/components/inputreference.go:
     id: 04d0cd9b2ae9
-    last_write_checksum: sha1:8be7068c879a5077bf32c287309ae2f3918a11ef
-    pristine_git_object: 8e38594648004638203af9762846ed39a7d71c6c
+    last_write_checksum: sha1:b1dd63488edeb6efd3d8dabc63fa2ae800b9d517
+    pristine_git_object: 6369e2780c12ee12f2e92b256ed7f02340b67524
   models/components/inputsunion.go:
     id: 9cf7a037c7f6
     last_write_checksum: sha1:db2f58c50e58024e2e70d9bdd4be2a37083c07eb
@@ -9023,8 +9023,8 @@ trackedFiles:
     pristine_git_object: f4b994164e03872a8e2ef6d20c8d272dc5861e1c
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:0f8245ce51d555ff648b842ea26b833494102864
-    pristine_git_object: 2b6d8d709cce599ba9afaf75455067863c78af8e
+    last_write_checksum: sha1:1bf0461bb23c09013c57ed640dfd0eef0b3c9e1a
+    pristine_git_object: 471041a96574de7822338193afd38c23d16e9893
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
     last_write_checksum: sha1:b1196ebd395a89b9f03ce3207738055473c33532
@@ -9551,8 +9551,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:807b323f09a9c07ba2d4c6db4db539ce42aa450d
-    pristine_git_object: d2778cbb09df2ca7e2308fa85032e9e52ade1eb7
+    last_write_checksum: sha1:e236cc23d96c6b4a42c95896d4458f70db4ce26f
+    pristine_git_object: ae57f4b4ef3cd1feb64b4054834d7a02727cf84a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11348,4 +11348,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.Chat.Send()`:  `request.ChatRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`:  `request.ChatRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`:  `request.MessagesRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`:  `request.ResponsesRequest` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed**\n  *  `response` **Changed**\n"
