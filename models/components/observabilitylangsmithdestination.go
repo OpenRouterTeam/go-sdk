@@ -90,8 +90,14 @@ func (e *ObservabilityLangsmithDestinationType) UnmarshalJSON(data []byte) error
 
 type ObservabilityLangsmithDestination struct {
 	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
-	APIKeyHashes []string                                `json:"api_key_hashes"`
-	Config       ObservabilityLangsmithDestinationConfig `json:"config"`
+	APIKeyHashes []string `json:"api_key_hashes"`
+	// When true, include cost and billing generation metadata.
+	BroadcastGenerationCost bool `json:"broadcast_generation_cost"`
+	// When true, include identity generation metadata.
+	BroadcastGenerationIdentity bool `json:"broadcast_generation_identity"`
+	// When true, include request-context generation metadata.
+	BroadcastGenerationRequestContext bool                                    `json:"broadcast_generation_request_context"`
+	Config                            ObservabilityLangsmithDestinationConfig `json:"config"`
 	// ISO timestamp of when the destination was created.
 	CreatedAt string `json:"created_at"`
 	// Whether this destination is currently enabled.
@@ -129,6 +135,27 @@ func (o *ObservabilityLangsmithDestination) GetAPIKeyHashes() []string {
 		return nil
 	}
 	return o.APIKeyHashes
+}
+
+func (o *ObservabilityLangsmithDestination) GetBroadcastGenerationCost() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationCost
+}
+
+func (o *ObservabilityLangsmithDestination) GetBroadcastGenerationIdentity() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationIdentity
+}
+
+func (o *ObservabilityLangsmithDestination) GetBroadcastGenerationRequestContext() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationRequestContext
 }
 
 func (o *ObservabilityLangsmithDestination) GetConfig() ObservabilityLangsmithDestinationConfig {

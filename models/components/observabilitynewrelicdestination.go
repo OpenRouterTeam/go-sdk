@@ -94,8 +94,14 @@ func (e *ObservabilityNewrelicDestinationType) UnmarshalJSON(data []byte) error 
 
 type ObservabilityNewrelicDestination struct {
 	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
-	APIKeyHashes []string                               `json:"api_key_hashes"`
-	Config       ObservabilityNewrelicDestinationConfig `json:"config"`
+	APIKeyHashes []string `json:"api_key_hashes"`
+	// When true, include cost and billing generation metadata.
+	BroadcastGenerationCost bool `json:"broadcast_generation_cost"`
+	// When true, include identity generation metadata.
+	BroadcastGenerationIdentity bool `json:"broadcast_generation_identity"`
+	// When true, include request-context generation metadata.
+	BroadcastGenerationRequestContext bool                                   `json:"broadcast_generation_request_context"`
+	Config                            ObservabilityNewrelicDestinationConfig `json:"config"`
 	// ISO timestamp of when the destination was created.
 	CreatedAt string `json:"created_at"`
 	// Whether this destination is currently enabled.
@@ -133,6 +139,27 @@ func (o *ObservabilityNewrelicDestination) GetAPIKeyHashes() []string {
 		return nil
 	}
 	return o.APIKeyHashes
+}
+
+func (o *ObservabilityNewrelicDestination) GetBroadcastGenerationCost() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationCost
+}
+
+func (o *ObservabilityNewrelicDestination) GetBroadcastGenerationIdentity() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationIdentity
+}
+
+func (o *ObservabilityNewrelicDestination) GetBroadcastGenerationRequestContext() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationRequestContext
 }
 
 func (o *ObservabilityNewrelicDestination) GetConfig() ObservabilityNewrelicDestinationConfig {

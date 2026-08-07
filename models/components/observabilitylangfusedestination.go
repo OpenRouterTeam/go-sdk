@@ -80,8 +80,14 @@ func (e *ObservabilityLangfuseDestinationType) UnmarshalJSON(data []byte) error 
 
 type ObservabilityLangfuseDestination struct {
 	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) whose traffic is forwarded to this destination. `null` means all keys.
-	APIKeyHashes []string                               `json:"api_key_hashes"`
-	Config       ObservabilityLangfuseDestinationConfig `json:"config"`
+	APIKeyHashes []string `json:"api_key_hashes"`
+	// When true, include cost and billing generation metadata.
+	BroadcastGenerationCost bool `json:"broadcast_generation_cost"`
+	// When true, include identity generation metadata.
+	BroadcastGenerationIdentity bool `json:"broadcast_generation_identity"`
+	// When true, include request-context generation metadata.
+	BroadcastGenerationRequestContext bool                                   `json:"broadcast_generation_request_context"`
+	Config                            ObservabilityLangfuseDestinationConfig `json:"config"`
 	// ISO timestamp of when the destination was created.
 	CreatedAt string `json:"created_at"`
 	// Whether this destination is currently enabled.
@@ -119,6 +125,27 @@ func (o *ObservabilityLangfuseDestination) GetAPIKeyHashes() []string {
 		return nil
 	}
 	return o.APIKeyHashes
+}
+
+func (o *ObservabilityLangfuseDestination) GetBroadcastGenerationCost() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationCost
+}
+
+func (o *ObservabilityLangfuseDestination) GetBroadcastGenerationIdentity() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationIdentity
+}
+
+func (o *ObservabilityLangfuseDestination) GetBroadcastGenerationRequestContext() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationRequestContext
 }
 
 func (o *ObservabilityLangfuseDestination) GetConfig() ObservabilityLangfuseDestinationConfig {
