@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: b1bc1ba99bea74e4da07ee3f05f55d4a
+  docChecksum: 0c66914f500ac4e7faadbdc06673fd15
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.26
-  configChecksum: 68637d43d85f66dda2124a1ae5c262cd
+  releaseVersion: 0.7.27
+  configChecksum: cad6c9f3f35143e1e53582aaf646126f
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 205498f3-4f18-4474-adb4-44e47b7b3b3b
-  pristine_commit_hash: 3143f1316519567d96dd499ddcc849a8c1a4adb8
-  pristine_tree_hash: 2624bed07a13992756b558f0204422afa8f2558a
+  generation_id: 4fb23fec-ad97-495b-ad50-592af969a407
+  pristine_commit_hash: 4c671de721f5e64746eb1cf4d1dce1eb2e1304b3
+  pristine_tree_hash: f21a2c1d0e863976d789597bfb4f3734b0e40682
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2119,8 +2119,8 @@ trackedFiles:
     pristine_git_object: bb0885efc789e5e1e94c6352d79b2582e83679a6
   docs/models/components/fusionplugin.mdx:
     id: b4f3bf7714aa
-    last_write_checksum: sha1:6f751c9d68e1460f389039f636cb9ec07b04d832
-    pristine_git_object: c8234cc9ee5cbc436f04cd80d22dc98882cb3901
+    last_write_checksum: sha1:e96e3b2067fc4226e59b061e732a53d671e85163
+    pristine_git_object: 764cbc8236bb36b63414fc4c7a5f454f60a5e231
   docs/models/components/fusionpluginid.mdx:
     id: 9c0efb1d0838
     last_write_checksum: sha1:d7c2fba173c1de6b5117d61388207f413da9e5e4
@@ -2131,8 +2131,8 @@ trackedFiles:
     pristine_git_object: 224921368b69b19b32d30c2d19c3b3004506c18b
   docs/models/components/fusionservertoolconfig.mdx:
     id: c454e1193106
-    last_write_checksum: sha1:9903761cfaaeb4d81aa1e0394862b368ad4687b9
-    pristine_git_object: 3d3b8ed17beb8861d1ae9b17c1be6c4d880b83ad
+    last_write_checksum: sha1:eb29a93a6c28ddbc4414e8e96d530c5092654d8d
+    pristine_git_object: 643fa0812fd5b5d42a3a4a7818574adb2c18ca91
   docs/models/components/fusionservertoolconfigeffort.mdx:
     id: 5dadbc03df8f
     last_write_checksum: sha1:1d6d22cffc96e154ea56ed43096861d7f6731d81
@@ -7655,12 +7655,12 @@ trackedFiles:
     pristine_git_object: 1ea5a756a2a475b432b444907ce37354ad60297d
   models/components/fusionplugin.go:
     id: ad7a63c688b2
-    last_write_checksum: sha1:178a92b16ab699797eb27e85ee4a9c04502a5dc6
-    pristine_git_object: 8f246628964ae7deeddb5761a333c4fd1060cf98
+    last_write_checksum: sha1:6299827fc656452ef4dcd862d3c9523cffd779ad
+    pristine_git_object: 59630f4856ec8e1423bae92715a4db067f12397b
   models/components/fusionservertoolconfig.go:
     id: 11a6494de9f7
-    last_write_checksum: sha1:887c98f28ebc645a8fac9282cca04146ea271afe
-    pristine_git_object: 5527a3bc8b89938efddfaf0fe6a60f6ea106e63c
+    last_write_checksum: sha1:11a47101526741168ab8a6f1fdd1b0fcb145e02e
+    pristine_git_object: 1255203b279989be39930208b35d6f1161b700fd
   models/components/fusionservertoolopenrouter.go:
     id: 71c8e6ea7f3c
     last_write_checksum: sha1:b6e6b7c760f04991eb878b5ca44bcc5a771f609d
@@ -9543,8 +9543,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:bddd8ff7ea1c24a05773344933095202715742ea
-    pristine_git_object: 8f7e37367434907f792646b656d02502d117b90d
+    last_write_checksum: sha1:9ad92c1e73b920d2ae927698bae4ef3d89b2bfbb
+    pristine_git_object: 835f7e191a87f4b28506725d424c1ebfd66e5ac6
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11340,4 +11340,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Byok.List()`:  `response.Data[].WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Byok.Create()`:  `response.Data.WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Byok.Get()`:  `response.Data.WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Byok.Update()`:  `response.Data.WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Guardrails.List()`:  `response.Data[].WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Guardrails.Create()`:  `response.Data.WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Guardrails.Get()`:  `response.Data.WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Guardrails.Update()`:  `response.Data.WorkspaceId` **Changed** (Breaking ⚠️)\n* `OpenRouter.Observability.List()`:  `response.Data[]` **Changed**\n* `OpenRouter.Observability.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Data` **Changed**\n* `OpenRouter.Observability.Get()`:  `response.Data` **Changed**\n* `OpenRouter.Observability.Update()`: \n  *  `request.UpdateObservabilityDestinationRequest` **Changed**\n  *  `response.Data` **Changed**\n  *  `error.status[403]` **Added**\n"
