@@ -107,7 +107,7 @@ type FusionServerToolConfig struct {
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Maximum number of output tokens (including reasoning tokens) each panelist and the analyst model may produce per inner call. Controls the total output budget so reasoning-heavy models like GPT-5.5 do not exhaust their token allowance before producing visible text. When omitted, panelists default to 32000 and the analyst to 20000.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
-	// Maximum number of tool-calling steps each panelist (analysis model) and the analyst model may take during their agentic web-research loop. Models with web_search/web_fetch enabled iterate until they produce a text response or hit this ceiling. Defaults to 8. Capped at 16.
+	// Maximum number of tool-calling steps each panelist (analysis model) and the analyst model may take during their agentic web-research loop. Models with web_search/web_fetch enabled iterate until they produce a text response or hit this ceiling. Defaults to 4. Capped at 16.
 	MaxToolCalls *int64 `json:"max_tool_calls,omitzero"`
 	// Slug of the analyst model that produces the structured analysis JSON. Defaults to the model used in the outer API request.
 	Model *string `json:"model,omitzero"`
