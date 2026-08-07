@@ -1169,7 +1169,7 @@ type VideoGenerationRequest struct {
 	FrameImages []FrameImage `json:"frame_images,omitzero"`
 	// Whether to generate audio alongside the video. Defaults to the endpoint's generate_audio capability flag, false if not set.
 	GenerateAudio *bool `json:"generate_audio,omitzero"`
-	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (currently BytePlus Seedance 2.0); other providers use image references and ignore the rest.
+	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (including BytePlus Seedance generation 2 and newer); other providers use image references and ignore the rest.
 	InputReferences []InputReference `json:"input_references,omitzero"`
 	Model           string           `json:"model"`
 	// Text prompt describing the video to generate. Optional for models that support generating a video from image input alone; required by all other models.
