@@ -93,20 +93,26 @@ const (
 	SupportedSizeFourHundredAndEightyx720                SupportedSize = "480x720"
 	SupportedSizeFourHundredAndEightyx854                SupportedSize = "480x854"
 	SupportedSizeFourHundredAndEightyx1120               SupportedSize = "480x1120"
+	SupportedSizeFiveHundredAndSixtyx752                 SupportedSize = "560x752"
 	SupportedSizeSixHundredAndFortyx480                  SupportedSize = "640x480"
+	SupportedSizeSixHundredAndFortyx640                  SupportedSize = "640x640"
 	SupportedSizeSevenHundredAndTwentyx480               SupportedSize = "720x480"
 	SupportedSizeSevenHundredAndTwentyx720               SupportedSize = "720x720"
 	SupportedSizeSevenHundredAndTwentyx960               SupportedSize = "720x960"
 	SupportedSizeSevenHundredAndTwentyx1080              SupportedSize = "720x1080"
 	SupportedSizeSevenHundredAndTwentyx1280              SupportedSize = "720x1280"
 	SupportedSizeSevenHundredAndTwentyx1680              SupportedSize = "720x1680"
+	SupportedSizeSevenHundredAndFiftyTwox560             SupportedSize = "752x560"
 	SupportedSizeSevenHundredAndSixtyEightx768           SupportedSize = "768x768"
 	SupportedSizeSevenHundredAndSixtyEightx1024          SupportedSize = "768x1024"
 	SupportedSizeSevenHundredAndSixtyEightx1152          SupportedSize = "768x1152"
 	SupportedSizeSevenHundredAndSixtyEightx1366          SupportedSize = "768x1366"
 	SupportedSizeSevenHundredAndSixtyEightx1792          SupportedSize = "768x1792"
+	SupportedSizeEightHundredAndThirtyFourx1112          SupportedSize = "834x1112"
 	SupportedSizeEightHundredAndFiftyFourx480            SupportedSize = "854x480"
 	SupportedSizeNineHundredAndSixtyx720                 SupportedSize = "960x720"
+	SupportedSizeNineHundredAndSixtyx960                 SupportedSize = "960x960"
+	SupportedSizeNineHundredAndNinetyTwox432             SupportedSize = "992x432"
 	SupportedSizeOneThousandAndTwentyFourx768            SupportedSize = "1024x768"
 	SupportedSizeOneThousandAndEightyx720                SupportedSize = "1080x720"
 	SupportedSizeOneThousandAndEightyx1080               SupportedSize = "1080x1080"
@@ -114,6 +120,7 @@ const (
 	SupportedSizeOneThousandAndEightyx1620               SupportedSize = "1080x1620"
 	SupportedSizeOneThousandAndEightyx1920               SupportedSize = "1080x1920"
 	SupportedSizeOneThousandAndEightyx2520               SupportedSize = "1080x2520"
+	SupportedSizeOneThousandOneHundredAndTwelvex834      SupportedSize = "1112x834"
 	SupportedSizeOneThousandOneHundredAndTwentyx480      SupportedSize = "1120x480"
 	SupportedSizeOneThousandOneHundredAndFiftyTwox768    SupportedSize = "1152x768"
 	SupportedSizeOneThousandTwoHundredAndEightyx720      SupportedSize = "1280x720"
@@ -124,6 +131,7 @@ const (
 	SupportedSizeOneThousandFourHundredAndFortyx2160     SupportedSize = "1440x2160"
 	SupportedSizeOneThousandFourHundredAndFortyx2560     SupportedSize = "1440x2560"
 	SupportedSizeOneThousandFourHundredAndFortyx3360     SupportedSize = "1440x3360"
+	SupportedSizeOneThousandFourHundredAndSeventyx630    SupportedSize = "1470x630"
 	SupportedSizeOneThousandSixHundredAndTwentyx1080     SupportedSize = "1620x1080"
 	SupportedSizeOneThousandSixHundredAndEightyx720      SupportedSize = "1680x720"
 	SupportedSizeOneThousandSevenHundredAndNinetyTwox768 SupportedSize = "1792x768"
@@ -152,7 +160,7 @@ func (e SupportedSize) ToPointer() *SupportedSize {
 func (e *SupportedSize) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "480x480", "480x640", "480x720", "480x854", "480x1120", "640x480", "720x480", "720x720", "720x960", "720x1080", "720x1280", "720x1680", "768x768", "768x1024", "768x1152", "768x1366", "768x1792", "854x480", "960x720", "1024x768", "1080x720", "1080x1080", "1080x1440", "1080x1620", "1080x1920", "1080x2520", "1120x480", "1152x768", "1280x720", "1366x768", "1440x1080", "1440x1440", "1440x1920", "1440x2160", "1440x2560", "1440x3360", "1620x1080", "1680x720", "1792x768", "1920x1080", "1920x1440", "2160x1440", "2160x2160", "2160x2880", "2160x3240", "2160x3840", "2160x5040", "2520x1080", "2560x1440", "2880x2160", "3240x2160", "3360x1440", "3840x2160", "5040x2160":
+		case "480x480", "480x640", "480x720", "480x854", "480x1120", "560x752", "640x480", "640x640", "720x480", "720x720", "720x960", "720x1080", "720x1280", "720x1680", "752x560", "768x768", "768x1024", "768x1152", "768x1366", "768x1792", "834x1112", "854x480", "960x720", "960x960", "992x432", "1024x768", "1080x720", "1080x1080", "1080x1440", "1080x1620", "1080x1920", "1080x2520", "1112x834", "1120x480", "1152x768", "1280x720", "1366x768", "1440x1080", "1440x1440", "1440x1920", "1440x2160", "1440x2560", "1440x3360", "1470x630", "1620x1080", "1680x720", "1792x768", "1920x1080", "1920x1440", "2160x1440", "2160x2160", "2160x2880", "2160x3240", "2160x3840", "2160x5040", "2520x1080", "2560x1440", "2880x2160", "3240x2160", "3360x1440", "3840x2160", "5040x2160":
 			return true
 		}
 	}
