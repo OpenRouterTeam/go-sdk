@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 984a5748d39ac8e61fc369fa214c07d9
+  docChecksum: 142004f49f788d33b5f5f91012cc3b32
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.31
-  configChecksum: af342c7717a9f74de30496d64c89a720
+  releaseVersion: 0.7.32
+  configChecksum: 806ef120eac20d41eb1693bb76b96c76
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 0f75329d-9558-497e-adc8-4e656928e236
-  pristine_commit_hash: 335363cfb133e1395afe0c379240ba075d7f1c32
-  pristine_tree_hash: c6299834b4bef6b4dcb518faf1cbe3dcd4e865f8
+  generation_id: f698d1af-ec4f-44a0-9462-3a16cc7737a8
+  pristine_commit_hash: 1357f5c303035a24a8e3681b405740db275c99bf
+  pristine_tree_hash: fbe8851ff4557f0be5d1d8d1790eb3dff5cff16b
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2131,8 +2131,8 @@ trackedFiles:
     pristine_git_object: 224921368b69b19b32d30c2d19c3b3004506c18b
   docs/models/components/fusionservertoolconfig.mdx:
     id: c454e1193106
-    last_write_checksum: sha1:f901a9c87d8b0fb1d359c3549311deeb4e42379f
-    pristine_git_object: d29de339cbfb9ace571427b6237e4e14e97b54cf
+    last_write_checksum: sha1:a01e86e5857861bdae2cd79162617e8dc60010d3
+    pristine_git_object: e3c6093076dd9214c62714aec27460d000903069
   docs/models/components/fusionservertoolconfigeffort.mdx:
     id: 5dadbc03df8f
     last_write_checksum: sha1:1d6d22cffc96e154ea56ed43096861d7f6731d81
@@ -7663,8 +7663,8 @@ trackedFiles:
     pristine_git_object: 59630f4856ec8e1423bae92715a4db067f12397b
   models/components/fusionservertoolconfig.go:
     id: 11a6494de9f7
-    last_write_checksum: sha1:42e4adb21d2da30bfcacbfa0717a0ab573d87fdb
-    pristine_git_object: c52a72312fd9491cdda0a7cf23f4fe56a4fec862
+    last_write_checksum: sha1:2add72c1b22a3ae8ab64c8ba9faec17d0c66edce
+    pristine_git_object: 4aa92a962017976f6815bf44b06f9b821006522b
   models/components/fusionservertoolopenrouter.go:
     id: 71c8e6ea7f3c
     last_write_checksum: sha1:b6e6b7c760f04991eb878b5ca44bcc5a771f609d
@@ -9551,8 +9551,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:8a2c92c7acc16b0f56eb06d1f28432e45bca0e66
-    pristine_git_object: 3192fc85c8008c5a5b1c93499d3add574abc1414
+    last_write_checksum: sha1:29da9cea9edcce16f65d692e9e4ddd83d11a684b
+    pristine_git_object: bbb04382e29fd1fed46d9f64faf141fd6499cd0e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
