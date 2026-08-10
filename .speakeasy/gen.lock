@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 142004f49f788d33b5f5f91012cc3b32
+  docChecksum: 45fec0f9658d9b54df73033ee15bc7cb
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.32
-  configChecksum: 806ef120eac20d41eb1693bb76b96c76
+  releaseVersion: 0.7.33
+  configChecksum: 06a2c9216b89ae1ae27c8b82c28d86d2
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f698d1af-ec4f-44a0-9462-3a16cc7737a8
-  pristine_commit_hash: 1357f5c303035a24a8e3681b405740db275c99bf
-  pristine_tree_hash: fbe8851ff4557f0be5d1d8d1790eb3dff5cff16b
+  generation_id: 90846245-04ce-43de-b781-9e9786bd5ef4
+  pristine_commit_hash: 547cab6c562204d6a89413ede45dc1f3b4bd50e8
+  pristine_tree_hash: b1491e71335b7bff67730ec7c2abd4cb09e5a58c
 features:
   go:
     acceptHeaders: 2.81.2
@@ -687,24 +687,24 @@ trackedFiles:
     pristine_git_object: a520320b1605e945e8cfff1bdc458aeaf9ecccb7
   docs/models/components/autobetarouterplugin.mdx:
     id: 604b3c68d3cd
-    last_write_checksum: sha1:52d4a08613d94dd9952b2e26f06efb64119cbb29
-    pristine_git_object: 24d6a9fb87509edc71ede88eb3ebdded38e05566
+    last_write_checksum: sha1:e87e3bc68231dbd8ec6ea706b68817b9f6395b9a
+    pristine_git_object: 30da0f6471999e268da708a5cfce9f54145b7fbd
   docs/models/components/autobetarouterplugincosttier.mdx:
     id: 0200e31370cf
-    last_write_checksum: sha1:13b5966f4c53b7aa73cf10bfc2d8a072fc3abad5
-    pristine_git_object: 450c398a5eee8543f63aff14aaddfc5c89cd9e75
+    last_write_checksum: sha1:3357110f0ed64d1f6ab6aa73a13b037fafcc4432
+    pristine_git_object: ef9b2223988b8e1ebd46a1420fd6996eb901b3fe
   docs/models/components/autobetarouterpluginid.mdx:
     id: 201bca17ded5
     last_write_checksum: sha1:1dd42283e6e7080c97b5877840a378035f346eb6
     pristine_git_object: 20d629486cc3445f46673c817c1e6175a403c31c
   docs/models/components/autorouterplugin.mdx:
     id: 947ca182eebc
-    last_write_checksum: sha1:70cf43de661407d3d1c46a43c1063b8e87aa55b7
-    pristine_git_object: 2529a26d6c1c066750812f75a5e15941cacd0fbf
+    last_write_checksum: sha1:f05dcc7db8377c29881265060bab3ba3c51da752
+    pristine_git_object: 748051c0c41a2607c407714c9d2dd3524fa9128e
   docs/models/components/autorouterplugincosttier.mdx:
     id: 4e43cebc67c2
-    last_write_checksum: sha1:cd62071042f2d650d484ecfe7d323289b47e715c
-    pristine_git_object: e1963b5a125370eaa505871a1368f8084583f33f
+    last_write_checksum: sha1:90580a742317cf8db514362b2914f5bb39bc0c22
+    pristine_git_object: 57b26adce5c26db0ca98b1e1d2b1e340499e966a
   docs/models/components/autorouterpluginid.mdx:
     id: b5b627d7888a
     last_write_checksum: sha1:5ddb57cf84e8a6e22db7f4bb9c41bf89b643730c
@@ -7019,12 +7019,12 @@ trackedFiles:
     pristine_git_object: 30a273966efab68c24f6ec5b06bd431246021cab
   models/components/autobetarouterplugin.go:
     id: 63278beff624
-    last_write_checksum: sha1:f315ac5ebb55589d45c56b3756fe56755f98d83d
-    pristine_git_object: f328defd0445ea8aacc2c8fa0b1e489c5b9fec10
+    last_write_checksum: sha1:7c6b3428eb8a5fa6bf2ef7899c4f15a155291caa
+    pristine_git_object: c7ac9302d41e6f65684524af05eeae39de82e2f6
   models/components/autorouterplugin.go:
     id: 854f76942e3c
-    last_write_checksum: sha1:fdfcb900786ae3bec81442709303b33a0706209c
-    pristine_git_object: f5fdf0cc201e1d8f995a4613c3142135bfc6bcb9
+    last_write_checksum: sha1:3e1ec140e31fc09e05144f65e3623875030f91ee
+    pristine_git_object: 926f9923662143e86112917c2fe0aeaa15ff64c1
   models/components/badgatewayresponseerrordata.go:
     id: 53b7c495de19
     last_write_checksum: sha1:c2422191e609c2ed91acd8fe9d908320a28b7839
@@ -9551,8 +9551,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:29da9cea9edcce16f65d692e9e4ddd83d11a684b
-    pristine_git_object: bbb04382e29fd1fed46d9f64faf141fd6499cd0e
+    last_write_checksum: sha1:f31890e2844c528b50118c47124c86b4e91bbdbd
+    pristine_git_object: 85273ffb13573021c2584422b52f575adde285af
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
