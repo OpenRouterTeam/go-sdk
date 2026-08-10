@@ -97,7 +97,7 @@ func CreateOutputItemsApplyPatchCall(applyPatchCall OutputApplyPatchCallItem) Ou
 func CreateOutputItemsCodeInterpreterCall(codeInterpreterCall OutputCodeInterpreterCallItem) OutputItems {
 	typ := OutputItemsTypeCodeInterpreterCall
 
-	typStr := TypeCodeInterpreterCall(typ)
+	typStr := OutputCodeInterpreterCallItemType(typ)
 	codeInterpreterCall.Type = typStr
 
 	return OutputItems{

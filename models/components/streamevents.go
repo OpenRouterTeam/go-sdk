@@ -15,6 +15,11 @@ const (
 	StreamEventsTypeError                                    StreamEventsType = "error"
 	StreamEventsTypeResponseApplyPatchCallOperationDiffDelta StreamEventsType = "response.apply_patch_call_operation_diff.delta"
 	StreamEventsTypeResponseApplyPatchCallOperationDiffDone  StreamEventsType = "response.apply_patch_call_operation_diff.done"
+	StreamEventsTypeResponseCodeInterpreterCallCodeDelta     StreamEventsType = "response.code_interpreter_call_code.delta"
+	StreamEventsTypeResponseCodeInterpreterCallCodeDone      StreamEventsType = "response.code_interpreter_call_code.done"
+	StreamEventsTypeResponseCodeInterpreterCallCompleted     StreamEventsType = "response.code_interpreter_call.completed"
+	StreamEventsTypeResponseCodeInterpreterCallInProgress    StreamEventsType = "response.code_interpreter_call.in_progress"
+	StreamEventsTypeResponseCodeInterpreterCallInterpreting  StreamEventsType = "response.code_interpreter_call.interpreting"
 	StreamEventsTypeResponseCompleted                        StreamEventsType = "response.completed"
 	StreamEventsTypeResponseContentPartAdded                 StreamEventsType = "response.content_part.added"
 	StreamEventsTypeResponseContentPartDone                  StreamEventsType = "response.content_part.done"
@@ -88,6 +93,11 @@ type StreamEvents struct {
 	ImageGenCallGeneratingEvent           *ImageGenCallGeneratingEvent           `queryParam:"inline" union:"member"`
 	ImageGenCallPartialImageEvent         *ImageGenCallPartialImageEvent         `queryParam:"inline" union:"member"`
 	ImageGenCallCompletedEvent            *ImageGenCallCompletedEvent            `queryParam:"inline" union:"member"`
+	CodeInterpreterCallInProgressEvent    *CodeInterpreterCallInProgressEvent    `queryParam:"inline" union:"member"`
+	CodeInterpreterCallInterpretingEvent  *CodeInterpreterCallInterpretingEvent  `queryParam:"inline" union:"member"`
+	CodeInterpreterCallCompletedEvent     *CodeInterpreterCallCompletedEvent     `queryParam:"inline" union:"member"`
+	CodeInterpreterCallCodeDeltaEvent     *CodeInterpreterCallCodeDeltaEvent     `queryParam:"inline" union:"member"`
+	CodeInterpreterCallCodeDoneEvent      *CodeInterpreterCallCodeDoneEvent      `queryParam:"inline" union:"member"`
 	WebSearchCallInProgressEvent          *WebSearchCallInProgressEvent          `queryParam:"inline" union:"member"`
 	WebSearchCallSearchingEvent           *WebSearchCallSearchingEvent           `queryParam:"inline" union:"member"`
 	WebSearchCallCompletedEvent           *WebSearchCallCompletedEvent           `queryParam:"inline" union:"member"`
@@ -142,6 +152,66 @@ func CreateStreamEventsResponseApplyPatchCallOperationDiffDone(responseApplyPatc
 
 	return StreamEvents{
 		ApplyPatchCallOperationDiffDoneEvent: &responseApplyPatchCallOperationDiffDone,
+		Type:                                 typ,
+	}
+}
+
+func CreateStreamEventsResponseCodeInterpreterCallCodeDelta(responseCodeInterpreterCallCodeDelta CodeInterpreterCallCodeDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCodeInterpreterCallCodeDelta
+
+	typStr := CodeInterpreterCallCodeDeltaEventType(typ)
+	responseCodeInterpreterCallCodeDelta.Type = typStr
+
+	return StreamEvents{
+		CodeInterpreterCallCodeDeltaEvent: &responseCodeInterpreterCallCodeDelta,
+		Type:                              typ,
+	}
+}
+
+func CreateStreamEventsResponseCodeInterpreterCallCodeDone(responseCodeInterpreterCallCodeDone CodeInterpreterCallCodeDoneEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCodeInterpreterCallCodeDone
+
+	typStr := CodeInterpreterCallCodeDoneEventType(typ)
+	responseCodeInterpreterCallCodeDone.Type = typStr
+
+	return StreamEvents{
+		CodeInterpreterCallCodeDoneEvent: &responseCodeInterpreterCallCodeDone,
+		Type:                             typ,
+	}
+}
+
+func CreateStreamEventsResponseCodeInterpreterCallCompleted(responseCodeInterpreterCallCompleted CodeInterpreterCallCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCodeInterpreterCallCompleted
+
+	typStr := CodeInterpreterCallCompletedEventType(typ)
+	responseCodeInterpreterCallCompleted.Type = typStr
+
+	return StreamEvents{
+		CodeInterpreterCallCompletedEvent: &responseCodeInterpreterCallCompleted,
+		Type:                              typ,
+	}
+}
+
+func CreateStreamEventsResponseCodeInterpreterCallInProgress(responseCodeInterpreterCallInProgress CodeInterpreterCallInProgressEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCodeInterpreterCallInProgress
+
+	typStr := CodeInterpreterCallInProgressEventType(typ)
+	responseCodeInterpreterCallInProgress.Type = typStr
+
+	return StreamEvents{
+		CodeInterpreterCallInProgressEvent: &responseCodeInterpreterCallInProgress,
+		Type:                               typ,
+	}
+}
+
+func CreateStreamEventsResponseCodeInterpreterCallInterpreting(responseCodeInterpreterCallInterpreting CodeInterpreterCallInterpretingEvent) StreamEvents {
+	typ := StreamEventsTypeResponseCodeInterpreterCallInterpreting
+
+	typStr := CodeInterpreterCallInterpretingEventType(typ)
+	responseCodeInterpreterCallInterpreting.Type = typStr
+
+	return StreamEvents{
+		CodeInterpreterCallInterpretingEvent: &responseCodeInterpreterCallInterpreting,
 		Type:                                 typ,
 	}
 }
@@ -699,6 +769,51 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) error {
 		u.ApplyPatchCallOperationDiffDoneEvent = applyPatchCallOperationDiffDoneEvent
 		u.Type = StreamEventsTypeResponseApplyPatchCallOperationDiffDone
 		return nil
+	case "response.code_interpreter_call_code.delta":
+		codeInterpreterCallCodeDeltaEvent := new(CodeInterpreterCallCodeDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &codeInterpreterCallCodeDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.code_interpreter_call_code.delta) type CodeInterpreterCallCodeDeltaEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.CodeInterpreterCallCodeDeltaEvent = codeInterpreterCallCodeDeltaEvent
+		u.Type = StreamEventsTypeResponseCodeInterpreterCallCodeDelta
+		return nil
+	case "response.code_interpreter_call_code.done":
+		codeInterpreterCallCodeDoneEvent := new(CodeInterpreterCallCodeDoneEvent)
+		if err := utils.UnmarshalJSON(data, &codeInterpreterCallCodeDoneEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.code_interpreter_call_code.done) type CodeInterpreterCallCodeDoneEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.CodeInterpreterCallCodeDoneEvent = codeInterpreterCallCodeDoneEvent
+		u.Type = StreamEventsTypeResponseCodeInterpreterCallCodeDone
+		return nil
+	case "response.code_interpreter_call.completed":
+		codeInterpreterCallCompletedEvent := new(CodeInterpreterCallCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &codeInterpreterCallCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.code_interpreter_call.completed) type CodeInterpreterCallCompletedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.CodeInterpreterCallCompletedEvent = codeInterpreterCallCompletedEvent
+		u.Type = StreamEventsTypeResponseCodeInterpreterCallCompleted
+		return nil
+	case "response.code_interpreter_call.in_progress":
+		codeInterpreterCallInProgressEvent := new(CodeInterpreterCallInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &codeInterpreterCallInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.code_interpreter_call.in_progress) type CodeInterpreterCallInProgressEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.CodeInterpreterCallInProgressEvent = codeInterpreterCallInProgressEvent
+		u.Type = StreamEventsTypeResponseCodeInterpreterCallInProgress
+		return nil
+	case "response.code_interpreter_call.interpreting":
+		codeInterpreterCallInterpretingEvent := new(CodeInterpreterCallInterpretingEvent)
+		if err := utils.UnmarshalJSON(data, &codeInterpreterCallInterpretingEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.code_interpreter_call.interpreting) type CodeInterpreterCallInterpretingEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.CodeInterpreterCallInterpretingEvent = codeInterpreterCallInterpretingEvent
+		u.Type = StreamEventsTypeResponseCodeInterpreterCallInterpreting
+		return nil
 	case "response.completed":
 		streamEventsResponseCompleted := new(StreamEventsResponseCompleted)
 		if err := utils.UnmarshalJSON(data, &streamEventsResponseCompleted, "", true, nil); err != nil {
@@ -1183,6 +1298,26 @@ func (u StreamEvents) MarshalJSON() ([]byte, error) {
 
 	if u.ImageGenCallCompletedEvent != nil {
 		return utils.MarshalJSON(u.ImageGenCallCompletedEvent, "", true)
+	}
+
+	if u.CodeInterpreterCallInProgressEvent != nil {
+		return utils.MarshalJSON(u.CodeInterpreterCallInProgressEvent, "", true)
+	}
+
+	if u.CodeInterpreterCallInterpretingEvent != nil {
+		return utils.MarshalJSON(u.CodeInterpreterCallInterpretingEvent, "", true)
+	}
+
+	if u.CodeInterpreterCallCompletedEvent != nil {
+		return utils.MarshalJSON(u.CodeInterpreterCallCompletedEvent, "", true)
+	}
+
+	if u.CodeInterpreterCallCodeDeltaEvent != nil {
+		return utils.MarshalJSON(u.CodeInterpreterCallCodeDeltaEvent, "", true)
+	}
+
+	if u.CodeInterpreterCallCodeDoneEvent != nil {
+		return utils.MarshalJSON(u.CodeInterpreterCallCodeDoneEvent, "", true)
 	}
 
 	if u.WebSearchCallInProgressEvent != nil {

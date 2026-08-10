@@ -34,26 +34,26 @@ func (e *CustomToolCallOutputItemDetail) IsExact() bool {
 	return false
 }
 
-type CustomToolCallOutputItemTypeInputImage string
+type CustomToolCallOutputItemOutputType string
 
 const (
-	CustomToolCallOutputItemTypeInputImageInputImage CustomToolCallOutputItemTypeInputImage = "input_image"
+	CustomToolCallOutputItemOutputTypeInputImage CustomToolCallOutputItemOutputType = "input_image"
 )
 
-func (e CustomToolCallOutputItemTypeInputImage) ToPointer() *CustomToolCallOutputItemTypeInputImage {
+func (e CustomToolCallOutputItemOutputType) ToPointer() *CustomToolCallOutputItemOutputType {
 	return &e
 }
-func (e *CustomToolCallOutputItemTypeInputImage) UnmarshalJSON(data []byte) error {
+func (e *CustomToolCallOutputItemOutputType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "input_image":
-		*e = CustomToolCallOutputItemTypeInputImage(v)
+		*e = CustomToolCallOutputItemOutputType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CustomToolCallOutputItemTypeInputImage: %v", v)
+		return fmt.Errorf("invalid value for CustomToolCallOutputItemOutputType: %v", v)
 	}
 }
 
@@ -61,7 +61,7 @@ func (e *CustomToolCallOutputItemTypeInputImage) UnmarshalJSON(data []byte) erro
 type CustomToolCallOutputItemOutputInputImage struct {
 	Detail   CustomToolCallOutputItemDetail            `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
-	Type     CustomToolCallOutputItemTypeInputImage    `json:"type"`
+	Type     CustomToolCallOutputItemOutputType        `json:"type"`
 }
 
 func (c CustomToolCallOutputItemOutputInputImage) MarshalJSON() ([]byte, error) {
@@ -89,9 +89,9 @@ func (c *CustomToolCallOutputItemOutputInputImage) GetImageURL() optionalnullabl
 	return c.ImageURL
 }
 
-func (c *CustomToolCallOutputItemOutputInputImage) GetType() CustomToolCallOutputItemTypeInputImage {
+func (c *CustomToolCallOutputItemOutputInputImage) GetType() CustomToolCallOutputItemOutputType {
 	if c == nil {
-		return CustomToolCallOutputItemTypeInputImage("")
+		return CustomToolCallOutputItemOutputType("")
 	}
 	return c.Type
 }
@@ -127,7 +127,7 @@ func CreateCustomToolCallOutputItemOutputUnion1InputText(inputText InputText) Cu
 func CreateCustomToolCallOutputItemOutputUnion1InputImage(inputImage CustomToolCallOutputItemOutputInputImage) CustomToolCallOutputItemOutputUnion1 {
 	typ := CustomToolCallOutputItemOutputUnion1TypeInputImage
 
-	typStr := CustomToolCallOutputItemTypeInputImage(typ)
+	typStr := CustomToolCallOutputItemOutputType(typ)
 	inputImage.Type = typStr
 
 	return CustomToolCallOutputItemOutputUnion1{
