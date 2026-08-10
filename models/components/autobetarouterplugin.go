@@ -8,7 +8,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// AutoBetaRouterPluginCostTier - Named cost/quality setting. For auto-beta-router, tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Numeric cost_quality_tradeoff takes precedence and retains ceiling behavior.
+// AutoBetaRouterPluginCostTier - Named cost/quality setting. For auto-beta-router, tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Takes precedence over the deprecated numeric cost_quality_tradeoff when both are provided.
 type AutoBetaRouterPluginCostTier string
 
 const (
@@ -58,13 +58,13 @@ func (e *AutoBetaRouterPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type AutoBetaRouterPlugin struct {
-	// List of model patterns to filter which models the auto-beta-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, uses the default supported models list.
+	// List of model patterns to filter which models the auto-beta-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, every model ranked for the classified task type is a candidate, falling back to a default model set when rankings are unavailable.
 	AllowedModels []string `json:"allowed_models,omitzero"`
-	// Deprecated: Use cost_tier instead. Balances routing between cost and quality on a 0-10 scale. The auto-beta-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 9. Numeric cost_quality_tradeoff remains supported, retains ceiling behavior, and takes precedence over cost_tier when both are provided.
+	// Deprecated: Use cost_tier instead. Balances routing between cost and quality on a 0-10 scale. The auto-beta-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 9 when no cost setting is provided. It remains supported and retains ceiling behavior, but cost_tier takes precedence when both are provided.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	CostQualityTradeoff *int64 `json:"cost_quality_tradeoff,omitzero"`
-	// Named cost/quality setting. For auto-beta-router, tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Numeric cost_quality_tradeoff takes precedence and retains ceiling behavior.
+	// Named cost/quality setting. For auto-beta-router, tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Takes precedence over the deprecated numeric cost_quality_tradeoff when both are provided.
 	CostTier *AutoBetaRouterPluginCostTier `json:"cost_tier,omitzero"`
 	// Set to false to disable the auto-beta-router plugin for this request. Defaults to true.
 	Enabled *bool `json:"enabled,omitzero"`
