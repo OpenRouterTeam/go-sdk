@@ -25,6 +25,36 @@ streamEvents := components.CreateStreamEventsResponseApplyPatchCallOperationDiff
 streamEvents := components.CreateStreamEventsResponseApplyPatchCallOperationDiffDone(components.ApplyPatchCallOperationDiffDoneEvent{/* values here */})
 ```
 
+### CodeInterpreterCallCodeDeltaEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseCodeInterpreterCallCodeDelta(components.CodeInterpreterCallCodeDeltaEvent{/* values here */})
+```
+
+### CodeInterpreterCallCodeDoneEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseCodeInterpreterCallCodeDone(components.CodeInterpreterCallCodeDoneEvent{/* values here */})
+```
+
+### CodeInterpreterCallCompletedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseCodeInterpreterCallCompleted(components.CodeInterpreterCallCompletedEvent{/* values here */})
+```
+
+### CodeInterpreterCallInProgressEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseCodeInterpreterCallInProgress(components.CodeInterpreterCallInProgressEvent{/* values here */})
+```
+
+### CodeInterpreterCallInterpretingEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseCodeInterpreterCallInterpreting(components.CodeInterpreterCallInterpretingEvent{/* values here */})
+```
+
 ### StreamEventsResponseCompleted
 
 ```go
@@ -283,6 +313,16 @@ switch streamEvents.Type {
 		// streamEvents.ApplyPatchCallOperationDiffDeltaEvent is populated
 	case components.StreamEventsTypeResponseApplyPatchCallOperationDiffDone:
 		// streamEvents.ApplyPatchCallOperationDiffDoneEvent is populated
+	case components.StreamEventsTypeResponseCodeInterpreterCallCodeDelta:
+		// streamEvents.CodeInterpreterCallCodeDeltaEvent is populated
+	case components.StreamEventsTypeResponseCodeInterpreterCallCodeDone:
+		// streamEvents.CodeInterpreterCallCodeDoneEvent is populated
+	case components.StreamEventsTypeResponseCodeInterpreterCallCompleted:
+		// streamEvents.CodeInterpreterCallCompletedEvent is populated
+	case components.StreamEventsTypeResponseCodeInterpreterCallInProgress:
+		// streamEvents.CodeInterpreterCallInProgressEvent is populated
+	case components.StreamEventsTypeResponseCodeInterpreterCallInterpreting:
+		// streamEvents.CodeInterpreterCallInterpretingEvent is populated
 	case components.StreamEventsTypeResponseCompleted:
 		// streamEvents.StreamEventsResponseCompleted is populated
 	case components.StreamEventsTypeResponseContentPartAdded:

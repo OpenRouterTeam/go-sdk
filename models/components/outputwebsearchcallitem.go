@@ -359,10 +359,11 @@ func (e *TypeWebSearchCall) UnmarshalJSON(data []byte) error {
 }
 
 type OutputWebSearchCallItem struct {
-	Action *Action           `json:"action,omitzero"`
-	ID     string            `json:"id"`
-	Status WebSearchStatus   `json:"status"`
-	Type   TypeWebSearchCall `json:"type"`
+	Action               *Action           `json:"action,omitzero"`
+	ID                   string            `json:"id"`
+	Status               WebSearchStatus   `json:"status"`
+	Type                 TypeWebSearchCall `json:"type"`
+	AdditionalProperties map[string]any    `additionalProperties:"true" json:"-"`
 }
 
 func (o OutputWebSearchCallItem) MarshalJSON() ([]byte, error) {
@@ -423,4 +424,11 @@ func (o *OutputWebSearchCallItem) GetType() TypeWebSearchCall {
 		return TypeWebSearchCall("")
 	}
 	return o.Type
+}
+
+func (o *OutputWebSearchCallItem) GetAdditionalProperties() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.AdditionalProperties
 }
