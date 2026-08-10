@@ -61,10 +61,10 @@ func main() {
 
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | :heavy_minus_sign:                                       | Number of records to skip for pagination                 | 0                                                        |
-| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of records to return (max 100)            | 50                                                       |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | ✅                                       | The context to use for the request.                      |                                                          |
+| `offset`                                                 | optionalnullable.OptionalNullable[`int64`]               | ➖                                       | Number of records to skip for pagination                 | 0                                                        |
+| `limit`                                                  | `*int64`                                                 | ➖                                       | Maximum number of records to return (max 100)            | 50                                                       |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | ➖                                       | The options for this request.                            |                                                          |
 
 ### Response
 

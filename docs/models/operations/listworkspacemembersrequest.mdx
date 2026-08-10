@@ -6,6 +6,6 @@ title: "ListWorkspaceMembersRequest"
 
 | Field                                         | Type                                          | Required                                      | Description                                   | Example                                       |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| `ID`                                          | `string`                                      | :heavy_check_mark:                            | The workspace ID (UUID) or slug               | production                                    |
-| `Offset`                                      | optionalnullable.OptionalNullable[`int64`]    | :heavy_minus_sign:                            | Number of records to skip for pagination      | 0                                             |
-| `Limit`                                       | `*int64`                                      | :heavy_minus_sign:                            | Maximum number of records to return (max 100) | 50                                            |
+| `ID`                                          | `string`                                      | ✅                            | The workspace ID (UUID) or slug               | production                                    |
+| `Offset`                                      | optionalnullable.OptionalNullable[`int64`]    | ➖                            | Number of records to skip for pagination      | 0                                             |
+| `Limit`                                       | `*int64`                                      | ➖                            | Maximum number of records to return (max 100) | 50                                            |
