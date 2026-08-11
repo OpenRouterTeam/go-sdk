@@ -1,0 +1,30 @@
+---
+title: "AnthropicImageBlockParamSource"
+---
+
+## Supported Types
+
+### AnthropicBase64ImageSource
+
+```go
+anthropicImageBlockParamSource := components.CreateAnthropicImageBlockParamSourceBase64(components.AnthropicBase64ImageSource{/* values here */})
+```
+
+### AnthropicURLImageSource
+
+```go
+anthropicImageBlockParamSource := components.CreateAnthropicImageBlockParamSourceURLObj(components.AnthropicURLImageSource{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicImageBlockParamSource.Type {
+	case components.AnthropicImageBlockParamSourceTypeBase64:
+		// anthropicImageBlockParamSource.AnthropicBase64ImageSource is populated
+	case components.AnthropicImageBlockParamSourceTypeURLObj:
+		// anthropicImageBlockParamSource.AnthropicURLImageSource is populated
+}
+```

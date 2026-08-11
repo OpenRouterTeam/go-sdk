@@ -2,10 +2,16 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type GetFileMetadataRequest struct {
 	FileID string `pathParam:"style=simple,explode=false,name=file_id"`
 	// Workspace to scope the request to. Defaults to the caller’s default workspace.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
+	// Store or read this file on the named provider using your own API key for it. Omit to use OpenRouter storage.
+	Provider *components.FileProvider `queryParam:"style=form,explode=true,name=provider"`
 }
 
 func (g *GetFileMetadataRequest) GetFileID() string {
@@ -20,4 +26,11 @@ func (g *GetFileMetadataRequest) GetWorkspaceID() *string {
 		return nil
 	}
 	return g.WorkspaceID
+}
+
+func (g *GetFileMetadataRequest) GetProvider() *components.FileProvider {
+	if g == nil {
+		return nil
+	}
+	return g.Provider
 }

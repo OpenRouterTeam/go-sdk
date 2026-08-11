@@ -1,9 +1,0 @@
-# Granularity
-
-
-## Fields
-
-| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              | Example                                                                  |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `DisplayLabel`                                                           | `string`                                                                 | :heavy_check_mark:                                                       | Human-readable label                                                     | Day                                                                      |
-| `Name`                                                                   | [operations.GranularityName](../../models/operations/granularityname.md) | :heavy_check_mark:                                                       | Granularity identifier                                                   | day                                                                      |

@@ -1,3 +1,5 @@
+![hero illustration](./assets/banner.png)
+
 # OpenRouter Go SDK
 
 The [OpenRouter SDK](https://openrouter.ai/docs/sdks/go/api-reference/chat) is a Go client for building AI-powered features with OpenRouter. It gives you type-safe access to 400+ models across providers through an OpenAI-compatible API, plus OpenRouter-specific features like provider routing, guardrails, and analytics.
@@ -11,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.5.2
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.37
 > ```
 
 <!-- No Summary [summary] -->
@@ -22,7 +24,7 @@ The OpenRouter Go SDK wraps the [OpenRouter API](https://openrouter.ai/docs) wit
 
 - **Chat completions** with streaming and non-streaming responses
 - **Embeddings, rerank, TTS, and video generation**
-- **Beta Responses API** for agent-style workflows
+- **Responses API** for agent-style workflows
 - **Platform APIs** for API keys, credits, models, providers, guardrails, workspaces, and analytics
 - **Configurable retries**, custom HTTP clients, and typed API errors
 
@@ -81,7 +83,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -122,7 +124,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -143,6 +145,7 @@ import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -154,12 +157,24 @@ func main() {
 
 	res, err := s.Models.ListForUser(ctx, operations.ListModelsUserSecurity{
 		Bearer: os.Getenv("OPENROUTER_BEARER"),
-	})
+	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500))
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res != nil {
-		// handle response
+		for {
+			// handle items
+
+			res, err = res.Next()
+
+			if err != nil {
+				// handle error
+			}
+
+			if res == nil {
+				break
+			}
+		}
 	}
 }
 
@@ -194,11 +209,11 @@ func main() {
 * [GetAnalyticsMeta](docs/sdks/betaanalytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
 * [QueryAnalytics](docs/sdks/betaanalytics/README.md#queryanalytics) - Query analytics data
 
-### [Beta.Responses](docs/sdks/responses/README.md)
+### [Beta.Responses](docs/sdks/betaresponses/README.md)
 
-* [Send](docs/sdks/responses/README.md#send) - Create a response
+* [Send](docs/sdks/betaresponses/README.md#send) - Create a response
 
-### [Byok](docs/sdks/byok/README.md)
+### [BYOK](docs/sdks/byok/README.md)
 
 * [List](docs/sdks/byok/README.md#list) - List BYOK provider credentials
 * [Create](docs/sdks/byok/README.md#create) - Create a BYOK provider credential
@@ -245,6 +260,7 @@ func main() {
 
 * [GetGeneration](docs/sdks/generations/README.md#getgeneration) - Get request & usage metadata for a generation
 * [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt and completion content for a generation
+* [SubmitFeedback](docs/sdks/generations/README.md#submitfeedback) - Submit feedback for a generation
 
 ### [Guardrails](docs/sdks/guardrails/README.md)
 
@@ -310,11 +326,25 @@ func main() {
 
 * [Rerank](docs/sdks/rerank/README.md#rerank) - Submit a rerank request
 
-### [Stt](docs/sdks/stt/README.md)
+### [Responses](docs/sdks/responses/README.md)
+
+* [Send](docs/sdks/responses/README.md#send) - Create a response
+
+### [Scim](docs/sdks/scim/README.md)
+
+* [ListMappings](docs/sdks/scim/README.md#listmappings) - List SCIM group mappings
+* [Create](docs/sdks/scim/README.md#create) - Create a SCIM group mapping
+* [Delete](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping
+* [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
+* [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
+* [ListGroups](docs/sdks/scim/README.md#listgroups) - List SCIM groups
+
+### [STT](docs/sdks/stt/README.md)
 
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
+* [CreateTranscriptionMultipart](docs/sdks/stt/README.md#createtranscriptionmultipart) - Create transcription
 
-### [Tts](docs/sdks/tts/README.md)
+### [TTS](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
 
@@ -334,14 +364,16 @@ func main() {
 * [Update](docs/sdks/workspaces/README.md#update) - Update a workspace
 * [ListBudgets](docs/sdks/workspaces/README.md#listbudgets) - List workspace budgets
 * [DeleteBudget](docs/sdks/workspaces/README.md#deletebudget) - Delete a workspace budget
+* [GetBudget](docs/sdks/workspaces/README.md#getbudget) - Get a workspace budget
 * [SetBudget](docs/sdks/workspaces/README.md#setbudget) - Create or update a workspace budget
+* [ListMembers](docs/sdks/workspaces/README.md#listmembers) - List workspace members
 * [BulkAddMembers](docs/sdks/workspaces/README.md#bulkaddmembers) - Bulk add members to a workspace
 * [BulkRemoveMembers](docs/sdks/workspaces/README.md#bulkremovemembers) - Bulk remove members from a workspace
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
-<!-- Start Server-sent event streaming [eventstream] -->
+<!-- No Server-sent event streaming [eventstream] -->
 ## Server-sent event streaming
 
 [Server-sent events][mdn-sse] are used to stream content from certain
@@ -368,7 +400,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Beta.Responses.Send(ctx, components.ResponsesRequest{
+	res, err := s.Responses.Send(ctx, components.ResponsesRequest{
 		Input: openrouter.Pointer(components.CreateInputsUnionStr(
 			"Tell me a joke",
 		)),
@@ -391,7 +423,6 @@ func main() {
 ```
 
 [mdn-sse]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
-<!-- End Server-sent event streaming [eventstream] -->
 
 <!-- Start Pagination [pagination] -->
 ## Pagination
@@ -419,7 +450,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Byok.List(ctx, optionalnullable.From[int64](nil), nil, nil, nil)
+	res, err := s.BYOK.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -468,7 +499,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, operations.WithRetries(
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -519,7 +550,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -570,7 +601,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 
 		var e *sdkerrors.BadRequestResponseError
@@ -645,7 +676,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -677,7 +708,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil)
+	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

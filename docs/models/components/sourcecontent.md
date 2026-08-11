@@ -1,9 +1,0 @@
-# SourceContent
-
-
-## Fields
-
-| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `Content`                                                                                                        | [components.AnthropicDocumentBlockParamContent2](../../models/components/anthropicdocumentblockparamcontent2.md) | :heavy_check_mark:                                                                                               | N/A                                                                                                              |
-| `Type`                                                                                                           | [components.SourceType](../../models/components/sourcetype.md)                                                   | :heavy_check_mark:                                                                                               | N/A                                                                                                              |

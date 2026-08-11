@@ -1,0 +1,27 @@
+---
+title: "TaskType"
+---
+
+Filter results by task type. For Artificial Analysis, maps to the corresponding index. For Design Arena, maps to the matching category.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.TaskTypeCoding
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.TaskType("custom_value")
+```
+
+
+## Values
+
+| Name                   | Value                  |
+| ---------------------- | ---------------------- |
+| `TaskTypeCoding`       | coding                 |
+| `TaskTypeIntelligence` | intelligence           |
+| `TaskTypeAgentic`      | agentic                |

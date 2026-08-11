@@ -29,8 +29,8 @@ type BYOKKey struct {
 	Provider BYOKProviderSlug `json:"provider"`
 	// Position within the provider — credentials are tried in ascending sort order.
 	SortOrder int64 `json:"sort_order"`
-	// ID of the workspace this credential belongs to.
-	WorkspaceID string `json:"workspace_id"`
+	// The workspace this credential is scoped to, or `null` when it is global — usable across every workspace in the account. A `null` value does not mean the default workspace.
+	WorkspaceID *string `json:"workspace_id"`
 }
 
 func (b *BYOKKey) GetAllowedAPIKeyHashes() []string {
@@ -110,9 +110,9 @@ func (b *BYOKKey) GetSortOrder() int64 {
 	return b.SortOrder
 }
 
-func (b *BYOKKey) GetWorkspaceID() string {
+func (b *BYOKKey) GetWorkspaceID() *string {
 	if b == nil {
-		return ""
+		return nil
 	}
 	return b.WorkspaceID
 }

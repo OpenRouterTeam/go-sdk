@@ -33,7 +33,7 @@ func newBenchmarks(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks
 }
 
 // GetBenchmarks - List Benchmarks
-// Unified benchmark endpoint that aggregates scores from multiple benchmark sources (Artificial Analysis, Design Arena). Filter by source to reproduce the exact shapes from the legacy per-source endpoints, or use task_type to find models suited for specific workloads. Authenticate with any valid OpenRouter API key. Rate-limited to 30 requests/minute per key and 500 requests/day per account.
+// Unified benchmark endpoint that aggregates scores from multiple benchmark sources (Artificial Analysis, Design Arena, and OpenRouter's own tau-bench and GPQA evals). Filter by source to reproduce the exact shapes from the legacy per-source endpoints, or use task_type to find models suited for specific workloads. Authenticate with any valid OpenRouter API key. Rate-limited to 30 requests/minute per key and 500 requests/day per account.
 func (s *Benchmarks) GetBenchmarks(ctx context.Context, request *operations.GetBenchmarksRequest, opts ...operations.Option) (*components.UnifiedBenchmarksResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -180,7 +180,7 @@ func (s *Benchmarks) GetBenchmarks(ctx context.Context, request *operations.GetB
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "429", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err

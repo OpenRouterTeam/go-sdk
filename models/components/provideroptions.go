@@ -32,13 +32,16 @@ type ProviderOptions struct {
 	Chutes              map[string]any `json:"chutes,omitzero"`
 	Cirrascale          map[string]any `json:"cirrascale,omitzero"`
 	Clarifai            map[string]any `json:"clarifai,omitzero"`
+	ClaudeOnAws         map[string]any `json:"claude-on-aws,omitzero"`
 	Cloudflare          map[string]any `json:"cloudflare,omitzero"`
 	Cohere              map[string]any `json:"cohere,omitzero"`
+	Coreweave           map[string]any `json:"coreweave,omitzero"`
 	Crofai              map[string]any `json:"crofai,omitzero"`
 	Crucible            map[string]any `json:"crucible,omitzero"`
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
+	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
 	Deepseek            map[string]any `json:"deepseek,omitzero"`
 	Dekallm             map[string]any `json:"dekallm,omitzero"`
@@ -47,6 +50,7 @@ type ProviderOptions struct {
 	FakeProvider        map[string]any `json:"fake-provider,omitzero"`
 	Featherless         map[string]any `json:"featherless,omitzero"`
 	Fireworks           map[string]any `json:"fireworks,omitzero"`
+	FishAudio           map[string]any `json:"fish-audio,omitzero"`
 	Friendli            map[string]any `json:"friendli,omitzero"`
 	Gmicloud            map[string]any `json:"gmicloud,omitzero"`
 	GoogleAiStudio      map[string]any `json:"google-ai-studio,omitzero"`
@@ -67,6 +71,7 @@ type ProviderOptions struct {
 	IoNet               map[string]any `json:"io-net,omitzero"`
 	Ionstream           map[string]any `json:"ionstream,omitzero"`
 	Klusterai           map[string]any `json:"klusterai,omitzero"`
+	Krea                map[string]any `json:"krea,omitzero"`
 	Lambda              map[string]any `json:"lambda,omitzero"`
 	Lepton              map[string]any `json:"lepton,omitzero"`
 	Liquid              map[string]any `json:"liquid,omitzero"`
@@ -105,6 +110,9 @@ type ProviderOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
+	Runway              map[string]any `json:"runway,omitzero"`
+	SailResearch        map[string]any `json:"sail-research,omitzero"`
+	Sakana              map[string]any `json:"sakana,omitzero"`
 	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
@@ -117,14 +125,18 @@ type ProviderOptions struct {
 	Streamlake          map[string]any `json:"streamlake,omitzero"`
 	Switchpoint         map[string]any `json:"switchpoint,omitzero"`
 	Targon              map[string]any `json:"targon,omitzero"`
+	Tencent             map[string]any `json:"tencent,omitzero"`
 	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
+	Thinkingmachines    map[string]any `json:"thinkingmachines,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
 	Upstage             map[string]any `json:"upstage,omitzero"`
 	Venice              map[string]any `json:"venice,omitzero"`
+	Voyageai            map[string]any `json:"voyageai,omitzero"`
 	Wafer               map[string]any `json:"wafer,omitzero"`
 	Wandb               map[string]any `json:"wandb,omitzero"`
+	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
 	Xai                 map[string]any `json:"xai,omitzero"`
 	Xiaomi              map[string]any `json:"xiaomi,omitzero"`
 	ZAi                 map[string]any `json:"z-ai,omitzero"`
@@ -309,6 +321,13 @@ func (p *ProviderOptions) GetClarifai() map[string]any {
 	return p.Clarifai
 }
 
+func (p *ProviderOptions) GetClaudeOnAws() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.ClaudeOnAws
+}
+
 func (p *ProviderOptions) GetCloudflare() map[string]any {
 	if p == nil {
 		return nil
@@ -321,6 +340,13 @@ func (p *ProviderOptions) GetCohere() map[string]any {
 		return nil
 	}
 	return p.Cohere
+}
+
+func (p *ProviderOptions) GetCoreweave() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Coreweave
 }
 
 func (p *ProviderOptions) GetCrofai() map[string]any {
@@ -356,6 +382,13 @@ func (p *ProviderOptions) GetDecart() map[string]any {
 		return nil
 	}
 	return p.Decart
+}
+
+func (p *ProviderOptions) GetDeepgram() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Deepgram
 }
 
 func (p *ProviderOptions) GetDeepinfra() map[string]any {
@@ -412,6 +445,13 @@ func (p *ProviderOptions) GetFireworks() map[string]any {
 		return nil
 	}
 	return p.Fireworks
+}
+
+func (p *ProviderOptions) GetFishAudio() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.FishAudio
 }
 
 func (p *ProviderOptions) GetFriendli() map[string]any {
@@ -552,6 +592,13 @@ func (p *ProviderOptions) GetKlusterai() map[string]any {
 		return nil
 	}
 	return p.Klusterai
+}
+
+func (p *ProviderOptions) GetKrea() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Krea
 }
 
 func (p *ProviderOptions) GetLambda() map[string]any {
@@ -820,6 +867,27 @@ func (p *ProviderOptions) GetReplicate() map[string]any {
 	return p.Replicate
 }
 
+func (p *ProviderOptions) GetRunway() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Runway
+}
+
+func (p *ProviderOptions) GetSailResearch() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.SailResearch
+}
+
+func (p *ProviderOptions) GetSakana() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Sakana
+}
+
 func (p *ProviderOptions) GetSakanaAi() map[string]any {
 	if p == nil {
 		return nil
@@ -904,11 +972,25 @@ func (p *ProviderOptions) GetTargon() map[string]any {
 	return p.Targon
 }
 
+func (p *ProviderOptions) GetTencent() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Tencent
+}
+
 func (p *ProviderOptions) GetTenstorrent() map[string]any {
 	if p == nil {
 		return nil
 	}
 	return p.Tenstorrent
+}
+
+func (p *ProviderOptions) GetThinkingmachines() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Thinkingmachines
 }
 
 func (p *ProviderOptions) GetTogether() map[string]any {
@@ -946,6 +1028,13 @@ func (p *ProviderOptions) GetVenice() map[string]any {
 	return p.Venice
 }
 
+func (p *ProviderOptions) GetVoyageai() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Voyageai
+}
+
 func (p *ProviderOptions) GetWafer() map[string]any {
 	if p == nil {
 		return nil
@@ -958,6 +1047,13 @@ func (p *ProviderOptions) GetWandb() map[string]any {
 		return nil
 	}
 	return p.Wandb
+}
+
+func (p *ProviderOptions) GetWandbLegacy() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.WandbLegacy
 }
 
 func (p *ProviderOptions) GetXai() map[string]any {

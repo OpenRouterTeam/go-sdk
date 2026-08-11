@@ -18,15 +18,15 @@ import (
 	"net/url"
 )
 
-// Tts - Text-to-speech endpoints
-type Tts struct {
+// TTS - Text-to-speech endpoints
+type TTS struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newTts(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Tts {
-	return &Tts{
+func newTTS(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *TTS {
+	return &TTS{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -35,7 +35,7 @@ func newTts(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks
 
 // CreateSpeech - Create speech
 // Synthesizes audio from the input text. Returns a raw audio bytestream in the requested format (e.g. mp3, pcm, wav).
-func (s *Tts) CreateSpeech(ctx context.Context, request components.SpeechRequest, opts ...operations.Option) (io.ReadCloser, error) {
+func (s *TTS) CreateSpeech(ctx context.Context, request components.SpeechRequest, opts ...operations.Option) (io.ReadCloser, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -184,7 +184,7 @@ func (s *Tts) CreateSpeech(ctx context.Context, request components.SpeechRequest
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "402", "404", "429", "4XX", "500", "502", "503", "524", "529", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err

@@ -1,0 +1,40 @@
+---
+title: "OutputCodeInterpreterCallItemOutput"
+---
+
+## Supported Types
+
+### CodeInterpreterFileOutput
+
+```go
+outputCodeInterpreterCallItemOutput := components.CreateOutputCodeInterpreterCallItemOutputFile(components.CodeInterpreterFileOutput{/* values here */})
+```
+
+### CodeInterpreterImageOutput
+
+```go
+outputCodeInterpreterCallItemOutput := components.CreateOutputCodeInterpreterCallItemOutputImage(components.CodeInterpreterImageOutput{/* values here */})
+```
+
+### CodeInterpreterLogsOutput
+
+```go
+outputCodeInterpreterCallItemOutput := components.CreateOutputCodeInterpreterCallItemOutputLogs(components.CodeInterpreterLogsOutput{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch outputCodeInterpreterCallItemOutput.Type {
+	case components.OutputCodeInterpreterCallItemOutputTypeFile:
+		// outputCodeInterpreterCallItemOutput.CodeInterpreterFileOutput is populated
+	case components.OutputCodeInterpreterCallItemOutputTypeImage:
+		// outputCodeInterpreterCallItemOutput.CodeInterpreterImageOutput is populated
+	case components.OutputCodeInterpreterCallItemOutputTypeLogs:
+		// outputCodeInterpreterCallItemOutput.CodeInterpreterLogsOutput is populated
+	default:
+		// Unknown type - use outputCodeInterpreterCallItemOutput.GetUnknownRaw() for raw JSON
+}
+```

@@ -34,10 +34,11 @@ func (e *MessagesMessageParamTypeCompaction) UnmarshalJSON(data []byte) error {
 }
 
 type ContentCompaction struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl *AnthropicCacheControlDirective    `json:"cache_control,omitzero"`
-	Content      *string                            `json:"content"`
-	Type         MessagesMessageParamTypeCompaction `json:"type"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
+	CacheControl     *AnthropicCacheControlDirective           `json:"cache_control,omitzero"`
+	Content          *string                                   `json:"content"`
+	EncryptedContent optionalnullable.OptionalNullable[string] `json:"encrypted_content,omitzero"`
+	Type             MessagesMessageParamTypeCompaction        `json:"type"`
 }
 
 func (c ContentCompaction) MarshalJSON() ([]byte, error) {
@@ -63,6 +64,13 @@ func (c *ContentCompaction) GetContent() *string {
 		return nil
 	}
 	return c.Content
+}
+
+func (c *ContentCompaction) GetEncryptedContent() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.EncryptedContent
 }
 
 func (c *ContentCompaction) GetType() MessagesMessageParamTypeCompaction {
@@ -263,7 +271,7 @@ func (e *TypeWebSearchToolResult) UnmarshalJSON(data []byte) error {
 }
 
 type ContentWebSearchToolResult struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective   `json:"cache_control,omitzero"`
 	Content      MessagesMessageParamContentUnion3 `json:"content"`
 	ToolUseID    string                            `json:"tool_use_id"`
@@ -333,12 +341,12 @@ func (e *TypeServerToolUse) UnmarshalJSON(data []byte) error {
 }
 
 type ContentServerToolUse struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl *AnthropicCacheControlDirective        `json:"cache_control,omitzero"`
-	ID           string                                 `json:"id"`
-	Input        optionalnullable.OptionalNullable[any] `json:"input,omitzero"`
-	Name         string                                 `json:"name"`
-	Type         TypeServerToolUse                      `json:"type"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
+	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	ID           string                          `json:"id"`
+	Input        any                             `json:"input,omitzero"`
+	Name         string                          `json:"name"`
+	Type         TypeServerToolUse               `json:"type"`
 }
 
 func (c ContentServerToolUse) MarshalJSON() ([]byte, error) {
@@ -366,7 +374,7 @@ func (c *ContentServerToolUse) GetID() string {
 	return c.ID
 }
 
-func (c *ContentServerToolUse) GetInput() optionalnullable.OptionalNullable[any] {
+func (c *ContentServerToolUse) GetInput() any {
 	if c == nil {
 		return nil
 	}
@@ -501,32 +509,32 @@ func (c *ContentThinking) GetType() TypeThinking {
 	return c.Type
 }
 
-type TypeToolReference string
+type MessagesMessageParamTypeToolReference string
 
 const (
-	TypeToolReferenceToolReference TypeToolReference = "tool_reference"
+	MessagesMessageParamTypeToolReferenceToolReference MessagesMessageParamTypeToolReference = "tool_reference"
 )
 
-func (e TypeToolReference) ToPointer() *TypeToolReference {
+func (e MessagesMessageParamTypeToolReference) ToPointer() *MessagesMessageParamTypeToolReference {
 	return &e
 }
-func (e *TypeToolReference) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeToolReference) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "tool_reference":
-		*e = TypeToolReference(v)
+		*e = MessagesMessageParamTypeToolReference(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeToolReference: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeToolReference: %v", v)
 	}
 }
 
 type ContentToolReference struct {
-	ToolName string            `json:"tool_name"`
-	Type     TypeToolReference `json:"type"`
+	ToolName string                                `json:"tool_name"`
+	Type     MessagesMessageParamTypeToolReference `json:"type"`
 }
 
 func (c ContentToolReference) MarshalJSON() ([]byte, error) {
@@ -547,9 +555,9 @@ func (c *ContentToolReference) GetToolName() string {
 	return c.ToolName
 }
 
-func (c *ContentToolReference) GetType() TypeToolReference {
+func (c *ContentToolReference) GetType() MessagesMessageParamTypeToolReference {
 	if c == nil {
-		return TypeToolReference("")
+		return MessagesMessageParamTypeToolReference("")
 	}
 	return c.Type
 }
@@ -601,7 +609,7 @@ func CreateMessagesMessageParamContentUnion1Image(image AnthropicImageBlockParam
 func CreateMessagesMessageParamContentUnion1ToolReference(toolReference ContentToolReference) MessagesMessageParamContentUnion1 {
 	typ := MessagesMessageParamContentUnion1TypeToolReference
 
-	typStr := TypeToolReference(typ)
+	typStr := MessagesMessageParamTypeToolReference(typ)
 	toolReference.Type = typStr
 
 	return MessagesMessageParamContentUnion1{
@@ -833,7 +841,7 @@ func (e *TypeToolResult) UnmarshalJSON(data []byte) error {
 }
 
 type ContentToolResult struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective    `json:"cache_control,omitzero"`
 	Content      *MessagesMessageParamContentUnion2 `json:"content,omitzero"`
 	IsError      *bool                              `json:"is_error,omitzero"`
@@ -911,12 +919,12 @@ func (e *TypeToolUse) UnmarshalJSON(data []byte) error {
 }
 
 type ContentToolUse struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl *AnthropicCacheControlDirective        `json:"cache_control,omitzero"`
-	ID           string                                 `json:"id"`
-	Input        optionalnullable.OptionalNullable[any] `json:"input,omitzero"`
-	Name         string                                 `json:"name"`
-	Type         TypeToolUse                            `json:"type"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
+	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	ID           string                          `json:"id"`
+	Input        any                             `json:"input,omitzero"`
+	Name         string                          `json:"name"`
+	Type         TypeToolUse                     `json:"type"`
 }
 
 func (c ContentToolUse) MarshalJSON() ([]byte, error) {
@@ -944,7 +952,7 @@ func (c *ContentToolUse) GetID() string {
 	return c.ID
 }
 
-func (c *ContentToolUse) GetInput() optionalnullable.OptionalNullable[any] {
+func (c *ContentToolUse) GetInput() any {
 	if c == nil {
 		return nil
 	}
@@ -968,18 +976,22 @@ func (c *ContentToolUse) GetType() TypeToolUse {
 type MessagesMessageParamContentUnion4Type string
 
 const (
-	MessagesMessageParamContentUnion4TypeText                MessagesMessageParamContentUnion4Type = "text"
-	MessagesMessageParamContentUnion4TypeImage               MessagesMessageParamContentUnion4Type = "image"
-	MessagesMessageParamContentUnion4TypeDocument            MessagesMessageParamContentUnion4Type = "document"
-	MessagesMessageParamContentUnion4TypeToolUse             MessagesMessageParamContentUnion4Type = "tool_use"
-	MessagesMessageParamContentUnion4TypeToolResult          MessagesMessageParamContentUnion4Type = "tool_result"
-	MessagesMessageParamContentUnion4TypeThinking            MessagesMessageParamContentUnion4Type = "thinking"
-	MessagesMessageParamContentUnion4TypeRedactedThinking    MessagesMessageParamContentUnion4Type = "redacted_thinking"
-	MessagesMessageParamContentUnion4TypeServerToolUse       MessagesMessageParamContentUnion4Type = "server_tool_use"
-	MessagesMessageParamContentUnion4TypeWebSearchToolResult MessagesMessageParamContentUnion4Type = "web_search_tool_result"
-	MessagesMessageParamContentUnion4TypeSearchResult        MessagesMessageParamContentUnion4Type = "search_result"
-	MessagesMessageParamContentUnion4TypeCompaction          MessagesMessageParamContentUnion4Type = "compaction"
-	MessagesMessageParamContentUnion4TypeAdvisorToolResult   MessagesMessageParamContentUnion4Type = "advisor_tool_result"
+	MessagesMessageParamContentUnion4TypeText                      MessagesMessageParamContentUnion4Type = "text"
+	MessagesMessageParamContentUnion4TypeImage                     MessagesMessageParamContentUnion4Type = "image"
+	MessagesMessageParamContentUnion4TypeDocument                  MessagesMessageParamContentUnion4Type = "document"
+	MessagesMessageParamContentUnion4TypeToolUse                   MessagesMessageParamContentUnion4Type = "tool_use"
+	MessagesMessageParamContentUnion4TypeToolResult                MessagesMessageParamContentUnion4Type = "tool_result"
+	MessagesMessageParamContentUnion4TypeThinking                  MessagesMessageParamContentUnion4Type = "thinking"
+	MessagesMessageParamContentUnion4TypeRedactedThinking          MessagesMessageParamContentUnion4Type = "redacted_thinking"
+	MessagesMessageParamContentUnion4TypeServerToolUse             MessagesMessageParamContentUnion4Type = "server_tool_use"
+	MessagesMessageParamContentUnion4TypeWebSearchToolResult       MessagesMessageParamContentUnion4Type = "web_search_tool_result"
+	MessagesMessageParamContentUnion4TypeSearchResult              MessagesMessageParamContentUnion4Type = "search_result"
+	MessagesMessageParamContentUnion4TypeCompaction                MessagesMessageParamContentUnion4Type = "compaction"
+	MessagesMessageParamContentUnion4TypeAdvisorToolResult         MessagesMessageParamContentUnion4Type = "advisor_tool_result"
+	MessagesMessageParamContentUnion4TypeToolAddition              MessagesMessageParamContentUnion4Type = "tool_addition"
+	MessagesMessageParamContentUnion4TypeToolRemoval               MessagesMessageParamContentUnion4Type = "tool_removal"
+	MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult MessagesMessageParamContentUnion4Type = "openrouter_shell_tool_result"
+	MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult  MessagesMessageParamContentUnion4Type = "openrouter_bash_tool_result"
 )
 
 type MessagesMessageParamContentUnion4 struct {
@@ -995,6 +1007,10 @@ type MessagesMessageParamContentUnion4 struct {
 	AnthropicSearchResultBlockParam *AnthropicSearchResultBlockParam `queryParam:"inline" union:"member"`
 	ContentCompaction               *ContentCompaction               `queryParam:"inline" union:"member"`
 	MessagesAdvisorToolResultBlock  *MessagesAdvisorToolResultBlock  `queryParam:"inline" union:"member"`
+	MessagesToolAdditionBlock       *MessagesToolAdditionBlock       `queryParam:"inline" union:"member"`
+	MessagesToolRemovalBlock        *MessagesToolRemovalBlock        `queryParam:"inline" union:"member"`
+	MessagesShellToolResultBlock    *MessagesShellToolResultBlock    `queryParam:"inline" union:"member"`
+	MessagesBashToolResultBlock     *MessagesBashToolResultBlock     `queryParam:"inline" union:"member"`
 
 	Type MessagesMessageParamContentUnion4Type
 }
@@ -1143,6 +1159,54 @@ func CreateMessagesMessageParamContentUnion4AdvisorToolResult(advisorToolResult 
 	}
 }
 
+func CreateMessagesMessageParamContentUnion4ToolAddition(toolAddition MessagesToolAdditionBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeToolAddition
+
+	typStr := TypeToolAddition(typ)
+	toolAddition.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesToolAdditionBlock: &toolAddition,
+		Type:                      typ,
+	}
+}
+
+func CreateMessagesMessageParamContentUnion4ToolRemoval(toolRemoval MessagesToolRemovalBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeToolRemoval
+
+	typStr := TypeToolRemoval(typ)
+	toolRemoval.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesToolRemovalBlock: &toolRemoval,
+		Type:                     typ,
+	}
+}
+
+func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouterShellToolResult MessagesShellToolResultBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult
+
+	typStr := MessagesShellToolResultBlockType(typ)
+	openrouterShellToolResult.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesShellToolResultBlock: &openrouterShellToolResult,
+		Type:                         typ,
+	}
+}
+
+func CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(openrouterBashToolResult MessagesBashToolResultBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
+
+	typStr := MessagesBashToolResultBlockType(typ)
+	openrouterBashToolResult.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesBashToolResultBlock: &openrouterBashToolResult,
+		Type:                        typ,
+	}
+}
+
 func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1263,6 +1327,42 @@ func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 		u.MessagesAdvisorToolResultBlock = messagesAdvisorToolResultBlock
 		u.Type = MessagesMessageParamContentUnion4TypeAdvisorToolResult
 		return nil
+	case "tool_addition":
+		messagesToolAdditionBlock := new(MessagesToolAdditionBlock)
+		if err := utils.UnmarshalJSON(data, &messagesToolAdditionBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tool_addition) type MessagesToolAdditionBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesToolAdditionBlock = messagesToolAdditionBlock
+		u.Type = MessagesMessageParamContentUnion4TypeToolAddition
+		return nil
+	case "tool_removal":
+		messagesToolRemovalBlock := new(MessagesToolRemovalBlock)
+		if err := utils.UnmarshalJSON(data, &messagesToolRemovalBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tool_removal) type MessagesToolRemovalBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesToolRemovalBlock = messagesToolRemovalBlock
+		u.Type = MessagesMessageParamContentUnion4TypeToolRemoval
+		return nil
+	case "openrouter_shell_tool_result":
+		messagesShellToolResultBlock := new(MessagesShellToolResultBlock)
+		if err := utils.UnmarshalJSON(data, &messagesShellToolResultBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter_shell_tool_result) type MessagesShellToolResultBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesShellToolResultBlock = messagesShellToolResultBlock
+		u.Type = MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult
+		return nil
+	case "openrouter_bash_tool_result":
+		messagesBashToolResultBlock := new(MessagesBashToolResultBlock)
+		if err := utils.UnmarshalJSON(data, &messagesBashToolResultBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter_bash_tool_result) type MessagesBashToolResultBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesBashToolResultBlock = messagesBashToolResultBlock
+		u.Type = MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesMessageParamContentUnion4", string(data))
@@ -1315,6 +1415,22 @@ func (u MessagesMessageParamContentUnion4) MarshalJSON() ([]byte, error) {
 
 	if u.MessagesAdvisorToolResultBlock != nil {
 		return utils.MarshalJSON(u.MessagesAdvisorToolResultBlock, "", true)
+	}
+
+	if u.MessagesToolAdditionBlock != nil {
+		return utils.MarshalJSON(u.MessagesToolAdditionBlock, "", true)
+	}
+
+	if u.MessagesToolRemovalBlock != nil {
+		return utils.MarshalJSON(u.MessagesToolRemovalBlock, "", true)
+	}
+
+	if u.MessagesShellToolResultBlock != nil {
+		return utils.MarshalJSON(u.MessagesShellToolResultBlock, "", true)
+	}
+
+	if u.MessagesBashToolResultBlock != nil {
+		return utils.MarshalJSON(u.MessagesBashToolResultBlock, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesMessageParamContentUnion4: all fields are null")

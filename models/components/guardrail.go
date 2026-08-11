@@ -20,7 +20,13 @@ type Guardrail struct {
 	CreatedAt string `json:"created_at"`
 	// Description of the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
+	// Whether this guardrail allows free endpoints that publish prompts.
+	EnableFreeModelPublication optionalnullable.OptionalNullable[bool] `json:"enable_free_model_publication,omitzero"`
+	// Whether this guardrail allows free endpoints that train on request data.
+	EnableFreeModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_free_model_training,omitzero"`
+	// Whether this guardrail allows paid endpoints that train on request data.
+	EnablePaidModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_paid_model_training,omitzero"`
+	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, enforce_zdr_xai, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
@@ -30,14 +36,18 @@ type Guardrail struct {
 	EnforceZdrGoogle optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_google,omitzero"`
 	// Whether to enforce zero data retention for OpenAI models. Falls back to enforce_zdr when not provided.
 	EnforceZdrOpenai optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_openai,omitzero"`
-	// Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, or Google. Falls back to enforce_zdr when not provided.
+	// Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, Google, or xAI. Falls back to enforce_zdr when not provided.
 	EnforceZdrOther optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_other,omitzero"`
+	// Whether to enforce zero data retention for xAI models. Falls back to enforce_zdr when not provided.
+	EnforceZdrXai optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_xai,omitzero"`
 	// Unique identifier for the guardrail
 	ID string `json:"id"`
 	// Array of model canonical_slugs to exclude from routing
 	IgnoredModels optionalnullable.OptionalNullable[[]string] `json:"ignored_models,omitzero"`
 	// List of provider IDs to exclude from routing
 	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
+	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend.
+	IncludeBYOKInBudgets bool `json:"include_byok_in_budgets"`
 	// Spending limit in USD
 	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
 	// Name of the guardrail
@@ -46,8 +56,8 @@ type Guardrail struct {
 	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
 	// ISO 8601 timestamp of when the guardrail was last updated
 	UpdatedAt optionalnullable.OptionalNullable[string] `json:"updated_at,omitzero"`
-	// The workspace ID this guardrail belongs to.
-	WorkspaceID string `json:"workspace_id"`
+	// The workspace this guardrail is scoped to, or `null` for an unscoped legacy guardrail predating workspaces. A `null` value does not mean the default workspace, and does not apply the guardrail across every workspace.
+	WorkspaceID *string `json:"workspace_id"`
 }
 
 func (g Guardrail) MarshalJSON() ([]byte, error) {
@@ -103,6 +113,27 @@ func (g *Guardrail) GetDescription() optionalnullable.OptionalNullable[string] {
 	return g.Description
 }
 
+func (g *Guardrail) GetEnableFreeModelPublication() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnableFreeModelPublication
+}
+
+func (g *Guardrail) GetEnableFreeModelTraining() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnableFreeModelTraining
+}
+
+func (g *Guardrail) GetEnablePaidModelTraining() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnablePaidModelTraining
+}
+
 func (g *Guardrail) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
 	if g == nil {
 		return nil
@@ -138,6 +169,13 @@ func (g *Guardrail) GetEnforceZdrOther() optionalnullable.OptionalNullable[bool]
 	return g.EnforceZdrOther
 }
 
+func (g *Guardrail) GetEnforceZdrXai() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.EnforceZdrXai
+}
+
 func (g *Guardrail) GetID() string {
 	if g == nil {
 		return ""
@@ -157,6 +195,13 @@ func (g *Guardrail) GetIgnoredProviders() optionalnullable.OptionalNullable[[]st
 		return nil
 	}
 	return g.IgnoredProviders
+}
+
+func (g *Guardrail) GetIncludeBYOKInBudgets() bool {
+	if g == nil {
+		return false
+	}
+	return g.IncludeBYOKInBudgets
 }
 
 func (g *Guardrail) GetLimitUsd() optionalnullable.OptionalNullable[float64] {
@@ -187,9 +232,9 @@ func (g *Guardrail) GetUpdatedAt() optionalnullable.OptionalNullable[string] {
 	return g.UpdatedAt
 }
 
-func (g *Guardrail) GetWorkspaceID() string {
+func (g *Guardrail) GetWorkspaceID() *string {
 	if g == nil {
-		return ""
+		return nil
 	}
 	return g.WorkspaceID
 }

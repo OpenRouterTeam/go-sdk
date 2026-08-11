@@ -6,6 +6,7 @@ cd "$ROOT"
 
 MODULE="github.com/OpenRouterTeam/go-sdk"
 PINNED_BUILD="${PINNED_BUILD:-auto}"
+ALLOW_PENDING_RELEASE="${ALLOW_PENDING_RELEASE:-0}"
 
 usage() {
 	cat <<EOF
@@ -18,6 +19,12 @@ Environment:
     auto  build against the pinned module when examples match gen.lock (default)
     1     always build with GOWORK=off
     0     skip pinned-module builds
+  ALLOW_PENDING_RELEASE=1
+    allow examples to pin an older version than gen.lock's releaseVersion.
+    For release (speakeasy-sdk-regen-*) PRs: the new version has no published
+    tag yet, so example go.mod pins cannot be bumped until after the merge
+    (the "Bump examples on release" job does it). Examples must still agree
+    with each other and still compile against the workspace SDK.
 EOF
 }
 
@@ -41,6 +48,11 @@ discover_examples() {
 
 example_version() {
 	awk -v module="$MODULE" '$1 == "require" && $2 == module { print $3; exit }' "$1/go.mod"
+}
+
+# is_older_version A B — true when semver A < B (so A lags a pending release B).
+is_older_version() {
+	[[ "$1" != "$2" && "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -1)" == "$1" ]]
 }
 
 collect_examples() {
@@ -71,6 +83,11 @@ check_versions() {
 
 	lock_version="$(read_lock_version)"
 	if [[ -n "$lock_version" && "$expected" != "$lock_version" ]]; then
+		if [[ "$ALLOW_PENDING_RELEASE" == "1" ]] && is_older_version "$expected" "$lock_version"; then
+			echo "examples pin ${expected}, gen.lock releaseVersion is ${lock_version} (pending release — allowed)"
+			echo "the post-merge 'Bump examples on release' job will bump the pins"
+			return 0
+		fi
 		echo "examples pin ${expected} but .speakeasy/gen.lock releaseVersion is ${lock_version}" >&2
 		echo "run: scripts/bump-examples.sh ${lock_version}" >&2
 		exit 1

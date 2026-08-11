@@ -13,14 +13,12 @@ type PreferredMaxLatencyType string
 const (
 	PreferredMaxLatencyTypeNumber                   PreferredMaxLatencyType = "number"
 	PreferredMaxLatencyTypePercentileLatencyCutoffs PreferredMaxLatencyType = "PercentileLatencyCutoffs"
-	PreferredMaxLatencyTypeAny                      PreferredMaxLatencyType = "any"
 )
 
 // PreferredMaxLatency - Preferred maximum latency (in seconds). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints above the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
 type PreferredMaxLatency struct {
 	Number                   *float64                  `queryParam:"inline" union:"member"`
 	PercentileLatencyCutoffs *PercentileLatencyCutoffs `queryParam:"inline" union:"member"`
-	Any                      any                       `queryParam:"inline" union:"member"`
 
 	Type PreferredMaxLatencyType
 }
@@ -40,15 +38,6 @@ func CreatePreferredMaxLatencyPercentileLatencyCutoffs(percentileLatencyCutoffs 
 	return PreferredMaxLatency{
 		PercentileLatencyCutoffs: &percentileLatencyCutoffs,
 		Type:                     typ,
-	}
-}
-
-func CreatePreferredMaxLatencyAny(anyT any) PreferredMaxLatency {
-	typ := PreferredMaxLatencyTypeAny
-
-	return PreferredMaxLatency{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -73,14 +62,6 @@ func (u *PreferredMaxLatency) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PreferredMaxLatencyTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PreferredMaxLatency", string(data))
 	}
@@ -100,9 +81,6 @@ func (u *PreferredMaxLatency) UnmarshalJSON(data []byte) error {
 	case PreferredMaxLatencyTypePercentileLatencyCutoffs:
 		u.PercentileLatencyCutoffs = best.Value.(*PercentileLatencyCutoffs)
 		return nil
-	case PreferredMaxLatencyTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PreferredMaxLatency", string(data))
@@ -115,10 +93,6 @@ func (u PreferredMaxLatency) MarshalJSON() ([]byte, error) {
 
 	if u.PercentileLatencyCutoffs != nil {
 		return utils.MarshalJSON(u.PercentileLatencyCutoffs, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type PreferredMaxLatency: all fields are null")

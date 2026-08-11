@@ -18,7 +18,7 @@ func ExampleNew() {
 		openrouter.WithSecurity("your-api-key"),
 	)
 	fmt.Println(sdk.SDKVersion)
-	// Output: 0.5.2
+	// Output: 0.7.37
 }
 
 // Example demonstrates basic usage of the OpenRouter SDK for chat completions.
@@ -92,9 +92,8 @@ func Example_listModels() {
 		log.Fatal(err)
 	}
 
-	if res != nil && len(res.Data) > 0 {
-		fmt.Printf("Found %d models\n", len(res.Data))
-		fmt.Printf("First model: %s\n", res.Data[0].Name)
+	if res != nil {
+		fmt.Println("Successfully fetched models")
 	}
 }
 

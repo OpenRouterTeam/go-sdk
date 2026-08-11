@@ -31,7 +31,7 @@ func (e *ChatContentCacheControlType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// ChatContentCacheControl - Cache control for the content part
+// ChatContentCacheControl - Anthropic-style cache breakpoint for the content part. Interchangeable with the OpenAI-style `prompt_cache_breakpoint` marker: OpenRouter converts between the two based on the provider serving the request.
 type ChatContentCacheControl struct {
 	TTL  *AnthropicCacheControlTTL   `json:"ttl,omitzero"`
 	Type ChatContentCacheControlType `json:"type"`

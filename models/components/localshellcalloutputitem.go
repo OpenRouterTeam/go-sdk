@@ -9,29 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type LocalShellCallOutputItemStatus string
-
-const (
-	LocalShellCallOutputItemStatusInProgress LocalShellCallOutputItemStatus = "in_progress"
-	LocalShellCallOutputItemStatusCompleted  LocalShellCallOutputItemStatus = "completed"
-	LocalShellCallOutputItemStatusIncomplete LocalShellCallOutputItemStatus = "incomplete"
-)
-
-func (e LocalShellCallOutputItemStatus) ToPointer() *LocalShellCallOutputItemStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LocalShellCallOutputItemStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "in_progress", "completed", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 type LocalShellCallOutputItemType string
 
 const (
@@ -57,10 +34,10 @@ func (e *LocalShellCallOutputItemType) UnmarshalJSON(data []byte) error {
 
 // LocalShellCallOutputItem - Output from a local shell command execution
 type LocalShellCallOutputItem struct {
-	ID     string                                                            `json:"id"`
-	Output string                                                            `json:"output"`
-	Status optionalnullable.OptionalNullable[LocalShellCallOutputItemStatus] `json:"status,omitzero"`
-	Type   LocalShellCallOutputItemType                                      `json:"type"`
+	ID     string                                            `json:"id"`
+	Output string                                            `json:"output"`
+	Status optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
+	Type   LocalShellCallOutputItemType                      `json:"type"`
 }
 
 func (l LocalShellCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -88,7 +65,7 @@ func (l *LocalShellCallOutputItem) GetOutput() string {
 	return l.Output
 }
 
-func (l *LocalShellCallOutputItem) GetStatus() optionalnullable.OptionalNullable[LocalShellCallOutputItemStatus] {
+func (l *LocalShellCallOutputItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
 	if l == nil {
 		return nil
 	}

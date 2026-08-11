@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
@@ -11,9 +12,20 @@ type ListPresetVersionsRequest struct {
 	// URL-safe slug identifying the preset.
 	Slug string `pathParam:"style=simple,explode=false,name=slug"`
 	// Number of records to skip for pagination
-	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
+	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
+	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
+}
+
+func (l ListPresetVersionsRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListPresetVersionsRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (l *ListPresetVersionsRequest) GetSlug() string {

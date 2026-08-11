@@ -26,6 +26,26 @@ func (r *ResponsesStreamingResponse) GetDataResponseApplyPatchCallOperationDiffD
 	return r.GetData().ApplyPatchCallOperationDiffDoneEvent
 }
 
+func (r *ResponsesStreamingResponse) GetDataResponseCodeInterpreterCallCodeDelta() *CodeInterpreterCallCodeDeltaEvent {
+	return r.GetData().CodeInterpreterCallCodeDeltaEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseCodeInterpreterCallCodeDone() *CodeInterpreterCallCodeDoneEvent {
+	return r.GetData().CodeInterpreterCallCodeDoneEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseCodeInterpreterCallCompleted() *CodeInterpreterCallCompletedEvent {
+	return r.GetData().CodeInterpreterCallCompletedEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseCodeInterpreterCallInProgress() *CodeInterpreterCallInProgressEvent {
+	return r.GetData().CodeInterpreterCallInProgressEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseCodeInterpreterCallInterpreting() *CodeInterpreterCallInterpretingEvent {
+	return r.GetData().CodeInterpreterCallInterpretingEvent
+}
+
 func (r *ResponsesStreamingResponse) GetDataResponseCompleted() *StreamEventsResponseCompleted {
 	return r.GetData().StreamEventsResponseCompleted
 }

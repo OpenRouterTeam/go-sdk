@@ -1,0 +1,26 @@
+---
+title: "MetadataLevel"
+---
+
+Opt-in level for surfacing routing metadata on the response under `openrouter_metadata`.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.MetadataLevelDisabled
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.MetadataLevel("custom_value")
+```
+
+
+## Values
+
+| Name                    | Value                   |
+| ----------------------- | ----------------------- |
+| `MetadataLevelDisabled` | disabled                |
+| `MetadataLevelEnabled`  | enabled                 |

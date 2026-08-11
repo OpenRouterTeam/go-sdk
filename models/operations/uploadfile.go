@@ -2,41 +2,47 @@
 
 package operations
 
-type File struct {
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+type UploadFileFile struct {
 	FileName string `multipartForm:"name=fileName"`
 	// This field accepts []byte data or io.Reader implementations, such as *os.File.
 	Content any `multipartForm:"content"`
 }
 
-func (f *File) GetFileName() string {
-	if f == nil {
+func (u *UploadFileFile) GetFileName() string {
+	if u == nil {
 		return ""
 	}
-	return f.FileName
+	return u.FileName
 }
 
-func (f *File) GetContent() any {
-	if f == nil {
+func (u *UploadFileFile) GetContent() any {
+	if u == nil {
 		return nil
 	}
-	return f.Content
+	return u.Content
 }
 
 type UploadFileRequestBody struct {
-	File File `multipartForm:"file,name=file"`
+	File UploadFileFile `multipartForm:"file,name=file"`
 }
 
-func (u *UploadFileRequestBody) GetFile() File {
+func (u *UploadFileRequestBody) GetFile() UploadFileFile {
 	if u == nil {
-		return File{}
+		return UploadFileFile{}
 	}
 	return u.File
 }
 
 type UploadFileRequest struct {
 	// Workspace to scope the request to. Defaults to the caller’s default workspace.
-	WorkspaceID *string               `queryParam:"style=form,explode=true,name=workspace_id"`
-	RequestBody UploadFileRequestBody `request:"mediaType=multipart/form-data"`
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
+	// Store or read this file on the named provider using your own API key for it. Omit to use OpenRouter storage.
+	Provider    *components.FileProvider `queryParam:"style=form,explode=true,name=provider"`
+	RequestBody UploadFileRequestBody    `request:"mediaType=multipart/form-data"`
 }
 
 func (u *UploadFileRequest) GetWorkspaceID() *string {
@@ -44,6 +50,13 @@ func (u *UploadFileRequest) GetWorkspaceID() *string {
 		return nil
 	}
 	return u.WorkspaceID
+}
+
+func (u *UploadFileRequest) GetProvider() *components.FileProvider {
+	if u == nil {
+		return nil
+	}
+	return u.Provider
 }
 
 func (u *UploadFileRequest) GetRequestBody() UploadFileRequestBody {

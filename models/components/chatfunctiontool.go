@@ -85,7 +85,7 @@ func (e *ChatFunctionToolType) UnmarshalJSON(data []byte) error {
 }
 
 type ChatFunctionToolFunction struct {
-	// Cache control for the content part
+	// Anthropic-style cache breakpoint for the content part. Interchangeable with the OpenAI-style `prompt_cache_breakpoint` marker: OpenRouter converts between the two based on the provider serving the request.
 	CacheControl *ChatContentCacheControl `json:"cache_control,omitzero"`
 	// Function definition for tool calling
 	Function ChatFunctionToolFunctionFunction `json:"function"`
@@ -131,6 +131,8 @@ const (
 	ChatFunctionToolUnionTypeAdvisorServerToolOpenRouter         ChatFunctionToolUnionType = "AdvisorServerTool_OpenRouter"
 	ChatFunctionToolUnionTypeBashServerTool                      ChatFunctionToolUnionType = "BashServerTool"
 	ChatFunctionToolUnionTypeDatetimeServerTool                  ChatFunctionToolUnionType = "DatetimeServerTool"
+	ChatFunctionToolUnionTypeFilesServerTool                     ChatFunctionToolUnionType = "FilesServerTool"
+	ChatFunctionToolUnionTypeFusionServerToolOpenRouter          ChatFunctionToolUnionType = "FusionServerTool_OpenRouter"
 	ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter ChatFunctionToolUnionType = "ImageGenerationServerTool_OpenRouter"
 	ChatFunctionToolUnionTypeChatSearchModelsServerTool          ChatFunctionToolUnionType = "ChatSearchModelsServerTool"
 	ChatFunctionToolUnionTypeSubagentServerToolOpenRouter        ChatFunctionToolUnionType = "SubagentServerTool_OpenRouter"
@@ -145,6 +147,8 @@ type ChatFunctionTool struct {
 	AdvisorServerToolOpenRouter         *AdvisorServerToolOpenRouter         `queryParam:"inline" union:"member"`
 	BashServerTool                      *BashServerTool                      `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
+	FilesServerTool                     *FilesServerTool                     `queryParam:"inline" union:"member"`
+	FusionServerToolOpenRouter          *FusionServerToolOpenRouter          `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
 	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
 	SubagentServerToolOpenRouter        *SubagentServerToolOpenRouter        `queryParam:"inline" union:"member"`
@@ -188,6 +192,24 @@ func CreateChatFunctionToolDatetimeServerTool(datetimeServerTool DatetimeServerT
 	return ChatFunctionTool{
 		DatetimeServerTool: &datetimeServerTool,
 		Type:               typ,
+	}
+}
+
+func CreateChatFunctionToolFilesServerTool(filesServerTool FilesServerTool) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeFilesServerTool
+
+	return ChatFunctionTool{
+		FilesServerTool: &filesServerTool,
+		Type:            typ,
+	}
+}
+
+func CreateChatFunctionToolFusionServerToolOpenRouter(fusionServerToolOpenRouter FusionServerToolOpenRouter) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeFusionServerToolOpenRouter
+
+	return ChatFunctionTool{
+		FusionServerToolOpenRouter: &fusionServerToolOpenRouter,
+		Type:                       typ,
 	}
 }
 
@@ -282,6 +304,22 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var filesServerTool FilesServerTool = FilesServerTool{}
+	if err := utils.UnmarshalJSON(data, &filesServerTool, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeFilesServerTool,
+			Value: &filesServerTool,
+		})
+	}
+
+	var fusionServerToolOpenRouter FusionServerToolOpenRouter = FusionServerToolOpenRouter{}
+	if err := utils.UnmarshalJSON(data, &fusionServerToolOpenRouter, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeFusionServerToolOpenRouter,
+			Value: &fusionServerToolOpenRouter,
+		})
+	}
+
 	var imageGenerationServerToolOpenRouter ImageGenerationServerToolOpenRouter = ImageGenerationServerToolOpenRouter{}
 	if err := utils.UnmarshalJSON(data, &imageGenerationServerToolOpenRouter, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -355,6 +393,12 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 	case ChatFunctionToolUnionTypeDatetimeServerTool:
 		u.DatetimeServerTool = best.Value.(*DatetimeServerTool)
 		return nil
+	case ChatFunctionToolUnionTypeFilesServerTool:
+		u.FilesServerTool = best.Value.(*FilesServerTool)
+		return nil
+	case ChatFunctionToolUnionTypeFusionServerToolOpenRouter:
+		u.FusionServerToolOpenRouter = best.Value.(*FusionServerToolOpenRouter)
+		return nil
 	case ChatFunctionToolUnionTypeImageGenerationServerToolOpenRouter:
 		u.ImageGenerationServerToolOpenRouter = best.Value.(*ImageGenerationServerToolOpenRouter)
 		return nil
@@ -393,6 +437,14 @@ func (u ChatFunctionTool) MarshalJSON() ([]byte, error) {
 
 	if u.DatetimeServerTool != nil {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
+	}
+
+	if u.FilesServerTool != nil {
+		return utils.MarshalJSON(u.FilesServerTool, "", true)
+	}
+
+	if u.FusionServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.FusionServerToolOpenRouter, "", true)
 	}
 
 	if u.ImageGenerationServerToolOpenRouter != nil {

@@ -1,9 +1,0 @@
-# UpdateBYOKKeyRequest
-
-
-## Fields
-
-| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ID`                                                                               | `string`                                                                           | :heavy_check_mark:                                                                 | The BYOK credential ID (UUID).                                                     | 11111111-2222-3333-4444-555555555555                                               |
-| `UpdateBYOKKeyRequest`                                                             | [components.UpdateBYOKKeyRequest](../../models/components/updatebyokkeyrequest.md) | :heavy_check_mark:                                                                 | N/A                                                                                | {<br/>"disabled": false,<br/>"name": "Updated OpenAI Key"<br/>}                    |

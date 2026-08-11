@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
@@ -11,94 +12,106 @@ import (
 type Provider string
 
 const (
-	ProviderAi21            Provider = "ai21"
-	ProviderAionLabs        Provider = "aion-labs"
-	ProviderAkashml         Provider = "akashml"
-	ProviderAlibaba         Provider = "alibaba"
-	ProviderAmazonBedrock   Provider = "amazon-bedrock"
-	ProviderAmazonNova      Provider = "amazon-nova"
-	ProviderAmbient         Provider = "ambient"
-	ProviderAnthropic       Provider = "anthropic"
-	ProviderArceeAi         Provider = "arcee-ai"
-	ProviderAtlasCloud      Provider = "atlas-cloud"
-	ProviderAvian           Provider = "avian"
-	ProviderAzure           Provider = "azure"
-	ProviderBaidu           Provider = "baidu"
-	ProviderBaseten         Provider = "baseten"
-	ProviderBlackForestLabs Provider = "black-forest-labs"
-	ProviderByteplus        Provider = "byteplus"
-	ProviderCerebras        Provider = "cerebras"
-	ProviderChutes          Provider = "chutes"
-	ProviderCirrascale      Provider = "cirrascale"
-	ProviderClarifai        Provider = "clarifai"
-	ProviderCloudflare      Provider = "cloudflare"
-	ProviderCohere          Provider = "cohere"
-	ProviderCrusoe          Provider = "crusoe"
-	ProviderDarkbloom       Provider = "darkbloom"
-	ProviderDecart          Provider = "decart"
-	ProviderDeepinfra       Provider = "deepinfra"
-	ProviderDeepseek        Provider = "deepseek"
-	ProviderDekallm         Provider = "dekallm"
-	ProviderDigitalocean    Provider = "digitalocean"
-	ProviderFeatherless     Provider = "featherless"
-	ProviderFireworks       Provider = "fireworks"
-	ProviderFriendli        Provider = "friendli"
-	ProviderGmicloud        Provider = "gmicloud"
-	ProviderGoogleAiStudio  Provider = "google-ai-studio"
-	ProviderGoogleVertex    Provider = "google-vertex"
-	ProviderGroq            Provider = "groq"
-	ProviderHeygen          Provider = "heygen"
-	ProviderInception       Provider = "inception"
-	ProviderInceptron       Provider = "inceptron"
-	ProviderInferactVllm    Provider = "inferact-vllm"
-	ProviderInferenceNet    Provider = "inference-net"
-	ProviderInfermatic      Provider = "infermatic"
-	ProviderInflection      Provider = "inflection"
-	ProviderIoNet           Provider = "io-net"
-	ProviderIonstream       Provider = "ionstream"
-	ProviderLiquid          Provider = "liquid"
-	ProviderMancer          Provider = "mancer"
-	ProviderMara            Provider = "mara"
-	ProviderMinimax         Provider = "minimax"
-	ProviderMistral         Provider = "mistral"
-	ProviderModelrun        Provider = "modelrun"
-	ProviderModular         Provider = "modular"
-	ProviderMoonshotai      Provider = "moonshotai"
-	ProviderMorph           Provider = "morph"
-	ProviderNcompass        Provider = "ncompass"
-	ProviderNebius          Provider = "nebius"
-	ProviderNexAgi          Provider = "nex-agi"
-	ProviderNextbit         Provider = "nextbit"
-	ProviderNovita          Provider = "novita"
-	ProviderNvidia          Provider = "nvidia"
-	ProviderOpenInference   Provider = "open-inference"
-	ProviderOpenai          Provider = "openai"
-	ProviderParasail        Provider = "parasail"
-	ProviderPerceptron      Provider = "perceptron"
-	ProviderPerplexity      Provider = "perplexity"
-	ProviderPhala           Provider = "phala"
-	ProviderPoolside        Provider = "poolside"
-	ProviderQuiver          Provider = "quiver"
-	ProviderRecraft         Provider = "recraft"
-	ProviderReka            Provider = "reka"
-	ProviderRelace          Provider = "relace"
-	ProviderSakanaAi        Provider = "sakana-ai"
-	ProviderSambanova       Provider = "sambanova"
-	ProviderSeed            Provider = "seed"
-	ProviderSiliconflow     Provider = "siliconflow"
-	ProviderSourceful       Provider = "sourceful"
-	ProviderStepfun         Provider = "stepfun"
-	ProviderStreamlake      Provider = "streamlake"
-	ProviderSwitchpoint     Provider = "switchpoint"
-	ProviderTenstorrent     Provider = "tenstorrent"
-	ProviderTogether        Provider = "together"
-	ProviderUpstage         Provider = "upstage"
-	ProviderVenice          Provider = "venice"
-	ProviderWafer           Provider = "wafer"
-	ProviderWandb           Provider = "wandb"
-	ProviderXai             Provider = "xai"
-	ProviderXiaomi          Provider = "xiaomi"
-	ProviderZAi             Provider = "z-ai"
+	ProviderAi21             Provider = "ai21"
+	ProviderAionLabs         Provider = "aion-labs"
+	ProviderAkashml          Provider = "akashml"
+	ProviderAlibaba          Provider = "alibaba"
+	ProviderAmazonBedrock    Provider = "amazon-bedrock"
+	ProviderAmazonNova       Provider = "amazon-nova"
+	ProviderAmbient          Provider = "ambient"
+	ProviderAnthropic        Provider = "anthropic"
+	ProviderArceeAi          Provider = "arcee-ai"
+	ProviderAtlasCloud       Provider = "atlas-cloud"
+	ProviderAvian            Provider = "avian"
+	ProviderAzure            Provider = "azure"
+	ProviderBaidu            Provider = "baidu"
+	ProviderBaseten          Provider = "baseten"
+	ProviderBlackForestLabs  Provider = "black-forest-labs"
+	ProviderByteplus         Provider = "byteplus"
+	ProviderCerebras         Provider = "cerebras"
+	ProviderChutes           Provider = "chutes"
+	ProviderCirrascale       Provider = "cirrascale"
+	ProviderClarifai         Provider = "clarifai"
+	ProviderCloudflare       Provider = "cloudflare"
+	ProviderCohere           Provider = "cohere"
+	ProviderCoreweave        Provider = "coreweave"
+	ProviderCrusoe           Provider = "crusoe"
+	ProviderDarkbloom        Provider = "darkbloom"
+	ProviderDecart           Provider = "decart"
+	ProviderDeepgram         Provider = "deepgram"
+	ProviderDeepinfra        Provider = "deepinfra"
+	ProviderDeepseek         Provider = "deepseek"
+	ProviderDekallm          Provider = "dekallm"
+	ProviderDigitalocean     Provider = "digitalocean"
+	ProviderFeatherless      Provider = "featherless"
+	ProviderFireworks        Provider = "fireworks"
+	ProviderFishAudio        Provider = "fish-audio"
+	ProviderFriendli         Provider = "friendli"
+	ProviderGmicloud         Provider = "gmicloud"
+	ProviderGoogleAiStudio   Provider = "google-ai-studio"
+	ProviderGoogleVertex     Provider = "google-vertex"
+	ProviderGroq             Provider = "groq"
+	ProviderHeygen           Provider = "heygen"
+	ProviderInception        Provider = "inception"
+	ProviderInceptron        Provider = "inceptron"
+	ProviderInferactVllm     Provider = "inferact-vllm"
+	ProviderInferenceNet     Provider = "inference-net"
+	ProviderInfermatic       Provider = "infermatic"
+	ProviderInflection       Provider = "inflection"
+	ProviderIoNet            Provider = "io-net"
+	ProviderIonstream        Provider = "ionstream"
+	ProviderKrea             Provider = "krea"
+	ProviderLiquid           Provider = "liquid"
+	ProviderMancer           Provider = "mancer"
+	ProviderMara             Provider = "mara"
+	ProviderMeta             Provider = "meta"
+	ProviderMinimax          Provider = "minimax"
+	ProviderMistral          Provider = "mistral"
+	ProviderModal            Provider = "modal"
+	ProviderModelrun         Provider = "modelrun"
+	ProviderModular          Provider = "modular"
+	ProviderMoonshotai       Provider = "moonshotai"
+	ProviderMorph            Provider = "morph"
+	ProviderNcompass         Provider = "ncompass"
+	ProviderNebius           Provider = "nebius"
+	ProviderNexAgi           Provider = "nex-agi"
+	ProviderNextbit          Provider = "nextbit"
+	ProviderNovita           Provider = "novita"
+	ProviderNvidia           Provider = "nvidia"
+	ProviderOpenInference    Provider = "open-inference"
+	ProviderOpenai           Provider = "openai"
+	ProviderParasail         Provider = "parasail"
+	ProviderPerceptron       Provider = "perceptron"
+	ProviderPerplexity       Provider = "perplexity"
+	ProviderPhala            Provider = "phala"
+	ProviderPoolside         Provider = "poolside"
+	ProviderQuiver           Provider = "quiver"
+	ProviderRecraft          Provider = "recraft"
+	ProviderReka             Provider = "reka"
+	ProviderRelace           Provider = "relace"
+	ProviderRunway           Provider = "runway"
+	ProviderSailResearch     Provider = "sail-research"
+	ProviderSakana           Provider = "sakana"
+	ProviderSakanaAi         Provider = "sakana-ai"
+	ProviderSambanova        Provider = "sambanova"
+	ProviderSeed             Provider = "seed"
+	ProviderSiliconflow      Provider = "siliconflow"
+	ProviderSourceful        Provider = "sourceful"
+	ProviderStepfun          Provider = "stepfun"
+	ProviderStreamlake       Provider = "streamlake"
+	ProviderSwitchpoint      Provider = "switchpoint"
+	ProviderTencent          Provider = "tencent"
+	ProviderTenstorrent      Provider = "tenstorrent"
+	ProviderThinkingmachines Provider = "thinkingmachines"
+	ProviderTogether         Provider = "together"
+	ProviderUpstage          Provider = "upstage"
+	ProviderVenice           Provider = "venice"
+	ProviderWafer            Provider = "wafer"
+	ProviderWandb            Provider = "wandb"
+	ProviderWandbLegacy      Provider = "wandb-legacy"
+	ProviderXai              Provider = "xai"
+	ProviderXiaomi           Provider = "xiaomi"
+	ProviderZAi              Provider = "z-ai"
 )
 
 func (e Provider) ToPointer() *Provider {
@@ -109,7 +122,7 @@ func (e Provider) ToPointer() *Provider {
 func (e *Provider) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "crusoe", "darkbloom", "decart", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "liquid", "mancer", "mara", "minimax", "mistral", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "sakana-ai", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tenstorrent", "together", "upstage", "venice", "wafer", "wandb", "xai", "xiaomi", "z-ai":
+		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "coreweave", "crusoe", "darkbloom", "decart", "deepgram", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "fish-audio", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "krea", "liquid", "mancer", "mara", "meta", "minimax", "mistral", "modal", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "runway", "sail-research", "sakana", "sakana-ai", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tencent", "tenstorrent", "thinkingmachines", "together", "upstage", "venice", "wafer", "wandb", "wandb-legacy", "xai", "xiaomi", "z-ai":
 			return true
 		}
 	}
@@ -118,13 +131,24 @@ func (e *Provider) IsExact() bool {
 
 type ListBYOKKeysRequest struct {
 	// Number of records to skip for pagination
-	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
+	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
-	// Optional workspace ID to filter by. Defaults to the authenticated entity's default workspace.
+	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
+	// Optional workspace ID to filter by. When omitted, resolves to the account’s default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 	// Optional provider slug to filter by (e.g. `openai`, `anthropic`, `amazon-bedrock`).
 	Provider *Provider `queryParam:"style=form,explode=true,name=provider"`
+}
+
+func (l ListBYOKKeysRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListBYOKKeysRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (l *ListBYOKKeysRequest) GetOffset() optionalnullable.OptionalNullable[int64] {

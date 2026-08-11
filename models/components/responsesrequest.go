@@ -14,6 +14,7 @@ import (
 type ResponsesRequestPluginType string
 
 const (
+	ResponsesRequestPluginTypeAutoBetaRouter     ResponsesRequestPluginType = "auto-beta-router"
 	ResponsesRequestPluginTypeAutoRouter         ResponsesRequestPluginType = "auto-router"
 	ResponsesRequestPluginTypeContextCompression ResponsesRequestPluginType = "context-compression"
 	ResponsesRequestPluginTypeFileParser         ResponsesRequestPluginType = "file-parser"
@@ -27,6 +28,7 @@ const (
 
 type ResponsesRequestPlugin struct {
 	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
+	AutoBetaRouterPlugin     *AutoBetaRouterPlugin     `queryParam:"inline" union:"member"`
 	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
 	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
 	WebFetchPlugin           *WebFetchPlugin           `queryParam:"inline" union:"member"`
@@ -37,6 +39,18 @@ type ResponsesRequestPlugin struct {
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestPluginType
+}
+
+func CreateResponsesRequestPluginAutoBetaRouter(autoBetaRouter AutoBetaRouterPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeAutoBetaRouter
+
+	typStr := AutoBetaRouterPluginID(typ)
+	autoBetaRouter.ID = typStr
+
+	return ResponsesRequestPlugin{
+		AutoBetaRouterPlugin: &autoBetaRouter,
+		Type:                 typ,
+	}
 }
 
 func CreateResponsesRequestPluginAutoRouter(autoRouter AutoRouterPlugin) ResponsesRequestPlugin {
@@ -159,6 +173,15 @@ func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.ID {
+	case "auto-beta-router":
+		autoBetaRouterPlugin := new(AutoBetaRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &autoBetaRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-beta-router) type AutoBetaRouterPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.AutoBetaRouterPlugin = autoBetaRouterPlugin
+		u.Type = ResponsesRequestPluginTypeAutoBetaRouter
+		return nil
 	case "auto-router":
 		autoRouterPlugin := new(AutoRouterPlugin)
 		if err := utils.UnmarshalJSON(data, &autoRouterPlugin, "", true, nil); err != nil {
@@ -250,6 +273,10 @@ func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.AutoRouterPlugin, "", true)
 	}
 
+	if u.AutoBetaRouterPlugin != nil {
+		return utils.MarshalJSON(u.AutoBetaRouterPlugin, "", true)
+	}
+
 	if u.ModerationPlugin != nil {
 		return utils.MarshalJSON(u.ModerationPlugin, "", true)
 	}
@@ -285,11 +312,66 @@ func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")
 }
 
+type ReasoningConfig struct {
+	// Controls which reasoning is available to the model. `auto` uses the model default (same as omitting); `all_turns` includes reasoning from earlier turns passed in input; `current_turn` limits to the current turn only. Only supported by OpenAI GPT-5.6 and newer.
+	Context optionalnullable.OptionalNullable[ReasoningContext] `json:"context,omitzero"`
+	Effort  optionalnullable.OptionalNullable[ReasoningEffort]  `json:"effort,omitzero"`
+	// Selects the reasoning mode. `standard` is the default; `pro` engages deeper reasoning on models that support it, billed at standard token rates. Only supported by OpenAI GPT-5.6 and newer.
+	Mode      optionalnullable.OptionalNullable[ReasoningMode]             `json:"mode,omitzero"`
+	Summary   optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] `json:"summary,omitzero"`
+	Enabled   optionalnullable.OptionalNullable[bool]                      `json:"enabled,omitzero"`
+	MaxTokens optionalnullable.OptionalNullable[int64]                     `json:"max_tokens,omitzero"`
+}
+
+func (r *ReasoningConfig) GetContext() optionalnullable.OptionalNullable[ReasoningContext] {
+	if r == nil {
+		return nil
+	}
+	return r.Context
+}
+
+func (r *ReasoningConfig) GetEffort() optionalnullable.OptionalNullable[ReasoningEffort] {
+	if r == nil {
+		return nil
+	}
+	return r.Effort
+}
+
+func (r *ReasoningConfig) GetMode() optionalnullable.OptionalNullable[ReasoningMode] {
+	if r == nil {
+		return nil
+	}
+	return r.Mode
+}
+
+func (r *ReasoningConfig) GetSummary() optionalnullable.OptionalNullable[ReasoningSummaryVerbosity] {
+	if r == nil {
+		return nil
+	}
+	return r.Summary
+}
+
+func (r *ReasoningConfig) GetEnabled() optionalnullable.OptionalNullable[bool] {
+	if r == nil {
+		return nil
+	}
+	return r.Enabled
+}
+
+func (r *ReasoningConfig) GetMaxTokens() optionalnullable.OptionalNullable[int64] {
+	if r == nil {
+		return nil
+	}
+	return r.MaxTokens
+}
+
+// ResponsesRequestServiceTier - The service tier to use for processing this request. `fast` is accepted as an alias for `priority`.
 type ResponsesRequestServiceTier string
 
 const (
 	ResponsesRequestServiceTierAuto     ResponsesRequestServiceTier = "auto"
 	ResponsesRequestServiceTierDefault  ResponsesRequestServiceTier = "default"
+	ResponsesRequestServiceTierFast     ResponsesRequestServiceTier = "fast"
 	ResponsesRequestServiceTierFlex     ResponsesRequestServiceTier = "flex"
 	ResponsesRequestServiceTierPriority ResponsesRequestServiceTier = "priority"
 	ResponsesRequestServiceTierScale    ResponsesRequestServiceTier = "scale"
@@ -303,7 +385,7 @@ func (e ResponsesRequestServiceTier) ToPointer() *ResponsesRequestServiceTier {
 func (e *ResponsesRequestServiceTier) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "default", "flex", "priority", "scale":
+		case "auto", "default", "fast", "flex", "priority", "scale":
 			return true
 		}
 	}
@@ -405,9 +487,11 @@ const (
 	ResponsesRequestToolUnionTypeShell                              ResponsesRequestToolUnionType = "shell"
 	ResponsesRequestToolUnionTypeApplyPatch                         ResponsesRequestToolUnionType = "apply_patch"
 	ResponsesRequestToolUnionTypeCustom                             ResponsesRequestToolUnionType = "custom"
+	ResponsesRequestToolUnionTypeNamespace                          ResponsesRequestToolUnionType = "namespace"
 	ResponsesRequestToolUnionTypeOpenrouterAdvisor                  ResponsesRequestToolUnionType = "openrouter:advisor"
 	ResponsesRequestToolUnionTypeOpenrouterSubagent                 ResponsesRequestToolUnionType = "openrouter:subagent"
 	ResponsesRequestToolUnionTypeOpenrouterDatetime                 ResponsesRequestToolUnionType = "openrouter:datetime"
+	ResponsesRequestToolUnionTypeOpenrouterFiles                    ResponsesRequestToolUnionType = "openrouter:files"
 	ResponsesRequestToolUnionTypeOpenrouterFusion                   ResponsesRequestToolUnionType = "openrouter:fusion"
 	ResponsesRequestToolUnionTypeOpenrouterImageGeneration          ResponsesRequestToolUnionType = "openrouter:image_generation"
 	ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels ResponsesRequestToolUnionType = "openrouter:experimental__search_models"
@@ -433,12 +517,14 @@ type ResponsesRequestToolUnion struct {
 	ShellServerTool                     *ShellServerTool                     `queryParam:"inline" union:"member"`
 	ApplyPatchServerTool                *ApplyPatchServerTool                `queryParam:"inline" union:"member"`
 	CustomTool                          *CustomTool                          `queryParam:"inline" union:"member"`
+	NamespaceTool                       *NamespaceTool                       `queryParam:"inline" union:"member"`
 	AdvisorServerToolOpenRouter         *AdvisorServerToolOpenRouter         `queryParam:"inline" union:"member"`
 	SubagentServerToolOpenRouter        *SubagentServerToolOpenRouter        `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
+	FilesServerTool                     *FilesServerTool                     `queryParam:"inline" union:"member"`
 	FusionServerToolOpenRouter          *FusionServerToolOpenRouter          `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
-	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	SearchModelsServerToolOpenRouter    *SearchModelsServerToolOpenRouter    `queryParam:"inline" union:"member"`
 	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	WebSearchServerToolOpenRouter       *WebSearchServerToolOpenRouter       `queryParam:"inline" union:"member"`
 	ApplyPatchServerToolOpenRouter      *ApplyPatchServerToolOpenRouter      `queryParam:"inline" union:"member"`
@@ -616,6 +702,18 @@ func CreateResponsesRequestToolUnionCustom(custom CustomTool) ResponsesRequestTo
 	}
 }
 
+func CreateResponsesRequestToolUnionNamespace(namespace NamespaceTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeNamespace
+
+	typStr := NamespaceToolType(typ)
+	namespace.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		NamespaceTool: &namespace,
+		Type:          typ,
+	}
+}
+
 func CreateResponsesRequestToolUnionOpenrouterAdvisor(openrouterAdvisor AdvisorServerToolOpenRouter) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeOpenrouterAdvisor
 
@@ -652,6 +750,18 @@ func CreateResponsesRequestToolUnionOpenrouterDatetime(openrouterDatetime Dateti
 	}
 }
 
+func CreateResponsesRequestToolUnionOpenrouterFiles(openrouterFiles FilesServerTool) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterFiles
+
+	typStr := FilesServerToolType(typ)
+	openrouterFiles.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		FilesServerTool: &openrouterFiles,
+		Type:            typ,
+	}
+}
+
 func CreateResponsesRequestToolUnionOpenrouterFusion(openrouterFusion FusionServerToolOpenRouter) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeOpenrouterFusion
 
@@ -676,15 +786,15 @@ func CreateResponsesRequestToolUnionOpenrouterImageGeneration(openrouterImageGen
 	}
 }
 
-func CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(openrouterExperimentalSearchModels ChatSearchModelsServerTool) ResponsesRequestToolUnion {
+func CreateResponsesRequestToolUnionOpenrouterExperimentalSearchModels(openrouterExperimentalSearchModels SearchModelsServerToolOpenRouter) ResponsesRequestToolUnion {
 	typ := ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
 
-	typStr := ChatSearchModelsServerToolType(typ)
+	typStr := SearchModelsServerToolOpenRouterType(typ)
 	openrouterExperimentalSearchModels.Type = typStr
 
 	return ResponsesRequestToolUnion{
-		ChatSearchModelsServerTool: &openrouterExperimentalSearchModels,
-		Type:                       typ,
+		SearchModelsServerToolOpenRouter: &openrouterExperimentalSearchModels,
+		Type:                             typ,
 	}
 }
 
@@ -886,6 +996,15 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.CustomTool = customTool
 		u.Type = ResponsesRequestToolUnionTypeCustom
 		return nil
+	case "namespace":
+		namespaceTool := new(NamespaceTool)
+		if err := utils.UnmarshalJSON(data, &namespaceTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == namespace) type NamespaceTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.NamespaceTool = namespaceTool
+		u.Type = ResponsesRequestToolUnionTypeNamespace
+		return nil
 	case "openrouter:advisor":
 		advisorServerToolOpenRouter := new(AdvisorServerToolOpenRouter)
 		if err := utils.UnmarshalJSON(data, &advisorServerToolOpenRouter, "", true, nil); err != nil {
@@ -913,6 +1032,15 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.DatetimeServerTool = datetimeServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterDatetime
 		return nil
+	case "openrouter:files":
+		filesServerTool := new(FilesServerTool)
+		if err := utils.UnmarshalJSON(data, &filesServerTool, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:files) type FilesServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.FilesServerTool = filesServerTool
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterFiles
+		return nil
 	case "openrouter:fusion":
 		fusionServerToolOpenRouter := new(FusionServerToolOpenRouter)
 		if err := utils.UnmarshalJSON(data, &fusionServerToolOpenRouter, "", true, nil); err != nil {
@@ -932,12 +1060,12 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterImageGeneration
 		return nil
 	case "openrouter:experimental__search_models":
-		chatSearchModelsServerTool := new(ChatSearchModelsServerTool)
-		if err := utils.UnmarshalJSON(data, &chatSearchModelsServerTool, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:experimental__search_models) type ChatSearchModelsServerTool within ResponsesRequestToolUnion: %w", string(data), err)
+		searchModelsServerToolOpenRouter := new(SearchModelsServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &searchModelsServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:experimental__search_models) type SearchModelsServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
 		}
 
-		u.ChatSearchModelsServerTool = chatSearchModelsServerTool
+		u.SearchModelsServerToolOpenRouter = searchModelsServerToolOpenRouter
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterExperimentalSearchModels
 		return nil
 	case "openrouter:web_fetch":
@@ -1047,6 +1175,10 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CustomTool, "", true)
 	}
 
+	if u.NamespaceTool != nil {
+		return utils.MarshalJSON(u.NamespaceTool, "", true)
+	}
+
 	if u.AdvisorServerToolOpenRouter != nil {
 		return utils.MarshalJSON(u.AdvisorServerToolOpenRouter, "", true)
 	}
@@ -1059,6 +1191,10 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.DatetimeServerTool, "", true)
 	}
 
+	if u.FilesServerTool != nil {
+		return utils.MarshalJSON(u.FilesServerTool, "", true)
+	}
+
 	if u.FusionServerToolOpenRouter != nil {
 		return utils.MarshalJSON(u.FusionServerToolOpenRouter, "", true)
 	}
@@ -1067,8 +1203,8 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ImageGenerationServerToolOpenRouter, "", true)
 	}
 
-	if u.ChatSearchModelsServerTool != nil {
-		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	if u.SearchModelsServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.SearchModelsServerToolOpenRouter, "", true)
 	}
 
 	if u.WebFetchServerTool != nil {
@@ -1097,7 +1233,7 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 // ResponsesRequest - Request schema for Responses endpoint
 type ResponsesRequest struct {
 	Background optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
 	Debug            *ChatDebugOptions                          `json:"debug,omitzero"`
@@ -1109,7 +1245,8 @@ type ResponsesRequest struct {
 	Input           *InputsUnion                              `json:"input,omitzero"`
 	Instructions    optionalnullable.OptionalNullable[string] `json:"instructions,omitzero"`
 	MaxOutputTokens optionalnullable.OptionalNullable[int64]  `json:"max_output_tokens,omitzero"`
-	MaxToolCalls    optionalnullable.OptionalNullable[int64]  `json:"max_tool_calls,omitzero"`
+	// Maximum number of server-tool (e.g. `openrouter:web_search`) agent steps the model may take during a request. Defaults to 30, which is also the maximum. Ignored when `stop_server_tools_when` is set.
+	MaxToolCalls optionalnullable.OptionalNullable[int64] `json:"max_tool_calls,omitzero"`
 	// Metadata key-value pairs for the request. Keys must be ≤64 characters and cannot contain brackets. Values must be ≤512 characters. Maximum 16 pairs allowed.
 	Metadata optionalnullable.OptionalNullable[map[string]string] `json:"metadata,omitzero"`
 	// Output modalities for the response. Supported values are "text" and "image".
@@ -1118,20 +1255,25 @@ type ResponsesRequest struct {
 	Models            []string                                `json:"models,omitzero"`
 	ParallelToolCalls optionalnullable.OptionalNullable[bool] `json:"parallel_tool_calls,omitzero"`
 	// Plugins you want to enable for this request, including their settings.
-	Plugins            []ResponsesRequestPlugin                                `json:"plugins,omitzero"`
-	PresencePenalty    optionalnullable.OptionalNullable[float64]              `json:"presence_penalty,omitzero"`
-	PreviousResponseID optionalnullable.OptionalNullable[string]               `json:"previous_response_id,omitzero"`
+	Plugins         []ResponsesRequestPlugin                   `json:"plugins,omitzero"`
+	PresencePenalty optionalnullable.OptionalNullable[float64] `json:"presence_penalty,omitzero"`
+	// Not supported. The Responses API is stateless: no responses are stored, so a previous response cannot be referenced. Requests with a non-null value are rejected with a 400 error. Send the full conversation history in `input` instead.
+	PreviousResponseID any                                                     `json:"previous_response_id,omitzero"`
 	Prompt             optionalnullable.OptionalNullable[StoredPromptTemplate] `json:"prompt,omitzero"`
 	PromptCacheKey     optionalnullable.OptionalNullable[string]               `json:"prompt_cache_key,omitzero"`
+	// Request-level prompt-cache controls. `mode: "explicit"` disables OpenAI-managed breakpoints so only blocks marked with `prompt_cache_breakpoint` are cached. Only supported by OpenAI GPT-5.6 and newer.
+	PromptCacheOptions optionalnullable.OptionalNullable[PromptCacheOptions] `json:"prompt_cache_options,omitzero"`
 	// When multiple model providers are available, optionally indicate your routing preference.
 	Provider optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	// Configuration for reasoning mode in the response
-	Reasoning        optionalnullable.OptionalNullable[ReasoningConfig]             `json:"reasoning,omitzero"`
-	SafetyIdentifier optionalnullable.OptionalNullable[string]                      `json:"safety_identifier,omitzero"`
-	ServiceTier      optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
+	Reasoning optionalnullable.OptionalNullable[ReasoningConfig] `json:"reasoning,omitzero"`
+	// Recommended per-end-user identifier for abuse isolation. Use a stable ID, hash, or pseudonym. When a provider requires a user identity, OpenRouter folds it into the hashed identity sent upstream and never forwards it raw. If omitted, requests use an account-level identity, so provider policy blocks can affect the whole account.
+	SafetyIdentifier optionalnullable.OptionalNullable[string] `json:"safety_identifier,omitzero"`
+	// The service tier to use for processing this request. `fast` is accepted as an alias for `priority`.
+	ServiceTier optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
-	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`.
+	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`. When a condition fires while the model is still emitting tool calls, the pending tool calls are executed and one final turn is made with tool calls disabled so the response ends with a natural-language answer instead of an unfinished tool call.
 	StopServerToolsWhen []StopServerToolsWhenCondition `json:"stop_server_tools_when,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	store       *bool                                      `const:"false" json:"store"`
@@ -1281,7 +1423,7 @@ func (r *ResponsesRequest) GetPresencePenalty() optionalnullable.OptionalNullabl
 	return r.PresencePenalty
 }
 
-func (r *ResponsesRequest) GetPreviousResponseID() optionalnullable.OptionalNullable[string] {
+func (r *ResponsesRequest) GetPreviousResponseID() any {
 	if r == nil {
 		return nil
 	}
@@ -1300,6 +1442,13 @@ func (r *ResponsesRequest) GetPromptCacheKey() optionalnullable.OptionalNullable
 		return nil
 	}
 	return r.PromptCacheKey
+}
+
+func (r *ResponsesRequest) GetPromptCacheOptions() optionalnullable.OptionalNullable[PromptCacheOptions] {
+	if r == nil {
+		return nil
+	}
+	return r.PromptCacheOptions
 }
 
 func (r *ResponsesRequest) GetProvider() optionalnullable.OptionalNullable[ProviderPreferences] {

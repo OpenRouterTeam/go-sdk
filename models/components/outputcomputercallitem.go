@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type PendingSafetyCheck struct {
@@ -94,12 +93,12 @@ func (e *OutputComputerCallItemType) UnmarshalJSON(data []byte) error {
 }
 
 type OutputComputerCallItem struct {
-	Action              optionalnullable.OptionalNullable[any] `json:"action,omitzero"`
-	CallID              string                                 `json:"call_id"`
-	ID                  *string                                `json:"id,omitzero"`
-	PendingSafetyChecks []PendingSafetyCheck                   `json:"pending_safety_checks"`
-	Status              OutputComputerCallItemStatus           `json:"status"`
-	Type                OutputComputerCallItemType             `json:"type"`
+	Action              any                          `json:"action,omitzero"`
+	CallID              string                       `json:"call_id"`
+	ID                  *string                      `json:"id,omitzero"`
+	PendingSafetyChecks []PendingSafetyCheck         `json:"pending_safety_checks"`
+	Status              OutputComputerCallItemStatus `json:"status"`
+	Type                OutputComputerCallItemType   `json:"type"`
 }
 
 func (o OutputComputerCallItem) MarshalJSON() ([]byte, error) {
@@ -113,7 +112,7 @@ func (o *OutputComputerCallItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputComputerCallItem) GetAction() optionalnullable.OptionalNullable[any] {
+func (o *OutputComputerCallItem) GetAction() any {
 	if o == nil {
 		return nil
 	}

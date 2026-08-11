@@ -33,6 +33,10 @@ func (e *OutputBashServerToolItemType) UnmarshalJSON(data []byte) error {
 
 // OutputBashServerToolItem - An openrouter:bash server tool output item
 type OutputBashServerToolItem struct {
+	// The raw tool-call arguments string as emitted by the model.
+	Arguments *string `json:"arguments,omitzero"`
+	// The model-generated tool call id from the originating turn.
+	CallID   *string                      `json:"call_id,omitzero"`
 	Command  *string                      `json:"command,omitzero"`
 	ExitCode *int64                       `json:"exitCode,omitzero"`
 	ID       *string                      `json:"id,omitzero"`
@@ -51,6 +55,20 @@ func (o *OutputBashServerToolItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (o *OutputBashServerToolItem) GetArguments() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Arguments
+}
+
+func (o *OutputBashServerToolItem) GetCallID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CallID
 }
 
 func (o *OutputBashServerToolItem) GetCommand() *string {

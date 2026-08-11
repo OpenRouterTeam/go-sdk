@@ -31,9 +31,14 @@ func (e *FusionCallAnalysisInProgressEventType) UnmarshalJSON(data []byte) error
 	}
 }
 
-// FusionCallAnalysisInProgressEvent - Emitted when the fusion judge starts producing the structured analysis.
+// FusionCallAnalysisInProgressEvent - Emitted when the fusion analyst starts producing the structured analysis.
 type FusionCallAnalysisInProgressEvent struct {
-	ItemID         string                                `json:"item_id"`
+	// Slug of the model producing the structured analysis.
+	AnalystModel string `json:"analyst_model"`
+	ItemID       string `json:"item_id"`
+	// Deprecated alias of `analyst_model`, kept so existing consumers keep working. Always carries the same value. Use `analyst_model`.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	JudgeModel     string                                `json:"judge_model"`
 	OutputIndex    int64                                 `json:"output_index"`
 	SequenceNumber int64                                 `json:"sequence_number"`
@@ -49,6 +54,13 @@ func (f *FusionCallAnalysisInProgressEvent) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (f *FusionCallAnalysisInProgressEvent) GetAnalystModel() string {
+	if f == nil {
+		return ""
+	}
+	return f.AnalystModel
 }
 
 func (f *FusionCallAnalysisInProgressEvent) GetItemID() string {

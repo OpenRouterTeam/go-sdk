@@ -1,0 +1,33 @@
+---
+title: "ImageGenerationProviderPreferencesSort"
+---
+
+The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
+
+
+## Supported Types
+
+### ProviderSort
+
+```go
+imageGenerationProviderPreferencesSort := components.CreateImageGenerationProviderPreferencesSortProviderSort(components.ProviderSort{/* values here */})
+```
+
+### ProviderSortConfig
+
+```go
+imageGenerationProviderPreferencesSort := components.CreateImageGenerationProviderPreferencesSortProviderSortConfig(components.ProviderSortConfig{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch imageGenerationProviderPreferencesSort.Type {
+	case components.ImageGenerationProviderPreferencesSortTypeProviderSort:
+		// imageGenerationProviderPreferencesSort.ProviderSort is populated
+	case components.ImageGenerationProviderPreferencesSortTypeProviderSortConfig:
+		// imageGenerationProviderPreferencesSort.ProviderSortConfig is populated
+}
+```

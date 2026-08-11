@@ -4,7 +4,7 @@ package components
 
 type ActivityItem struct {
 	// BYOK inference cost in USD (external credits spent)
-	ByokUsageInference float64 `json:"byok_usage_inference"`
+	BYOKUsageInference float64 `json:"byok_usage_inference"`
 	// Total completion tokens generated
 	CompletionTokens int64 `json:"completion_tokens"`
 	// Date of the activity (YYYY-MM-DD format)
@@ -25,13 +25,15 @@ type ActivityItem struct {
 	Requests int64 `json:"requests"`
 	// Total cost in USD (OpenRouter credits spent)
 	Usage float64 `json:"usage"`
+	// ID of the workspace this activity is attributed to. Only present when `group_by=workspace` is passed; the response is then split per workspace. Activity recorded before workspace resolution existed is attributed to the account default workspace.
+	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
-func (a *ActivityItem) GetByokUsageInference() float64 {
+func (a *ActivityItem) GetBYOKUsageInference() float64 {
 	if a == nil {
 		return 0.0
 	}
-	return a.ByokUsageInference
+	return a.BYOKUsageInference
 }
 
 func (a *ActivityItem) GetCompletionTokens() int64 {
@@ -102,4 +104,11 @@ func (a *ActivityItem) GetUsage() float64 {
 		return 0.0
 	}
 	return a.Usage
+}
+
+func (a *ActivityItem) GetWorkspaceID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.WorkspaceID
 }

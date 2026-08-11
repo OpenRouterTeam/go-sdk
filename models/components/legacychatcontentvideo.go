@@ -37,7 +37,7 @@ func (e *LegacyChatContentVideoType) UnmarshalJSON(data []byte) error {
 type LegacyChatContentVideo struct {
 	Type LegacyChatContentVideoType `json:"type"`
 	// Video input object
-	VideoURL ChatContentVideoInput `json:"video_url"`
+	VideoURL LegacyChatContentVideoInput `json:"video_url"`
 }
 
 func (l LegacyChatContentVideo) MarshalJSON() ([]byte, error) {
@@ -58,9 +58,9 @@ func (l *LegacyChatContentVideo) GetType() LegacyChatContentVideoType {
 	return l.Type
 }
 
-func (l *LegacyChatContentVideo) GetVideoURL() ChatContentVideoInput {
+func (l *LegacyChatContentVideo) GetVideoURL() LegacyChatContentVideoInput {
 	if l == nil {
-		return ChatContentVideoInput{}
+		return LegacyChatContentVideoInput{}
 	}
 	return l.VideoURL
 }

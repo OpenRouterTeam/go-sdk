@@ -2,11 +2,153 @@
 
 package operations
 
+// Period - Time grain of each row. `day` (default) returns the per-UTC-day series; `week` buckets by ISO week start; `month` buckets by month start. With `category` or `language_type` only `week` (default) and `month` are available — `day` is rejected with a 400 because those datasets are aggregated weekly. For those sampled datasets `period=month` buckets each week by its week-start month, so totals are approximate at month boundaries.
+type Period string
+
+const (
+	PeriodDay   Period = "day"
+	PeriodWeek  Period = "week"
+	PeriodMonth Period = "month"
+)
+
+func (e Period) ToPointer() *Period {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Period) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "day", "week", "month":
+			return true
+		}
+	}
+	return false
+}
+
+// Modality - Restrict to models for a modality surface: `text` / `image_output` match output modality, `image` / `audio` match input modality, and `tool_calling` keeps only rows that recorded at least one tool call. Exact dataset — cannot be combined with `category` or `language_type`.
+type Modality string
+
+const (
+	ModalityText        Modality = "text"
+	ModalityImage       Modality = "image"
+	ModalityImageOutput Modality = "image_output"
+	ModalityAudio       Modality = "audio"
+	ModalityToolCalling Modality = "tool_calling"
+)
+
+func (e Modality) ToPointer() *Modality {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Modality) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "text", "image", "image_output", "audio", "tool_calling":
+			return true
+		}
+	}
+	return false
+}
+
+// ContextBucket - Restrict to requests whose context length falls in this bucket (`1K`, `10K`, `100K`, `1M`, or `10M`). Exact dataset — cannot be combined with `category` or `language_type`.
+type ContextBucket string
+
+const (
+	ContextBucketOneK        ContextBucket = "1K"
+	ContextBucketTenK        ContextBucket = "10K"
+	ContextBucketOneHundredK ContextBucket = "100K"
+	ContextBucketOneM        ContextBucket = "1M"
+	ContextBucketTenM        ContextBucket = "10M"
+)
+
+func (e ContextBucket) ToPointer() *ContextBucket {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ContextBucket) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "1K", "10K", "100K", "1M", "10M":
+			return true
+		}
+	}
+	return false
+}
+
+// GetRankingsDailyCategory - Restrict to a use-case category (e.g. `programming`, `roleplay`). Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `language_type`.
+type GetRankingsDailyCategory string
+
+const (
+	GetRankingsDailyCategoryProgramming  GetRankingsDailyCategory = "programming"
+	GetRankingsDailyCategoryRoleplay     GetRankingsDailyCategory = "roleplay"
+	GetRankingsDailyCategoryMarketing    GetRankingsDailyCategory = "marketing"
+	GetRankingsDailyCategoryMarketingSeo GetRankingsDailyCategory = "marketing/seo"
+	GetRankingsDailyCategoryTechnology   GetRankingsDailyCategory = "technology"
+	GetRankingsDailyCategoryScience      GetRankingsDailyCategory = "science"
+	GetRankingsDailyCategoryTranslation  GetRankingsDailyCategory = "translation"
+	GetRankingsDailyCategoryLegal        GetRankingsDailyCategory = "legal"
+	GetRankingsDailyCategoryFinance      GetRankingsDailyCategory = "finance"
+	GetRankingsDailyCategoryHealth       GetRankingsDailyCategory = "health"
+	GetRankingsDailyCategoryTrivia       GetRankingsDailyCategory = "trivia"
+	GetRankingsDailyCategoryAcademia     GetRankingsDailyCategory = "academia"
+)
+
+func (e GetRankingsDailyCategory) ToPointer() *GetRankingsDailyCategory {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GetRankingsDailyCategory) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "programming", "roleplay", "marketing", "marketing/seo", "technology", "science", "translation", "legal", "finance", "health", "trivia", "academia":
+			return true
+		}
+	}
+	return false
+}
+
+// LanguageType - Restrict to natural-language or programming-language tagged activity. Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `category`.
+type LanguageType string
+
+const (
+	LanguageTypeNatural     LanguageType = "natural"
+	LanguageTypeProgramming LanguageType = "programming"
+)
+
+func (e LanguageType) ToPointer() *LanguageType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *LanguageType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "natural", "programming":
+			return true
+		}
+	}
+	return false
+}
+
 type GetRankingsDailyRequest struct {
 	// Start of the date window in YYYY-MM-DD (UTC), inclusive. Defaults to 30 days before `end_date`. The dataset begins at 2025-01-01; earlier values are clamped forward to that floor and the resolved value is echoed in `meta.start_date`.
 	StartDate *string `queryParam:"style=form,explode=true,name=start_date"`
 	// End of the date window in YYYY-MM-DD (UTC), inclusive. Defaults to the most recent completed UTC day. Must be on or after 2025-01-01; earlier values are rejected with a 400.
 	EndDate *string `queryParam:"style=form,explode=true,name=end_date"`
+	// Time grain of each row. `day` (default) returns the per-UTC-day series; `week` buckets by ISO week start; `month` buckets by month start. With `category` or `language_type` only `week` (default) and `month` are available — `day` is rejected with a 400 because those datasets are aggregated weekly. For those sampled datasets `period=month` buckets each week by its week-start month, so totals are approximate at month boundaries.
+	Period *Period `queryParam:"style=form,explode=true,name=period"`
+	// Restrict to models for a modality surface: `text` / `image_output` match output modality, `image` / `audio` match input modality, and `tool_calling` keeps only rows that recorded at least one tool call. Exact dataset — cannot be combined with `category` or `language_type`.
+	Modality *Modality `queryParam:"style=form,explode=true,name=modality"`
+	// Restrict to requests whose context length falls in this bucket (`1K`, `10K`, `100K`, `1M`, or `10M`). Exact dataset — cannot be combined with `category` or `language_type`.
+	ContextBucket *ContextBucket `queryParam:"style=form,explode=true,name=context_bucket"`
+	// Restrict to a use-case category (e.g. `programming`, `roleplay`). Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `language_type`.
+	Category *GetRankingsDailyCategory `queryParam:"style=form,explode=true,name=category"`
+	// Restrict to natural-language or programming-language tagged activity. Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `category`.
+	LanguageType *LanguageType `queryParam:"style=form,explode=true,name=language_type"`
 }
 
 func (g *GetRankingsDailyRequest) GetStartDate() *string {
@@ -21,4 +163,39 @@ func (g *GetRankingsDailyRequest) GetEndDate() *string {
 		return nil
 	}
 	return g.EndDate
+}
+
+func (g *GetRankingsDailyRequest) GetPeriod() *Period {
+	if g == nil {
+		return nil
+	}
+	return g.Period
+}
+
+func (g *GetRankingsDailyRequest) GetModality() *Modality {
+	if g == nil {
+		return nil
+	}
+	return g.Modality
+}
+
+func (g *GetRankingsDailyRequest) GetContextBucket() *ContextBucket {
+	if g == nil {
+		return nil
+	}
+	return g.ContextBucket
+}
+
+func (g *GetRankingsDailyRequest) GetCategory() *GetRankingsDailyCategory {
+	if g == nil {
+		return nil
+	}
+	return g.Category
+}
+
+func (g *GetRankingsDailyRequest) GetLanguageType() *LanguageType {
+	if g == nil {
+		return nil
+	}
+	return g.LanguageType
 }

@@ -1,0 +1,94 @@
+---
+title: "BaseInputsUnion1"
+---
+
+## Supported Types
+
+### BaseInputsMessage
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1BaseInputsMessage(components.BaseInputsMessage{/* values here */})
+```
+
+### OpenAIResponseInputMessageItem
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseInputMessageItem(components.OpenAIResponseInputMessageItem{/* values here */})
+```
+
+### OpenAIResponseFunctionToolCallOutput
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseFunctionToolCallOutput(components.OpenAIResponseFunctionToolCallOutput{/* values here */})
+```
+
+### OpenAIResponseFunctionToolCall
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseFunctionToolCall(components.OpenAIResponseFunctionToolCall{/* values here */})
+```
+
+### OutputItemImageGenerationCall
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OutputItemImageGenerationCall(components.OutputItemImageGenerationCall{/* values here */})
+```
+
+### OutputMessage
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OutputMessage(components.OutputMessage{/* values here */})
+```
+
+### OpenAIResponseCustomToolCall
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseCustomToolCall(components.OpenAIResponseCustomToolCall{/* values here */})
+```
+
+### OpenAIResponseCustomToolCallOutput
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1OpenAIResponseCustomToolCallOutput(components.OpenAIResponseCustomToolCallOutput{/* values here */})
+```
+
+### ApplyPatchCallItem
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1ApplyPatchCallItem(components.ApplyPatchCallItem{/* values here */})
+```
+
+### ApplyPatchCallOutputItem
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1ApplyPatchCallOutputItem(components.ApplyPatchCallOutputItem{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch baseInputsUnion1.Type {
+	case components.BaseInputsUnion1TypeBaseInputsMessage:
+		// baseInputsUnion1.BaseInputsMessage is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseInputMessageItem:
+		// baseInputsUnion1.OpenAIResponseInputMessageItem is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseFunctionToolCallOutput:
+		// baseInputsUnion1.OpenAIResponseFunctionToolCallOutput is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseFunctionToolCall:
+		// baseInputsUnion1.OpenAIResponseFunctionToolCall is populated
+	case components.BaseInputsUnion1TypeOutputItemImageGenerationCall:
+		// baseInputsUnion1.OutputItemImageGenerationCall is populated
+	case components.BaseInputsUnion1TypeOutputMessage:
+		// baseInputsUnion1.OutputMessage is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseCustomToolCall:
+		// baseInputsUnion1.OpenAIResponseCustomToolCall is populated
+	case components.BaseInputsUnion1TypeOpenAIResponseCustomToolCallOutput:
+		// baseInputsUnion1.OpenAIResponseCustomToolCallOutput is populated
+	case components.BaseInputsUnion1TypeApplyPatchCallItem:
+		// baseInputsUnion1.ApplyPatchCallItem is populated
+	case components.BaseInputsUnion1TypeApplyPatchCallOutputItem:
+		// baseInputsUnion1.ApplyPatchCallOutputItem is populated
+}
+```

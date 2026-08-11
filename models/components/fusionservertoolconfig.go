@@ -6,7 +6,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// FusionServerToolConfigEffort - Reasoning effort level for panelist and judge inner calls.
+// FusionServerToolConfigEffort - Reasoning effort level for panelist and analyst inner calls.
 type FusionServerToolConfigEffort string
 
 const (
@@ -34,11 +34,11 @@ func (e *FusionServerToolConfigEffort) IsExact() bool {
 	return false
 }
 
-// FusionServerToolConfigReasoning - Reasoning configuration forwarded to panelist and judge inner calls. Use this to control reasoning effort and token budget for models that support extended thinking.
+// FusionServerToolConfigReasoning - Reasoning configuration forwarded to panelist and analyst inner calls. Use this to control reasoning effort and token budget for models that support extended thinking.
 type FusionServerToolConfigReasoning struct {
-	// Reasoning effort level for panelist and judge inner calls.
+	// Reasoning effort level for panelist and analyst inner calls.
 	Effort *FusionServerToolConfigEffort `json:"effort,omitzero"`
-	// Maximum number of reasoning tokens each panelist and judge model may use. Helps bound cost when models allocate too much budget to chain-of-thought.
+	// Maximum number of reasoning tokens each panelist and analyst model may use. Helps bound cost when models allocate too much budget to chain-of-thought.
 	MaxTokens *int64 `json:"max_tokens,omitzero"`
 }
 
@@ -101,21 +101,21 @@ func (f *FusionServerToolConfigTool) GetType() string {
 
 // FusionServerToolConfig - Configuration for the openrouter:fusion server tool.
 type FusionServerToolConfig struct {
-	// Slugs of models to run in parallel as the analysis panel. Each model receives the user prompt with openrouter:web_search and openrouter:web_fetch enabled, then a judge model summarizes the collective output into structured analysis JSON. Capped at 8 models to bound cost amplification. Defaults to the Quality preset from /labs/fusion.
+	// Slugs of models to run in parallel as the analysis panel. Each model receives the user prompt with openrouter:web_search and openrouter:web_fetch enabled, then an analyst model summarizes the collective output into structured analysis JSON. Capped at 8 models to bound cost amplification. Defaults to the Quality preset from /labs/fusion.
 	AnalysisModels []string `json:"analysis_models,omitzero"`
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
-	// Maximum number of output tokens (including reasoning tokens) each panelist and the judge model may produce per inner call. Controls the total output budget so reasoning-heavy models like GPT-5.5 do not exhaust their token allowance before producing visible text. When omitted, the provider's default applies.
+	// Maximum number of output tokens (including reasoning tokens) each panelist and the analyst model may produce per inner call. Controls the total output budget so reasoning-heavy models like GPT-5.5 do not exhaust their token allowance before producing visible text. Defaults to 16000 when omitted.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
-	// Maximum number of tool-calling steps each panelist (analysis model) and the judge model may take during their agentic web-research loop. Models with web_search/web_fetch enabled iterate until they produce a text response or hit this ceiling. Defaults to 8. Capped at 16.
+	// Maximum number of tool-calling steps each panelist (analysis model) and the analyst model may take during their agentic web-research loop. Models with web_search/web_fetch enabled iterate until they produce a text response or hit this ceiling. Defaults to 4. Capped at 16.
 	MaxToolCalls *int64 `json:"max_tool_calls,omitzero"`
-	// Slug of the judge model that produces the structured analysis JSON. Defaults to the model used in the outer API request.
+	// Slug of the analyst model that produces the structured analysis JSON. Defaults to the model used in the outer API request.
 	Model *string `json:"model,omitzero"`
-	// Reasoning configuration forwarded to panelist and judge inner calls. Use this to control reasoning effort and token budget for models that support extended thinking.
+	// Reasoning configuration forwarded to panelist and analyst inner calls. Use this to control reasoning effort and token budget for models that support extended thinking.
 	Reasoning *FusionServerToolConfigReasoning `json:"reasoning,omitzero"`
-	// Temperature forwarded to panelist inner calls. The judge always runs at temperature 0 regardless of this value. When omitted, the provider's default applies.
+	// Temperature forwarded to panelist inner calls. The analyst always runs at temperature 0 regardless of this value. When omitted, the provider's default applies.
 	Temperature *float64 `json:"temperature,omitzero"`
-	// Server tools available to panelist and judge inner calls. Each entry uses the same `{ type, parameters? }` shorthand as the outer Chat Completions request. When omitted, defaults to `[{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch" }]`. Pass an empty array to disable tools entirely (panelists answer from parametric knowledge only).
+	// Server tools available to panelist and analyst inner calls. Each entry uses the same `{ type, parameters? }` shorthand as the outer Chat Completions request. When omitted, defaults to `[{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch" }]`. Pass an empty array to disable tools entirely (panelists answer from parametric knowledge only).
 	Tools []FusionServerToolConfigTool `json:"tools,omitzero"`
 }
 

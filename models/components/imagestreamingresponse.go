@@ -13,6 +13,7 @@ type ImageStreamingResponseDataType string
 
 const (
 	ImageStreamingResponseDataTypeImageGenerationPartialImage ImageStreamingResponseDataType = "image_generation.partial_image"
+	ImageStreamingResponseDataTypeImageGenerationTextChunk    ImageStreamingResponseDataType = "image_generation.text_chunk"
 	ImageStreamingResponseDataTypeImageGenerationCompleted    ImageStreamingResponseDataType = "image_generation.completed"
 	ImageStreamingResponseDataTypeError                       ImageStreamingResponseDataType = "error"
 	ImageStreamingResponseDataTypeUnknown                     ImageStreamingResponseDataType = "UNKNOWN"
@@ -20,6 +21,7 @@ const (
 
 type ImageStreamingResponseData struct {
 	ImageGenPartialImageEvent *ImageGenPartialImageEvent `queryParam:"inline" union:"member"`
+	ImageGenTextChunkEvent    *ImageGenTextChunkEvent    `queryParam:"inline" union:"member"`
 	ImageGenCompletedEvent    *ImageGenCompletedEvent    `queryParam:"inline" union:"member"`
 	ImageGenStreamErrorEvent  *ImageGenStreamErrorEvent  `queryParam:"inline" union:"member"`
 	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
@@ -36,6 +38,18 @@ func CreateImageStreamingResponseDataImageGenerationPartialImage(imageGeneration
 	return ImageStreamingResponseData{
 		ImageGenPartialImageEvent: &imageGenerationPartialImage,
 		Type:                      typ,
+	}
+}
+
+func CreateImageStreamingResponseDataImageGenerationTextChunk(imageGenerationTextChunk ImageGenTextChunkEvent) ImageStreamingResponseData {
+	typ := ImageStreamingResponseDataTypeImageGenerationTextChunk
+
+	typStr := ImageGenTextChunkEventType(typ)
+	imageGenerationTextChunk.Type = typStr
+
+	return ImageStreamingResponseData{
+		ImageGenTextChunkEvent: &imageGenerationTextChunk,
+		Type:                   typ,
 	}
 }
 
@@ -106,6 +120,15 @@ func (u *ImageStreamingResponseData) UnmarshalJSON(data []byte) error {
 		u.ImageGenPartialImageEvent = imageGenPartialImageEvent
 		u.Type = ImageStreamingResponseDataTypeImageGenerationPartialImage
 		return nil
+	case "image_generation.text_chunk":
+		imageGenTextChunkEvent := new(ImageGenTextChunkEvent)
+		if err := utils.UnmarshalJSON(data, &imageGenTextChunkEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == image_generation.text_chunk) type ImageGenTextChunkEvent within ImageStreamingResponseData: %w", string(data), err)
+		}
+
+		u.ImageGenTextChunkEvent = imageGenTextChunkEvent
+		u.Type = ImageStreamingResponseDataTypeImageGenerationTextChunk
+		return nil
 	case "image_generation.completed":
 		imageGenCompletedEvent := new(ImageGenCompletedEvent)
 		if err := utils.UnmarshalJSON(data, &imageGenCompletedEvent, "", true, nil); err != nil {
@@ -137,6 +160,10 @@ func (u ImageStreamingResponseData) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ImageGenPartialImageEvent, "", true)
 	}
 
+	if u.ImageGenTextChunkEvent != nil {
+		return utils.MarshalJSON(u.ImageGenTextChunkEvent, "", true)
+	}
+
 	if u.ImageGenCompletedEvent != nil {
 		return utils.MarshalJSON(u.ImageGenCompletedEvent, "", true)
 	}
@@ -164,6 +191,10 @@ func (i *ImageStreamingResponse) GetData() ImageStreamingResponseData {
 
 func (i *ImageStreamingResponse) GetDataImageGenerationPartialImage() *ImageGenPartialImageEvent {
 	return i.GetData().ImageGenPartialImageEvent
+}
+
+func (i *ImageStreamingResponse) GetDataImageGenerationTextChunk() *ImageGenTextChunkEvent {
+	return i.GetData().ImageGenTextChunkEvent
 }
 
 func (i *ImageStreamingResponse) GetDataImageGenerationCompleted() *ImageGenCompletedEvent {

@@ -1,9 +1,0 @@
-# Response
-
-
-## Fields
-
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `Content`          | `*string`          | :heavy_minus_sign: | N/A                |
-| `Model`            | `string`           | :heavy_check_mark: | N/A                |

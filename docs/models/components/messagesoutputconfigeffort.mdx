@@ -1,0 +1,29 @@
+---
+title: "MessagesOutputConfigEffort"
+---
+
+How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.MessagesOutputConfigEffortLow
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.MessagesOutputConfigEffort("custom_value")
+```
+
+
+## Values
+
+| Name                               | Value                              |
+| ---------------------------------- | ---------------------------------- |
+| `MessagesOutputConfigEffortLow`    | low                                |
+| `MessagesOutputConfigEffortMedium` | medium                             |
+| `MessagesOutputConfigEffortHigh`   | high                               |
+| `MessagesOutputConfigEffortXhigh`  | xhigh                              |
+| `MessagesOutputConfigEffortMax`    | max                                |

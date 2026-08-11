@@ -1,0 +1,43 @@
+---
+title: "FileResponse"
+---
+
+A stored file. The shape is negotiated per request — see the endpoint description.
+
+
+## Supported Types
+
+### AnthropicFile
+
+```go
+fileResponse := components.CreateFileResponseAnthropic(components.AnthropicFile{/* values here */})
+```
+
+### OpenAIFile
+
+```go
+fileResponse := components.CreateFileResponseOpenai(components.OpenAIFile{/* values here */})
+```
+
+### OpenRouterFile
+
+```go
+fileResponse := components.CreateFileResponseOpenrouter(components.OpenRouterFile{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch fileResponse.Type {
+	case components.FileResponseTypeAnthropic:
+		// fileResponse.AnthropicFile is populated
+	case components.FileResponseTypeOpenai:
+		// fileResponse.OpenAIFile is populated
+	case components.FileResponseTypeOpenrouter:
+		// fileResponse.OpenRouterFile is populated
+	default:
+		// Unknown type - use fileResponse.GetUnknownRaw() for raw JSON
+}
+```

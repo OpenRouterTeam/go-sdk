@@ -12,7 +12,9 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"github.com/OpenRouterTeam/go-sdk/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -189,7 +191,7 @@ func (s *Embeddings) Generate(ctx context.Context, request operations.CreateEmbe
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "402", "404", "429", "4XX", "500", "502", "503", "524", "529", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -471,7 +473,12 @@ func (s *Embeddings) Generate(ctx context.Context, request operations.CreateEmbe
 
 // ListModels - List all embeddings models
 // Returns a list of all available embeddings models and their properties
-func (s *Embeddings) ListModels(ctx context.Context, opts ...operations.Option) (*components.ModelsListResponse, error) {
+func (s *Embeddings) ListModels(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListEmbeddingsModelsResponse, error) {
+	request := operations.ListEmbeddingsModelsRequest{
+		Offset: offset,
+		Limit:  limit,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -522,6 +529,10 @@ func (s *Embeddings) ListModels(ctx context.Context, opts ...operations.Option) 
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -613,7 +624,7 @@ func (s *Embeddings) ListModels(ctx context.Context, opts ...operations.Option) 
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -626,6 +637,54 @@ func (s *Embeddings) ListModels(ctx context.Context, opts ...operations.Option) 
 				return nil, err
 			}
 		}
+	}
+
+	res := &operations.ListEmbeddingsModelsResponse{}
+	res.Next = func() (*operations.ListEmbeddingsModelsResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.ListModels(
+			ctx,
+			optionalnullable.From(&nOS),
+			limit,
+			opts...,
+		)
 	}
 
 	switch {
@@ -642,7 +701,7 @@ func (s *Embeddings) ListModels(ctx context.Context, opts ...operations.Option) 
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -712,6 +771,6 @@ func (s *Embeddings) ListModels(ctx context.Context, opts ...operations.Option) 
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }

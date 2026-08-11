@@ -1,0 +1,32 @@
+---
+title: "NamespaceToolTool"
+---
+
+## Supported Types
+
+### NamespaceFunctionTool
+
+```go
+namespaceToolTool := components.CreateNamespaceToolToolFunction(components.NamespaceFunctionTool{/* values here */})
+```
+
+### CustomTool
+
+```go
+namespaceToolTool := components.CreateNamespaceToolToolCustom(components.CustomTool{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch namespaceToolTool.Type {
+	case components.NamespaceToolToolTypeFunction:
+		// namespaceToolTool.NamespaceFunctionTool is populated
+	case components.NamespaceToolToolTypeCustom:
+		// namespaceToolTool.CustomTool is populated
+	default:
+		// Unknown type - use namespaceToolTool.GetUnknownRaw() for raw JSON
+}
+```

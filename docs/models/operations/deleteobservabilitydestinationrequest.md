@@ -1,8 +1,0 @@
-# DeleteObservabilityDestinationRequest
-
-
-## Fields
-
-| Field                                | Type                                 | Required                             | Description                          | Example                              |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `ID`                                 | `string`                             | :heavy_check_mark:                   | The destination ID (UUID).           | 99999999-aaaa-bbbb-cccc-dddddddddddd |

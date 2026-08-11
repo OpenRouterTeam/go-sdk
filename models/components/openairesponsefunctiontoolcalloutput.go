@@ -241,29 +241,6 @@ func (u OpenAIResponseFunctionToolCallOutputOutput2) MarshalJSON() ([]byte, erro
 	return nil, errors.New("could not marshal union type OpenAIResponseFunctionToolCallOutputOutput2: all fields are null")
 }
 
-type OpenAIResponseFunctionToolCallOutputStatus string
-
-const (
-	OpenAIResponseFunctionToolCallOutputStatusInProgress OpenAIResponseFunctionToolCallOutputStatus = "in_progress"
-	OpenAIResponseFunctionToolCallOutputStatusCompleted  OpenAIResponseFunctionToolCallOutputStatus = "completed"
-	OpenAIResponseFunctionToolCallOutputStatusIncomplete OpenAIResponseFunctionToolCallOutputStatus = "incomplete"
-)
-
-func (e OpenAIResponseFunctionToolCallOutputStatus) ToPointer() *OpenAIResponseFunctionToolCallOutputStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OpenAIResponseFunctionToolCallOutputStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "in_progress", "completed", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 type OpenAIResponseFunctionToolCallOutputType string
 
 const (
@@ -288,11 +265,11 @@ func (e *OpenAIResponseFunctionToolCallOutputType) UnmarshalJSON(data []byte) er
 }
 
 type OpenAIResponseFunctionToolCallOutput struct {
-	CallID string                                                                        `json:"call_id"`
-	ID     optionalnullable.OptionalNullable[string]                                     `json:"id,omitzero"`
-	Output OpenAIResponseFunctionToolCallOutputOutput2                                   `json:"output"`
-	Status optionalnullable.OptionalNullable[OpenAIResponseFunctionToolCallOutputStatus] `json:"status,omitzero"`
-	Type   OpenAIResponseFunctionToolCallOutputType                                      `json:"type"`
+	CallID string                                            `json:"call_id"`
+	ID     optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
+	Output OpenAIResponseFunctionToolCallOutputOutput2       `json:"output"`
+	Status optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
+	Type   OpenAIResponseFunctionToolCallOutputType          `json:"type"`
 }
 
 func (o OpenAIResponseFunctionToolCallOutput) MarshalJSON() ([]byte, error) {
@@ -327,7 +304,7 @@ func (o *OpenAIResponseFunctionToolCallOutput) GetOutput() OpenAIResponseFunctio
 	return o.Output
 }
 
-func (o *OpenAIResponseFunctionToolCallOutput) GetStatus() optionalnullable.OptionalNullable[OpenAIResponseFunctionToolCallOutputStatus] {
+func (o *OpenAIResponseFunctionToolCallOutput) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
 	if o == nil {
 		return nil
 	}

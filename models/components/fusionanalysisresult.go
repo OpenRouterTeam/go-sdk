@@ -126,7 +126,7 @@ func (u *UniqueInsight) GetModel() string {
 	return u.Model
 }
 
-// FusionAnalysisResult - Structured analysis produced by the fusion judge model.
+// FusionAnalysisResult - Structured analysis produced by the fusion analyst model.
 type FusionAnalysisResult struct {
 	BlindSpots      []string          `json:"blind_spots"`
 	Consensus       []string          `json:"consensus"`

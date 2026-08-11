@@ -1,0 +1,26 @@
+---
+title: "STTRequestResponseFormat"
+---
+
+Output format. "json" (default) returns \{ text, usage }. "verbose_json" additionally returns task, language, duration, and segment-level timestamps; only supported by OpenAI-compatible providers.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.STTRequestResponseFormatJSON
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.STTRequestResponseFormat("custom_value")
+```
+
+
+## Values
+
+| Name                                  | Value                                 |
+| ------------------------------------- | ------------------------------------- |
+| `STTRequestResponseFormatJSON`        | json                                  |
+| `STTRequestResponseFormatVerboseJSON` | verbose_json                          |

@@ -13,8 +13,8 @@ const (
 	APITypeCompletions APIType = "completions"
 	APITypeEmbeddings  APIType = "embeddings"
 	APITypeRerank      APIType = "rerank"
-	APITypeTts         APIType = "tts"
-	APITypeStt         APIType = "stt"
+	APITypeTTS         APIType = "tts"
+	APITypeSTT         APIType = "stt"
 	APITypeVideo       APIType = "video"
 	APITypeImage       APIType = "image"
 )
@@ -34,12 +34,13 @@ func (e *APIType) IsExact() bool {
 	return false
 }
 
-// DataRegion - The data region this generation was routed through. 'europe' for EU-routed requests, 'global' otherwise.
+// DataRegion - The data region this generation was routed through: 'global', 'europe', or 'us'.
 type DataRegion string
 
 const (
 	DataRegionGlobal DataRegion = "global"
 	DataRegionEurope DataRegion = "europe"
+	DataRegionUs     DataRegion = "us"
 )
 
 func (e DataRegion) ToPointer() *DataRegion {
@@ -50,7 +51,7 @@ func (e DataRegion) ToPointer() *DataRegion {
 func (e *DataRegion) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "global", "europe":
+		case "global", "europe", "us":
 			return true
 		}
 	}
@@ -69,7 +70,7 @@ type GenerationResponseData struct {
 	Cancelled *bool `json:"cancelled"`
 	// ISO 8601 timestamp of when the generation was created
 	CreatedAt string `json:"created_at"`
-	// The data region this generation was routed through. 'europe' for EU-routed requests, 'global' otherwise.
+	// The data region this generation was routed through: 'global', 'europe', or 'us'.
 	DataRegion DataRegion `json:"data_region"`
 	// External user identifier
 	ExternalUser *string `json:"external_user"`
@@ -82,7 +83,7 @@ type GenerationResponseData struct {
 	// Unique identifier for the generation
 	ID string `json:"id"`
 	// Whether this used bring-your-own-key
-	IsByok bool `json:"is_byok"`
+	IsBYOK bool `json:"is_byok"`
 	// Total latency in milliseconds
 	Latency *float64 `json:"latency"`
 	// Model used for the generation
@@ -147,6 +148,8 @@ type GenerationResponseData struct {
 	UserAgent *string `json:"user_agent"`
 	// The resolved web search engine used for this generation (e.g. exa, firecrawl, parallel)
 	WebSearchEngine *string `json:"web_search_engine"`
+	// ID of the workspace this generation is attributed to. Null for accounts without workspaces. Generations created before workspace resolution existed are attributed to the account default workspace.
+	WorkspaceID *string `json:"workspace_id"`
 }
 
 func (g *GenerationResponseData) GetAPIType() *APIType {
@@ -226,11 +229,11 @@ func (g *GenerationResponseData) GetID() string {
 	return g.ID
 }
 
-func (g *GenerationResponseData) GetIsByok() bool {
+func (g *GenerationResponseData) GetIsBYOK() bool {
 	if g == nil {
 		return false
 	}
-	return g.IsByok
+	return g.IsBYOK
 }
 
 func (g *GenerationResponseData) GetLatency() *float64 {
@@ -455,6 +458,13 @@ func (g *GenerationResponseData) GetWebSearchEngine() *string {
 		return nil
 	}
 	return g.WebSearchEngine
+}
+
+func (g *GenerationResponseData) GetWorkspaceID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.WorkspaceID
 }
 
 // GenerationResponse - Generation response

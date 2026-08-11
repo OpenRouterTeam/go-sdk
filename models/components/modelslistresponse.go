@@ -2,10 +2,27 @@
 
 package components
 
+// Links - Pagination links
+type Links struct {
+	// URL for the next page of results, or null if this is the last page
+	Next *string `json:"next"`
+}
+
+func (l *Links) GetNext() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Next
+}
+
 // ModelsListResponse - List of available models
 type ModelsListResponse struct {
 	// List of available models
 	Data []Model `json:"data"`
+	// Pagination links
+	Links Links `json:"links"`
+	// Total number of models matching the query
+	TotalCount int64 `json:"total_count"`
 }
 
 func (m *ModelsListResponse) GetData() []Model {
@@ -13,4 +30,18 @@ func (m *ModelsListResponse) GetData() []Model {
 		return []Model{}
 	}
 	return m.Data
+}
+
+func (m *ModelsListResponse) GetLinks() Links {
+	if m == nil {
+		return Links{}
+	}
+	return m.Links
+}
+
+func (m *ModelsListResponse) GetTotalCount() int64 {
+	if m == nil {
+		return 0
+	}
+	return m.TotalCount
 }

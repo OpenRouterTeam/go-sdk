@@ -8,6 +8,32 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+// AutoRouterPluginCostTier - Named cost/quality setting. Tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Takes precedence over the deprecated numeric cost_quality_tradeoff when both are provided.
+type AutoRouterPluginCostTier string
+
+const (
+	AutoRouterPluginCostTierLow    AutoRouterPluginCostTier = "low"
+	AutoRouterPluginCostTierMedium AutoRouterPluginCostTier = "medium"
+	AutoRouterPluginCostTierHigh   AutoRouterPluginCostTier = "high"
+	AutoRouterPluginCostTierXhigh  AutoRouterPluginCostTier = "xhigh"
+	AutoRouterPluginCostTierMax    AutoRouterPluginCostTier = "max"
+)
+
+func (e AutoRouterPluginCostTier) ToPointer() *AutoRouterPluginCostTier {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AutoRouterPluginCostTier) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "low", "medium", "high", "xhigh", "max":
+			return true
+		}
+	}
+	return false
+}
+
 type AutoRouterPluginID string
 
 const (
@@ -32,13 +58,21 @@ func (e *AutoRouterPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type AutoRouterPlugin struct {
-	// List of model patterns to filter which models the auto-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, uses the default supported models list.
+	// List of model patterns to filter which models the auto-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, every model ranked for the classified task type is a candidate, falling back to a default model set when rankings are unavailable.
 	AllowedModels []string `json:"allowed_models,omitzero"`
-	// Controls cost vs. quality routing tradeoff (0–10). 0 = pure quality (best model regardless of cost), 10 = maximize for cost (cheapest model wins). Intermediate values blend quality and cost signals continuously. Defaults to 7.
+	// Deprecated: Use cost_tier instead. Balances routing between cost and quality on a 0-10 scale. The auto-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 9 when no cost setting is provided. It remains supported and retains ceiling behavior, but cost_tier takes precedence when both are provided.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	CostQualityTradeoff *int64 `json:"cost_quality_tradeoff,omitzero"`
+	// Named cost/quality setting. Tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Takes precedence over the deprecated numeric cost_quality_tradeoff when both are provided.
+	CostTier *AutoRouterPluginCostTier `json:"cost_tier,omitzero"`
 	// Set to false to disable the auto-router plugin for this request. Defaults to true.
-	Enabled *bool              `json:"enabled,omitzero"`
-	ID      AutoRouterPluginID `json:"id"`
+	Enabled *bool `json:"enabled,omitzero"`
+	// List of model patterns to exclude from auto-router selection. Supports wildcards (e.g., "meta-llama/*" excludes all Llama models). Applied after allowed_models, so an excluded pattern always wins over an allowed one.
+	ExcludedModels []string           `json:"excluded_models,omitzero"`
+	ID             AutoRouterPluginID `json:"id"`
+	// When true, reuses the model from the most recent assistant message's `model` attribute for subsequent turns. Defaults to false.
+	PinModel *bool `json:"pin_model,omitzero"`
 }
 
 func (a AutoRouterPlugin) MarshalJSON() ([]byte, error) {
@@ -66,6 +100,13 @@ func (a *AutoRouterPlugin) GetCostQualityTradeoff() *int64 {
 	return a.CostQualityTradeoff
 }
 
+func (a *AutoRouterPlugin) GetCostTier() *AutoRouterPluginCostTier {
+	if a == nil {
+		return nil
+	}
+	return a.CostTier
+}
+
 func (a *AutoRouterPlugin) GetEnabled() *bool {
 	if a == nil {
 		return nil
@@ -73,9 +114,23 @@ func (a *AutoRouterPlugin) GetEnabled() *bool {
 	return a.Enabled
 }
 
+func (a *AutoRouterPlugin) GetExcludedModels() []string {
+	if a == nil {
+		return nil
+	}
+	return a.ExcludedModels
+}
+
 func (a *AutoRouterPlugin) GetID() AutoRouterPluginID {
 	if a == nil {
 		return AutoRouterPluginID("")
 	}
 	return a.ID
+}
+
+func (a *AutoRouterPlugin) GetPinModel() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.PinModel
 }

@@ -1,0 +1,33 @@
+---
+title: "ShellServerToolEnvironment"
+---
+
+Server-side execution environment for the shell tool. Only container-backed environments are supported; "local" shells are not.
+
+
+## Supported Types
+
+### ContainerAutoEnvironment
+
+```go
+shellServerToolEnvironment := components.CreateShellServerToolEnvironmentContainerAuto(components.ContainerAutoEnvironment{/* values here */})
+```
+
+### ContainerReferenceEnvironment
+
+```go
+shellServerToolEnvironment := components.CreateShellServerToolEnvironmentContainerReference(components.ContainerReferenceEnvironment{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch shellServerToolEnvironment.Type {
+	case components.ShellServerToolEnvironmentTypeContainerAuto:
+		// shellServerToolEnvironment.ContainerAutoEnvironment is populated
+	case components.ShellServerToolEnvironmentTypeContainerReference:
+		// shellServerToolEnvironment.ContainerReferenceEnvironment is populated
+}
+```

@@ -55,29 +55,6 @@ func (s *ShellCallOutputItemOutput) GetAdditionalProperties() map[string]any {
 	return s.AdditionalProperties
 }
 
-type ShellCallOutputItemStatus string
-
-const (
-	ShellCallOutputItemStatusInProgress ShellCallOutputItemStatus = "in_progress"
-	ShellCallOutputItemStatusCompleted  ShellCallOutputItemStatus = "completed"
-	ShellCallOutputItemStatusIncomplete ShellCallOutputItemStatus = "incomplete"
-)
-
-func (e ShellCallOutputItemStatus) ToPointer() *ShellCallOutputItemStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ShellCallOutputItemStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "in_progress", "completed", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 type ShellCallOutputItemType string
 
 const (
@@ -103,12 +80,12 @@ func (e *ShellCallOutputItemType) UnmarshalJSON(data []byte) error {
 
 // ShellCallOutputItem - Output from a shell command execution (newer variant)
 type ShellCallOutputItem struct {
-	CallID          string                                                       `json:"call_id"`
-	ID              optionalnullable.OptionalNullable[string]                    `json:"id,omitzero"`
-	MaxOutputLength optionalnullable.OptionalNullable[int64]                     `json:"max_output_length,omitzero"`
-	Output          []ShellCallOutputItemOutput                                  `json:"output"`
-	Status          optionalnullable.OptionalNullable[ShellCallOutputItemStatus] `json:"status,omitzero"`
-	Type            ShellCallOutputItemType                                      `json:"type"`
+	CallID          string                                            `json:"call_id"`
+	ID              optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
+	MaxOutputLength optionalnullable.OptionalNullable[int64]          `json:"max_output_length,omitzero"`
+	Output          []ShellCallOutputItemOutput                       `json:"output"`
+	Status          optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
+	Type            ShellCallOutputItemType                           `json:"type"`
 }
 
 func (s ShellCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -150,7 +127,7 @@ func (s *ShellCallOutputItem) GetOutput() []ShellCallOutputItemOutput {
 	return s.Output
 }
 
-func (s *ShellCallOutputItem) GetStatus() optionalnullable.OptionalNullable[ShellCallOutputItemStatus] {
+func (s *ShellCallOutputItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
 	if s == nil {
 		return nil
 	}

@@ -204,7 +204,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "429", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -407,6 +407,13 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 // reserved permaslug `other` and is always returned last within its date, so callers
 // can compute `top-50 traffic / total daily traffic` without a second request.
 //
+// Optional filters slice the dataset. `period` (`day`/`week`/`month`) sets the time
+// grain. `modality` and `context_bucket` narrow the exact dataset by output/input
+// modality (or tool-calling activity) and request context length. `category` and
+// `language_type` instead read a sampled, upsampled dataset whose `total_tokens` are
+// weekly-grain estimates — they cannot be combined with each other or with the exact
+// filters, and reject `period=day` with a 400.
+//
 // Authenticate with any valid OpenRouter API key (same key used for inference).
 // Rate-limited to 30 requests/minute per key and 500 requests/day per account.
 //
@@ -417,12 +424,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 // are as reported by Anthropic, OpenAI counts are as reported by OpenAI, etc.), so
 // a token in one row is not directly comparable to a token in another row from a
 // different provider.
-func (s *Datasets) GetRankingsDaily(ctx context.Context, startDate *string, endDate *string, opts ...operations.Option) (*components.RankingsDailyResponse, error) {
-	request := operations.GetRankingsDailyRequest{
-		StartDate: startDate,
-		EndDate:   endDate,
-	}
-
+func (s *Datasets) GetRankingsDaily(ctx context.Context, request *operations.GetRankingsDailyRequest, opts ...operations.Option) (*components.RankingsDailyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -568,7 +570,7 @@ func (s *Datasets) GetRankingsDaily(ctx context.Context, startDate *string, endD
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "429", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err

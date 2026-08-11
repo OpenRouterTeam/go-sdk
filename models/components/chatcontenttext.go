@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type ChatContentTextType string
@@ -33,10 +34,12 @@ func (e *ChatContentTextType) UnmarshalJSON(data []byte) error {
 
 // ChatContentText - Text content part
 type ChatContentText struct {
-	// Cache control for the content part
+	// Anthropic-style cache breakpoint for the content part. Interchangeable with the OpenAI-style `prompt_cache_breakpoint` marker: OpenRouter converts between the two based on the provider serving the request.
 	CacheControl *ChatContentCacheControl `json:"cache_control,omitzero"`
-	Text         string                   `json:"text"`
-	Type         ChatContentTextType      `json:"type"`
+	// Marks an explicit prompt-cache boundary on this content block (OpenAI-style). Everything through the block carrying this marker is part of the candidate cached prefix. Supported natively by OpenAI GPT-5.6 and newer; on providers that use Anthropic-style `cache_control`, OpenRouter converts the marker to that format automatically.
+	PromptCacheBreakpoint optionalnullable.OptionalNullable[PromptCacheBreakpoint] `json:"prompt_cache_breakpoint,omitzero"`
+	Text                  string                                                   `json:"text"`
+	Type                  ChatContentTextType                                      `json:"type"`
 }
 
 func (c ChatContentText) MarshalJSON() ([]byte, error) {
@@ -55,6 +58,13 @@ func (c *ChatContentText) GetCacheControl() *ChatContentCacheControl {
 		return nil
 	}
 	return c.CacheControl
+}
+
+func (c *ChatContentText) GetPromptCacheBreakpoint() optionalnullable.OptionalNullable[PromptCacheBreakpoint] {
+	if c == nil {
+		return nil
+	}
+	return c.PromptCacheBreakpoint
 }
 
 func (c *ChatContentText) GetText() string {

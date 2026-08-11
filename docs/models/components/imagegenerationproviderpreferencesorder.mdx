@@ -1,0 +1,30 @@
+---
+title: "ImageGenerationProviderPreferencesOrder"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+imageGenerationProviderPreferencesOrder := components.CreateImageGenerationProviderPreferencesOrderProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+imageGenerationProviderPreferencesOrder := components.CreateImageGenerationProviderPreferencesOrderStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch imageGenerationProviderPreferencesOrder.Type {
+	case components.ImageGenerationProviderPreferencesOrderTypeProviderName:
+		// imageGenerationProviderPreferencesOrder.ProviderName is populated
+	case components.ImageGenerationProviderPreferencesOrderTypeStr:
+		// imageGenerationProviderPreferencesOrder.Str is populated
+}
+```

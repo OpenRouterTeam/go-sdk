@@ -13,14 +13,12 @@ type PreferredMinThroughputType string
 const (
 	PreferredMinThroughputTypeNumber                      PreferredMinThroughputType = "number"
 	PreferredMinThroughputTypePercentileThroughputCutoffs PreferredMinThroughputType = "PercentileThroughputCutoffs"
-	PreferredMinThroughputTypeAny                         PreferredMinThroughputType = "any"
 )
 
 // PreferredMinThroughput - Preferred minimum throughput (in tokens per second). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints below the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
 type PreferredMinThroughput struct {
 	Number                      *float64                     `queryParam:"inline" union:"member"`
 	PercentileThroughputCutoffs *PercentileThroughputCutoffs `queryParam:"inline" union:"member"`
-	Any                         any                          `queryParam:"inline" union:"member"`
 
 	Type PreferredMinThroughputType
 }
@@ -40,15 +38,6 @@ func CreatePreferredMinThroughputPercentileThroughputCutoffs(percentileThroughpu
 	return PreferredMinThroughput{
 		PercentileThroughputCutoffs: &percentileThroughputCutoffs,
 		Type:                        typ,
-	}
-}
-
-func CreatePreferredMinThroughputAny(anyT any) PreferredMinThroughput {
-	typ := PreferredMinThroughputTypeAny
-
-	return PreferredMinThroughput{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -73,14 +62,6 @@ func (u *PreferredMinThroughput) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PreferredMinThroughputTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for PreferredMinThroughput", string(data))
 	}
@@ -100,9 +81,6 @@ func (u *PreferredMinThroughput) UnmarshalJSON(data []byte) error {
 	case PreferredMinThroughputTypePercentileThroughputCutoffs:
 		u.PercentileThroughputCutoffs = best.Value.(*PercentileThroughputCutoffs)
 		return nil
-	case PreferredMinThroughputTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PreferredMinThroughput", string(data))
@@ -115,10 +93,6 @@ func (u PreferredMinThroughput) MarshalJSON() ([]byte, error) {
 
 	if u.PercentileThroughputCutoffs != nil {
 		return utils.MarshalJSON(u.PercentileThroughputCutoffs, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type PreferredMinThroughput: all fields are null")

@@ -1,0 +1,17 @@
+---
+title: "CustomToolCallItem"
+---
+
+A call to a custom (freeform-grammar) tool created by the model — distinct from `function_call`. Used for tools like Codex CLI's `apply_patch` whose payload is opaque text rather than JSON arguments.
+
+
+## Fields
+
+| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `CallID`                                                                                        | `string`                                                                                        | :heavy_check_mark:                                                                              | N/A                                                                                             |
+| `ID`                                                                                            | `*string`                                                                                       | :heavy_minus_sign:                                                                              | N/A                                                                                             |
+| `Input`                                                                                         | `string`                                                                                        | :heavy_check_mark:                                                                              | N/A                                                                                             |
+| `Name`                                                                                          | `string`                                                                                        | :heavy_check_mark:                                                                              | N/A                                                                                             |
+| `Namespace`                                                                                     | `*string`                                                                                       | :heavy_minus_sign:                                                                              | Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server) |
+| `Type`                                                                                          | [components.CustomToolCallItemType](../../models/components/customtoolcallitemtype.mdx)          | :heavy_check_mark:                                                                              | N/A                                                                                             |

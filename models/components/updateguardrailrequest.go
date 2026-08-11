@@ -12,13 +12,19 @@ type UpdateGuardrailRequest struct {
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// New list of allowed provider IDs
 	AllowedProviders optionalnullable.OptionalNullable[[]string] `json:"allowed_providers,omitzero"`
-	// Builtin content filters to apply. Set to null to remove. The "flag" action is only supported for "regex-prompt-injection"; PII slugs (email, phone, ssn, credit-card, ip-address, person-name, address) accept "block" or "redact" only.
+	// Builtin content filters to apply. Set to null to remove. Every builtin slug supports "block", "redact", and the detect-only "flag" action.
 	ContentFilterBuiltins optionalnullable.OptionalNullable[[]ContentFilterBuiltinEntryInput] `json:"content_filter_builtins,omitzero"`
 	// Custom regex content filters to apply. Set to null to remove.
 	ContentFilters optionalnullable.OptionalNullable[[]ContentFilterEntry] `json:"content_filters,omitzero"`
 	// New description for the guardrail
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
+	// Whether this guardrail allows free endpoints that publish prompts.
+	EnableFreeModelPublication optionalnullable.OptionalNullable[bool] `json:"enable_free_model_publication,omitzero"`
+	// Whether this guardrail allows free endpoints that train on request data.
+	EnableFreeModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_free_model_training,omitzero"`
+	// Whether this guardrail allows paid endpoints that train on request data.
+	EnablePaidModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_paid_model_training,omitzero"`
+	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, enforce_zdr_xai, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	EnforceZdr optionalnullable.OptionalNullable[bool] `json:"enforce_zdr,omitzero"`
@@ -28,12 +34,16 @@ type UpdateGuardrailRequest struct {
 	EnforceZdrGoogle optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_google,omitzero"`
 	// Whether to enforce zero data retention for OpenAI models. Falls back to enforce_zdr when not provided.
 	EnforceZdrOpenai optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_openai,omitzero"`
-	// Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, or Google. Falls back to enforce_zdr when not provided.
+	// Whether to enforce zero data retention for models that are not from Anthropic, OpenAI, Google, or xAI. Falls back to enforce_zdr when not provided.
 	EnforceZdrOther optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_other,omitzero"`
+	// Whether to enforce zero data retention for xAI models. Falls back to enforce_zdr when not provided.
+	EnforceZdrXai optionalnullable.OptionalNullable[bool] `json:"enforce_zdr_xai,omitzero"`
 	// Array of model identifiers to exclude from routing (slug or canonical_slug accepted)
 	IgnoredModels optionalnullable.OptionalNullable[[]string] `json:"ignored_models,omitzero"`
 	// List of provider IDs to exclude from routing
 	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
+	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend. Omit to leave unchanged.
+	IncludeBYOKInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
 	// New spending limit in USD
 	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
 	// New name for the guardrail
@@ -88,6 +98,27 @@ func (u *UpdateGuardrailRequest) GetDescription() optionalnullable.OptionalNulla
 	return u.Description
 }
 
+func (u *UpdateGuardrailRequest) GetEnableFreeModelPublication() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnableFreeModelPublication
+}
+
+func (u *UpdateGuardrailRequest) GetEnableFreeModelTraining() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnableFreeModelTraining
+}
+
+func (u *UpdateGuardrailRequest) GetEnablePaidModelTraining() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnablePaidModelTraining
+}
+
 func (u *UpdateGuardrailRequest) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
 	if u == nil {
 		return nil
@@ -123,6 +154,13 @@ func (u *UpdateGuardrailRequest) GetEnforceZdrOther() optionalnullable.OptionalN
 	return u.EnforceZdrOther
 }
 
+func (u *UpdateGuardrailRequest) GetEnforceZdrXai() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnforceZdrXai
+}
+
 func (u *UpdateGuardrailRequest) GetIgnoredModels() optionalnullable.OptionalNullable[[]string] {
 	if u == nil {
 		return nil
@@ -135,6 +173,13 @@ func (u *UpdateGuardrailRequest) GetIgnoredProviders() optionalnullable.Optional
 		return nil
 	}
 	return u.IgnoredProviders
+}
+
+func (u *UpdateGuardrailRequest) GetIncludeBYOKInBudgets() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IncludeBYOKInBudgets
 }
 
 func (u *UpdateGuardrailRequest) GetLimitUsd() optionalnullable.OptionalNullable[float64] {

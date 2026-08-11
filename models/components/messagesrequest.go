@@ -379,13 +379,11 @@ type ClearToolInputsType string
 const (
 	ClearToolInputsTypeBoolean    ClearToolInputsType = "boolean"
 	ClearToolInputsTypeArrayOfStr ClearToolInputsType = "arrayOfStr"
-	ClearToolInputsTypeAny        ClearToolInputsType = "any"
 )
 
 type ClearToolInputs struct {
 	Boolean    *bool    `queryParam:"inline" union:"member"`
 	ArrayOfStr []string `queryParam:"inline" union:"member"`
-	Any        any      `queryParam:"inline" union:"member"`
 
 	Type ClearToolInputsType
 }
@@ -405,15 +403,6 @@ func CreateClearToolInputsArrayOfStr(arrayOfStr []string) ClearToolInputs {
 	return ClearToolInputs{
 		ArrayOfStr: arrayOfStr,
 		Type:       typ,
-	}
-}
-
-func CreateClearToolInputsAny(anyT any) ClearToolInputs {
-	typ := ClearToolInputsTypeAny
-
-	return ClearToolInputs{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -438,14 +427,6 @@ func (u *ClearToolInputs) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ClearToolInputsTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ClearToolInputs", string(data))
 	}
@@ -465,9 +446,6 @@ func (u *ClearToolInputs) UnmarshalJSON(data []byte) error {
 	case ClearToolInputsTypeArrayOfStr:
 		u.ArrayOfStr = best.Value.([]string)
 		return nil
-	case ClearToolInputsTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ClearToolInputs", string(data))
@@ -480,10 +458,6 @@ func (u ClearToolInputs) MarshalJSON() ([]byte, error) {
 
 	if u.ArrayOfStr != nil {
 		return utils.MarshalJSON(u.ArrayOfStr, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ClearToolInputs: all fields are null")
@@ -824,6 +798,7 @@ func (m *MessagesRequestMetadata) GetUserID() optionalnullable.OptionalNullable[
 type MessagesRequestPluginType string
 
 const (
+	MessagesRequestPluginTypeAutoBetaRouter     MessagesRequestPluginType = "auto-beta-router"
 	MessagesRequestPluginTypeAutoRouter         MessagesRequestPluginType = "auto-router"
 	MessagesRequestPluginTypeContextCompression MessagesRequestPluginType = "context-compression"
 	MessagesRequestPluginTypeFileParser         MessagesRequestPluginType = "file-parser"
@@ -837,6 +812,7 @@ const (
 
 type MessagesRequestPlugin struct {
 	AutoRouterPlugin         *AutoRouterPlugin         `queryParam:"inline" union:"member"`
+	AutoBetaRouterPlugin     *AutoBetaRouterPlugin     `queryParam:"inline" union:"member"`
 	ModerationPlugin         *ModerationPlugin         `queryParam:"inline" union:"member"`
 	WebSearchPlugin          *WebSearchPlugin          `queryParam:"inline" union:"member"`
 	WebFetchPlugin           *WebFetchPlugin           `queryParam:"inline" union:"member"`
@@ -847,6 +823,18 @@ type MessagesRequestPlugin struct {
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 
 	Type MessagesRequestPluginType
+}
+
+func CreateMessagesRequestPluginAutoBetaRouter(autoBetaRouter AutoBetaRouterPlugin) MessagesRequestPlugin {
+	typ := MessagesRequestPluginTypeAutoBetaRouter
+
+	typStr := AutoBetaRouterPluginID(typ)
+	autoBetaRouter.ID = typStr
+
+	return MessagesRequestPlugin{
+		AutoBetaRouterPlugin: &autoBetaRouter,
+		Type:                 typ,
+	}
 }
 
 func CreateMessagesRequestPluginAutoRouter(autoRouter AutoRouterPlugin) MessagesRequestPlugin {
@@ -969,6 +957,15 @@ func (u *MessagesRequestPlugin) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.ID {
+	case "auto-beta-router":
+		autoBetaRouterPlugin := new(AutoBetaRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &autoBetaRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == auto-beta-router) type AutoBetaRouterPlugin within MessagesRequestPlugin: %w", string(data), err)
+		}
+
+		u.AutoBetaRouterPlugin = autoBetaRouterPlugin
+		u.Type = MessagesRequestPluginTypeAutoBetaRouter
+		return nil
 	case "auto-router":
 		autoRouterPlugin := new(AutoRouterPlugin)
 		if err := utils.UnmarshalJSON(data, &autoRouterPlugin, "", true, nil); err != nil {
@@ -1058,6 +1055,10 @@ func (u *MessagesRequestPlugin) UnmarshalJSON(data []byte) error {
 func (u MessagesRequestPlugin) MarshalJSON() ([]byte, error) {
 	if u.AutoRouterPlugin != nil {
 		return utils.MarshalJSON(u.AutoRouterPlugin, "", true)
+	}
+
+	if u.AutoBetaRouterPlugin != nil {
+		return utils.MarshalJSON(u.AutoBetaRouterPlugin, "", true)
 	}
 
 	if u.ModerationPlugin != nil {
@@ -1859,60 +1860,6 @@ func (m *MessagesRequestTool) GetAdditionalProperties() map[string]any {
 	return m.AdditionalProperties
 }
 
-type ToolTypeEphemeral string
-
-const (
-	ToolTypeEphemeralEphemeral ToolTypeEphemeral = "ephemeral"
-)
-
-func (e ToolTypeEphemeral) ToPointer() *ToolTypeEphemeral {
-	return &e
-}
-func (e *ToolTypeEphemeral) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "ephemeral":
-		*e = ToolTypeEphemeral(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ToolTypeEphemeral: %v", v)
-	}
-}
-
-// Caching - Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-type Caching struct {
-	TTL  *AnthropicCacheControlTTL `json:"ttl,omitzero"`
-	Type ToolTypeEphemeral         `json:"type"`
-}
-
-func (c Caching) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *Caching) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *Caching) GetTTL() *AnthropicCacheControlTTL {
-	if c == nil {
-		return nil
-	}
-	return c.TTL
-}
-
-func (c *Caching) GetType() ToolTypeEphemeral {
-	if c == nil {
-		return ToolTypeEphemeral("")
-	}
-	return c.Type
-}
-
 type NameAdvisor string
 
 const (
@@ -1961,14 +1908,14 @@ func (e *TypeAdvisor20260301) UnmarshalJSON(data []byte) error {
 
 type ToolAdvisor20260301 struct {
 	AllowedCallers []AnthropicAllowedCallers `json:"allowed_callers,omitzero"`
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
-	CacheControl *AnthropicCacheControlDirective            `json:"cache_control,omitzero"`
-	Caching      optionalnullable.OptionalNullable[Caching] `json:"caching,omitzero"`
-	DeferLoading *bool                                      `json:"defer_loading,omitzero"`
-	MaxUses      *int64                                     `json:"max_uses,omitzero"`
-	Model        string                                     `json:"model"`
-	Name         NameAdvisor                                `json:"name"`
-	Type         TypeAdvisor20260301                        `json:"type"`
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
+	CacheControl *AnthropicCacheControlDirective                                   `json:"cache_control,omitzero"`
+	Caching      optionalnullable.OptionalNullable[AnthropicCacheControlDirective] `json:"caching,omitzero"`
+	DeferLoading *bool                                                             `json:"defer_loading,omitzero"`
+	MaxUses      *int64                                                            `json:"max_uses,omitzero"`
+	Model        string                                                            `json:"model"`
+	Name         NameAdvisor                                                       `json:"name"`
+	Type         TypeAdvisor20260301                                               `json:"type"`
 }
 
 func (t ToolAdvisor20260301) MarshalJSON() ([]byte, error) {
@@ -1996,7 +1943,7 @@ func (t *ToolAdvisor20260301) GetCacheControl() *AnthropicCacheControlDirective 
 	return t.CacheControl
 }
 
-func (t *ToolAdvisor20260301) GetCaching() optionalnullable.OptionalNullable[Caching] {
+func (t *ToolAdvisor20260301) GetCaching() optionalnullable.OptionalNullable[AnthropicCacheControlDirective] {
 	if t == nil {
 		return nil
 	}
@@ -2091,7 +2038,7 @@ type ToolWebSearch20260209 struct {
 	AllowedCallers []AnthropicAllowedCallers                   `json:"allowed_callers,omitzero"`
 	AllowedDomains optionalnullable.OptionalNullable[[]string] `json:"allowed_domains,omitzero"`
 	BlockedDomains optionalnullable.OptionalNullable[[]string] `json:"blocked_domains,omitzero"`
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective                                       `json:"cache_control,omitzero"`
 	MaxUses      optionalnullable.OptionalNullable[int64]                              `json:"max_uses,omitzero"`
 	Name         NameWebSearch2                                                        `json:"name"`
@@ -2218,7 +2165,7 @@ func (e *TypeWebSearch20250305) UnmarshalJSON(data []byte) error {
 type ToolWebSearch20250305 struct {
 	AllowedDomains optionalnullable.OptionalNullable[[]string] `json:"allowed_domains,omitzero"`
 	BlockedDomains optionalnullable.OptionalNullable[[]string] `json:"blocked_domains,omitzero"`
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective                                       `json:"cache_control,omitzero"`
 	MaxUses      optionalnullable.OptionalNullable[int64]                              `json:"max_uses,omitzero"`
 	Name         NameWebSearch1                                                        `json:"name"`
@@ -2336,7 +2283,7 @@ func (e *TypeTextEditor20250124) UnmarshalJSON(data []byte) error {
 }
 
 type ToolTextEditor20250124 struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	Name         NameStrReplaceEditor            `json:"name"`
 	Type         TypeTextEditor20250124          `json:"type"`
@@ -2424,7 +2371,7 @@ func (e *TypeBash20250124) UnmarshalJSON(data []byte) error {
 }
 
 type ToolBash20250124 struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	Name         NameBash                        `json:"name"`
 	Type         TypeBash20250124                `json:"type"`
@@ -2466,7 +2413,7 @@ func (t *ToolBash20250124) GetType() TypeBash20250124 {
 // #endregion class-body-toolbash20250124
 
 type InputSchema struct {
-	Properties           optionalnullable.OptionalNullable[any]      `json:"properties,omitzero"`
+	Properties           any                                         `json:"properties,omitzero"`
 	Required             optionalnullable.OptionalNullable[[]string] `json:"required,omitzero"`
 	Type                 *string                                     `default:"object" json:"type"`
 	AdditionalProperties map[string]any                              `additionalProperties:"true" json:"-"`
@@ -2483,7 +2430,7 @@ func (i *InputSchema) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputSchema) GetProperties() optionalnullable.OptionalNullable[any] {
+func (i *InputSchema) GetProperties() any {
 	if i == nil {
 		return nil
 	}
@@ -2535,8 +2482,9 @@ func (e *ToolTypeCustom) UnmarshalJSON(data []byte) error {
 }
 
 type ToolCustom struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	DeferLoading *bool                           `json:"defer_loading,omitzero"`
 	Description  *string                         `json:"description,omitzero"`
 	InputSchema  InputSchema                     `json:"input_schema"`
 	Name         string                          `json:"name"`
@@ -2559,6 +2507,13 @@ func (t *ToolCustom) GetCacheControl() *AnthropicCacheControlDirective {
 		return nil
 	}
 	return t.CacheControl
+}
+
+func (t *ToolCustom) GetDeferLoading() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.DeferLoading
 }
 
 func (t *ToolCustom) GetDescription() *string {
@@ -2601,10 +2556,13 @@ const (
 	MessagesRequestToolUnionTypeBashServerTool                      MessagesRequestToolUnionType = "BashServerTool"
 	MessagesRequestToolUnionTypeDatetimeServerTool                  MessagesRequestToolUnionType = "DatetimeServerTool"
 	MessagesRequestToolUnionTypeImageGenerationServerToolOpenRouter MessagesRequestToolUnionType = "ImageGenerationServerTool_OpenRouter"
-	MessagesRequestToolUnionTypeChatSearchModelsServerTool          MessagesRequestToolUnionType = "ChatSearchModelsServerTool"
+	MessagesRequestToolUnionTypeMessagesSearchModelsServerTool      MessagesRequestToolUnionType = "MessagesSearchModelsServerTool"
 	MessagesRequestToolUnionTypeWebFetchServerTool                  MessagesRequestToolUnionType = "WebFetchServerTool"
 	MessagesRequestToolUnionTypeOpenRouterWebSearchServerTool       MessagesRequestToolUnionType = "OpenRouterWebSearchServerTool"
 	MessagesRequestToolUnionTypeMessagesRequestTool                 MessagesRequestToolUnionType = "MessagesRequest_tool"
+	MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25         MessagesRequestToolUnionType = "AnthropicToolSearchToolBm25"
+	MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex        MessagesRequestToolUnionType = "AnthropicToolSearchToolRegex"
+	MessagesRequestToolUnionTypeShellServerToolOpenRouter           MessagesRequestToolUnionType = "ShellServerTool_OpenRouter"
 )
 
 type MessagesRequestToolUnion struct {
@@ -2617,10 +2575,13 @@ type MessagesRequestToolUnion struct {
 	BashServerTool                      *BashServerTool                      `queryParam:"inline" union:"member"`
 	DatetimeServerTool                  *DatetimeServerTool                  `queryParam:"inline" union:"member"`
 	ImageGenerationServerToolOpenRouter *ImageGenerationServerToolOpenRouter `queryParam:"inline" union:"member"`
-	ChatSearchModelsServerTool          *ChatSearchModelsServerTool          `queryParam:"inline" union:"member"`
+	MessagesSearchModelsServerTool      *MessagesSearchModelsServerTool      `queryParam:"inline" union:"member"`
 	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	OpenRouterWebSearchServerTool       *OpenRouterWebSearchServerTool       `queryParam:"inline" union:"member"`
 	MessagesRequestTool                 *MessagesRequestTool                 `queryParam:"inline" union:"member"`
+	AnthropicToolSearchToolBm25         *AnthropicToolSearchToolBm25         `queryParam:"inline" union:"member"`
+	AnthropicToolSearchToolRegex        *AnthropicToolSearchToolRegex        `queryParam:"inline" union:"member"`
+	ShellServerToolOpenRouter           *ShellServerToolOpenRouter           `queryParam:"inline" union:"member"`
 
 	Type MessagesRequestToolUnionType
 }
@@ -2706,12 +2667,12 @@ func CreateMessagesRequestToolUnionImageGenerationServerToolOpenRouter(imageGene
 	}
 }
 
-func CreateMessagesRequestToolUnionChatSearchModelsServerTool(chatSearchModelsServerTool ChatSearchModelsServerTool) MessagesRequestToolUnion {
-	typ := MessagesRequestToolUnionTypeChatSearchModelsServerTool
+func CreateMessagesRequestToolUnionMessagesSearchModelsServerTool(messagesSearchModelsServerTool MessagesSearchModelsServerTool) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeMessagesSearchModelsServerTool
 
 	return MessagesRequestToolUnion{
-		ChatSearchModelsServerTool: &chatSearchModelsServerTool,
-		Type:                       typ,
+		MessagesSearchModelsServerTool: &messagesSearchModelsServerTool,
+		Type:                           typ,
 	}
 }
 
@@ -2739,6 +2700,33 @@ func CreateMessagesRequestToolUnionMessagesRequestTool(messagesRequestTool Messa
 	return MessagesRequestToolUnion{
 		MessagesRequestTool: &messagesRequestTool,
 		Type:                typ,
+	}
+}
+
+func CreateMessagesRequestToolUnionAnthropicToolSearchToolBm25(anthropicToolSearchToolBm25 AnthropicToolSearchToolBm25) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25
+
+	return MessagesRequestToolUnion{
+		AnthropicToolSearchToolBm25: &anthropicToolSearchToolBm25,
+		Type:                        typ,
+	}
+}
+
+func CreateMessagesRequestToolUnionAnthropicToolSearchToolRegex(anthropicToolSearchToolRegex AnthropicToolSearchToolRegex) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex
+
+	return MessagesRequestToolUnion{
+		AnthropicToolSearchToolRegex: &anthropicToolSearchToolRegex,
+		Type:                         typ,
+	}
+}
+
+func CreateMessagesRequestToolUnionShellServerToolOpenRouter(shellServerToolOpenRouter ShellServerToolOpenRouter) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeShellServerToolOpenRouter
+
+	return MessagesRequestToolUnion{
+		ShellServerToolOpenRouter: &shellServerToolOpenRouter,
+		Type:                      typ,
 	}
 }
 
@@ -2819,11 +2807,11 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var chatSearchModelsServerTool ChatSearchModelsServerTool = ChatSearchModelsServerTool{}
-	if err := utils.UnmarshalJSON(data, &chatSearchModelsServerTool, "", true, nil); err == nil {
+	var messagesSearchModelsServerTool MessagesSearchModelsServerTool = MessagesSearchModelsServerTool{}
+	if err := utils.UnmarshalJSON(data, &messagesSearchModelsServerTool, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  MessagesRequestToolUnionTypeChatSearchModelsServerTool,
-			Value: &chatSearchModelsServerTool,
+			Type:  MessagesRequestToolUnionTypeMessagesSearchModelsServerTool,
+			Value: &messagesSearchModelsServerTool,
 		})
 	}
 
@@ -2848,6 +2836,30 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  MessagesRequestToolUnionTypeMessagesRequestTool,
 			Value: &messagesRequestTool,
+		})
+	}
+
+	var anthropicToolSearchToolBm25 AnthropicToolSearchToolBm25 = AnthropicToolSearchToolBm25{}
+	if err := utils.UnmarshalJSON(data, &anthropicToolSearchToolBm25, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25,
+			Value: &anthropicToolSearchToolBm25,
+		})
+	}
+
+	var anthropicToolSearchToolRegex AnthropicToolSearchToolRegex = AnthropicToolSearchToolRegex{}
+	if err := utils.UnmarshalJSON(data, &anthropicToolSearchToolRegex, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex,
+			Value: &anthropicToolSearchToolRegex,
+		})
+	}
+
+	var shellServerToolOpenRouter ShellServerToolOpenRouter = ShellServerToolOpenRouter{}
+	if err := utils.UnmarshalJSON(data, &shellServerToolOpenRouter, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  MessagesRequestToolUnionTypeShellServerToolOpenRouter,
+			Value: &shellServerToolOpenRouter,
 		})
 	}
 
@@ -2891,8 +2903,8 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 	case MessagesRequestToolUnionTypeImageGenerationServerToolOpenRouter:
 		u.ImageGenerationServerToolOpenRouter = best.Value.(*ImageGenerationServerToolOpenRouter)
 		return nil
-	case MessagesRequestToolUnionTypeChatSearchModelsServerTool:
-		u.ChatSearchModelsServerTool = best.Value.(*ChatSearchModelsServerTool)
+	case MessagesRequestToolUnionTypeMessagesSearchModelsServerTool:
+		u.MessagesSearchModelsServerTool = best.Value.(*MessagesSearchModelsServerTool)
 		return nil
 	case MessagesRequestToolUnionTypeWebFetchServerTool:
 		u.WebFetchServerTool = best.Value.(*WebFetchServerTool)
@@ -2902,6 +2914,15 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		return nil
 	case MessagesRequestToolUnionTypeMessagesRequestTool:
 		u.MessagesRequestTool = best.Value.(*MessagesRequestTool)
+		return nil
+	case MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25:
+		u.AnthropicToolSearchToolBm25 = best.Value.(*AnthropicToolSearchToolBm25)
+		return nil
+	case MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex:
+		u.AnthropicToolSearchToolRegex = best.Value.(*AnthropicToolSearchToolRegex)
+		return nil
+	case MessagesRequestToolUnionTypeShellServerToolOpenRouter:
+		u.ShellServerToolOpenRouter = best.Value.(*ShellServerToolOpenRouter)
 		return nil
 	}
 
@@ -2945,8 +2966,8 @@ func (u MessagesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ImageGenerationServerToolOpenRouter, "", true)
 	}
 
-	if u.ChatSearchModelsServerTool != nil {
-		return utils.MarshalJSON(u.ChatSearchModelsServerTool, "", true)
+	if u.MessagesSearchModelsServerTool != nil {
+		return utils.MarshalJSON(u.MessagesSearchModelsServerTool, "", true)
 	}
 
 	if u.WebFetchServerTool != nil {
@@ -2961,12 +2982,24 @@ func (u MessagesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.MessagesRequestTool, "", true)
 	}
 
+	if u.AnthropicToolSearchToolBm25 != nil {
+		return utils.MarshalJSON(u.AnthropicToolSearchToolBm25, "", true)
+	}
+
+	if u.AnthropicToolSearchToolRegex != nil {
+		return utils.MarshalJSON(u.AnthropicToolSearchToolRegex, "", true)
+	}
+
+	if u.ShellServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.ShellServerToolOpenRouter, "", true)
+	}
+
 	return nil, errors.New("could not marshal union type MessagesRequestToolUnion: all fields are null")
 }
 
 // MessagesRequest - Request schema for Anthropic Messages API endpoint
 type MessagesRequest struct {
-	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. Currently supported for Anthropic Claude models.
+	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl      *AnthropicCacheControlDirective                      `json:"cache_control,omitzero"`
 	ContextManagement optionalnullable.OptionalNullable[ContextManagement] `json:"context_management,omitzero"`
 	// Fallback models to try if the primary model fails or refuses, in order. Handled by OpenRouter multi-model routing rather than Anthropic server-side fallbacks; cannot be combined with `models`. Each entry accepts only `model`. Maximum of 3 entries.
@@ -2987,7 +3020,7 @@ type MessagesRequest struct {
 	SessionID     *string                                  `json:"session_id,omitzero"`
 	Speed         optionalnullable.OptionalNullable[Speed] `json:"speed,omitzero"`
 	StopSequences []string                                 `json:"stop_sequences,omitzero"`
-	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`.
+	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`. When a condition fires while the model is still emitting tool calls, the pending tool calls are executed and one final turn is made with tool calls disabled so the response ends with a natural-language answer instead of an unfinished tool call.
 	StopServerToolsWhen []StopServerToolsWhenCondition `json:"stop_server_tools_when,omitzero"`
 	Stream              *bool                          `json:"stream,omitzero"`
 	System              *System                        `json:"system,omitzero"`

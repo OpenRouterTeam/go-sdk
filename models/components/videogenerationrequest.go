@@ -62,13 +62,16 @@ type VideoGenerationRequestOptions struct {
 	Chutes              map[string]any `json:"chutes,omitzero"`
 	Cirrascale          map[string]any `json:"cirrascale,omitzero"`
 	Clarifai            map[string]any `json:"clarifai,omitzero"`
+	ClaudeOnAws         map[string]any `json:"claude-on-aws,omitzero"`
 	Cloudflare          map[string]any `json:"cloudflare,omitzero"`
 	Cohere              map[string]any `json:"cohere,omitzero"`
+	Coreweave           map[string]any `json:"coreweave,omitzero"`
 	Crofai              map[string]any `json:"crofai,omitzero"`
 	Crucible            map[string]any `json:"crucible,omitzero"`
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
+	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
 	Deepseek            map[string]any `json:"deepseek,omitzero"`
 	Dekallm             map[string]any `json:"dekallm,omitzero"`
@@ -77,6 +80,7 @@ type VideoGenerationRequestOptions struct {
 	FakeProvider        map[string]any `json:"fake-provider,omitzero"`
 	Featherless         map[string]any `json:"featherless,omitzero"`
 	Fireworks           map[string]any `json:"fireworks,omitzero"`
+	FishAudio           map[string]any `json:"fish-audio,omitzero"`
 	Friendli            map[string]any `json:"friendli,omitzero"`
 	Gmicloud            map[string]any `json:"gmicloud,omitzero"`
 	GoogleAiStudio      map[string]any `json:"google-ai-studio,omitzero"`
@@ -97,6 +101,7 @@ type VideoGenerationRequestOptions struct {
 	IoNet               map[string]any `json:"io-net,omitzero"`
 	Ionstream           map[string]any `json:"ionstream,omitzero"`
 	Klusterai           map[string]any `json:"klusterai,omitzero"`
+	Krea                map[string]any `json:"krea,omitzero"`
 	Lambda              map[string]any `json:"lambda,omitzero"`
 	Lepton              map[string]any `json:"lepton,omitzero"`
 	Liquid              map[string]any `json:"liquid,omitzero"`
@@ -135,6 +140,9 @@ type VideoGenerationRequestOptions struct {
 	Reka                map[string]any `json:"reka,omitzero"`
 	Relace              map[string]any `json:"relace,omitzero"`
 	Replicate           map[string]any `json:"replicate,omitzero"`
+	Runway              map[string]any `json:"runway,omitzero"`
+	SailResearch        map[string]any `json:"sail-research,omitzero"`
+	Sakana              map[string]any `json:"sakana,omitzero"`
 	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
 	Sambanova           map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
@@ -147,14 +155,18 @@ type VideoGenerationRequestOptions struct {
 	Streamlake          map[string]any `json:"streamlake,omitzero"`
 	Switchpoint         map[string]any `json:"switchpoint,omitzero"`
 	Targon              map[string]any `json:"targon,omitzero"`
+	Tencent             map[string]any `json:"tencent,omitzero"`
 	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
+	Thinkingmachines    map[string]any `json:"thinkingmachines,omitzero"`
 	Together            map[string]any `json:"together,omitzero"`
 	TogetherLite        map[string]any `json:"together-lite,omitzero"`
 	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
 	Upstage             map[string]any `json:"upstage,omitzero"`
 	Venice              map[string]any `json:"venice,omitzero"`
+	Voyageai            map[string]any `json:"voyageai,omitzero"`
 	Wafer               map[string]any `json:"wafer,omitzero"`
 	Wandb               map[string]any `json:"wandb,omitzero"`
+	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
 	Xai                 map[string]any `json:"xai,omitzero"`
 	Xiaomi              map[string]any `json:"xiaomi,omitzero"`
 	ZAi                 map[string]any `json:"z-ai,omitzero"`
@@ -339,6 +351,13 @@ func (v *VideoGenerationRequestOptions) GetClarifai() map[string]any {
 	return v.Clarifai
 }
 
+func (v *VideoGenerationRequestOptions) GetClaudeOnAws() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.ClaudeOnAws
+}
+
 func (v *VideoGenerationRequestOptions) GetCloudflare() map[string]any {
 	if v == nil {
 		return nil
@@ -351,6 +370,13 @@ func (v *VideoGenerationRequestOptions) GetCohere() map[string]any {
 		return nil
 	}
 	return v.Cohere
+}
+
+func (v *VideoGenerationRequestOptions) GetCoreweave() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Coreweave
 }
 
 func (v *VideoGenerationRequestOptions) GetCrofai() map[string]any {
@@ -386,6 +412,13 @@ func (v *VideoGenerationRequestOptions) GetDecart() map[string]any {
 		return nil
 	}
 	return v.Decart
+}
+
+func (v *VideoGenerationRequestOptions) GetDeepgram() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Deepgram
 }
 
 func (v *VideoGenerationRequestOptions) GetDeepinfra() map[string]any {
@@ -442,6 +475,13 @@ func (v *VideoGenerationRequestOptions) GetFireworks() map[string]any {
 		return nil
 	}
 	return v.Fireworks
+}
+
+func (v *VideoGenerationRequestOptions) GetFishAudio() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.FishAudio
 }
 
 func (v *VideoGenerationRequestOptions) GetFriendli() map[string]any {
@@ -582,6 +622,13 @@ func (v *VideoGenerationRequestOptions) GetKlusterai() map[string]any {
 		return nil
 	}
 	return v.Klusterai
+}
+
+func (v *VideoGenerationRequestOptions) GetKrea() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Krea
 }
 
 func (v *VideoGenerationRequestOptions) GetLambda() map[string]any {
@@ -850,6 +897,27 @@ func (v *VideoGenerationRequestOptions) GetReplicate() map[string]any {
 	return v.Replicate
 }
 
+func (v *VideoGenerationRequestOptions) GetRunway() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Runway
+}
+
+func (v *VideoGenerationRequestOptions) GetSailResearch() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.SailResearch
+}
+
+func (v *VideoGenerationRequestOptions) GetSakana() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Sakana
+}
+
 func (v *VideoGenerationRequestOptions) GetSakanaAi() map[string]any {
 	if v == nil {
 		return nil
@@ -934,11 +1002,25 @@ func (v *VideoGenerationRequestOptions) GetTargon() map[string]any {
 	return v.Targon
 }
 
+func (v *VideoGenerationRequestOptions) GetTencent() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Tencent
+}
+
 func (v *VideoGenerationRequestOptions) GetTenstorrent() map[string]any {
 	if v == nil {
 		return nil
 	}
 	return v.Tenstorrent
+}
+
+func (v *VideoGenerationRequestOptions) GetThinkingmachines() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Thinkingmachines
 }
 
 func (v *VideoGenerationRequestOptions) GetTogether() map[string]any {
@@ -976,6 +1058,13 @@ func (v *VideoGenerationRequestOptions) GetVenice() map[string]any {
 	return v.Venice
 }
 
+func (v *VideoGenerationRequestOptions) GetVoyageai() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Voyageai
+}
+
 func (v *VideoGenerationRequestOptions) GetWafer() map[string]any {
 	if v == nil {
 		return nil
@@ -988,6 +1077,13 @@ func (v *VideoGenerationRequestOptions) GetWandb() map[string]any {
 		return nil
 	}
 	return v.Wandb
+}
+
+func (v *VideoGenerationRequestOptions) GetWandbLegacy() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.WandbLegacy
 }
 
 func (v *VideoGenerationRequestOptions) GetXai() map[string]any {
@@ -1038,12 +1134,13 @@ func (v *VideoGenerationRequestProvider) GetOptions() *VideoGenerationRequestOpt
 type VideoGenerationRequestResolution string
 
 const (
-	VideoGenerationRequestResolutionFourHundredAndEightyp  VideoGenerationRequestResolution = "480p"
-	VideoGenerationRequestResolutionSevenHundredAndTwentyp VideoGenerationRequestResolution = "720p"
-	VideoGenerationRequestResolutionOneThousandAndEightyp  VideoGenerationRequestResolution = "1080p"
-	VideoGenerationRequestResolutionOneK                   VideoGenerationRequestResolution = "1K"
-	VideoGenerationRequestResolutionTwoK                   VideoGenerationRequestResolution = "2K"
-	VideoGenerationRequestResolutionFourK                  VideoGenerationRequestResolution = "4K"
+	VideoGenerationRequestResolutionFourHundredAndEightyp      VideoGenerationRequestResolution = "480p"
+	VideoGenerationRequestResolutionSevenHundredAndTwentyp     VideoGenerationRequestResolution = "720p"
+	VideoGenerationRequestResolutionSevenHundredAndSixtyEightp VideoGenerationRequestResolution = "768p"
+	VideoGenerationRequestResolutionOneThousandAndEightyp      VideoGenerationRequestResolution = "1080p"
+	VideoGenerationRequestResolutionOneK                       VideoGenerationRequestResolution = "1K"
+	VideoGenerationRequestResolutionTwoK                       VideoGenerationRequestResolution = "2K"
+	VideoGenerationRequestResolutionFourK                      VideoGenerationRequestResolution = "4K"
 )
 
 func (e VideoGenerationRequestResolution) ToPointer() *VideoGenerationRequestResolution {
@@ -1054,7 +1151,7 @@ func (e VideoGenerationRequestResolution) ToPointer() *VideoGenerationRequestRes
 func (e *VideoGenerationRequestResolution) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "480p", "720p", "1080p", "1K", "2K", "4K":
+		case "480p", "720p", "768p", "1080p", "1K", "2K", "4K":
 			return true
 		}
 	}
@@ -1072,10 +1169,11 @@ type VideoGenerationRequest struct {
 	FrameImages []FrameImage `json:"frame_images,omitzero"`
 	// Whether to generate audio alongside the video. Defaults to the endpoint's generate_audio capability flag, false if not set.
 	GenerateAudio *bool `json:"generate_audio,omitzero"`
-	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (currently BytePlus Seedance 2.0); other providers use image references and ignore the rest.
+	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (including BytePlus Seedance generation 2 and newer); other providers use image references and ignore the rest.
 	InputReferences []InputReference `json:"input_references,omitzero"`
 	Model           string           `json:"model"`
-	Prompt          string           `json:"prompt"`
+	// Text prompt describing the video to generate. Optional for models that support generating a video from image input alone; required by all other models.
+	Prompt *string `json:"prompt,omitzero"`
 	// Provider-specific passthrough configuration
 	Provider *VideoGenerationRequestProvider `json:"provider,omitzero"`
 	// Resolution of the generated video
@@ -1146,9 +1244,9 @@ func (v *VideoGenerationRequest) GetModel() string {
 	return v.Model
 }
 
-func (v *VideoGenerationRequest) GetPrompt() string {
+func (v *VideoGenerationRequest) GetPrompt() *string {
 	if v == nil {
-		return ""
+		return nil
 	}
 	return v.Prompt
 }

@@ -387,13 +387,11 @@ type InputsContent2Type string
 const (
 	InputsContent2TypeArrayOfInputsContent1 InputsContent2Type = "arrayOfInputsContent1"
 	InputsContent2TypeStr                   InputsContent2Type = "str"
-	InputsContent2TypeAny                   InputsContent2Type = "any"
 )
 
 type InputsContent2 struct {
 	ArrayOfInputsContent1 []InputsContent1 `queryParam:"inline" union:"member"`
 	Str                   *string          `queryParam:"inline" union:"member"`
-	Any                   any              `queryParam:"inline" union:"member"`
 
 	Type InputsContent2Type
 }
@@ -412,15 +410,6 @@ func CreateInputsContent2Str(str string) InputsContent2 {
 
 	return InputsContent2{
 		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateInputsContent2Any(anyT any) InputsContent2 {
-	typ := InputsContent2TypeAny
-
-	return InputsContent2{
-		Any:  anyT,
 		Type: typ,
 	}
 }
@@ -446,14 +435,6 @@ func (u *InputsContent2) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsContent2TypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsContent2", string(data))
 	}
@@ -473,9 +454,6 @@ func (u *InputsContent2) UnmarshalJSON(data []byte) error {
 	case InputsContent2TypeStr:
 		u.Str = best.Value.(*string)
 		return nil
-	case InputsContent2TypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsContent2", string(data))
@@ -488,10 +466,6 @@ func (u InputsContent2) MarshalJSON() ([]byte, error) {
 
 	if u.Str != nil {
 		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsContent2: all fields are null")
@@ -548,14 +522,12 @@ type InputsPhaseUnionType string
 const (
 	InputsPhaseUnionTypeInputsPhaseCommentary  InputsPhaseUnionType = "Inputs_phase_Commentary"
 	InputsPhaseUnionTypeInputsPhaseFinalAnswer InputsPhaseUnionType = "Inputs_phase_FinalAnswer"
-	InputsPhaseUnionTypeAny                    InputsPhaseUnionType = "any"
 )
 
 // InputsPhaseUnion - The phase of an assistant message. Use `commentary` for an intermediate assistant message and `final_answer` for the final assistant message. For follow-up requests with models like `gpt-5.3-codex` and later, preserve and resend phase on all assistant messages. Omitting it can degrade performance. Not used for user messages.
 type InputsPhaseUnion struct {
 	InputsPhaseCommentary  *InputsPhaseCommentary  `queryParam:"inline" union:"member"`
 	InputsPhaseFinalAnswer *InputsPhaseFinalAnswer `queryParam:"inline" union:"member"`
-	Any                    any                     `queryParam:"inline" union:"member"`
 
 	Type InputsPhaseUnionType
 }
@@ -575,15 +547,6 @@ func CreateInputsPhaseUnionInputsPhaseFinalAnswer(inputsPhaseFinalAnswer InputsP
 	return InputsPhaseUnion{
 		InputsPhaseFinalAnswer: &inputsPhaseFinalAnswer,
 		Type:                   typ,
-	}
-}
-
-func CreateInputsPhaseUnionAny(anyT any) InputsPhaseUnion {
-	typ := InputsPhaseUnionTypeAny
-
-	return InputsPhaseUnion{
-		Any:  anyT,
-		Type: typ,
 	}
 }
 
@@ -608,14 +571,6 @@ func (u *InputsPhaseUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsPhaseUnionTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsPhaseUnion", string(data))
 	}
@@ -635,9 +590,6 @@ func (u *InputsPhaseUnion) UnmarshalJSON(data []byte) error {
 	case InputsPhaseUnionTypeInputsPhaseFinalAnswer:
 		u.InputsPhaseFinalAnswer = best.Value.(*InputsPhaseFinalAnswer)
 		return nil
-	case InputsPhaseUnionTypeAny:
-		u.Any = best.Value.(any)
-		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsPhaseUnion", string(data))
@@ -650,10 +602,6 @@ func (u InputsPhaseUnion) MarshalJSON() ([]byte, error) {
 
 	if u.InputsPhaseFinalAnswer != nil {
 		return utils.MarshalJSON(u.InputsPhaseFinalAnswer, "", true)
-	}
-
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsPhaseUnion: all fields are null")
@@ -897,7 +845,7 @@ type InputsMessage struct {
 	Phase  optionalnullable.OptionalNullable[InputsPhaseUnion] `json:"phase,omitzero"`
 	Role   InputsRole                                          `json:"role"`
 	Status *InputsStatusUnion1                                 `json:"status,omitzero"`
-	Type   InputsTypeMessage                                   `json:"type"`
+	Type   *InputsTypeMessage                                  `default:"message" json:"type"`
 }
 
 func (i InputsMessage) MarshalJSON() ([]byte, error) {
@@ -946,9 +894,9 @@ func (i *InputsMessage) GetStatus() *InputsStatusUnion1 {
 	return i.Status
 }
 
-func (i *InputsMessage) GetType() InputsTypeMessage {
+func (i *InputsMessage) GetType() *InputsTypeMessage {
 	if i == nil {
-		return InputsTypeMessage("")
+		return nil
 	}
 	return i.Type
 }
@@ -989,6 +937,7 @@ const (
 	InputsUnion1TypeOutputFusionServerToolItem          InputsUnion1Type = "OutputFusionServerToolItem"
 	InputsUnion1TypeOutputAdvisorServerToolItem         InputsUnion1Type = "OutputAdvisorServerToolItem"
 	InputsUnion1TypeOutputSubagentServerToolItem        InputsUnion1Type = "OutputSubagentServerToolItem"
+	InputsUnion1TypeOutputFilesServerToolItem           InputsUnion1Type = "OutputFilesServerToolItem"
 	InputsUnion1TypeLocalShellCallItem                  InputsUnion1Type = "LocalShellCallItem"
 	InputsUnion1TypeLocalShellCallOutputItem            InputsUnion1Type = "LocalShellCallOutputItem"
 	InputsUnion1TypeShellCallItem                       InputsUnion1Type = "ShellCallItem"
@@ -1000,7 +949,10 @@ const (
 	InputsUnion1TypeCustomToolCallItem                  InputsUnion1Type = "CustomToolCallItem"
 	InputsUnion1TypeCustomToolCallOutputItem            InputsUnion1Type = "CustomToolCallOutputItem"
 	InputsUnion1TypeCompactionItem                      InputsUnion1Type = "CompactionItem"
+	InputsUnion1TypeContextCompactionItem               InputsUnion1Type = "ContextCompactionItem"
 	InputsUnion1TypeItemReferenceItem                   InputsUnion1Type = "ItemReferenceItem"
+	InputsUnion1TypeAdditionalToolsItem                 InputsUnion1Type = "AdditionalToolsItem"
+	InputsUnion1TypeAgentMessageItem                    InputsUnion1Type = "AgentMessageItem"
 )
 
 type InputsUnion1 struct {
@@ -1037,6 +989,7 @@ type InputsUnion1 struct {
 	OutputFusionServerToolItem          *OutputFusionServerToolItem          `queryParam:"inline" union:"member"`
 	OutputAdvisorServerToolItem         *OutputAdvisorServerToolItem         `queryParam:"inline" union:"member"`
 	OutputSubagentServerToolItem        *OutputSubagentServerToolItem        `queryParam:"inline" union:"member"`
+	OutputFilesServerToolItem           *OutputFilesServerToolItem           `queryParam:"inline" union:"member"`
 	LocalShellCallItem                  *LocalShellCallItem                  `queryParam:"inline" union:"member"`
 	LocalShellCallOutputItem            *LocalShellCallOutputItem            `queryParam:"inline" union:"member"`
 	ShellCallItem                       *ShellCallItem                       `queryParam:"inline" union:"member"`
@@ -1048,7 +1001,10 @@ type InputsUnion1 struct {
 	CustomToolCallItem                  *CustomToolCallItem                  `queryParam:"inline" union:"member"`
 	CustomToolCallOutputItem            *CustomToolCallOutputItem            `queryParam:"inline" union:"member"`
 	CompactionItem                      *CompactionItem                      `queryParam:"inline" union:"member"`
+	ContextCompactionItem               *ContextCompactionItem               `queryParam:"inline" union:"member"`
 	ItemReferenceItem                   *ItemReferenceItem                   `queryParam:"inline" union:"member"`
+	AdditionalToolsItem                 *AdditionalToolsItem                 `queryParam:"inline" union:"member"`
+	AgentMessageItem                    *AgentMessageItem                    `queryParam:"inline" union:"member"`
 
 	Type InputsUnion1Type
 }
@@ -1350,6 +1306,15 @@ func CreateInputsUnion1OutputSubagentServerToolItem(outputSubagentServerToolItem
 	}
 }
 
+func CreateInputsUnion1OutputFilesServerToolItem(outputFilesServerToolItem OutputFilesServerToolItem) InputsUnion1 {
+	typ := InputsUnion1TypeOutputFilesServerToolItem
+
+	return InputsUnion1{
+		OutputFilesServerToolItem: &outputFilesServerToolItem,
+		Type:                      typ,
+	}
+}
+
 func CreateInputsUnion1LocalShellCallItem(localShellCallItem LocalShellCallItem) InputsUnion1 {
 	typ := InputsUnion1TypeLocalShellCallItem
 
@@ -1449,12 +1414,39 @@ func CreateInputsUnion1CompactionItem(compactionItem CompactionItem) InputsUnion
 	}
 }
 
+func CreateInputsUnion1ContextCompactionItem(contextCompactionItem ContextCompactionItem) InputsUnion1 {
+	typ := InputsUnion1TypeContextCompactionItem
+
+	return InputsUnion1{
+		ContextCompactionItem: &contextCompactionItem,
+		Type:                  typ,
+	}
+}
+
 func CreateInputsUnion1ItemReferenceItem(itemReferenceItem ItemReferenceItem) InputsUnion1 {
 	typ := InputsUnion1TypeItemReferenceItem
 
 	return InputsUnion1{
 		ItemReferenceItem: &itemReferenceItem,
 		Type:              typ,
+	}
+}
+
+func CreateInputsUnion1AdditionalToolsItem(additionalToolsItem AdditionalToolsItem) InputsUnion1 {
+	typ := InputsUnion1TypeAdditionalToolsItem
+
+	return InputsUnion1{
+		AdditionalToolsItem: &additionalToolsItem,
+		Type:                typ,
+	}
+}
+
+func CreateInputsUnion1AgentMessageItem(agentMessageItem AgentMessageItem) InputsUnion1 {
+	typ := InputsUnion1TypeAgentMessageItem
+
+	return InputsUnion1{
+		AgentMessageItem: &agentMessageItem,
+		Type:             typ,
 	}
 }
 
@@ -1727,6 +1719,14 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var outputFilesServerToolItem OutputFilesServerToolItem = OutputFilesServerToolItem{}
+	if err := utils.UnmarshalJSON(data, &outputFilesServerToolItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeOutputFilesServerToolItem,
+			Value: &outputFilesServerToolItem,
+		})
+	}
+
 	var localShellCallItem LocalShellCallItem = LocalShellCallItem{}
 	if err := utils.UnmarshalJSON(data, &localShellCallItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -1815,11 +1815,35 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var contextCompactionItem ContextCompactionItem = ContextCompactionItem{}
+	if err := utils.UnmarshalJSON(data, &contextCompactionItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeContextCompactionItem,
+			Value: &contextCompactionItem,
+		})
+	}
+
 	var itemReferenceItem ItemReferenceItem = ItemReferenceItem{}
 	if err := utils.UnmarshalJSON(data, &itemReferenceItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
 			Type:  InputsUnion1TypeItemReferenceItem,
 			Value: &itemReferenceItem,
+		})
+	}
+
+	var additionalToolsItem AdditionalToolsItem = AdditionalToolsItem{}
+	if err := utils.UnmarshalJSON(data, &additionalToolsItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeAdditionalToolsItem,
+			Value: &additionalToolsItem,
+		})
+	}
+
+	var agentMessageItem AgentMessageItem = AgentMessageItem{}
+	if err := utils.UnmarshalJSON(data, &agentMessageItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeAgentMessageItem,
+			Value: &agentMessageItem,
 		})
 	}
 
@@ -1935,6 +1959,9 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeOutputSubagentServerToolItem:
 		u.OutputSubagentServerToolItem = best.Value.(*OutputSubagentServerToolItem)
 		return nil
+	case InputsUnion1TypeOutputFilesServerToolItem:
+		u.OutputFilesServerToolItem = best.Value.(*OutputFilesServerToolItem)
+		return nil
 	case InputsUnion1TypeLocalShellCallItem:
 		u.LocalShellCallItem = best.Value.(*LocalShellCallItem)
 		return nil
@@ -1968,8 +1995,17 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeCompactionItem:
 		u.CompactionItem = best.Value.(*CompactionItem)
 		return nil
+	case InputsUnion1TypeContextCompactionItem:
+		u.ContextCompactionItem = best.Value.(*ContextCompactionItem)
+		return nil
 	case InputsUnion1TypeItemReferenceItem:
 		u.ItemReferenceItem = best.Value.(*ItemReferenceItem)
+		return nil
+	case InputsUnion1TypeAdditionalToolsItem:
+		u.AdditionalToolsItem = best.Value.(*AdditionalToolsItem)
+		return nil
+	case InputsUnion1TypeAgentMessageItem:
+		u.AgentMessageItem = best.Value.(*AgentMessageItem)
 		return nil
 	}
 
@@ -2109,6 +2145,10 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputSubagentServerToolItem, "", true)
 	}
 
+	if u.OutputFilesServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputFilesServerToolItem, "", true)
+	}
+
 	if u.LocalShellCallItem != nil {
 		return utils.MarshalJSON(u.LocalShellCallItem, "", true)
 	}
@@ -2153,8 +2193,20 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CompactionItem, "", true)
 	}
 
+	if u.ContextCompactionItem != nil {
+		return utils.MarshalJSON(u.ContextCompactionItem, "", true)
+	}
+
 	if u.ItemReferenceItem != nil {
 		return utils.MarshalJSON(u.ItemReferenceItem, "", true)
+	}
+
+	if u.AdditionalToolsItem != nil {
+		return utils.MarshalJSON(u.AdditionalToolsItem, "", true)
+	}
+
+	if u.AgentMessageItem != nil {
+		return utils.MarshalJSON(u.AgentMessageItem, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsUnion1: all fields are null")

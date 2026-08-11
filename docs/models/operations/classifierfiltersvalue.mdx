@@ -1,0 +1,41 @@
+---
+title: "ClassifierFiltersValue"
+---
+
+Filter value. Use a scalar (string or number) for eq/neq, or an array for in/not_in.
+
+
+## Supported Types
+
+### 
+
+```go
+classifierFiltersValue := operations.CreateClassifierFiltersValueStr(string{/* values here */})
+```
+
+### 
+
+```go
+classifierFiltersValue := operations.CreateClassifierFiltersValueNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+classifierFiltersValue := operations.CreateClassifierFiltersValueArrayOfValueClassifierFilters([]operations.ValueClassifierFilters{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch classifierFiltersValue.Type {
+	case operations.ClassifierFiltersValueTypeStr:
+		// classifierFiltersValue.Str is populated
+	case operations.ClassifierFiltersValueTypeNumber:
+		// classifierFiltersValue.Number is populated
+	case operations.ClassifierFiltersValueTypeArrayOfValueClassifierFilters:
+		// classifierFiltersValue.ArrayOfValueClassifierFilters is populated
+}
+```

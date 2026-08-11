@@ -1,0 +1,43 @@
+---
+title: "FileDeleteResponse"
+---
+
+Confirmation that a file was deleted, in the negotiated shape.
+
+
+## Supported Types
+
+### AnthropicFileDeleted
+
+```go
+fileDeleteResponse := components.CreateFileDeleteResponseAnthropic(components.AnthropicFileDeleted{/* values here */})
+```
+
+### OpenAIFileDeleted
+
+```go
+fileDeleteResponse := components.CreateFileDeleteResponseOpenai(components.OpenAIFileDeleted{/* values here */})
+```
+
+### OpenRouterFileDeleted
+
+```go
+fileDeleteResponse := components.CreateFileDeleteResponseOpenrouter(components.OpenRouterFileDeleted{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch fileDeleteResponse.Type {
+	case components.FileDeleteResponseTypeAnthropic:
+		// fileDeleteResponse.AnthropicFileDeleted is populated
+	case components.FileDeleteResponseTypeOpenai:
+		// fileDeleteResponse.OpenAIFileDeleted is populated
+	case components.FileDeleteResponseTypeOpenrouter:
+		// fileDeleteResponse.OpenRouterFileDeleted is populated
+	default:
+		// Unknown type - use fileDeleteResponse.GetUnknownRaw() for raw JSON
+}
+```

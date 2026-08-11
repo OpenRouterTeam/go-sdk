@@ -1,0 +1,135 @@
+---
+title: "OAuth"
+description: "OAuth authentication endpoints"
+---
+
+## Overview
+
+OAuth authentication endpoints
+
+### Available Operations
+
+* [ExchangeAuthCodeForAPIKey](#exchangeauthcodeforapikey) - Exchange authorization code for API key
+* [CreateAuthCode](#createauthcode) - Create authorization code
+
+## ExchangeAuthCodeForAPIKey
+
+Exchange an authorization code from the PKCE flow for a user-controlled API key
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.OAuth.ExchangeAuthCodeForAPIKey(ctx, operations.ExchangeAuthCodeForAPIKeyRequest{
+        Code: "auth_code_abc123def456",
+        CodeChallengeMethod: optionalnullable.From(openrouter.Pointer(operations.ExchangeAuthCodeForAPIKeyCodeChallengeMethodS256)),
+        CodeVerifier: openrouter.Pointer("dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                      | :heavy_check_mark:                                                                                         | The context to use for the request.                                                                        |
+| `request`                                                                                                  | [operations.ExchangeAuthCodeForAPIKeyRequest](../../models/operations/exchangeauthcodeforapikeyrequest.mdx) | :heavy_check_mark:                                                                                         | The request object to use for the request.                                                                 |
+| `opts`                                                                                                     | [][operations.Option](../../models/operations/option.mdx)                                                   | :heavy_minus_sign:                                                                                         | The options for this request.                                                                              |
+
+### Response
+
+**[*operations.ExchangeAuthCodeForAPIKeyResponse](../../models/operations/exchangeauthcodeforapikeyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreateAuthCode
+
+Create an authorization code for the PKCE flow to generate a user-controlled API key
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.OAuth.CreateAuthCode(ctx, operations.CreateAuthKeysCodeRequest{
+        CallbackURL: "https://myapp.com/auth/callback",
+        CodeChallenge: openrouter.Pointer("E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM"),
+        CodeChallengeMethod: operations.CreateAuthKeysCodeCodeChallengeMethodS256.ToPointer(),
+        Limit: openrouter.Pointer[float64](100.0),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                        | :heavy_check_mark:                                                                           | The context to use for the request.                                                          |
+| `request`                                                                                    | [operations.CreateAuthKeysCodeRequest](../../models/operations/createauthkeyscoderequest.mdx) | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
+| `opts`                                                                                       | [][operations.Option](../../models/operations/option.mdx)                                     | :heavy_minus_sign:                                                                           | The options for this request.                                                                |
+
+### Response
+
+**[*operations.CreateAuthKeysCodeResponse](../../models/operations/createauthkeyscoderesponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |

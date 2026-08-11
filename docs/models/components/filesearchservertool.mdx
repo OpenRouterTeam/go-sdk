@@ -1,0 +1,16 @@
+---
+title: "FileSearchServerTool"
+---
+
+File search tool configuration
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `Filters`                                                                                             | optionalnullable.OptionalNullable[[components.FiltersUnion](../../models/components/filtersunion.mdx)] | :heavy_minus_sign:                                                                                    | N/A                                                                                                   |
+| `MaxNumResults`                                                                                       | `*int64`                                                                                              | :heavy_minus_sign:                                                                                    | N/A                                                                                                   |
+| `RankingOptions`                                                                                      | [*components.RankingOptions](../../models/components/rankingoptions.mdx)                               | :heavy_minus_sign:                                                                                    | N/A                                                                                                   |
+| `Type`                                                                                                | [components.TypeFileSearch](../../models/components/typefilesearch.mdx)                                | :heavy_check_mark:                                                                                    | N/A                                                                                                   |
+| `VectorStoreIds`                                                                                      | []`string`                                                                                            | :heavy_check_mark:                                                                                    | N/A                                                                                                   |

@@ -1,0 +1,27 @@
+---
+title: "ReasoningContext"
+---
+
+Controls which reasoning is available to the model. `auto` uses the model default (same as omitting); `all_turns` includes reasoning from earlier turns passed in input; `current_turn` limits to the current turn only. Only supported by OpenAI GPT-5.6 and newer.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ReasoningContextAuto
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ReasoningContext("custom_value")
+```
+
+
+## Values
+
+| Name                          | Value                         |
+| ----------------------------- | ----------------------------- |
+| `ReasoningContextAuto`        | auto                          |
+| `ReasoningContextAllTurns`    | all_turns                     |
+| `ReasoningContextCurrentTurn` | current_turn                  |

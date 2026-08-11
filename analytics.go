@@ -33,12 +33,14 @@ func newAnalytics(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks 
 }
 
 // GetUserActivity - Get user activity grouped by endpoint
-// Returns user activity data grouped by endpoint for the last 30 (completed) UTC days. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHash *string, userID *string, opts ...operations.Option) (*components.ActivityResponse, error) {
+// Returns user activity data grouped by endpoint for the last 30 (completed) UTC days. Pass `workspace_id` to scope the response to a single workspace. Pass `group_by=workspace` to split each row per workspace and include `workspace_id` on every item; by default rows are aggregated across workspaces and `workspace_id` is not returned. Activity recorded before workspace resolution existed is permanently attributed to the account default workspace (no backfill is possible). [Management key](/docs/guides/overview/auth/management-api-keys) required.
+func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHash *string, userID *string, groupBy *operations.GroupBy, workspaceID *string, opts ...operations.Option) (*components.ActivityResponse, error) {
 	request := operations.GetUserActivityRequest{
-		Date:       date,
-		APIKeyHash: apiKeyHash,
-		UserID:     userID,
+		Date:        date,
+		APIKeyHash:  apiKeyHash,
+		UserID:      userID,
+		GroupBy:     groupBy,
+		WorkspaceID: workspaceID,
 	}
 
 	o := operations.Options{}
@@ -186,7 +188,7 @@ func (s *Analytics) GetUserActivity(ctx context.Context, date *string, apiKeyHas
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "403", "404", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err

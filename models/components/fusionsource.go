@@ -10,7 +10,7 @@ import (
 type FusionSource struct {
 	// Title of the retrieved web page.
 	Title string `json:"title"`
-	// URL of the web page a panel or the judge retrieved during the run.
+	// URL of the web page a panel or the analyst retrieved during the run.
 	URL string `json:"url"`
 }
 

@@ -35,39 +35,39 @@ func (e *DataCollection) IsExact() bool {
 	return false
 }
 
-type IgnoreType string
+type ProviderPreferencesIgnoreType string
 
 const (
-	IgnoreTypeProviderName IgnoreType = "ProviderName"
-	IgnoreTypeStr          IgnoreType = "str"
+	ProviderPreferencesIgnoreTypeProviderName ProviderPreferencesIgnoreType = "ProviderName"
+	ProviderPreferencesIgnoreTypeStr          ProviderPreferencesIgnoreType = "str"
 )
 
-type Ignore struct {
+type ProviderPreferencesIgnore struct {
 	ProviderName *ProviderName `queryParam:"inline" union:"member"`
 	Str          *string       `queryParam:"inline" union:"member"`
 
-	Type IgnoreType
+	Type ProviderPreferencesIgnoreType
 }
 
-func CreateIgnoreProviderName(providerName ProviderName) Ignore {
-	typ := IgnoreTypeProviderName
+func CreateProviderPreferencesIgnoreProviderName(providerName ProviderName) ProviderPreferencesIgnore {
+	typ := ProviderPreferencesIgnoreTypeProviderName
 
-	return Ignore{
+	return ProviderPreferencesIgnore{
 		ProviderName: &providerName,
 		Type:         typ,
 	}
 }
 
-func CreateIgnoreStr(str string) Ignore {
-	typ := IgnoreTypeStr
+func CreateProviderPreferencesIgnoreStr(str string) ProviderPreferencesIgnore {
+	typ := ProviderPreferencesIgnoreTypeStr
 
-	return Ignore{
+	return ProviderPreferencesIgnore{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func (u *Ignore) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesIgnore) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -75,7 +75,7 @@ func (u *Ignore) UnmarshalJSON(data []byte) error {
 	var providerName ProviderName = ProviderName("")
 	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  IgnoreTypeProviderName,
+			Type:  ProviderPreferencesIgnoreTypeProviderName,
 			Value: &providerName,
 		})
 	}
@@ -83,36 +83,36 @@ func (u *Ignore) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  IgnoreTypeStr,
+			Type:  ProviderPreferencesIgnoreTypeStr,
 			Value: &str,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesIgnore", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesIgnore", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(IgnoreType)
+	u.Type = best.Type.(ProviderPreferencesIgnoreType)
 	switch best.Type {
-	case IgnoreTypeProviderName:
+	case ProviderPreferencesIgnoreTypeProviderName:
 		u.ProviderName = best.Value.(*ProviderName)
 		return nil
-	case IgnoreTypeStr:
+	case ProviderPreferencesIgnoreTypeStr:
 		u.Str = best.Value.(*string)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Ignore", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesIgnore", string(data))
 }
 
-func (u Ignore) MarshalJSON() ([]byte, error) {
+func (u ProviderPreferencesIgnore) MarshalJSON() ([]byte, error) {
 	if u.ProviderName != nil {
 		return utils.MarshalJSON(u.ProviderName, "", true)
 	}
@@ -121,7 +121,7 @@ func (u Ignore) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Ignore: all fields are null")
+	return nil, errors.New("could not marshal union type ProviderPreferencesIgnore: all fields are null")
 }
 
 // MaxPrice - The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
@@ -173,39 +173,39 @@ func (m *MaxPrice) GetRequest() *string {
 	return m.Request
 }
 
-type OnlyType string
+type ProviderPreferencesOnlyType string
 
 const (
-	OnlyTypeProviderName OnlyType = "ProviderName"
-	OnlyTypeStr          OnlyType = "str"
+	ProviderPreferencesOnlyTypeProviderName ProviderPreferencesOnlyType = "ProviderName"
+	ProviderPreferencesOnlyTypeStr          ProviderPreferencesOnlyType = "str"
 )
 
-type Only struct {
+type ProviderPreferencesOnly struct {
 	ProviderName *ProviderName `queryParam:"inline" union:"member"`
 	Str          *string       `queryParam:"inline" union:"member"`
 
-	Type OnlyType
+	Type ProviderPreferencesOnlyType
 }
 
-func CreateOnlyProviderName(providerName ProviderName) Only {
-	typ := OnlyTypeProviderName
+func CreateProviderPreferencesOnlyProviderName(providerName ProviderName) ProviderPreferencesOnly {
+	typ := ProviderPreferencesOnlyTypeProviderName
 
-	return Only{
+	return ProviderPreferencesOnly{
 		ProviderName: &providerName,
 		Type:         typ,
 	}
 }
 
-func CreateOnlyStr(str string) Only {
-	typ := OnlyTypeStr
+func CreateProviderPreferencesOnlyStr(str string) ProviderPreferencesOnly {
+	typ := ProviderPreferencesOnlyTypeStr
 
-	return Only{
+	return ProviderPreferencesOnly{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func (u *Only) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesOnly) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -213,7 +213,7 @@ func (u *Only) UnmarshalJSON(data []byte) error {
 	var providerName ProviderName = ProviderName("")
 	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OnlyTypeProviderName,
+			Type:  ProviderPreferencesOnlyTypeProviderName,
 			Value: &providerName,
 		})
 	}
@@ -221,36 +221,36 @@ func (u *Only) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OnlyTypeStr,
+			Type:  ProviderPreferencesOnlyTypeStr,
 			Value: &str,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Only", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesOnly", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Only", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesOnly", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(OnlyType)
+	u.Type = best.Type.(ProviderPreferencesOnlyType)
 	switch best.Type {
-	case OnlyTypeProviderName:
+	case ProviderPreferencesOnlyTypeProviderName:
 		u.ProviderName = best.Value.(*ProviderName)
 		return nil
-	case OnlyTypeStr:
+	case ProviderPreferencesOnlyTypeStr:
 		u.Str = best.Value.(*string)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Only", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesOnly", string(data))
 }
 
-func (u Only) MarshalJSON() ([]byte, error) {
+func (u ProviderPreferencesOnly) MarshalJSON() ([]byte, error) {
 	if u.ProviderName != nil {
 		return utils.MarshalJSON(u.ProviderName, "", true)
 	}
@@ -259,42 +259,42 @@ func (u Only) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Only: all fields are null")
+	return nil, errors.New("could not marshal union type ProviderPreferencesOnly: all fields are null")
 }
 
-type OrderType string
+type ProviderPreferencesOrderType string
 
 const (
-	OrderTypeProviderName OrderType = "ProviderName"
-	OrderTypeStr          OrderType = "str"
+	ProviderPreferencesOrderTypeProviderName ProviderPreferencesOrderType = "ProviderName"
+	ProviderPreferencesOrderTypeStr          ProviderPreferencesOrderType = "str"
 )
 
-type Order struct {
+type ProviderPreferencesOrder struct {
 	ProviderName *ProviderName `queryParam:"inline" union:"member"`
 	Str          *string       `queryParam:"inline" union:"member"`
 
-	Type OrderType
+	Type ProviderPreferencesOrderType
 }
 
-func CreateOrderProviderName(providerName ProviderName) Order {
-	typ := OrderTypeProviderName
+func CreateProviderPreferencesOrderProviderName(providerName ProviderName) ProviderPreferencesOrder {
+	typ := ProviderPreferencesOrderTypeProviderName
 
-	return Order{
+	return ProviderPreferencesOrder{
 		ProviderName: &providerName,
 		Type:         typ,
 	}
 }
 
-func CreateOrderStr(str string) Order {
-	typ := OrderTypeStr
+func CreateProviderPreferencesOrderStr(str string) ProviderPreferencesOrder {
+	typ := ProviderPreferencesOrderTypeStr
 
-	return Order{
+	return ProviderPreferencesOrder{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func (u *Order) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesOrder) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -302,7 +302,7 @@ func (u *Order) UnmarshalJSON(data []byte) error {
 	var providerName ProviderName = ProviderName("")
 	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OrderTypeProviderName,
+			Type:  ProviderPreferencesOrderTypeProviderName,
 			Value: &providerName,
 		})
 	}
@@ -310,36 +310,36 @@ func (u *Order) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OrderTypeStr,
+			Type:  ProviderPreferencesOrderTypeStr,
 			Value: &str,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesOrder", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesOrder", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(OrderType)
+	u.Type = best.Type.(ProviderPreferencesOrderType)
 	switch best.Type {
-	case OrderTypeProviderName:
+	case ProviderPreferencesOrderTypeProviderName:
 		u.ProviderName = best.Value.(*ProviderName)
 		return nil
-	case OrderTypeStr:
+	case ProviderPreferencesOrderTypeStr:
 		u.Str = best.Value.(*string)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Order", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesOrder", string(data))
 }
 
-func (u Order) MarshalJSON() ([]byte, error) {
+func (u ProviderPreferencesOrder) MarshalJSON() ([]byte, error) {
 	if u.ProviderName != nil {
 		return utils.MarshalJSON(u.ProviderName, "", true)
 	}
@@ -348,54 +348,43 @@ func (u Order) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type Order: all fields are null")
+	return nil, errors.New("could not marshal union type ProviderPreferencesOrder: all fields are null")
 }
 
-type SortType string
+type ProviderPreferencesSortType string
 
 const (
-	SortTypeProviderSort       SortType = "ProviderSort"
-	SortTypeProviderSortConfig SortType = "ProviderSortConfig"
-	SortTypeAny                SortType = "any"
+	ProviderPreferencesSortTypeProviderSort       ProviderPreferencesSortType = "ProviderSort"
+	ProviderPreferencesSortTypeProviderSortConfig ProviderPreferencesSortType = "ProviderSortConfig"
 )
 
-// Sort - The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
-type Sort struct {
+// ProviderPreferencesSort - The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
+type ProviderPreferencesSort struct {
 	ProviderSort       *ProviderSort       `queryParam:"inline" union:"member"`
 	ProviderSortConfig *ProviderSortConfig `queryParam:"inline" union:"member"`
-	Any                any                 `queryParam:"inline" union:"member"`
 
-	Type SortType
+	Type ProviderPreferencesSortType
 }
 
-func CreateSortProviderSort(providerSort ProviderSort) Sort {
-	typ := SortTypeProviderSort
+func CreateProviderPreferencesSortProviderSort(providerSort ProviderSort) ProviderPreferencesSort {
+	typ := ProviderPreferencesSortTypeProviderSort
 
-	return Sort{
+	return ProviderPreferencesSort{
 		ProviderSort: &providerSort,
 		Type:         typ,
 	}
 }
 
-func CreateSortProviderSortConfig(providerSortConfig ProviderSortConfig) Sort {
-	typ := SortTypeProviderSortConfig
+func CreateProviderPreferencesSortProviderSortConfig(providerSortConfig ProviderSortConfig) ProviderPreferencesSort {
+	typ := ProviderPreferencesSortTypeProviderSortConfig
 
-	return Sort{
+	return ProviderPreferencesSort{
 		ProviderSortConfig: &providerSortConfig,
 		Type:               typ,
 	}
 }
 
-func CreateSortAny(anyT any) Sort {
-	typ := SortTypeAny
-
-	return Sort{
-		Any:  anyT,
-		Type: typ,
-	}
-}
-
-func (u *Sort) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesSort) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -403,7 +392,7 @@ func (u *Sort) UnmarshalJSON(data []byte) error {
 	var providerSort ProviderSort = ProviderSort("")
 	if err := utils.UnmarshalJSON(data, &providerSort, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SortTypeProviderSort,
+			Type:  ProviderPreferencesSortTypeProviderSort,
 			Value: &providerSort,
 		})
 	}
@@ -411,47 +400,36 @@ func (u *Sort) UnmarshalJSON(data []byte) error {
 	var providerSortConfig ProviderSortConfig = ProviderSortConfig{}
 	if err := utils.UnmarshalJSON(data, &providerSortConfig, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SortTypeProviderSortConfig,
+			Type:  ProviderPreferencesSortTypeProviderSortConfig,
 			Value: &providerSortConfig,
 		})
 	}
 
-	var anyVar any = nil
-	if err := utils.UnmarshalJSON(data, &anyVar, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SortTypeAny,
-			Value: anyVar,
-		})
-	}
-
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Sort", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesSort", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Sort", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesSort", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(SortType)
+	u.Type = best.Type.(ProviderPreferencesSortType)
 	switch best.Type {
-	case SortTypeProviderSort:
+	case ProviderPreferencesSortTypeProviderSort:
 		u.ProviderSort = best.Value.(*ProviderSort)
 		return nil
-	case SortTypeProviderSortConfig:
+	case ProviderPreferencesSortTypeProviderSortConfig:
 		u.ProviderSortConfig = best.Value.(*ProviderSortConfig)
-		return nil
-	case SortTypeAny:
-		u.Any = best.Value.(any)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Sort", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ProviderPreferencesSort", string(data))
 }
 
-func (u Sort) MarshalJSON() ([]byte, error) {
+func (u ProviderPreferencesSort) MarshalJSON() ([]byte, error) {
 	if u.ProviderSort != nil {
 		return utils.MarshalJSON(u.ProviderSort, "", true)
 	}
@@ -460,11 +438,7 @@ func (u Sort) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ProviderSortConfig, "", true)
 	}
 
-	if u.Any != nil {
-		return utils.MarshalJSON(u.Any, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type Sort: all fields are null")
+	return nil, errors.New("could not marshal union type ProviderPreferencesSort: all fields are null")
 }
 
 // ProviderPreferences - When multiple model providers are available, optionally indicate your routing preference.
@@ -482,13 +456,13 @@ type ProviderPreferences struct {
 	// Whether to restrict routing to only models that allow text distillation. When true, only models where the author has allowed distillation will be used.
 	EnforceDistillableText optionalnullable.OptionalNullable[bool] `json:"enforce_distillable_text,omitzero"`
 	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
-	Ignore optionalnullable.OptionalNullable[[]Ignore] `json:"ignore,omitzero"`
+	Ignore optionalnullable.OptionalNullable[[]ProviderPreferencesIgnore] `json:"ignore,omitzero"`
 	// The object specifying the maximum price you want to pay for this request. USD price per million tokens, for prompt and completion.
 	MaxPrice *MaxPrice `json:"max_price,omitzero"`
 	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
-	Only optionalnullable.OptionalNullable[[]Only] `json:"only,omitzero"`
+	Only optionalnullable.OptionalNullable[[]ProviderPreferencesOnly] `json:"only,omitzero"`
 	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
-	Order optionalnullable.OptionalNullable[[]Order] `json:"order,omitzero"`
+	Order optionalnullable.OptionalNullable[[]ProviderPreferencesOrder] `json:"order,omitzero"`
 	// Preferred maximum latency (in seconds). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints above the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
 	PreferredMaxLatency optionalnullable.OptionalNullable[PreferredMaxLatency] `json:"preferred_max_latency,omitzero"`
 	// Preferred minimum throughput (in tokens per second). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints below the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
@@ -498,7 +472,7 @@ type ProviderPreferences struct {
 	// Whether to filter providers to only those that support the parameters you've provided. If this setting is omitted or set to false, then providers will receive only the parameters they support, and ignore the rest.
 	RequireParameters optionalnullable.OptionalNullable[bool] `json:"require_parameters,omitzero"`
 	// The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
-	Sort optionalnullable.OptionalNullable[Sort] `json:"sort,omitzero"`
+	Sort optionalnullable.OptionalNullable[ProviderPreferencesSort] `json:"sort,omitzero"`
 	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
 	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 }
@@ -535,7 +509,7 @@ func (p *ProviderPreferences) GetEnforceDistillableText() optionalnullable.Optio
 	return p.EnforceDistillableText
 }
 
-func (p *ProviderPreferences) GetIgnore() optionalnullable.OptionalNullable[[]Ignore] {
+func (p *ProviderPreferences) GetIgnore() optionalnullable.OptionalNullable[[]ProviderPreferencesIgnore] {
 	if p == nil {
 		return nil
 	}
@@ -549,14 +523,14 @@ func (p *ProviderPreferences) GetMaxPrice() *MaxPrice {
 	return p.MaxPrice
 }
 
-func (p *ProviderPreferences) GetOnly() optionalnullable.OptionalNullable[[]Only] {
+func (p *ProviderPreferences) GetOnly() optionalnullable.OptionalNullable[[]ProviderPreferencesOnly] {
 	if p == nil {
 		return nil
 	}
 	return p.Only
 }
 
-func (p *ProviderPreferences) GetOrder() optionalnullable.OptionalNullable[[]Order] {
+func (p *ProviderPreferences) GetOrder() optionalnullable.OptionalNullable[[]ProviderPreferencesOrder] {
 	if p == nil {
 		return nil
 	}
@@ -591,7 +565,7 @@ func (p *ProviderPreferences) GetRequireParameters() optionalnullable.OptionalNu
 	return p.RequireParameters
 }
 
-func (p *ProviderPreferences) GetSort() optionalnullable.OptionalNullable[Sort] {
+func (p *ProviderPreferences) GetSort() optionalnullable.OptionalNullable[ProviderPreferencesSort] {
 	if p == nil {
 		return nil
 	}

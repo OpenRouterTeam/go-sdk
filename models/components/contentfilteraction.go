@@ -8,6 +8,7 @@ type ContentFilterAction string
 const (
 	ContentFilterActionRedact ContentFilterAction = "redact"
 	ContentFilterActionBlock  ContentFilterAction = "block"
+	ContentFilterActionFlag   ContentFilterAction = "flag"
 )
 
 func (e ContentFilterAction) ToPointer() *ContentFilterAction {
@@ -18,7 +19,7 @@ func (e ContentFilterAction) ToPointer() *ContentFilterAction {
 func (e *ContentFilterAction) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "redact", "block":
+		case "redact", "block", "flag":
 			return true
 		}
 	}

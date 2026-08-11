@@ -6,126 +6,136 @@ package components
 type ProviderResponseProviderName string
 
 const (
-	ProviderResponseProviderNameAnyScale        ProviderResponseProviderName = "AnyScale"
-	ProviderResponseProviderNameAtoma           ProviderResponseProviderName = "Atoma"
-	ProviderResponseProviderNameCentMl          ProviderResponseProviderName = "Cent-ML"
-	ProviderResponseProviderNameCrofAi          ProviderResponseProviderName = "CrofAI"
-	ProviderResponseProviderNameEnfer           ProviderResponseProviderName = "Enfer"
-	ProviderResponseProviderNameGoPomelo        ProviderResponseProviderName = "GoPomelo"
-	ProviderResponseProviderNameHuggingFace     ProviderResponseProviderName = "HuggingFace"
-	ProviderResponseProviderNameHyperbolic      ProviderResponseProviderName = "Hyperbolic"
-	ProviderResponseProviderNameHyperbolic2     ProviderResponseProviderName = "Hyperbolic 2"
-	ProviderResponseProviderNameInoCloud        ProviderResponseProviderName = "InoCloud"
-	ProviderResponseProviderNameKluster         ProviderResponseProviderName = "Kluster"
-	ProviderResponseProviderNameLambda          ProviderResponseProviderName = "Lambda"
-	ProviderResponseProviderNameLepton          ProviderResponseProviderName = "Lepton"
-	ProviderResponseProviderNameLynn2           ProviderResponseProviderName = "Lynn 2"
-	ProviderResponseProviderNameLynn            ProviderResponseProviderName = "Lynn"
-	ProviderResponseProviderNameMancer          ProviderResponseProviderName = "Mancer"
-	ProviderResponseProviderNameMeta            ProviderResponseProviderName = "Meta"
-	ProviderResponseProviderNameModal           ProviderResponseProviderName = "Modal"
-	ProviderResponseProviderNameNineteen        ProviderResponseProviderName = "Nineteen"
-	ProviderResponseProviderNameOctoAi          ProviderResponseProviderName = "OctoAI"
-	ProviderResponseProviderNameRecursal        ProviderResponseProviderName = "Recursal"
-	ProviderResponseProviderNameReflection      ProviderResponseProviderName = "Reflection"
-	ProviderResponseProviderNameReplicate       ProviderResponseProviderName = "Replicate"
-	ProviderResponseProviderNameSambaNova2      ProviderResponseProviderName = "SambaNova 2"
-	ProviderResponseProviderNameSfCompute       ProviderResponseProviderName = "SF Compute"
-	ProviderResponseProviderNameTargon          ProviderResponseProviderName = "Targon"
-	ProviderResponseProviderNameTogether2       ProviderResponseProviderName = "Together 2"
-	ProviderResponseProviderNameUbicloud        ProviderResponseProviderName = "Ubicloud"
-	ProviderResponseProviderNameOneDotAi        ProviderResponseProviderName = "01.AI"
-	ProviderResponseProviderNameAkashMl         ProviderResponseProviderName = "AkashML"
-	ProviderResponseProviderNameAi21            ProviderResponseProviderName = "AI21"
-	ProviderResponseProviderNameAionLabs        ProviderResponseProviderName = "AionLabs"
-	ProviderResponseProviderNameAlibaba         ProviderResponseProviderName = "Alibaba"
-	ProviderResponseProviderNameAmbient         ProviderResponseProviderName = "Ambient"
-	ProviderResponseProviderNameBaidu           ProviderResponseProviderName = "Baidu"
-	ProviderResponseProviderNameAmazonBedrock   ProviderResponseProviderName = "Amazon Bedrock"
-	ProviderResponseProviderNameAmazonNova      ProviderResponseProviderName = "Amazon Nova"
-	ProviderResponseProviderNameAnthropic       ProviderResponseProviderName = "Anthropic"
-	ProviderResponseProviderNameArceeAi         ProviderResponseProviderName = "Arcee AI"
-	ProviderResponseProviderNameAtlasCloud      ProviderResponseProviderName = "AtlasCloud"
-	ProviderResponseProviderNameAvian           ProviderResponseProviderName = "Avian"
-	ProviderResponseProviderNameAzure           ProviderResponseProviderName = "Azure"
-	ProviderResponseProviderNameBaseTen         ProviderResponseProviderName = "BaseTen"
-	ProviderResponseProviderNameBytePlus        ProviderResponseProviderName = "BytePlus"
-	ProviderResponseProviderNameBlackForestLabs ProviderResponseProviderName = "Black Forest Labs"
-	ProviderResponseProviderNameCerebras        ProviderResponseProviderName = "Cerebras"
-	ProviderResponseProviderNameChutes          ProviderResponseProviderName = "Chutes"
-	ProviderResponseProviderNameCirrascale      ProviderResponseProviderName = "Cirrascale"
-	ProviderResponseProviderNameClarifai        ProviderResponseProviderName = "Clarifai"
-	ProviderResponseProviderNameCloudflare      ProviderResponseProviderName = "Cloudflare"
-	ProviderResponseProviderNameCohere          ProviderResponseProviderName = "Cohere"
-	ProviderResponseProviderNameCrucible        ProviderResponseProviderName = "Crucible"
-	ProviderResponseProviderNameCrusoe          ProviderResponseProviderName = "Crusoe"
-	ProviderResponseProviderNameDarkbloom       ProviderResponseProviderName = "Darkbloom"
-	ProviderResponseProviderNameDecart          ProviderResponseProviderName = "Decart"
-	ProviderResponseProviderNameDeepInfra       ProviderResponseProviderName = "DeepInfra"
-	ProviderResponseProviderNameDeepSeek        ProviderResponseProviderName = "DeepSeek"
-	ProviderResponseProviderNameDekaLlm         ProviderResponseProviderName = "DekaLLM"
-	ProviderResponseProviderNameDigitalOcean    ProviderResponseProviderName = "DigitalOcean"
-	ProviderResponseProviderNameFeatherless     ProviderResponseProviderName = "Featherless"
-	ProviderResponseProviderNameFireworks       ProviderResponseProviderName = "Fireworks"
-	ProviderResponseProviderNameFriendli        ProviderResponseProviderName = "Friendli"
-	ProviderResponseProviderNameGmiCloud        ProviderResponseProviderName = "GMICloud"
-	ProviderResponseProviderNameGoogle          ProviderResponseProviderName = "Google"
-	ProviderResponseProviderNameGoogleAiStudio  ProviderResponseProviderName = "Google AI Studio"
-	ProviderResponseProviderNameGroq            ProviderResponseProviderName = "Groq"
-	ProviderResponseProviderNameHeyGen          ProviderResponseProviderName = "HeyGen"
-	ProviderResponseProviderNameInception       ProviderResponseProviderName = "Inception"
-	ProviderResponseProviderNameInceptron       ProviderResponseProviderName = "Inceptron"
-	ProviderResponseProviderNameInferenceNet    ProviderResponseProviderName = "InferenceNet"
-	ProviderResponseProviderNameIonstream       ProviderResponseProviderName = "Ionstream"
-	ProviderResponseProviderNameInfermatic      ProviderResponseProviderName = "Infermatic"
-	ProviderResponseProviderNameIoNet           ProviderResponseProviderName = "Io Net"
-	ProviderResponseProviderNameInferactVLlm    ProviderResponseProviderName = "Inferact vLLM"
-	ProviderResponseProviderNameInflection      ProviderResponseProviderName = "Inflection"
-	ProviderResponseProviderNameLiquid          ProviderResponseProviderName = "Liquid"
-	ProviderResponseProviderNameMara            ProviderResponseProviderName = "Mara"
-	ProviderResponseProviderNameMancer2         ProviderResponseProviderName = "Mancer 2"
-	ProviderResponseProviderNameMinimax         ProviderResponseProviderName = "Minimax"
-	ProviderResponseProviderNameModelRun        ProviderResponseProviderName = "ModelRun"
-	ProviderResponseProviderNameMistral         ProviderResponseProviderName = "Mistral"
-	ProviderResponseProviderNameModular         ProviderResponseProviderName = "Modular"
-	ProviderResponseProviderNameMoonshotAi      ProviderResponseProviderName = "Moonshot AI"
-	ProviderResponseProviderNameMorph           ProviderResponseProviderName = "Morph"
-	ProviderResponseProviderNameNCompass        ProviderResponseProviderName = "NCompass"
-	ProviderResponseProviderNameNebius          ProviderResponseProviderName = "Nebius"
-	ProviderResponseProviderNameNexAgi          ProviderResponseProviderName = "Nex AGI"
-	ProviderResponseProviderNameNextBit         ProviderResponseProviderName = "NextBit"
-	ProviderResponseProviderNameNovita          ProviderResponseProviderName = "Novita"
-	ProviderResponseProviderNameNvidia          ProviderResponseProviderName = "Nvidia"
-	ProviderResponseProviderNameOpenAi          ProviderResponseProviderName = "OpenAI"
-	ProviderResponseProviderNameOpenInference   ProviderResponseProviderName = "OpenInference"
-	ProviderResponseProviderNameParasail        ProviderResponseProviderName = "Parasail"
-	ProviderResponseProviderNamePoolside        ProviderResponseProviderName = "Poolside"
-	ProviderResponseProviderNamePerceptron      ProviderResponseProviderName = "Perceptron"
-	ProviderResponseProviderNamePerplexity      ProviderResponseProviderName = "Perplexity"
-	ProviderResponseProviderNamePhala           ProviderResponseProviderName = "Phala"
-	ProviderResponseProviderNameRecraft         ProviderResponseProviderName = "Recraft"
-	ProviderResponseProviderNameReka            ProviderResponseProviderName = "Reka"
-	ProviderResponseProviderNameRelace          ProviderResponseProviderName = "Relace"
-	ProviderResponseProviderNameSakanaAi        ProviderResponseProviderName = "Sakana AI"
-	ProviderResponseProviderNameSambaNova       ProviderResponseProviderName = "SambaNova"
-	ProviderResponseProviderNameSeed            ProviderResponseProviderName = "Seed"
-	ProviderResponseProviderNameSiliconFlow     ProviderResponseProviderName = "SiliconFlow"
-	ProviderResponseProviderNameSourceful       ProviderResponseProviderName = "Sourceful"
-	ProviderResponseProviderNameStepFun         ProviderResponseProviderName = "StepFun"
-	ProviderResponseProviderNameStealth         ProviderResponseProviderName = "Stealth"
-	ProviderResponseProviderNameStreamLake      ProviderResponseProviderName = "StreamLake"
-	ProviderResponseProviderNameSwitchpoint     ProviderResponseProviderName = "Switchpoint"
-	ProviderResponseProviderNameTenstorrent     ProviderResponseProviderName = "Tenstorrent"
-	ProviderResponseProviderNameTogether        ProviderResponseProviderName = "Together"
-	ProviderResponseProviderNameUpstage         ProviderResponseProviderName = "Upstage"
-	ProviderResponseProviderNameVenice          ProviderResponseProviderName = "Venice"
-	ProviderResponseProviderNameWafer           ProviderResponseProviderName = "Wafer"
-	ProviderResponseProviderNameWandB           ProviderResponseProviderName = "WandB"
-	ProviderResponseProviderNameQuiver          ProviderResponseProviderName = "Quiver"
-	ProviderResponseProviderNameXiaomi          ProviderResponseProviderName = "Xiaomi"
-	ProviderResponseProviderNameXAi             ProviderResponseProviderName = "xAI"
-	ProviderResponseProviderNameZAi             ProviderResponseProviderName = "Z.AI"
-	ProviderResponseProviderNameFakeProvider    ProviderResponseProviderName = "FakeProvider"
+	ProviderResponseProviderNameAnyScale            ProviderResponseProviderName = "AnyScale"
+	ProviderResponseProviderNameAtoma               ProviderResponseProviderName = "Atoma"
+	ProviderResponseProviderNameCentMl              ProviderResponseProviderName = "Cent-ML"
+	ProviderResponseProviderNameCrofAi              ProviderResponseProviderName = "CrofAI"
+	ProviderResponseProviderNameEnfer               ProviderResponseProviderName = "Enfer"
+	ProviderResponseProviderNameGoPomelo            ProviderResponseProviderName = "GoPomelo"
+	ProviderResponseProviderNameHuggingFace         ProviderResponseProviderName = "HuggingFace"
+	ProviderResponseProviderNameHyperbolic          ProviderResponseProviderName = "Hyperbolic"
+	ProviderResponseProviderNameHyperbolic2         ProviderResponseProviderName = "Hyperbolic 2"
+	ProviderResponseProviderNameInoCloud            ProviderResponseProviderName = "InoCloud"
+	ProviderResponseProviderNameKluster             ProviderResponseProviderName = "Kluster"
+	ProviderResponseProviderNameLambda              ProviderResponseProviderName = "Lambda"
+	ProviderResponseProviderNameLepton              ProviderResponseProviderName = "Lepton"
+	ProviderResponseProviderNameLynn2               ProviderResponseProviderName = "Lynn 2"
+	ProviderResponseProviderNameLynn                ProviderResponseProviderName = "Lynn"
+	ProviderResponseProviderNameMancer              ProviderResponseProviderName = "Mancer"
+	ProviderResponseProviderNameModal               ProviderResponseProviderName = "Modal"
+	ProviderResponseProviderNameNineteen            ProviderResponseProviderName = "Nineteen"
+	ProviderResponseProviderNameOctoAi              ProviderResponseProviderName = "OctoAI"
+	ProviderResponseProviderNameRecursal            ProviderResponseProviderName = "Recursal"
+	ProviderResponseProviderNameReflection          ProviderResponseProviderName = "Reflection"
+	ProviderResponseProviderNameReplicate           ProviderResponseProviderName = "Replicate"
+	ProviderResponseProviderNameSambaNova2          ProviderResponseProviderName = "SambaNova 2"
+	ProviderResponseProviderNameSfCompute           ProviderResponseProviderName = "SF Compute"
+	ProviderResponseProviderNameTargon              ProviderResponseProviderName = "Targon"
+	ProviderResponseProviderNameTogether2           ProviderResponseProviderName = "Together 2"
+	ProviderResponseProviderNameUbicloud            ProviderResponseProviderName = "Ubicloud"
+	ProviderResponseProviderNameOneDotAi            ProviderResponseProviderName = "01.AI"
+	ProviderResponseProviderNameAkashMl             ProviderResponseProviderName = "AkashML"
+	ProviderResponseProviderNameAi21                ProviderResponseProviderName = "AI21"
+	ProviderResponseProviderNameAionLabs            ProviderResponseProviderName = "AionLabs"
+	ProviderResponseProviderNameAlibaba             ProviderResponseProviderName = "Alibaba"
+	ProviderResponseProviderNameAmbient             ProviderResponseProviderName = "Ambient"
+	ProviderResponseProviderNameBaidu               ProviderResponseProviderName = "Baidu"
+	ProviderResponseProviderNameAmazonBedrock       ProviderResponseProviderName = "Amazon Bedrock"
+	ProviderResponseProviderNameAmazonNova          ProviderResponseProviderName = "Amazon Nova"
+	ProviderResponseProviderNameAnthropic           ProviderResponseProviderName = "Anthropic"
+	ProviderResponseProviderNameArceeAi             ProviderResponseProviderName = "Arcee AI"
+	ProviderResponseProviderNameAtlasCloud          ProviderResponseProviderName = "AtlasCloud"
+	ProviderResponseProviderNameAvian               ProviderResponseProviderName = "Avian"
+	ProviderResponseProviderNameAzure               ProviderResponseProviderName = "Azure"
+	ProviderResponseProviderNameBaseTen             ProviderResponseProviderName = "BaseTen"
+	ProviderResponseProviderNameBytePlus            ProviderResponseProviderName = "BytePlus"
+	ProviderResponseProviderNameBlackForestLabs     ProviderResponseProviderName = "Black Forest Labs"
+	ProviderResponseProviderNameCerebras            ProviderResponseProviderName = "Cerebras"
+	ProviderResponseProviderNameChutes              ProviderResponseProviderName = "Chutes"
+	ProviderResponseProviderNameCirrascale          ProviderResponseProviderName = "Cirrascale"
+	ProviderResponseProviderNameClaudePlatformOnAws ProviderResponseProviderName = "Claude Platform on AWS"
+	ProviderResponseProviderNameClarifai            ProviderResponseProviderName = "Clarifai"
+	ProviderResponseProviderNameCloudflare          ProviderResponseProviderName = "Cloudflare"
+	ProviderResponseProviderNameCohere              ProviderResponseProviderName = "Cohere"
+	ProviderResponseProviderNameCoreWeave           ProviderResponseProviderName = "CoreWeave"
+	ProviderResponseProviderNameCrucible            ProviderResponseProviderName = "Crucible"
+	ProviderResponseProviderNameCrusoe              ProviderResponseProviderName = "Crusoe"
+	ProviderResponseProviderNameDarkbloom           ProviderResponseProviderName = "Darkbloom"
+	ProviderResponseProviderNameDecart              ProviderResponseProviderName = "Decart"
+	ProviderResponseProviderNameDeepgram            ProviderResponseProviderName = "Deepgram"
+	ProviderResponseProviderNameDeepInfra           ProviderResponseProviderName = "DeepInfra"
+	ProviderResponseProviderNameDeepSeek            ProviderResponseProviderName = "DeepSeek"
+	ProviderResponseProviderNameDekaLlm             ProviderResponseProviderName = "DekaLLM"
+	ProviderResponseProviderNameDigitalOcean        ProviderResponseProviderName = "DigitalOcean"
+	ProviderResponseProviderNameFeatherless         ProviderResponseProviderName = "Featherless"
+	ProviderResponseProviderNameFireworks           ProviderResponseProviderName = "Fireworks"
+	ProviderResponseProviderNameFishAudio           ProviderResponseProviderName = "Fish Audio"
+	ProviderResponseProviderNameFriendli            ProviderResponseProviderName = "Friendli"
+	ProviderResponseProviderNameGmiCloud            ProviderResponseProviderName = "GMICloud"
+	ProviderResponseProviderNameGoogle              ProviderResponseProviderName = "Google"
+	ProviderResponseProviderNameGoogleAiStudio      ProviderResponseProviderName = "Google AI Studio"
+	ProviderResponseProviderNameGroq                ProviderResponseProviderName = "Groq"
+	ProviderResponseProviderNameHeyGen              ProviderResponseProviderName = "HeyGen"
+	ProviderResponseProviderNameInception           ProviderResponseProviderName = "Inception"
+	ProviderResponseProviderNameInceptron           ProviderResponseProviderName = "Inceptron"
+	ProviderResponseProviderNameInferenceNet        ProviderResponseProviderName = "InferenceNet"
+	ProviderResponseProviderNameIonstream           ProviderResponseProviderName = "Ionstream"
+	ProviderResponseProviderNameInfermatic          ProviderResponseProviderName = "Infermatic"
+	ProviderResponseProviderNameIoNet               ProviderResponseProviderName = "Io Net"
+	ProviderResponseProviderNameInferactVLlm        ProviderResponseProviderName = "Inferact vLLM"
+	ProviderResponseProviderNameInflection          ProviderResponseProviderName = "Inflection"
+	ProviderResponseProviderNameLiquid              ProviderResponseProviderName = "Liquid"
+	ProviderResponseProviderNameMara                ProviderResponseProviderName = "Mara"
+	ProviderResponseProviderNameMancer2             ProviderResponseProviderName = "Mancer 2"
+	ProviderResponseProviderNameMeta                ProviderResponseProviderName = "Meta"
+	ProviderResponseProviderNameMinimax             ProviderResponseProviderName = "Minimax"
+	ProviderResponseProviderNameModelRun            ProviderResponseProviderName = "ModelRun"
+	ProviderResponseProviderNameMistral             ProviderResponseProviderName = "Mistral"
+	ProviderResponseProviderNameModular             ProviderResponseProviderName = "Modular"
+	ProviderResponseProviderNameMoonshotAi          ProviderResponseProviderName = "Moonshot AI"
+	ProviderResponseProviderNameMorph               ProviderResponseProviderName = "Morph"
+	ProviderResponseProviderNameVoyageAiByMongoDb   ProviderResponseProviderName = "VoyageAI by MongoDB"
+	ProviderResponseProviderNameNCompass            ProviderResponseProviderName = "NCompass"
+	ProviderResponseProviderNameNebius              ProviderResponseProviderName = "Nebius"
+	ProviderResponseProviderNameNexAgi              ProviderResponseProviderName = "Nex AGI"
+	ProviderResponseProviderNameNextBit             ProviderResponseProviderName = "NextBit"
+	ProviderResponseProviderNameNovita              ProviderResponseProviderName = "Novita"
+	ProviderResponseProviderNameNvidia              ProviderResponseProviderName = "Nvidia"
+	ProviderResponseProviderNameOpenAi              ProviderResponseProviderName = "OpenAI"
+	ProviderResponseProviderNameOpenInference       ProviderResponseProviderName = "OpenInference"
+	ProviderResponseProviderNameParasail            ProviderResponseProviderName = "Parasail"
+	ProviderResponseProviderNamePoolside            ProviderResponseProviderName = "Poolside"
+	ProviderResponseProviderNamePerceptron          ProviderResponseProviderName = "Perceptron"
+	ProviderResponseProviderNamePerplexity          ProviderResponseProviderName = "Perplexity"
+	ProviderResponseProviderNamePhala               ProviderResponseProviderName = "Phala"
+	ProviderResponseProviderNameRecraft             ProviderResponseProviderName = "Recraft"
+	ProviderResponseProviderNameReka                ProviderResponseProviderName = "Reka"
+	ProviderResponseProviderNameRelace              ProviderResponseProviderName = "Relace"
+	ProviderResponseProviderNameSailResearch        ProviderResponseProviderName = "Sail Research"
+	ProviderResponseProviderNameSakanaAi            ProviderResponseProviderName = "Sakana AI"
+	ProviderResponseProviderNameSambaNova           ProviderResponseProviderName = "SambaNova"
+	ProviderResponseProviderNameSeed                ProviderResponseProviderName = "Seed"
+	ProviderResponseProviderNameSiliconFlow         ProviderResponseProviderName = "SiliconFlow"
+	ProviderResponseProviderNameSourceful           ProviderResponseProviderName = "Sourceful"
+	ProviderResponseProviderNameStepFun             ProviderResponseProviderName = "StepFun"
+	ProviderResponseProviderNameStealth             ProviderResponseProviderName = "Stealth"
+	ProviderResponseProviderNameStreamLake          ProviderResponseProviderName = "StreamLake"
+	ProviderResponseProviderNameSwitchpoint         ProviderResponseProviderName = "Switchpoint"
+	ProviderResponseProviderNameTencent             ProviderResponseProviderName = "Tencent"
+	ProviderResponseProviderNameTenstorrent         ProviderResponseProviderName = "Tenstorrent"
+	ProviderResponseProviderNameThinkingMachines    ProviderResponseProviderName = "Thinking Machines"
+	ProviderResponseProviderNameTogether            ProviderResponseProviderName = "Together"
+	ProviderResponseProviderNameUpstage             ProviderResponseProviderName = "Upstage"
+	ProviderResponseProviderNameVenice              ProviderResponseProviderName = "Venice"
+	ProviderResponseProviderNameWafer               ProviderResponseProviderName = "Wafer"
+	ProviderResponseProviderNameWandB               ProviderResponseProviderName = "WandB"
+	ProviderResponseProviderNameQuiver              ProviderResponseProviderName = "Quiver"
+	ProviderResponseProviderNameKrea                ProviderResponseProviderName = "Krea"
+	ProviderResponseProviderNameRunway              ProviderResponseProviderName = "Runway"
+	ProviderResponseProviderNameXiaomi              ProviderResponseProviderName = "Xiaomi"
+	ProviderResponseProviderNameXAi                 ProviderResponseProviderName = "xAI"
+	ProviderResponseProviderNameZAi                 ProviderResponseProviderName = "Z.AI"
+	ProviderResponseProviderNameFakeProvider        ProviderResponseProviderName = "FakeProvider"
 )
 
 func (e ProviderResponseProviderName) ToPointer() *ProviderResponseProviderName {
@@ -136,7 +146,30 @@ func (e ProviderResponseProviderName) ToPointer() *ProviderResponseProviderName 
 func (e *ProviderResponseProviderName) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Meta", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Clarifai", "Cloudflare", "Cohere", "Crucible", "Crusoe", "Darkbloom", "Decart", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "HeyGen", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inferact vLLM", "Inflection", "Liquid", "Mara", "Mancer 2", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "Sakana AI", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Tenstorrent", "Together", "Upstage", "Venice", "Wafer", "WandB", "Quiver", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+		case "AnyScale", "Atoma", "Cent-ML", "CrofAI", "Enfer", "GoPomelo", "HuggingFace", "Hyperbolic", "Hyperbolic 2", "InoCloud", "Kluster", "Lambda", "Lepton", "Lynn 2", "Lynn", "Mancer", "Modal", "Nineteen", "OctoAI", "Recursal", "Reflection", "Replicate", "SambaNova 2", "SF Compute", "Targon", "Together 2", "Ubicloud", "01.AI", "AkashML", "AI21", "AionLabs", "Alibaba", "Ambient", "Baidu", "Amazon Bedrock", "Amazon Nova", "Anthropic", "Arcee AI", "AtlasCloud", "Avian", "Azure", "BaseTen", "BytePlus", "Black Forest Labs", "Cerebras", "Chutes", "Cirrascale", "Claude Platform on AWS", "Clarifai", "Cloudflare", "Cohere", "CoreWeave", "Crucible", "Crusoe", "Darkbloom", "Decart", "Deepgram", "DeepInfra", "DeepSeek", "DekaLLM", "DigitalOcean", "Featherless", "Fireworks", "Fish Audio", "Friendli", "GMICloud", "Google", "Google AI Studio", "Groq", "HeyGen", "Inception", "Inceptron", "InferenceNet", "Ionstream", "Infermatic", "Io Net", "Inferact vLLM", "Inflection", "Liquid", "Mara", "Mancer 2", "Meta", "Minimax", "ModelRun", "Mistral", "Modular", "Moonshot AI", "Morph", "VoyageAI by MongoDB", "NCompass", "Nebius", "Nex AGI", "NextBit", "Novita", "Nvidia", "OpenAI", "OpenInference", "Parasail", "Poolside", "Perceptron", "Perplexity", "Phala", "Recraft", "Reka", "Relace", "Sail Research", "Sakana AI", "SambaNova", "Seed", "SiliconFlow", "Sourceful", "StepFun", "Stealth", "StreamLake", "Switchpoint", "Tencent", "Tenstorrent", "Thinking Machines", "Together", "Upstage", "Venice", "Wafer", "WandB", "Quiver", "Krea", "Runway", "Xiaomi", "xAI", "Z.AI", "FakeProvider":
+			return true
+		}
+	}
+	return false
+}
+
+// RoutedServiceTier - The service tier this request was routed to (e.g. flex, priority). The tier actually applied and billed is determined by the provider response and may differ.
+type RoutedServiceTier string
+
+const (
+	RoutedServiceTierFlex     RoutedServiceTier = "flex"
+	RoutedServiceTierPriority RoutedServiceTier = "priority"
+)
+
+func (e RoutedServiceTier) ToPointer() *RoutedServiceTier {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RoutedServiceTier) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "flex", "priority":
 			return true
 		}
 	}
@@ -150,13 +183,15 @@ type ProviderResponse struct {
 	// Upstream provider response identifier
 	ID *string `json:"id,omitzero"`
 	// Whether the request used a bring-your-own-key
-	IsByok *bool `json:"is_byok,omitzero"`
+	IsBYOK *bool `json:"is_byok,omitzero"`
 	// Response latency in milliseconds
 	Latency *float64 `json:"latency,omitzero"`
 	// Canonical model slug
 	ModelPermaslug *string `json:"model_permaslug,omitzero"`
 	// Name of the provider
 	ProviderName *ProviderResponseProviderName `json:"provider_name,omitzero"`
+	// The service tier this request was routed to (e.g. flex, priority). The tier actually applied and billed is determined by the provider response and may differ.
+	RoutedServiceTier *RoutedServiceTier `json:"routed_service_tier,omitzero"`
 	// HTTP status code from the provider
 	Status *int64 `json:"status"`
 }
@@ -175,11 +210,11 @@ func (p *ProviderResponse) GetID() *string {
 	return p.ID
 }
 
-func (p *ProviderResponse) GetIsByok() *bool {
+func (p *ProviderResponse) GetIsBYOK() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.IsByok
+	return p.IsBYOK
 }
 
 func (p *ProviderResponse) GetLatency() *float64 {
@@ -201,6 +236,13 @@ func (p *ProviderResponse) GetProviderName() *ProviderResponseProviderName {
 		return nil
 	}
 	return p.ProviderName
+}
+
+func (p *ProviderResponse) GetRoutedServiceTier() *RoutedServiceTier {
+	if p == nil {
+		return nil
+	}
+	return p.RoutedServiceTier
 }
 
 func (p *ProviderResponse) GetStatus() *int64 {

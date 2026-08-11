@@ -1,0 +1,33 @@
+---
+title: "ProviderPreferencesSort"
+---
+
+The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
+
+
+## Supported Types
+
+### ProviderSort
+
+```go
+providerPreferencesSort := components.CreateProviderPreferencesSortProviderSort(components.ProviderSort{/* values here */})
+```
+
+### ProviderSortConfig
+
+```go
+providerPreferencesSort := components.CreateProviderPreferencesSortProviderSortConfig(components.ProviderSortConfig{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch providerPreferencesSort.Type {
+	case components.ProviderPreferencesSortTypeProviderSort:
+		// providerPreferencesSort.ProviderSort is populated
+	case components.ProviderPreferencesSortTypeProviderSortConfig:
+		// providerPreferencesSort.ProviderSortConfig is populated
+}
+```

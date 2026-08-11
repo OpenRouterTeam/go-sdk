@@ -1,0 +1,38 @@
+---
+title: "Parameters2"
+---
+
+## Supported Types
+
+### 
+
+```go
+parameters2 := components.CreateParameters2Str(string{/* values here */})
+```
+
+### 
+
+```go
+parameters2 := components.CreateParameters2Number(float64{/* values here */})
+```
+
+### 
+
+```go
+parameters2 := components.CreateParameters2Boolean(bool{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch parameters2.Type {
+	case components.Parameters2TypeStr:
+		// parameters2.Str is populated
+	case components.Parameters2TypeNumber:
+		// parameters2.Number is populated
+	case components.Parameters2TypeBoolean:
+		// parameters2.Boolean is populated
+}
+```

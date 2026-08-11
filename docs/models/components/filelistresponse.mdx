@@ -1,0 +1,43 @@
+---
+title: "FileListResponse"
+---
+
+A page of files, in the negotiated shape.
+
+
+## Supported Types
+
+### AnthropicFileList
+
+```go
+fileListResponse := components.CreateFileListResponseAnthropic(components.AnthropicFileList{/* values here */})
+```
+
+### OpenAIFileList
+
+```go
+fileListResponse := components.CreateFileListResponseOpenai(components.OpenAIFileList{/* values here */})
+```
+
+### OpenRouterFileList
+
+```go
+fileListResponse := components.CreateFileListResponseOpenrouter(components.OpenRouterFileList{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch fileListResponse.Type {
+	case components.FileListResponseTypeAnthropic:
+		// fileListResponse.AnthropicFileList is populated
+	case components.FileListResponseTypeOpenai:
+		// fileListResponse.OpenAIFileList is populated
+	case components.FileListResponseTypeOpenrouter:
+		// fileListResponse.OpenRouterFileList is populated
+	default:
+		// Unknown type - use fileListResponse.GetUnknownRaw() for raw JSON
+}
+```

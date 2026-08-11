@@ -1,0 +1,30 @@
+---
+title: "ValueClassifierFilters"
+---
+
+## Supported Types
+
+### 
+
+```go
+valueClassifierFilters := operations.CreateValueClassifierFiltersStr(string{/* values here */})
+```
+
+### 
+
+```go
+valueClassifierFilters := operations.CreateValueClassifierFiltersNumber(float64{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch valueClassifierFilters.Type {
+	case operations.ValueClassifierFiltersTypeStr:
+		// valueClassifierFilters.Str is populated
+	case operations.ValueClassifierFiltersTypeNumber:
+		// valueClassifierFilters.Number is populated
+}
+```

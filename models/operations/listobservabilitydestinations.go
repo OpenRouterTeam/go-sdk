@@ -3,17 +3,29 @@
 package operations
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type ListObservabilityDestinationsRequest struct {
 	// Number of records to skip for pagination
-	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
+	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
-	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
+	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
 	// Optional workspace ID to filter by. Defaults to the authenticated entity's default workspace.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
+}
+
+func (l ListObservabilityDestinationsRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListObservabilityDestinationsRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (l *ListObservabilityDestinationsRequest) GetOffset() optionalnullable.OptionalNullable[int64] {

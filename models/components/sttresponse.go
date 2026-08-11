@@ -8,10 +8,20 @@ import (
 
 // STTResponse - STT response containing transcribed text and optional usage statistics
 type STTResponse struct {
+	// Duration of the input audio in seconds, present when response_format is verbose_json
+	Duration *float64 `json:"duration,omitzero"`
+	// Detected or forced language, present when response_format is verbose_json
+	Language *string `json:"language,omitzero"`
+	// Timestamped transcript segments, present when response_format is verbose_json
+	Segments []STTSegment `json:"segments,omitzero"`
+	// The task performed, present when response_format is verbose_json
+	Task *string `json:"task,omitzero"`
 	// The transcribed text
 	Text string `json:"text"`
 	// Aggregated usage statistics for the request
 	Usage *STTUsage `json:"usage,omitzero"`
+	// Timestamped words, present when the provider returns word-level timestamps
+	Words []STTWord `json:"words,omitzero"`
 }
 
 func (s STTResponse) MarshalJSON() ([]byte, error) {
@@ -23,6 +33,34 @@ func (s *STTResponse) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (s *STTResponse) GetDuration() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Duration
+}
+
+func (s *STTResponse) GetLanguage() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Language
+}
+
+func (s *STTResponse) GetSegments() []STTSegment {
+	if s == nil {
+		return nil
+	}
+	return s.Segments
+}
+
+func (s *STTResponse) GetTask() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Task
 }
 
 func (s *STTResponse) GetText() string {
@@ -37,4 +75,11 @@ func (s *STTResponse) GetUsage() *STTUsage {
 		return nil
 	}
 	return s.Usage
+}
+
+func (s *STTResponse) GetWords() []STTWord {
+	if s == nil {
+		return nil
+	}
+	return s.Words
 }

@@ -13,6 +13,7 @@ type UnifiedBenchmarksMetaSource string
 const (
 	UnifiedBenchmarksMetaSourceArtificialAnalysis UnifiedBenchmarksMetaSource = "artificial-analysis"
 	UnifiedBenchmarksMetaSourceDesignArena        UnifiedBenchmarksMetaSource = "design-arena"
+	UnifiedBenchmarksMetaSourceOpenrouter         UnifiedBenchmarksMetaSource = "openrouter"
 )
 
 func (e UnifiedBenchmarksMetaSource) ToPointer() *UnifiedBenchmarksMetaSource {
@@ -23,7 +24,7 @@ func (e UnifiedBenchmarksMetaSource) ToPointer() *UnifiedBenchmarksMetaSource {
 func (e *UnifiedBenchmarksMetaSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "artificial-analysis", "design-arena":
+		case "artificial-analysis", "design-arena", "openrouter":
 			return true
 		}
 	}

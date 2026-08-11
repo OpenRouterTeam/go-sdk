@@ -1,0 +1,29 @@
+---
+title: "AutoBetaRouterPluginCostTier"
+---
+
+Named cost/quality setting. For auto-beta-router, tiers select cost-percentile bands: low = [0, 20), medium = [20, 40), high = [40, 60), xhigh = [60, 80), and max = [80, 100]. Takes precedence over the deprecated numeric cost_quality_tradeoff when both are provided.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AutoBetaRouterPluginCostTierLow
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.AutoBetaRouterPluginCostTier("custom_value")
+```
+
+
+## Values
+
+| Name                                 | Value                                |
+| ------------------------------------ | ------------------------------------ |
+| `AutoBetaRouterPluginCostTierLow`    | low                                  |
+| `AutoBetaRouterPluginCostTierMedium` | medium                               |
+| `AutoBetaRouterPluginCostTierHigh`   | high                                 |
+| `AutoBetaRouterPluginCostTierXhigh`  | xhigh                                |
+| `AutoBetaRouterPluginCostTierMax`    | max                                  |

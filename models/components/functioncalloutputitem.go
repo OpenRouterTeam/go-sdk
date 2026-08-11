@@ -34,26 +34,26 @@ func (e *FunctionCallOutputItemDetail) IsExact() bool {
 	return false
 }
 
-type FunctionCallOutputItemTypeInputImage string
+type FunctionCallOutputItemOutputType string
 
 const (
-	FunctionCallOutputItemTypeInputImageInputImage FunctionCallOutputItemTypeInputImage = "input_image"
+	FunctionCallOutputItemOutputTypeInputImage FunctionCallOutputItemOutputType = "input_image"
 )
 
-func (e FunctionCallOutputItemTypeInputImage) ToPointer() *FunctionCallOutputItemTypeInputImage {
+func (e FunctionCallOutputItemOutputType) ToPointer() *FunctionCallOutputItemOutputType {
 	return &e
 }
-func (e *FunctionCallOutputItemTypeInputImage) UnmarshalJSON(data []byte) error {
+func (e *FunctionCallOutputItemOutputType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "input_image":
-		*e = FunctionCallOutputItemTypeInputImage(v)
+		*e = FunctionCallOutputItemOutputType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for FunctionCallOutputItemTypeInputImage: %v", v)
+		return fmt.Errorf("invalid value for FunctionCallOutputItemOutputType: %v", v)
 	}
 }
 
@@ -61,7 +61,7 @@ func (e *FunctionCallOutputItemTypeInputImage) UnmarshalJSON(data []byte) error 
 type FunctionCallOutputItemOutputInputImage struct {
 	Detail   FunctionCallOutputItemDetail              `json:"detail"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
-	Type     FunctionCallOutputItemTypeInputImage      `json:"type"`
+	Type     FunctionCallOutputItemOutputType          `json:"type"`
 }
 
 func (f FunctionCallOutputItemOutputInputImage) MarshalJSON() ([]byte, error) {
@@ -89,9 +89,9 @@ func (f *FunctionCallOutputItemOutputInputImage) GetImageURL() optionalnullable.
 	return f.ImageURL
 }
 
-func (f *FunctionCallOutputItemOutputInputImage) GetType() FunctionCallOutputItemTypeInputImage {
+func (f *FunctionCallOutputItemOutputInputImage) GetType() FunctionCallOutputItemOutputType {
 	if f == nil {
-		return FunctionCallOutputItemTypeInputImage("")
+		return FunctionCallOutputItemOutputType("")
 	}
 	return f.Type
 }
@@ -127,7 +127,7 @@ func CreateFunctionCallOutputItemOutputUnion1InputText(inputText InputText) Func
 func CreateFunctionCallOutputItemOutputUnion1InputImage(inputImage FunctionCallOutputItemOutputInputImage) FunctionCallOutputItemOutputUnion1 {
 	typ := FunctionCallOutputItemOutputUnion1TypeInputImage
 
-	typStr := FunctionCallOutputItemTypeInputImage(typ)
+	typStr := FunctionCallOutputItemOutputType(typ)
 	inputImage.Type = typStr
 
 	return FunctionCallOutputItemOutputUnion1{
@@ -297,29 +297,6 @@ func (u FunctionCallOutputItemOutputUnion2) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type FunctionCallOutputItemOutputUnion2: all fields are null")
 }
 
-type FunctionCallOutputItemStatus string
-
-const (
-	FunctionCallOutputItemStatusInProgress FunctionCallOutputItemStatus = "in_progress"
-	FunctionCallOutputItemStatusCompleted  FunctionCallOutputItemStatus = "completed"
-	FunctionCallOutputItemStatusIncomplete FunctionCallOutputItemStatus = "incomplete"
-)
-
-func (e FunctionCallOutputItemStatus) ToPointer() *FunctionCallOutputItemStatus {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FunctionCallOutputItemStatus) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "in_progress", "completed", "incomplete":
-			return true
-		}
-	}
-	return false
-}
-
 type FunctionCallOutputItemTypeFunctionCallOutput string
 
 const (
@@ -345,11 +322,11 @@ func (e *FunctionCallOutputItemTypeFunctionCallOutput) UnmarshalJSON(data []byte
 
 // FunctionCallOutputItem - The output from a function call execution
 type FunctionCallOutputItem struct {
-	CallID string                                                          `json:"call_id"`
-	ID     optionalnullable.OptionalNullable[string]                       `json:"id,omitzero"`
-	Output FunctionCallOutputItemOutputUnion2                              `json:"output"`
-	Status optionalnullable.OptionalNullable[FunctionCallOutputItemStatus] `json:"status,omitzero"`
-	Type   FunctionCallOutputItemTypeFunctionCallOutput                    `json:"type"`
+	CallID string                                            `json:"call_id"`
+	ID     optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
+	Output FunctionCallOutputItemOutputUnion2                `json:"output"`
+	Status optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
+	Type   FunctionCallOutputItemTypeFunctionCallOutput      `json:"type"`
 }
 
 func (f FunctionCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -384,7 +361,7 @@ func (f *FunctionCallOutputItem) GetOutput() FunctionCallOutputItemOutputUnion2 
 	return f.Output
 }
 
-func (f *FunctionCallOutputItem) GetStatus() optionalnullable.OptionalNullable[FunctionCallOutputItemStatus] {
+func (f *FunctionCallOutputItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
 	if f == nil {
 		return nil
 	}

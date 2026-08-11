@@ -19,15 +19,15 @@ import (
 	"net/url"
 )
 
-// Byok - BYOK endpoints
-type Byok struct {
+// BYOK endpoints
+type BYOK struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newByok(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Byok {
-	return &Byok{
+func newBYOK(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *BYOK {
+	return &BYOK{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
@@ -36,7 +36,7 @@ func newByok(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hook
 
 // List BYOK provider credentials
 // List the bring-your-own-key (BYOK) provider credentials for the authenticated entity's default workspace. Use the `workspace_id` query parameter to scope the result to a different workspace, or the `provider` query parameter to filter by upstream provider. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Byok) List(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, workspaceID *string, provider *operations.Provider, opts ...operations.Option) (*operations.ListBYOKKeysResponse, error) {
+func (s *BYOK) List(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, workspaceID *string, provider *operations.Provider, opts ...operations.Option) (*operations.ListBYOKKeysResponse, error) {
 	request := operations.ListBYOKKeysRequest{
 		Offset:      offset,
 		Limit:       limit,
@@ -189,7 +189,7 @@ func (s *Byok) List(ctx context.Context, offset optionalnullable.OptionalNullabl
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -276,6 +276,27 @@ func (s *Byok) List(ctx context.Context, offset optionalnullable.OptionalNullabl
 			}
 			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.BadRequestResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 401:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -343,8 +364,8 @@ func (s *Byok) List(ctx context.Context, offset optionalnullable.OptionalNullabl
 }
 
 // Create a BYOK provider credential
-// Create a new bring-your-own-key (BYOK) provider credential. The raw key is encrypted at rest and never returned in API responses. Defaults to the authenticated entity's default workspace; use the `workspace_id` body field to scope to a different workspace. Treat the raw key as write-only; it is never returned after creation. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Byok) Create(ctx context.Context, request components.CreateBYOKKeyRequest, opts ...operations.Option) (*components.CreateBYOKKeyResponse, error) {
+// Create a new bring-your-own-key (BYOK) provider credential. The raw key is encrypted at rest and never returned in API responses. When `workspace_id` is omitted, the credential is created in the default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly. Treat the raw key as write-only; it is never returned after creation. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+func (s *BYOK) Create(ctx context.Context, request components.CreateBYOKKeyRequest, opts ...operations.Option) (*components.CreateBYOKKeyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -493,7 +514,7 @@ func (s *Byok) Create(ctx context.Context, request components.CreateBYOKKeyReque
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "403", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -640,7 +661,7 @@ func (s *Byok) Create(ctx context.Context, request components.CreateBYOKKeyReque
 
 // Delete a BYOK provider credential
 // Delete (soft-delete) a bring-your-own-key (BYOK) provider credential by its `id`. The encrypted key material is wiped and the record is marked as deleted. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Byok) Delete(ctx context.Context, id string, opts ...operations.Option) (*components.DeleteBYOKKeyResponse, error) {
+func (s *BYOK) Delete(ctx context.Context, id string, opts ...operations.Option) (*components.DeleteBYOKKeyResponse, error) {
 	request := operations.DeleteBYOKKeyRequest{
 		ID: id,
 	}
@@ -786,7 +807,7 @@ func (s *Byok) Delete(ctx context.Context, id string, opts ...operations.Option)
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "404", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -912,7 +933,7 @@ func (s *Byok) Delete(ctx context.Context, id string, opts ...operations.Option)
 
 // Get a BYOK provider credential
 // Get a single bring-your-own-key (BYOK) provider credential by its `id`. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Byok) Get(ctx context.Context, id string, opts ...operations.Option) (*components.GetBYOKKeyResponse, error) {
+func (s *BYOK) Get(ctx context.Context, id string, opts ...operations.Option) (*components.GetBYOKKeyResponse, error) {
 	request := operations.GetBYOKKeyRequest{
 		ID: id,
 	}
@@ -1058,7 +1079,7 @@ func (s *Byok) Get(ctx context.Context, id string, opts ...operations.Option) (*
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"401", "404", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err
@@ -1184,7 +1205,7 @@ func (s *Byok) Get(ctx context.Context, id string, opts ...operations.Option) (*
 
 // Update a BYOK provider credential
 // Update an existing bring-your-own-key (BYOK) provider credential by its `id`. Include the `key` field to rotate the raw provider API key in-place (the previous key material is overwritten). [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Byok) Update(ctx context.Context, id string, updateBYOKKeyRequest components.UpdateBYOKKeyRequest, opts ...operations.Option) (*components.UpdateBYOKKeyResponse, error) {
+func (s *BYOK) Update(ctx context.Context, id string, updateBYOKKeyRequest components.UpdateBYOKKeyRequest, opts ...operations.Option) (*components.UpdateBYOKKeyResponse, error) {
 	request := operations.UpdateBYOKKeyRequest{
 		ID:                   id,
 		UpdateBYOKKeyRequest: updateBYOKKeyRequest,
@@ -1338,7 +1359,7 @@ func (s *Byok) Update(ctx context.Context, id string, updateBYOKKeyRequest compo
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
 			return nil, err
-		} else if utils.MatchStatusCodes([]string{"400", "401", "404", "4XX", "500", "5XX"}, httpRes.StatusCode) {
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
 				return nil, err

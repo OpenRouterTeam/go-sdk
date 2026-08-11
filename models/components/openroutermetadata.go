@@ -10,7 +10,7 @@ type OpenRouterMetadata struct {
 	Attempt   int64             `json:"attempt"`
 	Attempts  []RouterAttempt   `json:"attempts,omitzero"`
 	Endpoints EndpointsMetadata `json:"endpoints"`
-	IsByok    bool              `json:"is_byok"`
+	IsBYOK    bool              `json:"is_byok"`
 	Params    *RouterParams     `json:"params,omitzero"`
 	Pipeline  []PipelineStage   `json:"pipeline,omitzero"`
 	Region    *string           `json:"region"`
@@ -51,11 +51,11 @@ func (o *OpenRouterMetadata) GetEndpoints() EndpointsMetadata {
 	return o.Endpoints
 }
 
-func (o *OpenRouterMetadata) GetIsByok() bool {
+func (o *OpenRouterMetadata) GetIsBYOK() bool {
 	if o == nil {
 		return false
 	}
-	return o.IsByok
+	return o.IsBYOK
 }
 
 func (o *OpenRouterMetadata) GetParams() *RouterParams {

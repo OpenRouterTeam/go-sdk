@@ -38,7 +38,7 @@ type ImageGenCompletedEvent struct {
 	B64JSON string `json:"b64_json"`
 	// Unix timestamp (seconds) when the image was generated
 	Created int64 `json:"created"`
-	// Media type (MIME type) of the image. Omitted when the output is a standard raster format (PNG). Present for non-raster outputs such as SVG (`image/svg+xml`).
+	// Media type (MIME type) of the image, e.g. `image/png`, `image/jpeg`, `image/webp`, `image/svg+xml`. May be omitted if the format could not be determined.
 	MediaType *string `json:"media_type,omitzero"`
 	// The event type
 	Type ImageGenCompletedEventType `json:"type"`

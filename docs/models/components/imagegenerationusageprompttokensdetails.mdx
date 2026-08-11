@@ -1,0 +1,16 @@
+---
+title: "ImageGenerationUsagePromptTokensDetails"
+---
+
+Breakdown of tokens used in the prompt.
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `AudioTokens`                                                                                    | optionalnullable.OptionalNullable[`int64`]                                                       | :heavy_minus_sign:                                                                               | Tokens used for input audio.                                                                     |
+| `CacheWriteTokens`                                                                               | optionalnullable.OptionalNullable[`int64`]                                                       | :heavy_minus_sign:                                                                               | Tokens written to cache. Only returned for models with explicit caching and cache write pricing. |
+| `CachedTokens`                                                                                   | optionalnullable.OptionalNullable[`int64`]                                                       | :heavy_minus_sign:                                                                               | Tokens cached by the endpoint.                                                                   |
+| `FileTokens`                                                                                     | optionalnullable.OptionalNullable[`int64`]                                                       | :heavy_minus_sign:                                                                               | Tokens used for input files/documents.                                                           |
+| `VideoTokens`                                                                                    | optionalnullable.OptionalNullable[`int64`]                                                       | :heavy_minus_sign:                                                                               | Tokens used for input video.                                                                     |

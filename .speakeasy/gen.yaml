@@ -33,12 +33,20 @@ generation:
     generateTests: false
     generateNewTests: true
     skipResponseBodyAssertions: false
+  documentation: mintlify
   preApplyUnionDiscriminators: true
 go:
-  version: 0.5.9
+  version: 0.7.37
   additionalDependencies: {}
   baseErrorName: OpenRouterError
   clientServerStatusCodesAsErrors: true
+  customCasings:
+    byok:
+      initialism: true
+    stt:
+      initialism: true
+    tts:
+      initialism: true
   defaultErrorName: APIError
   enableCustomCodeRegions: false
   enableSkipDeserialization: false
@@ -47,6 +55,7 @@ go:
   flatteningOrder: parameters-first
   forwardCompatibleEnumsByDefault: true
   forwardCompatibleUnionsByDefault: tagged-only
+  idiomaticMethodCollisionNames: false
   imports:
     option: openapi
     paths:
@@ -64,10 +73,12 @@ go:
   modulePath: github.com/OpenRouterTeam/go-sdk
   multipartArrayFormat: standard
   nullableOptionalWrapper: true
+  optionalMethodArguments: pointers
   outputModelSuffix: output
   respectRequiredFields: false
   respectTitlesForPrimitiveUnionMembers: false
   responseFormat: flat
   sdkPackageAlias: openrouter
   sdkPackageName: openrouter
+  unionGenerics: false
   unionStrategy: populated-fields

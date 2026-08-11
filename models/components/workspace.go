@@ -7,6 +7,8 @@ type Workspace struct {
 	CreatedAt string `json:"created_at"`
 	// User ID of the workspace creator
 	CreatedBy *string `json:"created_by"`
+	// Deterministic ID derived from the workspace ID. The default guardrail is materialized when its configuration is first written.
+	DefaultGuardrailID string `json:"default_guardrail_id"`
 	// Default image model for this workspace
 	DefaultImageModel *string `json:"default_image_model"`
 	// Default provider sort preference (price, throughput, latency, exacto)
@@ -17,6 +19,8 @@ type Workspace struct {
 	Description *string `json:"description"`
 	// Unique identifier for the workspace
 	ID string `json:"id"`
+	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+	IncludeBYOKInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
 	// Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
 	IoLoggingAPIKeyIds []int64 `json:"io_logging_api_key_ids"`
 	// Sampling rate for I/O logging (0.0001-1). 1 means 100% of requests are logged.
@@ -47,6 +51,13 @@ func (w *Workspace) GetCreatedBy() *string {
 		return nil
 	}
 	return w.CreatedBy
+}
+
+func (w *Workspace) GetDefaultGuardrailID() string {
+	if w == nil {
+		return ""
+	}
+	return w.DefaultGuardrailID
 }
 
 func (w *Workspace) GetDefaultImageModel() *string {
@@ -82,6 +93,13 @@ func (w *Workspace) GetID() string {
 		return ""
 	}
 	return w.ID
+}
+
+func (w *Workspace) GetIncludeBYOKInBudgets() *bool {
+	if w == nil {
+		return nil
+	}
+	return w.IncludeBYOKInBudgets
 }
 
 func (w *Workspace) GetIoLoggingAPIKeyIds() []int64 {

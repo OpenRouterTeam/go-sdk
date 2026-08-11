@@ -1,0 +1,36 @@
+---
+title: "GetRankingsDailyCategory"
+---
+
+Restrict to a use-case category (e.g. `programming`, `roleplay`). Sourced from a sampled, upsampled dataset, so `total_tokens` is an estimate and is aggregated weekly (the trailing weekly bucket may include traffic past `end_date`). Cannot be combined with `modality`, `context_bucket`, or `language_type`.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.GetRankingsDailyCategoryProgramming
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.GetRankingsDailyCategory("custom_value")
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `GetRankingsDailyCategoryProgramming`  | programming                            |
+| `GetRankingsDailyCategoryRoleplay`     | roleplay                               |
+| `GetRankingsDailyCategoryMarketing`    | marketing                              |
+| `GetRankingsDailyCategoryMarketingSeo` | marketing/seo                          |
+| `GetRankingsDailyCategoryTechnology`   | technology                             |
+| `GetRankingsDailyCategoryScience`      | science                                |
+| `GetRankingsDailyCategoryTranslation`  | translation                            |
+| `GetRankingsDailyCategoryLegal`        | legal                                  |
+| `GetRankingsDailyCategoryFinance`      | finance                                |
+| `GetRankingsDailyCategoryHealth`       | health                                 |
+| `GetRankingsDailyCategoryTrivia`       | trivia                                 |
+| `GetRankingsDailyCategoryAcademia`     | academia                               |

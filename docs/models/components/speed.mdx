@@ -1,0 +1,26 @@
+---
+title: "Speed"
+---
+
+Controls output generation speed. When set to `fast`, uses a higher-speed inference configuration at premium pricing. Defaults to `standard` when omitted.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.SpeedFast
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.Speed("custom_value")
+```
+
+
+## Values
+
+| Name            | Value           |
+| --------------- | --------------- |
+| `SpeedFast`     | fast            |
+| `SpeedStandard` | standard        |

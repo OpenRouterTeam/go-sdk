@@ -34,9 +34,10 @@ func (e *CompactionItemType) UnmarshalJSON(data []byte) error {
 
 // CompactionItem - A context compaction marker with encrypted summary
 type CompactionItem struct {
-	EncryptedContent string                                    `json:"encrypted_content"`
-	ID               optionalnullable.OptionalNullable[string] `json:"id,omitzero"`
-	Type             CompactionItemType                        `json:"type"`
+	EncryptedContent     string                                    `json:"encrypted_content"`
+	ID                   optionalnullable.OptionalNullable[string] `json:"id,omitzero"`
+	Type                 CompactionItemType                        `json:"type"`
+	AdditionalProperties map[string]any                            `additionalProperties:"true" json:"-"`
 }
 
 func (c CompactionItem) MarshalJSON() ([]byte, error) {
@@ -69,4 +70,11 @@ func (c *CompactionItem) GetType() CompactionItemType {
 		return CompactionItemType("")
 	}
 	return c.Type
+}
+
+func (c *CompactionItem) GetAdditionalProperties() map[string]any {
+	if c == nil {
+		return nil
+	}
+	return c.AdditionalProperties
 }

@@ -1,0 +1,152 @@
+---
+title: "ObservabilityDestination"
+---
+
+## Supported Types
+
+### ObservabilityArizeDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationArize(components.ObservabilityArizeDestination{/* values here */})
+```
+
+### ObservabilityBraintrustDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationBraintrust(components.ObservabilityBraintrustDestination{/* values here */})
+```
+
+### ObservabilityClickhouseDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationClickhouse(components.ObservabilityClickhouseDestination{/* values here */})
+```
+
+### ObservabilityDatadogDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationDatadog(components.ObservabilityDatadogDestination{/* values here */})
+```
+
+### ObservabilityGrafanaDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationGrafana(components.ObservabilityGrafanaDestination{/* values here */})
+```
+
+### ObservabilityLangfuseDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationLangfuse(components.ObservabilityLangfuseDestination{/* values here */})
+```
+
+### ObservabilityLangsmithDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationLangsmith(components.ObservabilityLangsmithDestination{/* values here */})
+```
+
+### ObservabilityNewrelicDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationNewrelic(components.ObservabilityNewrelicDestination{/* values here */})
+```
+
+### ObservabilityOpikDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationOpik(components.ObservabilityOpikDestination{/* values here */})
+```
+
+### ObservabilityOtelCollectorDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationOtelCollector(components.ObservabilityOtelCollectorDestination{/* values here */})
+```
+
+### ObservabilityPosthogDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationPosthog(components.ObservabilityPosthogDestination{/* values here */})
+```
+
+### ObservabilityRampDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationRamp(components.ObservabilityRampDestination{/* values here */})
+```
+
+### ObservabilityS3Destination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationS3(components.ObservabilityS3Destination{/* values here */})
+```
+
+### ObservabilitySentryDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationSentry(components.ObservabilitySentryDestination{/* values here */})
+```
+
+### ObservabilitySnowflakeDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationSnowflake(components.ObservabilitySnowflakeDestination{/* values here */})
+```
+
+### ObservabilityWeaveDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationWeave(components.ObservabilityWeaveDestination{/* values here */})
+```
+
+### ObservabilityWebhookDestination
+
+```go
+observabilityDestination := components.CreateObservabilityDestinationWebhook(components.ObservabilityWebhookDestination{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch observabilityDestination.Type {
+	case components.ObservabilityDestinationTypeArize:
+		// observabilityDestination.ObservabilityArizeDestination is populated
+	case components.ObservabilityDestinationTypeBraintrust:
+		// observabilityDestination.ObservabilityBraintrustDestination is populated
+	case components.ObservabilityDestinationTypeClickhouse:
+		// observabilityDestination.ObservabilityClickhouseDestination is populated
+	case components.ObservabilityDestinationTypeDatadog:
+		// observabilityDestination.ObservabilityDatadogDestination is populated
+	case components.ObservabilityDestinationTypeGrafana:
+		// observabilityDestination.ObservabilityGrafanaDestination is populated
+	case components.ObservabilityDestinationTypeLangfuse:
+		// observabilityDestination.ObservabilityLangfuseDestination is populated
+	case components.ObservabilityDestinationTypeLangsmith:
+		// observabilityDestination.ObservabilityLangsmithDestination is populated
+	case components.ObservabilityDestinationTypeNewrelic:
+		// observabilityDestination.ObservabilityNewrelicDestination is populated
+	case components.ObservabilityDestinationTypeOpik:
+		// observabilityDestination.ObservabilityOpikDestination is populated
+	case components.ObservabilityDestinationTypeOtelCollector:
+		// observabilityDestination.ObservabilityOtelCollectorDestination is populated
+	case components.ObservabilityDestinationTypePosthog:
+		// observabilityDestination.ObservabilityPosthogDestination is populated
+	case components.ObservabilityDestinationTypeRamp:
+		// observabilityDestination.ObservabilityRampDestination is populated
+	case components.ObservabilityDestinationTypeS3:
+		// observabilityDestination.ObservabilityS3Destination is populated
+	case components.ObservabilityDestinationTypeSentry:
+		// observabilityDestination.ObservabilitySentryDestination is populated
+	case components.ObservabilityDestinationTypeSnowflake:
+		// observabilityDestination.ObservabilitySnowflakeDestination is populated
+	case components.ObservabilityDestinationTypeWeave:
+		// observabilityDestination.ObservabilityWeaveDestination is populated
+	case components.ObservabilityDestinationTypeWebhook:
+		// observabilityDestination.ObservabilityWebhookDestination is populated
+	default:
+		// Unknown type - use observabilityDestination.GetUnknownRaw() for raw JSON
+}
+```

@@ -10,11 +10,17 @@ import (
 type UpdateObservabilityDestinationRequest struct {
 	// Optional allowlist of OpenRouter API key hashes. `null` clears the filter (all keys). Omitting leaves the current value. Must contain at least one hash if provided.
 	APIKeyHashes optionalnullable.OptionalNullable[[]string] `json:"api_key_hashes,omitzero"`
+	// Whether to include cost and billing generation metadata.
+	BroadcastGenerationCost *bool `json:"broadcast_generation_cost,omitzero"`
+	// Whether to include identity generation metadata.
+	BroadcastGenerationIdentity *bool `json:"broadcast_generation_identity,omitzero"`
+	// Whether to include request-context generation metadata.
+	BroadcastGenerationRequestContext *bool `json:"broadcast_generation_request_context,omitzero"`
 	// Provider-specific configuration fields to update. Masked values are ignored; unset fields keep their current value.
 	Config map[string]any `json:"config,omitzero"`
 	// Whether the destination is enabled.
-	Enabled     *bool                                                             `json:"enabled,omitzero"`
-	FilterRules optionalnullable.OptionalNullable[ObservabilityFilterRulesConfig] `json:"filter_rules,omitzero"`
+	Enabled     *bool                                                                     `json:"enabled,omitzero"`
+	FilterRules optionalnullable.OptionalNullable[ObservabilityFilterRulesConfigNullable] `json:"filter_rules,omitzero"`
 	// Human-readable name for the destination.
 	Name *string `json:"name,omitzero"`
 	// When true, request/response bodies are not forwarded — only metadata.
@@ -41,6 +47,27 @@ func (u *UpdateObservabilityDestinationRequest) GetAPIKeyHashes() optionalnullab
 	return u.APIKeyHashes
 }
 
+func (u *UpdateObservabilityDestinationRequest) GetBroadcastGenerationCost() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.BroadcastGenerationCost
+}
+
+func (u *UpdateObservabilityDestinationRequest) GetBroadcastGenerationIdentity() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.BroadcastGenerationIdentity
+}
+
+func (u *UpdateObservabilityDestinationRequest) GetBroadcastGenerationRequestContext() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.BroadcastGenerationRequestContext
+}
+
 func (u *UpdateObservabilityDestinationRequest) GetConfig() map[string]any {
 	if u == nil {
 		return nil
@@ -55,7 +82,7 @@ func (u *UpdateObservabilityDestinationRequest) GetEnabled() *bool {
 	return u.Enabled
 }
 
-func (u *UpdateObservabilityDestinationRequest) GetFilterRules() optionalnullable.OptionalNullable[ObservabilityFilterRulesConfig] {
+func (u *UpdateObservabilityDestinationRequest) GetFilterRules() optionalnullable.OptionalNullable[ObservabilityFilterRulesConfigNullable] {
 	if u == nil {
 		return nil
 	}

@@ -1,0 +1,30 @@
+---
+title: "ImageGenerationProviderPreferencesIgnore"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+imageGenerationProviderPreferencesIgnore := components.CreateImageGenerationProviderPreferencesIgnoreProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+imageGenerationProviderPreferencesIgnore := components.CreateImageGenerationProviderPreferencesIgnoreStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch imageGenerationProviderPreferencesIgnore.Type {
+	case components.ImageGenerationProviderPreferencesIgnoreTypeProviderName:
+		// imageGenerationProviderPreferencesIgnore.ProviderName is populated
+	case components.ImageGenerationProviderPreferencesIgnoreTypeStr:
+		// imageGenerationProviderPreferencesIgnore.Str is populated
+}
+```

@@ -1,9 +1,0 @@
-# QueryAnalyticsData1
-
-A row of analytics data with metric/dimension values
-
-
-## Fields
-
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |

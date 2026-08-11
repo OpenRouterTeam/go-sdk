@@ -30,20 +30,20 @@ func (s *SpeechRequestProvider) GetOptions() *ProviderOptions {
 	return s.Options
 }
 
-// ResponseFormatEnum - Audio output format
-type ResponseFormatEnum string
+// SpeechRequestResponseFormat - Audio output format
+type SpeechRequestResponseFormat string
 
 const (
-	ResponseFormatEnumMp3 ResponseFormatEnum = "mp3"
-	ResponseFormatEnumPcm ResponseFormatEnum = "pcm"
+	SpeechRequestResponseFormatMp3 SpeechRequestResponseFormat = "mp3"
+	SpeechRequestResponseFormatPcm SpeechRequestResponseFormat = "pcm"
 )
 
-func (e ResponseFormatEnum) ToPointer() *ResponseFormatEnum {
+func (e SpeechRequestResponseFormat) ToPointer() *SpeechRequestResponseFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ResponseFormatEnum) IsExact() bool {
+func (e *SpeechRequestResponseFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "mp3", "pcm":
@@ -57,16 +57,18 @@ func (e *ResponseFormatEnum) IsExact() bool {
 type SpeechRequest struct {
 	// Text to synthesize
 	Input string `json:"input"`
+	// Reference content for stateless voice cloning: one `input_audio` part carrying the voice sample, optionally accompanied by one `text` part with its transcript. Only routed to endpoints that support voice cloning.
+	InputReferences []SpeechInputReference `json:"input_references,omitzero"`
 	// TTS model identifier
 	Model string `json:"model"`
 	// Provider-specific passthrough configuration
 	Provider *SpeechRequestProvider `json:"provider,omitzero"`
 	// Audio output format
-	ResponseFormat *ResponseFormatEnum `default:"pcm" json:"response_format"`
+	ResponseFormat *SpeechRequestResponseFormat `default:"pcm" json:"response_format"`
 	// Playback speed multiplier. Only used by models that support it (e.g. OpenAI TTS). Ignored by other providers.
 	Speed *float64 `json:"speed,omitzero"`
 	// Voice identifier (provider-specific).
-	Voice string `json:"voice"`
+	Voice *string `json:"voice,omitzero"`
 }
 
 func (s SpeechRequest) MarshalJSON() ([]byte, error) {
@@ -87,6 +89,13 @@ func (s *SpeechRequest) GetInput() string {
 	return s.Input
 }
 
+func (s *SpeechRequest) GetInputReferences() []SpeechInputReference {
+	if s == nil {
+		return nil
+	}
+	return s.InputReferences
+}
+
 func (s *SpeechRequest) GetModel() string {
 	if s == nil {
 		return ""
@@ -101,7 +110,7 @@ func (s *SpeechRequest) GetProvider() *SpeechRequestProvider {
 	return s.Provider
 }
 
-func (s *SpeechRequest) GetResponseFormat() *ResponseFormatEnum {
+func (s *SpeechRequest) GetResponseFormat() *SpeechRequestResponseFormat {
 	if s == nil {
 		return nil
 	}
@@ -115,9 +124,9 @@ func (s *SpeechRequest) GetSpeed() *float64 {
 	return s.Speed
 }
 
-func (s *SpeechRequest) GetVoice() string {
+func (s *SpeechRequest) GetVoice() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.Voice
 }
