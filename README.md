@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.38
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.39
 > ```
 
 <!-- No Summary [summary] -->
@@ -259,7 +259,7 @@ func main() {
 ### [Generations](docs/sdks/generations/README.md)
 
 * [GetGeneration](docs/sdks/generations/README.md#getgeneration) - Get request & usage metadata for a generation
-* [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt and completion content for a generation
+* [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt, completion, and error content for a generation
 * [SubmitFeedback](docs/sdks/generations/README.md#submitfeedback) - Submit feedback for a generation
 
 ### [Guardrails](docs/sdks/guardrails/README.md)

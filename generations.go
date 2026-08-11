@@ -412,7 +412,7 @@ func (s *Generations) GetGeneration(ctx context.Context, id string, opts ...oper
 
 }
 
-// ListGenerationContent - Get stored prompt and completion content for a generation
+// ListGenerationContent - Get stored prompt, completion, and error content for a generation
 func (s *Generations) ListGenerationContent(ctx context.Context, id string, opts ...operations.Option) (*components.GenerationContentResponse, error) {
 	request := operations.ListGenerationContentRequest{
 		ID: id,
