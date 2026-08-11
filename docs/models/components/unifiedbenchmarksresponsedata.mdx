@@ -7,19 +7,25 @@ title: "UnifiedBenchmarksResponseData"
 ### UnifiedBenchmarksAAItem
 
 ```go
-unifiedBenchmarksResponseData := components.CreateUnifiedBenchmarksResponseDataArtificialAnalysis(components.UnifiedBenchmarksAAItem{/* values here */})
+unifiedBenchmarksResponseData := components.CreateUnifiedBenchmarksResponseDataUnifiedBenchmarksAAItem(components.UnifiedBenchmarksAAItem{/* values here */})
 ```
 
 ### UnifiedBenchmarksDAItem
 
 ```go
-unifiedBenchmarksResponseData := components.CreateUnifiedBenchmarksResponseDataDesignArena(components.UnifiedBenchmarksDAItem{/* values here */})
+unifiedBenchmarksResponseData := components.CreateUnifiedBenchmarksResponseDataUnifiedBenchmarksDAItem(components.UnifiedBenchmarksDAItem{/* values here */})
 ```
 
 ### UnifiedBenchmarksORItem
 
 ```go
-unifiedBenchmarksResponseData := components.CreateUnifiedBenchmarksResponseDataOpenrouter(components.UnifiedBenchmarksORItem{/* values here */})
+unifiedBenchmarksResponseData := components.CreateUnifiedBenchmarksResponseDataUnifiedBenchmarksORItem(components.UnifiedBenchmarksORItem{/* values here */})
+```
+
+### UnifiedBenchmarksSearchItem
+
+```go
+unifiedBenchmarksResponseData := components.CreateUnifiedBenchmarksResponseDataUnifiedBenchmarksSearchItem(components.UnifiedBenchmarksSearchItem{/* values here */})
 ```
 
 ## Union Discrimination
@@ -28,13 +34,13 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch unifiedBenchmarksResponseData.Type {
-	case components.UnifiedBenchmarksResponseDataTypeArtificialAnalysis:
+	case components.UnifiedBenchmarksResponseDataTypeUnifiedBenchmarksAAItem:
 		// unifiedBenchmarksResponseData.UnifiedBenchmarksAAItem is populated
-	case components.UnifiedBenchmarksResponseDataTypeDesignArena:
+	case components.UnifiedBenchmarksResponseDataTypeUnifiedBenchmarksDAItem:
 		// unifiedBenchmarksResponseData.UnifiedBenchmarksDAItem is populated
-	case components.UnifiedBenchmarksResponseDataTypeOpenrouter:
+	case components.UnifiedBenchmarksResponseDataTypeUnifiedBenchmarksORItem:
 		// unifiedBenchmarksResponseData.UnifiedBenchmarksORItem is populated
-	default:
-		// Unknown type - use unifiedBenchmarksResponseData.GetUnknownRaw() for raw JSON
+	case components.UnifiedBenchmarksResponseDataTypeUnifiedBenchmarksSearchItem:
+		// unifiedBenchmarksResponseData.UnifiedBenchmarksSearchItem is populated
 }
 ```

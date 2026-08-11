@@ -1,0 +1,30 @@
+---
+title: "BenchmarkType"
+---
+
+Return results for one exact OpenRouter benchmark. A `search_*` value narrows the response to search results only; a classic value narrows the OpenRouter items and leaves other sources' items as they are.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.BenchmarkTypeGpqaDiamond
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.BenchmarkType("custom_value")
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `BenchmarkTypeGpqaDiamond`             | gpqa_diamond                           |
+| `BenchmarkTypeTauBenchVerifiedAirline` | tau_bench_verified_airline             |
+| `BenchmarkTypeSearchBrowsecomp`        | search_browsecomp                      |
+| `BenchmarkTypeSearchHle`               | search_hle                             |
+| `BenchmarkTypeSearchDsqa`              | search_dsqa                            |
+| `BenchmarkTypeSearchWidesearch`        | search_widesearch                      |
