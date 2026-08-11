@@ -41,7 +41,7 @@ type LegacyWebSearchServerTool struct {
 	MaxResults *int64 `json:"max_results,omitzero"`
 	// Maximum number of web searches the model may perform in a single request. Once reached, further search calls return an error result instead of executing. Applies to the Exa, Firecrawl, Parallel, and Perplexity engines. With native provider search, forwarded only to Anthropic (as `max_uses`); other native search providers have no equivalent parameter and ignore it.
 	MaxUses *int64 `json:"max_uses,omitzero"`
-	// Engine-native search mode. Exa supports instant, fast, auto (default), deep-lite, deep, and deep-reasoning. Parallel supports turbo (default), basic, and advanced. Modes unsupported by the selected engine are ignored.
+	// Engine-native search mode. Exa supports instant, fast, auto (default), deep-lite, deep, and deep-reasoning. Parallel supports turbo, basic (default), and advanced. Modes unsupported by the selected engine are ignored.
 	Mode *WebSearchMode `json:"mode,omitzero"`
 	// Size of the search context for web search tools
 	SearchContextSize *SearchContextSizeEnum        `json:"search_context_size,omitzero"`
