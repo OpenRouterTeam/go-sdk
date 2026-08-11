@@ -221,6 +221,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Crucible            map[string]any `json:"crucible,omitzero"`
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
+	Databricks          map[string]any `json:"databricks,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
 	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
@@ -556,6 +557,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetDarkbloom() map[string]an
 		return nil
 	}
 	return i.Darkbloom
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetDatabricks() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Databricks
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetDecart() map[string]any {

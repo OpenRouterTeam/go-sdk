@@ -40,6 +40,7 @@ type ProviderOptions struct {
 	Crucible            map[string]any `json:"crucible,omitzero"`
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
+	Databricks          map[string]any `json:"databricks,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
 	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
@@ -375,6 +376,13 @@ func (p *ProviderOptions) GetDarkbloom() map[string]any {
 		return nil
 	}
 	return p.Darkbloom
+}
+
+func (p *ProviderOptions) GetDatabricks() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Databricks
 }
 
 func (p *ProviderOptions) GetDecart() map[string]any {
