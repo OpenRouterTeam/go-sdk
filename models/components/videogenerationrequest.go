@@ -70,6 +70,7 @@ type VideoGenerationRequestOptions struct {
 	Crucible            map[string]any `json:"crucible,omitzero"`
 	Crusoe              map[string]any `json:"crusoe,omitzero"`
 	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
+	Databricks          map[string]any `json:"databricks,omitzero"`
 	Decart              map[string]any `json:"decart,omitzero"`
 	Deepgram            map[string]any `json:"deepgram,omitzero"`
 	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
@@ -405,6 +406,13 @@ func (v *VideoGenerationRequestOptions) GetDarkbloom() map[string]any {
 		return nil
 	}
 	return v.Darkbloom
+}
+
+func (v *VideoGenerationRequestOptions) GetDatabricks() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Databricks
 }
 
 func (v *VideoGenerationRequestOptions) GetDecart() map[string]any {
