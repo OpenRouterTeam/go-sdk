@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 3f8e7673c418d08079f41d6469ba7def
+  docChecksum: dbf7f3610d8ee9cd445bdc2c0336ed26
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.39
-  configChecksum: 9fd17975595ed0408567a334a712a175
+  releaseVersion: 0.7.40
+  configChecksum: 1c502d6dfd7e5e41073a6c49fa6b7f68
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 2906ed94-9bf5-4587-b0dd-78ef7b4d01db
-  pristine_commit_hash: 98586c45592180124a50958a90d49ea911231b9b
-  pristine_tree_hash: fd04a0ea34c3387da4bbab6b7dc889661aae4d3c
+  generation_id: b1c32629-289a-4b00-a74e-bcb86b6c15ae
+  pristine_commit_hash: ffa61c7af1d491bf98df8919bc557b1b851f37e7
+  pristine_tree_hash: 6adffe4a722adfd2274bf8c38302282ade4e05bf
 features:
   go:
     acceptHeaders: 2.81.2
@@ -675,8 +675,8 @@ trackedFiles:
     pristine_git_object: 4e9d6619a12a9318042f524b7a639d9416d1093f
   docs/models/components/apprankingsresponse.mdx:
     id: 47fa65da7a60
-    last_write_checksum: sha1:c5815051aab50787434e65bccc8226e4bdfc02cd
-    pristine_git_object: 7faec7425b4240352983487c657028b481cc8f06
+    last_write_checksum: sha1:0ccbf080dad5c5774a4e6a4d9d05b2f3c66dc13c
+    pristine_git_object: bb0c7e9e97ef26ef634d6013604429ea18c57190
   docs/models/components/architecture.mdx:
     id: 8c2f814e623f
     last_write_checksum: sha1:56e53d44143da88290d669422cfeed051eae0f59
@@ -4411,16 +4411,16 @@ trackedFiles:
     pristine_git_object: 6c3196e4d4b8e5b87266f248045ad5f4a17a84ef
   docs/models/components/rankingsdailymeta.mdx:
     id: 9736ff0778f1
-    last_write_checksum: sha1:84dba7b35be2b917511111f6468536a5e11dc020
-    pristine_git_object: aeefdb44d703aaf01ad18f99f1a631d002efe14f
+    last_write_checksum: sha1:df059ded56eccf7e49fc4f82fee13d67ce8e0953
+    pristine_git_object: 969521c407958285820c4ec552b6ccf74ae060af
   docs/models/components/rankingsdailymetaversion.mdx:
     id: 2413796a54dc
     last_write_checksum: sha1:b8a05482b238857052bee0c75d8063231bae535e
     pristine_git_object: 96592e3af7a194c454497fe9155f835da58088d6
   docs/models/components/rankingsdailyresponse.mdx:
     id: f7c518bce9df
-    last_write_checksum: sha1:f997f5992057367a139d916f52f3c02cfbac3e83
-    pristine_git_object: 8b6f945c18a11922d362fc3a969870ef09eb8d2a
+    last_write_checksum: sha1:5ac47b918733cbee544a25f8e117212adb9ad4b4
+    pristine_git_object: 69b87177385e8ae0b12eaa187e5819a6e33fa47b
   docs/models/components/reason.mdx:
     id: 9540c30e3124
     last_write_checksum: sha1:f5a6a6951c3d67d31b22a1fac10ee5ccb8cc59f8
@@ -6003,8 +6003,8 @@ trackedFiles:
     pristine_git_object: 062c2050c69027c924c024a2175f02dee3055596
   docs/models/operations/getapprankingsresponse.mdx:
     id: 18a4f818cee5
-    last_write_checksum: sha1:dc708dbc32889b7df04727b021ef800ab437187a
-    pristine_git_object: ff7961b5ddb01676cbfd26d13ec92ceb8d063cf8
+    last_write_checksum: sha1:f56d980bcd1a19fa7818cb3d07e0043562a040cc
+    pristine_git_object: e1bd436e3e2c019d90a400d3dbc5372ed5c2ba93
   docs/models/operations/getapprankingssort.mdx:
     id: 34f74892b17f
     last_write_checksum: sha1:b49f6e9e0b005e1c0d7505f4ba2b0df97b5ddd54
@@ -9691,8 +9691,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:f37170ef1941a19b4ae1a99f5ace9209adee3abc
-    pristine_git_object: 661306f3e22cb4e4432473d53142f1d335caf0ac
+    last_write_checksum: sha1:b670e4f8b01c7e3bd96211ba0a9abaa84e2ad653
+    pristine_git_object: 8efe39da230d2372f1a8e2833303a94221115aa2
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10814,7 +10814,7 @@ examples:
           offset: 0
       responses:
         "200":
-          application/json: {"data": [{"app_id": 12345, "app_name": "Cline", "rank": 1, "total_requests": 4321, "total_tokens": "12345678"}, {"app_id": 67890, "app_name": "Roo Code", "rank": 2, "total_requests": 2109, "total_tokens": "9876543"}], "meta": {"as_of": "2026-05-12T02:00:00Z", "end_date": "2026-05-11", "start_date": "2026-04-12", "version": "v1"}}
+          application/json: {"data": [{"app_id": 12345, "app_name": "Cline", "rank": 1, "total_requests": 4321, "total_tokens": "12345678"}, {"app_id": 67890, "app_name": "Roo Code", "rank": 2, "total_requests": 2109, "total_tokens": "9876543"}], "meta": {"as_of": "2026-05-12T02:00:00.000Z", "end_date": "2026-05-11", "start_date": "2026-04-12", "version": "v1"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -10860,7 +10860,7 @@ examples:
     speakeasy-default-get-rankings-daily:
       responses:
         "200":
-          application/json: {"data": [{"date": "2026-05-11", "model_permaslug": "openai/gpt-4o-2024-05-13", "total_tokens": "12345678"}, {"date": "2026-05-11", "model_permaslug": "anthropic/claude-3.5-sonnet-20241022", "total_tokens": "9876543"}], "meta": {"as_of": "2026-05-12T02:00:00Z", "end_date": "2026-05-11", "start_date": "2026-04-12", "version": "v1"}}
+          application/json: {"data": [{"date": "2026-05-11", "model_permaslug": "openai/gpt-4o-2024-05-13", "total_tokens": "12345678"}, {"date": "2026-05-11", "model_permaslug": "anthropic/claude-3.5-sonnet-20241022", "total_tokens": "9876543"}], "meta": {"as_of": "2026-05-12T02:00:00.000Z", "end_date": "2026-05-11", "start_date": "2026-04-12", "version": "v1"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -11491,6 +11491,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Generations.ListGenerationContent()`:  `response.Data.Error` **Added**
