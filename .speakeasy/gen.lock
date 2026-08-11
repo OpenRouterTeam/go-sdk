@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 2da4c560ef5656d0da781d3e63d1b2fa
+  docChecksum: 3f8e7673c418d08079f41d6469ba7def
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.38
-  configChecksum: 87ba24872103f8f2c2d83f63d940446e
+  releaseVersion: 0.7.39
+  configChecksum: 9fd17975595ed0408567a334a712a175
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a1864533-2ddd-4dce-8a40-df9335370732
-  pristine_commit_hash: 5fff18147da2a92bd8921bca823969d1988d5381
-  pristine_tree_hash: b8dc3cb782e77c3b6c6dd4b5666ad4295b7f3786
+  generation_id: 2906ed94-9bf5-4587-b0dd-78ef7b4d01db
+  pristine_commit_hash: 98586c45592180124a50958a90d49ea911231b9b
+  pristine_tree_hash: fd04a0ea34c3387da4bbab6b7dc889661aae4d3c
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2219,16 +2219,24 @@ trackedFiles:
     pristine_git_object: 70328a8d96a80d232f6dfc89905b31be210e996c
   docs/models/components/generationcontentdata.mdx:
     id: 8d96fea42847
-    last_write_checksum: sha1:4fb4ee27ee84d4b7d2a93bbf8a1225c0ca292095
-    pristine_git_object: a2f0ddbbfaa1647f8a8c0a72e7bd41ce4522e16a
+    last_write_checksum: sha1:60baa313c0aaf68bb38eb9a700c2758397ed418d
+    pristine_git_object: 62779e053031e57f983893c116e405bc1fad55fb
   docs/models/components/generationcontentdataoutput.mdx:
     id: 2648016c8da3
     last_write_checksum: sha1:5e93d60df2ca78d8dd95508d01803a6ec9558317
     pristine_git_object: fedfa624b1f6eb4120c2dbbd02b295e46fa2b946
+  docs/models/components/generationcontenterror.mdx:
+    id: ebeda778380d
+    last_write_checksum: sha1:e92b2eb4bb0f229bae11a86def67bf9dd60703b0
+    pristine_git_object: ee5798da66339ce61121852a32a1d74aa0183ec5
+  docs/models/components/generationcontenterrorattempt.mdx:
+    id: ca9cbfddf265
+    last_write_checksum: sha1:0a747c6b5d64325e469e73821cc8e2f433d7df3a
+    pristine_git_object: fab3b45f4d36a13fc7b9cf9db40211ab3f824526
   docs/models/components/generationcontentresponse.mdx:
     id: 6b72769c37d4
-    last_write_checksum: sha1:d5a7789ff330bd615be47ebd1ce1ad66636ff60d
-    pristine_git_object: 2a3172166000627201ad9dc406fcbe2a8f7544d8
+    last_write_checksum: sha1:d04dbfe5fdbbb77f85df0335ad4e2e4ec8de4b6b
+    pristine_git_object: 5c1d310434d67cf78e5b84755fe037419ffe08a0
   docs/models/components/generationresponse.mdx:
     id: 8d1698d16002
     last_write_checksum: sha1:ca032dd22312364dd805e0d013d9df9be61c7a64
@@ -6679,8 +6687,8 @@ trackedFiles:
     pristine_git_object: 8087d035c713a9a7feefc9181db83b2efda7d12e
   docs/sdks/generations/README.mdx:
     id: a754fecc8514
-    last_write_checksum: sha1:43bf66415aa9e97fd288f2b4857b35207ab42ba9
-    pristine_git_object: 4b03e3aaa9c883062814485b3b57f4238bc0cdfe
+    last_write_checksum: sha1:e6da674f066701c88604b0e1690e56821f057483
+    pristine_git_object: c3980bc639ff07cd208157f898213d7f3d4d10c9
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
     last_write_checksum: sha1:5e238c648ac9f5d1de95e1f17c2003da0e8d4f4c
@@ -6755,8 +6763,8 @@ trackedFiles:
     pristine_git_object: 4eae69e2b6c9586a700f639bbe322af78fc3c842
   generations.go:
     id: ad539e13a3f6
-    last_write_checksum: sha1:73fd19e5618413f47d1277829a0df5ae6486b7fb
-    pristine_git_object: 3c11fb8490ca1a03872ad9ae61b2fd909a6f507b
+    last_write_checksum: sha1:6d1bc2484c0a06893335852bf69cd97ec61a157e
+    pristine_git_object: 2b0d66639bb8a1bb90759ec02aeadb394d0cf678
   go.mod:
     id: c47645c391ad
     last_write_checksum: sha1:4d254fc386e7e933f2bae7d9f025c358595d9a15
@@ -7791,12 +7799,20 @@ trackedFiles:
     pristine_git_object: 37a27e8664172063e8add027b8fcf2f7d4a6b2b5
   models/components/generationcontentdata.go:
     id: 98d05ea3b77f
-    last_write_checksum: sha1:ce7d246b14f8f890dc30293f2e83e223a1d88ed0
-    pristine_git_object: dec65b90a00d74bb6f657d51904ec3591039d871
+    last_write_checksum: sha1:021f524d5f25417dea2e8b17638c29f05464d1b6
+    pristine_git_object: 4c67637cf7bd53159be65e0b812cd4c9abaaf097
+  models/components/generationcontenterror.go:
+    id: baaa103783c8
+    last_write_checksum: sha1:f4418a927f521d97586e66945196e121682e877d
+    pristine_git_object: fe7287efef33886576757dd88e2b8789266ec960
+  models/components/generationcontenterrorattempt.go:
+    id: 4e68d01494e9
+    last_write_checksum: sha1:1f17626ceeef114330f41d1e898a97251b4d3541
+    pristine_git_object: 08ba8ac2072b042899ba0e9f3ec52f6bfae76871
   models/components/generationcontentresponse.go:
     id: c500fab063db
-    last_write_checksum: sha1:d9ff88f8bc4a8b072b398b90870b1c0e61752260
-    pristine_git_object: 02bc155b320011ad6ea0aad03dd70f0962c39ba6
+    last_write_checksum: sha1:3ce50f352ef904abc323949a86cf6adbcdf8c290
+    pristine_git_object: 9fa4e66f1b9e1a0882870f2633e90ffec3e2f698
   models/components/generationresponse.go:
     id: 89ce21b091ac
     last_write_checksum: sha1:4edb5bce673ef3c40df21dd35758a8e920729196
@@ -9675,8 +9691,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:af7a68a1e94e109eeda2fd8d94cfcfcd08e3237e
-    pristine_git_object: 9030a1529d691f1fe8964d38142b4f58f6763d41
+    last_write_checksum: sha1:f37170ef1941a19b4ae1a99f5ace9209adee3abc
+    pristine_git_object: 661306f3e22cb4e4432473d53142f1d335caf0ac
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10495,7 +10511,7 @@ examples:
           id: "gen-1234567890"
       responses:
         "200":
-          application/json: {"data": {"input": {"messages": [{"content": "What is the meaning of life?", "role": "user"}]}, "output": {"completion": "The meaning of life is a philosophical question...", "reasoning": null}}}
+          application/json: {"data": {"error": null, "input": {"messages": [{"content": "What is the meaning of life?", "role": "user"}]}, "output": {"completion": "The meaning of life is a philosophical question...", "reasoning": null}}}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "403":
@@ -11475,4 +11491,6 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Benchmarks.GetBenchmarks()`: \n  *  `request.Request` **Changed**\n  *  `response.Data[]` **Changed** (Breaking ⚠️)\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Generations.ListGenerationContent()`:  `response.Data.Error` **Added**

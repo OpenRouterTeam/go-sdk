@@ -170,12 +170,21 @@ func (g *GenerationContentDataOutput) GetReasoning() *string {
 	return g.Reasoning
 }
 
-// GenerationContentData - Stored prompt and completion content
+// GenerationContentData - Stored prompt and completion content, plus the failure error when one was stored
 type GenerationContentData struct {
+	// The stored failure for this generation, or null when it succeeded
+	Error *GenerationContentError `json:"error"`
 	// The input to the generation — either a prompt string or an array of messages
 	Input InputUnion `json:"input"`
 	// The output from the generation
 	Output GenerationContentDataOutput `json:"output"`
+}
+
+func (g *GenerationContentData) GetError() *GenerationContentError {
+	if g == nil {
+		return nil
+	}
+	return g.Error
 }
 
 func (g *GenerationContentData) GetInput() InputUnion {

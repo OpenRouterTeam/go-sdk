@@ -259,7 +259,7 @@ func main() {
 ### [Generations](docs/sdks/generations/README.md)
 
 * [GetGeneration](docs/sdks/generations/README.md#getgeneration) - Get request & usage metadata for a generation
-* [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt and completion content for a generation
+* [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt, completion, and error content for a generation
 * [SubmitFeedback](docs/sdks/generations/README.md#submitfeedback) - Submit feedback for a generation
 
 ### [Guardrails](docs/sdks/guardrails/README.md)
