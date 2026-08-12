@@ -1,0 +1,13 @@
+---
+title: "GetSessionCostRequest"
+---
+
+## Fields
+
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   | Example                                                       |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `AppSlug`                                                     | `*string`                                                     | :heavy_minus_sign:                                            | Filter to one published harness slug.                         | hermes-agent                                                  |
+| `Model`                                                       | `*string`                                                     | :heavy_minus_sign:                                            | Exact model permaslug filter. Works across all harness apps.  | anthropic/claude-4.8-opus                                     |
+| `TurnRange`                                                   | [*operations.TurnRange](../../models/operations/turnrange.mdx) | :heavy_minus_sign:                                            | Filter by the inclusive number of turns in a session.         | 10-49-turns                                                   |
+| `Limit`                                                       | `*int64`                                                      | :heavy_minus_sign:                                            | Maximum number of cells to return (1-500). Defaults to 100.   | 100                                                           |
+| `Offset`                                                      | optionalnullable.OptionalNullable[`int64`]                    | :heavy_minus_sign:                                            | Number of sorted cells to skip (0-5000). Defaults to 0.       | 0                                                             |

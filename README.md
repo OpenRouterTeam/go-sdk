@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.43
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.44
 > ```
 
 <!-- No Summary [summary] -->
@@ -237,6 +237,7 @@ func main() {
 
 * [GetAppRankings](docs/sdks/datasets/README.md#getapprankings) - Top apps by token usage
 * [GetRankingsDaily](docs/sdks/datasets/README.md#getrankingsdaily) - Daily token totals for top 50 models
+* [GetSessionCost](docs/sdks/datasets/README.md#getsessioncost) - Cost per session by harness and model
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 

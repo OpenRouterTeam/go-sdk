@@ -11,6 +11,7 @@ Datasets endpoints
 
 * [GetAppRankings](#getapprankings) - Top apps by token usage
 * [GetRankingsDaily](#getrankingsdaily) - Daily token totals for top 50 models
+* [GetSessionCost](#getsessioncost) - Cost per session by harness and model
 
 ## GetAppRankings
 
@@ -171,6 +172,80 @@ func main() {
 ### Response
 
 **[*components.RankingsDailyResponse](../../models/components/rankingsdailyresponse.mdx), error**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| sdkerrors.BadRequestResponseError      | 400                                    | application/json                       |
+| sdkerrors.UnauthorizedResponseError    | 401                                    | application/json                       |
+| sdkerrors.TooManyRequestsResponseError | 429                                    | application/json                       |
+| sdkerrors.InternalServerResponseError  | 500                                    | application/json                       |
+| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
+
+## GetSessionCost
+
+Returns weekly refreshed, aggregated cost-per-session cells for the published harnesses.
+Sessions are never pooled across apps. Medians are of per-session USD spend, and
+privacy-preserving aggregation never exposes clerk_user_id values or per-session rows.
+
+Filter by `app_slug`, `model`, or `turn_range`. Filtering by `model` alone works across apps
+for harness-vs-harness comparison at a fixed model. Results refresh weekly and include the source snapshot
+window in `meta`.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Datasets.GetSessionCost(ctx, &operations.GetSessionCostRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |
+| `request`                                                                            | [operations.GetSessionCostRequest](../../models/operations/getsessioncostrequest.mdx) | :heavy_check_mark:                                                                   | The request object to use for the request.                                           |
+| `opts`                                                                               | [][operations.Option](../../models/operations/option.mdx)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
+
+### Response
+
+**[*operations.GetSessionCostResponse](../../models/operations/getsessioncostresponse.mdx), error**
 
 ### Errors
 
