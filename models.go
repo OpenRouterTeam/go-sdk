@@ -902,7 +902,7 @@ func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...op
 }
 
 // ListForUser - List models filtered by user provider preferences, privacy settings, and guardrails
-// List models filtered by user provider preferences, [privacy settings](https://openrouter.ai/docs/guides/privacy/provider-logging), and [guardrails](https://openrouter.ai/docs/guides/features/guardrails). If requesting through `eu.openrouter.ai/api/v1/...` the results will be filtered to models that satisfy [EU in-region routing](https://openrouter.ai/docs/guides/privacy/provider-logging#enterprise-eu-in-region-routing).
+// List models filtered by user provider preferences, [privacy settings](https://openrouter.ai/docs/guides/privacy/provider-logging), and [guardrails](https://openrouter.ai/docs/guides/features/guardrails). If requesting through a regional hostname, the results will be filtered to models that satisfy in-region routing for that region.
 func (s *Models) ListForUser(ctx context.Context, security operations.ListModelsUserSecurity, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListModelsUserResponse, error) {
 	request := operations.ListModelsUserRequest{
 		Offset: offset,
