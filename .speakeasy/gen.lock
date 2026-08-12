@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: a57a7e79224a382045607af7023e7e40
+  docChecksum: 664a8832c01dd700370165caefc74415
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.42
-  configChecksum: 7b9d88a4c7f8985d694465cd5909cf59
+  releaseVersion: 0.7.43
+  configChecksum: 3fe50c4b2200ade8269da224b2174173
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 6a053ee3-6a87-46b2-b84d-fa92efd2917f
-  pristine_commit_hash: 1e41d16a82c2b655a0b5d24af99c8dc10dbdeb65
-  pristine_tree_hash: 69bf79b88730fa550d2bd99fcafc4d67bf24150b
+  generation_id: d655f786-a40f-4b58-844c-e295f07b063f
+  pristine_commit_hash: 429e9b09dd0bc53a3b166f2fecb9279bf55d39c2
+  pristine_tree_hash: d0dd36e0c810222f018e94d566bb6f023857fac0
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5927,8 +5927,8 @@ trackedFiles:
     pristine_git_object: b7e6148cd064f84caacf2e1619e44956ecd1a63c
   docs/models/operations/deleteworkspacerequest.mdx:
     id: e8540611cea0
-    last_write_checksum: sha1:ca824b1a61086d90a96720d0b6d5ca6d03bd6fc6
-    pristine_git_object: 6187d1d2e5c68c3bb55c6df9bf7563dfb174adc3
+    last_write_checksum: sha1:eb2a78e257dafaf8890c6a1d68453924449886ed
+    pristine_git_object: 4f190537de49b77d72e801928ba2b2516e71baef
   docs/models/operations/dimension.mdx:
     id: ad56641fb797
     last_write_checksum: sha1:00bbf86f0ad291d6683afd3221c0f3fc10e4b682
@@ -6747,8 +6747,8 @@ trackedFiles:
     pristine_git_object: 4604686ee6b95b50345a1c16f16668c166e0e97c
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
-    last_write_checksum: sha1:2a7e6cdc7da840a281d1484ae7dfdb4bc7299ea5
-    pristine_git_object: 1496a456774d6a89bc2c93e849e0e7883d58c0c4
+    last_write_checksum: sha1:e762946b927805631f0687085d5b4d9132a0abd3
+    pristine_git_object: 694742ec0a4113e27beb47a937fecaeaded4282a
   embeddings.go:
     id: f7354b2d5b3e
     last_write_checksum: sha1:d94c09773562d4220f10139767c5ec4127ffe429
@@ -9367,8 +9367,8 @@ trackedFiles:
     pristine_git_object: e10f830b93ff945543b88a5ca75a2a143b43974c
   models/operations/deleteworkspace.go:
     id: 8f02b59b9869
-    last_write_checksum: sha1:6c0181481749af01be3d10d14d42c2ebd02dbde2
-    pristine_git_object: 20af63dfd842ee929546ea2d4f9060e39aa85e9c
+    last_write_checksum: sha1:3b15026ce88833c2e4a7bd6f6dc805dd5e606df1
+    pristine_git_object: 662597b0a41ec0257a66e8e327f0112a44664ad3
   models/operations/deleteworkspacebudget.go:
     id: 0d7a80f7f117
     last_write_checksum: sha1:0c7e8b238e6cf4c4db21d9d169126056b382a7eb
@@ -9691,8 +9691,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:b2d4afa12d687117a9722b469a73b730e02ae591
-    pristine_git_object: f7acd6d436ce7d0c33d4976380198a9f3aea66dc
+    last_write_checksum: sha1:e79781323e3a2a6f26ed7891a8e45b28db04663a
+    pristine_git_object: ca32676db5d2a90abce4080ef9ad9f854cbe3a87
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9763,8 +9763,8 @@ trackedFiles:
     pristine_git_object: aa4df35502a56e74188df460f027f7e832c8dc31
   workspaces.go:
     id: 643517773c6f
-    last_write_checksum: sha1:59ed5652682b17ae82a4365bbd99e1a8b5ad42ce
-    pristine_git_object: e2fb8330da17bc84b8a9aaf23182a298336c9fd8
+    last_write_checksum: sha1:9ccd246340538762417fed738d4d8253bad8b790
+    pristine_git_object: 80f56660447bed75a16ed5047b2c81c06e5468a2
 examples:
   createResponses:
     speakeasy-default-create-responses:
@@ -11491,4 +11491,6 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Models.List()`: \n  *  `request.Request.Region` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Workspaces.Delete()`:  `request.ConfirmDefaultSettingsDeletion` **Added**

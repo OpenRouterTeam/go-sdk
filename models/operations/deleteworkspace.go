@@ -5,6 +5,8 @@ package operations
 type DeleteWorkspaceRequest struct {
 	// The workspace ID (UUID) or slug
 	ID string `pathParam:"style=simple,explode=false,name=id"`
+	// Required to delete the default workspace (currently limited to internal OpenRouter administrators while the capability rolls out). Deleting it permanently disables the account’s unscoped inference API keys (management/provisioning keys are retained) and its budgets, guardrails, classifiers, and broadcast destinations. Ignored for non-default workspaces.
+	ConfirmDefaultSettingsDeletion *bool `queryParam:"style=form,explode=true,name=confirm_default_settings_deletion"`
 }
 
 func (d *DeleteWorkspaceRequest) GetID() string {
@@ -12,4 +14,11 @@ func (d *DeleteWorkspaceRequest) GetID() string {
 		return ""
 	}
 	return d.ID
+}
+
+func (d *DeleteWorkspaceRequest) GetConfirmDefaultSettingsDeletion() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmDefaultSettingsDeletion
 }
