@@ -237,6 +237,7 @@ func main() {
 
 * [GetAppRankings](docs/sdks/datasets/README.md#getapprankings) - Top apps by token usage
 * [GetRankingsDaily](docs/sdks/datasets/README.md#getrankingsdaily) - Daily token totals for top 50 models
+* [GetSessionCost](docs/sdks/datasets/README.md#getsessioncost) - Cost per session by harness and model
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 

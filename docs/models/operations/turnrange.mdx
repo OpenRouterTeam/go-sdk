@@ -1,0 +1,28 @@
+---
+title: "TurnRange"
+---
+
+Filter by the inclusive number of turns in a session.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.TurnRangeOneMinusTurn
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.TurnRange("custom_value")
+```
+
+
+## Values
+
+| Name                            | Value                           |
+| ------------------------------- | ------------------------------- |
+| `TurnRangeOneMinusTurn`         | 1-turn                          |
+| `TurnRangeTwoMinus9MinusTurns`  | 2-9-turns                       |
+| `TurnRangeTenMinus49MinusTurns` | 10-49-turns                     |
+| `TurnRangeFiftyMinusPlusTurns`  | 50-plus-turns                   |
