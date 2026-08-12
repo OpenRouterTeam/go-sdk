@@ -2,7 +2,7 @@
 title: "Region"
 ---
 
-Filter to models with endpoints in the given data region. Currently only "eu" is supported.
+Filter to models with endpoints in the given data region ("eu" or "us").
 
 ## Example Usage
 
@@ -12,6 +12,9 @@ import (
 )
 
 value := operations.RegionEu
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.Region("custom_value")
 ```
 
 
@@ -20,3 +23,4 @@ value := operations.RegionEu
 | Name       | Value      |
 | ---------- | ---------- |
 | `RegionEu` | eu         |
+| `RegionUs` | us         |

@@ -123,28 +123,27 @@ func (e *Zdr) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Region - Filter to models with endpoints in the given data region. Currently only "eu" is supported.
+// Region - Filter to models with endpoints in the given data region ("eu" or "us").
 type Region string
 
 const (
 	RegionEu Region = "eu"
+	RegionUs Region = "us"
 )
 
 func (e Region) ToPointer() *Region {
 	return &e
 }
-func (e *Region) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Region) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "eu", "us":
+			return true
+		}
 	}
-	switch v {
-	case "eu":
-		*e = Region(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Region: %v", v)
-	}
+	return false
 }
 
 type GetModelsRequest struct {
@@ -180,7 +179,7 @@ type GetModelsRequest struct {
 	Distillable *Distillable `queryParam:"style=form,explode=true,name=distillable"`
 	// When set to "true", return only models with zero data retention endpoints.
 	Zdr *Zdr `queryParam:"style=form,explode=true,name=zdr"`
-	// Filter to models with endpoints in the given data region. Currently only "eu" is supported.
+	// Filter to models with endpoints in the given data region ("eu" or "us").
 	Region *Region `queryParam:"style=form,explode=true,name=region"`
 	// Minimum completion (output) price in $/M tokens.
 	MinOutputPrice optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_output_price"`

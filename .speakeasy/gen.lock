@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6a8c1cae876b772c58d793a1572c61fa
+  docChecksum: a57a7e79224a382045607af7023e7e40
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.41
-  configChecksum: 30d5240e16a5ee8c393566b53b2c6c37
+  releaseVersion: 0.7.42
+  configChecksum: 7b9d88a4c7f8985d694465cd5909cf59
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 9ec4e282-ca15-4dc1-b8e0-84e482ae2620
-  pristine_commit_hash: 74f493ed3905a48df100066d111771ec0586d34b
-  pristine_tree_hash: 54a441154050def874074c893ebc2d99e4d5f701
+  generation_id: 6a053ee3-6a87-46b2-b84d-fa92efd2917f
+  pristine_commit_hash: 1e41d16a82c2b655a0b5d24af99c8dc10dbdeb65
+  pristine_tree_hash: 69bf79b88730fa550d2bd99fcafc4d67bf24150b
 features:
   go:
     acceptHeaders: 2.81.2
@@ -687,8 +687,8 @@ trackedFiles:
     pristine_git_object: a520320b1605e945e8cfff1bdc458aeaf9ecccb7
   docs/models/components/autobetarouterplugin.mdx:
     id: 604b3c68d3cd
-    last_write_checksum: sha1:e87e3bc68231dbd8ec6ea706b68817b9f6395b9a
-    pristine_git_object: 30da0f6471999e268da708a5cfce9f54145b7fbd
+    last_write_checksum: sha1:e1033c6c51ab0b045888f3ee7fe1644ecfeb9d33
+    pristine_git_object: 1ada8c6c3da3c890caaabfd6bea0c3124ca40038
   docs/models/components/autobetarouterplugincosttier.mdx:
     id: 0200e31370cf
     last_write_checksum: sha1:3357110f0ed64d1f6ab6aa73a13b037fafcc4432
@@ -699,8 +699,8 @@ trackedFiles:
     pristine_git_object: 20d629486cc3445f46673c817c1e6175a403c31c
   docs/models/components/autorouterplugin.mdx:
     id: 947ca182eebc
-    last_write_checksum: sha1:f05dcc7db8377c29881265060bab3ba3c51da752
-    pristine_git_object: 748051c0c41a2607c407714c9d2dd3524fa9128e
+    last_write_checksum: sha1:5127e082bcded0e687f3eda6025b892a5b971637
+    pristine_git_object: b93045ba8780538c6afaf8f5d0735ab08af7976c
   docs/models/components/autorouterplugincosttier.mdx:
     id: 4e43cebc67c2
     last_write_checksum: sha1:90580a742317cf8db514362b2914f5bb39bc0c22
@@ -6067,8 +6067,8 @@ trackedFiles:
     pristine_git_object: 2ca31a1dc641ca8dd62cadcf17c0348d05f027f3
   docs/models/operations/getmodelsrequest.mdx:
     id: 1dc5e9d3af39
-    last_write_checksum: sha1:c78c33ad4b28d2983bfb63a9c1034f72fe4a452a
-    pristine_git_object: 5a6b24634c84029f45ceea8aecf1d13d2e0aff56
+    last_write_checksum: sha1:a78770813ccde556c494650cee6284328017c0ed
+    pristine_git_object: a4c747c2b533b8bb3311669928a8317d5b9a2408
   docs/models/operations/getmodelsresponse.mdx:
     id: bbb01f4c5cbd
     last_write_checksum: sha1:63aa629ccc7e53b1114f8d8022fe46d7a3c73d53
@@ -6435,8 +6435,8 @@ trackedFiles:
     pristine_git_object: f9429824dfb9678e4115e721ed1c828e8b14401d
   docs/models/operations/region.mdx:
     id: d6fe12cec8d9
-    last_write_checksum: sha1:ce9a65fa57e56e62f98793a96cf08a1d3346265d
-    pristine_git_object: 5b51109d22eecde2ff6a874f67d8221ee6191e53
+    last_write_checksum: sha1:7d657bcf348da9ea8e5bf267411d7e6f0c3dd3c6
+    pristine_git_object: 8a4991aee0440c0682df0f5ac6adc2f575ae46cd
   docs/models/operations/responseformat.mdx:
     id: afbebcea034b
     last_write_checksum: sha1:4bb7d6d03dfd155cd44803e751bd3497cfaef7ab
@@ -6699,8 +6699,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
-    last_write_checksum: sha1:b3bfd420176667d6aea6fc9561ddf8e148fea091
-    pristine_git_object: 55fa4cbfc63f6ffc4380ed12979df558eee9b78e
+    last_write_checksum: sha1:599c63b7083aa2927beae09e2418ba3a1ba8af5b
+    pristine_git_object: f02a1b2afaa2ba766b31b2b5698fe4bc715493ff
   docs/sdks/oauth/README.mdx:
     id: 42b5079343d2
     last_write_checksum: sha1:0bd838fa6e85527b8f9b755957186ddbc473d466
@@ -6843,8 +6843,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   models.go:
     id: 3af78faf181b
-    last_write_checksum: sha1:51643e658b2965cb023c72920fb9ede28f43d72a
-    pristine_git_object: 2da72b96d2f7e930b895adf20e334113e72afdd8
+    last_write_checksum: sha1:87ccf78b6bd3df1efa0a0222df991b99e0db20fb
+    pristine_git_object: 6e52c430ef10419b2944bdff5349e7561a3cb02a
   models/components/aabenchmarkentry.go:
     id: 4c2460857b24
     last_write_checksum: sha1:f1dcb4e0a7a18fc3b6c701e6608ac599c5a0f280
@@ -7111,12 +7111,12 @@ trackedFiles:
     pristine_git_object: 30a273966efab68c24f6ec5b06bd431246021cab
   models/components/autobetarouterplugin.go:
     id: 63278beff624
-    last_write_checksum: sha1:7c6b3428eb8a5fa6bf2ef7899c4f15a155291caa
-    pristine_git_object: c7ac9302d41e6f65684524af05eeae39de82e2f6
+    last_write_checksum: sha1:76e7b587128641775d759a6f25fdb9f950825ad6
+    pristine_git_object: 34af0698bfba9c13e7a9b4667541e7c00fd99282
   models/components/autorouterplugin.go:
     id: 854f76942e3c
-    last_write_checksum: sha1:3e1ec140e31fc09e05144f65e3623875030f91ee
-    pristine_git_object: 926f9923662143e86112917c2fe0aeaa15ff64c1
+    last_write_checksum: sha1:e16f4d78965079105c3d8ce7c05697fb46f67ff1
+    pristine_git_object: 4411c5c55324e0d6d2ea8c6a3f793d25b7a174e8
   models/components/badgatewayresponseerrordata.go:
     id: 53b7c495de19
     last_write_checksum: sha1:c2422191e609c2ed91acd8fe9d908320a28b7839
@@ -9427,8 +9427,8 @@ trackedFiles:
     pristine_git_object: 421d88083f3b8a66360e11982e797b7fd15fd63a
   models/operations/getmodels.go:
     id: da5a1f2b68b2
-    last_write_checksum: sha1:6fe6e59a85e626e7d802cb11940f1554d7858100
-    pristine_git_object: 4d762ec3316ff12d9870d049556f5918b08da9e6
+    last_write_checksum: sha1:058388ebf907052687af8f61d4c6d2d68509b156
+    pristine_git_object: 29d1681773f9b0184241275072e3801e18516617
   models/operations/getobservabilitydestination.go:
     id: 1cbf1f722967
     last_write_checksum: sha1:95a9bc65f19d20af5b6311eef329e1e0e9e4737d
@@ -9691,8 +9691,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:799104f273270ce56f47b8792d7ec9ad9d5887c3
-    pristine_git_object: 7b5636af550094a46f156d941279d1ebb9c701ca
+    last_write_checksum: sha1:b2d4afa12d687117a9722b469a73b730e02ae591
+    pristine_git_object: f7acd6d436ce7d0c33d4976380198a9f3aea66dc
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11491,4 +11491,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Databricks` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Databricks` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(databricks)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(databricks)` **Added**\n  *  `response.Data.Provider.Enum(databricks)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(databricks)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(databricks)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(databricks)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(databricks)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(databricks)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(databricks)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Databricks` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Models.List()`: \n  *  `request.Request.Region` **Changed**\n"
