@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: fccd0e55dd9b63103efb64065def74b9
+  docChecksum: 457a376a71d7251d608affe91199c912
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.44
-  configChecksum: d64e638236510de3a2b66f8903435337
+  releaseVersion: 0.7.45
+  configChecksum: b7bdf407cd5fefc45076366cfaa16d08
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 09b1cc46-bd9f-4ed5-8603-cd85567b3344
-  pristine_commit_hash: b0892be49fc4ac8c929744187a60ab7409c56096
-  pristine_tree_hash: 7461a96ac147ec8c2842b2efe6feaae85c36b295
+  generation_id: 34016c1c-1c86-4692-9519-683d7a8862c0
+  pristine_commit_hash: 0bc94f97f2e5db48a5b13433cdc5f551efbb79c9
+  pristine_tree_hash: 78017367b98d009edc75cc9546606d387a77d203
 features:
   go:
     acceptHeaders: 2.81.2
@@ -9739,8 +9739,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:83020306280a7b19dfa19e6c4357ab6a9a604c02
-    pristine_git_object: 38eb84345d7b05fca3e82ecac720eeac74891131
+    last_write_checksum: sha1:d0a885697c7d14d9ed3e7f456513a3e83265301d
+    pristine_git_object: 00e1eb0e6f55aeb6e1ae3fa07cb525d13c287e0d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11556,6 +11556,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Datasets.GetSessionCost()`: **Added**
