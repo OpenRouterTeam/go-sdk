@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6fe761c1c95298330d9913e65aef4d8b
+  docChecksum: d6a34a1b74bd843ec9e5aa30b7fb7a97
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.47
-  configChecksum: 7f25372752e65e39b2d3623f77e21219
+  releaseVersion: 0.7.48
+  configChecksum: 17d0d5cad37d25a8143135cc330fd5b4
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 53a9a69c-fdb0-44ea-94b5-638c46ff2074
-  pristine_commit_hash: f74d51be2a12b6db0f9fd5bfc336ab87c63a0a1a
-  pristine_tree_hash: 06fe8cdb8056009638099c65a0206ed90e0cc75e
+  generation_id: 95c9c0c2-7693-43bf-ae69-0ca905cb6ed0
+  pristine_commit_hash: fe34fa6e43b999d756580dbf4fd8201ea4c584bc
+  pristine_tree_hash: 5e875e360db7cf105637aa8fadfcc6ab07c358a4
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5947,8 +5947,8 @@ trackedFiles:
     pristine_git_object: b7e6148cd064f84caacf2e1619e44956ecd1a63c
   docs/models/operations/deleteworkspacerequest.mdx:
     id: e8540611cea0
-    last_write_checksum: sha1:eb2a78e257dafaf8890c6a1d68453924449886ed
-    pristine_git_object: 4f190537de49b77d72e801928ba2b2516e71baef
+    last_write_checksum: sha1:d1377e31759927afe5bc259cad1d585ed8d4b9fd
+    pristine_git_object: 72f55f28c65a8207eb98b1a451c9b0326c73fb57
   docs/models/operations/dimension.mdx:
     id: ad56641fb797
     last_write_checksum: sha1:00bbf86f0ad291d6683afd3221c0f3fc10e4b682
@@ -6779,8 +6779,8 @@ trackedFiles:
     pristine_git_object: 4604686ee6b95b50345a1c16f16668c166e0e97c
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
-    last_write_checksum: sha1:e762946b927805631f0687085d5b4d9132a0abd3
-    pristine_git_object: 694742ec0a4113e27beb47a937fecaeaded4282a
+    last_write_checksum: sha1:af0d15ce20e98cf7417b9494ecdd5ce0bf04fd3c
+    pristine_git_object: 19ea7b3e1abbe40c5027e8c97b2d07374c7928c3
   embeddings.go:
     id: f7354b2d5b3e
     last_write_checksum: sha1:d94c09773562d4220f10139767c5ec4127ffe429
@@ -9411,8 +9411,8 @@ trackedFiles:
     pristine_git_object: e10f830b93ff945543b88a5ca75a2a143b43974c
   models/operations/deleteworkspace.go:
     id: 8f02b59b9869
-    last_write_checksum: sha1:3b15026ce88833c2e4a7bd6f6dc805dd5e606df1
-    pristine_git_object: 662597b0a41ec0257a66e8e327f0112a44664ad3
+    last_write_checksum: sha1:6c6d8f848b36adf1daae32cf81f5c983b38ef9c5
+    pristine_git_object: e97845b08d091c9999508caa9947056728707b82
   models/operations/deleteworkspacebudget.go:
     id: 0d7a80f7f117
     last_write_checksum: sha1:0c7e8b238e6cf4c4db21d9d169126056b382a7eb
@@ -9739,8 +9739,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:34135cdabfd20f47fe09b4e46695e4acc4bcaf5d
-    pristine_git_object: 1dc1d16bc64404c80ed579e40d071e1781b806a5
+    last_write_checksum: sha1:07e937c447d7e820c3b8849c0d3eeee66a415d75
+    pristine_git_object: 442ebb69d0c2ce13e1d1eae343a287ab71644708
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9811,8 +9811,8 @@ trackedFiles:
     pristine_git_object: aa4df35502a56e74188df460f027f7e832c8dc31
   workspaces.go:
     id: 643517773c6f
-    last_write_checksum: sha1:9ccd246340538762417fed738d4d8253bad8b790
-    pristine_git_object: 80f56660447bed75a16ed5047b2c81c06e5468a2
+    last_write_checksum: sha1:bc7bd00cb6645747122ac9a03675310201e905be
+    pristine_git_object: c2dc63fe04514d3901a788498472d0b3ab5452d7
 examples:
   createResponses:
     speakeasy-default-create-responses:
