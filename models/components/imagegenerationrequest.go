@@ -158,7 +158,7 @@ type ImageGenerationRequest struct {
 	InputReferences []ContentPartImage `json:"input_references,omitzero"`
 	// The image generation model to use
 	Model string `json:"model"`
-	// Number of images to generate (1-10). Providers that only support single-image generation reject n > 1.
+	// Upper bound on the number of images to generate (1-10). Providers may return fewer images, and providers that only support single-image generation reject n > 1.
 	N *int64 `json:"n,omitzero"`
 	// Compression level (0-100) for webp/jpeg output. Ignored for png and by providers without a compression knob.
 	OutputCompression *int64 `json:"output_compression,omitzero"`
