@@ -19,7 +19,7 @@ import (
 	"net/url"
 )
 
-// Datasets endpoints
+// Datasets - Public OpenRouter usage datasets. Data returned by these endpoints is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/): reuse and republish it, including commercially, with attribution to OpenRouter.
 type Datasets struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
@@ -58,6 +58,8 @@ func newDatasets(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *
 // Token counts come from each upstream provider's own tokenizer, so a token attributed
 // to one app is not directly comparable to a token attributed to another app whose
 // traffic flows through a different provider.
+//
+// Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse and republish with attribution to OpenRouter.
 func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAppRankingsRequest, opts ...operations.Option) (*operations.GetAppRankingsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -424,6 +426,8 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 // are as reported by Anthropic, OpenAI counts are as reported by OpenAI, etc.), so
 // a token in one row is not directly comparable to a token in another row from a
 // different provider.
+//
+// Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse and republish with attribution to OpenRouter.
 func (s *Datasets) GetRankingsDaily(ctx context.Context, request *operations.GetRankingsDailyRequest, opts ...operations.Option) (*components.RankingsDailyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -723,6 +727,8 @@ func (s *Datasets) GetRankingsDaily(ctx context.Context, request *operations.Get
 // Filter by `app_slug`, `model`, or `turn_range`. Filtering by `model` alone works across apps
 // for harness-vs-harness comparison at a fixed model. Results refresh weekly and include the source snapshot
 // window in `meta`.
+//
+// Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse and republish with attribution to OpenRouter.
 func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSessionCostRequest, opts ...operations.Option) (*operations.GetSessionCostResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
