@@ -216,6 +216,36 @@ func (e *OutputFunctionCallItemType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type OutputFunctionCallItemSubagentItem struct {
+	Type                 string         `json:"type"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+}
+
+func (o OutputFunctionCallItemSubagentItem) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputFunctionCallItemSubagentItem) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputFunctionCallItemSubagentItem) GetType() string {
+	if o == nil {
+		return ""
+	}
+	return o.Type
+}
+
+func (o *OutputFunctionCallItemSubagentItem) GetAdditionalProperties() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.AdditionalProperties
+}
+
 type OutputFunctionCallItem struct {
 	Arguments string  `json:"arguments"`
 	CallID    string  `json:"call_id"`
@@ -225,6 +255,10 @@ type OutputFunctionCallItem struct {
 	Namespace *string                            `json:"namespace,omitzero"`
 	Status    *OutputFunctionCallItemStatusUnion `json:"status,omitzero"`
 	Type      OutputFunctionCallItemType         `json:"type"`
+	// EXPERIMENTAL — subject to change without notice. String id that matches the `call_id` of the `openrouter:subagent` server tool call that spawned the subagent. Present on every `function_call` item the subagent projects; absent on ordinary function calls.
+	SubagentID *string `json:"subagent_id,omitzero"`
+	// EXPERIMENTAL — subject to change without notice. The subagent's output items produced on this turn. Treat this as an opaque object; you must replay it in the request so that the subagent can continue execution of the tool with the same context. If a subagent created multiple parallel tool calls, only the first tool call will have this field. The other tool calls will only have `subagent_id`. Present only if the tool call originates from a subagent spawned by the `openrouter:subagent` server tool.
+	SubagentItems []OutputFunctionCallItemSubagentItem `json:"subagent_items,omitzero"`
 }
 
 func (o OutputFunctionCallItem) MarshalJSON() ([]byte, error) {
@@ -285,4 +319,18 @@ func (o *OutputFunctionCallItem) GetType() OutputFunctionCallItemType {
 		return OutputFunctionCallItemType("")
 	}
 	return o.Type
+}
+
+func (o *OutputFunctionCallItem) GetSubagentID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SubagentID
+}
+
+func (o *OutputFunctionCallItem) GetSubagentItems() []OutputFunctionCallItemSubagentItem {
+	if o == nil {
+		return nil
+	}
+	return o.SubagentItems
 }
