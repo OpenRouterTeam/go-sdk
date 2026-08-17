@@ -33,6 +33,8 @@ func (e *OutputSubagentServerToolItemType) UnmarshalJSON(data []byte) error {
 
 // OutputSubagentServerToolItem - An openrouter:subagent server tool output item
 type OutputSubagentServerToolItem struct {
+	// EXPERIMENTAL — subject to change without notice. The `call_id` of the tool call that spawned this subagent. This id will also be included as the `subagent_id` on any `function_call` items created by the subagent. This must be returned in the request so the `function_call` can be matched with the correct subagent. A suspended `in_progress` item is announced once and never re-emitted or terminally closed — completion arrives as a new item with the same `call_id`.
+	CallID *string `json:"call_id,omitzero"`
 	// Error message when the subagent task did not produce an outcome.
 	Error *string `json:"error,omitzero"`
 	ID    *string `json:"id,omitzero"`
@@ -61,6 +63,13 @@ func (o *OutputSubagentServerToolItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (o *OutputSubagentServerToolItem) GetCallID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CallID
 }
 
 func (o *OutputSubagentServerToolItem) GetError() *string {
