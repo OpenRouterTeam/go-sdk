@@ -635,11 +635,10 @@ func (s *Workspaces) Create(ctx context.Context, request components.CreateWorksp
 }
 
 // Delete a workspace
-// Delete an existing workspace. Workspaces with active API keys cannot be deleted; remove the keys first. Deleting the default workspace is not yet generally available; callers not enabled for it receive a 403 while the capability rolls out. When permitted, it requires `confirm_default_settings_deletion=true` and additionally disables the account’s unscoped inference API keys; management (provisioning) keys are retained. Deleting any workspace permanently deletes its budgets and guardrails and disables its classifiers and broadcast destinations. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Workspaces) Delete(ctx context.Context, id string, confirmDefaultSettingsDeletion *bool, opts ...operations.Option) (*components.DeleteWorkspaceResponse, error) {
+// Delete an existing workspace. Workspaces with active API keys cannot be deleted; remove the keys first. Deleting the default workspace is not yet generally available; callers not enabled for it receive a 403 while the capability rolls out. Deleting any workspace permanently deletes its budgets and guardrails and disables its classifiers and broadcast destinations. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+func (s *Workspaces) Delete(ctx context.Context, id string, opts ...operations.Option) (*components.DeleteWorkspaceResponse, error) {
 	request := operations.DeleteWorkspaceRequest{
-		ID:                             id,
-		ConfirmDefaultSettingsDeletion: confirmDefaultSettingsDeletion,
+		ID: id,
 	}
 
 	o := operations.Options{}
@@ -692,10 +691,6 @@ func (s *Workspaces) Delete(ctx context.Context, id string, confirmDefaultSettin
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
