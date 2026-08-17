@@ -142,6 +142,10 @@ func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterMemory() *OutputMe
 	return s.GetItem().OutputMemoryServerToolItem
 }
 
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterShell() *OutputShellServerToolItem {
+	return s.GetItem().OutputShellServerToolItem
+}
+
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterSubagent() *OutputSubagentServerToolItem {
 	return s.GetItem().OutputSubagentServerToolItem
 }

@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type OutputBashServerToolItemType string
@@ -34,16 +35,16 @@ func (e *OutputBashServerToolItemType) UnmarshalJSON(data []byte) error {
 // OutputBashServerToolItem - An openrouter:bash server tool output item
 type OutputBashServerToolItem struct {
 	// The raw tool-call arguments string as emitted by the model.
-	Arguments *string `json:"arguments,omitzero"`
+	Arguments optionalnullable.OptionalNullable[string] `json:"arguments,omitzero"`
 	// The model-generated tool call id from the originating turn.
-	CallID   *string                      `json:"call_id,omitzero"`
-	Command  *string                      `json:"command,omitzero"`
-	ExitCode *int64                       `json:"exitCode,omitzero"`
-	ID       *string                      `json:"id,omitzero"`
-	Status   ToolCallStatus               `json:"status"`
-	Stderr   *string                      `json:"stderr,omitzero"`
-	Stdout   *string                      `json:"stdout,omitzero"`
-	Type     OutputBashServerToolItemType `json:"type"`
+	CallID   optionalnullable.OptionalNullable[string] `json:"call_id,omitzero"`
+	Command  *string                                   `json:"command,omitzero"`
+	ExitCode *int64                                    `json:"exitCode,omitzero"`
+	ID       *string                                   `json:"id,omitzero"`
+	Status   ToolCallStatus                            `json:"status"`
+	Stderr   *string                                   `json:"stderr,omitzero"`
+	Stdout   *string                                   `json:"stdout,omitzero"`
+	Type     OutputBashServerToolItemType              `json:"type"`
 }
 
 func (o OutputBashServerToolItem) MarshalJSON() ([]byte, error) {
@@ -57,14 +58,14 @@ func (o *OutputBashServerToolItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputBashServerToolItem) GetArguments() *string {
+func (o *OutputBashServerToolItem) GetArguments() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Arguments
 }
 
-func (o *OutputBashServerToolItem) GetCallID() *string {
+func (o *OutputBashServerToolItem) GetCallID() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}

@@ -4,291 +4,31 @@ package components
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type TypeTimeout string
+type OutputShellCallOutputItemType string
 
 const (
-	TypeTimeoutTimeout TypeTimeout = "timeout"
+	OutputShellCallOutputItemTypeShellCallOutput OutputShellCallOutputItemType = "shell_call_output"
 )
 
-func (e TypeTimeout) ToPointer() *TypeTimeout {
+func (e OutputShellCallOutputItemType) ToPointer() *OutputShellCallOutputItemType {
 	return &e
 }
-func (e *TypeTimeout) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "timeout":
-		*e = TypeTimeout(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeTimeout: %v", v)
-	}
-}
-
-type OutcomeTimeout struct {
-	Type TypeTimeout `json:"type"`
-}
-
-func (o OutcomeTimeout) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutcomeTimeout) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutcomeTimeout) GetType() TypeTimeout {
-	if o == nil {
-		return TypeTimeout("")
-	}
-	return o.Type
-}
-
-type TypeExit string
-
-const (
-	TypeExitExit TypeExit = "exit"
-)
-
-func (e TypeExit) ToPointer() *TypeExit {
-	return &e
-}
-func (e *TypeExit) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "exit":
-		*e = TypeExit(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TypeExit: %v", v)
-	}
-}
-
-type OutcomeExit struct {
-	ExitCode int64    `json:"exit_code"`
-	Type     TypeExit `json:"type"`
-}
-
-func (o OutcomeExit) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutcomeExit) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutcomeExit) GetExitCode() int64 {
-	if o == nil {
-		return 0
-	}
-	return o.ExitCode
-}
-
-func (o *OutcomeExit) GetType() TypeExit {
-	if o == nil {
-		return TypeExit("")
-	}
-	return o.Type
-}
-
-type OutcomeType string
-
-const (
-	OutcomeTypeExit       OutcomeType = "exit"
-	OutcomeTypeTimeoutObj OutcomeType = "timeout"
-	OutcomeTypeUnknown    OutcomeType = "UNKNOWN"
-)
-
-type Outcome struct {
-	OutcomeExit    *OutcomeExit    `queryParam:"inline" union:"member"`
-	OutcomeTimeout *OutcomeTimeout `queryParam:"inline" union:"member"`
-	UnknownRaw     json.RawMessage `json:"-" union:"unknown"`
-
-	Type OutcomeType
-}
-
-func CreateOutcomeExit(exit OutcomeExit) Outcome {
-	typ := OutcomeTypeExit
-
-	typStr := TypeExit(typ)
-	exit.Type = typStr
-
-	return Outcome{
-		OutcomeExit: &exit,
-		Type:        typ,
-	}
-}
-
-func CreateOutcomeTimeoutObj(timeoutT OutcomeTimeout) Outcome {
-	typ := OutcomeTypeTimeoutObj
-
-	typStr := TypeTimeout(typ)
-	timeoutT.Type = typStr
-
-	return Outcome{
-		OutcomeTimeout: &timeoutT,
-		Type:           typ,
-	}
-}
-
-func CreateOutcomeUnknown(raw json.RawMessage) Outcome {
-	return Outcome{
-		UnknownRaw: raw,
-		Type:       OutcomeTypeUnknown,
-	}
-}
-
-func (u Outcome) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u Outcome) IsUnknown() bool {
-	return u.Type == OutcomeTypeUnknown
-}
-
-func (u *Outcome) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutcomeTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutcomeTypeUnknown
-		return nil
-	}
-
-	switch dis.Type {
-	case "exit":
-		outcomeExit := new(OutcomeExit)
-		if err := utils.UnmarshalJSON(data, &outcomeExit, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == exit) type OutcomeExit within Outcome: %w", string(data), err)
-		}
-
-		u.OutcomeExit = outcomeExit
-		u.Type = OutcomeTypeExit
-		return nil
-	case "timeout":
-		outcomeTimeout := new(OutcomeTimeout)
-		if err := utils.UnmarshalJSON(data, &outcomeTimeout, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == timeout) type OutcomeTimeout within Outcome: %w", string(data), err)
-		}
-
-		u.OutcomeTimeout = outcomeTimeout
-		u.Type = OutcomeTypeTimeoutObj
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutcomeTypeUnknown
-		return nil
-	}
-
-}
-
-func (u Outcome) MarshalJSON() ([]byte, error) {
-	if u.OutcomeExit != nil {
-		return utils.MarshalJSON(u.OutcomeExit, "", true)
-	}
-
-	if u.OutcomeTimeout != nil {
-		return utils.MarshalJSON(u.OutcomeTimeout, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type Outcome: all fields are null")
-}
-
-type OutputShellCallOutputItemOutput struct {
-	Outcome Outcome `json:"outcome"`
-	Stderr  string  `json:"stderr"`
-	Stdout  string  `json:"stdout"`
-}
-
-func (o OutputShellCallOutputItemOutput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputShellCallOutputItemOutput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputShellCallOutputItemOutput) GetOutcome() Outcome {
-	if o == nil {
-		return Outcome{}
-	}
-	return o.Outcome
-}
-
-func (o *OutputShellCallOutputItemOutput) GetOutcomeExit() *OutcomeExit {
-	return o.GetOutcome().OutcomeExit
-}
-
-func (o *OutputShellCallOutputItemOutput) GetOutcomeTimeoutObj() *OutcomeTimeout {
-	return o.GetOutcome().OutcomeTimeout
-}
-
-func (o *OutputShellCallOutputItemOutput) GetStderr() string {
-	if o == nil {
-		return ""
-	}
-	return o.Stderr
-}
-
-func (o *OutputShellCallOutputItemOutput) GetStdout() string {
-	if o == nil {
-		return ""
-	}
-	return o.Stdout
-}
-
-type OutputShellCallOutputItemTypeShellCallOutput string
-
-const (
-	OutputShellCallOutputItemTypeShellCallOutputShellCallOutput OutputShellCallOutputItemTypeShellCallOutput = "shell_call_output"
-)
-
-func (e OutputShellCallOutputItemTypeShellCallOutput) ToPointer() *OutputShellCallOutputItemTypeShellCallOutput {
-	return &e
-}
-func (e *OutputShellCallOutputItemTypeShellCallOutput) UnmarshalJSON(data []byte) error {
+func (e *OutputShellCallOutputItemType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "shell_call_output":
-		*e = OutputShellCallOutputItemTypeShellCallOutput(v)
+		*e = OutputShellCallOutputItemType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputShellCallOutputItemTypeShellCallOutput: %v", v)
+		return fmt.Errorf("invalid value for OutputShellCallOutputItemType: %v", v)
 	}
 }
 
@@ -297,10 +37,10 @@ type OutputShellCallOutputItem struct {
 	CallID          string                                   `json:"call_id"`
 	ID              string                                   `json:"id"`
 	MaxOutputLength optionalnullable.OptionalNullable[int64] `json:"max_output_length,omitzero"`
-	Output          []OutputShellCallOutputItemOutput        `json:"output"`
+	Output          []ShellCallOutputContent                 `json:"output"`
 	// Status of a shell call or its output.
-	Status ShellCallStatus                              `json:"status"`
-	Type   OutputShellCallOutputItemTypeShellCallOutput `json:"type"`
+	Status ShellCallStatus               `json:"status"`
+	Type   OutputShellCallOutputItemType `json:"type"`
 }
 
 func (o OutputShellCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -335,9 +75,9 @@ func (o *OutputShellCallOutputItem) GetMaxOutputLength() optionalnullable.Option
 	return o.MaxOutputLength
 }
 
-func (o *OutputShellCallOutputItem) GetOutput() []OutputShellCallOutputItemOutput {
+func (o *OutputShellCallOutputItem) GetOutput() []ShellCallOutputContent {
 	if o == nil {
-		return []OutputShellCallOutputItemOutput{}
+		return []ShellCallOutputContent{}
 	}
 	return o.Output
 }
@@ -349,9 +89,9 @@ func (o *OutputShellCallOutputItem) GetStatus() ShellCallStatus {
 	return o.Status
 }
 
-func (o *OutputShellCallOutputItem) GetType() OutputShellCallOutputItemTypeShellCallOutput {
+func (o *OutputShellCallOutputItem) GetType() OutputShellCallOutputItemType {
 	if o == nil {
-		return OutputShellCallOutputItemTypeShellCallOutput("")
+		return OutputShellCallOutputItemType("")
 	}
 	return o.Type
 }

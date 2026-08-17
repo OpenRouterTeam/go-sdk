@@ -1,0 +1,15 @@
+---
+title: "ShellCallOutputContent"
+---
+
+Captured stdout and stderr for one command of a shell call, with its exit or timeout outcome.
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            | Example                                                                                |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `Outcome`                                                                              | [components.Outcome](../../models/components/outcome.mdx)                               | :heavy_check_mark:                                                                     | N/A                                                                                    |                                                                                        |
+| `Stderr`                                                                               | `string`                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |                                                                                        |
+| `Stdout`                                                                               | `string`                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |                                                                                        |
+| `AdditionalProperties`                                                                 | map[string]`any`                                                                       | :heavy_minus_sign:                                                                     | N/A                                                                                    | \{<br/>"outcome": \{<br/>"exit_code": 0,<br/>"type": "exit"<br/>},<br/>"stderr": "",<br/>"stdout": "total 0\n"<br/>} |
