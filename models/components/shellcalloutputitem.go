@@ -9,52 +9,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ShellCallOutputItemOutput struct {
-	Content              optionalnullable.OptionalNullable[string] `json:"content,omitzero"`
-	ExitCode             optionalnullable.OptionalNullable[int64]  `json:"exit_code,omitzero"`
-	Type                 string                                    `json:"type"`
-	AdditionalProperties map[string]any                            `additionalProperties:"true" json:"-"`
-}
-
-func (s ShellCallOutputItemOutput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *ShellCallOutputItemOutput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *ShellCallOutputItemOutput) GetContent() optionalnullable.OptionalNullable[string] {
-	if s == nil {
-		return nil
-	}
-	return s.Content
-}
-
-func (s *ShellCallOutputItemOutput) GetExitCode() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
-		return nil
-	}
-	return s.ExitCode
-}
-
-func (s *ShellCallOutputItemOutput) GetType() string {
-	if s == nil {
-		return ""
-	}
-	return s.Type
-}
-
-func (s *ShellCallOutputItemOutput) GetAdditionalProperties() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.AdditionalProperties
-}
-
 type ShellCallOutputItemType string
 
 const (
@@ -83,7 +37,7 @@ type ShellCallOutputItem struct {
 	CallID          string                                            `json:"call_id"`
 	ID              optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
 	MaxOutputLength optionalnullable.OptionalNullable[int64]          `json:"max_output_length,omitzero"`
-	Output          []ShellCallOutputItemOutput                       `json:"output"`
+	Output          []ShellCallOutputContent                          `json:"output"`
 	Status          optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
 	Type            ShellCallOutputItemType                           `json:"type"`
 }
@@ -120,9 +74,9 @@ func (s *ShellCallOutputItem) GetMaxOutputLength() optionalnullable.OptionalNull
 	return s.MaxOutputLength
 }
 
-func (s *ShellCallOutputItem) GetOutput() []ShellCallOutputItemOutput {
+func (s *ShellCallOutputItem) GetOutput() []ShellCallOutputContent {
 	if s == nil {
-		return []ShellCallOutputItemOutput{}
+		return []ShellCallOutputContent{}
 	}
 	return s.Output
 }
