@@ -20616,6 +20616,9 @@ components:
         anthropic:
           additionalProperties: {}
           type: 'object'
+        anthropic/2:
+          additionalProperties: {}
+          type: 'object'
         anyscale:
           additionalProperties: {}
           type: 'object'

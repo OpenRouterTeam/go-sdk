@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: db6b6d70a86d8f9db8b3655a6cd5aff6
+  docChecksum: e9231c130680dfee05e417bf8a0deed7
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.55
-  configChecksum: d46025000c8fb9c8746da38fad7197af
+  releaseVersion: 0.7.56
+  configChecksum: 0dc934e03d5ebf9614798f86a161523b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: e185bbe3-4427-4c42-bc30-df77c36d6335
-  pristine_commit_hash: 4850c5564967b3cf657eb2941deefd81cd559409
-  pristine_tree_hash: bcfc673ba57135f41bc95491b963365d59a43d79
+  generation_id: 58775ad4-621d-4b14-91b6-d80c9c4e7a22
+  pristine_commit_hash: 34e43cca6f22e9c59df5c75ef5b6851cdf7eb3f3
+  pristine_tree_hash: e873a3c1d233ed3db6fd1840d5a58ecb3946d610
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2351,8 +2351,8 @@ trackedFiles:
     pristine_git_object: e3e7bb4f750c78b4fcff1fcdd286d042510139e0
   docs/models/components/imagegenerationproviderpreferencesoptions.mdx:
     id: cc5647cf9fa1
-    last_write_checksum: sha1:e7b96af0beea66b3de9f9ab589400b7bc665b1bf
-    pristine_git_object: 7ca563bdadc39b825ddd6902542d91fdb3e99056
+    last_write_checksum: sha1:1b9c92a2b62ecc917cbacd083e81ec194a1512b9
+    pristine_git_object: 01c5bcb183adee09081de4fecaf994575d521eef
   docs/models/components/imagegenerationproviderpreferencesorder.mdx:
     id: d009ab061dcc
     last_write_checksum: sha1:2207451363c0e06c008e1a081b90ba57ac3110f5
@@ -4351,8 +4351,8 @@ trackedFiles:
     pristine_git_object: e47027704af432ba0ca0409b1e36c94931443ce4
   docs/models/components/provideroptions.mdx:
     id: 9b36b036b5e5
-    last_write_checksum: sha1:1ad6a5b517f5303580eb0e8568cfd46ed60c87bd
-    pristine_git_object: 4d0cdfdbc041463ae387e8426395cc23f7287dad
+    last_write_checksum: sha1:914cddd14bf32539a3f7e34a03d18daac9545b05
+    pristine_git_object: e23a634a479d9c7569a8a3fca546e7c39275cda1
   docs/models/components/provideroverloadedresponseerrordata.mdx:
     id: 0458c5c0d5bd
     last_write_checksum: sha1:51f6ecc2ab40c2f7a3b9a1c620bfae501266d34c
@@ -5583,8 +5583,8 @@ trackedFiles:
     pristine_git_object: cf36741177eb7322bd20fba9510772b46a3b1cbe
   docs/models/components/videogenerationrequestoptions.mdx:
     id: 02bb0d2acb68
-    last_write_checksum: sha1:b56051268c26c393246cebd07ea44cb106da9334
-    pristine_git_object: 06bbabd66ffc43d221372a64c981e5e90a1a83bb
+    last_write_checksum: sha1:6933f622ea6c5715e875422cccfeebcded629ef6
+    pristine_git_object: 27150bcd776a0b9721aa4386ba7185c1cdf0f136
   docs/models/components/videogenerationrequestprovider.mdx:
     id: ad830be2196e
     last_write_checksum: sha1:8173973a5e1f28f257b49418ccf0ffbaf566c8dd
@@ -7939,8 +7939,8 @@ trackedFiles:
     pristine_git_object: 777f7215d847acdc6f9b288970c1bc9339417cab
   models/components/imagegenerationproviderpreferences.go:
     id: 1e510281b908
-    last_write_checksum: sha1:e9aa689e5d253491d73b36690e3b0755a0abb442
-    pristine_git_object: 02bb7ff86938bccf6238774ea13d39257477029c
+    last_write_checksum: sha1:286db318048041b0fb908632f6f128fdb181e3c5
+    pristine_git_object: a030186ff506ce456ea3c268e841d0cee37835b6
   models/components/imagegenerationrequest.go:
     id: 2a1c3242c506
     last_write_checksum: sha1:f7c6c4db759d6edc5f434b468fd5f744cb93ffac
@@ -8699,8 +8699,8 @@ trackedFiles:
     pristine_git_object: fdd80f4ab449acafb2b4c7e24bd39ae4c938ec91
   models/components/provideroptions.go:
     id: 83f8e5feb563
-    last_write_checksum: sha1:aead131c0218aeca2a9d1abdb761e4ecc0adc242
-    pristine_git_object: 012e05ad7cb612264dbd03d91c43aea7b8ecaa9b
+    last_write_checksum: sha1:6f7e4686c8a904dc3a124e6af0d300697fb05a4a
+    pristine_git_object: c26b14cfa6c586a99101d16bd6627548216e144f
   models/components/provideroverloadedresponseerrordata.go:
     id: 4e228708c428
     last_write_checksum: sha1:4ecd1f1efbdf106340872d720ebb8bb9891be205
@@ -9235,8 +9235,8 @@ trackedFiles:
     pristine_git_object: f4b994164e03872a8e2ef6d20c8d272dc5861e1c
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:cce86130fddaaf07df550f0336be36d4c02c51a3
-    pristine_git_object: 1fdc923bb1641d170ab0f78db0a4a2df9f57af3c
+    last_write_checksum: sha1:c3825200819de7cd343dd05363364da67e450a1a
+    pristine_git_object: 88cab61b67c33d7aed13d1de6b1fd9ad26be354d
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
     last_write_checksum: sha1:b1196ebd395a89b9f03ce3207738055473c33532
@@ -9767,8 +9767,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:caac61216c7bf2bde52f99a2cd2d75709e128c01
-    pristine_git_object: 9c9770a7c05ff136299b5ea1d4b9023c509f9715
+    last_write_checksum: sha1:ac78023d0ec99cf078ba954fc48851bcf4bed75c
+    pristine_git_object: 8ee4fa039a82adb6af393b7a97fc94fcb723e7bf
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11584,4 +11584,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.AmazonBedrock/claudeOnAws` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.AmazonBedrock/claudeOnAws` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider.Options.AmazonBedrock/claudeOnAws` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.AmazonBedrock/claudeOnAws` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n"
