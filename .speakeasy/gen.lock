@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: e9231c130680dfee05e417bf8a0deed7
+  docChecksum: aa6004c57a37579e3eecdf30a5c0944b
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.56
-  configChecksum: 0dc934e03d5ebf9614798f86a161523b
+  releaseVersion: 0.7.57
+  configChecksum: 7dfb9ccac30a8a7b0397679035f8bdda
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 58775ad4-621d-4b14-91b6-d80c9c4e7a22
-  pristine_commit_hash: 34e43cca6f22e9c59df5c75ef5b6851cdf7eb3f3
-  pristine_tree_hash: e873a3c1d233ed3db6fd1840d5a58ecb3946d610
+  generation_id: 978dc600-cd21-487c-a04c-cda934f83fb1
+  pristine_commit_hash: dd176ef83262140fe2d91e93371cd7131ed7d386
+  pristine_tree_hash: 25ce36b6e260c09d0a811c545daeebde25ca3ffe
 features:
   go:
     acceptHeaders: 2.81.2
@@ -9767,8 +9767,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:ac78023d0ec99cf078ba954fc48851bcf4bed75c
-    pristine_git_object: 8ee4fa039a82adb6af393b7a97fc94fcb723e7bf
+    last_write_checksum: sha1:55b1c76f83e48c3c9a0bdb373073b877e6df2410
+    pristine_git_object: f10c2700113b1af680099d5f898c36a27144c088
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11584,4 +11584,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Anthropic/2` **Added**\n"
