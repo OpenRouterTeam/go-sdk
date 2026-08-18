@@ -18,6 +18,7 @@ type ProviderOptions struct {
 	AmazonNova               map[string]any `json:"amazon-nova,omitzero"`
 	Ambient                  map[string]any `json:"ambient,omitzero"`
 	Anthropic                map[string]any `json:"anthropic,omitzero"`
+	Anthropic2               map[string]any `json:"anthropic/2,omitzero"`
 	Anyscale                 map[string]any `json:"anyscale,omitzero"`
 	ArceeAi                  map[string]any `json:"arcee-ai,omitzero"`
 	AtlasCloud               map[string]any `json:"atlas-cloud,omitzero"`
@@ -223,6 +224,13 @@ func (p *ProviderOptions) GetAnthropic() map[string]any {
 		return nil
 	}
 	return p.Anthropic
+}
+
+func (p *ProviderOptions) GetAnthropic2() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Anthropic2
 }
 
 func (p *ProviderOptions) GetAnyscale() map[string]any {
