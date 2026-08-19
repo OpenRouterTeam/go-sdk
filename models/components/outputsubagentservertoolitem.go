@@ -35,7 +35,7 @@ func (e *OutputSubagentServerToolItemType) UnmarshalJSON(data []byte) error {
 type OutputSubagentServerToolItem struct {
 	// EXPERIMENTAL — subject to change without notice. The `call_id` of the tool call that spawned this subagent. This id will also be included as the `subagent_id` on any `function_call` items created by the subagent. This must be returned in the request so the `function_call` can be matched with the correct subagent. A suspended `in_progress` item is announced once and never re-emitted or terminally closed — completion arrives as a new item with the same `call_id`.
 	CallID *string `json:"call_id,omitzero"`
-	// Error message when the subagent task did not produce an outcome.
+	// Error message when the subagent task did not produce an outcome. Set together with `status: 'failed'` on the terminal item.
 	Error *string `json:"error,omitzero"`
 	ID    *string `json:"id,omitzero"`
 	// Provider-safe function name of the specific subagent instance that produced this item (e.g. `openrouter_subagent__1`). Present only on items from non-default instances — the second and later subagent entries in the request `tools` array. The first (default) instance omits it, even when multiple subagents are configured. When a replayed item echoes this field back, the transcript rehydrates the call under that instance's tool. This identity is positional: it is derived from the index of the subagent entry in the request `tools` array, so keep the order of subagent entries stable across requests in a conversation.
@@ -45,8 +45,8 @@ type OutputSubagentServerToolItem struct {
 	// Configured name of the subagent that executed the task (the `name` on its tool entry). Present only for named subagents; omitted for an unnamed (default) subagent.
 	Name *string `json:"name,omitzero"`
 	// The worker model's result (the outcome text returned to the delegating model).
-	Outcome *string        `json:"outcome,omitzero"`
-	Status  ToolCallStatus `json:"status"`
+	Outcome *string                `json:"outcome,omitzero"`
+	Status  FailableToolCallStatus `json:"status"`
 	// The task description the delegating model sent to the worker.
 	TaskDescription *string `json:"task_description,omitzero"`
 	// The short task identifier the delegating model supplied.
@@ -114,9 +114,9 @@ func (o *OutputSubagentServerToolItem) GetOutcome() *string {
 	return o.Outcome
 }
 
-func (o *OutputSubagentServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputSubagentServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }

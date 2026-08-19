@@ -35,7 +35,7 @@ func (e *OutputAdvisorServerToolItemType) UnmarshalJSON(data []byte) error {
 type OutputAdvisorServerToolItem struct {
 	// The advisor model's response (the advice text returned to the executor).
 	Advice *string `json:"advice,omitzero"`
-	// Error message when the advisor call did not produce advice.
+	// Error message when the advisor call did not produce advice. Set together with `status: 'failed'` on the terminal item.
 	Error *string `json:"error,omitzero"`
 	ID    *string `json:"id,omitzero"`
 	// Provider-safe function name of the specific advisor instance that produced this item (e.g. `openrouter_advisor__1`). Present only when more than one advisor tool is configured; omitted for the default single advisor. Echo this field back unchanged so the advisor's cross-request memory stays namespaced to the correct instance. This identity is positional: it is derived from the index of the advisor entry in the request `tools` array, so clients must keep the order of advisor tool entries stable across requests in a conversation. Reordering or inserting advisor entries shifts these names and causes each advisor's cross-request memory to be attributed to the wrong instance.
@@ -44,7 +44,7 @@ type OutputAdvisorServerToolItem struct {
 	Model *string `json:"model,omitzero"`
 	// The prompt the executor sent to the advisor.
 	Prompt *string                         `json:"prompt,omitzero"`
-	Status ToolCallStatus                  `json:"status"`
+	Status FailableToolCallStatus          `json:"status"`
 	Type   OutputAdvisorServerToolItemType `json:"type"`
 }
 
@@ -101,9 +101,9 @@ func (o *OutputAdvisorServerToolItem) GetPrompt() *string {
 	return o.Prompt
 }
 
-func (o *OutputAdvisorServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputAdvisorServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }
