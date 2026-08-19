@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: aa6004c57a37579e3eecdf30a5c0944b
+  docChecksum: c5ee3a5938bb378b9d27e8fe570a51b9
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.57
-  configChecksum: 7dfb9ccac30a8a7b0397679035f8bdda
+  releaseVersion: 0.7.58
+  configChecksum: 200adc3304e9c024f23740d557e21348
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 978dc600-cd21-487c-a04c-cda934f83fb1
-  pristine_commit_hash: dd176ef83262140fe2d91e93371cd7131ed7d386
-  pristine_tree_hash: 25ce36b6e260c09d0a811c545daeebde25ca3ffe
+  generation_id: 54877770-3ef5-48d4-8909-84050d21f1b7
+  pristine_commit_hash: c3daf1cb225567d93e9ee68ca31b7cfc1e576591
+  pristine_tree_hash: 1ce5a96d6e5b04100a5a9becdf48be41c4070c30
 features:
   go:
     acceptHeaders: 2.81.2
@@ -169,10 +169,6 @@ trackedFiles:
     id: 3fe34c434b7e
     last_write_checksum: sha1:95c2a84917a8243ed55627975a88eee7e8e7093b
     pristine_git_object: 88fee9b5c3c92f4d09e539b06aecfea1492b9e48
-  docs/models/components/advisornestedtool.mdx:
-    id: 0b4206ecc0e1
-    last_write_checksum: sha1:ec33593879bbc77bfd56e5806bdd9a50434e386a
-    pristine_git_object: f17c54201151d27d629535982245587f2aa10671
   docs/models/components/advisorreasoning.mdx:
     id: 641f9cd4ff2f
     last_write_checksum: sha1:ddb9353c68de3d1b3ea90ca6e109203ae4f6ab90
@@ -183,12 +179,12 @@ trackedFiles:
     pristine_git_object: 7a508b3e0e7731437f01752f302f06f5bcd42914
   docs/models/components/advisorservertoolconfig.mdx:
     id: 3176c0043924
-    last_write_checksum: sha1:905afbf29c63518a584cc2efec14ee6696b630ce
-    pristine_git_object: 32e40c52641c1b54ce66df2a2e282307d4ea19a9
+    last_write_checksum: sha1:581dd2e058dc99550b9cdba73384b3af45e2ea6c
+    pristine_git_object: 6a2c62132053706be8cc31b62dabaae794aa4bfb
   docs/models/components/advisorservertoolopenrouter.mdx:
     id: e10186a83e14
-    last_write_checksum: sha1:3d1045dd386537df3249ad0b13af5694c80bf24b
-    pristine_git_object: 8ecadf19585e2ffc6fd3b8caec2493a515028966
+    last_write_checksum: sha1:b3e72a0ace848f7486dea9995bb1076084d5f014
+    pristine_git_object: 7d498b1182bc08de576ad35c69a57b1adf59b873
   docs/models/components/advisorservertoolopenroutertype.mdx:
     id: 83bf1e28e6ef
     last_write_checksum: sha1:a540dd436cc651dadbc7cfff1d49acfc243d26d7
@@ -6913,22 +6909,18 @@ trackedFiles:
     id: 3e1eb946c29a
     last_write_checksum: sha1:8a7124ed960d8b378a2e53bcfdcb23db3cd294f9
     pristine_git_object: d9eb21ea88daddad46b2853a4fba5dffa52e43bd
-  models/components/advisornestedtool.go:
-    id: 1644bce8acd1
-    last_write_checksum: sha1:7019d573442c316a457286bf5876d0fb662349ff
-    pristine_git_object: 1b3f6189feac277df2245d637cc2b856efa20c1d
   models/components/advisorreasoning.go:
     id: 9fc191f04671
     last_write_checksum: sha1:98900941f0c2b858b3abdfcf48924ff1277fde3f
     pristine_git_object: e10f3a38b0c12af7ccf719e0d704272623398343
   models/components/advisorservertoolconfig.go:
     id: daeea4cb03ae
-    last_write_checksum: sha1:cc360b168f52ffcc5c91acbb4b29225515e8aa18
-    pristine_git_object: 2990e719948dc2b16dc5e041c01bd52a969d55b2
+    last_write_checksum: sha1:78f54a461b4d1d2f86eace4de490ff1752f7093e
+    pristine_git_object: 71c8ebbab724d1772db70a96f0d2699e9da70f47
   models/components/advisorservertoolopenrouter.go:
     id: 76e1c03e96f1
-    last_write_checksum: sha1:2c004aef9e17e98a2b45886da300c7e33f8fdc9d
-    pristine_git_object: 72c99e3a7bc8e72834a8146fd8d5efebc9dfc77c
+    last_write_checksum: sha1:f33c26a7d0a1fc9a099c59e2e74dbe91f0363336
+    pristine_git_object: 37c48473f58b7197dd98f13d0743163454221c79
   models/components/agentmessageitem.go:
     id: b99264b0632e
     last_write_checksum: sha1:50cb4099ffdf88f35f8dd03134a3ab09c5124760
@@ -9767,8 +9759,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:55b1c76f83e48c3c9a0bdb373073b877e6df2410
-    pristine_git_object: f10c2700113b1af680099d5f898c36a27144c088
+    last_write_checksum: sha1:bece61268448756a928f171d3237534f44edb9ff
+    pristine_git_object: 356a818d2b23740e23cf021b9f0a9c573223aa7e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11584,3 +11576,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n"

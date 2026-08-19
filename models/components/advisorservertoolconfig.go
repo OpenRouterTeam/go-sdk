@@ -14,9 +14,7 @@ type AdvisorServerToolConfig struct {
 	Instructions *string `json:"instructions,omitzero"`
 	// Maximum number of output tokens (including reasoning) the advisor may produce. When omitted, the provider's default applies.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
-	// Maximum number of tool-calling steps the advisor sub-agent may take during its agentic loop. Capped at 25. Only relevant when the advisor is given tools.
-	MaxToolCalls *int64 `json:"max_tool_calls,omitzero"`
-	// Slug of the advisor model to consult (any OpenRouter model). When omitted, the executor can choose it via the tool call's `model` argument; if neither is set, the model from the outer API request is used. The advisor tool itself cannot be the advisor model.
+	// Slug of the advisor model to consult (any OpenRouter model). When omitted, the executor can choose it via the tool call's `model` argument; if neither is set, the model from the outer API request is used.
 	Model *string `json:"model,omitzero"`
 	// Optional name for this advisor. The model sees one tool per named advisor (and one default for an unnamed entry). Names must be unique across advisor entries. Letters, digits, spaces, underscores, and dashes; trimmed; 1–64 chars.
 	Name *string `json:"name,omitzero"`
@@ -26,8 +24,6 @@ type AdvisorServerToolConfig struct {
 	Stream *bool `json:"stream,omitzero"`
 	// Sampling temperature forwarded to the advisor call. When omitted, the provider's default applies.
 	Temperature *float64 `json:"temperature,omitzero"`
-	// Tools the advisor sub-agent may use while forming its advice. The advisor runs as an agentic sub-agent over these tools, then returns its text. Only OpenRouter server tools are supported — function tools are rejected — and the list must not include the advisor tool itself.
-	Tools []AdvisorNestedTool `json:"tools,omitzero"`
 }
 
 func (a AdvisorServerToolConfig) MarshalJSON() ([]byte, error) {
@@ -60,13 +56,6 @@ func (a *AdvisorServerToolConfig) GetMaxCompletionTokens() *int64 {
 		return nil
 	}
 	return a.MaxCompletionTokens
-}
-
-func (a *AdvisorServerToolConfig) GetMaxToolCalls() *int64 {
-	if a == nil {
-		return nil
-	}
-	return a.MaxToolCalls
 }
 
 func (a *AdvisorServerToolConfig) GetModel() *string {
@@ -102,11 +91,4 @@ func (a *AdvisorServerToolConfig) GetTemperature() *float64 {
 		return nil
 	}
 	return a.Temperature
-}
-
-func (a *AdvisorServerToolConfig) GetTools() []AdvisorNestedTool {
-	if a == nil {
-		return nil
-	}
-	return a.Tools
 }
