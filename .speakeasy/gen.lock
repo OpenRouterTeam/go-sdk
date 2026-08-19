@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: c5ee3a5938bb378b9d27e8fe570a51b9
+  docChecksum: 0f397595f9f488b44abc11f741bc71e2
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.58
-  configChecksum: 200adc3304e9c024f23740d557e21348
+  releaseVersion: 0.7.59
+  configChecksum: d72b79218f4c30bf595f65148118e345
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 54877770-3ef5-48d4-8909-84050d21f1b7
-  pristine_commit_hash: c3daf1cb225567d93e9ee68ca31b7cfc1e576591
-  pristine_tree_hash: 1ce5a96d6e5b04100a5a9becdf48be41c4070c30
+  generation_id: 7bffe087-1aaf-4b7e-b00e-534c9a6f171d
+  pristine_commit_hash: 8e0d97dbb390c6feb513bacbfba74390a14d637c
+  pristine_tree_hash: 768e115dbf03252814da5d243abcc8c56b83918a
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5533,6 +5533,10 @@ trackedFiles:
     id: 593dbd213d0c
     last_write_checksum: sha1:fa73e181fa18c9c4732a0d495f941fbd8ecfc081
     pristine_git_object: 79bc6e1994893d6bf4c6d6a6d089dc07c731356f
+  docs/models/components/upscalefactor.mdx:
+    id: 8048a9457d04
+    last_write_checksum: sha1:b731eccef6e26e777b320afe013a82cb6ba3f4a7
+    pristine_git_object: 232a32a5c7c15facbe6f7adaef1eb72e288394b7
   docs/models/components/upsertworkspacebudgetrequest.mdx:
     id: ae1b25ac661a
     last_write_checksum: sha1:edb1fe8552af9785caaf85ee3b3bfb98c9417a59
@@ -5571,8 +5575,8 @@ trackedFiles:
     pristine_git_object: 356e37f2116bfe858633037b8b14f49a0f13b39e
   docs/models/components/videogenerationrequest.mdx:
     id: cd475ed04a42
-    last_write_checksum: sha1:88e0a8fdfdf5f010299c6b64b32c058d9ea7dd66
-    pristine_git_object: 693c9bb576f1d0588b7f5f5d6edb863516ca9cb2
+    last_write_checksum: sha1:cd00deaa8dbc687a2b53ea3eb02a7c0faea726b1
+    pristine_git_object: 4cbb81ae7a8c7d6b139603eb9d929684cb34c681
   docs/models/components/videogenerationrequestaspectratio.mdx:
     id: 828b3d2d4e1a
     last_write_checksum: sha1:adfb933047a751837e83f58372e2a3535d736951
@@ -5603,8 +5607,8 @@ trackedFiles:
     pristine_git_object: 3b380a8ac4d98d894218b51b94c41527e0e937c3
   docs/models/components/videomodel.mdx:
     id: 742a4ae53204
-    last_write_checksum: sha1:7df51d64de14537f2b6d259439848cfe5af110a5
-    pristine_git_object: 3264b12fa54dd89168abc88189843caf5f963e01
+    last_write_checksum: sha1:f2aa31cc2267daff951e88c87f0a223787390df9
+    pristine_git_object: 1015c9157da238311c0cac32297a2aa47a6b463a
   docs/models/components/videomodelslistresponse.mdx:
     id: 6cab1b9320ee
     last_write_checksum: sha1:2e17995f4cb551e1954475a35e74e3a7649ff4bf
@@ -6815,8 +6819,8 @@ trackedFiles:
     pristine_git_object: 2b0d66639bb8a1bb90759ec02aeadb394d0cf678
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:fae15af237d725e14df3ef316e25dd2bd0ae55bd
-    pristine_git_object: 496dfedee8443760c622ec99da5bffc096fec712
+    last_write_checksum: sha1:ba90465104f4b129a0ced01d50d453c828d3cc41
+    pristine_git_object: eae78f3c2cd96ed8cefd70602553933b59bd1fd7
   guardrails.go:
     id: eb364a316712
     last_write_checksum: sha1:0b96b00585572b7f8b117454a88c67899c13df9e
@@ -9227,8 +9231,8 @@ trackedFiles:
     pristine_git_object: f4b994164e03872a8e2ef6d20c8d272dc5861e1c
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:c3825200819de7cd343dd05363364da67e450a1a
-    pristine_git_object: 88cab61b67c33d7aed13d1de6b1fd9ad26be354d
+    last_write_checksum: sha1:2a33f07fa88dd29b7ccc085f109cbcfc7afd17a4
+    pristine_git_object: 1cfaab16f8fb9d4900a0dfc6b637e68d5c9c4173
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
     last_write_checksum: sha1:b1196ebd395a89b9f03ce3207738055473c33532
@@ -9239,8 +9243,8 @@ trackedFiles:
     pristine_git_object: 6e474bc3c0bd268de74c4acf2c050552fc423c79
   models/components/videomodel.go:
     id: 4e0a4cdffa61
-    last_write_checksum: sha1:7f86023db816a771c06e96c4798d270537b617b8
-    pristine_git_object: 8fc7bb43daa633c0d57c4a0ac1c98203a931a563
+    last_write_checksum: sha1:0c476b54341ddad58e6e1abee25e46be4395dc72
+    pristine_git_object: 31fd98e223f16c9d5ad35310679a2114c8e40dc9
   models/components/videomodelslistresponse.go:
     id: a416eb7a98ab
     last_write_checksum: sha1:ac70816ce0bd21dd3730e111782e0f3bba8b5d29
@@ -9759,8 +9763,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:bece61268448756a928f171d3237534f44edb9ff
-    pristine_git_object: 356a818d2b23740e23cf021b9f0a9c573223aa7e
+    last_write_checksum: sha1:cc57201592ebba580367cbd13b0c6e068ba0890f
+    pristine_git_object: aa65660f666b36c6547df2e36881b96969625e39
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10540,7 +10544,7 @@ examples:
     speakeasy-default-list-videos-models:
       responses:
         "200":
-          application/json: {"data": [{"allowed_passthrough_parameters": [], "canonical_slug": "google/veo-3.1", "created": 1700000000, "generate_audio": true, "id": "google/veo-3.1", "name": "Veo 3.1", "seed": null, "supported_aspect_ratios": ["16:9"], "supported_durations": [5, 8], "supported_frame_images": ["first_frame", "last_frame"], "supported_resolutions": ["720p"], "supported_sizes": null}]}
+          application/json: {"data": [{"allowed_passthrough_parameters": [], "canonical_slug": "google/veo-3.1", "created": 1700000000, "creativity": [], "generate_audio": true, "id": "google/veo-3.1", "name": "Veo 3.1", "seed": null, "supported_aspect_ratios": ["16:9"], "supported_durations": [5, 8], "supported_frame_images": ["first_frame", "last_frame"], "supported_resolutions": ["720p"], "supported_sizes": null, "upscale_factor": {}}]}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "500":
@@ -11576,4 +11580,7 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(AdvisorServerTool_OpenRouter).Parameters` **Changed** (Breaking ⚠️)\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.VideoGeneration.Generate()`:  `request.Request` **Changed**
+  * `OpenRouter.VideoGeneration.ListVideosModels()`:  `response.Data[]` **Changed**
