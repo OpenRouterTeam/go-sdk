@@ -22,8 +22,8 @@ type AcceptHeaderEnum string
 
 const (
 	AcceptHeaderEnumApplicationJson        AcceptHeaderEnum = "application/json"
-	AcceptHeaderEnumTextEventStream        AcceptHeaderEnum = "text/event-stream"
 	AcceptHeaderEnumAudioWildcard          AcceptHeaderEnum = "audio/*"
+	AcceptHeaderEnumTextEventStream        AcceptHeaderEnum = "text/event-stream"
 	AcceptHeaderEnumApplicationOctetStream AcceptHeaderEnum = "application/octet-stream"
 	AcceptHeaderEnumVideoMp4               AcceptHeaderEnum = "video/mp4"
 )
