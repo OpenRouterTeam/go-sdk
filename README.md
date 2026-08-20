@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.62
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.63
 > ```
 
 <!-- No Summary [summary] -->
@@ -190,6 +190,8 @@ func main() {
 ### [Analytics](docs/sdks/analytics/README.md)
 
 * [GetUserActivity](docs/sdks/analytics/README.md#getuseractivity) - Get user activity grouped by endpoint
+* [GetAnalyticsMeta](docs/sdks/analytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
+* [QueryAnalytics](docs/sdks/analytics/README.md#queryanalytics) - Query analytics data
 
 ### [APIKeys](docs/sdks/apikeys/README.md)
 
@@ -203,11 +205,6 @@ func main() {
 ### [Benchmarks](docs/sdks/benchmarks/README.md)
 
 * [GetBenchmarks](docs/sdks/benchmarks/README.md#getbenchmarks) - List Benchmarks
-
-### [Beta.Analytics](docs/sdks/betaanalytics/README.md)
-
-* [GetAnalyticsMeta](docs/sdks/betaanalytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
-* [QueryAnalytics](docs/sdks/betaanalytics/README.md#queryanalytics) - Query analytics data
 
 ### [Beta.Responses](docs/sdks/betaresponses/README.md)
 
