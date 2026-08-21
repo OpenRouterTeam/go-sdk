@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 9fd87b4d9bd83f1e3241c3eddf8ba81b
+  docChecksum: d18ad6217724b08118784c6735698f2a
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.65
-  configChecksum: b701fb07ca030817d5ae2471f440b50d
+  releaseVersion: 0.7.66
+  configChecksum: f76d5f17473d5ef72e529ea6cdafb838
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: bfd38821-3960-493f-8aa4-9b6f33c2efbb
-  pristine_commit_hash: 680742117869c3f65facea905265cf4b6508dfd4
-  pristine_tree_hash: 5db4c86300b99aba032fe307e269461b610d8d7b
+  generation_id: f9c12bc9-e53e-40ab-bef7-cc710e71c2ed
+  pristine_commit_hash: 9c1b3cd9597b15961f262f8ef7ce0960c1a6c882
+  pristine_tree_hash: 941aae092b60cd89a172ef1d9135243a4ca504ca
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6723,8 +6723,8 @@ trackedFiles:
     pristine_git_object: 56b4fa7965b72b472ec7fea8d4bb6dffc5de147f
   docs/sdks/embeddings/README.mdx:
     id: cd71581df291
-    last_write_checksum: sha1:16f587cf41deab0c91b81d99a0bde3f306d55d80
-    pristine_git_object: fe50a5a543037b859e6b9671d7a652f82d73fc10
+    last_write_checksum: sha1:af7c309410f6aaa9e6318b41416560a01e22ad81
+    pristine_git_object: 958d09eb74244031d9cdd3552efa44e1f3a69875
   docs/sdks/endpoints/README.mdx:
     id: 62dfac9f7b71
     last_write_checksum: sha1:2295f7bba3abe6fb0c1e89c54df1c244bf290cb0
@@ -6799,8 +6799,8 @@ trackedFiles:
     pristine_git_object: e5230ff30b0aaa1dfb814cf0ea30135c6f162609
   embeddings.go:
     id: f7354b2d5b3e
-    last_write_checksum: sha1:d94c09773562d4220f10139767c5ec4127ffe429
-    pristine_git_object: 5d969cd3620e3f2e42de9d07c2faf8577b201f25
+    last_write_checksum: sha1:e911a7684b8e4e8cfe01d8c7c7fb26a633ecba02
+    pristine_git_object: f141d5783556dd6a1b8c579acffc85a50601735b
   endpoints.go:
     id: fca50a3c2336
     last_write_checksum: sha1:4ff8dcc824651a38c91f51bf1754dec818104b0e
@@ -9763,8 +9763,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:36a1a97a4b4853296e529e71ef2945005162b8bd
-    pristine_git_object: 1615c74ded0523de1f2ef7698be089b2a810f670
+    last_write_checksum: sha1:4b4502f2685c4a0522302de6096263c6abfa4f50
+    pristine_git_object: 4a6e0202164ffa959cf799efb93df59fa3eaa927
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9956,6 +9956,10 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+        "408":
+          application/json: {"error": {"code": 408, "message": "Operation timed out. Please try again later."}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
   listEmbeddingsModels:
     speakeasy-default-list-embeddings-models:
       parameters:
@@ -11580,4 +11584,6 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Makora` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Makora` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(makora)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(makora)` **Added**\n  *  `response.Data.Provider.Enum(makora)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(makora)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(makora)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(makora)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(makora)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(makora)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(makora)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Makora` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Embeddings.Generate()`:  `error` **Changed**
