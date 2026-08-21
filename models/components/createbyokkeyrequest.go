@@ -8,6 +8,8 @@ import (
 )
 
 type CreateBYOKKeyRequest struct {
+	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) that may use this credential. `null` means no restriction. Must contain at least one hash if provided. Hashes that do not belong to your account return a 400.
+	AllowedAPIKeyHashes optionalnullable.OptionalNullable[[]string] `json:"allowed_api_key_hashes,omitzero"`
 	// Optional allowlist of model slugs this credential may be used for. `null` means no restriction.
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// Optional allowlist of user IDs that may use this credential. `null` means no restriction.
@@ -35,6 +37,13 @@ func (c *CreateBYOKKeyRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *CreateBYOKKeyRequest) GetAllowedAPIKeyHashes() optionalnullable.OptionalNullable[[]string] {
+	if c == nil {
+		return nil
+	}
+	return c.AllowedAPIKeyHashes
 }
 
 func (c *CreateBYOKKeyRequest) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
