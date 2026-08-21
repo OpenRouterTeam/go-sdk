@@ -261,6 +261,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Liquid                   map[string]any `json:"liquid,omitzero"`
 	Lynn                     map[string]any `json:"lynn,omitzero"`
 	LynnPrivate              map[string]any `json:"lynn-private,omitzero"`
+	Makora                   map[string]any `json:"makora,omitzero"`
 	Mancer                   map[string]any `json:"mancer,omitzero"`
 	MancerOld                map[string]any `json:"mancer-old,omitzero"`
 	Mara                     map[string]any `json:"mara,omitzero"`
@@ -839,6 +840,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetLynnPrivate() map[string]
 		return nil
 	}
 	return i.LynnPrivate
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetMakora() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Makora
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetMancer() map[string]any {

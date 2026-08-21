@@ -80,6 +80,7 @@ type ProviderOptions struct {
 	Liquid                   map[string]any `json:"liquid,omitzero"`
 	Lynn                     map[string]any `json:"lynn,omitzero"`
 	LynnPrivate              map[string]any `json:"lynn-private,omitzero"`
+	Makora                   map[string]any `json:"makora,omitzero"`
 	Mancer                   map[string]any `json:"mancer,omitzero"`
 	MancerOld                map[string]any `json:"mancer-old,omitzero"`
 	Mara                     map[string]any `json:"mara,omitzero"`
@@ -658,6 +659,13 @@ func (p *ProviderOptions) GetLynnPrivate() map[string]any {
 		return nil
 	}
 	return p.LynnPrivate
+}
+
+func (p *ProviderOptions) GetMakora() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Makora
 }
 
 func (p *ProviderOptions) GetMancer() map[string]any {
