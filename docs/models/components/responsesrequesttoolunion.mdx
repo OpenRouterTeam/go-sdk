@@ -166,6 +166,12 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenroute
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterShell(components.ShellServerToolOpenRouter{/* values here */})
 ```
 
+### ToolSearchServerTool
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterToolSearch(components.ToolSearchServerTool{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -226,5 +232,7 @@ switch responsesRequestToolUnion.Type {
 		// responsesRequestToolUnion.BashServerTool is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterShell:
 		// responsesRequestToolUnion.ShellServerToolOpenRouter is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterToolSearch:
+		// responsesRequestToolUnion.ToolSearchServerTool is populated
 }
 ```
