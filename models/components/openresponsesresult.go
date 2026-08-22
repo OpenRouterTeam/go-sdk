@@ -63,6 +63,8 @@ type OpenResponsesResultToolFunction struct {
 	Parameters  map[string]any                            `json:"parameters"`
 	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
 	Type        OpenResponsesResultType                   `json:"type"`
+	// Withhold this tool from the model until `openrouter:tool_search` finds it. Requires the tool search server tool; at least one tool must remain non-deferred.
+	DeferLoading *bool `json:"defer_loading,omitzero"`
 }
 
 func (o OpenResponsesResultToolFunction) MarshalJSON() ([]byte, error) {
@@ -109,6 +111,13 @@ func (o *OpenResponsesResultToolFunction) GetType() OpenResponsesResultType {
 		return OpenResponsesResultType("")
 	}
 	return o.Type
+}
+
+func (o *OpenResponsesResultToolFunction) GetDeferLoading() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeferLoading
 }
 
 type OpenResponsesResultToolUnionType string
