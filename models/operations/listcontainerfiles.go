@@ -7,8 +7,8 @@ import (
 )
 
 type ListContainerFilesRequest struct {
-	// The sandbox session id, exactly as stored — a restarted session has its own `-r<nonce>`-suffixed id.
-	SessionID string `pathParam:"style=simple,explode=false,name=session_id"`
+	// The canonical container id, exactly as returned in a bash/shell tool result — a restarted session has its own `-r<nonce>`-suffixed id. A session-derived id is always `sess_` + the sanitized session key, which is not necessarily the raw session id that was sent.
+	ContainerID string `pathParam:"style=simple,explode=false,name=container_id"`
 	// Maximum number of files to return (1-1000). Defaults to 100 when absent.
 	Limit *int64 `default:"100" queryParam:"style=form,explode=true,name=limit"`
 	// Forward cursor: a container file id from a previous page (typically `last_id`); listing resumes strictly after that file.
@@ -26,11 +26,11 @@ func (l *ListContainerFilesRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (l *ListContainerFilesRequest) GetSessionID() string {
+func (l *ListContainerFilesRequest) GetContainerID() string {
 	if l == nil {
 		return ""
 	}
-	return l.SessionID
+	return l.ContainerID
 }
 
 func (l *ListContainerFilesRequest) GetLimit() *int64 {

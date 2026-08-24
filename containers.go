@@ -33,12 +33,12 @@ func newContainers(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks
 }
 
 // ListContainerFiles - List container files
-// Lists the files under a sandbox session prefix, in lexicographic path order. A restarted session is a separate container with its own session id. Paginate with `limit` and `after` (pass the previous page’s `last_id`); `has_more: true` always means the next page is fetchable that way.
-func (s *Containers) ListContainerFiles(ctx context.Context, sessionID string, limit *int64, after *string, opts ...operations.Option) (*components.ContainerFileListResponse, error) {
+// Lists the files in a container, in lexicographic path order. The container id is the canonical id returned in bash/shell tool results; a restarted session is a separate container with its own id. Paginate with `limit` and `after` (pass the previous page’s `last_id`); `has_more: true` always means the next page is fetchable that way.
+func (s *Containers) ListContainerFiles(ctx context.Context, containerID string, limit *int64, after *string, opts ...operations.Option) (*components.ContainerFileListResponse, error) {
 	request := operations.ListContainerFilesRequest{
-		SessionID: sessionID,
-		Limit:     limit,
-		After:     after,
+		ContainerID: containerID,
+		Limit:       limit,
+		After:       after,
 	}
 
 	o := operations.Options{}
@@ -59,7 +59,7 @@ func (s *Containers) ListContainerFiles(ctx context.Context, sessionID string, l
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/containers/{session_id}/files", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/containers/{container_id}/files", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -374,11 +374,11 @@ func (s *Containers) ListContainerFiles(ctx context.Context, sessionID string, l
 }
 
 // GetContainerFile - Retrieve a container file
-// Returns the metadata of a single file under a sandbox session prefix.
-func (s *Containers) GetContainerFile(ctx context.Context, sessionID string, fileID string, opts ...operations.Option) (*components.ContainerFile, error) {
+// Returns the metadata of a single file in a container.
+func (s *Containers) GetContainerFile(ctx context.Context, containerID string, fileID string, opts ...operations.Option) (*components.ContainerFile, error) {
 	request := operations.GetContainerFileRequest{
-		SessionID: sessionID,
-		FileID:    fileID,
+		ContainerID: containerID,
+		FileID:      fileID,
 	}
 
 	o := operations.Options{}
@@ -399,7 +399,7 @@ func (s *Containers) GetContainerFile(ctx context.Context, sessionID string, fil
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/containers/{session_id}/files/{file_id}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/containers/{container_id}/files/{file_id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -731,11 +731,11 @@ func (s *Containers) GetContainerFile(ctx context.Context, sessionID string, fil
 }
 
 // DownloadContainerFileContent - Download container file content
-// Streams the raw bytes of a file under a sandbox session prefix.
-func (s *Containers) DownloadContainerFileContent(ctx context.Context, sessionID string, fileID string, opts ...operations.Option) (io.ReadCloser, error) {
+// Streams the raw bytes of a file in a container.
+func (s *Containers) DownloadContainerFileContent(ctx context.Context, containerID string, fileID string, opts ...operations.Option) (io.ReadCloser, error) {
 	request := operations.DownloadContainerFileContentRequest{
-		SessionID: sessionID,
-		FileID:    fileID,
+		ContainerID: containerID,
+		FileID:      fileID,
 	}
 
 	o := operations.Options{}
@@ -756,7 +756,7 @@ func (s *Containers) DownloadContainerFileContent(ctx context.Context, sessionID
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/containers/{session_id}/files/{file_id}/content", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/containers/{container_id}/files/{file_id}/content", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}

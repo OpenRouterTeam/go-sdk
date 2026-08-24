@@ -9,38 +9,127 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type OutputShellCallOutputItemType string
+type OutputShellCallOutputItemTypeContainerFileCitation string
 
 const (
-	OutputShellCallOutputItemTypeShellCallOutput OutputShellCallOutputItemType = "shell_call_output"
+	OutputShellCallOutputItemTypeContainerFileCitationContainerFileCitation OutputShellCallOutputItemTypeContainerFileCitation = "container_file_citation"
 )
 
-func (e OutputShellCallOutputItemType) ToPointer() *OutputShellCallOutputItemType {
+func (e OutputShellCallOutputItemTypeContainerFileCitation) ToPointer() *OutputShellCallOutputItemTypeContainerFileCitation {
 	return &e
 }
-func (e *OutputShellCallOutputItemType) UnmarshalJSON(data []byte) error {
+func (e *OutputShellCallOutputItemTypeContainerFileCitation) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "container_file_citation":
+		*e = OutputShellCallOutputItemTypeContainerFileCitation(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputShellCallOutputItemTypeContainerFileCitation: %v", v)
+	}
+}
+
+type OutputShellCallOutputItemFile struct {
+	ContainerID string                                             `json:"container_id"`
+	EndIndex    int64                                              `json:"end_index"`
+	FileID      string                                             `json:"file_id"`
+	Filename    string                                             `json:"filename"`
+	StartIndex  int64                                              `json:"start_index"`
+	Type        OutputShellCallOutputItemTypeContainerFileCitation `json:"type"`
+}
+
+func (o OutputShellCallOutputItemFile) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputShellCallOutputItemFile) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputShellCallOutputItemFile) GetContainerID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ContainerID
+}
+
+func (o *OutputShellCallOutputItemFile) GetEndIndex() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.EndIndex
+}
+
+func (o *OutputShellCallOutputItemFile) GetFileID() string {
+	if o == nil {
+		return ""
+	}
+	return o.FileID
+}
+
+func (o *OutputShellCallOutputItemFile) GetFilename() string {
+	if o == nil {
+		return ""
+	}
+	return o.Filename
+}
+
+func (o *OutputShellCallOutputItemFile) GetStartIndex() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.StartIndex
+}
+
+func (o *OutputShellCallOutputItemFile) GetType() OutputShellCallOutputItemTypeContainerFileCitation {
+	if o == nil {
+		return OutputShellCallOutputItemTypeContainerFileCitation("")
+	}
+	return o.Type
+}
+
+type OutputShellCallOutputItemTypeShellCallOutput string
+
+const (
+	OutputShellCallOutputItemTypeShellCallOutputShellCallOutput OutputShellCallOutputItemTypeShellCallOutput = "shell_call_output"
+)
+
+func (e OutputShellCallOutputItemTypeShellCallOutput) ToPointer() *OutputShellCallOutputItemTypeShellCallOutput {
+	return &e
+}
+func (e *OutputShellCallOutputItemTypeShellCallOutput) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "shell_call_output":
-		*e = OutputShellCallOutputItemType(v)
+		*e = OutputShellCallOutputItemTypeShellCallOutput(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputShellCallOutputItemType: %v", v)
+		return fmt.Errorf("invalid value for OutputShellCallOutputItemTypeShellCallOutput: %v", v)
 	}
 }
 
 // OutputShellCallOutputItem - A native `shell_call_output` item matching OpenAI's Responses API shape. Carries per-command stdout, stderr, and the exit/timeout outcome.
 type OutputShellCallOutputItem struct {
-	CallID          string                                   `json:"call_id"`
+	CallID string `json:"call_id"`
+	// The canonical container id the command ran under — the `{container_id}` for the Container Files API, reusable as a `container_reference` in later requests. Present on every sandbox-executed call, even when no files changed.
+	ContainerID *string `json:"container_id,omitzero"`
+	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
+	Files           []OutputShellCallOutputItemFile          `json:"files,omitzero"`
 	ID              string                                   `json:"id"`
 	MaxOutputLength optionalnullable.OptionalNullable[int64] `json:"max_output_length,omitzero"`
 	Output          []ShellCallOutputContent                 `json:"output"`
 	// Status of a shell call or its output.
-	Status ShellCallStatus               `json:"status"`
-	Type   OutputShellCallOutputItemType `json:"type"`
+	Status ShellCallStatus                              `json:"status"`
+	Type   OutputShellCallOutputItemTypeShellCallOutput `json:"type"`
 }
 
 func (o OutputShellCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -59,6 +148,20 @@ func (o *OutputShellCallOutputItem) GetCallID() string {
 		return ""
 	}
 	return o.CallID
+}
+
+func (o *OutputShellCallOutputItem) GetContainerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ContainerID
+}
+
+func (o *OutputShellCallOutputItem) GetFiles() []OutputShellCallOutputItemFile {
+	if o == nil {
+		return nil
+	}
+	return o.Files
 }
 
 func (o *OutputShellCallOutputItem) GetID() string {
@@ -89,9 +192,9 @@ func (o *OutputShellCallOutputItem) GetStatus() ShellCallStatus {
 	return o.Status
 }
 
-func (o *OutputShellCallOutputItem) GetType() OutputShellCallOutputItemType {
+func (o *OutputShellCallOutputItem) GetType() OutputShellCallOutputItemTypeShellCallOutput {
 	if o == nil {
-		return OutputShellCallOutputItemType("")
+		return OutputShellCallOutputItemTypeShellCallOutput("")
 	}
 	return o.Type
 }
