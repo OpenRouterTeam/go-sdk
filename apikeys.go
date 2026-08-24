@@ -896,7 +896,7 @@ func (s *APIKeys) Create(ctx context.Context, request operations.CreateKeysReque
 }
 
 // Delete an API key
-// Delete an existing API key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Delete an existing API key. Authenticate with a [management key](/docs/guides/overview/auth/management-api-keys), or with a Connect client secret. A client secret reaches only the keys that same client created; any other key responds as if it does not exist.
 func (s *APIKeys) Delete(ctx context.Context, hash string, opts ...operations.Option) (*operations.DeleteKeysResponse, error) {
 	request := operations.DeleteKeysRequest{
 		Hash: hash,
@@ -1482,7 +1482,7 @@ func (s *APIKeys) Get(ctx context.Context, hash string, opts ...operations.Optio
 }
 
 // Update an API key
-// Update an existing API key. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Update an existing API key. Authenticate with a [management key](/docs/guides/overview/auth/management-api-keys), or with a Connect client secret. A client secret reaches only the keys that same client created; any other key responds as if it does not exist.
 func (s *APIKeys) Update(ctx context.Context, hash string, requestBody operations.UpdateKeysRequestBody, opts ...operations.Option) (*operations.UpdateKeysResponse, error) {
 	request := operations.UpdateKeysRequest{
 		Hash:        hash,
