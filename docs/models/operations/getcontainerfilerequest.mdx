@@ -1,0 +1,10 @@
+---
+title: "GetContainerFileRequest"
+---
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          | Example                                                                                              |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `SessionID`                                                                                          | `string`                                                                                             | :heavy_check_mark:                                                                                   | The sandbox session id, exactly as stored — a restarted session has its own `-r<nonce>`-suffixed id. | sess-abc123                                                                                          |
+| `FileID`                                                                                             | `string`                                                                                             | :heavy_check_mark:                                                                                   | Container file id (`cfile_` + base64url of the file path).                                           | cfile_b3V0L3JlcG9ydC5jc3Y                                                                            |

@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: e87ed6e952e77a6f8f2097ff8de11488
+  docChecksum: d2513605addd3cab8ef8c8259211928f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.67
-  configChecksum: 4f073c63479514382c8a66afc3f37780
+  releaseVersion: 0.7.68
+  configChecksum: 06858dc194f6aab3876f5da4cc790263
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 17d78517-8bd0-4399-bdf6-6b70cf1e8fb4
-  pristine_commit_hash: 0925ef9677d76dd70593b41e51a9e60f2a394282
-  pristine_tree_hash: 271b6ea0c31e607b9d204412baac2aaa19c05faa
+  generation_id: 138d9d3d-d8d1-4811-9bcf-fd7db452a80d
+  pristine_commit_hash: ba6d6a6745801e561c075f66216ab91914b5fa21
+  pristine_tree_hash: c8fda014cfe10c4180d47b020588fa589724d947
 features:
   go:
     acceptHeaders: 2.81.2
@@ -101,6 +101,10 @@ trackedFiles:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
     pristine_git_object: a32c39b1c9f89fd9212fef00f1fb8a6ced208630
+  containers.go:
+    id: 1dcb2f06ad34
+    last_write_checksum: sha1:aee07759807dcaab14b4cb8d3a88ac85e7aa9ab5
+    pristine_git_object: cd63bc8b6cee1a43881f44c60ffd399329684e41
   credits.go:
     id: d01cfe328cc3
     last_write_checksum: sha1:05f6c501b571df83b665e2272a621e502d1e252a
@@ -1393,6 +1397,26 @@ trackedFiles:
     id: e7ab41f27dc0
     last_write_checksum: sha1:3aea32fc46a6d2b3eba8b9f431309262f421c837
     pristine_git_object: 31d5e6f15ed13075d1d1aa21bd5668c21c4304f1
+  docs/models/components/containerfile.mdx:
+    id: ae169a0536b1
+    last_write_checksum: sha1:14379a8afda342ffa9d1f1d277cadcb998602baf
+    pristine_git_object: e37be5706bb1fec3c1fd20ad8cccd14bd57287f7
+  docs/models/components/containerfilelistresponse.mdx:
+    id: f6ab2ed1e5bc
+    last_write_checksum: sha1:37214991431e2ab6aa8d798fb13f784b443bd860
+    pristine_git_object: 6236880b8a56722fa7e1ecc497f88dcf62722e90
+  docs/models/components/containerfilelistresponseobject.mdx:
+    id: a8a9c39b0df4
+    last_write_checksum: sha1:619b8898f66c8ddabb7e7832c5593cb3e7270351
+    pristine_git_object: 0702480b63196c878e84a4f1de79b3e64d8cb7b8
+  docs/models/components/containerfileobject.mdx:
+    id: b318dba11ac5
+    last_write_checksum: sha1:79d6eb7160640a75d8a4cf6cf52bae56d02c094b
+    pristine_git_object: 03e1222e04cbc1cb622eac9186896ea2323a810a
+  docs/models/components/containerfilesource.mdx:
+    id: 2db66949ffe8
+    last_write_checksum: sha1:cbf1cd2d4a225790f955bee9907ce39eb3392bb2
+    pristine_git_object: ecad9c185a85cfb5d53e2a20eb2eec3e60a95bdf
   docs/models/components/containerreferenceenvironment.mdx:
     id: de46f0358faf
     last_write_checksum: sha1:a13faa0fb00531a5a3706154b3108797f0159457
@@ -6009,6 +6033,10 @@ trackedFiles:
     id: 9e5378570346
     last_write_checksum: sha1:246738bdee8cfa184d515d7046de89d88484b388
     pristine_git_object: 8fa1f1795c19e1754c33e52f93b28352060a4200
+  docs/models/operations/downloadcontainerfilecontentrequest.mdx:
+    id: 9aa373ceee85
+    last_write_checksum: sha1:0bdf61d428fa06de0e59d001d114a7814385746b
+    pristine_git_object: 299bd1f8a696ed318e38146ac6fac9284edffe2a
   docs/models/operations/downloadfilecontentrequest.mdx:
     id: 417167d13cb0
     last_write_checksum: sha1:d531b73561e3612ea32f107c1880b719fc6d3b4d
@@ -6069,6 +6097,10 @@ trackedFiles:
     id: 9c447e3ec71d
     last_write_checksum: sha1:87641b7aa3f1638103c3da032f17bc67a1ea0d79
     pristine_git_object: a89b223c29b74c6018705a3781cdd4740a5d7999
+  docs/models/operations/getcontainerfilerequest.mdx:
+    id: 60d6ec369a65
+    last_write_checksum: sha1:eab9e104479e85c3b14db137d0534dd5c907c946
+    pristine_git_object: f24299fb4ea6bf75ff7e92d0aa83c0f95c21c01e
   docs/models/operations/getcreditsdata.mdx:
     id: a729a21bc78b
     last_write_checksum: sha1:ac1137ce3e5c23d5d21ae3569cd6cf65b6e5ea04
@@ -6229,6 +6261,10 @@ trackedFiles:
     id: 23158c88a16c
     last_write_checksum: sha1:18de8aac3bd7d8436d94850d0f4da8e09169e531
     pristine_git_object: 8af15926770019ed8bdf65ca259f47e467ce9135
+  docs/models/operations/listcontainerfilesrequest.mdx:
+    id: f92bb567b314
+    last_write_checksum: sha1:02e43810fc2a11cec0492a9b057dbb89eb7e36d3
+    pristine_git_object: 52a11e1acd86cf1aaac36b9f2bf25fe23a53cd30
   docs/models/operations/listdata.mdx:
     id: 50698a46e95c
     last_write_checksum: sha1:e8f1a299510d2ccbab11f5fe0a499b522dc52310
@@ -6725,6 +6761,10 @@ trackedFiles:
     id: 4786130ef02a
     last_write_checksum: sha1:722489854139d8e4651a33d1e2306fd7507142ec
     pristine_git_object: 1ba80d0ada312235511d6006847d3264aa61283b
+  docs/sdks/containers/README.mdx:
+    id: cc963972ad75
+    last_write_checksum: sha1:e5bc70a6656f2e964c13cfa04221f0d3cd5154a7
+    pristine_git_object: 0f659558933faa2e97fbce5bf835a4f1d317e360
   docs/sdks/credits/README.mdx:
     id: 2ba51de8de3f
     last_write_checksum: sha1:6840c872a50554a58c33f3ef4533ce21af8b6247
@@ -7505,6 +7545,14 @@ trackedFiles:
     id: 2326f1162f1b
     last_write_checksum: sha1:ee458a65d7c2f91b422f1bbe4b4c19e2fdb44c94
     pristine_git_object: d98f25405856c31015464471df5814724cb24da4
+  models/components/containerfile.go:
+    id: 6afa0ad443a6
+    last_write_checksum: sha1:015c8d1885cb67c3b215c922b4d3a845736b6d20
+    pristine_git_object: ee644cc9432bebd261ba7ad28d0144b8f5c7d0d1
+  models/components/containerfilelistresponse.go:
+    id: 1bbad1b138a3
+    last_write_checksum: sha1:8df1983f993d6cf2862dca9fa3ae8ec239674879
+    pristine_git_object: 9a3c79a1cd7d8febce2dd09f4e7597c104935171
   models/components/containerreferenceenvironment.go:
     id: 4a30b6b0b7e4
     last_write_checksum: sha1:d33c160211d88e2ef22d209428ce803dec384a7e
@@ -9461,6 +9509,10 @@ trackedFiles:
     id: 0d7a80f7f117
     last_write_checksum: sha1:0c7e8b238e6cf4c4db21d9d169126056b382a7eb
     pristine_git_object: e478ee3772362bf798e8bad605a25822c4978f07
+  models/operations/downloadcontainerfilecontent.go:
+    id: 9788dd748ddb
+    last_write_checksum: sha1:77934447d7e69d926d4fb8640c1986d28ccc9510
+    pristine_git_object: ae23d03676e1674491d039840f7b41f8b834ce44
   models/operations/downloadfilecontent.go:
     id: 0687ce8cf88c
     last_write_checksum: sha1:5dd5d398c2103464474ebfadb2049867e472acc7
@@ -9485,6 +9537,10 @@ trackedFiles:
     id: 6ca6d60dc861
     last_write_checksum: sha1:879b9d77c0f853eee5a4454c8a2acec05a1da3cd
     pristine_git_object: bc7defc685a3b8c9d69ddf7d1eb5e3c5c93567d1
+  models/operations/getcontainerfile.go:
+    id: e54f25a21ee9
+    last_write_checksum: sha1:f34f8e208ffb261ddb026cd2e5326687f9868e4e
+    pristine_git_object: adfb98c1b446ce23564a20fd14c50019e37c5dde
   models/operations/getcredits.go:
     id: 956813e76390
     last_write_checksum: sha1:af37dfecf13091c063d67d4c05fbbfa3ae805c16
@@ -9569,6 +9625,10 @@ trackedFiles:
     id: e40d557d5875
     last_write_checksum: sha1:d53831fb56ebf3f02c733dd467136f1f87a7499d
     pristine_git_object: 0d7d470a79374ff98a515acb296e8e912d30a0fe
+  models/operations/listcontainerfiles.go:
+    id: a5d7da5fd18e
+    last_write_checksum: sha1:f05266fede607e1b8c1a39d67197aa441e962d32
+    pristine_git_object: dcdd2523357c781fdfdfcb0490e1a8cf57e9a2d3
   models/operations/listembeddingsmodels.go:
     id: cb1333992087
     last_write_checksum: sha1:105c804e688e5843f80c09e4562df4f08f3181dc
@@ -9783,8 +9843,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:56ba78348db413fd5d7e47621eff1264f66a6f5c
-    pristine_git_object: 9658dbdf87f0912737c68aa19e482ac2a9c8469e
+    last_write_checksum: sha1:3c8ebd855816f9f2b14ba1e64e2b727f1a58d379
+    pristine_git_object: 21cdc23331d9706d1690c94b6a51bf7d71283e0c
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11603,5 +11663,77 @@ examples:
           application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+  listContainerFiles:
+    speakeasy-default-list-container-files:
+      parameters:
+        path:
+          session_id: "sess-abc123"
+        query:
+          limit: 100
+      responses:
+        "200":
+          application/json: {"data": [], "first_id": "cfile_b3V0L3JlcG9ydC5jc3Y", "has_more": false, "last_id": "cfile_b3V0L3JlcG9ydC5jc3Y", "object": "list"}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
+  getContainerFile:
+    speakeasy-default-get-container-file:
+      parameters:
+        path:
+          session_id: "sess-abc123"
+          file_id: "cfile_b3V0L3JlcG9ydC5jc3Y"
+      responses:
+        "200":
+          application/json: {"bytes": 123, "container_id": "sess-abc123", "created_at": 1755640000, "id": "cfile_b3V0L3JlcG9ydC5jc3Y", "object": "container.file", "path": "out/report.csv", "source": "assistant"}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
+  downloadContainerFileContent:
+    speakeasy-default-download-container-file-content:
+      parameters:
+        path:
+          session_id: "sess-abc123"
+          file_id: "cfile_b3V0L3JlcG9ydC5jc3Y"
+      responses:
+        "200":
+          application/octet-stream: "x-file: example.file"
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`:  `request.ResponsesRequest` **Changed** (Breaking ⚠️)\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed** (Breaking ⚠️)\n  *  `response` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed** (Breaking ⚠️)\n  *  `response` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Tools[].union(ToolSearchServerTool)` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Containers.ListContainerFiles()`: **Added**
+  * `OpenRouter.Containers.GetContainerFile()`: **Added**
+  * `OpenRouter.Containers.DownloadContainerFileContent()`: **Added**
