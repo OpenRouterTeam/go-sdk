@@ -226,6 +226,12 @@ func main() {
 
 * [GetTaskClassifications](docs/sdks/classifications/README.md#gettaskclassifications) - Task classification market share
 
+### [Containers](docs/sdks/containers/README.md)
+
+* [ListContainerFiles](docs/sdks/containers/README.md#listcontainerfiles) - List container files
+* [GetContainerFile](docs/sdks/containers/README.md#getcontainerfile) - Retrieve a container file
+* [DownloadContainerFileContent](docs/sdks/containers/README.md#downloadcontainerfilecontent) - Download container file content
+
 ### [Credits](docs/sdks/credits/README.md)
 
 * [GetCredits](docs/sdks/credits/README.md#getcredits) - Get remaining credits

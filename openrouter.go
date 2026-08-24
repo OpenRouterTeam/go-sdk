@@ -73,6 +73,8 @@ type OpenRouter struct {
 	Chat *Chat
 	// Task classification market-share endpoints
 	Classifications *Classifications
+	// Containers endpoints
+	Containers *Containers
 	// Credit management endpoints
 	Credits *Credits
 	// Public OpenRouter usage datasets. Data returned by these endpoints is licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/): reuse and republish it, including commercially, with attribution to OpenRouter.
@@ -203,9 +205,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.7.67",
+		SDKVersion: "0.7.68",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.7.67 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.7.68 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -239,6 +241,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.BYOK = newBYOK(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Chat = newChat(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Classifications = newClassifications(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Containers = newContainers(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Datasets = newDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
