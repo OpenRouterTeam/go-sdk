@@ -15,8 +15,8 @@ type ObservabilityDatadogDestinationConfig struct {
 	Headers map[string]string `json:"headers,omitzero"`
 	// Name to identify your application in Datadog LLM Observability
 	MlApp string `json:"mlApp"`
-	// Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.datadoghq.eu)
-	URL *string `default:"https://api.us5.datadoghq.com" json:"url"`
+	// Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.us5.datadoghq.com, https://api.datadoghq.eu)
+	URL *string `default:"https://api.datadoghq.com" json:"url"`
 }
 
 func (o ObservabilityDatadogDestinationConfig) MarshalJSON() ([]byte, error) {
