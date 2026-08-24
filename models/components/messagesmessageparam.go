@@ -1186,7 +1186,7 @@ func CreateMessagesMessageParamContentUnion4ToolRemoval(toolRemoval MessagesTool
 func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouterShellToolResult MessagesShellToolResultBlock) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult
 
-	typStr := MessagesShellToolResultBlockType(typ)
+	typStr := TypeOpenrouterShellToolResult(typ)
 	openrouterShellToolResult.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1198,7 +1198,7 @@ func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouter
 func CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(openrouterBashToolResult MessagesBashToolResultBlock) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
 
-	typStr := MessagesBashToolResultBlockType(typ)
+	typStr := TypeOpenrouterBashToolResult(typ)
 	openrouterBashToolResult.Type = typStr
 
 	return MessagesMessageParamContentUnion4{

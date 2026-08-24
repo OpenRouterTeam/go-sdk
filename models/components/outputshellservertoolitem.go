@@ -47,26 +47,111 @@ func (o *OutputShellServerToolItemAction) GetTimeoutMs() optionalnullable.Option
 	return o.TimeoutMs
 }
 
-type OutputShellServerToolItemType string
+type OutputShellServerToolItemTypeContainerFileCitation string
 
 const (
-	OutputShellServerToolItemTypeOpenrouterShell OutputShellServerToolItemType = "openrouter:shell"
+	OutputShellServerToolItemTypeContainerFileCitationContainerFileCitation OutputShellServerToolItemTypeContainerFileCitation = "container_file_citation"
 )
 
-func (e OutputShellServerToolItemType) ToPointer() *OutputShellServerToolItemType {
+func (e OutputShellServerToolItemTypeContainerFileCitation) ToPointer() *OutputShellServerToolItemTypeContainerFileCitation {
 	return &e
 }
-func (e *OutputShellServerToolItemType) UnmarshalJSON(data []byte) error {
+func (e *OutputShellServerToolItemTypeContainerFileCitation) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "container_file_citation":
+		*e = OutputShellServerToolItemTypeContainerFileCitation(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputShellServerToolItemTypeContainerFileCitation: %v", v)
+	}
+}
+
+type OutputShellServerToolItemFile struct {
+	ContainerID string                                             `json:"container_id"`
+	EndIndex    int64                                              `json:"end_index"`
+	FileID      string                                             `json:"file_id"`
+	Filename    string                                             `json:"filename"`
+	StartIndex  int64                                              `json:"start_index"`
+	Type        OutputShellServerToolItemTypeContainerFileCitation `json:"type"`
+}
+
+func (o OutputShellServerToolItemFile) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputShellServerToolItemFile) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputShellServerToolItemFile) GetContainerID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ContainerID
+}
+
+func (o *OutputShellServerToolItemFile) GetEndIndex() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.EndIndex
+}
+
+func (o *OutputShellServerToolItemFile) GetFileID() string {
+	if o == nil {
+		return ""
+	}
+	return o.FileID
+}
+
+func (o *OutputShellServerToolItemFile) GetFilename() string {
+	if o == nil {
+		return ""
+	}
+	return o.Filename
+}
+
+func (o *OutputShellServerToolItemFile) GetStartIndex() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.StartIndex
+}
+
+func (o *OutputShellServerToolItemFile) GetType() OutputShellServerToolItemTypeContainerFileCitation {
+	if o == nil {
+		return OutputShellServerToolItemTypeContainerFileCitation("")
+	}
+	return o.Type
+}
+
+type OutputShellServerToolItemTypeOpenrouterShell string
+
+const (
+	OutputShellServerToolItemTypeOpenrouterShellOpenrouterShell OutputShellServerToolItemTypeOpenrouterShell = "openrouter:shell"
+)
+
+func (e OutputShellServerToolItemTypeOpenrouterShell) ToPointer() *OutputShellServerToolItemTypeOpenrouterShell {
+	return &e
+}
+func (e *OutputShellServerToolItemTypeOpenrouterShell) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openrouter:shell":
-		*e = OutputShellServerToolItemType(v)
+		*e = OutputShellServerToolItemTypeOpenrouterShell(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputShellServerToolItemType: %v", v)
+		return fmt.Errorf("invalid value for OutputShellServerToolItemTypeOpenrouterShell: %v", v)
 	}
 }
 
@@ -77,10 +162,14 @@ type OutputShellServerToolItem struct {
 	Arguments optionalnullable.OptionalNullable[string] `json:"arguments,omitzero"`
 	// The model-generated tool call id from the originating turn.
 	CallID optionalnullable.OptionalNullable[string] `json:"call_id,omitzero"`
-	ID     *string                                   `json:"id,omitzero"`
-	Output []ShellCallOutputContent                  `json:"output,omitzero"`
-	Status ToolCallStatus                            `json:"status"`
-	Type   OutputShellServerToolItemType             `json:"type"`
+	// The canonical container id the command ran under — the `{container_id}` for the Container Files API, reusable as a `container_reference` in later requests. Present on every sandbox-executed call, even when no files changed.
+	ContainerID *string `json:"container_id,omitzero"`
+	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
+	Files  []OutputShellServerToolItemFile              `json:"files,omitzero"`
+	ID     *string                                      `json:"id,omitzero"`
+	Output []ShellCallOutputContent                     `json:"output,omitzero"`
+	Status ToolCallStatus                               `json:"status"`
+	Type   OutputShellServerToolItemTypeOpenrouterShell `json:"type"`
 }
 
 func (o OutputShellServerToolItem) MarshalJSON() ([]byte, error) {
@@ -115,6 +204,20 @@ func (o *OutputShellServerToolItem) GetCallID() optionalnullable.OptionalNullabl
 	return o.CallID
 }
 
+func (o *OutputShellServerToolItem) GetContainerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ContainerID
+}
+
+func (o *OutputShellServerToolItem) GetFiles() []OutputShellServerToolItemFile {
+	if o == nil {
+		return nil
+	}
+	return o.Files
+}
+
 func (o *OutputShellServerToolItem) GetID() *string {
 	if o == nil {
 		return nil
@@ -136,9 +239,9 @@ func (o *OutputShellServerToolItem) GetStatus() ToolCallStatus {
 	return o.Status
 }
 
-func (o *OutputShellServerToolItem) GetType() OutputShellServerToolItemType {
+func (o *OutputShellServerToolItem) GetType() OutputShellServerToolItemTypeOpenrouterShell {
 	if o == nil {
-		return OutputShellServerToolItemType("")
+		return OutputShellServerToolItemTypeOpenrouterShell("")
 	}
 	return o.Type
 }

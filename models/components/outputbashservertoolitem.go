@@ -9,26 +9,111 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type OutputBashServerToolItemType string
+type OutputBashServerToolItemTypeContainerFileCitation string
 
 const (
-	OutputBashServerToolItemTypeOpenrouterBash OutputBashServerToolItemType = "openrouter:bash"
+	OutputBashServerToolItemTypeContainerFileCitationContainerFileCitation OutputBashServerToolItemTypeContainerFileCitation = "container_file_citation"
 )
 
-func (e OutputBashServerToolItemType) ToPointer() *OutputBashServerToolItemType {
+func (e OutputBashServerToolItemTypeContainerFileCitation) ToPointer() *OutputBashServerToolItemTypeContainerFileCitation {
 	return &e
 }
-func (e *OutputBashServerToolItemType) UnmarshalJSON(data []byte) error {
+func (e *OutputBashServerToolItemTypeContainerFileCitation) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "container_file_citation":
+		*e = OutputBashServerToolItemTypeContainerFileCitation(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputBashServerToolItemTypeContainerFileCitation: %v", v)
+	}
+}
+
+type OutputBashServerToolItemFile struct {
+	ContainerID string                                            `json:"container_id"`
+	EndIndex    int64                                             `json:"end_index"`
+	FileID      string                                            `json:"file_id"`
+	Filename    string                                            `json:"filename"`
+	StartIndex  int64                                             `json:"start_index"`
+	Type        OutputBashServerToolItemTypeContainerFileCitation `json:"type"`
+}
+
+func (o OutputBashServerToolItemFile) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputBashServerToolItemFile) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputBashServerToolItemFile) GetContainerID() string {
+	if o == nil {
+		return ""
+	}
+	return o.ContainerID
+}
+
+func (o *OutputBashServerToolItemFile) GetEndIndex() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.EndIndex
+}
+
+func (o *OutputBashServerToolItemFile) GetFileID() string {
+	if o == nil {
+		return ""
+	}
+	return o.FileID
+}
+
+func (o *OutputBashServerToolItemFile) GetFilename() string {
+	if o == nil {
+		return ""
+	}
+	return o.Filename
+}
+
+func (o *OutputBashServerToolItemFile) GetStartIndex() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.StartIndex
+}
+
+func (o *OutputBashServerToolItemFile) GetType() OutputBashServerToolItemTypeContainerFileCitation {
+	if o == nil {
+		return OutputBashServerToolItemTypeContainerFileCitation("")
+	}
+	return o.Type
+}
+
+type OutputBashServerToolItemTypeOpenrouterBash string
+
+const (
+	OutputBashServerToolItemTypeOpenrouterBashOpenrouterBash OutputBashServerToolItemTypeOpenrouterBash = "openrouter:bash"
+)
+
+func (e OutputBashServerToolItemTypeOpenrouterBash) ToPointer() *OutputBashServerToolItemTypeOpenrouterBash {
+	return &e
+}
+func (e *OutputBashServerToolItemTypeOpenrouterBash) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openrouter:bash":
-		*e = OutputBashServerToolItemType(v)
+		*e = OutputBashServerToolItemTypeOpenrouterBash(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputBashServerToolItemType: %v", v)
+		return fmt.Errorf("invalid value for OutputBashServerToolItemTypeOpenrouterBash: %v", v)
 	}
 }
 
@@ -37,14 +122,18 @@ type OutputBashServerToolItem struct {
 	// The raw tool-call arguments string as emitted by the model.
 	Arguments optionalnullable.OptionalNullable[string] `json:"arguments,omitzero"`
 	// The model-generated tool call id from the originating turn.
-	CallID   optionalnullable.OptionalNullable[string] `json:"call_id,omitzero"`
-	Command  *string                                   `json:"command,omitzero"`
-	ExitCode *int64                                    `json:"exitCode,omitzero"`
-	ID       *string                                   `json:"id,omitzero"`
-	Status   ToolCallStatus                            `json:"status"`
-	Stderr   *string                                   `json:"stderr,omitzero"`
-	Stdout   *string                                   `json:"stdout,omitzero"`
-	Type     OutputBashServerToolItemType              `json:"type"`
+	CallID  optionalnullable.OptionalNullable[string] `json:"call_id,omitzero"`
+	Command *string                                   `json:"command,omitzero"`
+	// The canonical container id the command ran under — the `{container_id}` for the Container Files API, reusable as a `container_reference` in later requests. Present on every sandbox-executed call, even when no files changed.
+	ContainerID *string `json:"container_id,omitzero"`
+	ExitCode    *int64  `json:"exitCode,omitzero"`
+	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
+	Files  []OutputBashServerToolItemFile             `json:"files,omitzero"`
+	ID     *string                                    `json:"id,omitzero"`
+	Status ToolCallStatus                             `json:"status"`
+	Stderr *string                                    `json:"stderr,omitzero"`
+	Stdout *string                                    `json:"stdout,omitzero"`
+	Type   OutputBashServerToolItemTypeOpenrouterBash `json:"type"`
 }
 
 func (o OutputBashServerToolItem) MarshalJSON() ([]byte, error) {
@@ -79,11 +168,25 @@ func (o *OutputBashServerToolItem) GetCommand() *string {
 	return o.Command
 }
 
+func (o *OutputBashServerToolItem) GetContainerID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ContainerID
+}
+
 func (o *OutputBashServerToolItem) GetExitCode() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.ExitCode
+}
+
+func (o *OutputBashServerToolItem) GetFiles() []OutputBashServerToolItemFile {
+	if o == nil {
+		return nil
+	}
+	return o.Files
 }
 
 func (o *OutputBashServerToolItem) GetID() *string {
@@ -114,9 +217,9 @@ func (o *OutputBashServerToolItem) GetStdout() *string {
 	return o.Stdout
 }
 
-func (o *OutputBashServerToolItem) GetType() OutputBashServerToolItemType {
+func (o *OutputBashServerToolItem) GetType() OutputBashServerToolItemTypeOpenrouterBash {
 	if o == nil {
-		return OutputBashServerToolItemType("")
+		return OutputBashServerToolItemTypeOpenrouterBash("")
 	}
 	return o.Type
 }

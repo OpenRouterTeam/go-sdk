@@ -57,14 +57,14 @@ func (e *ContainerFileSource) UnmarshalJSON(data []byte) error {
 type ContainerFile struct {
 	// File size in bytes.
 	Bytes int64 `json:"bytes"`
-	// The container the file belongs to — echoes the `session_id` path parameter (OpenAI field name).
+	// The container the file belongs to — echoes the `container_id` path parameter (OpenAI field name).
 	ContainerID string `json:"container_id"`
 	// Unix timestamp (seconds) when the file was last synced.
 	CreatedAt int64 `json:"created_at"`
 	// Container file id: `cfile_` + base64url of the file path.
 	ID     string              `json:"id"`
 	Object ContainerFileObject `json:"object"`
-	// Session-relative file path inside the container.
+	// Container-relative file path.
 	Path string `json:"path"`
 	// Container files are always produced by the assistant sandbox.
 	Source ContainerFileSource `json:"source"`

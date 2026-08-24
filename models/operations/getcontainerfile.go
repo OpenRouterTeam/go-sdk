@@ -3,17 +3,17 @@
 package operations
 
 type GetContainerFileRequest struct {
-	// The sandbox session id, exactly as stored — a restarted session has its own `-r<nonce>`-suffixed id.
-	SessionID string `pathParam:"style=simple,explode=false,name=session_id"`
+	// The canonical container id, exactly as returned in a bash/shell tool result — a restarted session has its own `-r<nonce>`-suffixed id. A session-derived id is always `sess_` + the sanitized session key, which is not necessarily the raw session id that was sent.
+	ContainerID string `pathParam:"style=simple,explode=false,name=container_id"`
 	// Container file id (`cfile_` + base64url of the file path).
 	FileID string `pathParam:"style=simple,explode=false,name=file_id"`
 }
 
-func (g *GetContainerFileRequest) GetSessionID() string {
+func (g *GetContainerFileRequest) GetContainerID() string {
 	if g == nil {
 		return ""
 	}
-	return g.SessionID
+	return g.ContainerID
 }
 
 func (g *GetContainerFileRequest) GetFileID() string {

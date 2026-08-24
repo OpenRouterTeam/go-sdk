@@ -207,7 +207,7 @@ func CreateOutputItemsOpenrouterApplyPatch(openrouterApplyPatch OutputApplyPatch
 func CreateOutputItemsOpenrouterBash(openrouterBash OutputBashServerToolItem) OutputItems {
 	typ := OutputItemsTypeOpenrouterBash
 
-	typStr := OutputBashServerToolItemType(typ)
+	typStr := OutputBashServerToolItemTypeOpenrouterBash(typ)
 	openrouterBash.Type = typStr
 
 	return OutputItems{
@@ -339,7 +339,7 @@ func CreateOutputItemsOpenrouterMemory(openrouterMemory OutputMemoryServerToolIt
 func CreateOutputItemsOpenrouterShell(openrouterShell OutputShellServerToolItem) OutputItems {
 	typ := OutputItemsTypeOpenrouterShell
 
-	typStr := OutputShellServerToolItemType(typ)
+	typStr := OutputShellServerToolItemTypeOpenrouterShell(typ)
 	openrouterShell.Type = typStr
 
 	return OutputItems{
@@ -435,7 +435,7 @@ func CreateOutputItemsShellCall(shellCall OutputShellCallItem) OutputItems {
 func CreateOutputItemsShellCallOutput(shellCallOutput OutputShellCallOutputItem) OutputItems {
 	typ := OutputItemsTypeShellCallOutput
 
-	typStr := OutputShellCallOutputItemType(typ)
+	typStr := OutputShellCallOutputItemTypeShellCallOutput(typ)
 	shellCallOutput.Type = typStr
 
 	return OutputItems{
