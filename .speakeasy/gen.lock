@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 08b8df172f1f8e7f4856ca09e12f6413
+  docChecksum: fb1a124d900fcc98e911c538145b2c8c
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.75
-  configChecksum: 4f4e1e6a4f8252fb1242595916b4819b
+  releaseVersion: 0.7.76
+  configChecksum: a63d672c50710aae7e5e92bbab81791b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 2ce9c049-a91e-4fdc-9668-b104f0c35b04
-  pristine_commit_hash: ae0a4fd6ad8f0b6180036370f6e7b64a62f21abc
-  pristine_tree_hash: 419476575d0fda59de830465c06e74f5b59a8b4d
+  generation_id: 36f774d4-d4b2-4169-adb2-dd71db289b46
+  pristine_commit_hash: ca4e922eca07b8c3c156c221193944874222a456
+  pristine_tree_hash: 58ec42b6dfbd40866ce88e7eb3ae469a3df730e6
 features:
   go:
     acceptHeaders: 2.81.2
@@ -779,8 +779,8 @@ trackedFiles:
     pristine_git_object: 40ea034b2216c839a7347f58468556d03e0d451a
   docs/models/components/bashservertoolconfig.mdx:
     id: 82544532c477
-    last_write_checksum: sha1:f5eca9afcf75cdef27d6f1ba65c4914b8c84c152
-    pristine_git_object: 736a5c7aee8d93c344adab4a83442c7662eb4c6a
+    last_write_checksum: sha1:dbb918a2eba62146cc4c9835c6f5307d3165b5f5
+    pristine_git_object: fbbde65635bad8a0799d5d0d706203b7ab85e7e4
   docs/models/components/bashservertoolengine.mdx:
     id: 4eb2364fe3c1
     last_write_checksum: sha1:e8c94ef529cc622a86a98756b6ed00aebf087c8f
@@ -4891,8 +4891,8 @@ trackedFiles:
     pristine_git_object: 9516385291364c15eec5a65bdbfd34802bc3070b
   docs/models/components/shellservertoolconfig.mdx:
     id: 1ef84cac75fd
-    last_write_checksum: sha1:658aa5032850c91218e4dc7213046d87908750d0
-    pristine_git_object: fc7eea848a5d088a8d603cb69bb49a9054c4410e
+    last_write_checksum: sha1:a4af5d676553427276716342cd42164539b81e92
+    pristine_git_object: 397e70e8aa2e3542d9d6064ebf7086984538d71e
   docs/models/components/shellservertoolengine.mdx:
     id: 5c13d44557b5
     last_write_checksum: sha1:fcc91d24a8a45feabacfc0ed09bec93271be6e78
@@ -7299,8 +7299,8 @@ trackedFiles:
     pristine_git_object: 93b9aed4e162ff1d1eeaa296768cfab2fcc49bdd
   models/components/bashservertoolconfig.go:
     id: 71a8c1f31e9c
-    last_write_checksum: sha1:8f7a5fe8f78ff5b4ed4465be5141be05af4944e2
-    pristine_git_object: 8fafac1e645eb6feea84ce39610c967be1755bb2
+    last_write_checksum: sha1:0dc36872712774fc257ef0533739141dcea3ed4d
+    pristine_git_object: 3b938a94c01e6c077c76c11d06ffec265049ddaf
   models/components/bashservertoolengine.go:
     id: beb09aa62c21
     last_write_checksum: sha1:9769054b8e460833b9c833793b7627060d995b90
@@ -9067,8 +9067,8 @@ trackedFiles:
     pristine_git_object: ab51cfc61d6b39e99a87a9ddbde3ab72a14c2cd0
   models/components/shellservertoolconfig.go:
     id: 3f0a845ace3c
-    last_write_checksum: sha1:2342ca012af6b132155b2ef9ec9a7ec2f53c779d
-    pristine_git_object: ca3afac5d2d1cef9f458c7bc8b85a21c05cf7423
+    last_write_checksum: sha1:386074ddd8ddfe7aba5e1363f65080282c6d8299
+    pristine_git_object: cd23ad8440281ea1f0931960bccc33e2d8e195cb
   models/components/shellservertoolengine.go:
     id: 5a523fe6e866
     last_write_checksum: sha1:f08a4f8aa485bef8bf8bfe58e7918c331624d19f
@@ -9911,8 +9911,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:1a83ee183b4116d97a57258e156064ce0ba6977a
-    pristine_git_object: 115bdc864fb1e06e4668eae938094186f785a44c
+    last_write_checksum: sha1:3bfd0cb5a1da1ef03a202cd158e9c9d582bf1c13
+    pristine_git_object: 454f372379e108d53d99caf77cd45f33d9f8a6d7
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11803,4 +11803,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(BashServerTool).Parameters.Environment` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(BashServerTool).Parameters.Environment` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Tools[].union(ShellServerTool_OpenRouter).Parameters.Environment` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(BashServerTool).Parameters.Environment` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(ShellServerTool_OpenRouter).Parameters.Environment` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(ShellServerTool_OpenRouter).Parameters.Environment` **Changed**\n"
