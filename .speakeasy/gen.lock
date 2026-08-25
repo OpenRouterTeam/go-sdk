@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: cbbd5d542938008beaff4d6e86d102cf
+  docChecksum: 9d769fcdbe0919517da5781c6203f633
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.82
-  configChecksum: 9896dfac8e380632f597de981ab540b2
+  releaseVersion: 0.7.83
+  configChecksum: 297e142deefe5aa36741cfa89efd87f1
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 969d12aa-86e5-4b5c-aad2-f96610d708d4
-  pristine_commit_hash: 1a1e3b1e869279b0fc5dba35488e332ca1b19006
-  pristine_tree_hash: f63df7eb6cb60f1c40c8444b9cbbbe0fecd4421c
+  generation_id: 2b81d95b-9e1e-4064-b273-a8f799939693
+  pristine_commit_hash: dff0cca7d565702803d3c4b576df9535b57bc398
+  pristine_tree_hash: 0ed20ac7d6a65fe4fbb5d3297f65ef091e1df292
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2219,8 +2219,8 @@ trackedFiles:
     pristine_git_object: bb0885efc789e5e1e94c6352d79b2582e83679a6
   docs/models/components/fusionplugin.mdx:
     id: b4f3bf7714aa
-    last_write_checksum: sha1:e96e3b2067fc4226e59b061e732a53d671e85163
-    pristine_git_object: 764cbc8236bb36b63414fc4c7a5f454f60a5e231
+    last_write_checksum: sha1:3b96c554b5b0a0cd57059ce2d9143eb1ce201ccd
+    pristine_git_object: 3123da832ad6a62d29ff78549dfc2c6da6f31c2f
   docs/models/components/fusionpluginid.mdx:
     id: 9c0efb1d0838
     last_write_checksum: sha1:d7c2fba173c1de6b5117d61388207f413da9e5e4
@@ -4343,8 +4343,8 @@ trackedFiles:
     pristine_git_object: 94a959054ca3a02742c909f6afffe028b1a7fe05
   docs/models/components/presetenum.mdx:
     id: a729a415db80
-    last_write_checksum: sha1:73beb30afaae1224aa606a77c10edb8463e51b8f
-    pristine_git_object: c6a0c133b9afc8b8926a56629b009c4d805d6eae
+    last_write_checksum: sha1:70fc61d72df0df09ea300ab676093b85abc3f47a
+    pristine_git_object: 1ae4dc9a2bd957ec67a8788584459021adcab348
   docs/models/components/presetstatus.mdx:
     id: 63c862c75be9
     last_write_checksum: sha1:8f96d9cc23f2c8970163f55ec150cd14b01680ad
@@ -7963,8 +7963,8 @@ trackedFiles:
     pristine_git_object: 1ea5a756a2a475b432b444907ce37354ad60297d
   models/components/fusionplugin.go:
     id: ad7a63c688b2
-    last_write_checksum: sha1:6299827fc656452ef4dcd862d3c9523cffd779ad
-    pristine_git_object: 59630f4856ec8e1423bae92715a4db067f12397b
+    last_write_checksum: sha1:24c572dc888c0021dee2586efb509337852b248b
+    pristine_git_object: 23600adcd53ee0cd5cfc7690f40f0ad1e3c7a97f
   models/components/fusionservertoolconfig.go:
     id: 11a6494de9f7
     last_write_checksum: sha1:2add72c1b22a3ae8ab64c8ba9faec17d0c66edce
@@ -9919,8 +9919,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:529da82ef45a5110d55f6ddd1f544f69bb0d6e94
-    pristine_git_object: 893e42a1d966b8d7a649b3a405af7483bf808de5
+    last_write_checksum: sha1:8f8f6fa6bac3925a84b7c62d5c8b3c3f19ae2d75
+    pristine_git_object: db4039e3426be1bca5728cfabfb92af348ed3366
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11846,6 +11846,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Images.ListModelEndpoints()`:  `response.Endpoints[].Pricing[].Unit.Enum(request)` **Added**
