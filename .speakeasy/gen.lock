@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: a9995b185e3697da1afa789dae1cedb8
+  docChecksum: 5e22f673ab165603dcf9c71f8fc8f189
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.77
-  configChecksum: a9241f362df90ee75f14f6c34da34d91
+  releaseVersion: 0.7.78
+  configChecksum: de5fdb20335edecb91faf2a44a37b151
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: c4c8118d-ac04-46c2-a9a0-26be20dfb0a4
-  pristine_commit_hash: 7860dd53eaaeab94995332087eb4863e2db48e67
-  pristine_tree_hash: b39738e31541667ae1b9cd652ee1236286cfe194
+  generation_id: f20d39a9-05f6-4ccc-b47c-9b0bb8615836
+  pristine_commit_hash: ba9549aac8b7e066c3c5fda357ca51407e7436f4
+  pristine_tree_hash: 94e38447f905a9882f8781b1a0172b2c99b47da5
 features:
   go:
     acceptHeaders: 2.81.2
@@ -103,8 +103,8 @@ trackedFiles:
     pristine_git_object: a32c39b1c9f89fd9212fef00f1fb8a6ced208630
   containers.go:
     id: 1dcb2f06ad34
-    last_write_checksum: sha1:84c59bcb95a1fb8670cf1e7b1ff3cadcbd074e45
-    pristine_git_object: 249473902388980106bcc31e55d2587034eb20f3
+    last_write_checksum: sha1:c64546e46ae47f7a92cd6453e8c2167c0643a6a0
+    pristine_git_object: c9a8d311e655ebf7b9f82b81da25e72204444140
   credits.go:
     id: d01cfe328cc3
     last_write_checksum: sha1:05f6c501b571df83b665e2272a621e502d1e252a
@@ -6565,6 +6565,10 @@ trackedFiles:
     id: 1fe51817870a
     last_write_checksum: sha1:bd905e1224c7b0527ffc1957bca30431a867f44f
     pristine_git_object: 4d7f5f3ae365f1bef215018d53912f71eb66990c
+  docs/models/operations/promotecontainerfilerequest.mdx:
+    id: b8b7d012962c
+    last_write_checksum: sha1:227dd1c3f18461deebc56f2d5b48a3445673caeb
+    pristine_git_object: 4b11aa6931f2dbd555f9704f82dd03b2d3adcadd
   docs/models/operations/prompttokensdetails.mdx:
     id: 33c972acdc89
     last_write_checksum: sha1:4b384c657a100551e86041c93fea99c51190b3f8
@@ -6827,8 +6831,8 @@ trackedFiles:
     pristine_git_object: 1ba80d0ada312235511d6006847d3264aa61283b
   docs/sdks/containers/README.mdx:
     id: cc963972ad75
-    last_write_checksum: sha1:028d9118f9243478967e999f107aae32742c29eb
-    pristine_git_object: 14865220efd0795e31233e477ad502ce22a24be7
+    last_write_checksum: sha1:d4e8aab068cb78980616c665f02291b32fdaff83
+    pristine_git_object: 8bc4177fe5d02c6657e71b2ff384cd59bff18636
   docs/sdks/credits/README.mdx:
     id: 2ba51de8de3f
     last_write_checksum: sha1:6840c872a50554a58c33f3ef4533ce21af8b6247
@@ -9797,6 +9801,10 @@ trackedFiles:
     id: d20dd4db9865
     last_write_checksum: sha1:32f54f660b39a6502e9c021641ae88f4934cb736
     pristine_git_object: b7b4728155a31d7e21004b16a17198115f4f49bf
+  models/operations/promotecontainerfile.go:
+    id: 41a67533e31d
+    last_write_checksum: sha1:e6d68b9fcf1a49ff7bf0dead572c2fc5b07df414
+    pristine_git_object: 5a2b5bc6ac636aa84667a572b37877fbbd003ced
   models/operations/queryanalytics.go:
     id: 988cd2db88c0
     last_write_checksum: sha1:984326539d709afbfed7ad0a8db08ef25fb2a494
@@ -9911,8 +9919,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3680395bd84063de15159e3cd065e517c5ce30ac
-    pristine_git_object: 87590efc99419be87fca492a14fdcec818a7f075
+    last_write_checksum: sha1:14b862f5838ff0cd476ae27fc246af8bf356da7d
+    pristine_git_object: 4a65ce6b5a06c2be1a668cb1853441f5d6d8f9cb
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11802,5 +11810,32 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
+  promoteContainerFile:
+    speakeasy-default-promote-container-file:
+      parameters:
+        path:
+          container_id: "sess_abc123"
+          file_id: "cfile_b3V0L3JlcG9ydC5jc3Y"
+      responses:
+        "200":
+          application/json: {"_shape": "openrouter", "created_at": "2025-01-01T00:00:00Z", "downloadable": false, "filename": "document.pdf", "id": "or_file_011CNha8iCJcU1wXNR6q4V8w", "mime_type": "application/pdf", "size_bytes": 1024000, "type": "file"}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(BashServerTool).Parameters.Environment` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(BashServerTool).Parameters.Environment` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Tools[].union(BashServerTool).Parameters.Environment` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(ShellServerTool_OpenRouter).Parameters.Environment` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(ShellServerTool_OpenRouter).Parameters.Environment` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AdditionalToolsItem).Tools[].union(BashServerTool).Parameters.Environment` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Containers.PromoteContainerFile()`: **Added**

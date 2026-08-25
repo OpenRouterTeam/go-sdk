@@ -12,6 +12,7 @@ Containers endpoints
 * [ListContainerFiles](#listcontainerfiles) - List container files
 * [GetContainerFile](#getcontainerfile) - Retrieve a container file
 * [DownloadContainerFileContent](#downloadcontainerfilecontent) - Download container file content
+* [PromoteContainerFile](#promotecontainerfile) - Promote a container file into workspace documents
 
 ## ListContainerFiles
 
@@ -185,6 +186,77 @@ func main() {
 | sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
 | sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
 | sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## PromoteContainerFile
+
+Copies a file from the container's sandbox prefix into the workspace's durable document storage, so it outlives the container. Returns the new document in the Files API shape, with a durable file id in the documents namespace. The copy counts against the workspace's storage quota exactly like an upload.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Containers.PromoteContainerFile(ctx, "sess_abc123", "cfile_b3V0L3JlcG9ydC5jc3Y")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        switch res.Type {
+            case components.FileResponseTypeAnthropic:
+                // res.AnthropicFile is populated
+            case components.FileResponseTypeOpenai:
+                // res.OpenAIFile is populated
+            case components.FileResponseTypeOpenrouter:
+                // res.OpenRouterFile is populated
+            default:
+                // Unknown type - use res.GetUnknownRaw() for raw JSON
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                             | Type                                                                                                                                                                                                                                                                  | Required                                                                                                                                                                                                                                                              | Description                                                                                                                                                                                                                                                           | Example                                                                                                                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                                                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                    | The context to use for the request.                                                                                                                                                                                                                                   |                                                                                                                                                                                                                                                                       |
+| `containerID`                                                                                                                                                                                                                                                         | `string`                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                    | The canonical container id, exactly as returned in a bash/shell tool result — a restarted session has its own `-r<nonce>`-suffixed id. A session-derived id is always `sess_` + the sanitized session key, which is not necessarily the raw session id that was sent. | sess_abc123                                                                                                                                                                                                                                                           |
+| `fileID`                                                                                                                                                                                                                                                              | `string`                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                    | Container file id (`cfile_` + base64url of the file path).                                                                                                                                                                                                            | cfile_b3V0L3JlcG9ydC5jc3Y                                                                                                                                                                                                                                             |
+| `opts`                                                                                                                                                                                                                                                                | [][operations.Option](../../models/operations/option.mdx)                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                    | The options for this request.                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                       |
+
+### Response
+
+**[*components.FileResponse](../../models/components/fileresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.PayloadTooLargeResponseError    | 413                                       | application/json                          |
 | sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
 | sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
 | sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |

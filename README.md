@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.77
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.78
 > ```
 
 <!-- No Summary [summary] -->
@@ -231,6 +231,7 @@ func main() {
 * [ListContainerFiles](docs/sdks/containers/README.md#listcontainerfiles) - List container files
 * [GetContainerFile](docs/sdks/containers/README.md#getcontainerfile) - Retrieve a container file
 * [DownloadContainerFileContent](docs/sdks/containers/README.md#downloadcontainerfilecontent) - Download container file content
+* [PromoteContainerFile](docs/sdks/containers/README.md#promotecontainerfile) - Promote a container file into workspace documents
 
 ### [Credits](docs/sdks/credits/README.md)
 
