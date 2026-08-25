@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 5e22f673ab165603dcf9c71f8fc8f189
+  docChecksum: be6acba89ef5fd2e22c8697af12df11e
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.78
-  configChecksum: de5fdb20335edecb91faf2a44a37b151
+  releaseVersion: 0.7.79
+  configChecksum: 6ddf149e864d576531ee178037155a9b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f20d39a9-05f6-4ccc-b47c-9b0bb8615836
-  pristine_commit_hash: ba9549aac8b7e066c3c5fda357ca51407e7436f4
-  pristine_tree_hash: 94e38447f905a9882f8781b1a0172b2c99b47da5
+  generation_id: fccbd6e1-662f-4bed-9c58-37667cd29180
+  pristine_commit_hash: ee84de9cd4950efa2d4f3b29cf3b6306a8640374
+  pristine_tree_hash: 1eda0d3d21e5595fece65b2fcc8d536a085648a7
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6891,8 +6891,8 @@ trackedFiles:
     pristine_git_object: 783dc0ff47e47d768e3ca128b0ab95f33043af11
   docs/sdks/rerank/README.mdx:
     id: 68cdfc7f7dca
-    last_write_checksum: sha1:9bd053304cb45b30710ebcedde6e1ffdec888973
-    pristine_git_object: 830fed4502c2d99b0152b5adeb10ed4def40b81b
+    last_write_checksum: sha1:d3da52104b86693045622e558255a382c7183034
+    pristine_git_object: 6337e68d99b95c5af86503914b6f3fe911b1ccfc
   docs/sdks/responses/README.mdx:
     id: abab319e080e
     last_write_checksum: sha1:dbf74125bfaa4baad583d2f4d1da4416254d2ed1
@@ -6903,16 +6903,16 @@ trackedFiles:
     pristine_git_object: ec63a83806d46892f7e59cd6a382f9299657ac89
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
-    last_write_checksum: sha1:722447f1be57ad2bdda47baeed568d6f7e0c96a7
-    pristine_git_object: 8465a4f0fb1bc378a534dd27b1d4dd2f90907548
+    last_write_checksum: sha1:5a32b6d46d2fc69f8f673afb3b55383da0e6f20a
+    pristine_git_object: 8905a7ea945f4e6ca8bd0d60bfd9b2647239f533
   docs/sdks/tts/README.mdx:
     id: cd1132543884
-    last_write_checksum: sha1:8b45db18dfe4412ee7cae9698bb39faa9013b64c
-    pristine_git_object: 064b776ab025925a2104d17391ca8770f9e2f967
+    last_write_checksum: sha1:83db558ca9cd4b77e27fb55677800b6e86d4ebd0
+    pristine_git_object: d82f751228481217267d2145ff04c73c525e084f
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
-    last_write_checksum: sha1:0a7943bee5486f2e27dee50984508fa01d989afd
-    pristine_git_object: 4604686ee6b95b50345a1c16f16668c166e0e97c
+    last_write_checksum: sha1:5c5e97db7a828e5a33431c1e046735634358408f
+    pristine_git_object: 37a989497442482d6e53b9b408d60d7a4e80051d
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
     last_write_checksum: sha1:01ed8de94a1c2f03ea5bb6389b0125796a6de23d
@@ -9919,8 +9919,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:14b862f5838ff0cd476ae27fc246af8bf356da7d
-    pristine_git_object: 4a65ce6b5a06c2be1a668cb1853441f5d6d8f9cb
+    last_write_checksum: sha1:2e4af9bd2669bc7f1352f73c9129753c40098f59
+    pristine_git_object: d334bd9fa13f847e16f7519a79109f9fb0f1b33b
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9943,8 +9943,8 @@ trackedFiles:
     pristine_git_object: 1faa9d7a14b0bced00bd3371a544700a7dbab279
   rerank.go:
     id: a0df6c09f740
-    last_write_checksum: sha1:6aeaea4b0b3ef8daa31600ce8cd8d43fa5264761
-    pristine_git_object: 8a8bfc2f563f7f08b46927f547e25216cc35334e
+    last_write_checksum: sha1:352b3cfa39f6d119238031d401122e6a7493cdff
+    pristine_git_object: 385809219bb977401cd72f99d32ec70cbb59bd43
   responses.go:
     id: 1e889220bc3b
     last_write_checksum: sha1:85365d77b2a88750fe62a71a433f66fd757bab66
@@ -9959,12 +9959,12 @@ trackedFiles:
     pristine_git_object: 292dc6d75a7d7569caad004e1a75b544bab128a3
   stt.go:
     id: 04852909348f
-    last_write_checksum: sha1:3c17a4d7461c20cce01cde0c616ee8c4c64dbb52
-    pristine_git_object: 0024ef0da62b4f9e0ac1dc6be003cca19ac6a95b
+    last_write_checksum: sha1:c35052deded9662f795cc2530802dc4616514b51
+    pristine_git_object: 74156d7aa723316f288c1b5cce85f0857f5f0b62
   tts.go:
     id: 9feb76579e2d
-    last_write_checksum: sha1:8d408dfa0ba5b0c7d5d670180efb609955988169
-    pristine_git_object: 7c87bb7d54fc2864bb72fdfe71cd8029006334de
+    last_write_checksum: sha1:0990533f0df99e9ae88cc095fd28f9284e4f3f3b
+    pristine_git_object: 597b5b9e438d37061c6895e1e45a0dfd378a0dac
   types/bigint.go:
     id: 6f911e1a03c3
     last_write_checksum: sha1:49b004005d0461fb04b846eca062b070b0360b31
@@ -9987,8 +9987,8 @@ trackedFiles:
     pristine_git_object: f590f26543adbbb82e2fe183b8051b1ff1ab49c6
   videogeneration.go:
     id: cb32a6d68bf0
-    last_write_checksum: sha1:30be0ac3097e27c8df5e2d55753a9c0ad08baeee
-    pristine_git_object: aa4df35502a56e74188df460f027f7e832c8dc31
+    last_write_checksum: sha1:2dec2f9eadbdff3f6decf1cef17e4bfb2f5fd651
+    pristine_git_object: d30bfcee13787e40d84b83a1d99a3a8fbc958735
   workspaces.go:
     id: 643517773c6f
     last_write_checksum: sha1:9e15b524e17929f089d5089722315fd29f4582ae
@@ -10646,6 +10646,8 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
   createVideos:
     speakeasy-default-create-videos:
       requestBody:
@@ -10665,6 +10667,8 @@ examples:
           application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
   getVideos:
     speakeasy-default-get-videos:
       parameters:
@@ -10736,6 +10740,8 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
   listGenerationContent:
     speakeasy-default-list-generation-content:
       parameters:
@@ -10935,6 +10941,8 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
     speakeasy-default-create-audio-transcriptions-multipart:
       requestBody:
         multipart/form-data: {"file": "x-file: example.file", "model": "Escalade"}
@@ -10961,6 +10969,8 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
   listBYOKKeys:
     speakeasy-default-list-BYOK-keys:
       parameters:
@@ -11838,4 +11848,8 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Containers.PromoteContainerFile()`: **Added**
+  * `OpenRouter.Tts.CreateSpeech()`:  `error.status[413]` **Added**
+  * `OpenRouter.Stt.CreateTranscription()`:  `error.status[413]` **Added**
+  * `OpenRouter.Stt.CreateTranscriptionMultipart()`:  `error.status[413]` **Added**
+  * `OpenRouter.Rerank.Rerank()`:  `error.status[413]` **Added**
+  * `OpenRouter.VideoGeneration.Generate()`:  `error.status[413]` **Added**
