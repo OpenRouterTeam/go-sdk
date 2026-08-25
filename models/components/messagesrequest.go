@@ -1261,31 +1261,31 @@ func (t *ThinkingAdaptive) GetType() TypeAdaptive {
 	return t.Type
 }
 
-type TypeDisabled string
+type ThinkingTypeDisabled string
 
 const (
-	TypeDisabledDisabled TypeDisabled = "disabled"
+	ThinkingTypeDisabledDisabled ThinkingTypeDisabled = "disabled"
 )
 
-func (e TypeDisabled) ToPointer() *TypeDisabled {
+func (e ThinkingTypeDisabled) ToPointer() *ThinkingTypeDisabled {
 	return &e
 }
-func (e *TypeDisabled) UnmarshalJSON(data []byte) error {
+func (e *ThinkingTypeDisabled) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "disabled":
-		*e = TypeDisabled(v)
+		*e = ThinkingTypeDisabled(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeDisabled: %v", v)
+		return fmt.Errorf("invalid value for ThinkingTypeDisabled: %v", v)
 	}
 }
 
 type ThinkingDisabled struct {
-	Type TypeDisabled `json:"type"`
+	Type ThinkingTypeDisabled `json:"type"`
 }
 
 func (t ThinkingDisabled) MarshalJSON() ([]byte, error) {
@@ -1299,9 +1299,9 @@ func (t *ThinkingDisabled) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *ThinkingDisabled) GetType() TypeDisabled {
+func (t *ThinkingDisabled) GetType() ThinkingTypeDisabled {
 	if t == nil {
-		return TypeDisabled("")
+		return ThinkingTypeDisabled("")
 	}
 	return t.Type
 }
@@ -1370,9 +1370,9 @@ func (t *ThinkingEnabled) GetType() TypeEnabled {
 type ThinkingType string
 
 const (
-	ThinkingTypeEnabled  ThinkingType = "enabled"
-	ThinkingTypeDisabled ThinkingType = "disabled"
-	ThinkingTypeAdaptive ThinkingType = "adaptive"
+	ThinkingTypeEnabled       ThinkingType = "enabled"
+	ThinkingTypeDisabledValue ThinkingType = "disabled"
+	ThinkingTypeAdaptive      ThinkingType = "adaptive"
 )
 
 type Thinking struct {
@@ -1396,9 +1396,9 @@ func CreateThinkingEnabled(enabled ThinkingEnabled) Thinking {
 }
 
 func CreateThinkingDisabled(disabled ThinkingDisabled) Thinking {
-	typ := ThinkingTypeDisabled
+	typ := ThinkingTypeDisabledValue
 
-	typStr := TypeDisabled(typ)
+	typStr := ThinkingTypeDisabled(typ)
 	disabled.Type = typStr
 
 	return Thinking{
@@ -1447,7 +1447,7 @@ func (u *Thinking) UnmarshalJSON(data []byte) error {
 		}
 
 		u.ThinkingDisabled = thinkingDisabled
-		u.Type = ThinkingTypeDisabled
+		u.Type = ThinkingTypeDisabledValue
 		return nil
 	case "adaptive":
 		thinkingAdaptive := new(ThinkingAdaptive)

@@ -34,8 +34,10 @@ func (e *ContainerReferenceEnvironmentType) UnmarshalJSON(data []byte) error {
 // ContainerReferenceEnvironment - Reference to a container by its canonical id — a previously returned container_id or a fresh name to create a persistent container.
 type ContainerReferenceEnvironment struct {
 	// Canonical container id to reuse (max 40 characters, letters/digits/underscores/hyphens). Any container_id previously returned by a bash or shell tool result works here and reattaches to the same container and files — including session-derived ids (sess_...) and generation-derived ids (gen_...). Note that a session-derived id is always sess_ + the sanitized session key, which is not necessarily the raw session id you sent. Using the same container_id from both the bash and shell tools shares the same files, with last-write-wins when both flush concurrently. A fresh name creates a new persistent container. Containers are always scoped to your account and workspace.
-	ContainerID string                            `json:"container_id"`
-	Type        ContainerReferenceEnvironmentType `json:"type"`
+	ContainerID string `json:"container_id"`
+	// Network egress policy for the container. "disabled" blocks all outbound internet; "allowlist" permits only hosts matching the listed hostnames or * glob patterns (ports 80/443, DNS via Cloudflare resolvers). The policy is fixed when a container starts: sending a different policy to a warm container fails the request with a 409. Omitted: defaults to "disabled" (no outbound internet). For unrestricted egress, use an allowlist of ["*"].
+	NetworkPolicy *ContainerNetworkPolicy           `json:"network_policy,omitzero"`
+	Type          ContainerReferenceEnvironmentType `json:"type"`
 }
 
 func (c ContainerReferenceEnvironment) MarshalJSON() ([]byte, error) {
@@ -54,6 +56,27 @@ func (c *ContainerReferenceEnvironment) GetContainerID() string {
 		return ""
 	}
 	return c.ContainerID
+}
+
+func (c *ContainerReferenceEnvironment) GetNetworkPolicy() *ContainerNetworkPolicy {
+	if c == nil {
+		return nil
+	}
+	return c.NetworkPolicy
+}
+
+func (c *ContainerReferenceEnvironment) GetNetworkPolicyDisabled() *ContainerNetworkPolicyDisabled {
+	if v := c.GetNetworkPolicy(); v != nil {
+		return v.ContainerNetworkPolicyDisabled
+	}
+	return nil
+}
+
+func (c *ContainerReferenceEnvironment) GetNetworkPolicyAllowlist() *ContainerNetworkPolicyAllowlist {
+	if v := c.GetNetworkPolicy(); v != nil {
+		return v.ContainerNetworkPolicyAllowlist
+	}
+	return nil
 }
 
 func (c *ContainerReferenceEnvironment) GetType() ContainerReferenceEnvironmentType {
