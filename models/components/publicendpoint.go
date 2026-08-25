@@ -168,9 +168,10 @@ func (p *Pricing) GetWebSearch() *string {
 type PublicEndpoint struct {
 	ContextLength int64 `json:"context_length"`
 	// Latency percentiles in milliseconds over the last 30 minutes. Latency measures time to first token. Only visible when authenticated with an API key or cookie; returns null for unauthenticated requests.
-	LatencyLast30m      *PercentileStats `json:"latency_last_30m"`
-	MaxCompletionTokens *int64           `json:"max_completion_tokens"`
-	MaxPromptTokens     *int64           `json:"max_prompt_tokens"`
+	LatencyLast30m *PercentileStats `json:"latency_last_30m"`
+	// Maximum completion tokens for this endpoint. Input and output tokens share the context window, so the effective maximum output for a request is further limited by the context remaining after input tokens.
+	MaxCompletionTokens *int64 `json:"max_completion_tokens"`
+	MaxPromptTokens     *int64 `json:"max_prompt_tokens"`
 	// The unique identifier for the model (permaslug)
 	ModelID                 string          `json:"model_id"`
 	ModelName               string          `json:"model_name"`
