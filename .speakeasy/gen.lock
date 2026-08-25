@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8fa69877b4b73b0bf7b656283252ddc8
+  docChecksum: feec084adeee109a80d7d699c2c3933d
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.80
-  configChecksum: 3559807c44e8604a3ed8f78582c00ff1
+  releaseVersion: 0.7.81
+  configChecksum: 698040ecfebfac20de89d09a0618cb4c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: be2d595d-c4bb-449c-8070-2d4cd0951242
-  pristine_commit_hash: 8f1486d210cda7ea114832c6b0e149366995db58
-  pristine_tree_hash: 05de2ecfaf340951ea5cdfaa009ee1abd537438a
+  generation_id: 557ef05c-e797-4148-b8d4-05bcded10102
+  pristine_commit_hash: 7adf510fcb0b225c76c988b6aa759d87ebc69be0
+  pristine_tree_hash: 361211090e2117c50d148219935a80641ec44020
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1631,8 +1631,8 @@ trackedFiles:
     pristine_git_object: d2fd708888c3a0f6b584d025f99bc6816353de03
   docs/models/components/createguardrailrequest.mdx:
     id: f2be013836bb
-    last_write_checksum: sha1:6ae3ddb0285d1a54b374d4dce33f5aa36789edbc
-    pristine_git_object: c92971e2959be1f566dc470a103643a999cc53bf
+    last_write_checksum: sha1:7e5cd8c8a9b4f19cfdc415185733ae1f1c2555f6
+    pristine_git_object: 09ee7aec0c9020ab7d135fa6337c82ea94c82d15
   docs/models/components/createguardrailresponse.mdx:
     id: 71fa8e3f3541
     last_write_checksum: sha1:fa6c9bd3f052c947f5a887c6e6a55b5eab516720
@@ -7711,8 +7711,8 @@ trackedFiles:
     pristine_git_object: c3d386cf733dce28e6f608f75152854d71d909a6
   models/components/createguardrailrequest.go:
     id: a62ed1a0ae01
-    last_write_checksum: sha1:b517d30b8e17fac8c36bbe7a9291ca0e953ec9fa
-    pristine_git_object: 034d7eeb81d971d72a6a1409ee6b20b35554ce97
+    last_write_checksum: sha1:22f55e6e0125e0587e1277883ea06f90caf3f3c8
+    pristine_git_object: fa5070d59fa3e3c01d4470c654d7bc9ec108902b
   models/components/createguardrailresponse.go:
     id: 65e5b5cb6746
     last_write_checksum: sha1:53c063df40ab8f40e29a1ed628f4537f21b1cf3f
@@ -9919,8 +9919,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:a5d240e31cb59309bbb11328505dbdd70ed6815e
-    pristine_git_object: a54d65207a1c1c66c128d00649b6577b90315a06
+    last_write_checksum: sha1:0d4a91c27f7f7f8a3eb84fbb5ad98240b18bddda
+    pristine_git_object: 6d944ddd9290663e7419234098c334f2a3883dfc
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
