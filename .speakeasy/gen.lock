@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: feec084adeee109a80d7d699c2c3933d
+  docChecksum: cbbd5d542938008beaff4d6e86d102cf
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.81
-  configChecksum: 698040ecfebfac20de89d09a0618cb4c
+  releaseVersion: 0.7.82
+  configChecksum: 9896dfac8e380632f597de981ab540b2
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 557ef05c-e797-4148-b8d4-05bcded10102
-  pristine_commit_hash: 7adf510fcb0b225c76c988b6aa759d87ebc69be0
-  pristine_tree_hash: 361211090e2117c50d148219935a80641ec44020
+  generation_id: 969d12aa-86e5-4b5c-aad2-f96610d708d4
+  pristine_commit_hash: 1a1e3b1e869279b0fc5dba35488e332ca1b19006
+  pristine_tree_hash: f63df7eb6cb60f1c40c8444b9cbbbe0fecd4421c
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5579,8 +5579,8 @@ trackedFiles:
     pristine_git_object: 859d7df5da8d17fac1b37a1ab02f7cca188e7be9
   docs/models/components/unit.mdx:
     id: 47180a2596be
-    last_write_checksum: sha1:3f96b84bf2d6ca2cd2aa965e216845f4ed6adec4
-    pristine_git_object: c0a67bf4a542c8ad122fcbf9d78a4f194dcc59ae
+    last_write_checksum: sha1:c5b336db2bfe5a6dfea82ce43e93b87dd5fba6c5
+    pristine_git_object: 9a13c6a462f38eb8405a9dfff77f257f2d635d41
   docs/models/components/unprocessableentityresponseerrordata.mdx:
     id: b9a255c3400e
     last_write_checksum: sha1:7202c4d2ceec8b3af07a78315270181c3c7b42dd
@@ -8139,8 +8139,8 @@ trackedFiles:
     pristine_git_object: 99d69e8d3609a7cba0d679f12c4c081b1f16e916
   models/components/imagepricingentry.go:
     id: b30e0f10bd90
-    last_write_checksum: sha1:7296dd4d243354ef177f911ee9e599f770d71f13
-    pristine_git_object: 6910fb6979643071fe928bf77cbc8ff3c7aa204c
+    last_write_checksum: sha1:19f5271c2ca76aaecab0491a08c2a72a9e8ccedc
+    pristine_git_object: a3072a3584328d4081d1272f0a55c146892023e1
   models/components/imagestreamingresponse.go:
     id: 14779060e400
     last_write_checksum: sha1:b906eb7cf55d28ce1786b696f73bdd2630a07a25
@@ -9919,8 +9919,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:0d4a91c27f7f7f8a3eb84fbb5ad98240b18bddda
-    pristine_git_object: 6d944ddd9290663e7419234098c334f2a3883dfc
+    last_write_checksum: sha1:529da82ef45a5110d55f6ddd1f544f69bb0d6e94
+    pristine_git_object: 893e42a1d966b8d7a649b3a405af7483bf808de5
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11846,3 +11846,6 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Images.ListModelEndpoints()`:  `response.Endpoints[].Pricing[].Unit.Enum(request)` **Added**
