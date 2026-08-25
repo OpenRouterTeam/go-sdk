@@ -231,6 +231,7 @@ func main() {
 * [ListContainerFiles](docs/sdks/containers/README.md#listcontainerfiles) - List container files
 * [GetContainerFile](docs/sdks/containers/README.md#getcontainerfile) - Retrieve a container file
 * [DownloadContainerFileContent](docs/sdks/containers/README.md#downloadcontainerfilecontent) - Download container file content
+* [PromoteContainerFile](docs/sdks/containers/README.md#promotecontainerfile) - Promote a container file into workspace documents
 
 ### [Credits](docs/sdks/credits/README.md)
 
