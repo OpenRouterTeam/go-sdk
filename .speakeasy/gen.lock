@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: be6acba89ef5fd2e22c8697af12df11e
+  docChecksum: 8fa69877b4b73b0bf7b656283252ddc8
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.79
-  configChecksum: 6ddf149e864d576531ee178037155a9b
+  releaseVersion: 0.7.80
+  configChecksum: 3559807c44e8604a3ed8f78582c00ff1
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: fccbd6e1-662f-4bed-9c58-37667cd29180
-  pristine_commit_hash: ee84de9cd4950efa2d4f3b29cf3b6306a8640374
-  pristine_tree_hash: 1eda0d3d21e5595fece65b2fcc8d536a085648a7
+  generation_id: be2d595d-c4bb-449c-8070-2d4cd0951242
+  pristine_commit_hash: 8f1486d210cda7ea114832c6b0e149366995db58
+  pristine_tree_hash: 05de2ecfaf340951ea5cdfaa009ee1abd537438a
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4463,8 +4463,8 @@ trackedFiles:
     pristine_git_object: aa7bef7f413a5addb48282d7113b5ae76183f467
   docs/models/components/publicendpoint.mdx:
     id: 63d6ef18c590
-    last_write_checksum: sha1:1a7d721338c6a2a935eaef3facf4afe66509fd05
-    pristine_git_object: 9d415cd13f5621e517d2ce2078e994b3e351e5eb
+    last_write_checksum: sha1:bcc793dc09efbdd1ccb279efdb92314ce2aa6798
+    pristine_git_object: ba01d9aae068eb4d2d7a1838dfd04211c151ba14
   docs/models/components/publicpricing.mdx:
     id: c23229563aba
     last_write_checksum: sha1:bfc74c17989b9ad338568c72e1b78a86f9a39232
@@ -5315,8 +5315,8 @@ trackedFiles:
     pristine_git_object: dba2348b9df4ce80d06e769998990fb2135d95fb
   docs/models/components/topproviderinfo.mdx:
     id: c86cb0f6deab
-    last_write_checksum: sha1:3e50e3ad55f582e773fb1f565cc819ccf5cd6080
-    pristine_git_object: d30a1dc1f731c8b1cc690b0423720fa0ee6c7e67
+    last_write_checksum: sha1:9a40bd87f08f9820ca206260f19ba9c5f70a869f
+    pristine_git_object: 0a9ae8f98100240154db5fd518a19b1619c5dad1
   docs/models/components/tournamentstats.mdx:
     id: 7c03a4291a05
     last_write_checksum: sha1:ac06ae347a2c8e2dc60ea9d9dcc2e404dd20f066
@@ -8851,8 +8851,8 @@ trackedFiles:
     pristine_git_object: d913116c1e97092574832d3b377d2d1735055cd7
   models/components/publicendpoint.go:
     id: "32378212e204"
-    last_write_checksum: sha1:0ef683a0266f96f6492e0a3061e31c91526e3d56
-    pristine_git_object: 7cba73205b11dd8bbb82c056f621f4a207c67774
+    last_write_checksum: sha1:9192443c21306e2c6b2d553ff28f06a091bf42ab
+    pristine_git_object: 6eabbebba9dc373f7f006556ccf5a8b543768c0c
   models/components/publicpricing.go:
     id: 8596f6c62439
     last_write_checksum: sha1:27958df794cc170d479c41ce42c79839ce3118b3
@@ -9267,8 +9267,8 @@ trackedFiles:
     pristine_git_object: e60e5e8f6bb5e0edad3c7ce4ca49b2ce38d1e786
   models/components/topproviderinfo.go:
     id: 495b548f5842
-    last_write_checksum: sha1:02074171fc708c656547b90643a86f392f2fd26d
-    pristine_git_object: ff22ffbfbdf95d7b303bcb91ce0b9ccb013ae9d2
+    last_write_checksum: sha1:c000a11eb1fd9c5dfd532b9c38a9dbe5903a3b83
+    pristine_git_object: 8078de8ff666c36fd047938eb60ce4eef10ad530
   models/components/traceconfig.go:
     id: 0577cf72395d
     last_write_checksum: sha1:7c5a87d46aed0a82622bea681ac998e2c5938b15
@@ -9919,8 +9919,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:2e4af9bd2669bc7f1352f73c9129753c40098f59
-    pristine_git_object: d334bd9fa13f847e16f7519a79109f9fb0f1b33b
+    last_write_checksum: sha1:a5d240e31cb59309bbb11328505dbdd70ed6815e
+    pristine_git_object: a54d65207a1c1c66c128d00649b6577b90315a06
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11846,10 +11846,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Tts.CreateSpeech()`:  `error.status[413]` **Added**
-  * `OpenRouter.Stt.CreateTranscription()`:  `error.status[413]` **Added**
-  * `OpenRouter.Stt.CreateTranscriptionMultipart()`:  `error.status[413]` **Added**
-  * `OpenRouter.Rerank.Rerank()`:  `error.status[413]` **Added**
-  * `OpenRouter.VideoGeneration.Generate()`:  `error.status[413]` **Added**
