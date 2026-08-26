@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 615ea0d753bd8fad8c09ed6fe08baba7
+  docChecksum: ef246f44d617d003139143416c721d97
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.87
-  configChecksum: 48353a5f1c1523c7012ddbceb5981308
+  releaseVersion: 0.7.88
+  configChecksum: 6f4de9e00c62ccadc5cc713cf85e261c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 2debf0c9-21ad-49ec-8630-8538be075648
-  pristine_commit_hash: b7fc1439f88f79e2493f19071f1c22a85dd13fc9
-  pristine_tree_hash: 25d6c7ef85dedb2304cee2a750df2d4693c4f91e
+  generation_id: bcffb3b1-64db-4df6-b01f-547d7a618baf
+  pristine_commit_hash: 40c872cc0bb3ef3e45331e790caf168eaa5763c7
+  pristine_tree_hash: e1c5fe4db90057034a4ff9083ad0b5efe5d84c11
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1467,16 +1467,16 @@ trackedFiles:
     pristine_git_object: ae0771589b469d6d7ddf49e677b815526285da11
   docs/models/components/contentfilterbuiltinentry.mdx:
     id: 6a74cc5ba398
-    last_write_checksum: sha1:b83e7bb4b132e8e060e46215c36f25d21a9717c4
-    pristine_git_object: 7150b08928b9e3340088bf329b905860a49812da
+    last_write_checksum: sha1:4632e844d02d11da587761b6855927e28932ff8c
+    pristine_git_object: 36e3d28dee3684b9762e1dee6631973372112a89
   docs/models/components/contentfilterbuiltinentryinput.mdx:
     id: e643c93dd798
     last_write_checksum: sha1:d38faa3804e3ce5fb29a6a6d043e7c41eac69802
     pristine_git_object: 5a92789b3b75ec7dc78f653ff405e0e1c2c55861
   docs/models/components/contentfilterbuiltinslug.mdx:
     id: fb415db68ea5
-    last_write_checksum: sha1:7062d008899b53265c346d948b9ee2714316c09b
-    pristine_git_object: 48e487a34dc0e81be5c947507c3779fc2bfe5847
+    last_write_checksum: sha1:84ff47ee44cb98582e47829358231167d82af482
+    pristine_git_object: f2773f1381d0d4d4a88b67ff94ae129a3c570d98
   docs/models/components/contentfilterentry.mdx:
     id: 61e4d4639e58
     last_write_checksum: sha1:6e7a376a15c0b54500390425fb6a9e16a77deff5
@@ -7647,16 +7647,16 @@ trackedFiles:
     pristine_git_object: 36c43f3a37df996b719e28443ac1135ec5dd777f
   models/components/contentfilterbuiltinentry.go:
     id: 6915b716f352
-    last_write_checksum: sha1:d137907c8056779f348fbc933087ad2b939f0a7a
-    pristine_git_object: 5c316341a885e9d24460c0d6c6a70b91aaf87a7e
+    last_write_checksum: sha1:94111a5fd7756f7405f1f8bff819ec5190d012e4
+    pristine_git_object: ac878f5bac45429256d52a09ec23d628c9ec85c1
   models/components/contentfilterbuiltinentryinput.go:
     id: 3798947c4908
     last_write_checksum: sha1:2191b4d859b9553def5622589d99aa77e8a3a945
     pristine_git_object: 90ebdec22fa7cae59934a82249412ed610f6a13c
   models/components/contentfilterbuiltinslug.go:
     id: 6ff2a62bcc9e
-    last_write_checksum: sha1:65e9888f478d0aeb5fef29e42c36a9f2539f0e86
-    pristine_git_object: 6dd23893ec9e0caa5ac10ed3365557fab0864836
+    last_write_checksum: sha1:c266d2ac6f3feaccfba0ef854f9014cb23b054f6
+    pristine_git_object: 4a5ae184bb05664ace342b1a1c2c857ddebb5100
   models/components/contentfilterentry.go:
     id: 848c6f11ddcf
     last_write_checksum: sha1:e39f44da7bea3a801ec8404fef5ab7efa1a2872c
@@ -9927,8 +9927,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:fa06d4cbd0005a4004bae8e1eb8b63ded439db40
-    pristine_git_object: 52469345f39c713108717a070ee8445020d72c58
+    last_write_checksum: sha1:cb9452c6d374ef0af52d79ff3db572153f791bac
+    pristine_git_object: 2c684a54e4070eb852be2fc13023244125fdc444
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11854,6 +11854,4 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Workspaces.Delete()`:  `request.ConfirmDefaultWorkspaceDeletion` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n  *  `response.Data.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n  *  `response.Data.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n"
