@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: fb85077ea30b5dd8f2386dac615999df
+  docChecksum: 6afd1509e4e1b282cf0ea35340e59846
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.85
-  configChecksum: 8ac0159444297690c3a9a0319c900b40
+  releaseVersion: 0.7.86
+  configChecksum: e835225b648b6854adfe23ca0914809a
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: ea5b47f6-3024-49de-bc18-984d2b1d44ee
-  pristine_commit_hash: f4340f041fc557094a53d776c5bb4bec12a9f9f2
-  pristine_tree_hash: 1e6453180772428a76f81203cf46b0433fcd0046
+  generation_id: d7898d8e-f7c2-4b54-8cd8-76c22da4c3bf
+  pristine_commit_hash: 8dae5969ecdc76fce89557182dbaf7feb0d2f625
+  pristine_tree_hash: a9fce5ef0a46c9a4dc34a1015cd13692924d2542
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6923,8 +6923,8 @@ trackedFiles:
     pristine_git_object: 37a989497442482d6e53b9b408d60d7a4e80051d
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
-    last_write_checksum: sha1:01ed8de94a1c2f03ea5bb6389b0125796a6de23d
-    pristine_git_object: e5230ff30b0aaa1dfb814cf0ea30135c6f162609
+    last_write_checksum: sha1:1057ede4a1a6d1e45db29b57c16a68f82d90bd5d
+    pristine_git_object: e9c9ae8d7e91741561d273e1256568537e07b7c1
   embeddings.go:
     id: f7354b2d5b3e
     last_write_checksum: sha1:e911a7684b8e4e8cfe01d8c7c7fb26a633ecba02
@@ -9927,8 +9927,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:25dbd82337c55da90070fe9cc3371e3291bbf30b
-    pristine_git_object: 849bd431e68683b39f225d7eed894ff34c829e91
+    last_write_checksum: sha1:92560f906d2c64d66a9c34d4ef9f68e2c7678d1b
+    pristine_git_object: 0cf2d850a4645c2873dab98f55510265705cdeb1
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -9999,8 +9999,8 @@ trackedFiles:
     pristine_git_object: d30bfcee13787e40d84b83a1d99a3a8fbc958735
   workspaces.go:
     id: 643517773c6f
-    last_write_checksum: sha1:9e15b524e17929f089d5089722315fd29f4582ae
-    pristine_git_object: 8d87a78b6944cb789be335e0b992b961ffa634f1
+    last_write_checksum: sha1:a2c7ac9b9e51dd3b56bc1d9b2dc2aa20ba3695d0
+    pristine_git_object: 664a123f0871bb2aa8decffbc3404de518a9cbd2
 examples:
   createResponses:
     speakeasy-default-create-responses:
@@ -11854,4 +11854,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(ShellCallOutputItem)` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(ShellCallOutputItem)` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(ShellCallOutputItem)` **Changed**\n"
