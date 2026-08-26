@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 9d769fcdbe0919517da5781c6203f633
+  docChecksum: 06aa25b93c67e812aeb8dd17ce0ee5c6
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.83
-  configChecksum: 297e142deefe5aa36741cfa89efd87f1
+  releaseVersion: 0.7.84
+  configChecksum: 6453873d078f5f077dc416618c742d79
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 2b81d95b-9e1e-4064-b273-a8f799939693
-  pristine_commit_hash: dff0cca7d565702803d3c4b576df9535b57bc398
-  pristine_tree_hash: 0ed20ac7d6a65fe4fbb5d3297f65ef091e1df292
+  generation_id: eb67c45a-d8f7-4f6c-820e-a77aa353b33b
+  pristine_commit_hash: 108a705544803a03af3fde3100a54dd891f057ce
+  pristine_tree_hash: 7305055f1765c8eb6995e3e80719fa52aa0e775d
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2399,8 +2399,8 @@ trackedFiles:
     pristine_git_object: d46a8e661e6031049bdda0d90d207d32759c9f04
   docs/models/components/imagegenerationrequest.mdx:
     id: 54ea21cfc58a
-    last_write_checksum: sha1:8929ad7611dab0e8b690ea12575378d5cda1f029
-    pristine_git_object: be4aec2502cec08ae9e729dfe0163ce8108e011f
+    last_write_checksum: sha1:e401199c31eebf6ed1099571636265d6242219ba
+    pristine_git_object: 01f13d46cd6e508446a512b3e93b5330bdda8273
   docs/models/components/imagegenerationrequestaspectratio.mdx:
     id: 57d69bdf90ec
     last_write_checksum: sha1:fd516b57e78ce92449b7e8d9650f399aadef879d
@@ -8071,8 +8071,8 @@ trackedFiles:
     pristine_git_object: 37e40e59b740d145628f9783e0aca65f1ffde0f3
   models/components/imagegenerationrequest.go:
     id: 2a1c3242c506
-    last_write_checksum: sha1:f7c6c4db759d6edc5f434b468fd5f744cb93ffac
-    pristine_git_object: 555d8f41611f580f470a8f8e2d2ebe190ad9ae7f
+    last_write_checksum: sha1:724684050bee8ebc5d196fdbc710a6065a209484
+    pristine_git_object: b0ecfccd670b5e0bd7e847a449e1e59ca0c18b7e
   models/components/imagegenerationresponse.go:
     id: bfcc44d3ad67
     last_write_checksum: sha1:6c133bc51c83d5747936cf1546933cf27c536099
@@ -9919,8 +9919,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:8f8f6fa6bac3925a84b7c62d5c8b3c3f19ae2d75
-    pristine_git_object: db4039e3426be1bca5728cfabfb92af348ed3366
+    last_write_checksum: sha1:3a7ad0694d796afc357439e9d6dc79fb77111750
+    pristine_git_object: 22943ccfae787d7ef1ad594257792cd4c6e6cd4f
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11846,3 +11846,4 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.User` **Added**\n"
