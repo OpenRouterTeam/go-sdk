@@ -11,6 +11,7 @@ const (
 	ContentFilterBuiltinSlugSsn                  ContentFilterBuiltinSlug = "ssn"
 	ContentFilterBuiltinSlugCreditCard           ContentFilterBuiltinSlug = "credit-card"
 	ContentFilterBuiltinSlugIPAddress            ContentFilterBuiltinSlug = "ip-address"
+	ContentFilterBuiltinSlugSecrets              ContentFilterBuiltinSlug = "secrets"
 	ContentFilterBuiltinSlugPersonName           ContentFilterBuiltinSlug = "person-name"
 	ContentFilterBuiltinSlugAddress              ContentFilterBuiltinSlug = "address"
 	ContentFilterBuiltinSlugRegexPromptInjection ContentFilterBuiltinSlug = "regex-prompt-injection"
@@ -24,7 +25,7 @@ func (e ContentFilterBuiltinSlug) ToPointer() *ContentFilterBuiltinSlug {
 func (e *ContentFilterBuiltinSlug) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "email", "phone", "ssn", "credit-card", "ip-address", "person-name", "address", "regex-prompt-injection":
+		case "email", "phone", "ssn", "credit-card", "ip-address", "secrets", "person-name", "address", "regex-prompt-injection":
 			return true
 		}
 	}
