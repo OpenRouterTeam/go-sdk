@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 06aa25b93c67e812aeb8dd17ce0ee5c6
+  docChecksum: fb85077ea30b5dd8f2386dac615999df
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.84
-  configChecksum: 6453873d078f5f077dc416618c742d79
+  releaseVersion: 0.7.85
+  configChecksum: 8ac0159444297690c3a9a0319c900b40
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: eb67c45a-d8f7-4f6c-820e-a77aa353b33b
-  pristine_commit_hash: 108a705544803a03af3fde3100a54dd891f057ce
-  pristine_tree_hash: 7305055f1765c8eb6995e3e80719fa52aa0e775d
+  generation_id: ea5b47f6-3024-49de-bc18-984d2b1d44ee
+  pristine_commit_hash: f4340f041fc557094a53d776c5bb4bec12a9f9f2
+  pristine_tree_hash: 1e6453180772428a76f81203cf46b0433fcd0046
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4875,12 +4875,20 @@ trackedFiles:
     pristine_git_object: db2108e40988131ee2d22eb49065d5a362af88f2
   docs/models/components/shellcalloutputitem.mdx:
     id: bdf1940950dd
-    last_write_checksum: sha1:40eb9468927b3adff2c3a049a53eb31b83c6d9b0
-    pristine_git_object: 9cc3a6bee597fecc3ec755f0f6748d6eff45eda1
-  docs/models/components/shellcalloutputitemtype.mdx:
-    id: 79b86b0c0682
-    last_write_checksum: sha1:eefb01895994f255522864238c4f0533721171cd
-    pristine_git_object: d752f7ed629b160552ef1c409face8406260e790
+    last_write_checksum: sha1:c2e75f1812e3287bdadd2059ce6407cde9c42f6c
+    pristine_git_object: b7c79f6dbf678668b6b47679e43a9ba29808af29
+  docs/models/components/shellcalloutputitemfile.mdx:
+    id: b1997a24d359
+    last_write_checksum: sha1:8a724016131d07130608eacf7bec04f0e7df0643
+    pristine_git_object: 36662824ee0d44fddfe06ad35f66ff59f3afc80d
+  docs/models/components/shellcalloutputitemtypecontainerfilecitation.mdx:
+    id: 6c4152e0ee86
+    last_write_checksum: sha1:41aa58450f25ecc879e029212b6a842551754deb
+    pristine_git_object: 4c676e7668bc7d5823b5adbede0fc396fb40c59d
+  docs/models/components/shellcalloutputitemtypeshellcalloutput.mdx:
+    id: 8c96f2818e93
+    last_write_checksum: sha1:dc86098979903d97738490dbdeeb0b2e7a183f02
+    pristine_git_object: 6d0c60b25a2779f2eb5e781f18a36a61511a1c98
   docs/models/components/shellcallstatus.mdx:
     id: ab7fd18dc4fc
     last_write_checksum: sha1:3eb523a60acd2771876fd4348106c6514870e788
@@ -9059,8 +9067,8 @@ trackedFiles:
     pristine_git_object: 49358ee24a55dc7f9b7f388456e3e12ab0ef995a
   models/components/shellcalloutputitem.go:
     id: 74c1673d40cb
-    last_write_checksum: sha1:748ff04032427f9cce9be142a270c59fdee39062
-    pristine_git_object: 769ef43fa4215e13e4c1e30d4864e9305cac76ae
+    last_write_checksum: sha1:615815ec83f0f95446c3804b46c661f2fa691ec2
+    pristine_git_object: 4e837fac3eee9f09e2a9141ccdba25602e0b2fa3
   models/components/shellcallstatus.go:
     id: 7037ac712ae3
     last_write_checksum: sha1:b1caf665be7cb8e720ad1e8d4f36ad193843e189
@@ -9919,8 +9927,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3a7ad0694d796afc357439e9d6dc79fb77111750
-    pristine_git_object: 22943ccfae787d7ef1ad594257792cd4c6e6cd4f
+    last_write_checksum: sha1:25dbd82337c55da90070fe9cc3371e3291bbf30b
+    pristine_git_object: 849bd431e68683b39f225d7eed894ff34c829e91
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11846,4 +11854,4 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.User` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(ShellCallOutputItem)` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(ShellCallOutputItem)` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(ShellCallOutputItem)` **Changed**\n"
