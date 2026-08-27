@@ -1078,7 +1078,7 @@ func (s *Containers) DownloadContainerFileContent(ctx context.Context, container
 }
 
 // PromoteContainerFile - Promote a container file into workspace documents
-// Copies a file from the container's sandbox prefix into the workspace's durable document storage, so it outlives the container. Returns the new document in the Files API shape, with a durable file id in the documents namespace. The copy counts against the workspace's storage quota exactly like an upload.
+// Copies a file from the container's sandbox prefix into the workspace's durable document storage, so it outlives the container. Returns the new document in the Files API shape, with a durable file id in the documents namespace. The copy counts against the workspace's storage quota. Unlike a direct upload, promoted files are downloadable.
 func (s *Containers) PromoteContainerFile(ctx context.Context, containerID string, fileID string, opts ...operations.Option) (*components.FileResponse, error) {
 	request := operations.PromoteContainerFileRequest{
 		ContainerID: containerID,
