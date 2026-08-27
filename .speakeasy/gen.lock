@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 19d82b1e29d7958ae6294f5db8cbff9e
+  docChecksum: ef246f44d617d003139143416c721d97
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.89
-  configChecksum: 653a98ae3699ad9e201fde8682a158ec
+  releaseVersion: 0.7.90
+  configChecksum: a7e5e1a3393e97975e50a82ecf9d215c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f8c485db-fb85-4cc7-bbc0-e23cfca31505
-  pristine_commit_hash: 2d5b42f657385352b0f587ab463c57fa8e38bac4
-  pristine_tree_hash: cea1e0bd59546fadde89643576476cfd3a3caefe
+  generation_id: 8973b4b7-4a1f-4c14-a15e-c5aacfc5632d
+  pristine_commit_hash: 1cdeb2e3adf90091c666c490145f4d8b2f0b00f0
+  pristine_tree_hash: b472a5b85afa3ea86a4f576e1d97fc778f69e065
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6395,8 +6395,8 @@ trackedFiles:
     pristine_git_object: 26089288972808295f961f1104c76a275f375233
   docs/models/operations/listguardrailsresponse.mdx:
     id: 61d40234668c
-    last_write_checksum: sha1:859f5868006375991f2fa99be1c0f12534151713
-    pristine_git_object: 67526da8ed12c2b8884923472ff619cf1b5b4701
+    last_write_checksum: sha1:7460d8d0d10bd8a460f2373cba54f1eae06e3b8c
+    pristine_git_object: 432dfaf04ae7443607d89a9c4e0b666cae9d7fe9
   docs/models/operations/listimagemodelendpointsrequest.mdx:
     id: 1a8a60496451
     last_write_checksum: sha1:a929115ebbe9a6ac38848346c8011c8f299e71fa
@@ -9927,8 +9927,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:2bca11a46f7b21d996ae07a23f0c3ed1c179abd6
-    pristine_git_object: b8e6b3586b450671883eb793c8b650a687970d62
+    last_write_checksum: sha1:0c445c3fc9d60df185c728fdb5a45b0bca47a595
+    pristine_git_object: 817395f3ce8faebd2236e0b49fb8d07532e4d291
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
