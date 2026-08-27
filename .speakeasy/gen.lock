@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ef246f44d617d003139143416c721d97
+  docChecksum: 19d82b1e29d7958ae6294f5db8cbff9e
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.88
-  configChecksum: 6f4de9e00c62ccadc5cc713cf85e261c
+  releaseVersion: 0.7.89
+  configChecksum: 653a98ae3699ad9e201fde8682a158ec
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: bcffb3b1-64db-4df6-b01f-547d7a618baf
-  pristine_commit_hash: 40c872cc0bb3ef3e45331e790caf168eaa5763c7
-  pristine_tree_hash: e1c5fe4db90057034a4ff9083ad0b5efe5d84c11
+  generation_id: f8c485db-fb85-4cc7-bbc0-e23cfca31505
+  pristine_commit_hash: 2d5b42f657385352b0f587ab463c57fa8e38bac4
+  pristine_tree_hash: cea1e0bd59546fadde89643576476cfd3a3caefe
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6395,8 +6395,8 @@ trackedFiles:
     pristine_git_object: 26089288972808295f961f1104c76a275f375233
   docs/models/operations/listguardrailsresponse.mdx:
     id: 61d40234668c
-    last_write_checksum: sha1:7460d8d0d10bd8a460f2373cba54f1eae06e3b8c
-    pristine_git_object: 432dfaf04ae7443607d89a9c4e0b666cae9d7fe9
+    last_write_checksum: sha1:859f5868006375991f2fa99be1c0f12534151713
+    pristine_git_object: 67526da8ed12c2b8884923472ff619cf1b5b4701
   docs/models/operations/listimagemodelendpointsrequest.mdx:
     id: 1a8a60496451
     last_write_checksum: sha1:a929115ebbe9a6ac38848346c8011c8f299e71fa
@@ -9927,8 +9927,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:cb9452c6d374ef0af52d79ff3db572153f791bac
-    pristine_git_object: 2c684a54e4070eb852be2fc13023244125fdc444
+    last_write_checksum: sha1:2bca11a46f7b21d996ae07a23f0c3ed1c179abd6
+    pristine_git_object: b8e6b3586b450671883eb793c8b650a687970d62
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11854,4 +11854,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n  *  `response.Data.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n  *  `response.Data.ContentFilterBuiltins[].Slug.Enum(secrets)` **Added**\n"
