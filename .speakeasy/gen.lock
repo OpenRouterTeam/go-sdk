@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1747877f38e8467ad870689dc7c1df3b
+  docChecksum: 2259c8ec1eaf04eca8a0aca503f102b6
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.95
-  configChecksum: 023cc7a05ed23549885be79ab30c4d11
+  releaseVersion: 0.7.96
+  configChecksum: 404a0fca7a7facad0a8364ab6c8bd02a
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b744dd7c-144a-46b1-be35-9d224be55ce3
-  pristine_commit_hash: 7648193058b533cf52fe721f1e1a75dfb710132b
-  pristine_tree_hash: 9e33ab42e1e93f18944e956b640138b478fc21ad
+  generation_id: 07433685-57ae-4686-ae0f-f68195e7be26
+  pristine_commit_hash: 2410945718e8660438d0b3a84e150598589e9548
+  pristine_tree_hash: 7b36ed83f1fb1311c200f4b8074cef48935466ef
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6427,8 +6427,8 @@ trackedFiles:
     pristine_git_object: e8110032d1e47417c94cd37807078482caf3c5ad
   docs/models/operations/listmodelsuserrequest.mdx:
     id: 05ad0997f444
-    last_write_checksum: sha1:cf70dc6b5e9abf8d369ee8b5fa1d304f7c3b641f
-    pristine_git_object: de785e6a776ebfe9740b6938447d712c8cdd8276
+    last_write_checksum: sha1:ba87ae1ca22f25978a6e18c32a155453e68189da
+    pristine_git_object: 7956272f81258afd4b10b78836fb7ed941f31401
   docs/models/operations/listmodelsuserresponse.mdx:
     id: d3822e9ceb84
     last_write_checksum: sha1:2d21c063c45dfcff11b6c9f3c575dd0ad989550d
@@ -6879,8 +6879,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
-    last_write_checksum: sha1:599c63b7083aa2927beae09e2418ba3a1ba8af5b
-    pristine_git_object: f02a1b2afaa2ba766b31b2b5698fe4bc715493ff
+    last_write_checksum: sha1:ff80e5a795ea6f06f562cf4bc9e4779dfca0fefc
+    pristine_git_object: 6384441287ace44fe1b7b9c1df3e01057b5a3f8d
   docs/sdks/oauth/README.mdx:
     id: 42b5079343d2
     last_write_checksum: sha1:0bd838fa6e85527b8f9b755957186ddbc473d466
@@ -7023,8 +7023,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   models.go:
     id: 3af78faf181b
-    last_write_checksum: sha1:87ccf78b6bd3df1efa0a0222df991b99e0db20fb
-    pristine_git_object: 6e52c430ef10419b2944bdff5349e7561a3cb02a
+    last_write_checksum: sha1:9b841cd02e1aa294fa51412a676d2686941aa316
+    pristine_git_object: 59b1edf5b45e68c4d22aa997b6690582c8c0cd2e
   models/components/aabenchmarkentry.go:
     id: 4c2460857b24
     last_write_checksum: sha1:f1dcb4e0a7a18fc3b6c701e6608ac599c5a0f280
@@ -9767,8 +9767,8 @@ trackedFiles:
     pristine_git_object: 8cf3fdc048ce32e6f570be9c071f6d339ee9ea78
   models/operations/listmodelsuser.go:
     id: c454494b1752
-    last_write_checksum: sha1:ce44d8d55edff8ec505d077ecdd03be44e154c2c
-    pristine_git_object: 34405e4b626a7331e5cdcf4453d2e94600b389c9
+    last_write_checksum: sha1:8b44e0a969817ced2783219c8f34a4b9e50e17e4
+    pristine_git_object: 5dd8d7701670b0299963515bb37d9136ecb26859
   models/operations/listobservabilitydestinations.go:
     id: a7bcd0598f86
     last_write_checksum: sha1:79cce4b505d17798069ce7829ef8ff31c9383c9c
@@ -9935,8 +9935,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3b0ffbd8301327207aa5184a61d5fd5a6c0266c1
-    pristine_git_object: e8a30a5f9cd9ca9b3f270c4e65430dc8e04291d8
+    last_write_checksum: sha1:f8cf545a842a1a43aeaaa30293318586bac52825
+    pristine_git_object: a1a9506a35839aadb4f9471c60814b5d70858153
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11862,4 +11862,6 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Cosine` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Cosine` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(cosine)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(cosine)` **Added**\n  *  `response.Data.Provider.Enum(cosine)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(cosine)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(cosine)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(cosine)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(cosine)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(cosine)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(cosine)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Cosine` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Models.ListForUser()`:  `request.OutputModalities` **Added**

@@ -902,11 +902,12 @@ func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...op
 }
 
 // ListForUser - List models filtered by user provider preferences, privacy settings, and guardrails
-// List models filtered by user provider preferences, [privacy settings](https://openrouter.ai/docs/guides/privacy/provider-logging), and [guardrails](https://openrouter.ai/docs/guides/features/guardrails). If requesting through a regional hostname, the results will be filtered to models that satisfy in-region routing for that region.
-func (s *Models) ListForUser(ctx context.Context, security operations.ListModelsUserSecurity, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListModelsUserResponse, error) {
+// List models filtered by user provider preferences, [privacy settings](https://openrouter.ai/docs/guides/privacy/provider-logging), and [guardrails](https://openrouter.ai/docs/guides/features/guardrails). Returns text-output models by default; pass `output_modalities` (e.g. `image,audio,embeddings` or `all`) to include other modalities. If requesting through a regional hostname, the results will be filtered to models that satisfy in-region routing for that region.
+func (s *Models) ListForUser(ctx context.Context, security operations.ListModelsUserSecurity, offset optionalnullable.OptionalNullable[int64], limit *int64, outputModalities *string, opts ...operations.Option) (*operations.ListModelsUserResponse, error) {
 	request := operations.ListModelsUserRequest{
-		Offset: offset,
-		Limit:  limit,
+		Offset:           offset,
+		Limit:            limit,
+		OutputModalities: outputModalities,
 	}
 
 	o := operations.Options{}
@@ -1114,6 +1115,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 			security,
 			optionalnullable.From(&nOS),
 			limit,
+			outputModalities,
 			opts...,
 		)
 	}

@@ -157,7 +157,7 @@ func main() {
 
 	res, err := s.Models.ListForUser(ctx, operations.ListModelsUserSecurity{
 		Bearer: os.Getenv("OPENROUTER_BEARER"),
-	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500))
+	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
