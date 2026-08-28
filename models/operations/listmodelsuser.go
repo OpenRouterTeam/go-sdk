@@ -24,6 +24,8 @@ type ListModelsUserRequest struct {
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 1000). When both offset and limit are omitted, the full list is returned
 	Limit *int64 `default:"500" queryParam:"style=form,explode=true,name=limit"`
+	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, audio, embeddings) or "all" to include all models. Defaults to "text".
+	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
 }
 
 func (l ListModelsUserRequest) MarshalJSON() ([]byte, error) {
@@ -49,6 +51,13 @@ func (l *ListModelsUserRequest) GetLimit() *int64 {
 		return nil
 	}
 	return l.Limit
+}
+
+func (l *ListModelsUserRequest) GetOutputModalities() *string {
+	if l == nil {
+		return nil
+	}
+	return l.OutputModalities
 }
 
 type ListModelsUserResponse struct {

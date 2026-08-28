@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.95
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.96
 > ```
 
 <!-- No Summary [summary] -->
@@ -157,7 +157,7 @@ func main() {
 
 	res, err := s.Models.ListForUser(ctx, operations.ListModelsUserSecurity{
 		Bearer: os.Getenv("OPENROUTER_BEARER"),
-	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500))
+	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
