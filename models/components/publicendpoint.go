@@ -182,6 +182,8 @@ type PublicEndpoint struct {
 	Status                  *EndpointStatus `json:"status,omitzero"`
 	SupportedParameters     []Parameter     `json:"supported_parameters"`
 	SupportsImplicitCaching bool            `json:"supports_implicit_caching"`
+	// Per-variant `tool_choice` support. `tool_choice` in `supported_parameters` only says the parameter is accepted; these flags say which of its values passed testing.
+	SupportsToolChoice ToolChoiceSupport `json:"supports_tool_choice"`
 	// Whether this TTS endpoint accepts inline reference audio (`input_references`) for stateless voice cloning. Requests carrying reference audio are only routed to endpoints where this is true.
 	SupportsVoiceCloning *bool            `default:"false" json:"supports_voice_cloning"`
 	Tag                  string           `json:"tag"`
@@ -293,6 +295,13 @@ func (p *PublicEndpoint) GetSupportsImplicitCaching() bool {
 		return false
 	}
 	return p.SupportsImplicitCaching
+}
+
+func (p *PublicEndpoint) GetSupportsToolChoice() ToolChoiceSupport {
+	if p == nil {
+		return ToolChoiceSupport{}
+	}
+	return p.SupportsToolChoice
 }
 
 func (p *PublicEndpoint) GetSupportsVoiceCloning() *bool {
