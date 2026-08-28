@@ -38,6 +38,7 @@ type ProviderOptions struct {
 	Cloudflare               map[string]any `json:"cloudflare,omitzero"`
 	Cohere                   map[string]any `json:"cohere,omitzero"`
 	Coreweave                map[string]any `json:"coreweave,omitzero"`
+	Cosine                   map[string]any `json:"cosine,omitzero"`
 	Crofai                   map[string]any `json:"crofai,omitzero"`
 	Crucible                 map[string]any `json:"crucible,omitzero"`
 	Crusoe                   map[string]any `json:"crusoe,omitzero"`
@@ -366,6 +367,13 @@ func (p *ProviderOptions) GetCoreweave() map[string]any {
 		return nil
 	}
 	return p.Coreweave
+}
+
+func (p *ProviderOptions) GetCosine() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Cosine
 }
 
 func (p *ProviderOptions) GetCrofai() map[string]any {

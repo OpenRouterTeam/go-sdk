@@ -219,6 +219,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Cloudflare               map[string]any `json:"cloudflare,omitzero"`
 	Cohere                   map[string]any `json:"cohere,omitzero"`
 	Coreweave                map[string]any `json:"coreweave,omitzero"`
+	Cosine                   map[string]any `json:"cosine,omitzero"`
 	Crofai                   map[string]any `json:"crofai,omitzero"`
 	Crucible                 map[string]any `json:"crucible,omitzero"`
 	Crusoe                   map[string]any `json:"crusoe,omitzero"`
@@ -547,6 +548,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetCoreweave() map[string]an
 		return nil
 	}
 	return i.Coreweave
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetCosine() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Cosine
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetCrofai() map[string]any {
