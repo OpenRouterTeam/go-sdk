@@ -281,6 +281,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Novita                   map[string]any `json:"novita,omitzero"`
 	Nvidia                   map[string]any `json:"nvidia,omitzero"`
 	Octoai                   map[string]any `json:"octoai,omitzero"`
+	Ollama                   map[string]any `json:"ollama,omitzero"`
 	OpenInference            map[string]any `json:"open-inference,omitzero"`
 	Openai                   map[string]any `json:"openai,omitzero"`
 	Parasail                 map[string]any `json:"parasail,omitzero"`
@@ -980,6 +981,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetOctoai() map[string]any {
 		return nil
 	}
 	return i.Octoai
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetOllama() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Ollama
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetOpenInference() map[string]any {

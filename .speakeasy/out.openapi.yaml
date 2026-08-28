@@ -4597,6 +4597,7 @@ components:
         - 'nextbit'
         - 'novita'
         - 'nvidia'
+        - 'ollama'
         - 'open-inference'
         - 'openai'
         - 'parasail'
@@ -14025,6 +14026,7 @@ components:
                 - 'NextBit'
                 - 'Novita'
                 - 'Nvidia'
+                - 'Ollama'
                 - 'OpenAI'
                 - 'OpenInference'
                 - 'Parasail'
@@ -20906,6 +20908,7 @@ components:
         - 'NextBit'
         - 'Novita'
         - 'Nvidia'
+        - 'Ollama'
         - 'OpenAI'
         - 'OpenInference'
         - 'Parasail'
@@ -21224,6 +21227,9 @@ components:
           additionalProperties: {}
           type: 'object'
         octoai:
+          additionalProperties: {}
+          type: 'object'
+        ollama:
           additionalProperties: {}
           type: 'object'
         open-inference:
@@ -21646,6 +21652,7 @@ components:
             - 'NextBit'
             - 'Novita'
             - 'Nvidia'
+            - 'Ollama'
             - 'OpenAI'
             - 'OpenInference'
             - 'Parasail'
@@ -28629,6 +28636,7 @@ paths:
               - 'nextbit'
               - 'novita'
               - 'nvidia'
+              - 'ollama'
               - 'open-inference'
               - 'openai'
               - 'parasail'
