@@ -100,6 +100,7 @@ type ProviderOptions struct {
 	Novita                   map[string]any `json:"novita,omitzero"`
 	Nvidia                   map[string]any `json:"nvidia,omitzero"`
 	Octoai                   map[string]any `json:"octoai,omitzero"`
+	Ollama                   map[string]any `json:"ollama,omitzero"`
 	OpenInference            map[string]any `json:"open-inference,omitzero"`
 	Openai                   map[string]any `json:"openai,omitzero"`
 	Parasail                 map[string]any `json:"parasail,omitzero"`
@@ -799,6 +800,13 @@ func (p *ProviderOptions) GetOctoai() map[string]any {
 		return nil
 	}
 	return p.Octoai
+}
+
+func (p *ProviderOptions) GetOllama() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Ollama
 }
 
 func (p *ProviderOptions) GetOpenInference() map[string]any {

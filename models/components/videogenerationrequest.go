@@ -130,6 +130,7 @@ type VideoGenerationRequestOptions struct {
 	Novita                   map[string]any `json:"novita,omitzero"`
 	Nvidia                   map[string]any `json:"nvidia,omitzero"`
 	Octoai                   map[string]any `json:"octoai,omitzero"`
+	Ollama                   map[string]any `json:"ollama,omitzero"`
 	OpenInference            map[string]any `json:"open-inference,omitzero"`
 	Openai                   map[string]any `json:"openai,omitzero"`
 	Parasail                 map[string]any `json:"parasail,omitzero"`
@@ -829,6 +830,13 @@ func (v *VideoGenerationRequestOptions) GetOctoai() map[string]any {
 		return nil
 	}
 	return v.Octoai
+}
+
+func (v *VideoGenerationRequestOptions) GetOllama() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Ollama
 }
 
 func (v *VideoGenerationRequestOptions) GetOpenInference() map[string]any {
