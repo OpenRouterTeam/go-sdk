@@ -8,6 +8,29 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type OutputCustomToolCallItemStatus string
+
+const (
+	OutputCustomToolCallItemStatusInProgress OutputCustomToolCallItemStatus = "in_progress"
+	OutputCustomToolCallItemStatusCompleted  OutputCustomToolCallItemStatus = "completed"
+	OutputCustomToolCallItemStatusIncomplete OutputCustomToolCallItemStatus = "incomplete"
+)
+
+func (e OutputCustomToolCallItemStatus) ToPointer() *OutputCustomToolCallItemStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCustomToolCallItemStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "in_progress", "completed", "incomplete":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputCustomToolCallItemType string
 
 const (
@@ -38,8 +61,9 @@ type OutputCustomToolCallItem struct {
 	Input  string  `json:"input"`
 	Name   string  `json:"name"`
 	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
-	Namespace *string                      `json:"namespace,omitzero"`
-	Type      OutputCustomToolCallItemType `json:"type"`
+	Namespace *string                         `json:"namespace,omitzero"`
+	Status    *OutputCustomToolCallItemStatus `json:"status,omitzero"`
+	Type      OutputCustomToolCallItemType    `json:"type"`
 }
 
 func (o OutputCustomToolCallItem) MarshalJSON() ([]byte, error) {
@@ -86,6 +110,13 @@ func (o *OutputCustomToolCallItem) GetNamespace() *string {
 		return nil
 	}
 	return o.Namespace
+}
+
+func (o *OutputCustomToolCallItem) GetStatus() *OutputCustomToolCallItemStatus {
+	if o == nil {
+		return nil
+	}
+	return o.Status
 }
 
 func (o *OutputCustomToolCallItem) GetType() OutputCustomToolCallItemType {
