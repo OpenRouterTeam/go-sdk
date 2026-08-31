@@ -639,6 +639,8 @@ func (o *OutputTokensDetails) GetReasoningTokens() int64 {
 }
 
 type UsageCostDetails struct {
+	// Metered server-tool execution cost (for example, shell sandbox time) billed for this request, in USD. Matches the billed checkpoint and settlement amounts exactly.
+	ServerToolCost              optionalnullable.OptionalNullable[float64] `json:"server_tool_cost,omitzero"`
 	UpstreamInferenceCost       optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
 	UpstreamInferenceInputCost  float64                                    `json:"upstream_inference_input_cost"`
 	UpstreamInferenceOutputCost float64                                    `json:"upstream_inference_output_cost"`
@@ -653,6 +655,13 @@ func (u *UsageCostDetails) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (u *UsageCostDetails) GetServerToolCost() optionalnullable.OptionalNullable[float64] {
+	if u == nil {
+		return nil
+	}
+	return u.ServerToolCost
 }
 
 func (u *UsageCostDetails) GetUpstreamInferenceCost() optionalnullable.OptionalNullable[float64] {
