@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: d7f45d4b553b2989a2e3860028733596
+  docChecksum: aa011d28e84925939cbd904b21dfc360
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.99
-  configChecksum: a87d396dcbd9a2ebfdd309d3f8109d57
+  releaseVersion: 0.7.100
+  configChecksum: 6216bd7fa0c6fc136e5bde8a1030dd93
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 289deb04-c739-4d49-8357-e3b1b360e28a
-  pristine_commit_hash: 49490dda99a28fd4b0ed3ceb6578676e247d2209
-  pristine_tree_hash: 6dd69be1fcef2ec272590ec0e5bc40cf31bc4fd3
+  generation_id: fa92e023-5402-41e2-ad76-d04aa26f6d41
+  pristine_commit_hash: 127579840f24dbd222fc1386ba36b79ac2337e86
+  pristine_tree_hash: dc8618415d1ad43b1d772db18319af834aca4a0a
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6231,8 +6231,8 @@ trackedFiles:
     pristine_git_object: 2ca31a1dc641ca8dd62cadcf17c0348d05f027f3
   docs/models/operations/getmodelsrequest.mdx:
     id: 1dc5e9d3af39
-    last_write_checksum: sha1:a78770813ccde556c494650cee6284328017c0ed
-    pristine_git_object: a4c747c2b533b8bb3311669928a8317d5b9a2408
+    last_write_checksum: sha1:9e25dec3861eaa7c9528707029226767bd768ab1
+    pristine_git_object: c8caa6ffe0942360019fca1810c13231d2acef32
   docs/models/operations/getmodelsresponse.mdx:
     id: bbb01f4c5cbd
     last_write_checksum: sha1:63aa629ccc7e53b1114f8d8022fe46d7a3c73d53
@@ -6427,12 +6427,12 @@ trackedFiles:
     pristine_git_object: f1ab24007c8d5541b5d7c6684edd26ec67145343
   docs/models/operations/listmodelscountrequest.mdx:
     id: f49045b49f70
-    last_write_checksum: sha1:ed15738b3ca4e396ee5c157a99fd229f77e384fa
-    pristine_git_object: e8110032d1e47417c94cd37807078482caf3c5ad
+    last_write_checksum: sha1:220788579389e4cfcbe9c87bea63ec6c7cd5baca
+    pristine_git_object: b3511f5838f2d05690ce5adfc81c4985c05bcf7a
   docs/models/operations/listmodelsuserrequest.mdx:
     id: 05ad0997f444
-    last_write_checksum: sha1:ba87ae1ca22f25978a6e18c32a155453e68189da
-    pristine_git_object: 7956272f81258afd4b10b78836fb7ed941f31401
+    last_write_checksum: sha1:440127a6fbf4979a6945adeee0efca66a7083cd9
+    pristine_git_object: d747abfa9228e4fb5e78d3c025dacf32e1d25aa4
   docs/models/operations/listmodelsuserresponse.mdx:
     id: d3822e9ceb84
     last_write_checksum: sha1:2d21c063c45dfcff11b6c9f3c575dd0ad989550d
@@ -6883,8 +6883,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
-    last_write_checksum: sha1:ff80e5a795ea6f06f562cf4bc9e4779dfca0fefc
-    pristine_git_object: 6384441287ace44fe1b7b9c1df3e01057b5a3f8d
+    last_write_checksum: sha1:e9eab2756496c2f1b2b559074909f893ec379f84
+    pristine_git_object: 025f27d747450250c0ff924e32e847c5d6164377
   docs/sdks/oauth/README.mdx:
     id: 42b5079343d2
     last_write_checksum: sha1:0bd838fa6e85527b8f9b755957186ddbc473d466
@@ -7027,8 +7027,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   models.go:
     id: 3af78faf181b
-    last_write_checksum: sha1:9b841cd02e1aa294fa51412a676d2686941aa316
-    pristine_git_object: 59b1edf5b45e68c4d22aa997b6690582c8c0cd2e
+    last_write_checksum: sha1:8cc3e199c4b17ebc74642a4df902f06f8daeb2c7
+    pristine_git_object: 227c510295fd7260a21be94628345ab2eef7e8cc
   models/components/aabenchmarkentry.go:
     id: 4c2460857b24
     last_write_checksum: sha1:f1dcb4e0a7a18fc3b6c701e6608ac599c5a0f280
@@ -9663,8 +9663,8 @@ trackedFiles:
     pristine_git_object: 421d88083f3b8a66360e11982e797b7fd15fd63a
   models/operations/getmodels.go:
     id: da5a1f2b68b2
-    last_write_checksum: sha1:058388ebf907052687af8f61d4c6d2d68509b156
-    pristine_git_object: 29d1681773f9b0184241275072e3801e18516617
+    last_write_checksum: sha1:b5dc781a0c9e62b7678403988fc7b6484fbc381f
+    pristine_git_object: 451d5fbe906eb4df4ff5ed679a006821078efbc7
   models/operations/getobservabilitydestination.go:
     id: 1cbf1f722967
     last_write_checksum: sha1:95a9bc65f19d20af5b6311eef329e1e0e9e4737d
@@ -9767,12 +9767,12 @@ trackedFiles:
     pristine_git_object: 85034f857a2ce011758e134fc9fa65f725defdfd
   models/operations/listmodelscount.go:
     id: cdce82906605
-    last_write_checksum: sha1:2bc19642303ecc308b7a1d6d0c0a6d0a7cd99428
-    pristine_git_object: 8cf3fdc048ce32e6f570be9c071f6d339ee9ea78
+    last_write_checksum: sha1:8671d2a8e1d7c081fa07a4199e0abcd5c904f159
+    pristine_git_object: df4b89795c0d3ddee351dbd90139e45219a6e46b
   models/operations/listmodelsuser.go:
     id: c454494b1752
-    last_write_checksum: sha1:8b44e0a969817ced2783219c8f34a4b9e50e17e4
-    pristine_git_object: 5dd8d7701670b0299963515bb37d9136ecb26859
+    last_write_checksum: sha1:e07151952fd4331333441b0413cfd23c10eeff65
+    pristine_git_object: 3728dd5861db41748761d5bc937e21342007b5ff
   models/operations/listobservabilitydestinations.go:
     id: a7bcd0598f86
     last_write_checksum: sha1:79cce4b505d17798069ce7829ef8ff31c9383c9c
@@ -9939,8 +9939,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:7f0610fcbd7c8e07bac68a16626dfade8f43e1b1
-    pristine_git_object: fdcaf223cca6509703376348c442f66d2a5ff48b
+    last_write_checksum: sha1:418787315e6ff5047616d60585b4488767baa48b
+    pristine_git_object: 7517b9c778638a1076b6e6fd69d4a5c85a779d69
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11866,4 +11866,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(OutputCustomToolCallItem).Status` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(OutputCustomToolCallItem).Status` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(OutputCustomToolCallItem).Status` **Added**\n  *  `response` **Changed**\n"
