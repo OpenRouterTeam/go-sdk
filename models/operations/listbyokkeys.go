@@ -110,6 +110,7 @@ const (
 	ProviderTogether         Provider = "together"
 	ProviderUpstage          Provider = "upstage"
 	ProviderVenice           Provider = "venice"
+	ProviderVoyageai         Provider = "voyageai"
 	ProviderWafer            Provider = "wafer"
 	ProviderWandb            Provider = "wandb"
 	ProviderWandbLegacy      Provider = "wandb-legacy"
@@ -126,7 +127,7 @@ func (e Provider) ToPointer() *Provider {
 func (e *Provider) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "coreweave", "cosine", "crusoe", "darkbloom", "databricks", "decart", "deepgram", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "fish-audio", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "krea", "liquid", "makora", "mancer", "mara", "meta", "minimax", "mistral", "modal", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "ollama", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "runway", "sail-research", "sakana", "sakana-ai", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tencent", "tenstorrent", "thinkingmachines", "together", "upstage", "venice", "wafer", "wandb", "wandb-legacy", "xai", "xiaomi", "z-ai":
+		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "coreweave", "cosine", "crusoe", "darkbloom", "databricks", "decart", "deepgram", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "fish-audio", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "krea", "liquid", "makora", "mancer", "mara", "meta", "minimax", "mistral", "modal", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "ollama", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "runway", "sail-research", "sakana", "sakana-ai", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tencent", "tenstorrent", "thinkingmachines", "together", "upstage", "venice", "voyageai", "wafer", "wandb", "wandb-legacy", "xai", "xiaomi", "z-ai":
 			return true
 		}
 	}
