@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1b20daca779998305c312a2b063eddd0
+  docChecksum: 69ecb39892c6ea387c852f4e7644e28c
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.101
-  configChecksum: 2adf465ee07d6a5804be569f28baf98c
+  releaseVersion: 0.7.102
+  configChecksum: b0f96b76cea21fb3d80b6a2bedfd32ba
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a86fbd73-0009-47aa-8a0e-508f61550337
-  pristine_commit_hash: 11660cf1042a4eea512cd114923a96af0b54affa
-  pristine_tree_hash: e69698f221a484b2648e27bb90bc1a11788583af
+  generation_id: f9ccaca3-3a49-4c83-8316-51ff05a46af4
+  pristine_commit_hash: 1fbe4051f7ba65471b833a48d40a8b07f171d391
+  pristine_tree_hash: fa0e6a707c93f00cf0fc8f3c375322e512089d50
 features:
   go:
     acceptHeaders: 2.81.2
@@ -863,8 +863,8 @@ trackedFiles:
     pristine_git_object: a02255734ffb61064451069e17ccedbed349bc42
   docs/models/components/byokproviderslug.mdx:
     id: bf78d7c64c23
-    last_write_checksum: sha1:5ccf9a09ce26edc2edc1cfe6bca4e600a6580cc6
-    pristine_git_object: cda29dafe06a538de3a73db844989e182de7ad75
+    last_write_checksum: sha1:67f6294990b25fec10f211cbb49cce8d4fd550c8
+    pristine_git_object: 6a30a2fd88e278067846df4479109643325943c7
   docs/models/components/capabilitydescriptor.mdx:
     id: 4d699c4b70ec
     last_write_checksum: sha1:6c58e8df800ebcefe9a8e6311270492126066b2e
@@ -6627,8 +6627,8 @@ trackedFiles:
     pristine_git_object: 2e4644f4bc69974d7bdde1b8d8885a278d2d6e66
   docs/models/operations/provider.mdx:
     id: 45f471a16baa
-    last_write_checksum: sha1:a4caf85ab8797bfec8f5497471d739bfee897ee9
-    pristine_git_object: 30b32236a7361f3d839e03c8ca53e2ced33dab12
+    last_write_checksum: sha1:23ff5b96ac378610378f3b80d19a12802f888b0a
+    pristine_git_object: fbb599c12d737916e87add969aef954a77188d31
   docs/models/operations/queryanalyticsdata1.mdx:
     id: 465047fb896a
     last_write_checksum: sha1:f9a349b4fee07f786180e94b45f92002bfae0e56
@@ -7423,8 +7423,8 @@ trackedFiles:
     pristine_git_object: d0bad8c0da27fa6a7bd16eb0ac36e600fd6055f6
   models/components/byokproviderslug.go:
     id: 13d55e8b344b
-    last_write_checksum: sha1:f2d75398d54498a00a92c2abf453f8708cbf73d1
-    pristine_git_object: cd4537cf77759a8420a62c2d14041264942973dc
+    last_write_checksum: sha1:38036008ddd42d68c36c4edec710940e2d14d8a3
+    pristine_git_object: 0bb8290f887d2688ded58a220fd5d57501f11303
   models/components/capabilitydescriptor.go:
     id: 61addd6d2068
     last_write_checksum: sha1:2c89a741740517ea931188941fa2160212d4e75e
@@ -9751,8 +9751,8 @@ trackedFiles:
     pristine_git_object: 515ba7a1a7a7a59c0378255d8280b49f2a51fdc5
   models/operations/listbyokkeys.go:
     id: e40d557d5875
-    last_write_checksum: sha1:56456d591be24c22e6cadf888c4781533637a777
-    pristine_git_object: 308e59fb93e21ff7620aca60672965456aca3281
+    last_write_checksum: sha1:42c877801e3f331a64b8e454afba6dbadde93381
+    pristine_git_object: 71d33d8914caf7d10e82e37d97259cbcc73efff3
   models/operations/listcontainerfiles.go:
     id: a5d7da5fd18e
     last_write_checksum: sha1:63fd3776586056bab62adc4131a0dee7efa749ae
@@ -9975,8 +9975,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:926d9e4b9dfe8a6298649f72513cdbc23741451c
-    pristine_git_object: 135f9d2861111fd067310fc3441da99b9f18ca8d
+    last_write_checksum: sha1:000da430267549406244b59fa8e1523743e6c39f
+    pristine_git_object: ff2743fb31b7c618541bf783cb2af90f3973c20f
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11902,7 +11902,4 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].PerfLast30mByWorkload` **Added**
-  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].PerfLast30mByWorkload` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(voyageai)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(voyageai)` **Added**\n  *  `response.Data.Provider.Enum(voyageai)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(voyageai)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(voyageai)` **Added**\n"
