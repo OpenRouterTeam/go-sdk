@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: fc8d2e7aece71591cb0ce4a8810bab3d
+  docChecksum: f1010495b0d7ec79565347ed31d30f0a
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.103
-  configChecksum: 07ceefd383d89267aac36cd3ff2d0c96
+  releaseVersion: 0.7.104
+  configChecksum: 608899ee28e530d9029a0b8aed6fd7d6
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 8f52db50-e4ca-4bea-a437-8185d91424c5
-  pristine_commit_hash: af7400bc5e9916ddfb56f77802cf2f1155558a19
-  pristine_tree_hash: 34afaa6abc6c42592c6ea1d886f0ef98ade0ddb3
+  generation_id: 72c91061-5ba3-418d-8882-e8d34d57756b
+  pristine_commit_hash: 34b9c93747d78e3154773d2fccf75231a0f84be9
+  pristine_tree_hash: 9fe8bbe47771a3f9abf458bb8e7e35b1f16ef946
 features:
   go:
     acceptHeaders: 2.81.2
@@ -10011,8 +10011,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:71eeb718958bc249b7fcfe992a8b6d5a36d5d449
-    pristine_git_object: 1d5bfefb29bc1b0f70b10e16d53864c15a382008
+    last_write_checksum: sha1:3eb94bf715bcb25dc8fa3a5bef8b5cd5505ce461
+    pristine_git_object: a6eb504df8338a23a890ca4789a26a74f821515d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11938,6 +11938,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Presets.CreatePresetsMessages()`:  `request.MessagesRequest` **Changed**
