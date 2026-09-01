@@ -6,6 +6,7 @@ type AnthropicSystemClearAt string
 
 const (
 	AnthropicSystemClearAtNextUserMessage AnthropicSystemClearAt = "next_user_message"
+	AnthropicSystemClearAtNever           AnthropicSystemClearAt = "never"
 )
 
 func (e AnthropicSystemClearAt) ToPointer() *AnthropicSystemClearAt {
@@ -16,7 +17,7 @@ func (e AnthropicSystemClearAt) ToPointer() *AnthropicSystemClearAt {
 func (e *AnthropicSystemClearAt) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "next_user_message":
+		case "next_user_message", "never":
 			return true
 		}
 	}
