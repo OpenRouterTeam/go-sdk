@@ -9,7 +9,10 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-value := components.PrefixMismatchBehaviorDropBlock
+value := components.PrefixMismatchBehaviorError
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PrefixMismatchBehavior("custom_value")
 ```
 
 
@@ -17,4 +20,5 @@ value := components.PrefixMismatchBehaviorDropBlock
 
 | Name                              | Value                             |
 | --------------------------------- | --------------------------------- |
+| `PrefixMismatchBehaviorError`     | error                             |
 | `PrefixMismatchBehaviorDropBlock` | drop_block                        |

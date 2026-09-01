@@ -3,36 +3,34 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type PrefixMismatchBehavior string
 
 const (
+	PrefixMismatchBehaviorError     PrefixMismatchBehavior = "error"
 	PrefixMismatchBehaviorDropBlock PrefixMismatchBehavior = "drop_block"
 )
 
 func (e PrefixMismatchBehavior) ToPointer() *PrefixMismatchBehavior {
 	return &e
 }
-func (e *PrefixMismatchBehavior) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PrefixMismatchBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "drop_block":
+			return true
+		}
 	}
-	switch v {
-	case "drop_block":
-		*e = PrefixMismatchBehavior(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for PrefixMismatchBehavior: %v", v)
-	}
+	return false
 }
 
 type AnthropicThinkingBlockBinding struct {
-	PrefixMismatchBehavior PrefixMismatchBehavior `json:"prefix_mismatch_behavior"`
+	PrefixMismatchBehavior optionalnullable.OptionalNullable[PrefixMismatchBehavior] `json:"prefix_mismatch_behavior,omitzero"`
 }
 
 func (a AnthropicThinkingBlockBinding) MarshalJSON() ([]byte, error) {
@@ -46,9 +44,9 @@ func (a *AnthropicThinkingBlockBinding) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (a *AnthropicThinkingBlockBinding) GetPrefixMismatchBehavior() PrefixMismatchBehavior {
+func (a *AnthropicThinkingBlockBinding) GetPrefixMismatchBehavior() optionalnullable.OptionalNullable[PrefixMismatchBehavior] {
 	if a == nil {
-		return PrefixMismatchBehavior("")
+		return nil
 	}
 	return a.PrefixMismatchBehavior
 }
