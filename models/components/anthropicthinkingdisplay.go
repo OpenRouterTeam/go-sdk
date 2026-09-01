@@ -7,6 +7,7 @@ type AnthropicThinkingDisplay string
 const (
 	AnthropicThinkingDisplaySummarized AnthropicThinkingDisplay = "summarized"
 	AnthropicThinkingDisplayOmitted    AnthropicThinkingDisplay = "omitted"
+	AnthropicThinkingDisplayUpdates    AnthropicThinkingDisplay = "updates"
 )
 
 func (e AnthropicThinkingDisplay) ToPointer() *AnthropicThinkingDisplay {
@@ -17,7 +18,7 @@ func (e AnthropicThinkingDisplay) ToPointer() *AnthropicThinkingDisplay {
 func (e *AnthropicThinkingDisplay) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "summarized", "omitted":
+		case "summarized", "omitted", "updates":
 			return true
 		}
 	}

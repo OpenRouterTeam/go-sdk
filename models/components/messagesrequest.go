@@ -1232,8 +1232,9 @@ func (e *TypeAdaptive) UnmarshalJSON(data []byte) error {
 }
 
 type ThinkingAdaptive struct {
-	Display optionalnullable.OptionalNullable[AnthropicThinkingDisplay] `json:"display,omitzero"`
-	Type    TypeAdaptive                                                `json:"type"`
+	BlockBinding optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] `json:"block_binding,omitzero"`
+	Display      optionalnullable.OptionalNullable[AnthropicThinkingDisplay]      `json:"display,omitzero"`
+	Type         TypeAdaptive                                                     `json:"type"`
 }
 
 func (t ThinkingAdaptive) MarshalJSON() ([]byte, error) {
@@ -1245,6 +1246,13 @@ func (t *ThinkingAdaptive) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (t *ThinkingAdaptive) GetBlockBinding() optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] {
+	if t == nil {
+		return nil
+	}
+	return t.BlockBinding
 }
 
 func (t *ThinkingAdaptive) GetDisplay() optionalnullable.OptionalNullable[AnthropicThinkingDisplay] {
@@ -1330,9 +1338,10 @@ func (e *TypeEnabled) UnmarshalJSON(data []byte) error {
 }
 
 type ThinkingEnabled struct {
-	BudgetTokens int64                                                       `json:"budget_tokens"`
-	Display      optionalnullable.OptionalNullable[AnthropicThinkingDisplay] `json:"display,omitzero"`
-	Type         TypeEnabled                                                 `json:"type"`
+	BlockBinding optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] `json:"block_binding,omitzero"`
+	BudgetTokens int64                                                            `json:"budget_tokens"`
+	Display      optionalnullable.OptionalNullable[AnthropicThinkingDisplay]      `json:"display,omitzero"`
+	Type         TypeEnabled                                                      `json:"type"`
 }
 
 func (t ThinkingEnabled) MarshalJSON() ([]byte, error) {
@@ -1344,6 +1353,13 @@ func (t *ThinkingEnabled) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (t *ThinkingEnabled) GetBlockBinding() optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] {
+	if t == nil {
+		return nil
+	}
+	return t.BlockBinding
 }
 
 func (t *ThinkingEnabled) GetBudgetTokens() int64 {
