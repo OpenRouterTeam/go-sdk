@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: fec6451a6537b65ab78eb76534cd20fa
+  docChecksum: 91bba6df9e0da80628986e3828fc4dc4
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.108
-  configChecksum: d46c2a6765a463927d2ba514e00e483e
+  releaseVersion: 0.7.109
+  configChecksum: 28e365116fe64add1d940301b6e01480
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 3c6dc6a0-6267-4411-b238-8acf6ae15f4c
-  pristine_commit_hash: feafa119dd7f7a5d97384df8f7c966972c9d27e6
-  pristine_tree_hash: f48ab565b15c845b6769b3c105158af4a4727a85
+  generation_id: 1db7bdba-91c2-4cf5-b21f-5f62d6e8e54d
+  pristine_commit_hash: 721e414c4bdba81ea2dd69cb713bfcbbb536e6b2
+  pristine_tree_hash: 9155ffd2e97c6a98638f466a4e908cbf0321bb7d
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1119,8 +1119,8 @@ trackedFiles:
     pristine_git_object: b072c62f1f64b30e8a6279ace8d643a68759e607
   docs/models/components/chatresult.mdx:
     id: 4d92a2cec9e5
-    last_write_checksum: sha1:8b0946a8abbe4577a0c686427e71402ac54b73ef
-    pristine_git_object: 7afbebe7be2346fc69ad4959bcbbb66cbfae072d
+    last_write_checksum: sha1:844d833035952f2975552c8a69735dea6c9e3198
+    pristine_git_object: 6365d75c9fc28785893be9304283e7d9f4979c4e
   docs/models/components/chatresultobject.mdx:
     id: 0de4cc399e8a
     last_write_checksum: sha1:ea019507d3684178439dd8599a1d3500718807a2
@@ -1143,8 +1143,8 @@ trackedFiles:
     pristine_git_object: ace80d155ac38f7ed9205eaf04ef5f72093d4fd3
   docs/models/components/chatstreamchunk.mdx:
     id: 47653ff30d77
-    last_write_checksum: sha1:0e0ce203b7e4912ffd1f57297e2b5bbd66b7476e
-    pristine_git_object: 9255a8f4eb89767b15632d2621adca83bd295967
+    last_write_checksum: sha1:72c69bd85bdfc61489106a3337f05153508d6775
+    pristine_git_object: 2ac55c5cb3be33c3f210f0771319f8039e83b3dc
   docs/models/components/chatstreamchunkerror.mdx:
     id: f8cec1ef5362
     last_write_checksum: sha1:f1491fe7d11dda5a654774ca0caf583d640c2837
@@ -3731,8 +3731,8 @@ trackedFiles:
     pristine_git_object: 27e4bc1f83df3f3b01d5f44fc7d99cba08029546
   docs/models/components/openresponsesresult.mdx:
     id: 6f119891cdba
-    last_write_checksum: sha1:b755ece28e4c4ef1a587a2e06583385392afbeed
-    pristine_git_object: 9f4e8e99dee75b90cc53ed79f39843cd122335c0
+    last_write_checksum: sha1:d18a678d1b4a7c65015ea8de3d2b6c52813c3ee8
+    pristine_git_object: 3592a4871b8ed05ec20e12e8309869ced4710912
   docs/models/components/openresponsesresultobject.mdx:
     id: 24da34593dd1
     last_write_checksum: sha1:940b98975fd9058cdb9ed2d43d44fc6cb41b0d21
@@ -3783,8 +3783,8 @@ trackedFiles:
     pristine_git_object: 49765c88c5453453737c0c38a4a037cad4eb790e
   docs/models/components/openroutermetadata.mdx:
     id: 6d473d800a3b
-    last_write_checksum: sha1:7a062937076f25277aa862ead74a8a6cf6d4d5c9
-    pristine_git_object: a9a23504d8adee5f3e133b3b95e2cc22c81a09da
+    last_write_checksum: sha1:8fa78eb656d56c3724b24b16c2d688ddf128d490
+    pristine_git_object: 79f760106d1b97090238398c07ab8b0fb2c7af17
   docs/models/components/openrouterwebsearchservertool.mdx:
     id: 5f5620c2ca20
     last_write_checksum: sha1:95d66eb1176cfa8cac26c304018e3f51e507a4b1
@@ -8663,8 +8663,8 @@ trackedFiles:
     pristine_git_object: d5c8937f9b89dd7b43aafbe4340d03e82db09ade
   models/components/openroutermetadata.go:
     id: 507a9ac36dab
-    last_write_checksum: sha1:21326438e70821844908c0a7e4eb70e9f449ad68
-    pristine_git_object: cb67cf75c272b9e4a7cb2db52c3d56dc1c403987
+    last_write_checksum: sha1:41fb1614dedf802b98f3a9fef794818de16a7951
+    pristine_git_object: 791ff8c6da1539e2ac9badcb7ca8e9ca9b39939a
   models/components/openrouterwebsearchservertool.go:
     id: bd02ad554278
     last_write_checksum: sha1:e65c37319eb93bc47c0897710216d62e2cd3de5b
@@ -10023,8 +10023,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:1fbb35afd5b1bd1957ecad54e0df355e15543c01
-    pristine_git_object: de6f641125f6bb126ea24b596de1601f4b86716e
+    last_write_checksum: sha1:b1b88804b3599857f5fe159fde871fb037af7bac
+    pristine_git_object: bb9d8efdb6353958d2befe98006e60c91afe4eab
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11966,3 +11966,8 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Chat.Send()`:  `response` **Changed**
+  * `OpenRouter.Responses.Send()`:  `response` **Changed**
+  * `OpenRouter.Beta.Responses.Send()`:  `response` **Changed**
