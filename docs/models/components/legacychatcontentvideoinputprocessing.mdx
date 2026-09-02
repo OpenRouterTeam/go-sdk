@@ -1,0 +1,26 @@
+---
+title: "LegacyChatContentVideoInputProcessing"
+---
+
+Video processing mode. `agentic` enables agentic video processing and `static` forces fixed-rate frame sampling on providers that support it (currently Google Gemini).
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.LegacyChatContentVideoInputProcessingAgentic
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.LegacyChatContentVideoInputProcessing("custom_value")
+```
+
+
+## Values
+
+| Name                                           | Value                                          |
+| ---------------------------------------------- | ---------------------------------------------- |
+| `LegacyChatContentVideoInputProcessingAgentic` | agentic                                        |
+| `LegacyChatContentVideoInputProcessingStatic`  | static                                         |
