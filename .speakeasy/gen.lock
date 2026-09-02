@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: f2d19fe36df066eebddb8de147d732c8
+  docChecksum: fec6451a6537b65ab78eb76534cd20fa
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.107
-  configChecksum: 908a1cdb77920ece2af6fee118604f4e
+  releaseVersion: 0.7.108
+  configChecksum: d46c2a6765a463927d2ba514e00e483e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 1f9148fb-200e-452c-b1ab-6e3bd7850c7e
-  pristine_commit_hash: 1bd5286b9b5dace9890dcc6fc1a5f79043515166
-  pristine_tree_hash: 294281152d38ef8ab37004bf35b5601fb34a3599
+  generation_id: 3c6dc6a0-6267-4411-b238-8acf6ae15f4c
+  pristine_commit_hash: feafa119dd7f7a5d97384df8f7c966972c9d27e6
+  pristine_tree_hash: f48ab565b15c845b6769b3c105158af4a4727a85
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6983,8 +6983,8 @@ trackedFiles:
     pristine_git_object: ab1b772c84923c7f22077bc350b5d97519758275
   docs/sdks/scim/README.mdx:
     id: fd6d8a91a053
-    last_write_checksum: sha1:4fdbfa04a47bd990a7aa0d86be481c502bed1f51
-    pristine_git_object: ec63a83806d46892f7e59cd6a382f9299657ac89
+    last_write_checksum: sha1:b71c159a6e70a73037cfeaaf30a20c78c38c9e72
+    pristine_git_object: 686f282b22eef9329ccacf65b1517eb9d0d9b288
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
     last_write_checksum: sha1:3d4796733e1072f2d07358357882a0175e31a302
@@ -10023,8 +10023,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:a2c93f59f5cb6a94ac927a985371d78651aeb974
-    pristine_git_object: 408d273af0f5a86f2e0d78310d914c7fbe473758
+    last_write_checksum: sha1:1fbb35afd5b1bd1957ecad54e0df355e15543c01
+    pristine_git_object: de6f641125f6bb126ea24b596de1601f4b86716e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10059,8 +10059,8 @@ trackedFiles:
     pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   scim.go:
     id: 7cae7699a750
-    last_write_checksum: sha1:ca424559fd2fde8dba1d1e7df98dbd23ec44e089
-    pristine_git_object: 292dc6d75a7d7569caad004e1a75b544bab128a3
+    last_write_checksum: sha1:d9bf21ab80fd84ff9f3dc17a5952296a81c3118c
+    pristine_git_object: 67a8e3347b9f97a507f72a51ff306096bc74a3df
   stt.go:
     id: 04852909348f
     last_write_checksum: sha1:1a1e990e34e03fd6b2ce452c5f3a0ce2363f4d87
@@ -11966,4 +11966,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`:  `error.status[403]` **Added**\n* `OpenRouter.Stt.CreateTranscription()`:  `error.status[403]` **Added**\n* `OpenRouter.Stt.CreateTranscriptionMultipart()`:  `error.status[403]` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Messages[].union(user).Content.union(Array<ChatContentItems>)[]` **Changed**\n  *  `response.Choices[].Message.Content.union(Array<ChatContentItems>)[]` **Changed**\n* `OpenRouter.Embeddings.Generate()`:  `error.status[403]` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Messages[].union(assistant).Content.union(Array<ChatContentItems>)[]` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(InputMessageItem).Content[].union(input_video).Processing` **Added**\n* `OpenRouter.Rerank.Rerank()`:  `error.status[403]` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(InputMessageItem).Content[].union(input_video).Processing` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(InputMessageItem).Content[].union(input_video).Processing` **Added**\n* `OpenRouter.VideoGeneration.Generate()`:  `error.status[403]` **Added**\n* `OpenRouter.VideoGeneration.GetGeneration()`:  `error.status[403]` **Added**\n* `OpenRouter.VideoGeneration.GetVideoContent()`:  `error.status[403]` **Added**\n"

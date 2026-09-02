@@ -360,7 +360,7 @@ func (s *Scim) ListMappings(ctx context.Context, offset optionalnullable.Optiona
 }
 
 // Create a SCIM group mapping
-// Create a SCIM group-to-workspace role mapping. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Create a SCIM group-to-workspace role mapping. Creating a mapping that already exists with the same role succeeds and re-applies the mapping to the group members. Requesting a different role for an existing mapping returns 409. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Scim) Create(ctx context.Context, request components.CreateScimGroupMappingRequest, opts ...operations.Option) (*components.CreateScimGroupMappingResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
