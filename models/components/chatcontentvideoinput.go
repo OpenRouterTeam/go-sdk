@@ -6,8 +6,33 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+// ChatContentVideoInputProcessing - Video processing mode. `agentic` enables agentic video processing and `static` forces fixed-rate frame sampling on providers that support it (currently Google Gemini).
+type ChatContentVideoInputProcessing string
+
+const (
+	ChatContentVideoInputProcessingAgentic ChatContentVideoInputProcessing = "agentic"
+	ChatContentVideoInputProcessingStatic  ChatContentVideoInputProcessing = "static"
+)
+
+func (e ChatContentVideoInputProcessing) ToPointer() *ChatContentVideoInputProcessing {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ChatContentVideoInputProcessing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "agentic", "static":
+			return true
+		}
+	}
+	return false
+}
+
 // ChatContentVideoInput - Video input object
 type ChatContentVideoInput struct {
+	// Video processing mode. `agentic` enables agentic video processing and `static` forces fixed-rate frame sampling on providers that support it (currently Google Gemini).
+	Processing *ChatContentVideoInputProcessing `json:"processing,omitzero"`
 	// URL of the video (data: URLs supported)
 	URL string `json:"url"`
 }
@@ -21,6 +46,13 @@ func (c *ChatContentVideoInput) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *ChatContentVideoInput) GetProcessing() *ChatContentVideoInputProcessing {
+	if c == nil {
+		return nil
+	}
+	return c.Processing
 }
 
 func (c *ChatContentVideoInput) GetURL() string {
