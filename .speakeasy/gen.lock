@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 91bba6df9e0da80628986e3828fc4dc4
+  docChecksum: 52d76f0232db62ec346d471056926c10
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.109
-  configChecksum: 28e365116fe64add1d940301b6e01480
+  releaseVersion: 0.7.110
+  configChecksum: 343a8d5fd165ecc488cb6cf304bfd60b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 1db7bdba-91c2-4cf5-b21f-5f62d6e8e54d
-  pristine_commit_hash: 721e414c4bdba81ea2dd69cb713bfcbbb536e6b2
-  pristine_tree_hash: 9155ffd2e97c6a98638f466a4e908cbf0321bb7d
+  generation_id: 36f80beb-cbd8-49af-8d1f-a925bbdc9510
+  pristine_commit_hash: aaf4f978f3ef5bfd0aa4288d9ce1904553238505
+  pristine_tree_hash: 14201a8de63e817d0d97bd05fe5a9f741beb7687
 features:
   go:
     acceptHeaders: 2.81.2
@@ -75,8 +75,8 @@ trackedFiles:
     pristine_git_object: 19cafdf94c8623199653cce8f3d90e2dceec2348
   apikeys.go:
     id: 8baafe5dc76e
-    last_write_checksum: sha1:3617171f7184ffedc5ce2e819f2c30eb733f7fd2
-    pristine_git_object: 83fe9aaf1c6d6abf7e6aff95d2336f418860961c
+    last_write_checksum: sha1:5077b58fad352385569a8e8d62c8ab4e8d598eca
+    pristine_git_object: a5d6426517718b739dead01472047990ff55d48f
   benchmarks.go:
     id: 645ff3c22b39
     last_write_checksum: sha1:ab2cec8f324927e1923577739124766be0ed954c
@@ -6071,8 +6071,8 @@ trackedFiles:
     pristine_git_object: a788039af51cac4d38db0cf7831446a016ce5c28
   docs/models/operations/createkeysrequest.mdx:
     id: 327228d6b870
-    last_write_checksum: sha1:9d9954ed69e5e8fadd031fde9bbeeac0ef249df8
-    pristine_git_object: 5a8501aaf1da381a2c9f5e2ca6ac26329bffda57
+    last_write_checksum: sha1:e62ea9a80aaaa5382f74c67d81d29974b4e7e299
+    pristine_git_object: f03de2e2c2816936c8f071e73a7cbfcc07021460
   docs/models/operations/createkeysresponse.mdx:
     id: 5135de195ccb
     last_write_checksum: sha1:2ea68488a9a07c2a75b21d31bcfa66697f66a59f
@@ -6891,8 +6891,8 @@ trackedFiles:
     pristine_git_object: 84d83302a14fcf3cfda0caff3b3d2d5d5028bc71
   docs/sdks/apikeys/README.mdx:
     id: 27fcaae1c346
-    last_write_checksum: sha1:49c7a533bba67d2d52b70a21303c7a4bbd602c23
-    pristine_git_object: 3d0ec395dd04395016edeef313d148ba2f05c593
+    last_write_checksum: sha1:928549f31bbf9615543398dab82043caed7efe9f
+    pristine_git_object: 6eeca0e208b371609080355c9b904d40ba56baf0
   docs/sdks/benchmarks/README.mdx:
     id: 5b483a6770ba
     last_write_checksum: sha1:c6aa04c9dbbfd1dc7d45aa8005d504c37afa4975
@@ -9631,8 +9631,8 @@ trackedFiles:
     pristine_git_object: 876fee75f19d63b104761cad5e90915ddbd0273a
   models/operations/createkeys.go:
     id: c511faeda898
-    last_write_checksum: sha1:3bd8915206f2bcf0f3c52d2994621d8bd056414d
-    pristine_git_object: 64e60ad982a13784826d39a21d9b8085ceb7ac7c
+    last_write_checksum: sha1:41b3ab7d15c34f46abf4eb1860ad1c2a5e2c23c7
+    pristine_git_object: 6a0eb0cfe02ce482defe8deb2704e56edcf0342c
   models/operations/createpresetschatcompletions.go:
     id: 46c66731be0e
     last_write_checksum: sha1:fd2b99954de027a6886cbec87c82b789c4313fb4
@@ -10023,8 +10023,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:b1b88804b3599857f5fe159fde871fb037af7bac
-    pristine_git_object: bb9d8efdb6353958d2befe98006e60c91afe4eab
+    last_write_checksum: sha1:d133356f2f3112a3d82cb0bb7ff0e0741af20f2d
+    pristine_git_object: 2900182d039a37b465027b0f2490527e80f1e7fe
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11968,6 +11968,4 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Chat.Send()`:  `response` **Changed**
-  * `OpenRouter.Responses.Send()`:  `response` **Changed**
-  * `OpenRouter.Beta.Responses.Send()`:  `response` **Changed**
+  * `OpenRouter.ApiKeys.Create()`:  `request.Request` **Changed** (Breaking ⚠️)
