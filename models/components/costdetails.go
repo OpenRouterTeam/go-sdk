@@ -9,7 +9,7 @@ import (
 
 // CostDetails - Breakdown of upstream inference costs
 type CostDetails struct {
-	// Metered server-tool execution cost (for example, shell sandbox time) billed for this request, in USD. Matches the billed checkpoint and settlement amounts exactly.
+	// Metered server-tool execution cost (for example, shell sandbox time) billed for this request, in USD. Matches the billed checkpoint and settlement amounts exactly. 0 when a metered server tool ran but settled at zero dollars; absent when no metered server tool ran.
 	ServerToolCost                   optionalnullable.OptionalNullable[float64] `json:"server_tool_cost,omitzero"`
 	UpstreamInferenceCompletionsCost float64                                    `json:"upstream_inference_completions_cost"`
 	UpstreamInferenceCost            optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
