@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: a23ad02c06be52c51fa04fdff15bf66b
+  docChecksum: 33db5bc5a71d7d0fd5ea99d032e9e3df
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.105
-  configChecksum: f5d3f5b8ff9b87910fc2497ebef95990
+  releaseVersion: 0.7.106
+  configChecksum: 8622a0cd6f007ff8513d72e660716774
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: e3d9ba39-2825-42d6-8e05-f542c05b78ca
-  pristine_commit_hash: 5d697b92ce50ae6c60998c301cec02833e303ac6
-  pristine_tree_hash: b3c717d55de9a3756a5bb8f69f9aa00708102617
+  generation_id: 8816fcec-4137-4e77-b996-7f7515a88560
+  pristine_commit_hash: 4d52279170874f3e41271f04d7819196ec18d597
+  pristine_tree_hash: 02e9eff6854a66899de82daf1d67095b61af2078
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1247,8 +1247,8 @@ trackedFiles:
     pristine_git_object: 01d9ced35d42bde33528a419d32ea5bfaa7ea507
   docs/models/components/chatusage.mdx:
     id: ed76809aa1e7
-    last_write_checksum: sha1:569bab7e5668e029603e5d8fe3bf44f80436b362
-    pristine_git_object: 1ff794fb79e1891e57a53ad6fcd43bc6f0082035
+    last_write_checksum: sha1:7eed99dbb30ab3b223ad9d03c53f98c7aca70fb1
+    pristine_git_object: 691f7b23d545cd59f080763f380b7b2be1688220
   docs/models/components/chatusagecompletiontokensdetails.mdx:
     id: a7ebf2081108
     last_write_checksum: sha1:db213029651def1e252b59dc5bad4a90d5cb39d9
@@ -1635,8 +1635,8 @@ trackedFiles:
     pristine_git_object: eff1167cfe97137478f36a6d4361ef6257a1d558
   docs/models/components/costdetails.mdx:
     id: c8888cd787c0
-    last_write_checksum: sha1:aa5de617c3366c133577fb03ae45ccff51e7a1ae
-    pristine_git_object: 9219e00ec6c4e5cf65e73e7923e26d48e25a2c99
+    last_write_checksum: sha1:eca8a9fb7225d6dcb4a1a5d28ef68f2331bcca05
+    pristine_git_object: 3fc74c6e15de88b30a6860444e5e8d21235251d6
   docs/models/components/createbyokkeyrequest.mdx:
     id: 6bc6a480b411
     last_write_checksum: sha1:d2d6eed9c1c1adef7497476f5c8b9ca13f8c00bc
@@ -2495,8 +2495,8 @@ trackedFiles:
     pristine_git_object: ec0869a23e152eff2d81ec39ba75991af1b12c2e
   docs/models/components/imagegenerationusage.mdx:
     id: 348d963fd0a2
-    last_write_checksum: sha1:1eca888fb555ff58d07f0f56062d3aa84035ce36
-    pristine_git_object: ace4711d8576e7e8fee08484750775fa7bedf35b
+    last_write_checksum: sha1:1d505f7dda37f01cf579aa29f4c86dc09667949d
+    pristine_git_object: 83ddc2d5428dde903a9dc264996b99bc2cf6a609
   docs/models/components/imagegenerationusagecompletiontokensdetails.mdx:
     id: 66b6883750ea
     last_write_checksum: sha1:09ca2cac36ee676d5a776c10ba012c333f5622cc
@@ -3719,8 +3719,8 @@ trackedFiles:
     pristine_git_object: 27e4bc1f83df3f3b01d5f44fc7d99cba08029546
   docs/models/components/openresponsesresult.mdx:
     id: 6f119891cdba
-    last_write_checksum: sha1:5008cf36595bd84a41d4c207332442825b6e7d23
-    pristine_git_object: 1f610101d2f97bb1b1174a796b34ef1ed3705006
+    last_write_checksum: sha1:b755ece28e4c4ef1a587a2e06583385392afbeed
+    pristine_git_object: 9f4e8e99dee75b90cc53ed79f39843cd122335c0
   docs/models/components/openresponsesresultobject.mdx:
     id: 24da34593dd1
     last_write_checksum: sha1:940b98975fd9058cdb9ed2d43d44fc6cb41b0d21
@@ -5723,8 +5723,8 @@ trackedFiles:
     pristine_git_object: 6b5bef783000113d3f02da03814c64d4a429207e
   docs/models/components/usagecostdetails.mdx:
     id: 820d1b6451d0
-    last_write_checksum: sha1:e48100318a7e7af0ead46ce6c78359c9f64db643
-    pristine_git_object: 450af02c441f666de653a88ede759698765feaad
+    last_write_checksum: sha1:ce6cf6346b13f7a1cff2ade5e16cb21cd827d503
+    pristine_git_object: c4fbf92e21ff13105bcd1ae9698a291bf8a2b95a
   docs/models/components/userlocation.mdx:
     id: 28a4735895d1
     last_write_checksum: sha1:38bf68973632b2e41e0fcbc1ab189d2c01a8bd9f
@@ -6043,8 +6043,8 @@ trackedFiles:
     pristine_git_object: 321bb0f0f39653407d91efc9fea4b65e2e00a907
   docs/models/operations/createembeddingsusage.mdx:
     id: "618888409156"
-    last_write_checksum: sha1:2253df1b53045ef6803bbe7bcfd38a1d39008331
-    pristine_git_object: c7bc4f1f6ee92ae82bd6db2d1d31daaf2067c5ee
+    last_write_checksum: sha1:485b48a241677b7a412a8c0432197e8c904de975
+    pristine_git_object: 5cdc0579cfc2b3174c4dbd9b2dc459edcc0e9ee4
   docs/models/operations/createimagesresponse.mdx:
     id: 0846421a24fc
     last_write_checksum: sha1:ece06b4181c1aa7f7cdba118cbc4a5d172c5a274
@@ -7787,8 +7787,8 @@ trackedFiles:
     pristine_git_object: 7de09d6f066051f3b912fcbe110cd315e7cc71c4
   models/components/costdetails.go:
     id: 7a2de524433d
-    last_write_checksum: sha1:9eb5cffbd9795c3a2f6827ff2a478413fa5a029f
-    pristine_git_object: ab65a03eeefad7606f0334292c7dcfcc31456734
+    last_write_checksum: sha1:4e73fa994c4ba63f016eba87f58d5bf4026611fa
+    pristine_git_object: bd64dd5dc2aedbf290c27e4bb48df7d0b719ddc7
   models/components/createbyokkeyrequest.go:
     id: 43a54e33e674
     last_write_checksum: sha1:ec0b5bf20e9e84f4f9f1dbc9a83ce52109d7321f
@@ -8635,8 +8635,8 @@ trackedFiles:
     pristine_git_object: 5302aafb24e0e2c27115b7f36c32b49f7fda9ad8
   models/components/openresponsesresult.go:
     id: 0e5a110390b5
-    last_write_checksum: sha1:5378c3199f1be2641d78156b53abbc74fc9d5f1b
-    pristine_git_object: 2475d61e65a945229f68fc9df69803da2550e87d
+    last_write_checksum: sha1:5cfe1c6b0cbe4c232f61db8dd7772c05c9493835
+    pristine_git_object: 860bead02fd0b3b46adbeb804e0017a30d5339dd
   models/components/openrouterfile.go:
     id: fc1b183cdeb6
     last_write_checksum: sha1:79ad4b7d7ded192a78134342726c954b1efb01ce
@@ -10011,8 +10011,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:9092449fd3f64fc5c34c02039a9c13c1a916ee5c
-    pristine_git_object: e72f265812a69d6be665fe143cc8b53176e72f34
+    last_write_checksum: sha1:98a0d4df485e182f25012140d40d7bb0def400fd
+    pristine_git_object: 4bc97b270b81d2f3af8a36b79713e2730443eb5d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11938,6 +11938,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Presets.CreatePresetsMessages()`:  `request.MessagesRequest` **Changed**

@@ -639,7 +639,7 @@ func (o *OutputTokensDetails) GetReasoningTokens() int64 {
 }
 
 type UsageCostDetails struct {
-	// Metered server-tool execution cost (for example, shell sandbox time) billed for this request, in USD. Matches the billed checkpoint and settlement amounts exactly.
+	// Metered server-tool execution cost (for example, shell sandbox time) billed for this request, in USD. Matches the billed checkpoint and settlement amounts exactly. 0 when a metered server tool ran but settled at zero dollars; absent when no metered server tool ran.
 	ServerToolCost              optionalnullable.OptionalNullable[float64] `json:"server_tool_cost,omitzero"`
 	UpstreamInferenceCost       optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
 	UpstreamInferenceInputCost  float64                                    `json:"upstream_inference_input_cost"`
