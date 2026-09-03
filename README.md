@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.111
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.112
 > ```
 
 <!-- No Summary [summary] -->
@@ -300,6 +300,8 @@ func main() {
 
 * [ExchangeAuthCodeForAPIKey](docs/sdks/oauth/README.md#exchangeauthcodeforapikey) - Exchange authorization code for API key
 * [CreateAuthCode](docs/sdks/oauth/README.md#createauthcode) - Create authorization code
+* [ListOauthJwks](docs/sdks/oauth/README.md#listoauthjwks) - OpenRouter access token signing keys
+* [CreateOauthToken](docs/sdks/oauth/README.md#createoauthtoken) - Exchange a workload identity token
 
 ### [Observability](docs/sdks/observability/README.md)
 
