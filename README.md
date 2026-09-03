@@ -300,6 +300,8 @@ func main() {
 
 * [ExchangeAuthCodeForAPIKey](docs/sdks/oauth/README.md#exchangeauthcodeforapikey) - Exchange authorization code for API key
 * [CreateAuthCode](docs/sdks/oauth/README.md#createauthcode) - Create authorization code
+* [ListOauthJwks](docs/sdks/oauth/README.md#listoauthjwks) - OpenRouter access token signing keys
+* [CreateOauthToken](docs/sdks/oauth/README.md#createoauthtoken) - Exchange a workload identity token
 
 ### [Observability](docs/sdks/observability/README.md)
 
