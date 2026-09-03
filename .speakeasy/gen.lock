@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: e176fe5c6396d24b6ee56c9afc6f0c18
+  docChecksum: 38dea3cf72bf33cc9e8bff1d67d10f0f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.114
-  configChecksum: 65ce0484119598b15e2d6013e62461fe
+  releaseVersion: 0.7.115
+  configChecksum: cab078bc7bcf64f69e0a91043500048a
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 44121581-8d18-42be-8ecf-60a705c7b843
-  pristine_commit_hash: 4c16180398cb465eed16ac9d4892cba31accf4a2
-  pristine_tree_hash: 11cb1e5a84213a3dd059923db265aa15d43cb6d1
+  generation_id: 5c227e3e-721f-46ed-b0c8-ae170da78817
+  pristine_commit_hash: 43a7486de6c855e8da27b7fb9072739c69b782fb
+  pristine_tree_hash: ab2809ab9a2f154a0394b8b1bfc2a352778e2e07
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7015,8 +7015,8 @@ trackedFiles:
     pristine_git_object: c3980bc639ff07cd208157f898213d7f3d4d10c9
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
-    last_write_checksum: sha1:ef0dd40598aa6dbfd02a56ddb5e88d14ef88e60b
-    pristine_git_object: f4f96c51ad3cb887fe96c71b6c1d0d7ba1c9b1f9
+    last_write_checksum: sha1:8f2a9f84f830af4769bcc254e96a1b7d119eb3ec
+    pristine_git_object: 58cb7269c93c4982a7ec883a49315cf0695447eb
   docs/sdks/images/README.mdx:
     id: 534a6c102c4f
     last_write_checksum: sha1:fef3a5f9d92e1b02098a1555dbaacecf48c73fb0
@@ -7095,8 +7095,8 @@ trackedFiles:
     pristine_git_object: eae78f3c2cd96ed8cefd70602553933b59bd1fd7
   guardrails.go:
     id: eb364a316712
-    last_write_checksum: sha1:cec25fae9aa7383b001d674eec76f905558e4915
-    pristine_git_object: d40c2c9024cad9c26c8c1119fdba917940918d52
+    last_write_checksum: sha1:a46f9206f539eee8f9b68b26be053be11af9546c
+    pristine_git_object: 7b5b1f67319a94cd469c97e2e0643b9741d45036
   images.go:
     id: d0bc8e6fab7e
     last_write_checksum: sha1:c9af5f01aba5c6a9e23f179d8f57adc1ebfd66b3
@@ -10119,8 +10119,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:734d1aa89a5a74433585ee6bb352bdd4325aca39
-    pristine_git_object: 7b62fac2fbdcd3aa760232cbe0bf7136c6b5b6af
+    last_write_checksum: sha1:463ca090c6d3b3bb8b700cb07b7b5671247b84a9
+    pristine_git_object: fadc9e9c03a8252c461de5bdb0a362abd9b93a78
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10582,6 +10582,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
   deleteGuardrail:
     speakeasy-default-delete-guardrail:
       parameters:
@@ -12080,3 +12082,6 @@ examples:
         "500":
           application/json: {"error": "invalid_grant", "error_description": "The subject token was not accepted."}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Guardrails.Update()`:  `error.status[409]` **Added**
