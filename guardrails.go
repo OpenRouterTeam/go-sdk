@@ -362,7 +362,7 @@ func (s *Guardrails) List(ctx context.Context, offset optionalnullable.OptionalN
 }
 
 // Create a guardrail
-// Create a new guardrail for the authenticated user. A newly created guardrail enforces nothing until it is assigned to API keys or organization members; `workspace_id` places the guardrail in a workspace but does not apply it to that workspace's traffic. To restrict all traffic in a workspace, update the workspace's default guardrail instead. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Create a new guardrail for the authenticated user. A newly created guardrail enforces nothing until it is assigned to API keys or organization members; `workspace_id` places the guardrail in a workspace but does not apply it to that workspace's traffic. To restrict all traffic in a workspace, update the workspace's default guardrail instead. Set `allowed_data_regions` to enforce [In-Region Routing](/docs/guides/features/in-region-routing#enforcing-in-region-routing-with-guardrails): governed requests must arrive through one of the listed OpenRouter domains and are rejected with a 403 otherwise. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Guardrails) Create(ctx context.Context, request components.CreateGuardrailRequest, opts ...operations.Option) (*components.CreateGuardrailResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
