@@ -718,6 +718,7 @@ const (
 	BaseInputsUnion1TypeOpenAIResponseCustomToolCallOutput   BaseInputsUnion1Type = "OpenAIResponseCustomToolCallOutput"
 	BaseInputsUnion1TypeApplyPatchCallItem                   BaseInputsUnion1Type = "ApplyPatchCallItem"
 	BaseInputsUnion1TypeApplyPatchCallOutputItem             BaseInputsUnion1Type = "ApplyPatchCallOutputItem"
+	BaseInputsUnion1TypeConfigurationUpdateItem              BaseInputsUnion1Type = "ConfigurationUpdateItem"
 )
 
 type BaseInputsUnion1 struct {
@@ -731,6 +732,7 @@ type BaseInputsUnion1 struct {
 	OpenAIResponseCustomToolCallOutput   *OpenAIResponseCustomToolCallOutput   `queryParam:"inline" union:"member"`
 	ApplyPatchCallItem                   *ApplyPatchCallItem                   `queryParam:"inline" union:"member"`
 	ApplyPatchCallOutputItem             *ApplyPatchCallOutputItem             `queryParam:"inline" union:"member"`
+	ConfigurationUpdateItem              *ConfigurationUpdateItem              `queryParam:"inline" union:"member"`
 
 	Type BaseInputsUnion1Type
 }
@@ -825,6 +827,15 @@ func CreateBaseInputsUnion1ApplyPatchCallOutputItem(applyPatchCallOutputItem App
 	}
 }
 
+func CreateBaseInputsUnion1ConfigurationUpdateItem(configurationUpdateItem ConfigurationUpdateItem) BaseInputsUnion1 {
+	typ := BaseInputsUnion1TypeConfigurationUpdateItem
+
+	return BaseInputsUnion1{
+		ConfigurationUpdateItem: &configurationUpdateItem,
+		Type:                    typ,
+	}
+}
+
 func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -910,6 +921,14 @@ func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var configurationUpdateItem ConfigurationUpdateItem = ConfigurationUpdateItem{}
+	if err := utils.UnmarshalJSON(data, &configurationUpdateItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  BaseInputsUnion1TypeConfigurationUpdateItem,
+			Value: &configurationUpdateItem,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BaseInputsUnion1", string(data))
 	}
@@ -952,6 +971,9 @@ func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) error {
 		return nil
 	case BaseInputsUnion1TypeApplyPatchCallOutputItem:
 		u.ApplyPatchCallOutputItem = best.Value.(*ApplyPatchCallOutputItem)
+		return nil
+	case BaseInputsUnion1TypeConfigurationUpdateItem:
+		u.ConfigurationUpdateItem = best.Value.(*ConfigurationUpdateItem)
 		return nil
 	}
 
@@ -997,6 +1019,10 @@ func (u BaseInputsUnion1) MarshalJSON() ([]byte, error) {
 
 	if u.ApplyPatchCallOutputItem != nil {
 		return utils.MarshalJSON(u.ApplyPatchCallOutputItem, "", true)
+	}
+
+	if u.ConfigurationUpdateItem != nil {
+		return utils.MarshalJSON(u.ConfigurationUpdateItem, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type BaseInputsUnion1: all fields are null")

@@ -954,6 +954,7 @@ const (
 	InputsUnion1TypeItemReferenceItem                   InputsUnion1Type = "ItemReferenceItem"
 	InputsUnion1TypeAdditionalToolsItem                 InputsUnion1Type = "AdditionalToolsItem"
 	InputsUnion1TypeAgentMessageItem                    InputsUnion1Type = "AgentMessageItem"
+	InputsUnion1TypeConfigurationUpdateItem             InputsUnion1Type = "ConfigurationUpdateItem"
 )
 
 type InputsUnion1 struct {
@@ -1007,6 +1008,7 @@ type InputsUnion1 struct {
 	ItemReferenceItem                   *ItemReferenceItem                   `queryParam:"inline" union:"member"`
 	AdditionalToolsItem                 *AdditionalToolsItem                 `queryParam:"inline" union:"member"`
 	AgentMessageItem                    *AgentMessageItem                    `queryParam:"inline" union:"member"`
+	ConfigurationUpdateItem             *ConfigurationUpdateItem             `queryParam:"inline" union:"member"`
 
 	Type InputsUnion1Type
 }
@@ -1461,6 +1463,15 @@ func CreateInputsUnion1AgentMessageItem(agentMessageItem AgentMessageItem) Input
 	}
 }
 
+func CreateInputsUnion1ConfigurationUpdateItem(configurationUpdateItem ConfigurationUpdateItem) InputsUnion1 {
+	typ := InputsUnion1TypeConfigurationUpdateItem
+
+	return InputsUnion1{
+		ConfigurationUpdateItem: &configurationUpdateItem,
+		Type:                    typ,
+	}
+}
+
 func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -1866,6 +1877,14 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var configurationUpdateItem ConfigurationUpdateItem = ConfigurationUpdateItem{}
+	if err := utils.UnmarshalJSON(data, &configurationUpdateItem, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputsUnion1TypeConfigurationUpdateItem,
+			Value: &configurationUpdateItem,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputsUnion1", string(data))
 	}
@@ -2028,6 +2047,9 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		return nil
 	case InputsUnion1TypeAgentMessageItem:
 		u.AgentMessageItem = best.Value.(*AgentMessageItem)
+		return nil
+	case InputsUnion1TypeConfigurationUpdateItem:
+		u.ConfigurationUpdateItem = best.Value.(*ConfigurationUpdateItem)
 		return nil
 	}
 
@@ -2233,6 +2255,10 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 
 	if u.AgentMessageItem != nil {
 		return utils.MarshalJSON(u.AgentMessageItem, "", true)
+	}
+
+	if u.ConfigurationUpdateItem != nil {
+		return utils.MarshalJSON(u.ConfigurationUpdateItem, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type InputsUnion1: all fields are null")
