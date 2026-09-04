@@ -64,6 +64,12 @@ baseInputsUnion1 := components.CreateBaseInputsUnion1ApplyPatchCallItem(componen
 baseInputsUnion1 := components.CreateBaseInputsUnion1ApplyPatchCallOutputItem(components.ApplyPatchCallOutputItem{/* values here */})
 ```
 
+### ConfigurationUpdateItem
+
+```go
+baseInputsUnion1 := components.CreateBaseInputsUnion1ConfigurationUpdateItem(components.ConfigurationUpdateItem{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -90,5 +96,7 @@ switch baseInputsUnion1.Type {
 		// baseInputsUnion1.ApplyPatchCallItem is populated
 	case components.BaseInputsUnion1TypeApplyPatchCallOutputItem:
 		// baseInputsUnion1.ApplyPatchCallOutputItem is populated
+	case components.BaseInputsUnion1TypeConfigurationUpdateItem:
+		// baseInputsUnion1.ConfigurationUpdateItem is populated
 }
 ```
