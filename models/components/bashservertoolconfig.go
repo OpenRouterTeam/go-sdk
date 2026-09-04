@@ -12,7 +12,7 @@ type BashServerToolConfig struct {
 	Engine *BashServerToolEngine `json:"engine,omitzero"`
 	// Execution environment for the bash server tool.
 	Environment *BashServerToolEnvironment `json:"environment,omitzero"`
-	// How long (in seconds) the container stays warm after its last command before sleeping, freeing its capacity slot. Idle-based: each command renews the timer. Defaults to 900 (15 minutes); capped at 14400 (4 hours).
+	// How long (in seconds) the container stays warm after its last command before sleeping, freeing its capacity slot. Idle-based: each command renews the timer. Defaults to 300 (5 minutes); capped at 14400 (4 hours).
 	SleepAfterSeconds *int64 `json:"sleep_after_seconds,omitzero"`
 }
 
