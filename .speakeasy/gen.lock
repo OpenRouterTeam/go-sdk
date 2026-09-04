@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: b4101bba2a9a0f59638b9266fd9eab36
+  docChecksum: b20b736927a0ba8776dfc5fbe89935dc
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.116
-  configChecksum: f7ced5c6d5bbb875e61bae85dfb76b94
+  releaseVersion: 0.7.117
+  configChecksum: 871a772804900b714222d0aa4d642500
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 9e01ae0f-887e-4968-929a-187c9f294931
-  pristine_commit_hash: 4831fe17f54637af77592fd3a12e3ee09bd5891e
-  pristine_tree_hash: 20070c8e0e25d827299d0d3f377dfcfbe7faee6e
+  generation_id: 0b8b5d15-669d-4d81-bc68-89c695d0a939
+  pristine_commit_hash: e3e6458902222e035ac08488229f87d41077dd18
+  pristine_tree_hash: 4d0317033937656f92da0996c8fc41d56cb7453e
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1689,6 +1689,10 @@ trackedFiles:
     id: 9147d1a5b953
     last_write_checksum: sha1:ed77b6d9ce64251413456e411e233314923a7445
     pristine_git_object: 9440c95d4039e5cecd89d8914a76656791dd38f6
+  docs/models/components/createscimsyncjobresponse.mdx:
+    id: b49487762c11
+    last_write_checksum: sha1:389a92f143325b4103e1ce85136cabd4c2c6f0f2
+    pristine_git_object: 81504d8270d277c42516e0a052e238d24eb38c6a
   docs/models/components/createworkspacerequest.mdx:
     id: fbf1d17bc268
     last_write_checksum: sha1:87ec0066e781bba9e607d4f251b03889319f76cd
@@ -2345,6 +2349,10 @@ trackedFiles:
     id: 2b47e640d46d
     last_write_checksum: sha1:6f0604cf2c2ddf150fd6323cd3aef0645439c675
     pristine_git_object: 87fd9dabaaaf9df27448f068020f4c973a60b698
+  docs/models/components/getscimsyncjobresponse.mdx:
+    id: 8f17f3f06379
+    last_write_checksum: sha1:cbd7266a308b0564a9370c719a9fbcbfc2a37672
+    pristine_git_object: 08b956297d8c3080db0fca1dc750637a775b730b
   docs/models/components/getworkspacebudgetresponse.mdx:
     id: 2b81bc5e9bbc
     last_write_checksum: sha1:68459beeb3d74216aa4209c9d50ccd1ca09957ff
@@ -4893,6 +4901,14 @@ trackedFiles:
     id: 93261006c44b
     last_write_checksum: sha1:68ca229f5e0f0003ae57db958ce7bf70b085422b
     pristine_git_object: fe25a1e0d22aba5c3da66da3c200982fe61b23e5
+  docs/models/components/scimsyncjob.mdx:
+    id: 29e541485e00
+    last_write_checksum: sha1:b4e6efdfd2ab8cc07c79bb11d2b4fb04937ad46f
+    pristine_git_object: 4815f0cc955ef7e6106ca741be0b12e57418d21a
+  docs/models/components/scimsyncjobstatus.mdx:
+    id: b8e635354a01
+    last_write_checksum: sha1:227151e39246920c7d074afb2c3bd03b257b7730
+    pristine_git_object: 02df4c02ded0dfda1143c6a621b19dcf852d692c
   docs/models/components/scope.mdx:
     id: 4515993c7a3b
     last_write_checksum: sha1:bbb423ec129da0e84f2ac5626408daeb61e2845b
@@ -6177,6 +6193,10 @@ trackedFiles:
     id: df8ecba0f994
     last_write_checksum: sha1:1cd2cdbaf79c2549b6700cbf5d330771807699ce
     pristine_git_object: 411d9da301e75d069636e0d55d43a5cdf5a658c1
+  docs/models/operations/createscimsyncjobresponse.mdx:
+    id: 2d76b1e8e8b7
+    last_write_checksum: sha1:a8fd566ff73514851c4ae11ce3b78a5e63c67387
+    pristine_git_object: 3105b213bf3e65050d46f9e3ca82fd068e17e384
   docs/models/operations/datacenter.mdx:
     id: 321881851bf6
     last_write_checksum: sha1:070ee70a495defe0c5a211ff67fbb66b63c9b8db
@@ -6401,6 +6421,10 @@ trackedFiles:
     id: 22025542670f
     last_write_checksum: sha1:931f289eb2066b5d50d255dfc0bcf2c9830d7b66
     pristine_git_object: 6efec4dd2433149be31de8ea17d7d017658c4ea2
+  docs/models/operations/getscimsyncjobrequest.mdx:
+    id: 1e1a3a6e629c
+    last_write_checksum: sha1:db9b51873af567a55aa3703656f6639712d29b0f
+    pristine_git_object: 6a2de6f63f63a40e4058478e9cab6cb25bd67ea8
   docs/models/operations/getsessioncostrequest.mdx:
     id: b5d04df5d096
     last_write_checksum: sha1:f0d8f74647030a3c44596ddef090cefa7984d85d
@@ -7055,8 +7079,8 @@ trackedFiles:
     pristine_git_object: ab1b772c84923c7f22077bc350b5d97519758275
   docs/sdks/scim/README.mdx:
     id: fd6d8a91a053
-    last_write_checksum: sha1:b71c159a6e70a73037cfeaaf30a20c78c38c9e72
-    pristine_git_object: 686f282b22eef9329ccacf65b1517eb9d0d9b288
+    last_write_checksum: sha1:a582604eb0db28f0c5f53887c7826a59b935590a
+    pristine_git_object: 5045d110491c7223e02885f9897d9a5d95bf8258
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
     last_write_checksum: sha1:3d4796733e1072f2d07358357882a0175e31a302
@@ -7909,6 +7933,10 @@ trackedFiles:
     id: 741f63582f28
     last_write_checksum: sha1:425dd3aaab2dee0c3c4012be7c741e2b180b5b04
     pristine_git_object: ee594a8fa7a0518ddeeb6363ce4ebc6765673feb
+  models/components/createscimsyncjobresponse.go:
+    id: bd3fed942716
+    last_write_checksum: sha1:366d12c8b0d58ed28d82359a3bf427a4af814fa1
+    pristine_git_object: 56e6fe9331febfd51c8119c61a9ca3a812156af8
   models/components/createworkspacerequest.go:
     id: f03152fc7ee9
     last_write_checksum: sha1:17c8ae165059207252f4f35d25e5decaac688e43
@@ -8193,6 +8221,10 @@ trackedFiles:
     id: d0a760eb4078
     last_write_checksum: sha1:523897c17a6adf0fca79333a840df48117cb727d
     pristine_git_object: b0dbbdbb15db7c0fd2c0f5b9b99fea1781c07a4e
+  models/components/getscimsyncjobresponse.go:
+    id: df8beabac43c
+    last_write_checksum: sha1:af1e7c390e3ca3cc9a95a7485b695214007db386
+    pristine_git_object: 2191c8f1e9829bd8bae28a4f3f641133ba154f72
   models/components/getworkspacebudgetresponse.go:
     id: ac241afa5c0b
     last_write_checksum: sha1:ffcf50d12a77c7e6d9c2eae7c255266bd8829ad7
@@ -9193,6 +9225,10 @@ trackedFiles:
     id: 747afa308358
     last_write_checksum: sha1:4cc002cc93ce7685274d7ca3cd1453fa545c5133
     pristine_git_object: 9038466204f4af6a0c7a442079bfd6b40b4cfaa7
+  models/components/scimsyncjob.go:
+    id: 0b7761c3d64a
+    last_write_checksum: sha1:35279881ffe7f2707480868ba7a6612273cae55f
+    pristine_git_object: c16a427522bb18dcc2b2af23537ba57a188407c2
   models/components/searchcontextsizeenum.go:
     id: 548a9f82f01b
     last_write_checksum: sha1:e5a55817b6f6922a0f6d94012de27fca4e0d3e97
@@ -9745,6 +9781,10 @@ trackedFiles:
     id: 6450f3e4367f
     last_write_checksum: sha1:30c8667540bc663ff61b8f6375cbac8b6bbcad36
     pristine_git_object: 6d5628d5d80170a05b8ad8988100dfd58548a2a4
+  models/operations/createscimsyncjob.go:
+    id: 2386cb2609dd
+    last_write_checksum: sha1:36cfc7751a467abe1593e2655ff140a6cf450ac7
+    pristine_git_object: 3abbbd7490299c4d9dd896539d2f8499bd0b4301
   models/operations/deletebyokkey.go:
     id: 968ef972d685
     last_write_checksum: sha1:66ad3c165bd3fe9757b39169742ff849eef7267e
@@ -9861,6 +9901,10 @@ trackedFiles:
     id: f4cb5a729758
     last_write_checksum: sha1:a7f0d63f423cab7d7c8ddcaccf7b64aaac34d368
     pristine_git_object: c644da4a23f493e3b65b78440a05d2151088e05b
+  models/operations/getscimsyncjob.go:
+    id: b3fe192730e8
+    last_write_checksum: sha1:9357747f0a09d24853bdc08fe29db7da151a93a7
+    pristine_git_object: 823946b1893a4574733aacbe666b428ca7a065e9
   models/operations/getsessioncost.go:
     id: 7b235942cf9f
     last_write_checksum: sha1:2c087b8278671dba28fbc8554cffdd7047c9c69e
@@ -10119,8 +10163,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:e3987a4b65ff74a872266215b180a15ca51f0f5a
-    pristine_git_object: 4186241d94ef0f3b22a6e47558e654c9c56354f9
+    last_write_checksum: sha1:cec82b94740f0bd97fe9793b7c28e6e016fbea8b
+    pristine_git_object: 1d51e5bd98134728cf7b9ec68eba9b4c25caec16
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10155,8 +10199,8 @@ trackedFiles:
     pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   scim.go:
     id: 7cae7699a750
-    last_write_checksum: sha1:d9bf21ab80fd84ff9f3dc17a5952296a81c3118c
-    pristine_git_object: 67a8e3347b9f97a507f72a51ff306096bc74a3df
+    last_write_checksum: sha1:ad48add49919b5740e9f3d34c11c054de650d796
+    pristine_git_object: 61ff9f18fe6aef95d716023c892abefb71659d29
   stt.go:
     id: 04852909348f
     last_write_checksum: sha1:1a1e990e34e03fd6b2ce452c5f3a0ce2363f4d87
@@ -12081,5 +12125,33 @@ examples:
           application/json: {"error": "invalid_grant", "error_description": "The subject token was not accepted."}
         "500":
           application/json: {"error": "invalid_grant", "error_description": "The subject token was not accepted."}
+  createScimSyncJob:
+    speakeasy-default-create-scim-sync-job:
+      responses:
+        "202":
+          application/json: {"data": {"created_at": "1712777141098", "deleted_groups": 182193, "error_message": null, "finished_at": "<value>", "id": "7d10512f-6c8e-413d-b6f9-117bd47a1c48", "started_at": "<value>", "status": "succeeded", "synced_groups": 985942}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+  getScimSyncJob:
+    speakeasy-default-get-scim-sync-job:
+      parameters:
+        path:
+          id: "11506961-3c26-4184-a388-53273cc64c83"
+      responses:
+        "200":
+          application/json: {"data": {"created_at": "1709974767907", "deleted_groups": 892856, "error_message": "<value>", "finished_at": "<value>", "id": "07b0436b-79eb-4e01-940e-aa9d5306e4c4", "started_at": "<value>", "status": "queued", "synced_groups": 824296}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.PrimeIntellect` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.PrimeIntellect` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(primeIntellect)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(primeIntellect)` **Added**\n  *  `response.Data.Provider.Enum(primeIntellect)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(primeIntellect)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(primeIntellect)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(primeIntellect)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(primeIntellect)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(primeIntellect)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(primeIntellect)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.PrimeIntellect` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Scim.CreateSyncJob()`: **Added**
+  * `OpenRouter.Scim.GetSyncJob()`: **Added**

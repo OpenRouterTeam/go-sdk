@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.116
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.117
 > ```
 
 <!-- No Summary [summary] -->
@@ -345,6 +345,8 @@ func main() {
 * [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
 * [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
 * [ListGroups](docs/sdks/scim/README.md#listgroups) - List SCIM groups
+* [CreateSyncJob](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync
+* [GetSyncJob](docs/sdks/scim/README.md#getsyncjob) - Get SCIM directory sync status
 
 ### [STT](docs/sdks/stt/README.md)
 

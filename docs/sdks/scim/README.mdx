@@ -15,6 +15,8 @@ SCIM endpoints
 * [Read](#read) - Get a SCIM group mapping
 * [Update](#update) - Update a SCIM group mapping
 * [ListGroups](#listgroups) - List SCIM groups
+* [CreateSyncJob](#createsyncjob) - Start a SCIM directory sync
+* [GetSyncJob](#getsyncjob) - Get SCIM directory sync status
 
 ## ListMappings
 
@@ -375,6 +377,113 @@ func main() {
 ### Response
 
 **[*operations.ListScimGroupsResponse](../../models/operations/listscimgroupsresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreateSyncJob
+
+Start a SCIM directory sync. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Scim.CreateSyncJob(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.CreateScimSyncJobResponse](../../models/operations/createscimsyncjobresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetSyncJob
+
+Get SCIM directory sync status. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Scim.GetSyncJob(ctx, "11506961-3c26-4184-a388-53273cc64c83")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | N/A                                                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*components.GetScimSyncJobResponse](../../models/components/getscimsyncjobresponse.mdx), error**
 
 ### Errors
 
