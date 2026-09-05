@@ -25,6 +25,8 @@ type UpdateObservabilityDestinationRequest struct {
 	Name *string `json:"name,omitzero"`
 	// When true, request/response bodies are not forwarded — only metadata.
 	PrivacyMode *bool `json:"privacy_mode,omitzero"`
+	// Data regions this destination applies to. `eu` is accepted as an alias for `europe` and normalizes to `europe`. Omitting this field keeps the current value; it cannot be cleared.
+	Regions []ObservabilityDataRegionInput `json:"regions,omitzero"`
 	// Sampling rate between 0.0001 and 1 (1 = 100%).
 	SamplingRate *float64 `json:"sampling_rate,omitzero"`
 }
@@ -101,6 +103,13 @@ func (u *UpdateObservabilityDestinationRequest) GetPrivacyMode() *bool {
 		return nil
 	}
 	return u.PrivacyMode
+}
+
+func (u *UpdateObservabilityDestinationRequest) GetRegions() []ObservabilityDataRegionInput {
+	if u == nil {
+		return nil
+	}
+	return u.Regions
 }
 
 func (u *UpdateObservabilityDestinationRequest) GetSamplingRate() *float64 {

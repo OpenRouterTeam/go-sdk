@@ -64,6 +64,8 @@ type CreateObservabilityDestinationRequest struct {
 	Name string `json:"name"`
 	// When true, request/response bodies are not forwarded — only metadata.
 	PrivacyMode *bool `default:"false" json:"privacy_mode"`
+	// Data regions this destination applies to. `eu` is accepted as an alias for `europe` and normalizes to `europe`. Omitting this field defaults to ['global']; the array must be non-empty.
+	Regions []ObservabilityDataRegionInput `json:"regions,omitzero"`
 	// Sampling rate between 0.0001 and 1 (1 = 100%).
 	SamplingRate *float64 `json:"sampling_rate,omitzero"`
 	// The destination type. Only stable destination types are accepted.
@@ -144,6 +146,13 @@ func (c *CreateObservabilityDestinationRequest) GetPrivacyMode() *bool {
 		return nil
 	}
 	return c.PrivacyMode
+}
+
+func (c *CreateObservabilityDestinationRequest) GetRegions() []ObservabilityDataRegionInput {
+	if c == nil {
+		return nil
+	}
+	return c.Regions
 }
 
 func (c *CreateObservabilityDestinationRequest) GetSamplingRate() *float64 {
