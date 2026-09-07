@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: e3423905095e6b376b04acdec9c119b1
+  docChecksum: 6e6d48a26d0fc1e4f075446eb2bb82e0
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.120
-  configChecksum: 1044506365538b94c61b5fd78b7f60f0
+  releaseVersion: 0.7.121
+  configChecksum: e5572e149f530af250cba3b843c2a47b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: c129941c-99f3-4a50-a854-88e0e2d0431a
-  pristine_commit_hash: c10dbc7cc96c3b9ef986c31948a9ff1a70bfef32
-  pristine_tree_hash: 7c202b05b011a021c92d96da559ca348e84b1382
+  generation_id: 4e7fd250-8b7a-4f83-a455-55c4e6c9a243
+  pristine_commit_hash: 1fbd3b0eb02204396b148c16a3ee18b7640961d8
+  pristine_tree_hash: 8935c4502bc5fd1621978dfbfdf2b6ccc695854f
 features:
   go:
     acceptHeaders: 2.81.2
@@ -10251,8 +10251,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:48d105d4c2137a2ea5d235f8d3ed416562db9341
-    pristine_git_object: 7a76e82763e7a2eebdca5cd4e2c0f0ba94444faf
+    last_write_checksum: sha1:07258d030c9061477c4d38874c1363d59261508d
+    pristine_git_object: c4a5de0f23cf4d0877fe603efd5c4ccc32eb5d52
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -12239,4 +12239,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Observability.List()`:  `response.Data[]` **Changed**\n* `OpenRouter.Observability.Create()`: \n  *  `request.Request.Regions` **Added**\n  *  `response.Data` **Changed**\n* `OpenRouter.Observability.Get()`:  `response.Data` **Changed**\n* `OpenRouter.Observability.Update()`: \n  *  `request.UpdateObservabilityDestinationRequest.Regions` **Added**\n  *  `response.Data` **Changed**\n"
