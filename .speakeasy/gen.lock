@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6e6d48a26d0fc1e4f075446eb2bb82e0
+  docChecksum: 113ea1d3c642271a3c52b95a084fdcb4
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.121
-  configChecksum: e5572e149f530af250cba3b843c2a47b
+  releaseVersion: 0.7.122
+  configChecksum: 2075dcaad1939ddaf294602ee51eadc7
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 4e7fd250-8b7a-4f83-a455-55c4e6c9a243
-  pristine_commit_hash: 1fbd3b0eb02204396b148c16a3ee18b7640961d8
-  pristine_tree_hash: 8935c4502bc5fd1621978dfbfdf2b6ccc695854f
+  generation_id: 2e845e73-f49c-4755-a6f7-695e8075fd96
+  pristine_commit_hash: 36a33db1061eba92b3a689bd29c87b3014ce2b54
+  pristine_tree_hash: db37e6816c0a28d8933aca6e5db7138539965063
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1003,8 +1003,12 @@ trackedFiles:
     pristine_git_object: 7d820388ae5ec8898d6f73e7a5dfee1f6da8a66b
   docs/models/components/chatdevelopermessage.mdx:
     id: f346f5f1686e
-    last_write_checksum: sha1:41df3d64d1178b8fcd271065e8176e4e4d6ff422
-    pristine_git_object: e7e22fc4ba1c99039e34a479c3498057f9b8c2c3
+    last_write_checksum: sha1:f30cd47ab79c37a99384b8431eab9a41a97be112
+    pristine_git_object: 71c2c2a9d0f367ac69b9a8510fd3f31b5f96c3a0
+  docs/models/components/chatdevelopermessageconfigurationupdate.mdx:
+    id: 58673e8f73ee
+    last_write_checksum: sha1:9431939ed4e522c8d0aaeb51faebc1dbf0be2fa2
+    pristine_git_object: ebc76377633f70e89b61c108e739bead3bd3f23d
   docs/models/components/chatdevelopermessagecontent.mdx:
     id: 36caf923309d
     last_write_checksum: sha1:6e7dda5d7f4ab9d14a7025c2a6ac27d89d9e0bf6
@@ -1191,8 +1195,12 @@ trackedFiles:
     pristine_git_object: c34fa4536f5a1db7cf44a373fdb9b797b7232982
   docs/models/components/chatsystemmessage.mdx:
     id: c1b4b3b2fe63
-    last_write_checksum: sha1:da08d54e37b0fd9f63bc5de2872eef56c603812d
-    pristine_git_object: f9dea1b2b4abd416250428d41d64186ef35a2505
+    last_write_checksum: sha1:0ed358d5454dcbe5390613e80aabd20b400f4892
+    pristine_git_object: 376954a3b5fad118bc7117648885e7d076bafc11
+  docs/models/components/chatsystemmessageconfigurationupdate.mdx:
+    id: 1fddbc1d8527
+    last_write_checksum: sha1:3659a660aba799af86eb1f324649746d4278c247
+    pristine_git_object: 32d6713ff71b13287c043c0a8809730a5aa685b1
   docs/models/components/chatsystemmessagecontent.mdx:
     id: 29c39fdceb9c
     last_write_checksum: sha1:fe6c7d040b9f454a7e4c8440f257d420f2b47042
@@ -1401,10 +1409,6 @@ trackedFiles:
     id: 3c1b26075756
     last_write_checksum: sha1:827c00cfc5b2e9db5812f7ca2c2092dbf5145acd
     pristine_git_object: d0b28dff35a8ad929cd2019d91c84ad6a3028d3f
-  docs/models/components/configurationupdate.mdx:
-    id: 140f9b1467c6
-    last_write_checksum: sha1:85581db022948b856094aa12a5160789963cc29a
-    pristine_git_object: b8497da7bcd28667e8735aeed1e21034331cc641
   docs/models/components/configurationupdateitem.mdx:
     id: 7e145e2043fe
     last_write_checksum: sha1:e769aac01c4dccf1f2eb49613acccea468ac53d7
@@ -7683,8 +7687,8 @@ trackedFiles:
     pristine_git_object: e11982def43026ede6169fad1cd82b4ec32e9828
   models/components/chatdevelopermessage.go:
     id: acb90ce54a7d
-    last_write_checksum: sha1:0757599d0e237339d0147146ff1a40668822e822
-    pristine_git_object: 0e414f62d6ab1073d8dc4120284ca7ca2f6b1196
+    last_write_checksum: sha1:ef4568bac4ff89bd327d2ffeae82d9420a2ac623
+    pristine_git_object: 220269ca67fc46f2aedbe8800786bef2be35a1d7
   models/components/chatfinishreasonenum.go:
     id: c0f759f58abc
     last_write_checksum: sha1:82ad7b52b790d43cf54f47ef9f1351041b929e0d
@@ -7771,8 +7775,8 @@ trackedFiles:
     pristine_git_object: 5e3ab7a3dda021df48a97e2028e04918d3e5d5a1
   models/components/chatsystemmessage.go:
     id: a22e1df97e1d
-    last_write_checksum: sha1:e8794c84ef2e7b8807f29c8fdc26171dd36b0a14
-    pristine_git_object: 4e003a2af60d0aca58086dd938ef3fcb3465d641
+    last_write_checksum: sha1:b909b8445c8719dc5edd36dacac7d55813649507
+    pristine_git_object: 90bcdaa9ee7901c06a4f63a286c72244b76eb79a
   models/components/chattokenlogprob.go:
     id: e19107ee0eea
     last_write_checksum: sha1:3aaded270f383c26de8d7191abb46967c0c05c96
@@ -10251,8 +10255,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:07258d030c9061477c4d38874c1363d59261508d
-    pristine_git_object: c4a5de0f23cf4d0877fe603efd5c4ccc32eb5d52
+    last_write_checksum: sha1:e1268c53c0c301efbc9619e212394f543c00138c
+    pristine_git_object: f78fa43e53e26838ebe85293138efbf3a7a5f4ff
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -12239,3 +12243,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Messages[].union(developer).ConfigurationUpdate` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Messages[].union(developer).ConfigurationUpdate` **Added**\n"
