@@ -12,8 +12,6 @@ type ShellServerToolConfig struct {
 	Engine *ShellServerToolEngine `json:"engine,omitzero"`
 	// Server-side execution environment for the shell tool. Only container-backed environments are supported; "local" shells are not.
 	Environment *ShellServerToolEnvironment `json:"environment,omitzero"`
-	// How long (in seconds) the container stays warm after its last command before sleeping, freeing its capacity slot. Idle-based: each command renews the timer. Defaults to 300 (5 minutes); capped at 14400 (4 hours).
-	SleepAfterSeconds *int64 `json:"sleep_after_seconds,omitzero"`
 }
 
 func (s ShellServerToolConfig) MarshalJSON() ([]byte, error) {
@@ -53,11 +51,4 @@ func (s *ShellServerToolConfig) GetEnvironmentContainerReference() *ContainerRef
 		return v.ContainerReferenceEnvironment
 	}
 	return nil
-}
-
-func (s *ShellServerToolConfig) GetSleepAfterSeconds() *int64 {
-	if s == nil {
-		return nil
-	}
-	return s.SleepAfterSeconds
 }
