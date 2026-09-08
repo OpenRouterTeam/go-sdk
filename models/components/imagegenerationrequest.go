@@ -106,6 +106,8 @@ const (
 	ImageGenerationRequestQualityLow    ImageGenerationRequestQuality = "low"
 	ImageGenerationRequestQualityMedium ImageGenerationRequestQuality = "medium"
 	ImageGenerationRequestQualityHigh   ImageGenerationRequestQuality = "high"
+	ImageGenerationRequestQualityXhigh  ImageGenerationRequestQuality = "xhigh"
+	ImageGenerationRequestQualityMax    ImageGenerationRequestQuality = "max"
 )
 
 func (e ImageGenerationRequestQuality) ToPointer() *ImageGenerationRequestQuality {
@@ -116,7 +118,7 @@ func (e ImageGenerationRequestQuality) ToPointer() *ImageGenerationRequestQualit
 func (e *ImageGenerationRequestQuality) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "low", "medium", "high":
+		case "auto", "low", "medium", "high", "xhigh", "max":
 			return true
 		}
 	}
