@@ -1,0 +1,28 @@
+---
+title: "~~MismatchBehavior~~"
+---
+
+Deprecated: legacy alias of prefix_mismatch_behavior. Send only one of the two.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.MismatchBehaviorError
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.MismatchBehavior("custom_value")
+```
+
+
+## Values
+
+| Name                        | Value                       |
+| --------------------------- | --------------------------- |
+| `MismatchBehaviorError`     | error                       |
+| `MismatchBehaviorDropBlock` | drop_block                  |
