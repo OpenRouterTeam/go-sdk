@@ -16,8 +16,12 @@ type UpdateBYOKKeyRequest struct {
 	AllowedUserIds optionalnullable.OptionalNullable[[]string] `json:"allowed_user_ids,omitzero"`
 	// Whether this credential is disabled.
 	Disabled *bool `json:"disabled,omitzero"`
-	// Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried.
+	// Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside `allowed_models` and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials. Omit to leave the stored value unchanged.
+	IsBYOKOnly *bool `json:"is_byok_only,omitzero"`
+	// Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with `is_byok_only`. Omit to leave the stored value unchanged.
 	IsFallback *bool `json:"is_fallback,omitzero"`
+	// Whether OpenRouter's shared endpoints on this provider are removed for the models this credential applies to (its `allowed_models`, or every model when `null`). Requests for those models run only on your keys; models outside the allowlist may still fall back to shared capacity on this provider. Omit to leave the stored value unchanged.
+	IsRequired *bool `json:"is_required,omitzero"`
 	// A new raw provider API key to rotate the credential in-place. The previous key material is overwritten and the masked label is regenerated. Encrypted at rest and never returned in API responses.
 	Key *string `json:"key,omitzero"`
 	// Optional human-readable name for the credential.
@@ -63,11 +67,25 @@ func (u *UpdateBYOKKeyRequest) GetDisabled() *bool {
 	return u.Disabled
 }
 
+func (u *UpdateBYOKKeyRequest) GetIsBYOKOnly() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IsBYOKOnly
+}
+
 func (u *UpdateBYOKKeyRequest) GetIsFallback() *bool {
 	if u == nil {
 		return nil
 	}
 	return u.IsFallback
+}
+
+func (u *UpdateBYOKKeyRequest) GetIsRequired() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.IsRequired
 }
 
 func (u *UpdateBYOKKeyRequest) GetKey() *string {
