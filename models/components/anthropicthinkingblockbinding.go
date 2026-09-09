@@ -7,6 +7,31 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// MismatchBehavior - Deprecated: legacy alias of prefix_mismatch_behavior. Send only one of the two.
+//
+// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+type MismatchBehavior string
+
+const (
+	MismatchBehaviorError     MismatchBehavior = "error"
+	MismatchBehaviorDropBlock MismatchBehavior = "drop_block"
+)
+
+func (e MismatchBehavior) ToPointer() *MismatchBehavior {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MismatchBehavior) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "error", "drop_block":
+			return true
+		}
+	}
+	return false
+}
+
 type PrefixMismatchBehavior string
 
 const (
@@ -30,6 +55,10 @@ func (e *PrefixMismatchBehavior) IsExact() bool {
 }
 
 type AnthropicThinkingBlockBinding struct {
+	// Deprecated: legacy alias of prefix_mismatch_behavior. Send only one of the two.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	MismatchBehavior       optionalnullable.OptionalNullable[MismatchBehavior]       `json:"mismatch_behavior,omitzero"`
 	PrefixMismatchBehavior optionalnullable.OptionalNullable[PrefixMismatchBehavior] `json:"prefix_mismatch_behavior,omitzero"`
 }
 
@@ -42,6 +71,13 @@ func (a *AnthropicThinkingBlockBinding) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (a *AnthropicThinkingBlockBinding) GetMismatchBehavior() optionalnullable.OptionalNullable[MismatchBehavior] {
+	if a == nil {
+		return nil
+	}
+	return a.MismatchBehavior
 }
 
 func (a *AnthropicThinkingBlockBinding) GetPrefixMismatchBehavior() optionalnullable.OptionalNullable[PrefixMismatchBehavior] {

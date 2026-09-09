@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1f46db43786632e92096869f4c3e4bb5
+  docChecksum: 23c1116fcf2ba59264fe3f75c27530cf
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.128
-  configChecksum: fa90be2aa2b3182af43550d3d5d97248
+  releaseVersion: 0.7.129
+  configChecksum: 34588de6c4774d515c251fe00ecc5bf4
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 1e8b3acd-fb66-454e-a4ac-6a647398b68c
-  pristine_commit_hash: c7cf978eadb36edcb9e7fe18ce5be28602b5d0f9
-  pristine_tree_hash: 1a428d5aa2746cb40873497895a56aeba5519df7
+  generation_id: 54c18210-e628-487c-9ebf-28b6f5a4a102
+  pristine_commit_hash: 76012d2b0818b932914290c7f5502acd7f9e7898
+  pristine_tree_hash: 20c88e6240853986c69947dcf51bfdd8d3e7b4e5
 features:
   go:
     acceptHeaders: 2.81.2
@@ -491,8 +491,8 @@ trackedFiles:
     pristine_git_object: 0fb2948bda2ad2fe39f3681995f36f8193039630
   docs/models/components/anthropicthinkingblockbinding.mdx:
     id: bcd32b5e0df5
-    last_write_checksum: sha1:7a8325efb52ac183d6381250ef6c85b58d54d5e8
-    pristine_git_object: ab32d48b3905f4b0abebf5c76e27e54f91241dad
+    last_write_checksum: sha1:2e4b617c114bf0335046a2da1c658491c41745a2
+    pristine_git_object: b372a70e1fc31daf5b9db60d6bb5ec49212fdde9
   docs/models/components/anthropicthinkingdisplay.mdx:
     id: e3db839ff7fa
     last_write_checksum: sha1:41d6f7bb734ceb2c40d7f1b9644facac1098025b
@@ -3265,6 +3265,10 @@ trackedFiles:
     id: 84f1b0c3658b
     last_write_checksum: sha1:5288006a4cb89450a5f495488e9381bf8d3ce7b3
     pristine_git_object: 716fbcf7dc65ea2b4a0f00c4aa4b88eeffd4a939
+  docs/models/components/mismatchbehavior.mdx:
+    id: afe7d623813d
+    last_write_checksum: sha1:af98e64e1a032e94762048f18af70e26636394ad
+    pristine_git_object: a887dcca6201dfe079ad2b5bf521b0464d015db1
   docs/models/components/modality.mdx:
     id: d2fc57ba843c
     last_write_checksum: sha1:a16cabfd231d10ca15b5b9e1323e15111e8a89f3
@@ -7415,8 +7419,8 @@ trackedFiles:
     pristine_git_object: 959e392cfa855117d4196d45b80dcd1c69f193de
   models/components/anthropicthinkingblockbinding.go:
     id: a8acea81ae89
-    last_write_checksum: sha1:4b5bd3e29a9b66fd88046198d2dc5901de505cb2
-    pristine_git_object: 2a888240a7348b507ac000bef95c1425d50fb788
+    last_write_checksum: sha1:c56f5015b339f034c4737c7e5860e34433e9db3f
+    pristine_git_object: 5bfe5f656e64ca35f8bf6949ffcc817e1493432f
   models/components/anthropicthinkingdisplay.go:
     id: c4ea42dfc432
     last_write_checksum: sha1:2f625c9fbc1de50920c7d015450d79bed36de595
@@ -10255,8 +10259,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:c1a2df63e43345c4d478d337133bf4f84c3aaa50
-    pristine_git_object: d96dfaa7d64968e97434f59d8cfc126d742501f8
+    last_write_checksum: sha1:bcb42f99ca0a39326f19c325c522eb9d616f6d32
+    pristine_git_object: a019e333d7667de6f44c1a42e9f6178c432971f1
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -12243,4 +12247,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.NearAi` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.NearAi` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(nearAi)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(nearAi)` **Added**\n  *  `response.Data.Provider.Enum(nearAi)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(nearAi)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(nearAi)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(nearAi)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(nearAi)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(nearAi)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(nearAi)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.NearAi` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Thinking.union(enabled).BlockBinding.MismatchBehavior` **Added**\n"
