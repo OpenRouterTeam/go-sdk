@@ -275,6 +275,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Moonshotai               map[string]any `json:"moonshotai,omitzero"`
 	Morph                    map[string]any `json:"morph,omitzero"`
 	Ncompass                 map[string]any `json:"ncompass,omitzero"`
+	NearAi                   map[string]any `json:"near-ai,omitzero"`
 	Nebius                   map[string]any `json:"nebius,omitzero"`
 	NexAgi                   map[string]any `json:"nex-agi,omitzero"`
 	Nextbit                  map[string]any `json:"nextbit,omitzero"`
@@ -941,6 +942,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetNcompass() map[string]any
 		return nil
 	}
 	return i.Ncompass
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetNearAi() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.NearAi
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetNebius() map[string]any {
