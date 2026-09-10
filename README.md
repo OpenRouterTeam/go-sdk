@@ -371,13 +371,13 @@ func main() {
 * [Delete](docs/sdks/workspaces/README.md#delete) - Delete a workspace
 * [Get](docs/sdks/workspaces/README.md#get) - Get a workspace
 * [Update](docs/sdks/workspaces/README.md#update) - Update a workspace
+* [ListMembers](docs/sdks/workspaces/README.md#listmembers) - List workspace members
+* [BulkAddMembers](docs/sdks/workspaces/README.md#bulkaddmembers) - Bulk add members to a workspace
+* [BulkRemoveMembers](docs/sdks/workspaces/README.md#bulkremovemembers) - Bulk remove members from a workspace
 * [ListBudgets](docs/sdks/workspaces/README.md#listbudgets) - List workspace budgets
 * [DeleteBudget](docs/sdks/workspaces/README.md#deletebudget) - Delete a workspace budget
 * [GetBudget](docs/sdks/workspaces/README.md#getbudget) - Get a workspace budget
 * [SetBudget](docs/sdks/workspaces/README.md#setbudget) - Create or update a workspace budget
-* [ListMembers](docs/sdks/workspaces/README.md#listmembers) - List workspace members
-* [BulkAddMembers](docs/sdks/workspaces/README.md#bulkaddmembers) - Bulk add members to a workspace
-* [BulkRemoveMembers](docs/sdks/workspaces/README.md#bulkremovemembers) - Bulk remove members from a workspace
 
 </details>
 <!-- End Available Resources and Operations [operations] -->

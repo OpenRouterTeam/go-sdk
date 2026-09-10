@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 23c1116fcf2ba59264fe3f75c27530cf
+  docChecksum: c863047be029ee6271713001c2986330
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.129
-  configChecksum: 34588de6c4774d515c251fe00ecc5bf4
+  releaseVersion: 0.7.130
+  configChecksum: d7e2b972a98618f48fa5eb5df6fee693
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 54c18210-e628-487c-9ebf-28b6f5a4a102
-  pristine_commit_hash: 76012d2b0818b932914290c7f5502acd7f9e7898
-  pristine_tree_hash: 20c88e6240853986c69947dcf51bfdd8d3e7b4e5
+  generation_id: a3f7f79f-a581-44b3-b88c-0a8a90fbac58
+  pristine_commit_hash: 95ebfd95819ed925466424f3542934270c4f0816
+  pristine_tree_hash: 3ff6354e67af90a35bd22ca651e62b7cdb00c996
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6295,8 +6295,8 @@ trackedFiles:
     pristine_git_object: 13e0fc78ae1b32b0ea855b453af59188e0e60242
   docs/models/operations/deleteworkspacebudgetrequest.mdx:
     id: 9125508603b4
-    last_write_checksum: sha1:f7959a650c4b57344917df5a99340105b0decdf8
-    pristine_git_object: b7e6148cd064f84caacf2e1619e44956ecd1a63c
+    last_write_checksum: sha1:ec84ac0ead553431d41c1cd6c6904a908064f69c
+    pristine_git_object: 50c31c754532d501c8e0364a3d755f04f94e607e
   docs/models/operations/deleteworkspacerequest.mdx:
     id: e8540611cea0
     last_write_checksum: sha1:62420ae1a20fadb3987dea448ed82c72b3172e6b
@@ -6511,8 +6511,8 @@ trackedFiles:
     pristine_git_object: 195169bbea3bc753142cf9d501523283070a06f3
   docs/models/operations/getworkspacebudgetrequest.mdx:
     id: 24dc54420f01
-    last_write_checksum: sha1:a7990b8bde56e2f698f8e76c9af90c3a7186c5fb
-    pristine_git_object: 40424a2b4251e831fe5ec45733dd8a9d9db08037
+    last_write_checksum: sha1:a6762a0505f284402cea720a7d9225eb4721fc6f
+    pristine_git_object: f9c1bade8959651a3b0625c68cd03ec56926658b
   docs/models/operations/getworkspacerequest.mdx:
     id: 2e452e03c3fb
     last_write_checksum: sha1:d2f6eb91efe5d353b17b880653cfb195c4a2d8bf
@@ -6743,8 +6743,8 @@ trackedFiles:
     pristine_git_object: 811aed19b821a88b4559944fd36f3a897837fec6
   docs/models/operations/listworkspacebudgetsrequest.mdx:
     id: acc7b39841a0
-    last_write_checksum: sha1:3bc37492af274806f3b4023e6dd07ea0f90e9525
-    pristine_git_object: 3bf9ad7112b8e1b8b12961f74db1c67c6e4a97f5
+    last_write_checksum: sha1:70bd62da33d16e58f013d9de79f3d3c4f606f3a5
+    pristine_git_object: 285ebe8363f19b58586a84b98c88671349cd0fff
   docs/models/operations/listworkspacemembersrequest.mdx:
     id: ecb8f3ead673
     last_write_checksum: sha1:ffaffbbe27f7c1ff7c37b411ab488f97ada2153d
@@ -6951,8 +6951,8 @@ trackedFiles:
     pristine_git_object: b1651999045963cd8e0faf127e0cf5b413a4a5f8
   docs/models/operations/upsertworkspacebudgetrequest.mdx:
     id: 774bbc8c97c1
-    last_write_checksum: sha1:ed92d9b9d8618192f62cef8930cd7fa482717a86
-    pristine_git_object: 1019f206df164c2874136d65f4cea50f71d2cd2e
+    last_write_checksum: sha1:445b5d4a8307d19aa96809a2f901434fb78c16bc
+    pristine_git_object: d30a305ebf6e0052930c75f10047ca9ff37b71a7
   docs/models/operations/usagelimittype.mdx:
     id: 7d0714760ba1
     last_write_checksum: sha1:080de0f7cc3ae9328b5a9256e1cad43eb5285d7e
@@ -7159,8 +7159,8 @@ trackedFiles:
     pristine_git_object: db5aef504095b1b3fb0fcee4e2425f9ff3aed5a8
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
-    last_write_checksum: sha1:dfe046a59c1ecba15a58087198046ff8d67e20a8
-    pristine_git_object: 808da5e3e99e1cf73b6a14b832d318d0a872291f
+    last_write_checksum: sha1:f84a37bb80f89141aaa58ad0d1f95b5ea224b6fb
+    pristine_git_object: 0a80d339264fe6479568dff2984c3326a54bfd78
   embeddings.go:
     id: f7354b2d5b3e
     last_write_checksum: sha1:d07c2617899d045f9307f5fa8513594eb68f7952
@@ -9911,8 +9911,8 @@ trackedFiles:
     pristine_git_object: 37ac33b200415c4e5c1a1cc8b2ccd429424b13d2
   models/operations/deleteworkspacebudget.go:
     id: 0d7a80f7f117
-    last_write_checksum: sha1:0c7e8b238e6cf4c4db21d9d169126056b382a7eb
-    pristine_git_object: e478ee3772362bf798e8bad605a25822c4978f07
+    last_write_checksum: sha1:5d8be4335cf88f90d5cf661a427bcbf7ec28e806
+    pristine_git_object: 16cc293327ed268245febbac172f8bcb9ac59b72
   models/operations/downloadcontainerfilecontent.go:
     id: 9788dd748ddb
     last_write_checksum: sha1:4b837d4e4794be2fe38c4328ec182f7a621d9579
@@ -10023,8 +10023,8 @@ trackedFiles:
     pristine_git_object: fdd58fa54ee2ebabcf5a659ba0e25a4a4b63e277
   models/operations/getworkspacebudget.go:
     id: ab9ae4fa68ed
-    last_write_checksum: sha1:a0cafce0226d43b474a6319aed63042ca5cb2474
-    pristine_git_object: 4a9304576b9e6982bd23aaa909190e4bd51f380e
+    last_write_checksum: sha1:251cee1dc810144d2a414b0fa9e9a8055820c0c8
+    pristine_git_object: 266c243c38d8584bf72082acacd36d31f267eb94
   models/operations/list.go:
     id: 5327f0e32b30
     last_write_checksum: sha1:1d17ea6fd6200fc934061cb1d0d0f6b7feefd6cb
@@ -10123,8 +10123,8 @@ trackedFiles:
     pristine_git_object: 266e1d5a36eb67b522293596b6b0ec6197d696c0
   models/operations/listworkspacebudgets.go:
     id: e9191ff02490
-    last_write_checksum: sha1:1424694c8199a8dd401cc238bc0e2bbf6b8aa7cf
-    pristine_git_object: ed4fa3cddfc70f41d1fb50eff6f53129cbe2bed4
+    last_write_checksum: sha1:438d9ba9c3b5ec25f9e0e5774ebc974c238eab8e
+    pristine_git_object: 3d717f22c4f278a5c620f5b5115a8ecbee43f416
   models/operations/listworkspacemembers.go:
     id: c6b8ca2e71ca
     last_write_checksum: sha1:bb356c404d45e942f555a4c2b1ed0f30e003c154
@@ -10179,8 +10179,8 @@ trackedFiles:
     pristine_git_object: cec4e747e790534c741f722c75cbaeebebd1c12c
   models/operations/upsertworkspacebudget.go:
     id: 248ee705f594
-    last_write_checksum: sha1:05cbae21577f4bdbba312e1a35200c687f8588ae
-    pristine_git_object: 45231901c5f6872e809d546ed9615985096717c2
+    last_write_checksum: sha1:c6ba8dfe00a7c59ba80e56478ab21981b0cd39f1
+    pristine_git_object: 7c30801945ead064fd668fad5630201dc38812cc
   models/sdkerrors/apierror.go:
     id: 6571d980f036
     last_write_checksum: sha1:ceb1673e00bedaaf6b3f1f986bdc68d7f2ea2a71
@@ -10259,8 +10259,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:bcb42f99ca0a39326f19c325c522eb9d616f6d32
-    pristine_git_object: a019e333d7667de6f44c1a42e9f6178c432971f1
+    last_write_checksum: sha1:38eb6b34a9ee8eef2a58635db51000971c6c84e8
+    pristine_git_object: d2192e6d6affcf988a4c4938ea273015e83410f1
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10331,8 +10331,8 @@ trackedFiles:
     pristine_git_object: 8487cc570f7b3c6a932656c33a227f669b010ec8
   workspaces.go:
     id: 643517773c6f
-    last_write_checksum: sha1:aba152884daa166aa397df8ce345cc6ef78430a3
-    pristine_git_object: 14c17aa5b404a14b1cc69432f73ab291f2a6f11a
+    last_write_checksum: sha1:8c283486c983b391c82dc33732260ee05600f110
+    pristine_git_object: f1c13c251f69b6e1ce711713c84abac9f1ee3672
 examples:
   createResponses:
     speakeasy-default-create-responses:
@@ -11895,6 +11895,7 @@ examples:
       parameters:
         path:
           id: "production"
+          workspace_ref: "production"
       responses:
         "200":
           application/json: {"data": [{"created_at": "2025-08-24T10:30:00Z", "id": "770e8400-e29b-41d4-a716-446655440000", "limit_usd": 100, "reset_interval": "monthly", "updated_at": "2025-08-24T15:45:00Z", "workspace_id": "550e8400-e29b-41d4-a716-446655440000"}]}
@@ -11910,6 +11911,7 @@ examples:
         path:
           id: "production"
           interval: "monthly"
+          workspace_ref: "production"
       responses:
         "200":
           application/json: {"deleted": true}
@@ -11927,6 +11929,7 @@ examples:
         path:
           id: "production"
           interval: "monthly"
+          workspace_ref: "production"
       requestBody:
         application/json: {"limit_usd": 100}
       responses:
@@ -12079,6 +12082,7 @@ examples:
         path:
           id: "production"
           interval: "monthly"
+          workspace_ref: "production"
       responses:
         "200":
           application/json: {"data": {"created_at": "2025-08-24T10:30:00Z", "id": "770e8400-e29b-41d4-a716-446655440000", "limit_usd": 100, "reset_interval": "monthly", "updated_at": "2025-08-24T15:45:00Z", "workspace_id": "550e8400-e29b-41d4-a716-446655440000"}}
@@ -12247,4 +12251,9 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Thinking.union(enabled).BlockBinding.MismatchBehavior` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Workspaces.ListBudgets()`:  `request` **Changed** (Breaking ⚠️)
+  * `OpenRouter.Workspaces.DeleteBudget()`:  `request` **Changed** (Breaking ⚠️)
+  * `OpenRouter.Workspaces.GetBudget()`:  `request` **Changed** (Breaking ⚠️)
+  * `OpenRouter.Workspaces.SetBudget()`:  `request` **Changed** (Breaking ⚠️)

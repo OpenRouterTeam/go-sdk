@@ -8,16 +8,16 @@ import (
 
 type DeleteWorkspaceBudgetRequest struct {
 	// The workspace ID (UUID) or slug
-	ID string `pathParam:"style=simple,explode=false,name=id"`
+	WorkspaceRef string `pathParam:"style=simple,explode=false,name=workspace_ref"`
 	// Budget reset interval. Use "lifetime" for a one-time budget that never resets.
 	Interval components.WorkspaceBudgetInterval `pathParam:"style=simple,explode=false,name=interval"`
 }
 
-func (d *DeleteWorkspaceBudgetRequest) GetID() string {
+func (d *DeleteWorkspaceBudgetRequest) GetWorkspaceRef() string {
 	if d == nil {
 		return ""
 	}
-	return d.ID
+	return d.WorkspaceRef
 }
 
 func (d *DeleteWorkspaceBudgetRequest) GetInterval() components.WorkspaceBudgetInterval {
