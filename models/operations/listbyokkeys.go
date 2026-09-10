@@ -35,8 +35,10 @@ const (
 	ProviderCloudflare       Provider = "cloudflare"
 	ProviderCohere           Provider = "cohere"
 	ProviderCoreweave        Provider = "coreweave"
+	ProviderCosine           Provider = "cosine"
 	ProviderCrusoe           Provider = "crusoe"
 	ProviderDarkbloom        Provider = "darkbloom"
+	ProviderDatabricks       Provider = "databricks"
 	ProviderDecart           Provider = "decart"
 	ProviderDeepgram         Provider = "deepgram"
 	ProviderDeepinfra        Provider = "deepinfra"
@@ -62,6 +64,7 @@ const (
 	ProviderIonstream        Provider = "ionstream"
 	ProviderKrea             Provider = "krea"
 	ProviderLiquid           Provider = "liquid"
+	ProviderMakora           Provider = "makora"
 	ProviderMancer           Provider = "mancer"
 	ProviderMara             Provider = "mara"
 	ProviderMeta             Provider = "meta"
@@ -72,12 +75,13 @@ const (
 	ProviderModular          Provider = "modular"
 	ProviderMoonshotai       Provider = "moonshotai"
 	ProviderMorph            Provider = "morph"
-	ProviderNcompass         Provider = "ncompass"
+	ProviderNearAi           Provider = "near-ai"
 	ProviderNebius           Provider = "nebius"
 	ProviderNexAgi           Provider = "nex-agi"
 	ProviderNextbit          Provider = "nextbit"
 	ProviderNovita           Provider = "novita"
 	ProviderNvidia           Provider = "nvidia"
+	ProviderOllama           Provider = "ollama"
 	ProviderOpenInference    Provider = "open-inference"
 	ProviderOpenai           Provider = "openai"
 	ProviderParasail         Provider = "parasail"
@@ -85,6 +89,7 @@ const (
 	ProviderPerplexity       Provider = "perplexity"
 	ProviderPhala            Provider = "phala"
 	ProviderPoolside         Provider = "poolside"
+	ProviderPrimeintellect   Provider = "primeintellect"
 	ProviderQuiver           Provider = "quiver"
 	ProviderRecraft          Provider = "recraft"
 	ProviderReka             Provider = "reka"
@@ -106,6 +111,7 @@ const (
 	ProviderTogether         Provider = "together"
 	ProviderUpstage          Provider = "upstage"
 	ProviderVenice           Provider = "venice"
+	ProviderVoyageai         Provider = "voyageai"
 	ProviderWafer            Provider = "wafer"
 	ProviderWandb            Provider = "wandb"
 	ProviderWandbLegacy      Provider = "wandb-legacy"
@@ -122,7 +128,7 @@ func (e Provider) ToPointer() *Provider {
 func (e *Provider) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "coreweave", "crusoe", "darkbloom", "decart", "deepgram", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "fish-audio", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "krea", "liquid", "mancer", "mara", "meta", "minimax", "mistral", "modal", "modelrun", "modular", "moonshotai", "morph", "ncompass", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "quiver", "recraft", "reka", "relace", "runway", "sail-research", "sakana", "sakana-ai", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tencent", "tenstorrent", "thinkingmachines", "together", "upstage", "venice", "wafer", "wandb", "wandb-legacy", "xai", "xiaomi", "z-ai":
+		case "ai21", "aion-labs", "akashml", "alibaba", "amazon-bedrock", "amazon-nova", "ambient", "anthropic", "arcee-ai", "atlas-cloud", "avian", "azure", "baidu", "baseten", "black-forest-labs", "byteplus", "cerebras", "chutes", "cirrascale", "clarifai", "cloudflare", "cohere", "coreweave", "cosine", "crusoe", "darkbloom", "databricks", "decart", "deepgram", "deepinfra", "deepseek", "dekallm", "digitalocean", "featherless", "fireworks", "fish-audio", "friendli", "gmicloud", "google-ai-studio", "google-vertex", "groq", "heygen", "inception", "inceptron", "inferact-vllm", "inference-net", "infermatic", "inflection", "io-net", "ionstream", "krea", "liquid", "makora", "mancer", "mara", "meta", "minimax", "mistral", "modal", "modelrun", "modular", "moonshotai", "morph", "near-ai", "nebius", "nex-agi", "nextbit", "novita", "nvidia", "ollama", "open-inference", "openai", "parasail", "perceptron", "perplexity", "phala", "poolside", "primeintellect", "quiver", "recraft", "reka", "relace", "runway", "sail-research", "sakana", "sakana-ai", "sambanova", "seed", "siliconflow", "sourceful", "stepfun", "streamlake", "switchpoint", "tencent", "tenstorrent", "thinkingmachines", "together", "upstage", "venice", "voyageai", "wafer", "wandb", "wandb-legacy", "xai", "xiaomi", "z-ai":
 			return true
 		}
 	}

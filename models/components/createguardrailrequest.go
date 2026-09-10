@@ -8,6 +8,8 @@ import (
 )
 
 type CreateGuardrailRequest struct {
+	// Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value. An empty array is rejected.
+	AllowedDataRegions optionalnullable.OptionalNullable[[]GuardrailDataRegion] `json:"allowed_data_regions,omitzero"`
 	// Array of model identifiers (slug or canonical_slug accepted)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// List of allowed provider IDs
@@ -44,13 +46,13 @@ type CreateGuardrailRequest struct {
 	IgnoredProviders optionalnullable.OptionalNullable[[]string] `json:"ignored_providers,omitzero"`
 	// Whether BYOK (bring-your-own-key) inference spend counts toward this guardrail's limit_usd, in addition to OpenRouter credit spend. Defaults to false.
 	IncludeBYOKInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
-	// Spending limit in USD
+	// Spending limit in USD. Must be provided together with `reset_interval`: a request that sets only one of the two is rejected with a 400.
 	LimitUsd optionalnullable.OptionalNullable[float64] `json:"limit_usd,omitzero"`
 	// Name for the new guardrail
 	Name string `json:"name"`
 	// Interval at which the limit resets (daily, weekly, monthly)
 	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
-	// The workspace to create the guardrail in. When omitted, the guardrail is created in the default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly.
+	// The workspace to create the guardrail in. When omitted, the guardrail is created in the default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly. This only places the guardrail in the workspace; the created guardrail enforces nothing for that workspace's traffic until it is assigned to API keys or members. To restrict all traffic in a workspace, update the workspace's default guardrail instead.
 	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
@@ -63,6 +65,13 @@ func (c *CreateGuardrailRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *CreateGuardrailRequest) GetAllowedDataRegions() optionalnullable.OptionalNullable[[]GuardrailDataRegion] {
+	if c == nil {
+		return nil
+	}
+	return c.AllowedDataRegions
 }
 
 func (c *CreateGuardrailRequest) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {

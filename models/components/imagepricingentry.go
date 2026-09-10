@@ -30,6 +30,7 @@ func (e *Billable) IsExact() bool {
 type Unit string
 
 const (
+	UnitRequest   Unit = "request"
 	UnitImage     Unit = "image"
 	UnitMegapixel Unit = "megapixel"
 	UnitToken     Unit = "token"
@@ -43,7 +44,7 @@ func (e Unit) ToPointer() *Unit {
 func (e *Unit) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "image", "megapixel", "token":
+		case "request", "image", "megapixel", "token":
 			return true
 		}
 	}

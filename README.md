@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.37
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.129
 > ```
 
 <!-- No Summary [summary] -->
@@ -157,7 +157,7 @@ func main() {
 
 	res, err := s.Models.ListForUser(ctx, operations.ListModelsUserSecurity{
 		Bearer: os.Getenv("OPENROUTER_BEARER"),
-	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500))
+	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -190,6 +190,8 @@ func main() {
 ### [Analytics](docs/sdks/analytics/README.md)
 
 * [GetUserActivity](docs/sdks/analytics/README.md#getuseractivity) - Get user activity grouped by endpoint
+* [GetAnalyticsMeta](docs/sdks/analytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
+* [QueryAnalytics](docs/sdks/analytics/README.md#queryanalytics) - Query analytics data
 
 ### [APIKeys](docs/sdks/apikeys/README.md)
 
@@ -203,11 +205,6 @@ func main() {
 ### [Benchmarks](docs/sdks/benchmarks/README.md)
 
 * [GetBenchmarks](docs/sdks/benchmarks/README.md#getbenchmarks) - List Benchmarks
-
-### [Beta.Analytics](docs/sdks/betaanalytics/README.md)
-
-* [GetAnalyticsMeta](docs/sdks/betaanalytics/README.md#getanalyticsmeta) - Get available analytics metrics and dimensions
-* [QueryAnalytics](docs/sdks/betaanalytics/README.md#queryanalytics) - Query analytics data
 
 ### [Beta.Responses](docs/sdks/betaresponses/README.md)
 
@@ -229,6 +226,13 @@ func main() {
 
 * [GetTaskClassifications](docs/sdks/classifications/README.md#gettaskclassifications) - Task classification market share
 
+### [Containers](docs/sdks/containers/README.md)
+
+* [ListContainerFiles](docs/sdks/containers/README.md#listcontainerfiles) - List container files
+* [GetContainerFile](docs/sdks/containers/README.md#getcontainerfile) - Retrieve a container file
+* [DownloadContainerFileContent](docs/sdks/containers/README.md#downloadcontainerfilecontent) - Download container file content
+* [PromoteContainerFile](docs/sdks/containers/README.md#promotecontainerfile) - Promote a container file into workspace documents
+
 ### [Credits](docs/sdks/credits/README.md)
 
 * [GetCredits](docs/sdks/credits/README.md#getcredits) - Get remaining credits
@@ -237,6 +241,7 @@ func main() {
 
 * [GetAppRankings](docs/sdks/datasets/README.md#getapprankings) - Top apps by token usage
 * [GetRankingsDaily](docs/sdks/datasets/README.md#getrankingsdaily) - Daily token totals for top 50 models
+* [GetSessionCost](docs/sdks/datasets/README.md#getsessioncost) - Cost per session by harness and model
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 
@@ -259,7 +264,7 @@ func main() {
 ### [Generations](docs/sdks/generations/README.md)
 
 * [GetGeneration](docs/sdks/generations/README.md#getgeneration) - Get request & usage metadata for a generation
-* [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt and completion content for a generation
+* [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt, completion, and error content for a generation
 * [SubmitFeedback](docs/sdks/generations/README.md#submitfeedback) - Submit feedback for a generation
 
 ### [Guardrails](docs/sdks/guardrails/README.md)
@@ -295,6 +300,8 @@ func main() {
 
 * [ExchangeAuthCodeForAPIKey](docs/sdks/oauth/README.md#exchangeauthcodeforapikey) - Exchange authorization code for API key
 * [CreateAuthCode](docs/sdks/oauth/README.md#createauthcode) - Create authorization code
+* [ListOauthJwks](docs/sdks/oauth/README.md#listoauthjwks) - OpenRouter access token signing keys
+* [CreateOauthToken](docs/sdks/oauth/README.md#createoauthtoken) - Exchange a workload identity token
 
 ### [Observability](docs/sdks/observability/README.md)
 
@@ -338,6 +345,8 @@ func main() {
 * [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
 * [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
 * [ListGroups](docs/sdks/scim/README.md#listgroups) - List SCIM groups
+* [CreateSyncJob](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync
+* [GetSyncJob](docs/sdks/scim/README.md#getsyncjob) - Get SCIM directory sync status
 
 ### [STT](docs/sdks/stt/README.md)
 

@@ -593,7 +593,9 @@ func (o *OrderBy) GetField() string {
 }
 
 type TimeRange struct {
-	End   time.Time `json:"end"`
+	// ISO 8601 UTC timestamp. Must include seconds (YYYY-MM-DDTHH:MM:SSZ; fractional seconds allowed); minute-precision timestamps are rejected.
+	End time.Time `json:"end"`
+	// ISO 8601 UTC timestamp. Must include seconds (YYYY-MM-DDTHH:MM:SSZ; fractional seconds allowed); minute-precision timestamps are rejected.
 	Start time.Time `json:"start"`
 }
 

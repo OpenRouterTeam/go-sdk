@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type OutputShellCallItemAction struct {
@@ -72,8 +73,10 @@ func (e *OutputShellCallItemType) UnmarshalJSON(data []byte) error {
 // OutputShellCallItem - A native `shell_call` output item matching OpenAI's Responses API shape. Emitted for the sandbox-backed `shell` tool.
 type OutputShellCallItem struct {
 	Action *OutputShellCallItemAction `json:"action,omitzero"`
-	CallID string                     `json:"call_id"`
-	ID     string                     `json:"id"`
+	// The raw tool-call arguments string as emitted by the model. Echo back unchanged when replaying history; used verbatim to preserve provider prompt-cache prefixes.
+	Arguments optionalnullable.OptionalNullable[string] `json:"arguments,omitzero"`
+	CallID    string                                    `json:"call_id"`
+	ID        string                                    `json:"id"`
 	// Status of a shell call or its output.
 	Status ShellCallStatus         `json:"status"`
 	Type   OutputShellCallItemType `json:"type"`
@@ -95,6 +98,13 @@ func (o *OutputShellCallItem) GetAction() *OutputShellCallItemAction {
 		return nil
 	}
 	return o.Action
+}
+
+func (o *OutputShellCallItem) GetArguments() optionalnullable.OptionalNullable[string] {
+	if o == nil {
+		return nil
+	}
+	return o.Arguments
 }
 
 func (o *OutputShellCallItem) GetCallID() string {

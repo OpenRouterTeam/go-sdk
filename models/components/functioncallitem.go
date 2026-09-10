@@ -8,6 +8,36 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type FunctionCallItemSubagentItem struct {
+	Type                 string         `json:"type"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+}
+
+func (f FunctionCallItemSubagentItem) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FunctionCallItemSubagentItem) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (f *FunctionCallItemSubagentItem) GetType() string {
+	if f == nil {
+		return ""
+	}
+	return f.Type
+}
+
+func (f *FunctionCallItemSubagentItem) GetAdditionalProperties() map[string]any {
+	if f == nil {
+		return nil
+	}
+	return f.AdditionalProperties
+}
+
 type FunctionCallItemType string
 
 const (
@@ -38,9 +68,13 @@ type FunctionCallItem struct {
 	ID        string `json:"id"`
 	Name      string `json:"name"`
 	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
-	Namespace *string              `json:"namespace,omitzero"`
-	Status    *ToolCallStatus      `json:"status,omitzero"`
-	Type      FunctionCallItemType `json:"type"`
+	Namespace *string         `json:"namespace,omitzero"`
+	Status    *ToolCallStatus `json:"status,omitzero"`
+	// EXPERIMENTAL — subject to change without notice. String id that matches the `call_id` of the `openrouter:subagent` server tool call that spawned the subagent. Present on every `function_call` item the subagent projects; absent on ordinary function calls.
+	SubagentID *string `json:"subagent_id,omitzero"`
+	// EXPERIMENTAL — subject to change without notice. The subagent's output items produced on this turn. Treat this as an opaque object; you must replay it in the request so that the subagent can continue execution of the tool with the same context. If a subagent created multiple parallel tool calls, only the first tool call will have this field. The other tool calls will only have `subagent_id`. Present only if the tool call originates from a subagent spawned by the `openrouter:subagent` server tool.
+	SubagentItems []FunctionCallItemSubagentItem `json:"subagent_items,omitzero"`
+	Type          FunctionCallItemType           `json:"type"`
 }
 
 func (f FunctionCallItem) MarshalJSON() ([]byte, error) {
@@ -94,6 +128,20 @@ func (f *FunctionCallItem) GetStatus() *ToolCallStatus {
 		return nil
 	}
 	return f.Status
+}
+
+func (f *FunctionCallItem) GetSubagentID() *string {
+	if f == nil {
+		return nil
+	}
+	return f.SubagentID
+}
+
+func (f *FunctionCallItem) GetSubagentItems() []FunctionCallItemSubagentItem {
+	if f == nil {
+		return nil
+	}
+	return f.SubagentItems
 }
 
 func (f *FunctionCallItem) GetType() FunctionCallItemType {

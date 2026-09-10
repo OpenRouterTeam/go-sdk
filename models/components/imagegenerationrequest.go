@@ -106,6 +106,8 @@ const (
 	ImageGenerationRequestQualityLow    ImageGenerationRequestQuality = "low"
 	ImageGenerationRequestQualityMedium ImageGenerationRequestQuality = "medium"
 	ImageGenerationRequestQualityHigh   ImageGenerationRequestQuality = "high"
+	ImageGenerationRequestQualityXhigh  ImageGenerationRequestQuality = "xhigh"
+	ImageGenerationRequestQualityMax    ImageGenerationRequestQuality = "max"
 )
 
 func (e ImageGenerationRequestQuality) ToPointer() *ImageGenerationRequestQuality {
@@ -116,7 +118,7 @@ func (e ImageGenerationRequestQuality) ToPointer() *ImageGenerationRequestQualit
 func (e *ImageGenerationRequestQuality) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "low", "medium", "high":
+		case "auto", "low", "medium", "high", "xhigh", "max":
 			return true
 		}
 	}
@@ -158,7 +160,7 @@ type ImageGenerationRequest struct {
 	InputReferences []ContentPartImage `json:"input_references,omitzero"`
 	// The image generation model to use
 	Model string `json:"model"`
-	// Number of images to generate (1-10). Providers that only support single-image generation reject n > 1.
+	// Upper bound on the number of images to generate (1-10). Providers may return fewer images, and providers that only support single-image generation reject n > 1.
 	N *int64 `json:"n,omitzero"`
 	// Compression level (0-100) for webp/jpeg output. Ignored for png and by providers without a compression knob.
 	OutputCompression *int64 `json:"output_compression,omitzero"`
@@ -178,6 +180,8 @@ type ImageGenerationRequest struct {
 	Size *string `json:"size,omitzero"`
 	// If true, partial images are streamed as SSE events as they become available. Only supported by providers with native streaming (currently OpenAI). Non-streaming providers ignore this flag and return a buffered response.
 	Stream *bool `json:"stream,omitzero"`
+	// A stable identifier for your end-users. Used to help detect and prevent abuse. Never sent to providers verbatim: for providers whose data policy requires user IDs, it is folded into a hashed, per-account upstream user identifier.
+	User *string `json:"user,omitzero"`
 }
 
 func (i ImageGenerationRequest) MarshalJSON() ([]byte, error) {
@@ -287,4 +291,11 @@ func (i *ImageGenerationRequest) GetStream() *bool {
 		return nil
 	}
 	return i.Stream
+}
+
+func (i *ImageGenerationRequest) GetUser() *string {
+	if i == nil {
+		return nil
+	}
+	return i.User
 }

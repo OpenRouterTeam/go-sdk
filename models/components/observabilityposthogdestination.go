@@ -92,6 +92,8 @@ type ObservabilityPosthogDestination struct {
 	Name *string `json:"name"`
 	// When true, request/response bodies are not forwarded to this destination — only metadata.
 	PrivacyMode bool `json:"privacy_mode"`
+	// Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+	Regions []ObservabilityDataRegion `json:"regions"`
 	// Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
 	SamplingRate float64                             `json:"sampling_rate"`
 	Type         ObservabilityPosthogDestinationType `json:"type"`
@@ -187,6 +189,13 @@ func (o *ObservabilityPosthogDestination) GetPrivacyMode() bool {
 		return false
 	}
 	return o.PrivacyMode
+}
+
+func (o *ObservabilityPosthogDestination) GetRegions() []ObservabilityDataRegion {
+	if o == nil {
+		return []ObservabilityDataRegion{}
+	}
+	return o.Regions
 }
 
 func (o *ObservabilityPosthogDestination) GetSamplingRate() float64 {

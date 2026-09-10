@@ -1,0 +1,26 @@
+---
+title: "SearchSurface"
+---
+
+OpenRouter search benchmarks only: filter by the request surface the lane ran on.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.SearchSurfaceServerTool
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.SearchSurface("custom_value")
+```
+
+
+## Values
+
+| Name                      | Value                     |
+| ------------------------- | ------------------------- |
+| `SearchSurfaceServerTool` | server-tool               |
+| `SearchSurfacePlugin`     | plugin                    |

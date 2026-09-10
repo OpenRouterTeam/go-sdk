@@ -8,138 +8,146 @@ import (
 
 // ProviderOptions - Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 type ProviderOptions struct {
-	Oneai               map[string]any `json:"01ai,omitzero"`
-	Ai21                map[string]any `json:"ai21,omitzero"`
-	AionLabs            map[string]any `json:"aion-labs,omitzero"`
-	Akashml             map[string]any `json:"akashml,omitzero"`
-	Alibaba             map[string]any `json:"alibaba,omitzero"`
-	AmazonBedrock       map[string]any `json:"amazon-bedrock,omitzero"`
-	AmazonNova          map[string]any `json:"amazon-nova,omitzero"`
-	Ambient             map[string]any `json:"ambient,omitzero"`
-	Anthropic           map[string]any `json:"anthropic,omitzero"`
-	Anyscale            map[string]any `json:"anyscale,omitzero"`
-	ArceeAi             map[string]any `json:"arcee-ai,omitzero"`
-	AtlasCloud          map[string]any `json:"atlas-cloud,omitzero"`
-	Atoma               map[string]any `json:"atoma,omitzero"`
-	Avian               map[string]any `json:"avian,omitzero"`
-	Azure               map[string]any `json:"azure,omitzero"`
-	Baidu               map[string]any `json:"baidu,omitzero"`
-	Baseten             map[string]any `json:"baseten,omitzero"`
-	BlackForestLabs     map[string]any `json:"black-forest-labs,omitzero"`
-	Byteplus            map[string]any `json:"byteplus,omitzero"`
-	Centml              map[string]any `json:"centml,omitzero"`
-	Cerebras            map[string]any `json:"cerebras,omitzero"`
-	Chutes              map[string]any `json:"chutes,omitzero"`
-	Cirrascale          map[string]any `json:"cirrascale,omitzero"`
-	Clarifai            map[string]any `json:"clarifai,omitzero"`
-	ClaudeOnAws         map[string]any `json:"claude-on-aws,omitzero"`
-	Cloudflare          map[string]any `json:"cloudflare,omitzero"`
-	Cohere              map[string]any `json:"cohere,omitzero"`
-	Coreweave           map[string]any `json:"coreweave,omitzero"`
-	Crofai              map[string]any `json:"crofai,omitzero"`
-	Crucible            map[string]any `json:"crucible,omitzero"`
-	Crusoe              map[string]any `json:"crusoe,omitzero"`
-	Darkbloom           map[string]any `json:"darkbloom,omitzero"`
-	Decart              map[string]any `json:"decart,omitzero"`
-	Deepgram            map[string]any `json:"deepgram,omitzero"`
-	Deepinfra           map[string]any `json:"deepinfra,omitzero"`
-	Deepseek            map[string]any `json:"deepseek,omitzero"`
-	Dekallm             map[string]any `json:"dekallm,omitzero"`
-	Digitalocean        map[string]any `json:"digitalocean,omitzero"`
-	Enfer               map[string]any `json:"enfer,omitzero"`
-	FakeProvider        map[string]any `json:"fake-provider,omitzero"`
-	Featherless         map[string]any `json:"featherless,omitzero"`
-	Fireworks           map[string]any `json:"fireworks,omitzero"`
-	FishAudio           map[string]any `json:"fish-audio,omitzero"`
-	Friendli            map[string]any `json:"friendli,omitzero"`
-	Gmicloud            map[string]any `json:"gmicloud,omitzero"`
-	GoogleAiStudio      map[string]any `json:"google-ai-studio,omitzero"`
-	GoogleVertex        map[string]any `json:"google-vertex,omitzero"`
-	Gopomelo            map[string]any `json:"gopomelo,omitzero"`
-	Groq                map[string]any `json:"groq,omitzero"`
-	Heygen              map[string]any `json:"heygen,omitzero"`
-	Huggingface         map[string]any `json:"huggingface,omitzero"`
-	Hyperbolic          map[string]any `json:"hyperbolic,omitzero"`
-	HyperbolicQuantized map[string]any `json:"hyperbolic-quantized,omitzero"`
-	Inception           map[string]any `json:"inception,omitzero"`
-	Inceptron           map[string]any `json:"inceptron,omitzero"`
-	InferactVllm        map[string]any `json:"inferact-vllm,omitzero"`
-	InferenceNet        map[string]any `json:"inference-net,omitzero"`
-	Infermatic          map[string]any `json:"infermatic,omitzero"`
-	Inflection          map[string]any `json:"inflection,omitzero"`
-	Inocloud            map[string]any `json:"inocloud,omitzero"`
-	IoNet               map[string]any `json:"io-net,omitzero"`
-	Ionstream           map[string]any `json:"ionstream,omitzero"`
-	Klusterai           map[string]any `json:"klusterai,omitzero"`
-	Krea                map[string]any `json:"krea,omitzero"`
-	Lambda              map[string]any `json:"lambda,omitzero"`
-	Lepton              map[string]any `json:"lepton,omitzero"`
-	Liquid              map[string]any `json:"liquid,omitzero"`
-	Lynn                map[string]any `json:"lynn,omitzero"`
-	LynnPrivate         map[string]any `json:"lynn-private,omitzero"`
-	Mancer              map[string]any `json:"mancer,omitzero"`
-	MancerOld           map[string]any `json:"mancer-old,omitzero"`
-	Mara                map[string]any `json:"mara,omitzero"`
-	Meta                map[string]any `json:"meta,omitzero"`
-	Minimax             map[string]any `json:"minimax,omitzero"`
-	Mistral             map[string]any `json:"mistral,omitzero"`
-	Modal               map[string]any `json:"modal,omitzero"`
-	Modelrun            map[string]any `json:"modelrun,omitzero"`
-	Modular             map[string]any `json:"modular,omitzero"`
-	Moonshotai          map[string]any `json:"moonshotai,omitzero"`
-	Morph               map[string]any `json:"morph,omitzero"`
-	Ncompass            map[string]any `json:"ncompass,omitzero"`
-	Nebius              map[string]any `json:"nebius,omitzero"`
-	NexAgi              map[string]any `json:"nex-agi,omitzero"`
-	Nextbit             map[string]any `json:"nextbit,omitzero"`
-	Nineteen            map[string]any `json:"nineteen,omitzero"`
-	Novita              map[string]any `json:"novita,omitzero"`
-	Nvidia              map[string]any `json:"nvidia,omitzero"`
-	Octoai              map[string]any `json:"octoai,omitzero"`
-	OpenInference       map[string]any `json:"open-inference,omitzero"`
-	Openai              map[string]any `json:"openai,omitzero"`
-	Parasail            map[string]any `json:"parasail,omitzero"`
-	Perceptron          map[string]any `json:"perceptron,omitzero"`
-	Perplexity          map[string]any `json:"perplexity,omitzero"`
-	Phala               map[string]any `json:"phala,omitzero"`
-	Poolside            map[string]any `json:"poolside,omitzero"`
-	Quiver              map[string]any `json:"quiver,omitzero"`
-	Recraft             map[string]any `json:"recraft,omitzero"`
-	Recursal            map[string]any `json:"recursal,omitzero"`
-	Reflection          map[string]any `json:"reflection,omitzero"`
-	Reka                map[string]any `json:"reka,omitzero"`
-	Relace              map[string]any `json:"relace,omitzero"`
-	Replicate           map[string]any `json:"replicate,omitzero"`
-	Runway              map[string]any `json:"runway,omitzero"`
-	SailResearch        map[string]any `json:"sail-research,omitzero"`
-	Sakana              map[string]any `json:"sakana,omitzero"`
-	SakanaAi            map[string]any `json:"sakana-ai,omitzero"`
-	Sambanova           map[string]any `json:"sambanova,omitzero"`
-	SambanovaCloaked    map[string]any `json:"sambanova-cloaked,omitzero"`
-	Seed                map[string]any `json:"seed,omitzero"`
-	SfCompute           map[string]any `json:"sf-compute,omitzero"`
-	Siliconflow         map[string]any `json:"siliconflow,omitzero"`
-	Sourceful           map[string]any `json:"sourceful,omitzero"`
-	Stealth             map[string]any `json:"stealth,omitzero"`
-	Stepfun             map[string]any `json:"stepfun,omitzero"`
-	Streamlake          map[string]any `json:"streamlake,omitzero"`
-	Switchpoint         map[string]any `json:"switchpoint,omitzero"`
-	Targon              map[string]any `json:"targon,omitzero"`
-	Tencent             map[string]any `json:"tencent,omitzero"`
-	Tenstorrent         map[string]any `json:"tenstorrent,omitzero"`
-	Thinkingmachines    map[string]any `json:"thinkingmachines,omitzero"`
-	Together            map[string]any `json:"together,omitzero"`
-	TogetherLite        map[string]any `json:"together-lite,omitzero"`
-	Ubicloud            map[string]any `json:"ubicloud,omitzero"`
-	Upstage             map[string]any `json:"upstage,omitzero"`
-	Venice              map[string]any `json:"venice,omitzero"`
-	Voyageai            map[string]any `json:"voyageai,omitzero"`
-	Wafer               map[string]any `json:"wafer,omitzero"`
-	Wandb               map[string]any `json:"wandb,omitzero"`
-	WandbLegacy         map[string]any `json:"wandb-legacy,omitzero"`
-	Xai                 map[string]any `json:"xai,omitzero"`
-	Xiaomi              map[string]any `json:"xiaomi,omitzero"`
-	ZAi                 map[string]any `json:"z-ai,omitzero"`
+	Oneai                    map[string]any `json:"01ai,omitzero"`
+	Ai21                     map[string]any `json:"ai21,omitzero"`
+	AionLabs                 map[string]any `json:"aion-labs,omitzero"`
+	Akashml                  map[string]any `json:"akashml,omitzero"`
+	Alibaba                  map[string]any `json:"alibaba,omitzero"`
+	AmazonBedrock            map[string]any `json:"amazon-bedrock,omitzero"`
+	AmazonBedrockClaudeOnAws map[string]any `json:"amazon-bedrock/claude-on-aws,omitzero"`
+	AmazonNova               map[string]any `json:"amazon-nova,omitzero"`
+	Ambient                  map[string]any `json:"ambient,omitzero"`
+	Anthropic                map[string]any `json:"anthropic,omitzero"`
+	Anthropic2               map[string]any `json:"anthropic/2,omitzero"`
+	Anyscale                 map[string]any `json:"anyscale,omitzero"`
+	ArceeAi                  map[string]any `json:"arcee-ai,omitzero"`
+	AtlasCloud               map[string]any `json:"atlas-cloud,omitzero"`
+	Atoma                    map[string]any `json:"atoma,omitzero"`
+	Avian                    map[string]any `json:"avian,omitzero"`
+	Azure                    map[string]any `json:"azure,omitzero"`
+	Baidu                    map[string]any `json:"baidu,omitzero"`
+	Baseten                  map[string]any `json:"baseten,omitzero"`
+	BlackForestLabs          map[string]any `json:"black-forest-labs,omitzero"`
+	Byteplus                 map[string]any `json:"byteplus,omitzero"`
+	Centml                   map[string]any `json:"centml,omitzero"`
+	Cerebras                 map[string]any `json:"cerebras,omitzero"`
+	Chutes                   map[string]any `json:"chutes,omitzero"`
+	Cirrascale               map[string]any `json:"cirrascale,omitzero"`
+	Clarifai                 map[string]any `json:"clarifai,omitzero"`
+	ClaudeOnAws              map[string]any `json:"claude-on-aws,omitzero"`
+	Cloudflare               map[string]any `json:"cloudflare,omitzero"`
+	Cohere                   map[string]any `json:"cohere,omitzero"`
+	Coreweave                map[string]any `json:"coreweave,omitzero"`
+	Cosine                   map[string]any `json:"cosine,omitzero"`
+	Crofai                   map[string]any `json:"crofai,omitzero"`
+	Crucible                 map[string]any `json:"crucible,omitzero"`
+	Crusoe                   map[string]any `json:"crusoe,omitzero"`
+	Darkbloom                map[string]any `json:"darkbloom,omitzero"`
+	Databricks               map[string]any `json:"databricks,omitzero"`
+	Decart                   map[string]any `json:"decart,omitzero"`
+	Deepgram                 map[string]any `json:"deepgram,omitzero"`
+	Deepinfra                map[string]any `json:"deepinfra,omitzero"`
+	Deepseek                 map[string]any `json:"deepseek,omitzero"`
+	Dekallm                  map[string]any `json:"dekallm,omitzero"`
+	Digitalocean             map[string]any `json:"digitalocean,omitzero"`
+	Enfer                    map[string]any `json:"enfer,omitzero"`
+	FakeProvider             map[string]any `json:"fake-provider,omitzero"`
+	Featherless              map[string]any `json:"featherless,omitzero"`
+	Fireworks                map[string]any `json:"fireworks,omitzero"`
+	FishAudio                map[string]any `json:"fish-audio,omitzero"`
+	Friendli                 map[string]any `json:"friendli,omitzero"`
+	Gmicloud                 map[string]any `json:"gmicloud,omitzero"`
+	GoogleAiStudio           map[string]any `json:"google-ai-studio,omitzero"`
+	GoogleVertex             map[string]any `json:"google-vertex,omitzero"`
+	Gopomelo                 map[string]any `json:"gopomelo,omitzero"`
+	Groq                     map[string]any `json:"groq,omitzero"`
+	Heygen                   map[string]any `json:"heygen,omitzero"`
+	Huggingface              map[string]any `json:"huggingface,omitzero"`
+	Hyperbolic               map[string]any `json:"hyperbolic,omitzero"`
+	HyperbolicQuantized      map[string]any `json:"hyperbolic-quantized,omitzero"`
+	Inception                map[string]any `json:"inception,omitzero"`
+	Inceptron                map[string]any `json:"inceptron,omitzero"`
+	InferactVllm             map[string]any `json:"inferact-vllm,omitzero"`
+	InferenceNet             map[string]any `json:"inference-net,omitzero"`
+	Infermatic               map[string]any `json:"infermatic,omitzero"`
+	Inflection               map[string]any `json:"inflection,omitzero"`
+	Inocloud                 map[string]any `json:"inocloud,omitzero"`
+	IoNet                    map[string]any `json:"io-net,omitzero"`
+	Ionstream                map[string]any `json:"ionstream,omitzero"`
+	Klusterai                map[string]any `json:"klusterai,omitzero"`
+	Krea                     map[string]any `json:"krea,omitzero"`
+	Lambda                   map[string]any `json:"lambda,omitzero"`
+	Lepton                   map[string]any `json:"lepton,omitzero"`
+	Liquid                   map[string]any `json:"liquid,omitzero"`
+	Lynn                     map[string]any `json:"lynn,omitzero"`
+	LynnPrivate              map[string]any `json:"lynn-private,omitzero"`
+	Makora                   map[string]any `json:"makora,omitzero"`
+	Mancer                   map[string]any `json:"mancer,omitzero"`
+	MancerOld                map[string]any `json:"mancer-old,omitzero"`
+	Mara                     map[string]any `json:"mara,omitzero"`
+	Meta                     map[string]any `json:"meta,omitzero"`
+	Minimax                  map[string]any `json:"minimax,omitzero"`
+	Mistral                  map[string]any `json:"mistral,omitzero"`
+	Modal                    map[string]any `json:"modal,omitzero"`
+	Modelrun                 map[string]any `json:"modelrun,omitzero"`
+	Modular                  map[string]any `json:"modular,omitzero"`
+	Moonshotai               map[string]any `json:"moonshotai,omitzero"`
+	Morph                    map[string]any `json:"morph,omitzero"`
+	Ncompass                 map[string]any `json:"ncompass,omitzero"`
+	NearAi                   map[string]any `json:"near-ai,omitzero"`
+	Nebius                   map[string]any `json:"nebius,omitzero"`
+	NexAgi                   map[string]any `json:"nex-agi,omitzero"`
+	Nextbit                  map[string]any `json:"nextbit,omitzero"`
+	Nineteen                 map[string]any `json:"nineteen,omitzero"`
+	Novita                   map[string]any `json:"novita,omitzero"`
+	Nvidia                   map[string]any `json:"nvidia,omitzero"`
+	Octoai                   map[string]any `json:"octoai,omitzero"`
+	Ollama                   map[string]any `json:"ollama,omitzero"`
+	OpenInference            map[string]any `json:"open-inference,omitzero"`
+	Openai                   map[string]any `json:"openai,omitzero"`
+	Parasail                 map[string]any `json:"parasail,omitzero"`
+	Perceptron               map[string]any `json:"perceptron,omitzero"`
+	Perplexity               map[string]any `json:"perplexity,omitzero"`
+	Phala                    map[string]any `json:"phala,omitzero"`
+	Poolside                 map[string]any `json:"poolside,omitzero"`
+	Primeintellect           map[string]any `json:"primeintellect,omitzero"`
+	Quiver                   map[string]any `json:"quiver,omitzero"`
+	Recraft                  map[string]any `json:"recraft,omitzero"`
+	Recursal                 map[string]any `json:"recursal,omitzero"`
+	Reflection               map[string]any `json:"reflection,omitzero"`
+	Reka                     map[string]any `json:"reka,omitzero"`
+	Relace                   map[string]any `json:"relace,omitzero"`
+	Replicate                map[string]any `json:"replicate,omitzero"`
+	Runway                   map[string]any `json:"runway,omitzero"`
+	SailResearch             map[string]any `json:"sail-research,omitzero"`
+	Sakana                   map[string]any `json:"sakana,omitzero"`
+	SakanaAi                 map[string]any `json:"sakana-ai,omitzero"`
+	Sambanova                map[string]any `json:"sambanova,omitzero"`
+	SambanovaCloaked         map[string]any `json:"sambanova-cloaked,omitzero"`
+	Seed                     map[string]any `json:"seed,omitzero"`
+	SfCompute                map[string]any `json:"sf-compute,omitzero"`
+	Siliconflow              map[string]any `json:"siliconflow,omitzero"`
+	Sourceful                map[string]any `json:"sourceful,omitzero"`
+	Stealth                  map[string]any `json:"stealth,omitzero"`
+	Stepfun                  map[string]any `json:"stepfun,omitzero"`
+	Streamlake               map[string]any `json:"streamlake,omitzero"`
+	Switchpoint              map[string]any `json:"switchpoint,omitzero"`
+	Targon                   map[string]any `json:"targon,omitzero"`
+	Tencent                  map[string]any `json:"tencent,omitzero"`
+	Tenstorrent              map[string]any `json:"tenstorrent,omitzero"`
+	Thinkingmachines         map[string]any `json:"thinkingmachines,omitzero"`
+	Together                 map[string]any `json:"together,omitzero"`
+	TogetherLite             map[string]any `json:"together-lite,omitzero"`
+	Ubicloud                 map[string]any `json:"ubicloud,omitzero"`
+	Upstage                  map[string]any `json:"upstage,omitzero"`
+	Venice                   map[string]any `json:"venice,omitzero"`
+	Voyageai                 map[string]any `json:"voyageai,omitzero"`
+	Wafer                    map[string]any `json:"wafer,omitzero"`
+	Wandb                    map[string]any `json:"wandb,omitzero"`
+	WandbLegacy              map[string]any `json:"wandb-legacy,omitzero"`
+	Xai                      map[string]any `json:"xai,omitzero"`
+	Xiaomi                   map[string]any `json:"xiaomi,omitzero"`
+	ZAi                      map[string]any `json:"z-ai,omitzero"`
 }
 
 func (p ProviderOptions) MarshalJSON() ([]byte, error) {
@@ -195,6 +203,13 @@ func (p *ProviderOptions) GetAmazonBedrock() map[string]any {
 	return p.AmazonBedrock
 }
 
+func (p *ProviderOptions) GetAmazonBedrockClaudeOnAws() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.AmazonBedrockClaudeOnAws
+}
+
 func (p *ProviderOptions) GetAmazonNova() map[string]any {
 	if p == nil {
 		return nil
@@ -214,6 +229,13 @@ func (p *ProviderOptions) GetAnthropic() map[string]any {
 		return nil
 	}
 	return p.Anthropic
+}
+
+func (p *ProviderOptions) GetAnthropic2() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Anthropic2
 }
 
 func (p *ProviderOptions) GetAnyscale() map[string]any {
@@ -349,6 +371,13 @@ func (p *ProviderOptions) GetCoreweave() map[string]any {
 	return p.Coreweave
 }
 
+func (p *ProviderOptions) GetCosine() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Cosine
+}
+
 func (p *ProviderOptions) GetCrofai() map[string]any {
 	if p == nil {
 		return nil
@@ -375,6 +404,13 @@ func (p *ProviderOptions) GetDarkbloom() map[string]any {
 		return nil
 	}
 	return p.Darkbloom
+}
+
+func (p *ProviderOptions) GetDatabricks() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Databricks
 }
 
 func (p *ProviderOptions) GetDecart() map[string]any {
@@ -636,6 +672,13 @@ func (p *ProviderOptions) GetLynnPrivate() map[string]any {
 	return p.LynnPrivate
 }
 
+func (p *ProviderOptions) GetMakora() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Makora
+}
+
 func (p *ProviderOptions) GetMancer() map[string]any {
 	if p == nil {
 		return nil
@@ -720,6 +763,13 @@ func (p *ProviderOptions) GetNcompass() map[string]any {
 	return p.Ncompass
 }
 
+func (p *ProviderOptions) GetNearAi() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.NearAi
+}
+
 func (p *ProviderOptions) GetNebius() map[string]any {
 	if p == nil {
 		return nil
@@ -769,6 +819,13 @@ func (p *ProviderOptions) GetOctoai() map[string]any {
 	return p.Octoai
 }
 
+func (p *ProviderOptions) GetOllama() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Ollama
+}
+
 func (p *ProviderOptions) GetOpenInference() map[string]any {
 	if p == nil {
 		return nil
@@ -816,6 +873,13 @@ func (p *ProviderOptions) GetPoolside() map[string]any {
 		return nil
 	}
 	return p.Poolside
+}
+
+func (p *ProviderOptions) GetPrimeintellect() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Primeintellect
 }
 
 func (p *ProviderOptions) GetQuiver() map[string]any {

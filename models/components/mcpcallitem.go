@@ -34,13 +34,14 @@ func (e *McpCallItemType) UnmarshalJSON(data []byte) error {
 
 // McpCallItem - An MCP tool call with its output or error
 type McpCallItem struct {
-	Arguments   string                                    `json:"arguments"`
-	Error       optionalnullable.OptionalNullable[string] `json:"error,omitzero"`
-	ID          string                                    `json:"id"`
-	Name        string                                    `json:"name"`
-	Output      optionalnullable.OptionalNullable[string] `json:"output,omitzero"`
-	ServerLabel string                                    `json:"server_label"`
-	Type        McpCallItemType                           `json:"type"`
+	Arguments string `json:"arguments"`
+	// Error from an MCP tool call, either a plain message or a structured error
+	Error       optionalnullable.OptionalNullable[McpToolCallError] `json:"error,omitzero"`
+	ID          string                                              `json:"id"`
+	Name        string                                              `json:"name"`
+	Output      optionalnullable.OptionalNullable[string]           `json:"output,omitzero"`
+	ServerLabel string                                              `json:"server_label"`
+	Type        McpCallItemType                                     `json:"type"`
 }
 
 func (m McpCallItem) MarshalJSON() ([]byte, error) {
@@ -61,7 +62,7 @@ func (m *McpCallItem) GetArguments() string {
 	return m.Arguments
 }
 
-func (m *McpCallItem) GetError() optionalnullable.OptionalNullable[string] {
+func (m *McpCallItem) GetError() optionalnullable.OptionalNullable[McpToolCallError] {
 	if m == nil {
 		return nil
 	}

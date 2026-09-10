@@ -63,6 +63,8 @@ type OpenResponsesResultToolFunction struct {
 	Parameters  map[string]any                            `json:"parameters"`
 	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
 	Type        OpenResponsesResultType                   `json:"type"`
+	// Withhold this tool from the model until `openrouter:tool_search` finds it. Requires the tool search server tool; at least one tool must remain non-deferred.
+	DeferLoading *bool `json:"defer_loading,omitzero"`
 }
 
 func (o OpenResponsesResultToolFunction) MarshalJSON() ([]byte, error) {
@@ -109,6 +111,13 @@ func (o *OpenResponsesResultToolFunction) GetType() OpenResponsesResultType {
 		return OpenResponsesResultType("")
 	}
 	return o.Type
+}
+
+func (o *OpenResponsesResultToolFunction) GetDeferLoading() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DeferLoading
 }
 
 type OpenResponsesResultToolUnionType string
@@ -630,6 +639,8 @@ func (o *OutputTokensDetails) GetReasoningTokens() int64 {
 }
 
 type UsageCostDetails struct {
+	// Metered server-tool execution cost (for example, shell sandbox time) billed for this request, in USD. Matches the billed checkpoint and settlement amounts exactly. 0 when a metered server tool ran but settled at zero dollars; absent when no metered server tool ran.
+	ServerToolCost              optionalnullable.OptionalNullable[float64] `json:"server_tool_cost,omitzero"`
 	UpstreamInferenceCost       optionalnullable.OptionalNullable[float64] `json:"upstream_inference_cost,omitzero"`
 	UpstreamInferenceInputCost  float64                                    `json:"upstream_inference_input_cost"`
 	UpstreamInferenceOutputCost float64                                    `json:"upstream_inference_output_cost"`
@@ -644,6 +655,13 @@ func (u *UsageCostDetails) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (u *UsageCostDetails) GetServerToolCost() optionalnullable.OptionalNullable[float64] {
+	if u == nil {
+		return nil
+	}
+	return u.ServerToolCost
 }
 
 func (u *UsageCostDetails) GetUpstreamInferenceCost() optionalnullable.OptionalNullable[float64] {

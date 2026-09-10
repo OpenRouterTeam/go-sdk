@@ -1,0 +1,16 @@
+---
+title: "ScimSyncJob"
+---
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `CreatedAt`                                                                  | `string`                                                                     | :heavy_check_mark:                                                           | Time when the sync job was created.                                          |
+| `DeletedGroups`                                                              | `*int64`                                                                     | :heavy_check_mark:                                                           | Number of groups deleted, when the job completed successfully.               |
+| `ErrorMessage`                                                               | `*string`                                                                    | :heavy_check_mark:                                                           | Stable error message when the job failed.                                    |
+| `FinishedAt`                                                                 | `*string`                                                                    | :heavy_check_mark:                                                           | Time when synchronization finished.                                          |
+| `ID`                                                                         | `string`                                                                     | :heavy_check_mark:                                                           | Unique identifier for the sync job.                                          |
+| `StartedAt`                                                                  | `*string`                                                                    | :heavy_check_mark:                                                           | Time when synchronization started.                                           |
+| `Status`                                                                     | [components.ScimSyncJobStatus](../../models/components/scimsyncjobstatus.mdx) | :heavy_check_mark:                                                           | Current status of the sync job: queued, running, succeeded, or failed.       |
+| `SyncedGroups`                                                               | `*int64`                                                                     | :heavy_check_mark:                                                           | Number of groups synchronized, when the job completed successfully.          |

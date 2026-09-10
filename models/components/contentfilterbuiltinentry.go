@@ -2,7 +2,7 @@
 
 package components
 
-// ContentFilterBuiltinEntry - A builtin content filter entry. Builtin filters include PII detectors and the regex-based prompt injection detector.
+// ContentFilterBuiltinEntry - A builtin content filter entry. Builtin filters include PII detectors, API-key and secret detectors, and the regex-based prompt injection detector.
 type ContentFilterBuiltinEntry struct {
 	// Action taken when the builtin filter triggers
 	Action ContentFilterBuiltinAction `json:"action"`

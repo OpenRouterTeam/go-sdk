@@ -123,28 +123,27 @@ func (e *Zdr) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Region - Filter to models with endpoints in the given data region. Currently only "eu" is supported.
+// Region - Filter to models with endpoints in the given data region ("eu" or "us").
 type Region string
 
 const (
 	RegionEu Region = "eu"
+	RegionUs Region = "us"
 )
 
 func (e Region) ToPointer() *Region {
 	return &e
 }
-func (e *Region) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Region) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "eu", "us":
+			return true
+		}
 	}
-	switch v {
-	case "eu":
-		*e = Region(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Region: %v", v)
-	}
+	return false
 }
 
 type GetModelsRequest struct {
@@ -156,7 +155,7 @@ type GetModelsRequest struct {
 	Category *GetModelsCategory `queryParam:"style=form,explode=true,name=category"`
 	// Filter models by supported parameter (comma-separated)
 	SupportedParameters *string `queryParam:"style=form,explode=true,name=supported_parameters"`
-	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, audio, embeddings) or "all" to include all models. Defaults to "text".
+	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, embeddings, audio, video, rerank, speech, transcription) or "all" to include all models. Defaults to "text".
 	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
 	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
 	Sort *GetModelsSort `queryParam:"style=form,explode=true,name=sort"`
@@ -180,7 +179,7 @@ type GetModelsRequest struct {
 	Distillable *Distillable `queryParam:"style=form,explode=true,name=distillable"`
 	// When set to "true", return only models with zero data retention endpoints.
 	Zdr *Zdr `queryParam:"style=form,explode=true,name=zdr"`
-	// Filter to models with endpoints in the given data region. Currently only "eu" is supported.
+	// Filter to models with endpoints in the given data region ("eu" or "us").
 	Region *Region `queryParam:"style=form,explode=true,name=region"`
 	// Minimum completion (output) price in $/M tokens.
 	MinOutputPrice optionalnullable.OptionalNullable[float64] `queryParam:"style=form,explode=true,name=min_output_price"`

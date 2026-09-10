@@ -1,0 +1,28 @@
+---
+title: "ScimSyncJobStatus"
+---
+
+Current status of the sync job: queued, running, succeeded, or failed.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ScimSyncJobStatusQueued
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ScimSyncJobStatus("custom_value")
+```
+
+
+## Values
+
+| Name                         | Value                        |
+| ---------------------------- | ---------------------------- |
+| `ScimSyncJobStatusQueued`    | queued                       |
+| `ScimSyncJobStatusRunning`   | running                      |
+| `ScimSyncJobStatusSucceeded` | succeeded                    |
+| `ScimSyncJobStatusFailed`    | failed                       |

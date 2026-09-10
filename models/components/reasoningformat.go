@@ -9,6 +9,7 @@ const (
 	ReasoningFormatOpenaiResponsesV1        ReasoningFormat = "openai-responses-v1"
 	ReasoningFormatAzureOpenaiResponsesV1   ReasoningFormat = "azure-openai-responses-v1"
 	ReasoningFormatBedrockOpenaiResponsesV1 ReasoningFormat = "bedrock-openai-responses-v1"
+	ReasoningFormatBedrockXaiResponsesV1    ReasoningFormat = "bedrock-xai-responses-v1"
 	ReasoningFormatXaiResponsesV1           ReasoningFormat = "xai-responses-v1"
 	ReasoningFormatMetaResponsesV1          ReasoningFormat = "meta-responses-v1"
 	ReasoningFormatAnthropicClaudeV1        ReasoningFormat = "anthropic-claude-v1"
@@ -23,7 +24,7 @@ func (e ReasoningFormat) ToPointer() *ReasoningFormat {
 func (e *ReasoningFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "unknown", "openai-responses-v1", "azure-openai-responses-v1", "bedrock-openai-responses-v1", "xai-responses-v1", "meta-responses-v1", "anthropic-claude-v1", "google-gemini-v1":
+		case "unknown", "openai-responses-v1", "azure-openai-responses-v1", "bedrock-openai-responses-v1", "bedrock-xai-responses-v1", "xai-responses-v1", "meta-responses-v1", "anthropic-claude-v1", "google-gemini-v1":
 			return true
 		}
 	}

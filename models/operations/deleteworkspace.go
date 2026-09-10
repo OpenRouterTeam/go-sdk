@@ -5,6 +5,8 @@ package operations
 type DeleteWorkspaceRequest struct {
 	// The workspace ID (UUID) or slug
 	ID string `pathParam:"style=simple,explode=false,name=id"`
+	// Required to delete the default workspace. Deleting it permanently disables the account’s unscoped inference API keys (management/provisioning keys are retained) and its budgets, guardrails, classifiers, and broadcast destinations. Ignored for non-default workspaces.
+	ConfirmDefaultWorkspaceDeletion *bool `queryParam:"style=form,explode=true,name=confirm_default_workspace_deletion"`
 }
 
 func (d *DeleteWorkspaceRequest) GetID() string {
@@ -12,4 +14,11 @@ func (d *DeleteWorkspaceRequest) GetID() string {
 		return ""
 	}
 	return d.ID
+}
+
+func (d *DeleteWorkspaceRequest) GetConfirmDefaultWorkspaceDeletion() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.ConfirmDefaultWorkspaceDeletion
 }

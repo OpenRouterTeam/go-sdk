@@ -6,8 +6,33 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+// LegacyChatContentVideoInputProcessing - Video processing mode. `agentic` enables agentic video processing and `static` forces fixed-rate frame sampling on providers that support it (currently Google Gemini).
+type LegacyChatContentVideoInputProcessing string
+
+const (
+	LegacyChatContentVideoInputProcessingAgentic LegacyChatContentVideoInputProcessing = "agentic"
+	LegacyChatContentVideoInputProcessingStatic  LegacyChatContentVideoInputProcessing = "static"
+)
+
+func (e LegacyChatContentVideoInputProcessing) ToPointer() *LegacyChatContentVideoInputProcessing {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *LegacyChatContentVideoInputProcessing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "agentic", "static":
+			return true
+		}
+	}
+	return false
+}
+
 // LegacyChatContentVideoInput - Video input object
 type LegacyChatContentVideoInput struct {
+	// Video processing mode. `agentic` enables agentic video processing and `static` forces fixed-rate frame sampling on providers that support it (currently Google Gemini).
+	Processing *LegacyChatContentVideoInputProcessing `json:"processing,omitzero"`
 	// URL of the video (data: URLs supported)
 	URL string `json:"url"`
 }
@@ -21,6 +46,13 @@ func (l *LegacyChatContentVideoInput) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (l *LegacyChatContentVideoInput) GetProcessing() *LegacyChatContentVideoInputProcessing {
+	if l == nil {
+		return nil
+	}
+	return l.Processing
 }
 
 func (l *LegacyChatContentVideoInput) GetURL() string {

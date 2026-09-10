@@ -4,7 +4,7 @@ package components
 
 // GenerationContentResponse - Stored prompt and completion content for a generation
 type GenerationContentResponse struct {
-	// Stored prompt and completion content
+	// Stored prompt and completion content, plus the failure error when one was stored
 	Data GenerationContentData `json:"data"`
 }
 

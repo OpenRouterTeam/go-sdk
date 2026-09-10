@@ -2,6 +2,37 @@
 
 package components
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
+type UtcDay string
+
+const (
+	UtcDayMonday    UtcDay = "monday"
+	UtcDayTuesday   UtcDay = "tuesday"
+	UtcDayWednesday UtcDay = "wednesday"
+	UtcDayThursday  UtcDay = "thursday"
+	UtcDayFriday    UtcDay = "friday"
+	UtcDaySaturday  UtcDay = "saturday"
+	UtcDaySunday    UtcDay = "sunday"
+)
+
+func (e UtcDay) ToPointer() *UtcDay {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *UtcDay) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday":
+			return true
+		}
+	}
+	return false
+}
+
 // PricingOverride - A conditional override of the base pricing. An entry applies only when all of its condition fields (e.g. min_prompt_tokens, or the utc_start/utc_end time window) match the request; among applicable entries, later entries win per price key; price keys absent from an entry inherit the base price.
 type PricingOverride struct {
 	// Overridden price in USD per audio input token
@@ -20,10 +51,23 @@ type PricingOverride struct {
 	MinPromptTokens *float64 `json:"min_prompt_tokens,omitzero"`
 	// Overridden price in USD per token for prompt (input) processing
 	Prompt *string `json:"prompt,omitzero"`
+	// Condition: UTC weekdays the entry applies on, evaluated at the request instant. Scopes the utc_start/utc_end window (or, without a window, the whole UTC day) to the listed days. Absent means every day.
+	UtcDays []UtcDay `json:"utc_days,omitzero"`
 	// Condition: exclusive end of a daily UTC time window as an HHMM clock number (e.g. 400 = 04:00)
 	UtcEnd *float64 `json:"utc_end,omitzero"`
 	// Condition: inclusive start of a daily UTC time window as an HHMM clock number (e.g. 100 = 01:00, 1030 = 10:30). The entry applies while the current UTC time is inside the half-open window [utc_start, utc_end), which may wrap past midnight (utc_start > utc_end).
 	UtcStart *float64 `json:"utc_start,omitzero"`
+}
+
+func (p PricingOverride) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PricingOverride) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PricingOverride) GetAudio() *string {
@@ -80,6 +124,13 @@ func (p *PricingOverride) GetPrompt() *string {
 		return nil
 	}
 	return p.Prompt
+}
+
+func (p *PricingOverride) GetUtcDays() []UtcDay {
+	if p == nil {
+		return nil
+	}
+	return p.UtcDays
 }
 
 func (p *PricingOverride) GetUtcEnd() *float64 {

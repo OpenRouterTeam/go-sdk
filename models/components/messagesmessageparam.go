@@ -1186,7 +1186,7 @@ func CreateMessagesMessageParamContentUnion4ToolRemoval(toolRemoval MessagesTool
 func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouterShellToolResult MessagesShellToolResultBlock) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult
 
-	typStr := MessagesShellToolResultBlockType(typ)
+	typStr := TypeOpenrouterShellToolResult(typ)
 	openrouterShellToolResult.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1198,7 +1198,7 @@ func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouter
 func CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(openrouterBashToolResult MessagesBashToolResultBlock) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
 
-	typStr := MessagesBashToolResultBlockType(typ)
+	typStr := TypeOpenrouterBashToolResult(typ)
 	openrouterBashToolResult.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1550,8 +1550,28 @@ func (e *MessagesMessageParamRole) IsExact() bool {
 
 // MessagesMessageParam - Anthropic message with OpenRouter extensions
 type MessagesMessageParam struct {
-	Content MessagesMessageParamContentUnion5 `json:"content"`
-	Role    MessagesMessageParamRole          `json:"role"`
+	ClearAt      optionalnullable.OptionalNullable[AnthropicSystemClearAt]       `json:"clear_at,omitzero"`
+	Content      MessagesMessageParamContentUnion5                               `json:"content"`
+	OutputConfig optionalnullable.OptionalNullable[AnthropicMessageOutputConfig] `json:"output_config,omitzero"`
+	Role         MessagesMessageParamRole                                        `json:"role"`
+}
+
+func (m MessagesMessageParam) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *MessagesMessageParam) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MessagesMessageParam) GetClearAt() optionalnullable.OptionalNullable[AnthropicSystemClearAt] {
+	if m == nil {
+		return nil
+	}
+	return m.ClearAt
 }
 
 func (m *MessagesMessageParam) GetContent() MessagesMessageParamContentUnion5 {
@@ -1559,6 +1579,13 @@ func (m *MessagesMessageParam) GetContent() MessagesMessageParamContentUnion5 {
 		return MessagesMessageParamContentUnion5{}
 	}
 	return m.Content
+}
+
+func (m *MessagesMessageParam) GetOutputConfig() optionalnullable.OptionalNullable[AnthropicMessageOutputConfig] {
+	if m == nil {
+		return nil
+	}
+	return m.OutputConfig
 }
 
 func (m *MessagesMessageParam) GetRole() MessagesMessageParamRole {

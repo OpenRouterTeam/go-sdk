@@ -8,6 +8,8 @@ import (
 )
 
 type Guardrail struct {
+	// Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value.
+	AllowedDataRegions optionalnullable.OptionalNullable[[]GuardrailDataRegion] `json:"allowed_data_regions,omitzero"`
 	// Array of model canonical_slugs (immutable identifiers)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// List of allowed provider IDs
@@ -56,7 +58,7 @@ type Guardrail struct {
 	ResetInterval optionalnullable.OptionalNullable[GuardrailInterval] `json:"reset_interval,omitzero"`
 	// ISO 8601 timestamp of when the guardrail was last updated
 	UpdatedAt optionalnullable.OptionalNullable[string] `json:"updated_at,omitzero"`
-	// The workspace this guardrail is scoped to, or `null` for an unscoped legacy guardrail predating workspaces. A `null` value does not mean the default workspace, and does not apply the guardrail across every workspace.
+	// The workspace this guardrail belongs to, or `null` for an unscoped legacy guardrail predating workspaces. Workspace membership organizes the guardrail; it does not apply the guardrail to the workspace's traffic. A `null` value does not mean the default workspace, and does not apply the guardrail across every workspace.
 	WorkspaceID *string `json:"workspace_id"`
 }
 
@@ -69,6 +71,13 @@ func (g *Guardrail) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (g *Guardrail) GetAllowedDataRegions() optionalnullable.OptionalNullable[[]GuardrailDataRegion] {
+	if g == nil {
+		return nil
+	}
+	return g.AllowedDataRegions
 }
 
 func (g *Guardrail) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {

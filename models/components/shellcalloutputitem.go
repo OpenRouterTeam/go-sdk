@@ -9,83 +9,126 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ShellCallOutputItemOutput struct {
-	Content              optionalnullable.OptionalNullable[string] `json:"content,omitzero"`
-	ExitCode             optionalnullable.OptionalNullable[int64]  `json:"exit_code,omitzero"`
-	Type                 string                                    `json:"type"`
-	AdditionalProperties map[string]any                            `additionalProperties:"true" json:"-"`
+type ShellCallOutputItemTypeContainerFileCitation string
+
+const (
+	ShellCallOutputItemTypeContainerFileCitationContainerFileCitation ShellCallOutputItemTypeContainerFileCitation = "container_file_citation"
+)
+
+func (e ShellCallOutputItemTypeContainerFileCitation) ToPointer() *ShellCallOutputItemTypeContainerFileCitation {
+	return &e
+}
+func (e *ShellCallOutputItemTypeContainerFileCitation) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "container_file_citation":
+		*e = ShellCallOutputItemTypeContainerFileCitation(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ShellCallOutputItemTypeContainerFileCitation: %v", v)
+	}
 }
 
-func (s ShellCallOutputItemOutput) MarshalJSON() ([]byte, error) {
+type ShellCallOutputItemFile struct {
+	ContainerID string                                       `json:"container_id"`
+	EndIndex    int64                                        `json:"end_index"`
+	FileID      string                                       `json:"file_id"`
+	Filename    string                                       `json:"filename"`
+	StartIndex  int64                                        `json:"start_index"`
+	Type        ShellCallOutputItemTypeContainerFileCitation `json:"type"`
+}
+
+func (s ShellCallOutputItemFile) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *ShellCallOutputItemOutput) UnmarshalJSON(data []byte) error {
+func (s *ShellCallOutputItemFile) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *ShellCallOutputItemOutput) GetContent() optionalnullable.OptionalNullable[string] {
-	if s == nil {
-		return nil
-	}
-	return s.Content
-}
-
-func (s *ShellCallOutputItemOutput) GetExitCode() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
-		return nil
-	}
-	return s.ExitCode
-}
-
-func (s *ShellCallOutputItemOutput) GetType() string {
+func (s *ShellCallOutputItemFile) GetContainerID() string {
 	if s == nil {
 		return ""
+	}
+	return s.ContainerID
+}
+
+func (s *ShellCallOutputItemFile) GetEndIndex() int64 {
+	if s == nil {
+		return 0
+	}
+	return s.EndIndex
+}
+
+func (s *ShellCallOutputItemFile) GetFileID() string {
+	if s == nil {
+		return ""
+	}
+	return s.FileID
+}
+
+func (s *ShellCallOutputItemFile) GetFilename() string {
+	if s == nil {
+		return ""
+	}
+	return s.Filename
+}
+
+func (s *ShellCallOutputItemFile) GetStartIndex() int64 {
+	if s == nil {
+		return 0
+	}
+	return s.StartIndex
+}
+
+func (s *ShellCallOutputItemFile) GetType() ShellCallOutputItemTypeContainerFileCitation {
+	if s == nil {
+		return ShellCallOutputItemTypeContainerFileCitation("")
 	}
 	return s.Type
 }
 
-func (s *ShellCallOutputItemOutput) GetAdditionalProperties() map[string]any {
-	if s == nil {
-		return nil
-	}
-	return s.AdditionalProperties
-}
-
-type ShellCallOutputItemType string
+type ShellCallOutputItemTypeShellCallOutput string
 
 const (
-	ShellCallOutputItemTypeShellCallOutput ShellCallOutputItemType = "shell_call_output"
+	ShellCallOutputItemTypeShellCallOutputShellCallOutput ShellCallOutputItemTypeShellCallOutput = "shell_call_output"
 )
 
-func (e ShellCallOutputItemType) ToPointer() *ShellCallOutputItemType {
+func (e ShellCallOutputItemTypeShellCallOutput) ToPointer() *ShellCallOutputItemTypeShellCallOutput {
 	return &e
 }
-func (e *ShellCallOutputItemType) UnmarshalJSON(data []byte) error {
+func (e *ShellCallOutputItemTypeShellCallOutput) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "shell_call_output":
-		*e = ShellCallOutputItemType(v)
+		*e = ShellCallOutputItemTypeShellCallOutput(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for ShellCallOutputItemType: %v", v)
+		return fmt.Errorf("invalid value for ShellCallOutputItemTypeShellCallOutput: %v", v)
 	}
 }
 
 // ShellCallOutputItem - Output from a shell command execution (newer variant)
 type ShellCallOutputItem struct {
-	CallID          string                                            `json:"call_id"`
+	CallID string `json:"call_id"`
+	// The canonical container id the command ran under — the `{container_id}` for the Container Files API, reusable as a `container_reference` in later requests. Present on every sandbox-executed call, even when no files changed.
+	ContainerID *string `json:"container_id,omitzero"`
+	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
+	Files           []ShellCallOutputItemFile                         `json:"files,omitzero"`
 	ID              optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
 	MaxOutputLength optionalnullable.OptionalNullable[int64]          `json:"max_output_length,omitzero"`
-	Output          []ShellCallOutputItemOutput                       `json:"output"`
+	Output          []ShellCallOutputContent                          `json:"output"`
 	Status          optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
-	Type            ShellCallOutputItemType                           `json:"type"`
+	Type            ShellCallOutputItemTypeShellCallOutput            `json:"type"`
 }
 
 func (s ShellCallOutputItem) MarshalJSON() ([]byte, error) {
@@ -106,6 +149,20 @@ func (s *ShellCallOutputItem) GetCallID() string {
 	return s.CallID
 }
 
+func (s *ShellCallOutputItem) GetContainerID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.ContainerID
+}
+
+func (s *ShellCallOutputItem) GetFiles() []ShellCallOutputItemFile {
+	if s == nil {
+		return nil
+	}
+	return s.Files
+}
+
 func (s *ShellCallOutputItem) GetID() optionalnullable.OptionalNullable[string] {
 	if s == nil {
 		return nil
@@ -120,9 +177,9 @@ func (s *ShellCallOutputItem) GetMaxOutputLength() optionalnullable.OptionalNull
 	return s.MaxOutputLength
 }
 
-func (s *ShellCallOutputItem) GetOutput() []ShellCallOutputItemOutput {
+func (s *ShellCallOutputItem) GetOutput() []ShellCallOutputContent {
 	if s == nil {
-		return []ShellCallOutputItemOutput{}
+		return []ShellCallOutputContent{}
 	}
 	return s.Output
 }
@@ -134,9 +191,9 @@ func (s *ShellCallOutputItem) GetStatus() optionalnullable.OptionalNullable[Tool
 	return s.Status
 }
 
-func (s *ShellCallOutputItem) GetType() ShellCallOutputItemType {
+func (s *ShellCallOutputItem) GetType() ShellCallOutputItemTypeShellCallOutput {
 	if s == nil {
-		return ShellCallOutputItemType("")
+		return ShellCallOutputItemTypeShellCallOutput("")
 	}
 	return s.Type
 }

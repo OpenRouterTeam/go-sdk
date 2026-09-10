@@ -8,6 +8,29 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+// InputVideoProcessing - Video processing mode. `agentic` enables agentic video processing and `static` forces fixed-rate frame sampling on providers that support it (currently Google Gemini).
+type InputVideoProcessing string
+
+const (
+	InputVideoProcessingAgentic InputVideoProcessing = "agentic"
+	InputVideoProcessingStatic  InputVideoProcessing = "static"
+)
+
+func (e InputVideoProcessing) ToPointer() *InputVideoProcessing {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputVideoProcessing) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "agentic", "static":
+			return true
+		}
+	}
+	return false
+}
+
 type InputVideoType string
 
 const (
@@ -33,7 +56,9 @@ func (e *InputVideoType) UnmarshalJSON(data []byte) error {
 
 // InputVideo - Video input content item
 type InputVideo struct {
-	Type InputVideoType `json:"type"`
+	// Video processing mode. `agentic` enables agentic video processing and `static` forces fixed-rate frame sampling on providers that support it (currently Google Gemini).
+	Processing *InputVideoProcessing `json:"processing,omitzero"`
+	Type       InputVideoType        `json:"type"`
 	// A base64 data URL or remote URL that resolves to a video file
 	VideoURL string `json:"video_url"`
 }
@@ -47,6 +72,13 @@ func (i *InputVideo) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (i *InputVideo) GetProcessing() *InputVideoProcessing {
+	if i == nil {
+		return nil
+	}
+	return i.Processing
 }
 
 func (i *InputVideo) GetType() InputVideoType {

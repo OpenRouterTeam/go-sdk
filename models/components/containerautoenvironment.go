@@ -33,7 +33,11 @@ func (e *ContainerAutoEnvironmentType) UnmarshalJSON(data []byte) error {
 
 // ContainerAutoEnvironment - An OpenRouter-managed, auto-provisioned ephemeral container.
 type ContainerAutoEnvironment struct {
-	Type ContainerAutoEnvironmentType `json:"type"`
+	// Workspace file ids (or_file_…) to attach into the container before the first command runs. Each file is copied to the container home as a writable copy named {last 8 characters of the file id}-{base filename} (a file stored as data/report.csv with id or_file_…NR6q4V8w attaches to ~/NR6q4V8w-report.csv), so same-named files never collide; the source document is never modified. Unknown, foreign, or malformed ids fail the request with a 400 before any command executes. Max 20 ids.
+	FileIds []string `json:"file_ids,omitzero"`
+	// Network egress policy for the container. "disabled" blocks all outbound internet; "allowlist" permits only hosts matching the listed hostnames or * glob patterns (ports 80/443, DNS via Cloudflare resolvers). The policy is fixed when a container starts: sending a different policy to a warm container fails the request with a 409. Omitted: defaults to "disabled" (no outbound internet). For unrestricted egress, use an allowlist of ["*"].
+	NetworkPolicy *ContainerNetworkPolicy      `json:"network_policy,omitzero"`
+	Type          ContainerAutoEnvironmentType `json:"type"`
 }
 
 func (c ContainerAutoEnvironment) MarshalJSON() ([]byte, error) {
@@ -43,6 +47,34 @@ func (c ContainerAutoEnvironment) MarshalJSON() ([]byte, error) {
 func (c *ContainerAutoEnvironment) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
+	}
+	return nil
+}
+
+func (c *ContainerAutoEnvironment) GetFileIds() []string {
+	if c == nil {
+		return nil
+	}
+	return c.FileIds
+}
+
+func (c *ContainerAutoEnvironment) GetNetworkPolicy() *ContainerNetworkPolicy {
+	if c == nil {
+		return nil
+	}
+	return c.NetworkPolicy
+}
+
+func (c *ContainerAutoEnvironment) GetNetworkPolicyDisabled() *ContainerNetworkPolicyDisabled {
+	if v := c.GetNetworkPolicy(); v != nil {
+		return v.ContainerNetworkPolicyDisabled
+	}
+	return nil
+}
+
+func (c *ContainerAutoEnvironment) GetNetworkPolicyAllowlist() *ContainerNetworkPolicyAllowlist {
+	if v := c.GetNetworkPolicy(); v != nil {
+		return v.ContainerNetworkPolicyAllowlist
 	}
 	return nil
 }

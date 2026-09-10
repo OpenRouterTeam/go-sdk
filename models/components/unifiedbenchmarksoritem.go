@@ -8,20 +8,20 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// BenchmarkType - OpenRouter benchmark evaluation type.
-type BenchmarkType string
+// UnifiedBenchmarksORItemBenchmarkType - OpenRouter benchmark evaluation type.
+type UnifiedBenchmarksORItemBenchmarkType string
 
 const (
-	BenchmarkTypeGpqaDiamond             BenchmarkType = "gpqa_diamond"
-	BenchmarkTypeTauBenchVerifiedAirline BenchmarkType = "tau_bench_verified_airline"
+	UnifiedBenchmarksORItemBenchmarkTypeGpqaDiamond             UnifiedBenchmarksORItemBenchmarkType = "gpqa_diamond"
+	UnifiedBenchmarksORItemBenchmarkTypeTauBenchVerifiedAirline UnifiedBenchmarksORItemBenchmarkType = "tau_bench_verified_airline"
 )
 
-func (e BenchmarkType) ToPointer() *BenchmarkType {
+func (e UnifiedBenchmarksORItemBenchmarkType) ToPointer() *UnifiedBenchmarksORItemBenchmarkType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BenchmarkType) IsExact() bool {
+func (e *UnifiedBenchmarksORItemBenchmarkType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "gpqa_diamond", "tau_bench_verified_airline":
@@ -63,7 +63,7 @@ type UnifiedBenchmarksORItem struct {
 	// Average cost per task in USD, or null if unavailable.
 	AvgCostPerTask *float64 `json:"avg_cost_per_task"`
 	// OpenRouter benchmark evaluation type.
-	BenchmarkType BenchmarkType `json:"benchmark_type"`
+	BenchmarkType UnifiedBenchmarksORItemBenchmarkType `json:"benchmark_type"`
 	// Human-readable model name.
 	DisplayName string `json:"display_name"`
 	// Timestamp of the most recent public benchmark run.
@@ -108,9 +108,9 @@ func (u *UnifiedBenchmarksORItem) GetAvgCostPerTask() *float64 {
 	return u.AvgCostPerTask
 }
 
-func (u *UnifiedBenchmarksORItem) GetBenchmarkType() BenchmarkType {
+func (u *UnifiedBenchmarksORItem) GetBenchmarkType() UnifiedBenchmarksORItemBenchmarkType {
 	if u == nil {
-		return BenchmarkType("")
+		return UnifiedBenchmarksORItemBenchmarkType("")
 	}
 	return u.BenchmarkType
 }

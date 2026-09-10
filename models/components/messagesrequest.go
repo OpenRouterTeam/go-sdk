@@ -1232,8 +1232,9 @@ func (e *TypeAdaptive) UnmarshalJSON(data []byte) error {
 }
 
 type ThinkingAdaptive struct {
-	Display optionalnullable.OptionalNullable[AnthropicThinkingDisplay] `json:"display,omitzero"`
-	Type    TypeAdaptive                                                `json:"type"`
+	BlockBinding optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] `json:"block_binding,omitzero"`
+	Display      optionalnullable.OptionalNullable[AnthropicThinkingDisplay]      `json:"display,omitzero"`
+	Type         TypeAdaptive                                                     `json:"type"`
 }
 
 func (t ThinkingAdaptive) MarshalJSON() ([]byte, error) {
@@ -1245,6 +1246,13 @@ func (t *ThinkingAdaptive) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (t *ThinkingAdaptive) GetBlockBinding() optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] {
+	if t == nil {
+		return nil
+	}
+	return t.BlockBinding
 }
 
 func (t *ThinkingAdaptive) GetDisplay() optionalnullable.OptionalNullable[AnthropicThinkingDisplay] {
@@ -1261,31 +1269,31 @@ func (t *ThinkingAdaptive) GetType() TypeAdaptive {
 	return t.Type
 }
 
-type TypeDisabled string
+type ThinkingTypeDisabled string
 
 const (
-	TypeDisabledDisabled TypeDisabled = "disabled"
+	ThinkingTypeDisabledDisabled ThinkingTypeDisabled = "disabled"
 )
 
-func (e TypeDisabled) ToPointer() *TypeDisabled {
+func (e ThinkingTypeDisabled) ToPointer() *ThinkingTypeDisabled {
 	return &e
 }
-func (e *TypeDisabled) UnmarshalJSON(data []byte) error {
+func (e *ThinkingTypeDisabled) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "disabled":
-		*e = TypeDisabled(v)
+		*e = ThinkingTypeDisabled(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeDisabled: %v", v)
+		return fmt.Errorf("invalid value for ThinkingTypeDisabled: %v", v)
 	}
 }
 
 type ThinkingDisabled struct {
-	Type TypeDisabled `json:"type"`
+	Type ThinkingTypeDisabled `json:"type"`
 }
 
 func (t ThinkingDisabled) MarshalJSON() ([]byte, error) {
@@ -1299,9 +1307,9 @@ func (t *ThinkingDisabled) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *ThinkingDisabled) GetType() TypeDisabled {
+func (t *ThinkingDisabled) GetType() ThinkingTypeDisabled {
 	if t == nil {
-		return TypeDisabled("")
+		return ThinkingTypeDisabled("")
 	}
 	return t.Type
 }
@@ -1330,9 +1338,10 @@ func (e *TypeEnabled) UnmarshalJSON(data []byte) error {
 }
 
 type ThinkingEnabled struct {
-	BudgetTokens int64                                                       `json:"budget_tokens"`
-	Display      optionalnullable.OptionalNullable[AnthropicThinkingDisplay] `json:"display,omitzero"`
-	Type         TypeEnabled                                                 `json:"type"`
+	BlockBinding optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] `json:"block_binding,omitzero"`
+	BudgetTokens int64                                                            `json:"budget_tokens"`
+	Display      optionalnullable.OptionalNullable[AnthropicThinkingDisplay]      `json:"display,omitzero"`
+	Type         TypeEnabled                                                      `json:"type"`
 }
 
 func (t ThinkingEnabled) MarshalJSON() ([]byte, error) {
@@ -1344,6 +1353,13 @@ func (t *ThinkingEnabled) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (t *ThinkingEnabled) GetBlockBinding() optionalnullable.OptionalNullable[AnthropicThinkingBlockBinding] {
+	if t == nil {
+		return nil
+	}
+	return t.BlockBinding
 }
 
 func (t *ThinkingEnabled) GetBudgetTokens() int64 {
@@ -1370,9 +1386,9 @@ func (t *ThinkingEnabled) GetType() TypeEnabled {
 type ThinkingType string
 
 const (
-	ThinkingTypeEnabled  ThinkingType = "enabled"
-	ThinkingTypeDisabled ThinkingType = "disabled"
-	ThinkingTypeAdaptive ThinkingType = "adaptive"
+	ThinkingTypeEnabled       ThinkingType = "enabled"
+	ThinkingTypeDisabledValue ThinkingType = "disabled"
+	ThinkingTypeAdaptive      ThinkingType = "adaptive"
 )
 
 type Thinking struct {
@@ -1396,9 +1412,9 @@ func CreateThinkingEnabled(enabled ThinkingEnabled) Thinking {
 }
 
 func CreateThinkingDisabled(disabled ThinkingDisabled) Thinking {
-	typ := ThinkingTypeDisabled
+	typ := ThinkingTypeDisabledValue
 
-	typStr := TypeDisabled(typ)
+	typStr := ThinkingTypeDisabled(typ)
 	disabled.Type = typStr
 
 	return Thinking{
@@ -1447,7 +1463,7 @@ func (u *Thinking) UnmarshalJSON(data []byte) error {
 		}
 
 		u.ThinkingDisabled = thinkingDisabled
-		u.Type = ThinkingTypeDisabled
+		u.Type = ThinkingTypeDisabledValue
 		return nil
 	case "adaptive":
 		thinkingAdaptive := new(ThinkingAdaptive)
@@ -2563,6 +2579,7 @@ const (
 	MessagesRequestToolUnionTypeAnthropicToolSearchToolBm25         MessagesRequestToolUnionType = "AnthropicToolSearchToolBm25"
 	MessagesRequestToolUnionTypeAnthropicToolSearchToolRegex        MessagesRequestToolUnionType = "AnthropicToolSearchToolRegex"
 	MessagesRequestToolUnionTypeShellServerToolOpenRouter           MessagesRequestToolUnionType = "ShellServerTool_OpenRouter"
+	MessagesRequestToolUnionTypeToolSearchServerTool                MessagesRequestToolUnionType = "ToolSearchServerTool"
 )
 
 type MessagesRequestToolUnion struct {
@@ -2582,6 +2599,7 @@ type MessagesRequestToolUnion struct {
 	AnthropicToolSearchToolBm25         *AnthropicToolSearchToolBm25         `queryParam:"inline" union:"member"`
 	AnthropicToolSearchToolRegex        *AnthropicToolSearchToolRegex        `queryParam:"inline" union:"member"`
 	ShellServerToolOpenRouter           *ShellServerToolOpenRouter           `queryParam:"inline" union:"member"`
+	ToolSearchServerTool                *ToolSearchServerTool                `queryParam:"inline" union:"member"`
 
 	Type MessagesRequestToolUnionType
 }
@@ -2730,6 +2748,15 @@ func CreateMessagesRequestToolUnionShellServerToolOpenRouter(shellServerToolOpen
 	}
 }
 
+func CreateMessagesRequestToolUnionToolSearchServerTool(toolSearchServerTool ToolSearchServerTool) MessagesRequestToolUnion {
+	typ := MessagesRequestToolUnionTypeToolSearchServerTool
+
+	return MessagesRequestToolUnion{
+		ToolSearchServerTool: &toolSearchServerTool,
+		Type:                 typ,
+	}
+}
+
 func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -2863,6 +2890,14 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var toolSearchServerTool ToolSearchServerTool = ToolSearchServerTool{}
+	if err := utils.UnmarshalJSON(data, &toolSearchServerTool, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  MessagesRequestToolUnionTypeToolSearchServerTool,
+			Value: &toolSearchServerTool,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesRequestToolUnion", string(data))
 	}
@@ -2923,6 +2958,9 @@ func (u *MessagesRequestToolUnion) UnmarshalJSON(data []byte) error {
 		return nil
 	case MessagesRequestToolUnionTypeShellServerToolOpenRouter:
 		u.ShellServerToolOpenRouter = best.Value.(*ShellServerToolOpenRouter)
+		return nil
+	case MessagesRequestToolUnionTypeToolSearchServerTool:
+		u.ToolSearchServerTool = best.Value.(*ToolSearchServerTool)
 		return nil
 	}
 
@@ -2992,6 +3030,10 @@ func (u MessagesRequestToolUnion) MarshalJSON() ([]byte, error) {
 
 	if u.ShellServerToolOpenRouter != nil {
 		return utils.MarshalJSON(u.ShellServerToolOpenRouter, "", true)
+	}
+
+	if u.ToolSearchServerTool != nil {
+		return utils.MarshalJSON(u.ToolSearchServerTool, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesRequestToolUnion: all fields are null")

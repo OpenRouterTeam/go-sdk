@@ -58,7 +58,7 @@ func (e *AutoBetaRouterPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type AutoBetaRouterPlugin struct {
-	// List of model patterns to filter which models the auto-beta-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). When not specified, every model ranked for the classified task type is a candidate, falling back to a default model set when rankings are unavailable.
+	// List of model patterns to filter which models the auto-beta-router can route between. Supports wildcards (e.g., "anthropic/*" matches all Anthropic models). Up to 1024 patterns, each at most 1024 characters, with 65536 total characters across all patterns. When not specified, every model ranked for the classified task type is a candidate, falling back to a default model set when rankings are unavailable.
 	AllowedModels []string `json:"allowed_models,omitzero"`
 	// Deprecated: Use cost_tier instead. Balances routing between cost and quality on a 0-10 scale. The auto-beta-router ranks models for the classified task type by community spend share, then filters candidates by their average cost per generation for that task. Higher values favor cheaper models: 10 keeps only models around the cheapest 10th percentile, while 0 permits models up to the 90th percentile for cost. Defaults to 9 when no cost setting is provided. It remains supported and retains ceiling behavior, but cost_tier takes precedence when both are provided.
 	//
@@ -68,7 +68,7 @@ type AutoBetaRouterPlugin struct {
 	CostTier *AutoBetaRouterPluginCostTier `json:"cost_tier,omitzero"`
 	// Set to false to disable the auto-beta-router plugin for this request. Defaults to true.
 	Enabled *bool `json:"enabled,omitzero"`
-	// List of model patterns to exclude from auto-beta-router selection. Supports wildcards (e.g., "meta-llama/*" excludes all Llama models). Applied after allowed_models, so an excluded pattern always wins over an allowed one.
+	// List of model patterns to exclude from auto-beta-router selection. Supports wildcards (e.g., "meta-llama/*" excludes all Llama models). Up to 1024 patterns, each at most 1024 characters, with 65536 total characters across all patterns. Applied after allowed_models, so an excluded pattern always wins over an allowed one.
 	ExcludedModels []string               `json:"excluded_models,omitzero"`
 	ID             AutoBetaRouterPluginID `json:"id"`
 }

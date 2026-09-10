@@ -38,6 +38,8 @@ type GetKeyData struct {
 	Disabled bool `json:"disabled"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Partner's end-user identifier used for attribution.
+	ExternalUser *string `json:"external_user"`
 	// Unique hash identifier for the API key
 	Hash string `json:"hash"`
 	// Whether to include external BYOK usage in the credit limit
@@ -131,6 +133,13 @@ func (g *GetKeyData) GetExpiresAt() optionalnullable.OptionalNullable[time.Time]
 		return nil
 	}
 	return g.ExpiresAt
+}
+
+func (g *GetKeyData) GetExternalUser() *string {
+	if g == nil {
+		return nil
+	}
+	return g.ExternalUser
 }
 
 func (g *GetKeyData) GetHash() string {

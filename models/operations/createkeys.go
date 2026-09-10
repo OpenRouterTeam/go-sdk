@@ -8,6 +8,28 @@ import (
 	"time"
 )
 
+// External - Optional partner-defined identity associated with the created API key.
+type External struct {
+	// Optional partner-supplied API key with a minimum length of 32 characters and sufficient entropy. Stored as a SHA-256 hash and never returned.
+	APIKey *string `json:"api_key,omitzero"`
+	// Partner's end-user identifier for attribution.
+	User string `json:"user"`
+}
+
+func (e *External) GetAPIKey() *string {
+	if e == nil {
+		return nil
+	}
+	return e.APIKey
+}
+
+func (e *External) GetUser() string {
+	if e == nil {
+		return ""
+	}
+	return e.User
+}
+
 // CreateKeysLimitReset - Type of limit reset for the API key (daily, weekly, monthly, or null for no reset). Resets happen automatically at midnight UTC, and weeks are Monday through Sunday.
 type CreateKeysLimitReset string
 
@@ -35,8 +57,10 @@ func (e *CreateKeysLimitReset) IsExact() bool {
 type CreateKeysRequest struct {
 	// Optional user ID of the key creator. Only meaningful for organization-owned keys where a specific member is creating the key.
 	CreatorUserID optionalnullable.OptionalNullable[string] `json:"creator_user_id,omitzero"`
-	// Optional ISO 8601 UTC timestamp when the API key should expire. Must be UTC, other timezones will be rejected
+	// Optional ISO 8601 UTC expiration timestamp. Must include seconds (YYYY-MM-DDTHH:MM:SSZ; fractional seconds allowed); minute-precision timestamps are rejected.
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Optional partner-defined identity associated with the created API key.
+	External *External `json:"external,omitzero"`
 	// Whether to include BYOK usage in the limit
 	IncludeBYOKInLimit *bool `json:"include_byok_in_limit,omitzero"`
 	// Optional spending limit for the API key in USD
@@ -72,6 +96,13 @@ func (c *CreateKeysRequest) GetExpiresAt() optionalnullable.OptionalNullable[tim
 		return nil
 	}
 	return c.ExpiresAt
+}
+
+func (c *CreateKeysRequest) GetExternal() *External {
+	if c == nil {
+		return nil
+	}
+	return c.External
 }
 
 func (c *CreateKeysRequest) GetIncludeBYOKInLimit() *bool {
@@ -127,6 +158,8 @@ type CreateKeysData struct {
 	Disabled bool `json:"disabled"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Partner's end-user identifier used for attribution.
+	ExternalUser *string `json:"external_user"`
 	// Unique hash identifier for the API key
 	Hash string `json:"hash"`
 	// Whether to include external BYOK usage in the credit limit
@@ -220,6 +253,13 @@ func (c *CreateKeysData) GetExpiresAt() optionalnullable.OptionalNullable[time.T
 		return nil
 	}
 	return c.ExpiresAt
+}
+
+func (c *CreateKeysData) GetExternalUser() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ExternalUser
 }
 
 func (c *CreateKeysData) GetHash() string {

@@ -8,11 +8,15 @@ import (
 
 // SubagentServerToolConfig - Configuration for one openrouter:subagent server tool entry.
 type SubagentServerToolConfig struct {
+	// EXPERIMENTAL — subject to change without notice. When true, the subagent inherits every client function defined in the request's top-level `tools` list. Supported on the Responses API (`/api/v1/responses`) only; other APIs reject it with a `400`.
+	InheritFunctions *bool `json:"inherit_functions,omitzero"`
+	// EXPERIMENTAL — subject to change without notice. Names of the top-level function tools that the subagent will inherit. Any tool that matches by name will be copied fully into the tools array of the subagent. When `inherit_functions` is `true`, this list does nothing, because every client function will be inherited by default. Names are trimmed before validation, so a whitespace-only name is rejected with a `400`. Supported on the Responses API (`/api/v1/responses`) only; other APIs reject it with a `400`.
+	InheritedFunctionNames []string `json:"inherited_function_names,omitzero"`
 	// System instructions for the subagent. When omitted, the subagent responds with no system prompt of its own.
 	Instructions *string `json:"instructions,omitzero"`
 	// Maximum number of output tokens (including reasoning) the subagent may produce. When omitted, the provider's default applies.
 	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
-	// Maximum number of tool-calling steps the subagent may take during its agentic loop. Capped at 25. Only relevant when the subagent is given tools. Accepted and validated but not yet enforced on the subagent call.
+	// Maximum number of tool-calling steps the subagent may take during its agentic loop. Capped at 25. Only relevant when the subagent is given tools. Forwarded to the subagent call as `max_tool_calls`.
 	MaxToolCalls *int64 `json:"max_tool_calls,omitzero"`
 	// Slug of the model that executes delegated tasks (any OpenRouter model). Typically a smaller, cheaper, faster model than the one delegating. When omitted, the model from the outer API request is used. The subagent tool itself cannot be the subagent model.
 	Model *string `json:"model,omitzero"`
@@ -35,6 +39,20 @@ func (s *SubagentServerToolConfig) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (s *SubagentServerToolConfig) GetInheritFunctions() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.InheritFunctions
+}
+
+func (s *SubagentServerToolConfig) GetInheritedFunctionNames() []string {
+	if s == nil {
+		return nil
+	}
+	return s.InheritedFunctionNames
 }
 
 func (s *SubagentServerToolConfig) GetInstructions() *string {

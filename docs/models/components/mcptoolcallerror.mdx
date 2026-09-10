@@ -1,0 +1,49 @@
+---
+title: "McpToolCallError"
+---
+
+Error from an MCP tool call, either a plain message or a structured error
+
+
+## Supported Types
+
+### 
+
+```go
+mcpToolCallError := components.CreateMcpToolCallErrorStr(string{/* values here */})
+```
+
+### McpProtocolError
+
+```go
+mcpToolCallError := components.CreateMcpToolCallErrorMcpProtocolError(components.McpProtocolError{/* values here */})
+```
+
+### McpToolExecutionError
+
+```go
+mcpToolCallError := components.CreateMcpToolCallErrorMcpToolExecutionError(components.McpToolExecutionError{/* values here */})
+```
+
+### McpHTTPError
+
+```go
+mcpToolCallError := components.CreateMcpToolCallErrorMcpHTTPError(components.McpHTTPError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch mcpToolCallError.Type {
+	case components.McpToolCallErrorTypeStr:
+		// mcpToolCallError.Str is populated
+	case components.McpToolCallErrorTypeMcpProtocolError:
+		// mcpToolCallError.McpProtocolError is populated
+	case components.McpToolCallErrorTypeMcpToolExecutionError:
+		// mcpToolCallError.McpToolExecutionError is populated
+	case components.McpToolCallErrorTypeMcpHTTPError:
+		// mcpToolCallError.McpHTTPError is populated
+}
+```

@@ -166,6 +166,12 @@ additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionBas
 additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionShellServerToolOpenRouter(components.ShellServerToolOpenRouter{/* values here */})
 ```
 
+### ToolSearchServerTool
+
+```go
+additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionToolSearchServerTool(components.ToolSearchServerTool{/* values here */})
+```
+
 ### AdditionalToolsItemTool
 
 ```go
@@ -232,6 +238,8 @@ switch additionalToolsItemToolUnion.Type {
 		// additionalToolsItemToolUnion.BashServerTool is populated
 	case components.AdditionalToolsItemToolUnionTypeShellServerToolOpenRouter:
 		// additionalToolsItemToolUnion.ShellServerToolOpenRouter is populated
+	case components.AdditionalToolsItemToolUnionTypeToolSearchServerTool:
+		// additionalToolsItemToolUnion.ToolSearchServerTool is populated
 	case components.AdditionalToolsItemToolUnionTypeAdditionalToolsItemTool:
 		// additionalToolsItemToolUnion.AdditionalToolsItemTool is populated
 }

@@ -899,3 +899,923 @@ Based on:
 - [go v0.7.37] .
 ### Releases
 - [Go v0.7.37] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.37 - .
+
+## 2026-08-11 14:03:55
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.38] .
+### Releases
+- [Go v0.7.38] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.38 - .
+
+## 2026-08-11 18:23:56
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.39] .
+### Releases
+- [Go v0.7.39] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.39 - .
+
+## 2026-08-11 19:08:34
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.40] .
+### Releases
+- [Go v0.7.40] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.40 - .
+
+## 2026-08-11 20:19:53
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.41] .
+### Releases
+- [Go v0.7.41] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.41 - .
+
+## 2026-08-12 17:05:16
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.42] .
+### Releases
+- [Go v0.7.42] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.42 - .
+
+## 2026-08-12 18:48:22
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.43] .
+### Releases
+- [Go v0.7.43] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.43 - .
+
+## 2026-08-12 19:06:11
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.44] .
+### Releases
+- [Go v0.7.44] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.44 - .
+
+## 2026-08-13 01:33:43
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.45] .
+### Releases
+- [Go v0.7.45] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.45 - .
+
+## 2026-08-13 03:21:35
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.46] .
+### Releases
+- [Go v0.7.46] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.46 - .
+
+## 2026-08-13 18:20:59
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.47] .
+### Releases
+- [Go v0.7.47] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.47 - .
+
+## 2026-08-13 23:02:03
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.48] .
+### Releases
+- [Go v0.7.48] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.48 - .
+
+## 2026-08-14 15:42:12
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.49] .
+### Releases
+- [Go v0.7.49] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.49 - .
+
+## 2026-08-14 20:36:39
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.50] .
+### Releases
+- [Go v0.7.50] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.50 - .
+
+## 2026-08-14 21:23:57
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.51] .
+### Releases
+- [Go v0.7.51] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.51 - .
+
+## 2026-08-17 05:32:56
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.52] .
+### Releases
+- [Go v0.7.52] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.52 - .
+
+## 2026-08-17 20:08:56
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.53] .
+### Releases
+- [Go v0.7.53] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.53 - .
+
+## 2026-08-17 21:05:35
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.54] .
+### Releases
+- [Go v0.7.54] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.54 - .
+
+## 2026-08-17 21:47:01
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.55] .
+### Releases
+- [Go v0.7.55] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.55 - .
+
+## 2026-08-18 00:36:39
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.56] .
+### Releases
+- [Go v0.7.56] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.56 - .
+
+## 2026-08-18 21:28:42
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.57] .
+### Releases
+- [Go v0.7.57] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.57 - .
+
+## 2026-08-19 04:57:33
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.58] .
+### Releases
+- [Go v0.7.58] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.58 - .
+
+## 2026-08-19 20:45:35
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.59] .
+### Releases
+- [Go v0.7.59] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.59 - .
+
+## 2026-08-19 21:52:59
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.60] .
+### Releases
+- [Go v0.7.60] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.60 - .
+
+## 2026-08-19 22:30:57
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.61] .
+### Releases
+- [Go v0.7.61] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.61 - .
+
+## 2026-08-20 12:26:02
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.62] .
+### Releases
+- [Go v0.7.62] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.62 - .
+
+## 2026-08-20 19:12:34
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.63] .
+### Releases
+- [Go v0.7.63] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.63 - .
+
+## 2026-08-21 06:09:07
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.64] .
+### Releases
+- [Go v0.7.64] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.64 - .
+
+## 2026-08-21 20:03:02
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.65] .
+### Releases
+- [Go v0.7.65] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.65 - .
+
+## 2026-08-21 23:42:05
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.66] .
+### Releases
+- [Go v0.7.66] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.66 - .
+
+## 2026-08-22 05:06:26
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.67] .
+### Releases
+- [Go v0.7.67] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.67 - .
+
+## 2026-08-24 01:54:10
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.68] .
+### Releases
+- [Go v0.7.68] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.68 - .
+
+## 2026-08-24 04:07:15
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.69] .
+### Releases
+- [Go v0.7.69] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.69 - .
+
+## 2026-08-24 07:38:22
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.70] .
+### Releases
+- [Go v0.7.70] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.70 - .
+
+## 2026-08-24 15:14:32
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.71] .
+### Releases
+- [Go v0.7.71] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.71 - .
+
+## 2026-08-24 16:47:06
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.72] .
+### Releases
+- [Go v0.7.72] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.72 - .
+
+## 2026-08-24 19:33:28
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.73] .
+### Releases
+- [Go v0.7.73] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.73 - .
+
+## 2026-08-24 22:13:56
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.74] .
+### Releases
+- [Go v0.7.74] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.74 - .
+
+## 2026-08-25 04:17:06
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.75] .
+### Releases
+- [Go v0.7.75] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.75 - .
+
+## 2026-08-25 07:32:52
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.76] .
+### Releases
+- [Go v0.7.76] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.76 - .
+
+## 2026-08-25 07:46:47
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.77] .
+### Releases
+- [Go v0.7.77] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.77 - .
+
+## 2026-08-25 08:39:24
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.78] .
+### Releases
+- [Go v0.7.78] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.78 - .
+
+## 2026-08-25 11:34:42
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.79] .
+### Releases
+- [Go v0.7.79] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.79 - .
+
+## 2026-08-25 15:28:53
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.80] .
+### Releases
+- [Go v0.7.80] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.80 - .
+
+## 2026-08-25 18:01:50
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.81] .
+### Releases
+- [Go v0.7.81] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.81 - .
+
+## 2026-08-25 20:33:25
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.82] .
+### Releases
+- [Go v0.7.82] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.82 - .
+
+## 2026-08-25 22:46:34
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.83] .
+### Releases
+- [Go v0.7.83] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.83 - .
+
+## 2026-08-26 08:20:27
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.84] .
+### Releases
+- [Go v0.7.84] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.84 - .
+
+## 2026-08-26 14:15:05
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.85] .
+### Releases
+- [Go v0.7.85] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.85 - .
+
+## 2026-08-26 17:33:11
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.86] .
+### Releases
+- [Go v0.7.86] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.86 - .
+
+## 2026-08-26 17:57:49
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.87] .
+### Releases
+- [Go v0.7.87] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.87 - .
+
+## 2026-08-26 19:22:44
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.88] .
+### Releases
+- [Go v0.7.88] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.88 - .
+
+## 2026-08-27 14:47:58
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.89] .
+### Releases
+- [Go v0.7.89] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.89 - .
+
+## 2026-08-27 15:14:12
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.90] .
+### Releases
+- [Go v0.7.90] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.90 - .
+
+## 2026-08-27 18:58:05
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.91] .
+### Releases
+- [Go v0.7.91] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.91 - .
+
+## 2026-08-27 21:09:44
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.92] .
+### Releases
+- [Go v0.7.92] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.92 - .
+
+## 2026-08-28 02:50:04
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.93] .
+### Releases
+- [Go v0.7.93] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.93 - .
+
+## 2026-08-28 15:42:52
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.94] .
+### Releases
+- [Go v0.7.94] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.94 - .
+
+## 2026-08-28 17:01:03
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.95] .
+### Releases
+- [Go v0.7.95] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.95 - .
+
+## 2026-08-28 19:49:58
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.96] .
+### Releases
+- [Go v0.7.96] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.96 - .
+
+## 2026-08-30 04:15:13
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.97] .
+### Releases
+- [Go v0.7.97] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.97 - .
+
+## 2026-08-31 03:06:32
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.98] .
+### Releases
+- [Go v0.7.98] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.98 - .
+
+## 2026-08-31 12:19:02
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.99] .
+### Releases
+- [Go v0.7.99] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.99 - .
+
+## 2026-09-01 00:01:05
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.100] .
+### Releases
+- [Go v0.7.100] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.100 - .
+
+## 2026-09-01 01:41:42
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.101] .
+### Releases
+- [Go v0.7.101] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.101 - .
+
+## 2026-09-01 17:45:30
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.102] .
+### Releases
+- [Go v0.7.102] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.102 - .
+
+## 2026-09-01 18:26:18
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.103] .
+### Releases
+- [Go v0.7.103] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.103 - .
+
+## 2026-09-01 19:32:46
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.104] .
+### Releases
+- [Go v0.7.104] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.104 - .
+
+## 2026-09-01 21:54:46
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.105] .
+### Releases
+- [Go v0.7.105] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.105 - .
+
+## 2026-09-02 04:33:36
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.106] .
+### Releases
+- [Go v0.7.106] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.106 - .
+
+## 2026-09-02 16:00:08
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.107] .
+### Releases
+- [Go v0.7.107] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.107 - .
+
+## 2026-09-02 18:42:56
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.108] .
+### Releases
+- [Go v0.7.108] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.108 - .
+
+## 2026-09-02 19:27:33
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.109] .
+### Releases
+- [Go v0.7.109] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.109 - .
+
+## 2026-09-02 19:58:03
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.110] .
+### Releases
+- [Go v0.7.110] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.110 - .
+
+## 2026-09-02 23:29:07
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.111] .
+### Releases
+- [Go v0.7.111] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.111 - .
+
+## 2026-09-03 00:25:56
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.112] .
+### Releases
+- [Go v0.7.112] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.112 - .
+
+## 2026-09-03 01:22:08
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.113] .
+### Releases
+- [Go v0.7.113] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.113 - .
+
+## 2026-09-03 16:47:16
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.114] .
+### Releases
+- [Go v0.7.114] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.114 - .
+
+## 2026-09-03 18:04:34
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.115] .
+### Releases
+- [Go v0.7.115] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.115 - .
+
+## 2026-09-03 22:14:59
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.116] .
+### Releases
+- [Go v0.7.116] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.116 - .
+
+## 2026-09-04 18:33:28
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.117] .
+### Releases
+- [Go v0.7.117] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.117 - .
+
+## 2026-09-04 19:13:25
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.118] .
+### Releases
+- [Go v0.7.118] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.118 - .
+
+## 2026-09-04 20:08:58
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.119] .
+### Releases
+- [Go v0.7.119] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.119 - .
+
+## 2026-09-05 22:02:31
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.120] .
+### Releases
+- [Go v0.7.120] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.120 - .
+
+## 2026-09-07 17:27:01
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.121] .
+### Releases
+- [Go v0.7.121] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.121 - .
+
+## 2026-09-08 15:29:05
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.122] .
+### Releases
+- [Go v0.7.122] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.122 - .
+
+## 2026-09-08 18:20:07
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.123] .
+### Releases
+- [Go v0.7.123] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.123 - .
+
+## 2026-09-08 19:50:54
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.124] .
+### Releases
+- [Go v0.7.124] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.124 - .
+
+## 2026-09-08 20:12:32
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.125] .
+### Releases
+- [Go v0.7.125] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.125 - .
+
+## 2026-09-08 22:50:16
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.126] .
+### Releases
+- [Go v0.7.126] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.126 - .
+
+## 2026-09-09 17:51:24
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.127] .
+### Releases
+- [Go v0.7.127] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.127 - .
+
+## 2026-09-09 18:34:12
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.128] .
+### Releases
+- [Go v0.7.128] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.128 - .
+
+## 2026-09-09 21:24:28
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.129] .
+### Releases
+- [Go v0.7.129] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.129 - .

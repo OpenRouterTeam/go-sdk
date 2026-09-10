@@ -8,6 +8,8 @@ import (
 )
 
 type UpdateGuardrailRequest struct {
+	// Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value. An empty array is rejected.
+	AllowedDataRegions optionalnullable.OptionalNullable[[]GuardrailDataRegion] `json:"allowed_data_regions,omitzero"`
 	// Array of model identifiers (slug or canonical_slug accepted)
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// New list of allowed provider IDs
@@ -61,6 +63,13 @@ func (u *UpdateGuardrailRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (u *UpdateGuardrailRequest) GetAllowedDataRegions() optionalnullable.OptionalNullable[[]GuardrailDataRegion] {
+	if u == nil {
+		return nil
+	}
+	return u.AllowedDataRegions
 }
 
 func (u *UpdateGuardrailRequest) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {

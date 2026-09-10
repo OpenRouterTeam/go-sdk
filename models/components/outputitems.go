@@ -33,6 +33,7 @@ const (
 	OutputItemsTypeOpenrouterImageGeneration          OutputItemsType = "openrouter:image_generation"
 	OutputItemsTypeOpenrouterMcp                      OutputItemsType = "openrouter:mcp"
 	OutputItemsTypeOpenrouterMemory                   OutputItemsType = "openrouter:memory"
+	OutputItemsTypeOpenrouterShell                    OutputItemsType = "openrouter:shell"
 	OutputItemsTypeOpenrouterSubagent                 OutputItemsType = "openrouter:subagent"
 	OutputItemsTypeOpenrouterTextEditor               OutputItemsType = "openrouter:text_editor"
 	OutputItemsTypeOpenrouterToolSearch               OutputItemsType = "openrouter:tool_search"
@@ -67,6 +68,7 @@ type OutputItems struct {
 	OutputApplyPatchCallItem            *OutputApplyPatchCallItem            `queryParam:"inline" union:"member"`
 	OutputShellCallItem                 *OutputShellCallItem                 `queryParam:"inline" union:"member"`
 	OutputShellCallOutputItem           *OutputShellCallOutputItem           `queryParam:"inline" union:"member"`
+	OutputShellServerToolItem           *OutputShellServerToolItem           `queryParam:"inline" union:"member"`
 	OutputWebFetchServerToolItem        *OutputWebFetchServerToolItem        `queryParam:"inline" union:"member"`
 	OutputToolSearchServerToolItem      *OutputToolSearchServerToolItem      `queryParam:"inline" union:"member"`
 	OutputMemoryServerToolItem          *OutputMemoryServerToolItem          `queryParam:"inline" union:"member"`
@@ -205,7 +207,7 @@ func CreateOutputItemsOpenrouterApplyPatch(openrouterApplyPatch OutputApplyPatch
 func CreateOutputItemsOpenrouterBash(openrouterBash OutputBashServerToolItem) OutputItems {
 	typ := OutputItemsTypeOpenrouterBash
 
-	typStr := OutputBashServerToolItemType(typ)
+	typStr := OutputBashServerToolItemTypeOpenrouterBash(typ)
 	openrouterBash.Type = typStr
 
 	return OutputItems{
@@ -331,6 +333,18 @@ func CreateOutputItemsOpenrouterMemory(openrouterMemory OutputMemoryServerToolIt
 	return OutputItems{
 		OutputMemoryServerToolItem: &openrouterMemory,
 		Type:                       typ,
+	}
+}
+
+func CreateOutputItemsOpenrouterShell(openrouterShell OutputShellServerToolItem) OutputItems {
+	typ := OutputItemsTypeOpenrouterShell
+
+	typStr := OutputShellServerToolItemTypeOpenrouterShell(typ)
+	openrouterShell.Type = typStr
+
+	return OutputItems{
+		OutputShellServerToolItem: &openrouterShell,
+		Type:                      typ,
 	}
 }
 
@@ -665,6 +679,15 @@ func (u *OutputItems) UnmarshalJSON(data []byte) error {
 		u.OutputMemoryServerToolItem = outputMemoryServerToolItem
 		u.Type = OutputItemsTypeOpenrouterMemory
 		return nil
+	case "openrouter:shell":
+		outputShellServerToolItem := new(OutputShellServerToolItem)
+		if err := utils.UnmarshalJSON(data, &outputShellServerToolItem, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:shell) type OutputShellServerToolItem within OutputItems: %w", string(data), err)
+		}
+
+		u.OutputShellServerToolItem = outputShellServerToolItem
+		u.Type = OutputItemsTypeOpenrouterShell
+		return nil
 	case "openrouter:subagent":
 		outputSubagentServerToolItem := new(OutputSubagentServerToolItem)
 		if err := utils.UnmarshalJSON(data, &outputSubagentServerToolItem, "", true, nil); err != nil {
@@ -833,6 +856,10 @@ func (u OutputItems) MarshalJSON() ([]byte, error) {
 
 	if u.OutputShellCallOutputItem != nil {
 		return utils.MarshalJSON(u.OutputShellCallOutputItem, "", true)
+	}
+
+	if u.OutputShellServerToolItem != nil {
+		return utils.MarshalJSON(u.OutputShellServerToolItem, "", true)
 	}
 
 	if u.OutputWebFetchServerToolItem != nil {

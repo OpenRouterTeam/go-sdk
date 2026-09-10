@@ -2,6 +2,10 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
 // Source - Benchmark source to query. Determines the shape of the returned items. When omitted, returns results from all sources.
 type Source string
 
@@ -26,13 +30,14 @@ func (e *Source) IsExact() bool {
 	return false
 }
 
-// TaskType - Filter results by task type. For Artificial Analysis, maps to the corresponding index. For Design Arena, maps to the matching category.
+// TaskType - Filter results by task type. For Artificial Analysis, maps to the corresponding index. For Design Arena, maps to the matching category. `search` returns OpenRouter search benchmark results only.
 type TaskType string
 
 const (
 	TaskTypeCoding       TaskType = "coding"
 	TaskTypeIntelligence TaskType = "intelligence"
 	TaskTypeAgentic      TaskType = "agentic"
+	TaskTypeSearch       TaskType = "search"
 )
 
 func (e TaskType) ToPointer() *TaskType {
@@ -43,7 +48,57 @@ func (e TaskType) ToPointer() *TaskType {
 func (e *TaskType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "coding", "intelligence", "agentic":
+		case "coding", "intelligence", "agentic", "search":
+			return true
+		}
+	}
+	return false
+}
+
+// BenchmarkType - Return results for one exact OpenRouter benchmark. A `search_*` value narrows the response to search results only; a classic value narrows the OpenRouter items and leaves other sources' items as they are.
+type BenchmarkType string
+
+const (
+	BenchmarkTypeGpqaDiamond             BenchmarkType = "gpqa_diamond"
+	BenchmarkTypeTauBenchVerifiedAirline BenchmarkType = "tau_bench_verified_airline"
+	BenchmarkTypeSearchBrowsecomp        BenchmarkType = "search_browsecomp"
+	BenchmarkTypeSearchHle               BenchmarkType = "search_hle"
+	BenchmarkTypeSearchDsqa              BenchmarkType = "search_dsqa"
+	BenchmarkTypeSearchWidesearch        BenchmarkType = "search_widesearch"
+)
+
+func (e BenchmarkType) ToPointer() *BenchmarkType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *BenchmarkType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "gpqa_diamond", "tau_bench_verified_airline", "search_browsecomp", "search_hle", "search_dsqa", "search_widesearch":
+			return true
+		}
+	}
+	return false
+}
+
+// SearchSurface - OpenRouter search benchmarks only: filter by the request surface the lane ran on.
+type SearchSurface string
+
+const (
+	SearchSurfaceServerTool SearchSurface = "server-tool"
+	SearchSurfacePlugin     SearchSurface = "plugin"
+)
+
+func (e SearchSurface) ToPointer() *SearchSurface {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SearchSurface) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "server-tool", "plugin":
 			return true
 		}
 	}
@@ -77,14 +132,33 @@ func (e *Arena) IsExact() bool {
 type GetBenchmarksRequest struct {
 	// Benchmark source to query. Determines the shape of the returned items. When omitted, returns results from all sources.
 	Source *Source `queryParam:"style=form,explode=true,name=source"`
-	// Filter results by task type. For Artificial Analysis, maps to the corresponding index. For Design Arena, maps to the matching category.
+	// Filter results by task type. For Artificial Analysis, maps to the corresponding index. For Design Arena, maps to the matching category. `search` returns OpenRouter search benchmark results only.
 	TaskType *TaskType `queryParam:"style=form,explode=true,name=task_type"`
+	// Return results for one exact OpenRouter benchmark. A `search_*` value narrows the response to search results only; a classic value narrows the OpenRouter items and leaves other sources' items as they are.
+	BenchmarkType *BenchmarkType `queryParam:"style=form,explode=true,name=benchmark_type"`
+	// Search benchmarks only: include the published lane configuration whitelist in each search item. Defaults to false. The whitelist is limited to agent turn count, reasoning effort, and temperature so future harness configuration changes do not change the public contract.
+	IncludeRunConfig *bool `default:"false" queryParam:"style=form,explode=true,name=include_run_config"`
+	// OpenRouter search benchmarks only: filter by the search engine used.
+	SearchEngine *string `queryParam:"style=form,explode=true,name=search_engine"`
+	// OpenRouter search benchmarks only: filter by the request surface the lane ran on.
+	SearchSurface *SearchSurface `queryParam:"style=form,explode=true,name=search_surface"`
 	// Design Arena only: arena to query. Defaults to `models` when source is `design-arena`.
 	Arena *Arena `queryParam:"style=form,explode=true,name=arena"`
 	// Design Arena only: category within the arena (e.g. `codecategories`, `uicomponent`, `gamedev`, `3d`, `dataviz`, `image`, `video`, `svg`). When omitted, returns all categories.
 	Category *string `queryParam:"style=form,explode=true,name=category"`
 	// Maximum number of items to return. When omitted, all matching results are returned.
 	MaxResults *int64 `queryParam:"style=form,explode=true,name=max_results"`
+}
+
+func (g GetBenchmarksRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetBenchmarksRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (g *GetBenchmarksRequest) GetSource() *Source {
@@ -99,6 +173,34 @@ func (g *GetBenchmarksRequest) GetTaskType() *TaskType {
 		return nil
 	}
 	return g.TaskType
+}
+
+func (g *GetBenchmarksRequest) GetBenchmarkType() *BenchmarkType {
+	if g == nil {
+		return nil
+	}
+	return g.BenchmarkType
+}
+
+func (g *GetBenchmarksRequest) GetIncludeRunConfig() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.IncludeRunConfig
+}
+
+func (g *GetBenchmarksRequest) GetSearchEngine() *string {
+	if g == nil {
+		return nil
+	}
+	return g.SearchEngine
+}
+
+func (g *GetBenchmarksRequest) GetSearchSurface() *SearchSurface {
+	if g == nil {
+		return nil
+	}
+	return g.SearchSurface
 }
 
 func (g *GetBenchmarksRequest) GetArena() *Arena {

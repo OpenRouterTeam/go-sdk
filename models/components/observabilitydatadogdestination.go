@@ -15,8 +15,8 @@ type ObservabilityDatadogDestinationConfig struct {
 	Headers map[string]string `json:"headers,omitzero"`
 	// Name to identify your application in Datadog LLM Observability
 	MlApp string `json:"mlApp"`
-	// Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.datadoghq.eu)
-	URL *string `default:"https://api.us5.datadoghq.com" json:"url"`
+	// Datadog API URL for your region (e.g., https://api.datadoghq.com, https://api.us3.datadoghq.com, https://api.us5.datadoghq.com, https://api.datadoghq.eu)
+	URL *string `default:"https://api.datadoghq.com" json:"url"`
 }
 
 func (o ObservabilityDatadogDestinationConfig) MarshalJSON() ([]byte, error) {
@@ -103,6 +103,8 @@ type ObservabilityDatadogDestination struct {
 	Name *string `json:"name"`
 	// When true, request/response bodies are not forwarded to this destination — only metadata.
 	PrivacyMode bool `json:"privacy_mode"`
+	// Data regions this destination applies to. Requests served in a region only fan out to destinations that include that region.
+	Regions []ObservabilityDataRegion `json:"regions"`
 	// Sampling rate for events sent to this destination, between 0.0001 and 1 (1 = 100%).
 	SamplingRate float64                             `json:"sampling_rate"`
 	Type         ObservabilityDatadogDestinationType `json:"type"`
@@ -198,6 +200,13 @@ func (o *ObservabilityDatadogDestination) GetPrivacyMode() bool {
 		return false
 	}
 	return o.PrivacyMode
+}
+
+func (o *ObservabilityDatadogDestination) GetRegions() []ObservabilityDataRegion {
+	if o == nil {
+		return []ObservabilityDataRegion{}
+	}
+	return o.Regions
 }
 
 func (o *ObservabilityDatadogDestination) GetSamplingRate() float64 {

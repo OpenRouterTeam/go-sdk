@@ -8,14 +8,20 @@ import (
 )
 
 type CreateBYOKKeyRequest struct {
+	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) that may use this credential. `null` means no restriction. Must contain at least one hash if provided. Hashes that do not belong to your account return a 400.
+	AllowedAPIKeyHashes optionalnullable.OptionalNullable[[]string] `json:"allowed_api_key_hashes,omitzero"`
 	// Optional allowlist of model slugs this credential may be used for. `null` means no restriction.
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// Optional allowlist of user IDs that may use this credential. `null` means no restriction.
 	AllowedUserIds optionalnullable.OptionalNullable[[]string] `json:"allowed_user_ids,omitzero"`
 	// Whether this credential should be created in a disabled state.
 	Disabled *bool `json:"disabled,omitzero"`
-	// Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried.
+	// Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside `allowed_models` and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials. Defaults to `false`.
+	IsBYOKOnly *bool `json:"is_byok_only,omitzero"`
+	// Whether this credential is treated as a fallback — used only after non-fallback keys for the same provider have been tried. Cannot be combined with `is_byok_only`.
 	IsFallback *bool `json:"is_fallback,omitzero"`
+	// Whether OpenRouter's shared endpoints on this provider are removed for the models this credential applies to (its `allowed_models`, or every model when `null`). Requests for those models run only on your keys; models outside the allowlist may still fall back to shared capacity on this provider. Defaults to `false`.
+	IsRequired *bool `json:"is_required,omitzero"`
 	// The raw provider API key or credential. This value is encrypted at rest and never returned in API responses.
 	Key string `json:"key"`
 	// Optional human-readable name for the credential.
@@ -35,6 +41,13 @@ func (c *CreateBYOKKeyRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *CreateBYOKKeyRequest) GetAllowedAPIKeyHashes() optionalnullable.OptionalNullable[[]string] {
+	if c == nil {
+		return nil
+	}
+	return c.AllowedAPIKeyHashes
 }
 
 func (c *CreateBYOKKeyRequest) GetAllowedModels() optionalnullable.OptionalNullable[[]string] {
@@ -58,11 +71,25 @@ func (c *CreateBYOKKeyRequest) GetDisabled() *bool {
 	return c.Disabled
 }
 
+func (c *CreateBYOKKeyRequest) GetIsBYOKOnly() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IsBYOKOnly
+}
+
 func (c *CreateBYOKKeyRequest) GetIsFallback() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IsFallback
+}
+
+func (c *CreateBYOKKeyRequest) GetIsRequired() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IsRequired
 }
 
 func (c *CreateBYOKKeyRequest) GetKey() string {

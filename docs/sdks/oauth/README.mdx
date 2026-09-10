@@ -11,6 +11,8 @@ OAuth authentication endpoints
 
 * [ExchangeAuthCodeForAPIKey](#exchangeauthcodeforapikey) - Exchange authorization code for API key
 * [CreateAuthCode](#createauthcode) - Create authorization code
+* [ListOauthJwks](#listoauthjwks) - OpenRouter access token signing keys
+* [CreateOauthToken](#createoauthtoken) - Exchange a workload identity token
 
 ## ExchangeAuthCodeForAPIKey
 
@@ -133,3 +135,113 @@ func main() {
 | sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
 | sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
 | sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListOauthJwks
+
+RFC 7517 JWK Set containing the public keys OpenRouter signs access tokens with.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.OAuth.ListOauthJwks(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*components.OAuthJwks](../../models/components/oauthjwks.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreateOauthToken
+
+RFC 8693 token exchange. Presents a JWT from an issuer your organization trusts (Settings → Workload identity) and receives a short-lived OpenRouter access token that acts as the API key the matching federation policy targets.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.OAuth.CreateOauthToken(ctx, components.TokenExchangeRequest{
+        FederationPolicyID: "4b2f7d1e-8c3a-4e5f-9a6b-1c2d3e4f5a6b",
+        GrantType: components.GrantTypeUrnIetfParamsOauthGrantTypeTokenExchange,
+        SubjectToken: "<jwt from your identity provider>",
+        SubjectTokenType: components.SubjectTokenTypeUrnIetfParamsOauthTokenTypeJwt,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
+| `request`                                                                          | [components.TokenExchangeRequest](../../models/components/tokenexchangerequest.mdx) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
+| `opts`                                                                             | [][operations.Option](../../models/operations/option.mdx)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
+
+### Response
+
+**[*components.TokenExchangeResponse](../../models/components/tokenexchangeresponse.mdx), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| sdkerrors.OAuthErrorResponse | 400, 429                     | application/json             |
+| sdkerrors.OAuthErrorResponse | 500, 503                     | application/json             |
+| sdkerrors.APIError           | 4XX, 5XX                     | \*/\*                        |

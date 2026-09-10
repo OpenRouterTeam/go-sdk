@@ -8,6 +8,36 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type OpenAIResponseFunctionToolCallSubagentItem struct {
+	Type                 string         `json:"type"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+}
+
+func (o OpenAIResponseFunctionToolCallSubagentItem) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OpenAIResponseFunctionToolCallSubagentItem) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OpenAIResponseFunctionToolCallSubagentItem) GetType() string {
+	if o == nil {
+		return ""
+	}
+	return o.Type
+}
+
+func (o *OpenAIResponseFunctionToolCallSubagentItem) GetAdditionalProperties() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.AdditionalProperties
+}
+
 type OpenAIResponseFunctionToolCallType string
 
 const (
@@ -37,9 +67,13 @@ type OpenAIResponseFunctionToolCall struct {
 	ID        *string `json:"id,omitzero"`
 	Name      string  `json:"name"`
 	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
-	Namespace *string                            `json:"namespace,omitzero"`
-	Status    *ToolCallStatus                    `json:"status,omitzero"`
-	Type      OpenAIResponseFunctionToolCallType `json:"type"`
+	Namespace *string         `json:"namespace,omitzero"`
+	Status    *ToolCallStatus `json:"status,omitzero"`
+	// EXPERIMENTAL — subject to change without notice. String id that matches the `call_id` of the `openrouter:subagent` server tool call that spawned the subagent. Present on every `function_call` item the subagent projects; absent on ordinary function calls.
+	SubagentID *string `json:"subagent_id,omitzero"`
+	// EXPERIMENTAL — subject to change without notice. The subagent's output items produced on this turn. Treat this as an opaque object; you must replay it in the request so that the subagent can continue execution of the tool with the same context. If a subagent created multiple parallel tool calls, only the first tool call will have this field. The other tool calls will only have `subagent_id`. Present only if the tool call originates from a subagent spawned by the `openrouter:subagent` server tool.
+	SubagentItems []OpenAIResponseFunctionToolCallSubagentItem `json:"subagent_items,omitzero"`
+	Type          OpenAIResponseFunctionToolCallType           `json:"type"`
 }
 
 func (o OpenAIResponseFunctionToolCall) MarshalJSON() ([]byte, error) {
@@ -93,6 +127,20 @@ func (o *OpenAIResponseFunctionToolCall) GetStatus() *ToolCallStatus {
 		return nil
 	}
 	return o.Status
+}
+
+func (o *OpenAIResponseFunctionToolCall) GetSubagentID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SubagentID
+}
+
+func (o *OpenAIResponseFunctionToolCall) GetSubagentItems() []OpenAIResponseFunctionToolCallSubagentItem {
+	if o == nil {
+		return nil
+	}
+	return o.SubagentItems
 }
 
 func (o *OpenAIResponseFunctionToolCall) GetType() OpenAIResponseFunctionToolCallType {

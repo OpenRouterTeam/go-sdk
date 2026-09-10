@@ -1,0 +1,28 @@
+---
+title: "ErrorEnum"
+---
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ErrorEnumInvalidRequest
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ErrorEnum("custom_value")
+```
+
+
+## Values
+
+| Name                              | Value                             |
+| --------------------------------- | --------------------------------- |
+| `ErrorEnumInvalidRequest`         | invalid_request                   |
+| `ErrorEnumInvalidGrant`           | invalid_grant                     |
+| `ErrorEnumUnsupportedGrantType`   | unsupported_grant_type            |
+| `ErrorEnumInvalidScope`           | invalid_scope                     |
+| `ErrorEnumServerError`            | server_error                      |
+| `ErrorEnumTemporarilyUnavailable` | temporarily_unavailable           |

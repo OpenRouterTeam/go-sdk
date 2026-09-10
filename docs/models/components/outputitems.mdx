@@ -133,6 +133,12 @@ outputItems := components.CreateOutputItemsOpenrouterMcp(components.OutputMcpSer
 outputItems := components.CreateOutputItemsOpenrouterMemory(components.OutputMemoryServerToolItem{/* values here */})
 ```
 
+### OutputShellServerToolItem
+
+```go
+outputItems := components.CreateOutputItemsOpenrouterShell(components.OutputShellServerToolItem{/* values here */})
+```
+
 ### OutputSubagentServerToolItem
 
 ```go
@@ -235,6 +241,8 @@ switch outputItems.Type {
 		// outputItems.OutputMcpServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterMemory:
 		// outputItems.OutputMemoryServerToolItem is populated
+	case components.OutputItemsTypeOpenrouterShell:
+		// outputItems.OutputShellServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterSubagent:
 		// outputItems.OutputSubagentServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterTextEditor:

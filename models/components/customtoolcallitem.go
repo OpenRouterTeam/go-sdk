@@ -40,6 +40,7 @@ type CustomToolCallItem struct {
 	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
 	Namespace *string                `json:"namespace,omitzero"`
 	Type      CustomToolCallItemType `json:"type"`
+	Status    *ToolCallStatus        `json:"status,omitzero"`
 }
 
 func (c CustomToolCallItem) MarshalJSON() ([]byte, error) {
@@ -93,4 +94,11 @@ func (c *CustomToolCallItem) GetType() CustomToolCallItemType {
 		return CustomToolCallItemType("")
 	}
 	return c.Type
+}
+
+func (c *CustomToolCallItem) GetStatus() *ToolCallStatus {
+	if c == nil {
+		return nil
+	}
+	return c.Status
 }

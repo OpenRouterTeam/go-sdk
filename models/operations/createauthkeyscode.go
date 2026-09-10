@@ -62,7 +62,7 @@ type CreateAuthKeysCodeRequest struct {
 	CodeChallenge *string `json:"code_challenge,omitzero"`
 	// The method used to generate the code challenge
 	CodeChallengeMethod *CreateAuthKeysCodeCodeChallengeMethod `json:"code_challenge_method,omitzero"`
-	// Optional expiration time for the API key to be created
+	// Optional ISO 8601 UTC expiration timestamp. Must include seconds (YYYY-MM-DDTHH:MM:SSZ; fractional seconds allowed); minute-precision timestamps are rejected.
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
 	// Optional custom label for the API key. Defaults to the app name if not provided.
 	KeyLabel *string `json:"key_label,omitzero"`

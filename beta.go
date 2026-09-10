@@ -8,8 +8,6 @@ import (
 )
 
 type Beta struct {
-	// beta.Analytics endpoints
-	Analytics *BetaAnalytics
 	// Deprecated alias of responses. Use responses instead; scheduled for removal (sunset date TBD).
 	Responses *BetaResponses
 
@@ -23,7 +21,6 @@ func newBeta(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hook
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
-		Analytics:        newBetaAnalytics(rootSDK, sdkConfig, hooks),
 		Responses:        newBetaResponses(rootSDK, sdkConfig, hooks),
 	}
 }

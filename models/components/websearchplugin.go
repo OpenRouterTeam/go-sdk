@@ -123,7 +123,7 @@ type WebSearchPlugin struct {
 	MaxResults     *int64   `json:"max_results,omitzero"`
 	// Maximum number of times the model can invoke web search in a single turn. Passed through to native providers that support it (e.g. Anthropic).
 	MaxUses *int64 `json:"max_uses,omitzero"`
-	// Engine-native search mode. Exa supports instant, fast, auto (default), deep-lite, deep, and deep-reasoning. Parallel supports turbo, basic (default), and advanced. Modes unsupported by the selected engine are ignored.
+	// Engine-native search mode. Exa supports instant, fast, auto (default), deep-lite, deep, and deep-reasoning. Parallel supports turbo, fast, basic (default), and advanced. Modes unsupported by the selected engine are ignored.
 	Mode         *WebSearchMode                                  `json:"mode,omitzero"`
 	SearchPrompt *string                                         `json:"search_prompt,omitzero"`
 	UserLocation optionalnullable.OptionalNullable[UserLocation] `json:"user_location,omitzero"`

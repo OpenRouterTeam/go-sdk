@@ -10,13 +10,15 @@ type OpenRouterMetadata struct {
 	Attempt   int64             `json:"attempt"`
 	Attempts  []RouterAttempt   `json:"attempts,omitzero"`
 	Endpoints EndpointsMetadata `json:"endpoints"`
-	IsBYOK    bool              `json:"is_byok"`
-	Params    *RouterParams     `json:"params,omitzero"`
-	Pipeline  []PipelineStage   `json:"pipeline,omitzero"`
-	Region    *string           `json:"region"`
-	Requested string            `json:"requested"`
-	Strategy  RoutingStrategy   `json:"strategy"`
-	Summary   string            `json:"summary"`
+	// Milliseconds measured for the generation, from dispatching the upstream request until its response body ended. Divide the completion token count by this for throughput. Absent when no upstream request was dispatched.
+	GenerationTime *int64          `json:"generation_time,omitzero"`
+	IsBYOK         bool            `json:"is_byok"`
+	Params         *RouterParams   `json:"params,omitzero"`
+	Pipeline       []PipelineStage `json:"pipeline,omitzero"`
+	Region         *string         `json:"region"`
+	Requested      string          `json:"requested"`
+	Strategy       RoutingStrategy `json:"strategy"`
+	Summary        string          `json:"summary"`
 }
 
 func (o OpenRouterMetadata) MarshalJSON() ([]byte, error) {
@@ -49,6 +51,13 @@ func (o *OpenRouterMetadata) GetEndpoints() EndpointsMetadata {
 		return EndpointsMetadata{}
 	}
 	return o.Endpoints
+}
+
+func (o *OpenRouterMetadata) GetGenerationTime() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.GenerationTime
 }
 
 func (o *OpenRouterMetadata) GetIsBYOK() bool {
