@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 9d322919a609e471c7703a2b664931b0
+  docChecksum: 1c95e9380d165a47cd2f6e8e614b4127
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.131
-  configChecksum: acdf3019d50f76e81d3cdd7984da8f39
+  releaseVersion: 0.7.132
+  configChecksum: edcc0c9e28d0dc59565fb94935f99faf
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: e961a2e5-c35c-4571-ba9f-52c00ab1a595
-  pristine_commit_hash: 9e74ce3f0bdeb649c30cdb4cff9577146e4001ac
-  pristine_tree_hash: 983b52daa647262f1d94e77da0e601643f9e06d4
+  generation_id: 565f9ef3-2d0b-4af2-89e6-44dd5054db62
+  pristine_commit_hash: a4e5a8537e86884d1d8d5ea146d164c207e983ad
+  pristine_tree_hash: 9ea55c56b5241c66624f671855988dcbff218b42
 features:
   go:
     acceptHeaders: 2.81.2
@@ -883,8 +883,8 @@ trackedFiles:
     pristine_git_object: cb63d2776b44b09717aa74ea831da4631160b55d
   docs/models/components/byokproviderslug.mdx:
     id: bf78d7c64c23
-    last_write_checksum: sha1:101ef499154dc8d611bb10a59c4191d823ed1621
-    pristine_git_object: a407671d9e755de4342426697ac89468791f4bf1
+    last_write_checksum: sha1:2ca9072d555ac44c0a0aa77fd1d8c9e2043e76b5
+    pristine_git_object: dc15c8df121900fbd5ac0710f1e9fda2641b4e54
   docs/models/components/capabilitydescriptor.mdx:
     id: 4d699c4b70ec
     last_write_checksum: sha1:6c58e8df800ebcefe9a8e6311270492126066b2e
@@ -6815,8 +6815,8 @@ trackedFiles:
     pristine_git_object: 2e4644f4bc69974d7bdde1b8d8885a278d2d6e66
   docs/models/operations/provider.mdx:
     id: 45f471a16baa
-    last_write_checksum: sha1:a497c2110f8a9dc07dd026679720e5a121bf27f0
-    pristine_git_object: a9b49d5c5712cd56976cffa2db7523c5571f0db0
+    last_write_checksum: sha1:fab80110a53951761a520c4966ae8900f24c8699
+    pristine_git_object: c27b114a7f2a62dc19be05a003a41fb3c8254d6b
   docs/models/operations/queryanalyticsdata1.mdx:
     id: 465047fb896a
     last_write_checksum: sha1:f9a349b4fee07f786180e94b45f92002bfae0e56
@@ -7631,8 +7631,8 @@ trackedFiles:
     pristine_git_object: 09219ad0a75a520b5ba1187793baa7dcbb547b54
   models/components/byokproviderslug.go:
     id: 13d55e8b344b
-    last_write_checksum: sha1:d4cf184840925755f478fbc25aa6aab45d882e83
-    pristine_git_object: 349c63a7b1e5f5f7e3b2aa23891da199dbf32499
+    last_write_checksum: sha1:099fd5b4a3917e87b24e5d7702c41816f632de5d
+    pristine_git_object: 03bc616162e327d6d7e0872a80e775a2915e3b29
   models/components/capabilitydescriptor.go:
     id: 61addd6d2068
     last_write_checksum: sha1:2c89a741740517ea931188941fa2160212d4e75e
@@ -10031,8 +10031,8 @@ trackedFiles:
     pristine_git_object: 515ba7a1a7a7a59c0378255d8280b49f2a51fdc5
   models/operations/listbyokkeys.go:
     id: e40d557d5875
-    last_write_checksum: sha1:144df1e540d8d8e7112188675c038240b0433f7a
-    pristine_git_object: 7488edc9dfc508bbcc14ee691e2008dc9737f514
+    last_write_checksum: sha1:167e54ecae70630a9ef9cebbc153cabc5c79640c
+    pristine_git_object: 0f68541e613ab2022349121ff94280e738a8df4e
   models/operations/listcontainerfiles.go:
     id: a5d7da5fd18e
     last_write_checksum: sha1:63fd3776586056bab62adc4131a0dee7efa749ae
@@ -10259,8 +10259,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:f7ccf48e5d159f7b72c1e2679e7ae9c4299ac70f
-    pristine_git_object: 3bb83ae876333b627fc1276d9a76697edfb40325
+    last_write_checksum: sha1:909f9bbbee179eb366c4298c098525fe0e2ece57
+    pristine_git_object: d93d8a6233d6ea8b65f7e9d73370a861d2802430
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -12251,4 +12251,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`:  `request.ResponsesRequest` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed**\n  *  `response` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider` **Changed**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider` **Changed**\n  *  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider` **Changed**\n"
