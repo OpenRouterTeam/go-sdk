@@ -57,13 +57,15 @@ func (e *NamespaceFunctionToolType) UnmarshalJSON(data []byte) error {
 // NamespaceFunctionTool - A function tool grouped inside a namespace tool
 type NamespaceFunctionTool struct {
 	AllowedCallers optionalnullable.OptionalNullable[[]AllowedCaller] `json:"allowed_callers,omitzero"`
-	DeferLoading   *bool                                              `json:"defer_loading,omitzero"`
-	Description    optionalnullable.OptionalNullable[string]          `json:"description,omitzero"`
-	Name           string                                             `json:"name"`
-	OutputSchema   optionalnullable.OptionalNullable[map[string]any]  `json:"output_schema,omitzero"`
-	Parameters     optionalnullable.OptionalNullable[map[string]any]  `json:"parameters,omitzero"`
-	Strict         optionalnullable.OptionalNullable[bool]            `json:"strict,omitzero"`
-	Type           NamespaceFunctionToolType                          `json:"type"`
+	// Lets the model keep working after calling this tool instead of waiting for its output. The tool is still executed by the client; return the result in a later request as a `function_call_output` with the original `call_id`. Only honored by providers whose Responses API supports async tools; ignored elsewhere.
+	Async        *bool                                             `json:"async,omitzero"`
+	DeferLoading *bool                                             `json:"defer_loading,omitzero"`
+	Description  optionalnullable.OptionalNullable[string]         `json:"description,omitzero"`
+	Name         string                                            `json:"name"`
+	OutputSchema optionalnullable.OptionalNullable[map[string]any] `json:"output_schema,omitzero"`
+	Parameters   optionalnullable.OptionalNullable[map[string]any] `json:"parameters,omitzero"`
+	Strict       optionalnullable.OptionalNullable[bool]           `json:"strict,omitzero"`
+	Type         NamespaceFunctionToolType                         `json:"type"`
 }
 
 func (n NamespaceFunctionTool) MarshalJSON() ([]byte, error) {
@@ -82,6 +84,13 @@ func (n *NamespaceFunctionTool) GetAllowedCallers() optionalnullable.OptionalNul
 		return nil
 	}
 	return n.AllowedCallers
+}
+
+func (n *NamespaceFunctionTool) GetAsync() *bool {
+	if n == nil {
+		return nil
+	}
+	return n.Async
 }
 
 func (n *NamespaceFunctionTool) GetDeferLoading() *bool {

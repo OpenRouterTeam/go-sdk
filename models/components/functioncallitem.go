@@ -64,9 +64,11 @@ func (e *FunctionCallItemType) UnmarshalJSON(data []byte) error {
 // FunctionCallItem - A function call initiated by the model
 type FunctionCallItem struct {
 	Arguments string `json:"arguments"`
-	CallID    string `json:"call_id"`
-	ID        string `json:"id"`
-	Name      string `json:"name"`
+	// True when the model called a tool declared with `async: true` and may continue its turn before the output is returned. Return the result in a later request as a `function_call_output` with this `call_id`.
+	Async  *bool  `json:"async,omitzero"`
+	CallID string `json:"call_id"`
+	ID     string `json:"id"`
+	Name   string `json:"name"`
 	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
 	Namespace *string         `json:"namespace,omitzero"`
 	Status    *ToolCallStatus `json:"status,omitzero"`
@@ -93,6 +95,13 @@ func (f *FunctionCallItem) GetArguments() string {
 		return ""
 	}
 	return f.Arguments
+}
+
+func (f *FunctionCallItem) GetAsync() *bool {
+	if f == nil {
+		return nil
+	}
+	return f.Async
 }
 
 func (f *FunctionCallItem) GetCallID() string {
