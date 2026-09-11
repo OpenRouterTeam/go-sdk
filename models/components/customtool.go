@@ -277,6 +277,8 @@ func (e *CustomToolTypeCustom) UnmarshalJSON(data []byte) error {
 
 // CustomTool - Custom tool configuration
 type CustomTool struct {
+	// Lets the model keep working after calling this tool instead of waiting for its output. The tool is still executed by the client; return the result in a later request as a `function_call_output` with the original `call_id`. Only honored by providers whose Responses API supports async tools; ignored elsewhere.
+	Async       *bool                `json:"async,omitzero"`
 	Description *string              `json:"description,omitzero"`
 	Format      *Format              `json:"format,omitzero"`
 	Name        string               `json:"name"`
@@ -292,6 +294,13 @@ func (c *CustomTool) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *CustomTool) GetAsync() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Async
 }
 
 func (c *CustomTool) GetDescription() *string {

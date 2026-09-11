@@ -32,6 +32,8 @@ func (e *OpenAIResponseCustomToolCallType) UnmarshalJSON(data []byte) error {
 }
 
 type OpenAIResponseCustomToolCall struct {
+	// True when the model called a tool declared with `async: true` and may continue its turn before the output is returned. Return the result in a later request as a `function_call_output` with this `call_id`.
+	Async  *bool   `json:"async,omitzero"`
 	CallID string  `json:"call_id"`
 	ID     *string `json:"id,omitzero"`
 	Input  string  `json:"input"`
@@ -50,6 +52,13 @@ func (o *OpenAIResponseCustomToolCall) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (o *OpenAIResponseCustomToolCall) GetAsync() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Async
 }
 
 func (o *OpenAIResponseCustomToolCall) GetCallID() string {

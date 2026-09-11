@@ -63,6 +63,8 @@ type OpenResponsesResultToolFunction struct {
 	Parameters  map[string]any                            `json:"parameters"`
 	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
 	Type        OpenResponsesResultType                   `json:"type"`
+	// Lets the model keep working after calling this tool instead of waiting for its output. The tool is still executed by the client; return the result in a later request as a `function_call_output` with the original `call_id`. Only honored by providers whose Responses API supports async tools; ignored elsewhere.
+	Async *bool `json:"async,omitzero"`
 	// Withhold this tool from the model until `openrouter:tool_search` finds it. Requires the tool search server tool; at least one tool must remain non-deferred.
 	DeferLoading *bool `json:"defer_loading,omitzero"`
 }
@@ -111,6 +113,13 @@ func (o *OpenResponsesResultToolFunction) GetType() OpenResponsesResultType {
 		return OpenResponsesResultType("")
 	}
 	return o.Type
+}
+
+func (o *OpenResponsesResultToolFunction) GetAsync() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Async
 }
 
 func (o *OpenResponsesResultToolFunction) GetDeferLoading() *bool {

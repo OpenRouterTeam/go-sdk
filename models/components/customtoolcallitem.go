@@ -33,6 +33,8 @@ func (e *CustomToolCallItemType) UnmarshalJSON(data []byte) error {
 
 // CustomToolCallItem - A call to a custom (freeform-grammar) tool created by the model — distinct from `function_call`. Used for tools like Codex CLI's `apply_patch` whose payload is opaque text rather than JSON arguments.
 type CustomToolCallItem struct {
+	// True when the model called a tool declared with `async: true` and may continue its turn before the output is returned. Return the result in a later request as a `function_call_output` with this `call_id`.
+	Async  *bool   `json:"async,omitzero"`
 	CallID string  `json:"call_id"`
 	ID     *string `json:"id,omitzero"`
 	Input  string  `json:"input"`
@@ -52,6 +54,13 @@ func (c *CustomToolCallItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *CustomToolCallItem) GetAsync() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Async
 }
 
 func (c *CustomToolCallItem) GetCallID() string {
