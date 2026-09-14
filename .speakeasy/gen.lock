@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: c601c8a5b7a791029a3e0d8dd8ecef1e
+  docChecksum: 2cf6998fe0a3294b704fba84de38591f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.133
-  configChecksum: d23de1389b99e66afa51a37c1fb69c77
+  releaseVersion: 0.7.134
+  configChecksum: 0f43863a55ee96ae294261314ffe402e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: de96d25e-f2ac-439c-80d2-7b0fc4c42438
-  pristine_commit_hash: dd2cfe5d112bea651fdcac0e5228a0d314497686
-  pristine_tree_hash: 76acae69d60c15ae0ceb45bf4f1cceb2eaebfa5b
+  generation_id: 6451d62c-e508-476a-8d6f-29bcc9b48485
+  pristine_commit_hash: dfa5166e88c261d2c1f2d9987bac6350836b78dd
+  pristine_tree_hash: 6719ca38396fff52df03151b3745e223940597ec
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7151,8 +7151,8 @@ trackedFiles:
     pristine_git_object: ab1b772c84923c7f22077bc350b5d97519758275
   docs/sdks/scim/README.mdx:
     id: fd6d8a91a053
-    last_write_checksum: sha1:a582604eb0db28f0c5f53887c7826a59b935590a
-    pristine_git_object: 5045d110491c7223e02885f9897d9a5d95bf8258
+    last_write_checksum: sha1:dc3f58b10cb0678f0c35ec8dc4b7447a20033329
+    pristine_git_object: 0ed9b9d28685a428fd41ef08953116b55a3b8aa5
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
     last_write_checksum: sha1:3d4796733e1072f2d07358357882a0175e31a302
@@ -10275,8 +10275,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:34221aaaf5a6d9db2bfedcc646adb4d4386bd5f8
-    pristine_git_object: 4f9673ff28b9c23b6a7a6e25250326f9f8756173
+    last_write_checksum: sha1:84b2e7bd5bd42ded40de3e0857c904c96fbb2c52
+    pristine_git_object: 77961876cf289efc2903414db42252527b753829
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10311,8 +10311,8 @@ trackedFiles:
     pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   scim.go:
     id: 7cae7699a750
-    last_write_checksum: sha1:ad48add49919b5740e9f3d34c11c054de650d796
-    pristine_git_object: 61ff9f18fe6aef95d716023c892abefb71659d29
+    last_write_checksum: sha1:055c85d95551e34f738e8cfe0b6bf0387eae0331
+    pristine_git_object: be33cb414fac26eb75fcf10243b1545979d9c092
   stt.go:
     id: 04852909348f
     last_write_checksum: sha1:1a1e990e34e03fd6b2ce452c5f3a0ce2363f4d87
@@ -12271,6 +12271,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.VideoGeneration.GetVideoContent()`:  `error` **Changed**
