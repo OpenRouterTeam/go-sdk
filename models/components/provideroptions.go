@@ -21,6 +21,7 @@ type ProviderOptions struct {
 	Anthropic2               map[string]any `json:"anthropic/2,omitzero"`
 	Anyscale                 map[string]any `json:"anyscale,omitzero"`
 	ArceeAi                  map[string]any `json:"arcee-ai,omitzero"`
+	Assemblyai               map[string]any `json:"assemblyai,omitzero"`
 	AtlasCloud               map[string]any `json:"atlas-cloud,omitzero"`
 	Atoma                    map[string]any `json:"atoma,omitzero"`
 	Avian                    map[string]any `json:"avian,omitzero"`
@@ -250,6 +251,13 @@ func (p *ProviderOptions) GetArceeAi() map[string]any {
 		return nil
 	}
 	return p.ArceeAi
+}
+
+func (p *ProviderOptions) GetAssemblyai() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Assemblyai
 }
 
 func (p *ProviderOptions) GetAtlasCloud() map[string]any {
