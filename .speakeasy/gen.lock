@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1c95e9380d165a47cd2f6e8e614b4127
+  docChecksum: c601c8a5b7a791029a3e0d8dd8ecef1e
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.132
-  configChecksum: edcc0c9e28d0dc59565fb94935f99faf
+  releaseVersion: 0.7.133
+  configChecksum: d23de1389b99e66afa51a37c1fb69c77
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 565f9ef3-2d0b-4af2-89e6-44dd5054db62
-  pristine_commit_hash: a4e5a8537e86884d1d8d5ea146d164c207e983ad
-  pristine_tree_hash: 9ea55c56b5241c66624f671855988dcbff218b42
+  generation_id: de96d25e-f2ac-439c-80d2-7b0fc4c42438
+  pristine_commit_hash: dd2cfe5d112bea651fdcac0e5228a0d314497686
+  pristine_tree_hash: 76acae69d60c15ae0ceb45bf4f1cceb2eaebfa5b
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2385,6 +2385,10 @@ trackedFiles:
     id: 8eeeb80a5619
     last_write_checksum: sha1:4a6a6ce11916b8f16e0698988007ed700e6dc328
     pristine_git_object: 29ce08a545038081c8432b6477af885b0d4527eb
+  docs/models/components/goneresponseerrordata.mdx:
+    id: c3212372f168
+    last_write_checksum: sha1:2488f4bb858fbf8d0859e090e8a87acc16261416
+    pristine_git_object: 3039016fcff70b38ce71ef109aacfce99e6b5f16
   docs/models/components/granttype.mdx:
     id: f8afae62b13a
     last_write_checksum: sha1:9851e38007c91d3dff1c7ccc1071f5d578b06068
@@ -7001,6 +7005,10 @@ trackedFiles:
     id: 657c00c5cae8
     last_write_checksum: sha1:f96052ab3f7b05cf770e3d48ec48056a6d8fd015
     pristine_git_object: e4947ec516dbbd285bba9a0157fe83db25e02f90
+  docs/models/sdkerrors/goneresponseerror.mdx:
+    id: 2abb5b5a341f
+    last_write_checksum: sha1:f128a9338bf2a7cadc25d88226098270af9e0f5f
+    pristine_git_object: 98b5222ff25b46cf0cb7c7d24ca58c98584ea92d
   docs/models/sdkerrors/internalserverresponseerror.mdx:
     id: 5b5099d633fb
     last_write_checksum: sha1:17088406164a3c6638a8db8f0192b7827c897859
@@ -7155,8 +7163,8 @@ trackedFiles:
     pristine_git_object: 09ef99f1bdcbcb860a51539cade39eb5423b207e
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
-    last_write_checksum: sha1:0df22e57e26e0568d9453cc71c7d0400dbbf3865
-    pristine_git_object: db5aef504095b1b3fb0fcee4e2425f9ff3aed5a8
+    last_write_checksum: sha1:f1832c16d927963d106c4633e594de946eccfe5c
+    pristine_git_object: 6f4b35271abb0206a927e7eee35fd20b5bbc3f26
   docs/sdks/workspaces/README.mdx:
     id: 0c75d023ef6b
     last_write_checksum: sha1:f84a37bb80f89141aaa58ad0d1f95b5ea224b6fb
@@ -8305,6 +8313,10 @@ trackedFiles:
     id: a1e616b47afd
     last_write_checksum: sha1:f48de4958863e7c5d175265331762bccaed2efb4
     pristine_git_object: 6c4e68cb08973a94e0acb458b22c666a9d8f1c58
+  models/components/goneresponseerrordata.go:
+    id: b83cb88062cf
+    last_write_checksum: sha1:53cd723415c229c15111668d4e663240ce9b3d30
+    pristine_git_object: 89ffb3d964cb71352e08aadabe2394d1443160f9
   models/components/guardrail.go:
     id: 0a53b6641f18
     last_write_checksum: sha1:9282d7a1d1a8e63feb2c3e47fa5af50ebf228930
@@ -10205,6 +10217,10 @@ trackedFiles:
     id: 7a8ee74ef09a
     last_write_checksum: sha1:fcd9a8220a84c022ac078f1ef1ed15830912096b
     pristine_git_object: aab1977347011881f86f909fae805c0ed42c40ae
+  models/sdkerrors/goneresponseerror.go:
+    id: 32d53a78f72b
+    last_write_checksum: sha1:31b01b52a565ad01265077cecd2586b7675e3a90
+    pristine_git_object: d4c6e347f662bf0d9c1ba4c91cd545b01c9d38bc
   models/sdkerrors/internalserverresponseerror.go:
     id: 13ce339a83c1
     last_write_checksum: sha1:42902769b372a57747f5e54500d23ddf940d30d6
@@ -10259,8 +10275,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:909f9bbbee179eb366c4298c098525fe0e2ece57
-    pristine_git_object: d93d8a6233d6ea8b65f7e9d73370a861d2802430
+    last_write_checksum: sha1:34221aaaf5a6d9db2bfedcc646adb4d4386bd5f8
+    pristine_git_object: 4f9673ff28b9c23b6a7a6e25250326f9f8756173
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10327,8 +10343,8 @@ trackedFiles:
     pristine_git_object: f590f26543adbbb82e2fe183b8051b1ff1ab49c6
   videogeneration.go:
     id: cb32a6d68bf0
-    last_write_checksum: sha1:3ab073fe0751c288af475483e935858fd2a7557f
-    pristine_git_object: 8487cc570f7b3c6a932656c33a227f669b010ec8
+    last_write_checksum: sha1:43c30bc86bc19208039ea75020b9ed91b42116e3
+    pristine_git_object: da10eed249fa4c39222fbd28ebdd985fb36f8545
   workspaces.go:
     id: 643517773c6f
     last_write_checksum: sha1:8c283486c983b391c82dc33732260ee05600f110
@@ -11056,6 +11072,10 @@ examples:
           application/json: {"error": {"code": 502, "message": "Provider returned error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+        "410":
+          application/json: {"error": {"code": 410, "message": "The Coinbase APIs used by this endpoint have been deprecated, so the Coinbase Commerce credits API has been removed. Use the web credits purchase flow instead."}}
   listVideosModels:
     speakeasy-default-list-videos-models:
       responses:
@@ -12251,4 +12271,6 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider` **Changed**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider` **Changed**\n  *  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.VideoGeneration.GetVideoContent()`:  `error` **Changed**
