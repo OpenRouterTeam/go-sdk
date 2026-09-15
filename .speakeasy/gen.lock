@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 4fd0b4356873a77eb02522eff0951f82
+  docChecksum: 6ee130140e365d2528d7fbac30079d93
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.135
-  configChecksum: 249edefe01b8c6e0972dc21c1cdd335b
+  releaseVersion: 0.7.136
+  configChecksum: 1c9e8641398d4f99b5b0240666ea2e0c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b7365c30-df2e-40e8-a011-4ec3afecd27c
-  pristine_commit_hash: d846bd3a7cdbaad4bf1dabd60c8ae4f044ad7aaa
-  pristine_tree_hash: ab86f24d86a37b53f8fd283575a4653088402dde
+  generation_id: 0df36498-518b-4a1c-a5b0-9a45d8085d10
+  pristine_commit_hash: 4d0293f12e44b329c40530c939a90892c688367d
+  pristine_tree_hash: 5e59d15968264c92ae461efba73d9c20300df900
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2487,8 +2487,8 @@ trackedFiles:
     pristine_git_object: 01f13d46cd6e508446a512b3e93b5330bdda8273
   docs/models/components/imagegenerationrequestaspectratio.mdx:
     id: 57d69bdf90ec
-    last_write_checksum: sha1:fd516b57e78ce92449b7e8d9650f399aadef879d
-    pristine_git_object: 836ce1beb244073f3f96203116fa8c215ba9e7c8
+    last_write_checksum: sha1:662965fa8d23b3217c5e8ce24a65603b0bbfdb38
+    pristine_git_object: 42363e871999937a37d2626ae17fbbcb4ab8a952
   docs/models/components/imagegenerationrequestbackground.mdx:
     id: 08bcf5832adc
     last_write_checksum: sha1:6da8e8b152df587a0d93a2859af9ff2513ac200e
@@ -8363,8 +8363,8 @@ trackedFiles:
     pristine_git_object: cf481e653fbf67595e6fe0f364ec050e3124a169
   models/components/imagegenerationrequest.go:
     id: 2a1c3242c506
-    last_write_checksum: sha1:7fb0b8b2a058655e1587172aec197cbfe379fa8d
-    pristine_git_object: ecff8c9e7cfa0101241f431a93de14de3270a94d
+    last_write_checksum: sha1:adfb4f05b23395be445997a188cf4079c376ebb3
+    pristine_git_object: 3e07f3127ad60e653010356babcc516ed471892a
   models/components/imagegenerationresponse.go:
     id: bfcc44d3ad67
     last_write_checksum: sha1:6c133bc51c83d5747936cf1546933cf27c536099
@@ -10275,8 +10275,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:023e62b9f3e609356c9b14601b4fba137b4542d1
-    pristine_git_object: 7010173f52326476be1d279903ea6c4c038043ab
+    last_write_checksum: sha1:78133952f59b43b4fab872a8d3e8cea9014720d1
+    pristine_git_object: 53832fd27c267fd4a7a1f40b61a3a17de2f71e54
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -12271,4 +12271,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Assemblyai` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Assemblyai` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(assemblyai)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(assemblyai)` **Added**\n  *  `response.Data.Provider.Enum(assemblyai)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(assemblyai)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(assemblyai)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(assemblyAi)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(assemblyAi)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(assemblyAi)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(assemblyAi)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Assemblyai` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.AspectRatio` **Changed**\n"

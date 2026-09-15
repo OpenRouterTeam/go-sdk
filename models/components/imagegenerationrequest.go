@@ -16,11 +16,13 @@ const (
 	ImageGenerationRequestAspectRatioEighteen                   ImageGenerationRequestAspectRatio = "1:8"
 	ImageGenerationRequestAspectRatioTwentyOne                  ImageGenerationRequestAspectRatio = "2:1"
 	ImageGenerationRequestAspectRatioTwentyThree                ImageGenerationRequestAspectRatio = "2:3"
+	ImageGenerationRequestAspectRatioTwoDot351                  ImageGenerationRequestAspectRatio = "2.35:1"
 	ImageGenerationRequestAspectRatioThirtyTwo                  ImageGenerationRequestAspectRatio = "3:2"
 	ImageGenerationRequestAspectRatioThirtyFour                 ImageGenerationRequestAspectRatio = "3:4"
 	ImageGenerationRequestAspectRatioFortyOne                   ImageGenerationRequestAspectRatio = "4:1"
 	ImageGenerationRequestAspectRatioFortyThree                 ImageGenerationRequestAspectRatio = "4:3"
 	ImageGenerationRequestAspectRatioFortyFive                  ImageGenerationRequestAspectRatio = "4:5"
+	ImageGenerationRequestAspectRatioFiftyTwo                   ImageGenerationRequestAspectRatio = "5:2"
 	ImageGenerationRequestAspectRatioFiftyFour                  ImageGenerationRequestAspectRatio = "5:4"
 	ImageGenerationRequestAspectRatioEightyOne                  ImageGenerationRequestAspectRatio = "8:1"
 	ImageGenerationRequestAspectRatioNineHundredAndSixteen      ImageGenerationRequestAspectRatio = "9:16"
@@ -42,7 +44,7 @@ func (e ImageGenerationRequestAspectRatio) ToPointer() *ImageGenerationRequestAs
 func (e *ImageGenerationRequestAspectRatio) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "1:1", "1:2", "1:4", "1:8", "2:1", "2:3", "3:2", "3:4", "4:1", "4:3", "4:5", "5:4", "8:1", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto":
+		case "1:1", "1:2", "1:4", "1:8", "2:1", "2:3", "2.35:1", "3:2", "3:4", "4:1", "4:3", "4:5", "5:2", "5:4", "8:1", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto":
 			return true
 		}
 	}
