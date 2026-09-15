@@ -69,6 +69,8 @@ type STTRequest struct {
 	Temperature *float64 `json:"temperature,omitzero"`
 	// Timestamp detail levels to include when response_format is "verbose_json". "segment" returns segment-level timestamps; "word" additionally returns word-level timestamps in the words array. Ignored unless response_format is "verbose_json".
 	TimestampGranularities []STTTimestampGranularity `json:"timestamp_granularities,omitzero"`
+	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
+	User *string `json:"user,omitzero"`
 }
 
 func (s STTRequest) MarshalJSON() ([]byte, error) {
@@ -129,4 +131,11 @@ func (s *STTRequest) GetTimestampGranularities() []STTTimestampGranularity {
 		return nil
 	}
 	return s.TimestampGranularities
+}
+
+func (s *STTRequest) GetUser() *string {
+	if s == nil {
+		return nil
+	}
+	return s.User
 }

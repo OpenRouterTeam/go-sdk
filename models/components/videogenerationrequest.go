@@ -1258,6 +1258,8 @@ type VideoGenerationRequest struct {
 	Size *string `json:"size,omitzero"`
 	// Upscale factor for video upscaling models only. This parameter is not supported by video generation models.
 	UpscaleFactor *float64 `json:"upscale_factor,omitzero"`
+	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
+	User *string `json:"user,omitzero"`
 }
 
 func (v VideoGenerationRequest) MarshalJSON() ([]byte, error) {
@@ -1367,4 +1369,11 @@ func (v *VideoGenerationRequest) GetUpscaleFactor() *float64 {
 		return nil
 	}
 	return v.UpscaleFactor
+}
+
+func (v *VideoGenerationRequest) GetUser() *string {
+	if v == nil {
+		return nil
+	}
+	return v.User
 }
