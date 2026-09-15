@@ -182,6 +182,8 @@ type ImageGenerationRequest struct {
 	Size *string `json:"size,omitzero"`
 	// If true, partial images are streamed as SSE events as they become available. Only supported by providers with native streaming (currently OpenAI). Non-streaming providers ignore this flag and return a buffered response.
 	Stream *bool `json:"stream,omitzero"`
+	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
+	Trace *TraceConfig `json:"trace,omitzero"`
 	// A stable identifier for your end-users. Used to help detect and prevent abuse. Never sent to providers verbatim: for providers whose data policy requires user IDs, it is folded into a hashed, per-account upstream user identifier.
 	User *string `json:"user,omitzero"`
 }
@@ -293,6 +295,13 @@ func (i *ImageGenerationRequest) GetStream() *bool {
 		return nil
 	}
 	return i.Stream
+}
+
+func (i *ImageGenerationRequest) GetTrace() *TraceConfig {
+	if i == nil {
+		return nil
+	}
+	return i.Trace
 }
 
 func (i *ImageGenerationRequest) GetUser() *string {

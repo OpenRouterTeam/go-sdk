@@ -69,6 +69,8 @@ type STTRequest struct {
 	Temperature *float64 `json:"temperature,omitzero"`
 	// Timestamp detail levels to include when response_format is "verbose_json". "segment" returns segment-level timestamps; "word" additionally returns word-level timestamps in the words array. Ignored unless response_format is "verbose_json".
 	TimestampGranularities []STTTimestampGranularity `json:"timestamp_granularities,omitzero"`
+	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
+	Trace *TraceConfig `json:"trace,omitzero"`
 	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
 	User *string `json:"user,omitzero"`
 }
@@ -131,6 +133,13 @@ func (s *STTRequest) GetTimestampGranularities() []STTTimestampGranularity {
 		return nil
 	}
 	return s.TimestampGranularities
+}
+
+func (s *STTRequest) GetTrace() *TraceConfig {
+	if s == nil {
+		return nil
+	}
+	return s.Trace
 }
 
 func (s *STTRequest) GetUser() *string {
