@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6ee130140e365d2528d7fbac30079d93
+  docChecksum: 14adc544235d75e14023ab2751745096
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.136
-  configChecksum: 1c9e8641398d4f99b5b0240666ea2e0c
+  releaseVersion: 0.7.137
+  configChecksum: 5c5ed98006478b5026e276f148963ca4
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 0df36498-518b-4a1c-a5b0-9a45d8085d10
-  pristine_commit_hash: 4d0293f12e44b329c40530c939a90892c688367d
-  pristine_tree_hash: 5e59d15968264c92ae461efba73d9c20300df900
+  generation_id: a2931765-80ef-40c7-9d0f-0309868ecfa6
+  pristine_commit_hash: 29c64970ba4494292e52da35994e571702b2a8a6
+  pristine_tree_hash: 19341ff2ca73c6fc305177f3ab21170505b2328d
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7111,8 +7111,8 @@ trackedFiles:
     pristine_git_object: c3980bc639ff07cd208157f898213d7f3d4d10c9
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
-    last_write_checksum: sha1:8f2a9f84f830af4769bcc254e96a1b7d119eb3ec
-    pristine_git_object: 58cb7269c93c4982a7ec883a49315cf0695447eb
+    last_write_checksum: sha1:84440b4428e4765e8192527d871da8aed3c48453
+    pristine_git_object: 6f0e6fdda307ec757cba9b92fa6efc2112320595
   docs/sdks/images/README.mdx:
     id: 534a6c102c4f
     last_write_checksum: sha1:fef3a5f9d92e1b02098a1555dbaacecf48c73fb0
@@ -7191,8 +7191,8 @@ trackedFiles:
     pristine_git_object: eae78f3c2cd96ed8cefd70602553933b59bd1fd7
   guardrails.go:
     id: eb364a316712
-    last_write_checksum: sha1:a46f9206f539eee8f9b68b26be053be11af9546c
-    pristine_git_object: 7b5b1f67319a94cd469c97e2e0643b9741d45036
+    last_write_checksum: sha1:bccd97c0e57db655a6c9181b3a23bd7b6f0f61aa
+    pristine_git_object: e710537a9e9198ae0f0bddd753d3b2db10ae1088
   images.go:
     id: d0bc8e6fab7e
     last_write_checksum: sha1:c9af5f01aba5c6a9e23f179d8f57adc1ebfd66b3
@@ -10275,8 +10275,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:78133952f59b43b4fab872a8d3e8cea9014720d1
-    pristine_git_object: 53832fd27c267fd4a7a1f40b61a3a17de2f71e54
+    last_write_checksum: sha1:a9fb310fba3b5fff67beacc99b3bcf2bbd8a8911
+    pristine_git_object: 16127943dd016105eb73d6dc7a4086cb1cfb2cec
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10740,6 +10740,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "409":
           application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   deleteGuardrail:
     speakeasy-default-delete-guardrail:
       parameters:
@@ -10815,6 +10817,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listGuardrailMemberAssignments:
     speakeasy-default-list-guardrail-member-assignments:
       parameters:
@@ -12271,4 +12275,7 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.AspectRatio` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Guardrails.Update()`:  `error.status[403]` **Added**
+  * `OpenRouter.Guardrails.BulkAssignKeys()`:  `error.status[403]` **Added**
