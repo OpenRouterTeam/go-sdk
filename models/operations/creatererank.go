@@ -144,6 +144,8 @@ type CreateRerankRequest struct {
 	Query string `json:"query"`
 	// Number of most relevant documents to return
 	TopN *int64 `json:"top_n,omitzero"`
+	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
+	User *string `json:"user,omitzero"`
 }
 
 func (c CreateRerankRequest) MarshalJSON() ([]byte, error) {
@@ -190,6 +192,13 @@ func (c *CreateRerankRequest) GetTopN() *int64 {
 		return nil
 	}
 	return c.TopN
+}
+
+func (c *CreateRerankRequest) GetUser() *string {
+	if c == nil {
+		return nil
+	}
+	return c.User
 }
 
 // DocumentResponse - The document object echoing the original input (text and/or image)
