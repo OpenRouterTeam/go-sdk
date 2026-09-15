@@ -1256,6 +1256,8 @@ type VideoGenerationRequest struct {
 	Seed *int64 `json:"seed,omitzero"`
 	// Exact pixel dimensions of the generated video in "WIDTHxHEIGHT" format (e.g. "1280x720"). Interchangeable with resolution + aspect_ratio.
 	Size *string `json:"size,omitzero"`
+	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
+	Trace *TraceConfig `json:"trace,omitzero"`
 	// Upscale factor for video upscaling models only. This parameter is not supported by video generation models.
 	UpscaleFactor *float64 `json:"upscale_factor,omitzero"`
 	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
@@ -1362,6 +1364,13 @@ func (v *VideoGenerationRequest) GetSize() *string {
 		return nil
 	}
 	return v.Size
+}
+
+func (v *VideoGenerationRequest) GetTrace() *TraceConfig {
+	if v == nil {
+		return nil
+	}
+	return v.Trace
 }
 
 func (v *VideoGenerationRequest) GetUpscaleFactor() *float64 {

@@ -67,6 +67,8 @@ type SpeechRequest struct {
 	ResponseFormat *SpeechRequestResponseFormat `default:"pcm" json:"response_format"`
 	// Playback speed multiplier. Only used by models that support it (e.g. OpenAI TTS). Ignored by other providers.
 	Speed *float64 `json:"speed,omitzero"`
+	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
+	Trace *TraceConfig `json:"trace,omitzero"`
 	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
 	User *string `json:"user,omitzero"`
 	// Voice identifier (provider-specific).
@@ -124,6 +126,13 @@ func (s *SpeechRequest) GetSpeed() *float64 {
 		return nil
 	}
 	return s.Speed
+}
+
+func (s *SpeechRequest) GetTrace() *TraceConfig {
+	if s == nil {
+		return nil
+	}
+	return s.Trace
 }
 
 func (s *SpeechRequest) GetUser() *string {
