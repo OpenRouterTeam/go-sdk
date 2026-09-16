@@ -357,6 +357,16 @@ func main() {
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
 
+### [Vault](docs/sdks/vault/README.md)
+
+* [ListInternVaultSecrets](docs/sdks/vault/README.md#listinternvaultsecrets) - List intern secrets
+* [DeleteInternVaultSecret](docs/sdks/vault/README.md#deleteinternvaultsecret) - Delete an intern secret
+* [StoreInternVaultSecret](docs/sdks/vault/README.md#storeinternvaultsecret) - Store an intern secret
+* [CopyVaultSecretsToIntern](docs/sdks/vault/README.md#copyvaultsecretstointern) - Copy workspace secrets to an intern
+* [ListVaultSecrets](docs/sdks/vault/README.md#listvaultsecrets) - List workspace secrets
+* [DeleteVaultSecret](docs/sdks/vault/README.md#deletevaultsecret) - Delete a workspace secret
+* [StoreVaultSecret](docs/sdks/vault/README.md#storevaultsecret) - Store a workspace secret
+
 ### [VideoGeneration](docs/sdks/videogeneration/README.md)
 
 * [Generate](docs/sdks/videogeneration/README.md#generate) - Submit a video generation request

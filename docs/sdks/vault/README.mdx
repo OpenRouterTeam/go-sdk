@@ -1,0 +1,1950 @@
+---
+title: "Vault"
+description: "Store host-bound secrets for a workspace or for one intern. Scope is selected by the API key. Responses return metadata only, never secret values. See https://openrouter.ai/docs/guides/ori/vault."
+---
+
+## Overview
+
+Store host-bound secrets for a workspace or for one intern. Scope is selected by the API key. Responses return metadata only, never secret values. See https://openrouter.ai/docs/guides/ori/vault.
+
+### Available Operations
+
+* [ListInternVaultSecrets](#listinternvaultsecrets) - List intern secrets
+* [DeleteInternVaultSecret](#deleteinternvaultsecret) - Delete an intern secret
+* [StoreInternVaultSecret](#storeinternvaultsecret) - Store an intern secret
+* [CopyVaultSecretsToIntern](#copyvaultsecretstointern) - Copy workspace secrets to an intern
+* [ListVaultSecrets](#listvaultsecrets) - List workspace secrets
+* [DeleteVaultSecret](#deletevaultsecret) - Delete a workspace secret
+* [StoreVaultSecret](#storevaultsecret) - Store a workspace secret
+
+## ListInternVaultSecrets
+
+Lists secret metadata stored for one intern. Responses contain names, bound hosts, fingerprints and creation times, never secret values. Results are ordered by name and paginated with `limit` and `offset`. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.ListInternVaultSecrets(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", openrouter.Pointer[int64](50), openrouter.Pointer[int64](0))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 | Example                                                     |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `ctx`                                                       | [context.Context](https://pkg.go.dev/context#Context)       | :heavy_check_mark:                                          | The context to use for the request.                         |                                                             |
+| `internID`                                                  | `string`                                                    | :heavy_check_mark:                                          | UUID of an intern in the workspace selected by the API key. | 7c9e6679-7425-40de-944b-e07fc1f90ae7                        |
+| `limit`                                                     | `*int64`                                                    | :heavy_minus_sign:                                          | Page size, 1 to 100. Defaults to 100.                       | 50                                                          |
+| `offset`                                                    | `*int64`                                                    | :heavy_minus_sign:                                          | Number of secrets to skip, 0 to 10000. Defaults to 0.       | 0                                                           |
+| `opts`                                                      | [][operations.Option](../../models/operations/option.mdx)    | :heavy_minus_sign:                                          | The options for this request.                               |                                                             |
+
+### Response
+
+**[*components.VaultSecretListResponse](../../models/components/vaultsecretlistresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## DeleteInternVaultSecret
+
+Deletes a secret stored for one intern. Returns 204 with no body on success and 404 when the secret does not exist in the selected scope. Writes return 503 while vault writes are disabled for the caller. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    err := s.Vault.DeleteInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token")
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                     | Type                                                                                                                                          | Required                                                                                                                                      | Description                                                                                                                                   | Example                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                                                                         | :heavy_check_mark:                                                                                                                            | The context to use for the request.                                                                                                           |                                                                                                                                               |
+| `internID`                                                                                                                                    | `string`                                                                                                                                      | :heavy_check_mark:                                                                                                                            | UUID of an intern in the workspace selected by the API key.                                                                                   | 7c9e6679-7425-40de-944b-e07fc1f90ae7                                                                                                          |
+| `name`                                                                                                                                        | `string`                                                                                                                                      | :heavy_check_mark:                                                                                                                            | Secret name. Lowercase letters, digits and single underscores, starting with a letter and not ending with an underscore, 1 to 255 characters. | github_token                                                                                                                                  |
+| `opts`                                                                                                                                        | [][operations.Option](../../models/operations/option.mdx)                                                                                      | :heavy_minus_sign:                                                                                                                            | The options for this request.                                                                                                                 |                                                                                                                                               |
+
+### Response
+
+**error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## StoreInternVaultSecret
+
+Creates or replaces a secret stored for one intern. The value is encrypted at rest and released only to the exact hostnames in `hosts`. The response carries metadata only. Writes return 503 while vault writes are disabled for the caller. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage: body-timed-out
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: body-too-large
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: internal-error
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-or-missing-api-key
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-vault-request
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-vault-response
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: not-found
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: rate-limited
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: regional-hostname
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: route-deadline
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: transfer-in-progress
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-request-failed
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-timed-out
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-unavailable
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: workspace-scope-unavailable
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: writes-disabled
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreInternVaultSecret(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                     | Type                                                                                                                                          | Required                                                                                                                                      | Description                                                                                                                                   | Example                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                                                                         | :heavy_check_mark:                                                                                                                            | The context to use for the request.                                                                                                           |                                                                                                                                               |
+| `internID`                                                                                                                                    | `string`                                                                                                                                      | :heavy_check_mark:                                                                                                                            | UUID of an intern in the workspace selected by the API key.                                                                                   | 7c9e6679-7425-40de-944b-e07fc1f90ae7                                                                                                          |
+| `name`                                                                                                                                        | `string`                                                                                                                                      | :heavy_check_mark:                                                                                                                            | Secret name. Lowercase letters, digits and single underscores, starting with a letter and not ending with an underscore, 1 to 255 characters. | github_token                                                                                                                                  |
+| `vaultSecretWriteRequest`                                                                                                                     | [components.VaultSecretWriteRequest](../../models/components/vaultsecretwriterequest.mdx)                                                      | :heavy_check_mark:                                                                                                                            | N/A                                                                                                                                           | \{<br/>"hosts": [<br/>"api.github.com"<br/>],<br/>"value": "ghp_exampleTokenValue"<br/>}                                                       |
+| `opts`                                                                                                                                        | [][operations.Option](../../models/operations/option.mdx)                                                                                      | :heavy_minus_sign:                                                                                                                            | The options for this request.                                                                                                                 |                                                                                                                                               |
+
+### Response
+
+**[*components.VaultSecretResponse](../../models/components/vaultsecretresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.ConflictResponseError           | 409                                       | application/json                          |
+| sdkerrors.PayloadTooLargeResponseError    | 413                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## CopyVaultSecretsToIntern
+
+Copies the named workspace secrets into one intern's scope, replacing any intern secret with the same name. Each copy keeps the source value and host bindings. Every name must exist in the workspace scope or the request fails with 404 and nothing is copied. A workspace secret whose `hosts` is `null` cannot be copied: the request fails with 409 and nothing is copied until that secret is stored again with hosts. The response carries metadata only. Writes return 503 while vault writes are disabled for the caller. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage: body-timed-out
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: body-too-large
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: copy-conflict
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: internal-error
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-or-missing-api-key
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-vault-request
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-vault-response
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: not-found
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: rate-limited
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: regional-hostname
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: route-deadline
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-request-failed
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-timed-out
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-unavailable
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: workspace-scope-unavailable
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: writes-disabled
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.CopyVaultSecretsToIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.VaultSecretCopyRequest{
+        Names: []string{
+            "github_token",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            | Example                                                                                |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |                                                                                        |
+| `internID`                                                                             | `string`                                                                               | :heavy_check_mark:                                                                     | UUID of an intern in the workspace selected by the API key.                            | 7c9e6679-7425-40de-944b-e07fc1f90ae7                                                   |
+| `vaultSecretCopyRequest`                                                               | [components.VaultSecretCopyRequest](../../models/components/vaultsecretcopyrequest.mdx) | :heavy_check_mark:                                                                     | N/A                                                                                    | \{<br/>"names": [<br/>"github_token"<br/>]<br/>}                                        |
+| `opts`                                                                                 | [][operations.Option](../../models/operations/option.mdx)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |                                                                                        |
+
+### Response
+
+**[*components.VaultSecretCopyResponse](../../models/components/vaultsecretcopyresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.ConflictResponseError           | 409                                       | application/json                          |
+| sdkerrors.PayloadTooLargeResponseError    | 413                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## ListVaultSecrets
+
+Lists secret metadata for the workspace of the authenticated API key. Responses contain names, bound hosts, fingerprints and creation times, never secret values. Results are ordered by name and paginated with `limit` and `offset`. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.ListVaultSecrets(ctx, openrouter.Pointer[int64](50), openrouter.Pointer[int64](0))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Page size, 1 to 100. Defaults to 100.                    | 50                                                       |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of secrets to skip, 0 to 10000. Defaults to 0.    | 0                                                        |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.VaultSecretListResponse](../../models/components/vaultsecretlistresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## DeleteVaultSecret
+
+Deletes a secret from the workspace of the authenticated API key. Returns 204 with no body on success and 404 when the secret does not exist in the selected scope. Writes return 503 while vault writes are disabled for the caller. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    err := s.Vault.DeleteVaultSecret(ctx, "github_token")
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                     | Type                                                                                                                                          | Required                                                                                                                                      | Description                                                                                                                                   | Example                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                                                                         | :heavy_check_mark:                                                                                                                            | The context to use for the request.                                                                                                           |                                                                                                                                               |
+| `name`                                                                                                                                        | `string`                                                                                                                                      | :heavy_check_mark:                                                                                                                            | Secret name. Lowercase letters, digits and single underscores, starting with a letter and not ending with an underscore, 1 to 255 characters. | github_token                                                                                                                                  |
+| `opts`                                                                                                                                        | [][operations.Option](../../models/operations/option.mdx)                                                                                      | :heavy_minus_sign:                                                                                                                            | The options for this request.                                                                                                                 |                                                                                                                                               |
+
+### Response
+
+**error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
+
+## StoreVaultSecret
+
+Creates or replaces a secret in the workspace of the authenticated API key. The value is encrypted at rest and released only to the exact hostnames in `hosts`. The response carries metadata only. Writes return 503 while vault writes are disabled for the caller. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage: body-timed-out
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: body-too-large
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: internal-error
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-or-missing-api-key
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-vault-request
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: invalid-vault-response
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: not-found
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: rate-limited
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: regional-hostname
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: route-deadline
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-request-failed
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-timed-out
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: vault-unavailable
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: workspace-scope-unavailable
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: writes-disabled
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.StoreVaultSecret(ctx, "github_token", components.VaultSecretWriteRequest{
+        Hosts: []string{
+            "api.github.com",
+        },
+        Value: "ghp_exampleTokenValue",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                     | Type                                                                                                                                          | Required                                                                                                                                      | Description                                                                                                                                   | Example                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                                                                         | :heavy_check_mark:                                                                                                                            | The context to use for the request.                                                                                                           |                                                                                                                                               |
+| `name`                                                                                                                                        | `string`                                                                                                                                      | :heavy_check_mark:                                                                                                                            | Secret name. Lowercase letters, digits and single underscores, starting with a letter and not ending with an underscore, 1 to 255 characters. | github_token                                                                                                                                  |
+| `vaultSecretWriteRequest`                                                                                                                     | [components.VaultSecretWriteRequest](../../models/components/vaultsecretwriterequest.mdx)                                                      | :heavy_check_mark:                                                                                                                            | N/A                                                                                                                                           | \{<br/>"hosts": [<br/>"api.github.com"<br/>],<br/>"value": "ghp_exampleTokenValue"<br/>}                                                       |
+| `opts`                                                                                                                                        | [][operations.Option](../../models/operations/option.mdx)                                                                                      | :heavy_minus_sign:                                                                                                                            | The options for this request.                                                                                                                 |                                                                                                                                               |
+
+### Response
+
+**[*components.VaultSecretResponse](../../models/components/vaultsecretresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.PayloadTooLargeResponseError    | 413                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
