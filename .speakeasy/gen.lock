@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 00464a364e0d563c9a5f85d6b2bfcd0a
+  docChecksum: a63d290cfd45ecdf7e7cb1ca2d1faef1
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.140
-  configChecksum: 4247ab565fe728bbd801a80dd755026d
+  releaseVersion: 0.7.141
+  configChecksum: 99bb609d21bcef1dcea8254e3bb80080
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: e089fe8e-4d68-4ff5-b44f-1e27afbf2594
-  pristine_commit_hash: 6f8516447448567a630dbe5ecd2e32215fc93e65
-  pristine_tree_hash: e5341f08acce4053694a7ffdbf4e4da9444e7e24
+  generation_id: c1a67783-4bfa-451c-8516-ad4ad244c105
+  pristine_commit_hash: 7d60c193f14dbec40e8404e73be9d291647c5fcb
+  pristine_tree_hash: 0b9fd3802d760df732de55c8351b97e440835241
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2325,6 +2325,10 @@ trackedFiles:
     id: 70045caf7154
     last_write_checksum: sha1:f6afb128c7941a826873ac1d7584a7ab581c2d1d
     pristine_git_object: 70328a8d96a80d232f6dfc89905b31be210e996c
+  docs/models/components/gatewaytimeoutresponseerrordata.mdx:
+    id: 0440aade2685
+    last_write_checksum: sha1:b598153e09e44c857333c3bd680f37249acf7842
+    pristine_git_object: 7e28f3a3f389e92627c2f34a972e68a82a5cfc28
   docs/models/components/generationcontentdata.mdx:
     id: 8d96fea42847
     last_write_checksum: sha1:60baa313c0aaf68bb38eb9a700c2758397ed418d
@@ -7009,6 +7013,10 @@ trackedFiles:
     id: 657c00c5cae8
     last_write_checksum: sha1:f96052ab3f7b05cf770e3d48ec48056a6d8fd015
     pristine_git_object: e4947ec516dbbd285bba9a0157fe83db25e02f90
+  docs/models/sdkerrors/gatewaytimeoutresponseerror.mdx:
+    id: 274c643a5d87
+    last_write_checksum: sha1:8f76e5bdc7d5aa43f3f9aa3a0a82c8d66e2ecfd9
+    pristine_git_object: feaa27a90190743af2173e1b1882f46051d4a5f1
   docs/models/sdkerrors/goneresponseerror.mdx:
     id: 2abb5b5a341f
     last_write_checksum: sha1:f128a9338bf2a7cadc25d88226098270af9e0f5f
@@ -7159,8 +7167,8 @@ trackedFiles:
     pristine_git_object: 0ed9b9d28685a428fd41ef08953116b55a3b8aa5
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
-    last_write_checksum: sha1:3d4796733e1072f2d07358357882a0175e31a302
-    pristine_git_object: a8e524fa4251ae31f6257bca15af7bf82ce715a3
+    last_write_checksum: sha1:2a18efba4544b5922cd10677fecddb9bef20bdce
+    pristine_git_object: 3c3b31d3dd62f10d3dc8e8a0eecced91e8e9b7d0
   docs/sdks/tts/README.mdx:
     id: cd1132543884
     last_write_checksum: sha1:c475d1fb3062b103be5c84f6ba06c8559d926662
@@ -8265,6 +8273,10 @@ trackedFiles:
     id: a87b7441f055
     last_write_checksum: sha1:3d6299a3a5df96e87a25c56f62318a48168b73c0
     pristine_git_object: 37a27e8664172063e8add027b8fcf2f7d4a6b2b5
+  models/components/gatewaytimeoutresponseerrordata.go:
+    id: 64cf2033b905
+    last_write_checksum: sha1:f54751cd791c081312270a08ea4bca178308ef80
+    pristine_git_object: 2c41b39c3bb0253b21693fba3f4598de0120bcba
   models/components/generationcontentdata.go:
     id: 98d05ea3b77f
     last_write_checksum: sha1:021f524d5f25417dea2e8b17638c29f05464d1b6
@@ -10225,6 +10237,10 @@ trackedFiles:
     id: 7a8ee74ef09a
     last_write_checksum: sha1:fcd9a8220a84c022ac078f1ef1ed15830912096b
     pristine_git_object: aab1977347011881f86f909fae805c0ed42c40ae
+  models/sdkerrors/gatewaytimeoutresponseerror.go:
+    id: cf2e83818116
+    last_write_checksum: sha1:ba7ca4642640f8171a57ab7116903fabb60bf296
+    pristine_git_object: 7ebfae35d0002a46cf48cfafef3627817d95267e
   models/sdkerrors/goneresponseerror.go:
     id: 32d53a78f72b
     last_write_checksum: sha1:31b01b52a565ad01265077cecd2586b7675e3a90
@@ -10283,8 +10299,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:1d238d0abc4c8f730ded2c90699b4a6caf2f14f2
-    pristine_git_object: 79ec129a8cd8b6f799a3b76647e5659d01175969
+    last_write_checksum: sha1:21a27729ebe383d49e9a4f9425fa2d1e866f2716
+    pristine_git_object: ef9d1058fa895b7793a953211a37780c0ee5fa87
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10323,8 +10339,8 @@ trackedFiles:
     pristine_git_object: be33cb414fac26eb75fcf10243b1545979d9c092
   stt.go:
     id: 04852909348f
-    last_write_checksum: sha1:1a1e990e34e03fd6b2ce452c5f3a0ce2363f4d87
-    pristine_git_object: 9f0463bbfd33c71c8d906f0993e1f7da7f9d34b5
+    last_write_checksum: sha1:01640807e7ad834ffd5dd515c2e2e2324399f5bb
+    pristine_git_object: 3718619a25f34aff2a571a1a4892737aa1a269ed
   tts.go:
     id: 9feb76579e2d
     last_write_checksum: sha1:733e0079c2e46ba7d5f90b4f89a7c4ed3a636513
@@ -11331,6 +11347,8 @@ examples:
           application/json: {"error": {"code": 413, "message": "Request payload too large"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "504":
+          application/json: {"error": {"code": 504, "message": "The operation was aborted due to timeout"}}
     speakeasy-default-create-audio-transcriptions-multipart:
       requestBody:
         multipart/form-data: {"file": "x-file: example.file", "model": "Escalade"}
@@ -11361,6 +11379,8 @@ examples:
           application/json: {"error": {"code": 413, "message": "Request payload too large"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "504":
+          application/json: {"error": {"code": 504, "message": "The operation was aborted due to timeout"}}
   listBYOKKeys:
     speakeasy-default-list-BYOK-keys:
       parameters:
@@ -12285,4 +12305,5 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.ApiKeys.GetCurrentKeyMetadata()`:  `response.Data.FreeModelDailyRequests` **Added**
+  * `OpenRouter.Stt.CreateTranscription()`:  `error.status[504]` **Added**
+  * `OpenRouter.Stt.CreateTranscriptionMultipart()`:  `error.status[504]` **Added**
