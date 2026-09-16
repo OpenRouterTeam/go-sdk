@@ -9,6 +9,29 @@ import (
 	"time"
 )
 
+type AllowedDataRegion string
+
+const (
+	AllowedDataRegionGlobal AllowedDataRegion = "global"
+	AllowedDataRegionEurope AllowedDataRegion = "europe"
+	AllowedDataRegionUs     AllowedDataRegion = "us"
+)
+
+func (e AllowedDataRegion) ToPointer() *AllowedDataRegion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AllowedDataRegion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "global", "europe", "us":
+			return true
+		}
+	}
+	return false
+}
+
 // RateLimit - Legacy rate limit information about a key. Will always return -1.
 //
 // Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -44,6 +67,8 @@ func (r *RateLimit) GetRequests() int64 {
 
 // GetCurrentKeyData - Current API key information
 type GetCurrentKeyData struct {
+	// Data regions permitted for this API key by the guardrail policies on the key and the account regional-routing entitlement. Empty when no region is permitted. Reflects region policy only: other key restrictions, such as management keys being blocked from inference, still apply.
+	AllowedDataRegions []AllowedDataRegion `json:"allowed_data_regions"`
 	// Total external BYOK usage (in USD) for the API key
 	BYOKUsage float64 `json:"byok_usage"`
 	// External BYOK usage (in USD) for the current UTC day
@@ -99,6 +124,13 @@ func (g *GetCurrentKeyData) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (g *GetCurrentKeyData) GetAllowedDataRegions() []AllowedDataRegion {
+	if g == nil {
+		return []AllowedDataRegion{}
+	}
+	return g.AllowedDataRegions
 }
 
 func (g *GetCurrentKeyData) GetBYOKUsage() float64 {
