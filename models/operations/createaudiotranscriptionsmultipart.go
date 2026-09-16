@@ -80,10 +80,16 @@ type CreateAudioTranscriptionsMultipartRequest struct {
 	Model string `multipartForm:"name=model"`
 	// The response format. "json" (default) returns { text, usage }; "verbose_json" additionally returns task, language, duration, and segment-level timestamps (OpenAI-compatible providers only).
 	ResponseFormat *ResponseFormat `multipartForm:"name=response_format"`
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence.
+	SessionID *string `multipartForm:"name=session_id"`
 	// The sampling temperature.
 	Temperature *float64 `multipartForm:"name=temperature"`
 	// Timestamp detail levels to include when response_format is "verbose_json". "word" additionally returns word-level timestamps in the words array.
 	TimestampGranularities []TimestampGranularities `multipartForm:"name=timestamp_granularities[]"`
+	// JSON-encoded trace metadata object (trace_id, trace_name, span_name, generation_name, parent_span_id and custom keys) attached to the Broadcast trace. Must decode to a JSON object.
+	Trace *string `multipartForm:"name=trace"`
+	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
+	User *string `multipartForm:"name=user"`
 }
 
 func (c CreateAudioTranscriptionsMultipartRequest) MarshalJSON() ([]byte, error) {
@@ -125,6 +131,13 @@ func (c *CreateAudioTranscriptionsMultipartRequest) GetResponseFormat() *Respons
 	return c.ResponseFormat
 }
 
+func (c *CreateAudioTranscriptionsMultipartRequest) GetSessionID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SessionID
+}
+
 func (c *CreateAudioTranscriptionsMultipartRequest) GetTemperature() *float64 {
 	if c == nil {
 		return nil
@@ -137,4 +150,18 @@ func (c *CreateAudioTranscriptionsMultipartRequest) GetTimestampGranularities() 
 		return nil
 	}
 	return c.TimestampGranularities
+}
+
+func (c *CreateAudioTranscriptionsMultipartRequest) GetTrace() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Trace
+}
+
+func (c *CreateAudioTranscriptionsMultipartRequest) GetUser() *string {
+	if c == nil {
+		return nil
+	}
+	return c.User
 }
