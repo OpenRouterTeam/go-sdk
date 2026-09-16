@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: bb50d4a11dde712cbf395da26de04075
+  docChecksum: 7224ce9ed507f277b692feb830e280ba
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.145
-  configChecksum: b30af012781cf630476c252d9879c1fc
+  releaseVersion: 0.7.146
+  configChecksum: 340770a2ef2e6df243a80782cdb8566c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 7f8a1784-9d05-4e6f-bb6f-e4d99022deec
-  pristine_commit_hash: 9aa2ef6ded9d14a71a9b7ae7fb3ac80211cfec57
-  pristine_tree_hash: 9a1ddaaf2c12913dbb14fc6afab3c40d528839a8
+  generation_id: 985caeec-4e8f-4f4a-acdb-78084ee5c6c9
+  pristine_commit_hash: 4e9f7a8b518352afc08499160bfa25aad395b7a0
+  pristine_tree_hash: 810dabcdafcf368c425fe345c33afd96586b72de
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6207,8 +6207,8 @@ trackedFiles:
     pristine_git_object: 94daa49e560d724454710a59bbd1d7b6c0a24f4c
   docs/models/operations/createaudiotranscriptionsmultipartrequest.mdx:
     id: 063ada7c42d4
-    last_write_checksum: sha1:0ae44a650c279bb57b6a01476a63413ee5d48d2c
-    pristine_git_object: 520e5a3f95e344e1cf52320e76eeb060e05a4395
+    last_write_checksum: sha1:46f0249a04ad47b4eaaefbe8ebf7f11dc9a0ca17
+    pristine_git_object: 297a2d62c4f559b2f0a0a1bda2a4e49020cff8a3
   docs/models/operations/createauthkeyscodecodechallengemethod.mdx:
     id: 57aefdf3bb42
     last_write_checksum: sha1:fe52a741a4e0bd95106fe2993895f3846f1d87a6
@@ -9959,8 +9959,8 @@ trackedFiles:
     pristine_git_object: d9cd71e7ba77984e766a34cc9ed27919316f32ad
   models/operations/createaudiotranscriptionsmultipart.go:
     id: 01ede35bc595
-    last_write_checksum: sha1:02391a0138fffa4d8fa4c1e6c5f44032b2138378
-    pristine_git_object: 01d1fef4da23d107c72fbe02760e979ac2e54e1d
+    last_write_checksum: sha1:92cdb63873802f3db4dd4b80e73a534d50f29ca4
+    pristine_git_object: 8ff6b87b4a5804136da8cd6356f6024f9b456fb3
   models/operations/createauthkeyscode.go:
     id: ae6ada25c1c9
     last_write_checksum: sha1:58db7c2aad4e7b1b9c9dad71bcb1c7cd6acc471a
@@ -10411,8 +10411,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:46719d4d94984da615a69e7f91de9fffe20a953c
-    pristine_git_object: b8c7d7a3ee684cceb18de9633aac868ef309e9a1
+    last_write_checksum: sha1:54a4e1ec30da089efb9b1ebda0b621262d88a1c0
+    pristine_git_object: 888d4b6e00f77ee3d7de1842b4eca8372dfc0ec4
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13536,10 +13536,4 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Vault.ListInternVaultSecrets()`: **Added**
-  * `OpenRouter.Vault.DeleteInternVaultSecret()`: **Added**
-  * `OpenRouter.Vault.StoreInternVaultSecret()`: **Added**
-  * `OpenRouter.Vault.CopyVaultSecretsToIntern()`: **Added**
-  * `OpenRouter.Vault.ListVaultSecrets()`: **Added**
-  * `OpenRouter.Vault.DeleteVaultSecret()`: **Added**
-  * `OpenRouter.Vault.StoreVaultSecret()`: **Added**
+  * `OpenRouter.Stt.CreateTranscriptionMultipart()`:  `request.Request` **Changed**
