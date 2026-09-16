@@ -65,6 +65,8 @@ type STTRequest struct {
 	Provider *STTRequestProvider `json:"provider,omitzero"`
 	// Output format. "json" (default) returns { text, usage }. "verbose_json" additionally returns task, language, duration, and segment-level timestamps; only supported by OpenAI-compatible providers.
 	ResponseFormat *STTRequestResponseFormat `json:"response_format,omitzero"`
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
+	SessionID *string `json:"session_id,omitzero"`
 	// Sampling temperature for transcription
 	Temperature *float64 `json:"temperature,omitzero"`
 	// Timestamp detail levels to include when response_format is "verbose_json". "segment" returns segment-level timestamps; "word" additionally returns word-level timestamps in the words array. Ignored unless response_format is "verbose_json".
@@ -119,6 +121,13 @@ func (s *STTRequest) GetResponseFormat() *STTRequestResponseFormat {
 		return nil
 	}
 	return s.ResponseFormat
+}
+
+func (s *STTRequest) GetSessionID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SessionID
 }
 
 func (s *STTRequest) GetTemperature() *float64 {
