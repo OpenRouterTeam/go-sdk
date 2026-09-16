@@ -117,11 +117,13 @@ func (e *OutputShellCallOutputItemTypeShellCallOutput) UnmarshalJSON(data []byte
 	}
 }
 
-// OutputShellCallOutputItem - A native `shell_call_output` item matching OpenAI's Responses API shape. Carries per-command stdout, stderr, and the exit/timeout outcome.
+// OutputShellCallOutputItem - A native `shell_call_output` item matching OpenAI's Responses API shape. Carries per-command stdout, stderr, and the exit/timeout outcome. A sandbox failure terminates the item as `incomplete` with `error` set.
 type OutputShellCallOutputItem struct {
 	CallID string `json:"call_id"`
 	// The canonical container id the command ran under — the `{container_id}` for the Container Files API, reusable as a `container_reference` in later requests. Present on every sandbox-executed call, even when no files changed.
 	ContainerID *string `json:"container_id,omitzero"`
+	// The error message when the sandbox call failed before producing a result (for example, the per-user container limit was reached). Set together with `status: 'incomplete'` and an empty `output`; absent on a successful call.
+	Error *string `json:"error,omitzero"`
 	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
 	Files           []OutputShellCallOutputItemFile          `json:"files,omitzero"`
 	ID              string                                   `json:"id"`
@@ -155,6 +157,13 @@ func (o *OutputShellCallOutputItem) GetContainerID() *string {
 		return nil
 	}
 	return o.ContainerID
+}
+
+func (o *OutputShellCallOutputItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
 }
 
 func (o *OutputShellCallOutputItem) GetFiles() []OutputShellCallOutputItemFile {
