@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.144
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.145
 > ```
 
 <!-- No Summary [summary] -->
@@ -356,6 +356,16 @@ func main() {
 ### [TTS](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
+
+### [Vault](docs/sdks/vault/README.md)
+
+* [ListInternVaultSecrets](docs/sdks/vault/README.md#listinternvaultsecrets) - List intern secrets
+* [DeleteInternVaultSecret](docs/sdks/vault/README.md#deleteinternvaultsecret) - Delete an intern secret
+* [StoreInternVaultSecret](docs/sdks/vault/README.md#storeinternvaultsecret) - Store an intern secret
+* [CopyVaultSecretsToIntern](docs/sdks/vault/README.md#copyvaultsecretstointern) - Copy workspace secrets to an intern
+* [ListVaultSecrets](docs/sdks/vault/README.md#listvaultsecrets) - List workspace secrets
+* [DeleteVaultSecret](docs/sdks/vault/README.md#deletevaultsecret) - Delete a workspace secret
+* [StoreVaultSecret](docs/sdks/vault/README.md#storevaultsecret) - Store a workspace secret
 
 ### [VideoGeneration](docs/sdks/videogeneration/README.md)
 
