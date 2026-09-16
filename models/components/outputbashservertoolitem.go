@@ -126,11 +126,13 @@ type OutputBashServerToolItem struct {
 	Command *string                                   `json:"command,omitzero"`
 	// The canonical container id the command ran under — the `{container_id}` for the Container Files API, reusable as a `container_reference` in later requests. Present on every sandbox-executed call, even when no files changed.
 	ContainerID *string `json:"container_id,omitzero"`
-	ExitCode    *int64  `json:"exitCode,omitzero"`
+	// The error message when the sandbox call failed before producing a result (for example, the per-user container limit was reached). Set together with `status: 'failed'`; absent on a successful call. A non-zero `exitCode` is a command failure, not a tool failure.
+	Error    *string `json:"error,omitzero"`
+	ExitCode *int64  `json:"exitCode,omitzero"`
 	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
 	Files  []OutputBashServerToolItemFile             `json:"files,omitzero"`
 	ID     *string                                    `json:"id,omitzero"`
-	Status ToolCallStatus                             `json:"status"`
+	Status FailableToolCallStatus                     `json:"status"`
 	Stderr *string                                    `json:"stderr,omitzero"`
 	Stdout *string                                    `json:"stdout,omitzero"`
 	Type   OutputBashServerToolItemTypeOpenrouterBash `json:"type"`
@@ -175,6 +177,13 @@ func (o *OutputBashServerToolItem) GetContainerID() *string {
 	return o.ContainerID
 }
 
+func (o *OutputBashServerToolItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
+}
+
 func (o *OutputBashServerToolItem) GetExitCode() *int64 {
 	if o == nil {
 		return nil
@@ -196,9 +205,9 @@ func (o *OutputBashServerToolItem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputBashServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputBashServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }

@@ -122,6 +122,8 @@ type ShellCallOutputItem struct {
 	CallID string `json:"call_id"`
 	// The canonical container id the command ran under — the `{container_id}` for the Container Files API, reusable as a `container_reference` in later requests. Present on every sandbox-executed call, even when no files changed.
 	ContainerID *string `json:"container_id,omitzero"`
+	// The error message when the sandbox call failed before producing a result, as echoed from a failed `shell_call_output` emission.
+	Error *string `json:"error,omitzero"`
 	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
 	Files           []ShellCallOutputItemFile                         `json:"files,omitzero"`
 	ID              optionalnullable.OptionalNullable[string]         `json:"id,omitzero"`
@@ -154,6 +156,13 @@ func (s *ShellCallOutputItem) GetContainerID() *string {
 		return nil
 	}
 	return s.ContainerID
+}
+
+func (s *ShellCallOutputItem) GetError() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Error
 }
 
 func (s *ShellCallOutputItem) GetFiles() []ShellCallOutputItemFile {
