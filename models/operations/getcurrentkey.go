@@ -4,6 +4,7 @@ package operations
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"time"
 )
@@ -55,6 +56,8 @@ type GetCurrentKeyData struct {
 	CreatorUserID *string `json:"creator_user_id"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
+	// Free-model (`:free` variant) daily request quota for the account that owns the key. Reports the same counter and tier limit that free-model enforcement reads for accounts subject to the free-model limits; the counter resets at UTC midnight. Accounts and endpoints exempt from free-model limits, and BYOK requests, are not gated by it, so `remaining` is the tier policy rather than an enforced ceiling for them.
+	FreeModelDailyRequests components.FreeModelDailyRequests `json:"free_model_daily_requests"`
 	// Whether to include external BYOK usage in the credit limit
 	IncludeBYOKInLimit bool `json:"include_byok_in_limit"`
 	// Whether this is a free tier API key
@@ -138,6 +141,13 @@ func (g *GetCurrentKeyData) GetExpiresAt() optionalnullable.OptionalNullable[tim
 		return nil
 	}
 	return g.ExpiresAt
+}
+
+func (g *GetCurrentKeyData) GetFreeModelDailyRequests() components.FreeModelDailyRequests {
+	if g == nil {
+		return components.FreeModelDailyRequests{}
+	}
+	return g.FreeModelDailyRequests
 }
 
 func (g *GetCurrentKeyData) GetIncludeBYOKInLimit() bool {

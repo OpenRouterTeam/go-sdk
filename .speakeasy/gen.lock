@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ebf7033a90ab8b37d02c202a285227c1
+  docChecksum: 00464a364e0d563c9a5f85d6b2bfcd0a
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.139
-  configChecksum: 093051e64e1a28046b7b053b2c628914
+  releaseVersion: 0.7.140
+  configChecksum: 4247ab565fe728bbd801a80dd755026d
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 647f6650-84d8-44dd-af6b-92f4157ecf68
-  pristine_commit_hash: 7f2dee8c40871cc159ba0d00d363328683f161c2
-  pristine_tree_hash: 413687493fac7669bfa9ee6a05f23187fc5ea78a
+  generation_id: e089fe8e-4d68-4ff5-b44f-1e27afbf2594
+  pristine_commit_hash: 6f8516447448567a630dbe5ecd2e32215fc93e65
+  pristine_tree_hash: e5341f08acce4053694a7ffdbf4e4da9444e7e24
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2149,6 +2149,10 @@ trackedFiles:
     id: c88caefc554c
     last_write_checksum: sha1:280f634fe68fa51a7fb5f2307d27b3734371615b
     pristine_git_object: 5f1648536bf01c9e9dcee0f8f2cfd05b2774e683
+  docs/models/components/freemodeldailyrequests.mdx:
+    id: 647b5dd50093
+    last_write_checksum: sha1:ffcb88af683cb3f46c8c712b9bfe8c190ff00a3b
+    pristine_git_object: f158ace0e6b047874a5623ad9739e14654e03991
   docs/models/components/functioncallargsdeltaevent.mdx:
     id: 72a95b1f3bec
     last_write_checksum: sha1:f16ef6b31a062678730d017415fa13d0144a4b9a
@@ -6415,12 +6419,12 @@ trackedFiles:
     pristine_git_object: 11dc4d56f147061a253308da0e48eb4da98e6d0c
   docs/models/operations/getcurrentkeydata.mdx:
     id: 20d20b34fed5
-    last_write_checksum: sha1:2ac970d6e6ecff168cdb4ccf2823ea5cfb6c4758
-    pristine_git_object: d53ab07e0412b8d82716b3d860fe098d677dfa4d
+    last_write_checksum: sha1:408affcf2e325a51fd047c61dd22e1807177e890
+    pristine_git_object: fefd13513988bb73f6c6e40709e7e9d9cd51acc5
   docs/models/operations/getcurrentkeyresponse.mdx:
     id: 7e3452452864
-    last_write_checksum: sha1:0b58f0f66560f19d271503f26c1d84a50297908e
-    pristine_git_object: 95054719f940a281c7029f7a271345875e0ae4fb
+    last_write_checksum: sha1:95efb2b949ffaa88938fa2fc7eb6d218e81c8a7f
+    pristine_git_object: b4e5e4446fcf23fd88b374c426aa2dfcf034dd54
   docs/models/operations/getfilemetadatarequest.mdx:
     id: c0c091f58c77
     last_write_checksum: sha1:2de0af90e08b149464ab09738bd4d9dd34ee2de0
@@ -8185,6 +8189,10 @@ trackedFiles:
     id: e866b51452ed
     last_write_checksum: sha1:032296801531ed6770b4f0e4e207fe5c6647ebf9
     pristine_git_object: d7c492cefdd4a34ac2977258901cce9d05ca768e
+  models/components/freemodeldailyrequests.go:
+    id: 45a951721087
+    last_write_checksum: sha1:10aac4ee35e2c09859379f54c49ef675fa0d77d8
+    pristine_git_object: 2c1f96b3135120f35b8aa7f6f61ffc4ae5dc0df7
   models/components/functioncallargsdeltaevent.go:
     id: b282b8586bba
     last_write_checksum: sha1:54bc8975042f0eed066bee1696de62f6f04246e6
@@ -9963,8 +9971,8 @@ trackedFiles:
     pristine_git_object: ea3609f3338d04256ceb8977eac94c2c1fdb5040
   models/operations/getcurrentkey.go:
     id: 86ac716d02ab
-    last_write_checksum: sha1:fd90f1e013b2e1b0c90dfdeba4e5159882e3beb4
-    pristine_git_object: bf79839f6e9c9ac5ce229e6984e4a4aa00607dcd
+    last_write_checksum: sha1:aabca48207f385ea236412b9a1896e2b5416593e
+    pristine_git_object: a7c0486fad8bb9e1247870b5f618b7aa5d81e467
   models/operations/getfilemetadata.go:
     id: ac54c1bc940b
     last_write_checksum: sha1:89aeac7e3a0eae9a1d74c73c7edc25a5378de1b2
@@ -10275,8 +10283,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:a7885157e0e6d0f2e90df4cbacfd4107aad48316
-    pristine_git_object: d92fe7051f1778299cab8cf9c11c4da28cdd5e9f
+    last_write_checksum: sha1:1d238d0abc4c8f730ded2c90699b4a6caf2f14f2
+    pristine_git_object: 79ec129a8cd8b6f799a3b76647e5659d01175969
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -10671,7 +10679,7 @@ examples:
     speakeasy-default-get-current-key:
       responses:
         "200":
-          application/json: {"data": {"byok_usage": 17.38, "byok_usage_daily": 17.38, "byok_usage_monthly": 17.38, "byok_usage_weekly": 17.38, "creator_user_id": "user_2dHFtVWx2n56w6HkM0000000000", "include_byok_in_limit": false, "is_free_tier": false, "is_management_key": false, "is_provisioning_key": false, "label": "sk-or-v1-au7...890", "limit": 100, "limit_remaining": 74.5, "limit_reset": "monthly", "rate_limit": {"interval": "1h", "note": "This field is deprecated and safe to ignore.", "requests": 1000}, "usage": 25.5, "usage_daily": 25.5, "usage_monthly": 25.5, "usage_weekly": 25.5}}
+          application/json: {"data": {"byok_usage": 17.38, "byok_usage_daily": 17.38, "byok_usage_monthly": 17.38, "byok_usage_weekly": 17.38, "creator_user_id": "user_2dHFtVWx2n56w6HkM0000000000", "free_model_daily_requests": {"limit": 50, "remaining": 38, "used": 12}, "include_byok_in_limit": false, "is_free_tier": false, "is_management_key": false, "is_provisioning_key": false, "label": "sk-or-v1-au7...890", "limit": 100, "limit_remaining": 74.5, "limit_reset": "monthly", "rate_limit": {"interval": "1h", "note": "This field is deprecated and safe to ignore.", "requests": 1000}, "usage": 25.5, "usage_daily": 25.5, "usage_monthly": 25.5, "usage_weekly": 25.5}}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "500":
@@ -12275,4 +12283,6 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Trace` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Trace` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Trace` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Trace` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Trace` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Trace` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.ApiKeys.GetCurrentKeyMetadata()`:  `response.Data.FreeModelDailyRequests` **Added**
