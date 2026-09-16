@@ -1254,6 +1254,8 @@ type VideoGenerationRequest struct {
 	Resolution *VideoGenerationRequestResolution `json:"resolution,omitzero"`
 	// If specified, the generation will sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed for all providers.
 	Seed *int64 `json:"seed,omitzero"`
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
+	SessionID *string `json:"session_id,omitzero"`
 	// Exact pixel dimensions of the generated video in "WIDTHxHEIGHT" format (e.g. "1280x720"). Interchangeable with resolution + aspect_ratio.
 	Size *string `json:"size,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
@@ -1357,6 +1359,13 @@ func (v *VideoGenerationRequest) GetSeed() *int64 {
 		return nil
 	}
 	return v.Seed
+}
+
+func (v *VideoGenerationRequest) GetSessionID() *string {
+	if v == nil {
+		return nil
+	}
+	return v.SessionID
 }
 
 func (v *VideoGenerationRequest) GetSize() *string {

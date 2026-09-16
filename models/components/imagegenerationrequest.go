@@ -178,6 +178,8 @@ type ImageGenerationRequest struct {
 	Resolution *ImageGenerationRequestResolution `json:"resolution,omitzero"`
 	// If specified, the generation will sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed for all providers.
 	Seed *int64 `json:"seed,omitzero"`
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
+	SessionID *string `json:"session_id,omitzero"`
 	// Optional. A convenience shorthand for output dimensions — pass a tier ("2K", "4K") or explicit pixels ("2048x2048") and we normalize it to the right dimensions for the chosen provider. A tier size is equivalent to setting `resolution` and combines with `aspect_ratio`. An explicit pixel size is authoritative: a mismatched `resolution` or `aspect_ratio` alongside it is rejected with a 400.
 	Size *string `json:"size,omitzero"`
 	// If true, partial images are streamed as SSE events as they become available. Only supported by providers with native streaming (currently OpenAI). Non-streaming providers ignore this flag and return a buffered response.
@@ -281,6 +283,13 @@ func (i *ImageGenerationRequest) GetSeed() *int64 {
 		return nil
 	}
 	return i.Seed
+}
+
+func (i *ImageGenerationRequest) GetSessionID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SessionID
 }
 
 func (i *ImageGenerationRequest) GetSize() *string {

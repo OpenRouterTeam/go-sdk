@@ -531,6 +531,8 @@ type CreateEmbeddingsRequest struct {
 	// The model to use for embeddings
 	Model    string                                                            `json:"model"`
 	Provider optionalnullable.OptionalNullable[components.ProviderPreferences] `json:"provider,omitzero"`
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
+	SessionID *string `json:"session_id,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
 	Trace *components.TraceConfig `json:"trace,omitzero"`
 	// A unique identifier for the end-user
@@ -588,6 +590,13 @@ func (c *CreateEmbeddingsRequest) GetProvider() optionalnullable.OptionalNullabl
 		return nil
 	}
 	return c.Provider
+}
+
+func (c *CreateEmbeddingsRequest) GetSessionID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SessionID
 }
 
 func (c *CreateEmbeddingsRequest) GetTrace() *components.TraceConfig {

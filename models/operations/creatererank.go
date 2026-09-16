@@ -142,6 +142,8 @@ type CreateRerankRequest struct {
 	Provider optionalnullable.OptionalNullable[components.ProviderPreferences] `json:"provider,omitzero"`
 	// The search query to rerank documents against
 	Query string `json:"query"`
+	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
+	SessionID *string `json:"session_id,omitzero"`
 	// Number of most relevant documents to return
 	TopN *int64 `json:"top_n,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
@@ -187,6 +189,13 @@ func (c *CreateRerankRequest) GetQuery() string {
 		return ""
 	}
 	return c.Query
+}
+
+func (c *CreateRerankRequest) GetSessionID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SessionID
 }
 
 func (c *CreateRerankRequest) GetTopN() *int64 {
