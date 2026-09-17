@@ -11,7 +11,7 @@ type ListContainerFilesRequest struct {
 	ContainerID string `pathParam:"style=simple,explode=false,name=container_id"`
 	// Maximum number of files to return (1-1000). Defaults to 100 when absent.
 	Limit *int64 `default:"100" queryParam:"style=form,explode=true,name=limit"`
-	// Forward cursor: a container file id from a previous page (typically `last_id`); listing resumes strictly after that file.
+	// Forward cursor: the previous page’s `last_id` (or any container file id); listing resumes strictly after that path.
 	After *string `queryParam:"style=form,explode=true,name=after"`
 }
 
