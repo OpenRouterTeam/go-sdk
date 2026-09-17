@@ -1254,6 +1254,8 @@ type VideoGenerationRequest struct {
 	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (including BytePlus Seedance generation 2 and newer); other providers use image references and ignore the rest.
 	InputReferences []InputReference `json:"input_references,omitzero"`
 	Model           string           `json:"model"`
+	// ID of a completed video job to edit or extend, as returned by the submit response. The new job runs on the same model and endpoint that produced the previous one. Only models that support continuation accept this field.
+	PreviousJobID *string `json:"previous_job_id,omitzero"`
 	// Text prompt describing the video to generate. Optional for models that support generating a video from image input alone; required by all other models.
 	Prompt *string `json:"prompt,omitzero"`
 	// Provider-specific passthrough configuration
@@ -1339,6 +1341,13 @@ func (v *VideoGenerationRequest) GetModel() string {
 		return ""
 	}
 	return v.Model
+}
+
+func (v *VideoGenerationRequest) GetPreviousJobID() *string {
+	if v == nil {
+		return nil
+	}
+	return v.PreviousJobID
 }
 
 func (v *VideoGenerationRequest) GetPrompt() *string {
