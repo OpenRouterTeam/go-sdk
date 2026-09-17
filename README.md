@@ -245,7 +245,7 @@ func main() {
 
 ### [Decisions](docs/sdks/decisions/README.md)
 
-* [Decisions](docs/sdks/decisions/README.md#decisions) - Submit a Decisions (questions and answers) request
+* [Create](docs/sdks/decisions/README.md#create) - Submit a Decisions (questions and answers) request
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 
