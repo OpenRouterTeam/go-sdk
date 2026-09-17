@@ -6,39 +6,39 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type Code string
+type CodeEnum string
 
 const (
-	CodeServerError                 Code = "server_error"
-	CodeRateLimitExceeded           Code = "rate_limit_exceeded"
-	CodeInvalidPrompt               Code = "invalid_prompt"
-	CodeVectorStoreTimeout          Code = "vector_store_timeout"
-	CodeInvalidImage                Code = "invalid_image"
-	CodeInvalidImageFormat          Code = "invalid_image_format"
-	CodeInvalidBase64Image          Code = "invalid_base64_image"
-	CodeInvalidImageURL             Code = "invalid_image_url"
-	CodeImageTooLarge               Code = "image_too_large"
-	CodeImageTooSmall               Code = "image_too_small"
-	CodeImageParseError             Code = "image_parse_error"
-	CodeImageContentPolicyViolation Code = "image_content_policy_violation"
-	CodeInvalidImageMode            Code = "invalid_image_mode"
-	CodeImageFileTooLarge           Code = "image_file_too_large"
-	CodeUnsupportedImageMediaType   Code = "unsupported_image_media_type"
-	CodeEmptyImageFile              Code = "empty_image_file"
-	CodeFailedToDownloadImage       Code = "failed_to_download_image"
-	CodeImageFileNotFound           Code = "image_file_not_found"
-	CodeBioPolicy                   Code = "bio_policy"
-	CodeCyberPolicy                 Code = "cyber_policy"
-	CodeMisalignmentPolicyViolation Code = "misalignment_policy_violation"
-	CodeDataResidencyMismatch       Code = "data_residency_mismatch"
+	CodeEnumServerError                 CodeEnum = "server_error"
+	CodeEnumRateLimitExceeded           CodeEnum = "rate_limit_exceeded"
+	CodeEnumInvalidPrompt               CodeEnum = "invalid_prompt"
+	CodeEnumVectorStoreTimeout          CodeEnum = "vector_store_timeout"
+	CodeEnumInvalidImage                CodeEnum = "invalid_image"
+	CodeEnumInvalidImageFormat          CodeEnum = "invalid_image_format"
+	CodeEnumInvalidBase64Image          CodeEnum = "invalid_base64_image"
+	CodeEnumInvalidImageURL             CodeEnum = "invalid_image_url"
+	CodeEnumImageTooLarge               CodeEnum = "image_too_large"
+	CodeEnumImageTooSmall               CodeEnum = "image_too_small"
+	CodeEnumImageParseError             CodeEnum = "image_parse_error"
+	CodeEnumImageContentPolicyViolation CodeEnum = "image_content_policy_violation"
+	CodeEnumInvalidImageMode            CodeEnum = "invalid_image_mode"
+	CodeEnumImageFileTooLarge           CodeEnum = "image_file_too_large"
+	CodeEnumUnsupportedImageMediaType   CodeEnum = "unsupported_image_media_type"
+	CodeEnumEmptyImageFile              CodeEnum = "empty_image_file"
+	CodeEnumFailedToDownloadImage       CodeEnum = "failed_to_download_image"
+	CodeEnumImageFileNotFound           CodeEnum = "image_file_not_found"
+	CodeEnumBioPolicy                   CodeEnum = "bio_policy"
+	CodeEnumCyberPolicy                 CodeEnum = "cyber_policy"
+	CodeEnumMisalignmentPolicyViolation CodeEnum = "misalignment_policy_violation"
+	CodeEnumDataResidencyMismatch       CodeEnum = "data_residency_mismatch"
 )
 
-func (e Code) ToPointer() *Code {
+func (e CodeEnum) ToPointer() *CodeEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Code) IsExact() bool {
+func (e *CodeEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "server_error", "rate_limit_exceeded", "invalid_prompt", "vector_store_timeout", "invalid_image", "invalid_image_format", "invalid_base64_image", "invalid_image_url", "image_too_large", "image_too_small", "image_parse_error", "image_content_policy_violation", "invalid_image_mode", "image_file_too_large", "unsupported_image_media_type", "empty_image_file", "failed_to_download_image", "image_file_not_found", "bio_policy", "cyber_policy", "misalignment_policy_violation", "data_residency_mismatch":
@@ -50,8 +50,8 @@ func (e *Code) IsExact() bool {
 
 // ResponsesErrorField - Error information returned from the API
 type ResponsesErrorField struct {
-	Code    Code   `json:"code"`
-	Message string `json:"message"`
+	Code    CodeEnum `json:"code"`
+	Message string   `json:"message"`
 }
 
 func (r ResponsesErrorField) MarshalJSON() ([]byte, error) {
@@ -65,9 +65,9 @@ func (r *ResponsesErrorField) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (r *ResponsesErrorField) GetCode() Code {
+func (r *ResponsesErrorField) GetCode() CodeEnum {
 	if r == nil {
-		return Code("")
+		return CodeEnum("")
 	}
 	return r.Code
 }

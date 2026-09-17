@@ -1,0 +1,30 @@
+---
+title: "Status"
+---
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.StatusAwaitingSlackInstall
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.Status("custom_value")
+```
+
+
+## Values
+
+| Name                         | Value                        |
+| ---------------------------- | ---------------------------- |
+| `StatusAwaitingSlackInstall` | awaiting_slack_install       |
+| `StatusQueued`               | queued                       |
+| `StatusProvisioning`         | provisioning                 |
+| `StatusRunning`              | running                      |
+| `StatusFailed`               | failed                       |
+| `StatusStopped`              | stopped                      |
+| `StatusDestroying`           | destroying                   |
+| `StatusDestroyFailed`        | destroy_failed               |
