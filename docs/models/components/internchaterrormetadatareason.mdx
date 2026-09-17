@@ -1,0 +1,40 @@
+---
+title: "InternChatErrorMetadataReason"
+---
+
+A stable reason a client can branch on.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.InternChatErrorMetadataReasonAttachmentFailed
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.InternChatErrorMetadataReason("custom_value")
+```
+
+
+## Values
+
+| Name                                                 | Value                                                |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `InternChatErrorMetadataReasonAttachmentFailed`      | attachment_failed                                    |
+| `InternChatErrorMetadataReasonBadRequest`            | bad_request                                          |
+| `InternChatErrorMetadataReasonBusy`                  | busy                                                 |
+| `InternChatErrorMetadataReasonClientClosedRequest`   | client_closed_request                                |
+| `InternChatErrorMetadataReasonInteractionNotPending` | interaction_not_pending                              |
+| `InternChatErrorMetadataReasonInteractionUnknown`    | interaction_unknown                                  |
+| `InternChatErrorMetadataReasonInternNotReady`        | intern_not_ready                                     |
+| `InternChatErrorMetadataReasonInternRejected`        | intern_rejected                                      |
+| `InternChatErrorMetadataReasonInternUnreachable`     | intern_unreachable                                   |
+| `InternChatErrorMetadataReasonNotFound`              | not_found                                            |
+| `InternChatErrorMetadataReasonPayloadTooLarge`       | payload_too_large                                    |
+| `InternChatErrorMetadataReasonRateLimited`           | rate_limited                                         |
+| `InternChatErrorMetadataReasonRunEnded`              | run_ended                                            |
+| `InternChatErrorMetadataReasonStreamSevered`         | stream_severed                                       |
+| `InternChatErrorMetadataReasonTimeout`               | timeout                                              |
+| `InternChatErrorMetadataReasonTurnFailed`            | turn_failed                                          |

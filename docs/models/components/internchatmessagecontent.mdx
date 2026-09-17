@@ -1,0 +1,33 @@
+---
+title: "InternChatMessageContent"
+---
+
+Message text as a string or a list of text parts. Assistant history may carry null. Only the last message is read; earlier messages are accepted so ordinary clients can resend history.
+
+
+## Supported Types
+
+### 
+
+```go
+internChatMessageContent := components.CreateInternChatMessageContentStr(string{/* values here */})
+```
+
+### 
+
+```go
+internChatMessageContent := components.CreateInternChatMessageContentArrayOfInternChatTextPart([]components.InternChatTextPart{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch internChatMessageContent.Type {
+	case components.InternChatMessageContentTypeStr:
+		// internChatMessageContent.Str is populated
+	case components.InternChatMessageContentTypeArrayOfInternChatTextPart:
+		// internChatMessageContent.ArrayOfInternChatTextPart is populated
+}
+```
