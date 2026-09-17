@@ -33,10 +33,11 @@ func (e *ContainerFileListResponseObject) UnmarshalJSON(data []byte) error {
 type ContainerFileListResponse struct {
 	Data    []ContainerFile `json:"data"`
 	FirstID *string         `json:"first_id"`
-	// True when another page can be fetched by passing `after=last_id`.
-	HasMore bool                            `json:"has_more"`
-	LastID  *string                         `json:"last_id"`
-	Object  ContainerFileListResponseObject `json:"object"`
+	// True when another page can be fetched by passing `after=last_id`; `last_id` is non-null whenever this is true.
+	HasMore bool `json:"has_more"`
+	// Cursor for the next page (pass as `after`). The last entry’s id, except when the page stopped at the per-request scan bound on hidden bookkeeping objects: then it names the scan position and may not appear in `data`. Null only when `has_more` is false and `data` is empty.
+	LastID *string                         `json:"last_id"`
+	Object ContainerFileListResponseObject `json:"object"`
 }
 
 func (c *ContainerFileListResponse) GetData() []ContainerFile {
