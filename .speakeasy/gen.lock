@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 7224ce9ed507f277b692feb830e280ba
+  docChecksum: a0ab4875cf9c9739e633c5e72e3a8b69
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.146
-  configChecksum: 340770a2ef2e6df243a80782cdb8566c
+  releaseVersion: 0.7.147
+  configChecksum: fe82f57048ef0110c0b8360fc35b443a
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 985caeec-4e8f-4f4a-acdb-78084ee5c6c9
-  pristine_commit_hash: 4e9f7a8b518352afc08499160bfa25aad395b7a0
-  pristine_tree_hash: 810dabcdafcf368c425fe345c33afd96586b72de
+  generation_id: 2f1919e3-746f-4526-a827-44bbcf7a2df7
+  pristine_commit_hash: f54c32d8395e6a4449dc3df58b846cee10c05be7
+  pristine_tree_hash: b5ee868e820dab0f8dd2de86e076c86ef8692eeb
 features:
   go:
     acceptHeaders: 2.81.2
@@ -403,8 +403,8 @@ trackedFiles:
     pristine_git_object: 55384b6a600c6de2db18c9364548f2d23f305236
   docs/models/components/anthropicimageblockparamsource.mdx:
     id: 3b1445d63f6c
-    last_write_checksum: sha1:e71590c87ac273dc6c8da180d28a88364db0f547
-    pristine_git_object: ea273d9b9a6fe0bd1e994f60d48548b1dd46681e
+    last_write_checksum: sha1:fc0b20fb4f68574601d15e617a42a924439a71c9
+    pristine_git_object: e30528a8906502dc18d6532d35c57ed813831dc8
   docs/models/components/anthropicimageblockparamtype.mdx:
     id: b13fc645501f
     last_write_checksum: sha1:1d53e37e9e20189e8bb484a47deda3d25ce5b382
@@ -7447,8 +7447,8 @@ trackedFiles:
     pristine_git_object: ffa08f1065ecf9ff40398c0ad21ba7350821ddcc
   models/components/anthropicimageblockparam.go:
     id: 677ab38ef951
-    last_write_checksum: sha1:20beaf067c6d2f72ee56b39c4e92af6b156ffde8
-    pristine_git_object: b5d38af88b60a0cd922895285dbab3c405c1e3e3
+    last_write_checksum: sha1:2ca560630b547676f822a0d95bf36eee8fa872b9
+    pristine_git_object: 85e59382fb2c439c367ce702bd6d05ea1e0d244d
   models/components/anthropicimagemimetype.go:
     id: 3cb5692ea2d8
     last_write_checksum: sha1:4bebcbe9889e4eeb82c31c7a534bd7be50ac7a9b
@@ -10411,8 +10411,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:54a4e1ec30da089efb9b1ebda0b621262d88a1c0
-    pristine_git_object: 888d4b6e00f77ee3d7de1842b4eca8372dfc0ec4
+    last_write_checksum: sha1:e2cac91747dc1bc782606684d11a5756444a9e70
+    pristine_git_object: 5940fa27f1e8f937e5b779558d7bcd12f18f24f3
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13534,6 +13534,4 @@ examples:
         "504":
           application/json: {"error": {"code": 504, "message": "Vault request timed out"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Stt.CreateTranscriptionMultipart()`:  `request.Request` **Changed**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Messages[].Content.union(Array<>)[].union(tool_result).Content.union(Array<>)[].union(image).Source.union(file)` **Added**\n"
