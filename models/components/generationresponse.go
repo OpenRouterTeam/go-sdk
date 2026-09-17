@@ -17,6 +17,7 @@ const (
 	APITypeSTT         APIType = "stt"
 	APITypeVideo       APIType = "video"
 	APITypeImage       APIType = "image"
+	APITypeDecisions   APIType = "decisions"
 )
 
 func (e APIType) ToPointer() *APIType {
@@ -27,7 +28,7 @@ func (e APIType) ToPointer() *APIType {
 func (e *APIType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "completions", "embeddings", "rerank", "tts", "stt", "video", "image":
+		case "completions", "embeddings", "rerank", "tts", "stt", "video", "image", "decisions":
 			return true
 		}
 	}

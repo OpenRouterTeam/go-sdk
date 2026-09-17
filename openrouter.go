@@ -60,6 +60,8 @@ type OpenRouter struct {
 	SDKVersion string
 	// Analytics and usage endpoints
 	Analytics *Analytics
+	// Decisions endpoints
+	Decisions *Decisions
 	// Text-to-speech endpoints
 	TTS *TTS
 	// Speech-to-text endpoints
@@ -223,9 +225,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.7.152",
+		SDKVersion: "0.7.153",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.7.152 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.7.153 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -252,6 +254,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.sdkConfiguration = sdk.hooks.SDKInit(sdk.sdkConfiguration)
 
 	sdk.Analytics = newAnalytics(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Decisions = newDecisions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.TTS = newTTS(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.STT = newSTT(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.OAuth = newOAuth(sdk, sdk.sdkConfiguration, sdk.hooks)

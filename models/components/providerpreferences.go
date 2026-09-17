@@ -441,7 +441,7 @@ func (u ProviderPreferencesSort) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ProviderPreferencesSort: all fields are null")
 }
 
-// ProviderPreferences - When multiple model providers are available, optionally indicate your routing preference.
+// ProviderPreferences - Provider routing preferences for the request.
 type ProviderPreferences struct {
 	// Whether to allow backup providers to serve requests
 	// - true: (default) when the primary provider (or your custom providers in "order") is unavailable, use the next best provider.

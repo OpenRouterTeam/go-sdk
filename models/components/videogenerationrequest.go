@@ -169,6 +169,7 @@ type VideoGenerationRequestOptions struct {
 	Thinkingmachines         map[string]any `json:"thinkingmachines,omitzero"`
 	Together                 map[string]any `json:"together,omitzero"`
 	TogetherLite             map[string]any `json:"together-lite,omitzero"`
+	Typesafe                 map[string]any `json:"typesafe,omitzero"`
 	Ubicloud                 map[string]any `json:"ubicloud,omitzero"`
 	Upstage                  map[string]any `json:"upstage,omitzero"`
 	Venice                   map[string]any `json:"venice,omitzero"`
@@ -1107,6 +1108,13 @@ func (v *VideoGenerationRequestOptions) GetTogetherLite() map[string]any {
 		return nil
 	}
 	return v.TogetherLite
+}
+
+func (v *VideoGenerationRequestOptions) GetTypesafe() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Typesafe
 }
 
 func (v *VideoGenerationRequestOptions) GetUbicloud() map[string]any {
