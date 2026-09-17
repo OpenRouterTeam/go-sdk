@@ -8,6 +8,8 @@ import (
 
 // STTResponse - STT response containing transcribed text and optional usage statistics
 type STTResponse struct {
+	// Provider confidence for the whole transcript from 0 to 1, present when response_format is verbose_json and the provider scores the full transcript
+	Confidence *float64 `json:"confidence,omitzero"`
 	// Duration of the input audio in seconds, present when response_format is verbose_json
 	Duration *float64 `json:"duration,omitzero"`
 	// Detected or forced language, present when response_format is verbose_json
@@ -33,6 +35,13 @@ func (s *STTResponse) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (s *STTResponse) GetConfidence() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Confidence
 }
 
 func (s *STTResponse) GetDuration() *float64 {
