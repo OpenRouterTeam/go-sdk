@@ -322,6 +322,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	TogetherLite             map[string]any `json:"together-lite,omitzero"`
 	Typesafe                 map[string]any `json:"typesafe,omitzero"`
 	Ubicloud                 map[string]any `json:"ubicloud,omitzero"`
+	Unbiased                 map[string]any `json:"unbiased,omitzero"`
 	Upstage                  map[string]any `json:"upstage,omitzero"`
 	Venice                   map[string]any `json:"venice,omitzero"`
 	Voyageai                 map[string]any `json:"voyageai,omitzero"`
@@ -1273,6 +1274,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetUbicloud() map[string]any
 		return nil
 	}
 	return i.Ubicloud
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetUnbiased() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Unbiased
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetUpstage() map[string]any {

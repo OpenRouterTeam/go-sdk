@@ -171,6 +171,7 @@ type VideoGenerationRequestOptions struct {
 	TogetherLite             map[string]any `json:"together-lite,omitzero"`
 	Typesafe                 map[string]any `json:"typesafe,omitzero"`
 	Ubicloud                 map[string]any `json:"ubicloud,omitzero"`
+	Unbiased                 map[string]any `json:"unbiased,omitzero"`
 	Upstage                  map[string]any `json:"upstage,omitzero"`
 	Venice                   map[string]any `json:"venice,omitzero"`
 	Voyageai                 map[string]any `json:"voyageai,omitzero"`
@@ -1122,6 +1123,13 @@ func (v *VideoGenerationRequestOptions) GetUbicloud() map[string]any {
 		return nil
 	}
 	return v.Ubicloud
+}
+
+func (v *VideoGenerationRequestOptions) GetUnbiased() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Unbiased
 }
 
 func (v *VideoGenerationRequestOptions) GetUpstage() map[string]any {
