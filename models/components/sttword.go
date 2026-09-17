@@ -4,6 +4,8 @@ package components
 
 // STTWord - A timestamped word, returned when the provider includes word-level timestamps
 type STTWord struct {
+	// Provider confidence for the word from 0 to 1, present when the provider returns per-word confidence
+	Confidence *float64 `json:"confidence,omitzero"`
 	// Word end time in seconds
 	End float64 `json:"end"`
 	// Speaker index for the word, present when the provider returns diarization data
@@ -12,6 +14,13 @@ type STTWord struct {
 	Start float64 `json:"start"`
 	// The transcribed word
 	Word string `json:"word"`
+}
+
+func (s *STTWord) GetConfidence() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Confidence
 }
 
 func (s *STTWord) GetEnd() float64 {
