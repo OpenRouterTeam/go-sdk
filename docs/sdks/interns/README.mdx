@@ -1,11 +1,11 @@
 ---
 title: "Interns"
-description: "Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key."
+description: "Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key, and talk to them: the chat route streams OpenAI-compatible completions from one intern, pausing as an `openrouter.provide_input` tool call when the intern needs your permission or an answer. Available to interns programme members; other callers receive 404. See https://openrouter.ai/docs/guides/ori/intern-chat."
 ---
 
 ## Overview
 
-Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key.
+Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key, and talk to them: the chat route streams OpenAI-compatible completions from one intern, pausing as an `openrouter.provide_input` tool call when the intern needs your permission or an answer. Available to interns programme members; other callers receive 404. See https://openrouter.ai/docs/guides/ori/intern-chat.
 
 ### Available Operations
 
@@ -16,6 +16,7 @@ Create, inspect, update, provision, suspend and delete OpenRouter interns throug
 * [UpdateIntern](#updateintern) - Update an intern
 * [ProvisionIntern](#provisionintern) - Provision an intern
 * [SuspendIntern](#suspendintern) - Suspend an intern
+* [Chat](#chat) - Stream a chat completion with an intern
 
 ## ListInterns
 
@@ -401,3 +402,88 @@ func main() {
 | sdkerrors.InternLifecycleError | 401, 403, 404, 408, 409        | application/json               |
 | sdkerrors.InternLifecycleError | 500, 502                       | application/json               |
 | sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+
+## Chat
+
+Sends a prompt to one of your interns and streams the reply as OpenAI-compatible server-sent events ending with `[DONE]`. The run executes on the intern, which may pause to ask you something. It then streams one `openrouter.provide_input` tool call and finishes with `finish_reason: "tool_calls"`, and the run stays open on the intern.
+
+Every response, whether it ends with `stop`, `tool_calls` or `error`, is followed by a final chunk with empty `choices` that carries `session_id`, then `data: [DONE]`. That chunk carries the `usage` the intern reported for the run, after `stop` or `error`, and `null` when the intern reported none. After `tool_calls` its `usage` is `null` because the turn is not over. Read through `[DONE]`: the `session_id` you need to reply arrives after the `tool_calls` finish chunk.
+
+To answer, send a second request with the same `session_id`, the assistant message echoing that tool call, and a `tool` message whose `tool_call_id` is the tool call id and whose `content` is the answer. The answer is delivered to the run that asked and the stream continues from where it paused. A question stays open for its interaction deadline (5 minutes by default) and the run is cancelled when that passes. Rejected replies do not extend the deadline.
+
+Closing the connection after the `[DONE]` that follows `finish_reason: "tool_calls"` keeps the run alive. Disconnecting while a response is still streaming cancels the run. The disconnect is noticed when the intern next writes to the stream, which during a silent tool run can take more than one 30 second heartbeat interval.
+
+A run the intern ends while you are still connected, by cancellation or by a deadline, ends the stream with a `finish_reason: "error"` chunk carrying `410` and reason `run_ended`, then the final empty-`choices` chunk and `[DONE]`. That error reports only an ending the intern confirmed. A connection that breaks without that confirmation ends with reason `stream_severed`, and a client that has already disconnected is promised no final event.
+
+Set `approval_mode` to `manual` to have the intern ask before approval-bearing tools such as the shell. Omitted, the run self-drives and consents on your behalf. The mode belongs to the run started by that prompt and must be repeated on later prompts.
+
+Available to interns programme members. Callers outside the programme receive `404` for every path under `/api/v1/interns`.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.Chat(ctx, "a11e0000-0000-4000-8000-000000000005", components.InternChatCompletionRequest{
+        ApprovalMode: components.InternApprovalModeManual.ToPointer(),
+        Messages: []components.InternChatMessage{
+            components.CreateInternChatMessageUser(
+                components.InternChatUserMessage{
+                    Content: openrouter.Pointer(components.CreateInternChatMessageContentStr(
+                        "Summarize the open pull requests.",
+                    )),
+                    Role: components.InternChatUserMessageRoleUser,
+                },
+            ),
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        defer res.InternChatStreamingResponse.Close()
+
+        for res.InternChatStreamingResponse.Next() {
+            event := res.InternChatStreamingResponse.Value()
+            log.Print(event)
+            // Handle the event
+	      }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                         | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       | Example                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                             | [context.Context](https://pkg.go.dev/context#Context)                                                                             | :heavy_check_mark:                                                                                                                | The context to use for the request.                                                                                               |                                                                                                                                   |
+| `internID`                                                                                                                        | `string`                                                                                                                          | :heavy_check_mark:                                                                                                                | The intern to talk to.                                                                                                            | a11e0000-0000-4000-8000-000000000005                                                                                              |
+| `internChatCompletionRequest`                                                                                                     | [components.InternChatCompletionRequest](../../models/components/internchatcompletionrequest.mdx)                                  | :heavy_check_mark:                                                                                                                | N/A                                                                                                                               | \{<br/>"approval_mode": "manual",<br/>"messages": [<br/>\{<br/>"content": "Summarize the open pull requests.",<br/>"role": "user"<br/>}<br/>],<br/>"stream": true<br/>} |
+| `opts`                                                                                                                            | [][operations.Option](../../models/operations/option.mdx)                                                                          | :heavy_minus_sign:                                                                                                                | The options for this request.                                                                                                     |                                                                                                                                   |
+
+### Response
+
+**[*stream.EventStream[components.InternChatStreamingResponse]](../../.mdx), error**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| sdkerrors.InternChatErrorResponse      | 400, 401, 403, 404, 409, 410, 413, 429 | application/json                       |
+| sdkerrors.InternChatErrorResponse      | 502, 503, 504                          | application/json                       |
+| sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |

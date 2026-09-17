@@ -1,0 +1,15 @@
+---
+title: "InternChatDelta"
+---
+
+The incremental content of one chunk. The first chunk carries `role`, text chunks carry `content`, reasoning chunks carry `reasoning`, and an interaction chunk carries one complete `tool_calls` entry.
+
+
+## Fields
+
+| Field                                                                             | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `Content`                                                                         | `*string`                                                                         | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `Reasoning`                                                                       | `*string`                                                                         | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `Role`                                                                            | [*components.InternChatDeltaRole](../../models/components/internchatdeltarole.mdx) | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `ToolCalls`                                                                       | [][components.InternChatToolCall](../../models/components/internchattoolcall.mdx)  | :heavy_minus_sign:                                                                | N/A                                                                               |

@@ -6,19 +6,19 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type Reason string
+type IncompleteDetailsReason string
 
 const (
-	ReasonMaxOutputTokens Reason = "max_output_tokens"
-	ReasonContentFilter   Reason = "content_filter"
+	IncompleteDetailsReasonMaxOutputTokens IncompleteDetailsReason = "max_output_tokens"
+	IncompleteDetailsReasonContentFilter   IncompleteDetailsReason = "content_filter"
 )
 
-func (e Reason) ToPointer() *Reason {
+func (e IncompleteDetailsReason) ToPointer() *IncompleteDetailsReason {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Reason) IsExact() bool {
+func (e *IncompleteDetailsReason) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "max_output_tokens", "content_filter":
@@ -29,7 +29,7 @@ func (e *Reason) IsExact() bool {
 }
 
 type IncompleteDetails struct {
-	Reason *Reason `json:"reason,omitzero"`
+	Reason *IncompleteDetailsReason `json:"reason,omitzero"`
 }
 
 func (i IncompleteDetails) MarshalJSON() ([]byte, error) {
@@ -43,7 +43,7 @@ func (i *IncompleteDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *IncompleteDetails) GetReason() *Reason {
+func (i *IncompleteDetails) GetReason() *IncompleteDetailsReason {
 	if i == nil {
 		return nil
 	}

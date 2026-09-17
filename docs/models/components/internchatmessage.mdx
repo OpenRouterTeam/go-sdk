@@ -1,0 +1,57 @@
+---
+title: "InternChatMessage"
+---
+
+One OpenAI-compatible chat message, discriminated by `role`.
+
+
+## Supported Types
+
+### InternChatAssistantMessage
+
+```go
+internChatMessage := components.CreateInternChatMessageAssistant(components.InternChatAssistantMessage{/* values here */})
+```
+
+### InternChatDeveloperMessage
+
+```go
+internChatMessage := components.CreateInternChatMessageDeveloper(components.InternChatDeveloperMessage{/* values here */})
+```
+
+### InternChatSystemMessage
+
+```go
+internChatMessage := components.CreateInternChatMessageSystem(components.InternChatSystemMessage{/* values here */})
+```
+
+### InternChatToolMessage
+
+```go
+internChatMessage := components.CreateInternChatMessageTool(components.InternChatToolMessage{/* values here */})
+```
+
+### InternChatUserMessage
+
+```go
+internChatMessage := components.CreateInternChatMessageUser(components.InternChatUserMessage{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch internChatMessage.Type {
+	case components.InternChatMessageTypeAssistant:
+		// internChatMessage.InternChatAssistantMessage is populated
+	case components.InternChatMessageTypeDeveloper:
+		// internChatMessage.InternChatDeveloperMessage is populated
+	case components.InternChatMessageTypeSystem:
+		// internChatMessage.InternChatSystemMessage is populated
+	case components.InternChatMessageTypeTool:
+		// internChatMessage.InternChatToolMessage is populated
+	case components.InternChatMessageTypeUser:
+		// internChatMessage.InternChatUserMessage is populated
+}
+```

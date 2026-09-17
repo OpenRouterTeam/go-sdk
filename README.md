@@ -298,6 +298,7 @@ func main() {
 * [UpdateIntern](docs/sdks/interns/README.md#updateintern) - Update an intern
 * [ProvisionIntern](docs/sdks/interns/README.md#provisionintern) - Provision an intern
 * [SuspendIntern](docs/sdks/interns/README.md#suspendintern) - Suspend an intern
+* [Chat](docs/sdks/interns/README.md#chat) - Stream a chat completion with an intern
 
 ### [Models](docs/sdks/models/README.md)
 
