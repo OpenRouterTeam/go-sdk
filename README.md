@@ -289,6 +289,16 @@ func main() {
 * [ListModels](docs/sdks/images/README.md#listmodels) - List image generation models
 * [ListModelEndpoints](docs/sdks/images/README.md#listmodelendpoints) - List endpoints for an image model
 
+### [Interns](docs/sdks/interns/README.md)
+
+* [ListInterns](docs/sdks/interns/README.md#listinterns) - List interns
+* [CreateIntern](docs/sdks/interns/README.md#createintern) - Create an intern
+* [DeleteIntern](docs/sdks/interns/README.md#deleteintern) - Delete an intern
+* [GetIntern](docs/sdks/interns/README.md#getintern) - Get an intern
+* [UpdateIntern](docs/sdks/interns/README.md#updateintern) - Update an intern
+* [ProvisionIntern](docs/sdks/interns/README.md#provisionintern) - Provision an intern
+* [SuspendIntern](docs/sdks/interns/README.md#suspendintern) - Suspend an intern
+
 ### [Models](docs/sdks/models/README.md)
 
 * [Get](docs/sdks/models/README.md#get) - Get a model by its slug

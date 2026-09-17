@@ -91,6 +91,8 @@ type OpenRouter struct {
 	Guardrails *Guardrails
 	// Images endpoints
 	Images *Images
+	// Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key.
+	Interns *Interns
 	// API key management endpoints
 	APIKeys *APIKeys
 	// Model information endpoints
@@ -207,9 +209,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.7.147",
+		SDKVersion: "0.7.148",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.7.147 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.7.148 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -252,6 +254,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Images = newImages(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Interns = newInterns(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Observability = newObservability(sdk, sdk.sdkConfiguration, sdk.hooks)

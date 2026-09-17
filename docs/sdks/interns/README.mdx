@@ -1,0 +1,403 @@
+---
+title: "Interns"
+description: "Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key."
+---
+
+## Overview
+
+Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key.
+
+### Available Operations
+
+* [ListInterns](#listinterns) - List interns
+* [CreateIntern](#createintern) - Create an intern
+* [DeleteIntern](#deleteintern) - Delete an intern
+* [GetIntern](#getintern) - Get an intern
+* [UpdateIntern](#updateintern) - Update an intern
+* [ProvisionIntern](#provisionintern) - Provision an intern
+* [SuspendIntern](#suspendintern) - Suspend an intern
+
+## ListInterns
+
+Lists interns visible to the authenticated key, newest first. Filter by workspace and one or more lifecycle statuses. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.ListInterns(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 | Example                                                                     |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `ctx`                                                                       | [context.Context](https://pkg.go.dev/context#Context)                       | :heavy_check_mark:                                                          | The context to use for the request.                                         |                                                                             |
+| `limit`                                                                     | `*int64`                                                                    | :heavy_minus_sign:                                                          | Maximum number of interns to return, from 1 through 500.                    | 50                                                                          |
+| `status`                                                                    | [][operations.Status](../../models/operations/status.mdx)                    | :heavy_minus_sign:                                                          | Comma-separated lifecycle statuses to include.                              | [<br/>"queued",<br/>"running"<br/>]                                         |
+| `workspaceID`                                                               | `*string`                                                                   | :heavy_minus_sign:                                                          | Only return interns in this workspace. It must match the API key workspace. | 89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb                                        |
+| `opts`                                                                      | [][operations.Option](../../models/operations/option.mdx)                    | :heavy_minus_sign:                                                          | The options for this request.                                               |                                                                             |
+
+### Response
+
+**[*components.InternListResponse](../../models/components/internlistresponse.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 400, 401, 403, 404, 408        | application/json               |
+| sdkerrors.InternLifecycleError | 500                            | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+
+## CreateIntern
+
+Creates an intern in an explicit workspace. The operation also creates its private vault. It can start provisioning immediately or wait for a later provision call. A retry with the same idempotency key and body resumes unfinished work. The request body is capped at 1048576 bytes and a larger body is refused with 413. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.CreateIntern(ctx, components.CreateInternRequest{
+        Name: "research-assistant",
+        Provision: openrouter.Pointer(true),
+        WorkspaceID: "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb",
+    }, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  | Example                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                                        | :heavy_check_mark:                                                                                                           | The context to use for the request.                                                                                          |                                                                                                                              |
+| `createInternRequest`                                                                                                        | [components.CreateInternRequest](../../models/components/createinternrequest.mdx)                                             | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          | \{<br/>"name": "research-assistant",<br/>"provision": true,<br/>"workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"<br/>}  |
+| `idempotencyKey`                                                                                                             | `*string`                                                                                                                    | :heavy_minus_sign:                                                                                                           | Key that makes retries resume the same create operation. Without one, the server derives a stable key from the request body. | create-research-assistant-2026-09-16                                                                                         |
+| `opts`                                                                                                                       | [][operations.Option](../../models/operations/option.mdx)                                                                     | :heavy_minus_sign:                                                                                                           | The options for this request.                                                                                                |                                                                                                                              |
+
+### Response
+
+**[*components.Intern](../../models/components/intern.mdx), error**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| sdkerrors.InternLifecycleError    | 400, 401, 403, 404, 408, 409, 413 | application/json                  |
+| sdkerrors.InternLifecycleError    | 500, 502                          | application/json                  |
+| sdkerrors.APIError                | 4XX, 5XX                          | \*/\*                             |
+
+## DeleteIntern
+
+Starts safe teardown of the intern, its runtime and its private vault. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.DeleteIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `internID`                                               | `string`                                                 | :heavy_check_mark:                                       | ID of an intern visible to the authenticated API key.    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.DeleteInternResponse](../../models/components/deleteinternresponse.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 401, 403, 404, 408, 409        | application/json               |
+| sdkerrors.InternLifecycleError | 500, 502                       | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+
+## GetIntern
+
+Returns the public lifecycle state and settings for one visible intern. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.GetIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `internID`                                               | `string`                                                 | :heavy_check_mark:                                       | ID of an intern visible to the authenticated API key.    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.Intern](../../models/components/intern.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 401, 403, 404, 408             | application/json               |
+| sdkerrors.InternLifecycleError | 500                            | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+
+## UpdateIntern
+
+Changes the intern name, description, instructions or model. Omitted fields stay unchanged. The request body is capped at 1048576 bytes and a larger body is refused with 413. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.UpdateIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.UpdateInternRequest{
+        Description: optionalnullable.From(openrouter.Pointer("Researches customer questions")),
+        Model: optionalnullable.From(openrouter.Pointer("openai/gpt-5.4")),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `ctx`                                                                            | [context.Context](https://pkg.go.dev/context#Context)                            | :heavy_check_mark:                                                               | The context to use for the request.                                              |                                                                                  |
+| `internID`                                                                       | `string`                                                                         | :heavy_check_mark:                                                               | ID of an intern visible to the authenticated API key.                            | 7c9e6679-7425-40de-944b-e07fc1f90ae7                                             |
+| `updateInternRequest`                                                            | [components.UpdateInternRequest](../../models/components/updateinternrequest.mdx) | :heavy_check_mark:                                                               | N/A                                                                              | \{<br/>"description": "Researches customer questions",<br/>"model": "openai/gpt-5.4"<br/>} |
+| `opts`                                                                           | [][operations.Option](../../models/operations/option.mdx)                         | :heavy_minus_sign:                                                               | The options for this request.                                                    |                                                                                  |
+
+### Response
+
+**[*components.Intern](../../models/components/intern.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 400, 401, 403, 404, 408, 413   | application/json               |
+| sdkerrors.InternLifecycleError | 500                            | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+
+## ProvisionIntern
+
+Starts the first boot, or resumes an intern after suspension. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.ProvisionIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `internID`                                               | `string`                                                 | :heavy_check_mark:                                       | ID of an intern visible to the authenticated API key.    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.ProvisionInternResponse](../../models/components/provisioninternresponse.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 401, 403, 404, 408, 409        | application/json               |
+| sdkerrors.InternLifecycleError | 500, 502                       | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+
+## SuspendIntern
+
+Stops the intern runtime while keeping its disk and configuration for a later provision call. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.SuspendIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `internID`                                               | `string`                                                 | :heavy_check_mark:                                       | ID of an intern visible to the authenticated API key.    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.SuspendInternResponse](../../models/components/suspendinternresponse.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 401, 403, 404, 408, 409        | application/json               |
+| sdkerrors.InternLifecycleError | 500, 502                       | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
