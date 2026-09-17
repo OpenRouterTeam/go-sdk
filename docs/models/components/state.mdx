@@ -1,0 +1,41 @@
+---
+title: "State"
+---
+
+The content to evaluate: a plain string, or a JSON object or array of related context.
+
+
+## Supported Types
+
+### 
+
+```go
+state := components.CreateStateStr(string{/* values here */})
+```
+
+### 
+
+```go
+state := components.CreateStateMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+state := components.CreateStateArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch state.Type {
+	case components.StateTypeStr:
+		// state.Str is populated
+	case components.StateTypeMapOfAny:
+		// state.MapOfAny is populated
+	case components.StateTypeArrayOfAny:
+		// state.ArrayOfAny is populated
+}
+```

@@ -9,9 +9,9 @@ Decisions endpoints
 
 ### Available Operations
 
-* [Decisions](#decisions) - Submit a Decisions (questions and answers) request
+* [Create](#create) - Submit a Decisions (questions and answers) request
 
-## Decisions
+## Create
 
 Submits a Decisions request to the Decisions router
 
@@ -35,12 +35,14 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Decisions.Decisions(ctx, components.DecisionsRequest{
+    res, err := s.Decisions.Create(ctx, components.DecisionsRequest{
         Model: "Grand Cherokee",
         Questions: map[string]components.Questions{
 
         },
-        State: "Maine",
+        State: components.CreateStateStr(
+            "Maine",
+        ),
     })
     if err != nil {
         log.Fatal(err)

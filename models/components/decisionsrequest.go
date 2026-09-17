@@ -123,13 +123,130 @@ func (u Questions) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Questions: all fields are null")
 }
 
+type StateType string
+
+const (
+	StateTypeStr        StateType = "str"
+	StateTypeMapOfAny   StateType = "mapOfAny"
+	StateTypeArrayOfAny StateType = "arrayOfAny"
+)
+
+// State - The content to evaluate: a plain string, or a JSON object or array of related context.
+type State struct {
+	Str        *string        `queryParam:"inline" union:"member"`
+	MapOfAny   map[string]any `queryParam:"inline" union:"member"`
+	ArrayOfAny []any          `queryParam:"inline" union:"member"`
+
+	Type StateType
+}
+
+func CreateStateStr(str string) State {
+	typ := StateTypeStr
+
+	return State{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateStateMapOfAny(mapOfAny map[string]any) State {
+	typ := StateTypeMapOfAny
+
+	return State{
+		MapOfAny: mapOfAny,
+		Type:     typ,
+	}
+}
+
+func CreateStateArrayOfAny(arrayOfAny []any) State {
+	typ := StateTypeArrayOfAny
+
+	return State{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func (u *State) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  StateTypeStr,
+			Value: &str,
+		})
+	}
+
+	var mapOfAny map[string]any = map[string]any{}
+	if err := utils.UnmarshalJSON(data, &mapOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  StateTypeMapOfAny,
+			Value: mapOfAny,
+		})
+	}
+
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  StateTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for State", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for State", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(StateType)
+	switch best.Type {
+	case StateTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case StateTypeMapOfAny:
+		u.MapOfAny = best.Value.(map[string]any)
+		return nil
+	case StateTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for State", string(data))
+}
+
+func (u State) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.MapOfAny != nil {
+		return utils.MarshalJSON(u.MapOfAny, "", true)
+	}
+
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type State: all fields are null")
+}
+
 type DecisionsRequest struct {
 	Model     string                                                 `json:"model"`
 	Provider  optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	Questions map[string]Questions                                   `json:"questions"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
-	State     any     `json:"state"`
+	// The content to evaluate: a plain string, or a JSON object or array of related context.
+	State State `json:"state"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
 	Trace *TraceConfig `json:"trace,omitzero"`
 	User  *string      `json:"user,omitzero"`
@@ -174,9 +291,9 @@ func (d *DecisionsRequest) GetSessionID() *string {
 	return d.SessionID
 }
 
-func (d *DecisionsRequest) GetState() any {
+func (d *DecisionsRequest) GetState() State {
 	if d == nil {
-		return nil
+		return State{}
 	}
 	return d.State
 }
