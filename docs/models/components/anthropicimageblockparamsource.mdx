@@ -10,6 +10,12 @@ title: "AnthropicImageBlockParamSource"
 anthropicImageBlockParamSource := components.CreateAnthropicImageBlockParamSourceBase64(components.AnthropicBase64ImageSource{/* values here */})
 ```
 
+### AnthropicFileDocumentSource
+
+```go
+anthropicImageBlockParamSource := components.CreateAnthropicImageBlockParamSourceFile(components.AnthropicFileDocumentSource{/* values here */})
+```
+
 ### AnthropicURLImageSource
 
 ```go
@@ -24,6 +30,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch anthropicImageBlockParamSource.Type {
 	case components.AnthropicImageBlockParamSourceTypeBase64:
 		// anthropicImageBlockParamSource.AnthropicBase64ImageSource is populated
+	case components.AnthropicImageBlockParamSourceTypeFile:
+		// anthropicImageBlockParamSource.AnthropicFileDocumentSource is populated
 	case components.AnthropicImageBlockParamSourceTypeURLObj:
 		// anthropicImageBlockParamSource.AnthropicURLImageSource is populated
 }

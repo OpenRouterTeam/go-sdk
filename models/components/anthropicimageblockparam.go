@@ -13,12 +13,14 @@ type AnthropicImageBlockParamSourceType string
 
 const (
 	AnthropicImageBlockParamSourceTypeBase64 AnthropicImageBlockParamSourceType = "base64"
+	AnthropicImageBlockParamSourceTypeFile   AnthropicImageBlockParamSourceType = "file"
 	AnthropicImageBlockParamSourceTypeURLObj AnthropicImageBlockParamSourceType = "url"
 )
 
 type AnthropicImageBlockParamSource struct {
-	AnthropicBase64ImageSource *AnthropicBase64ImageSource `queryParam:"inline" union:"member"`
-	AnthropicURLImageSource    *AnthropicURLImageSource    `queryParam:"inline" union:"member"`
+	AnthropicBase64ImageSource  *AnthropicBase64ImageSource  `queryParam:"inline" union:"member"`
+	AnthropicURLImageSource     *AnthropicURLImageSource     `queryParam:"inline" union:"member"`
+	AnthropicFileDocumentSource *AnthropicFileDocumentSource `queryParam:"inline" union:"member"`
 
 	Type AnthropicImageBlockParamSourceType
 }
@@ -32,6 +34,18 @@ func CreateAnthropicImageBlockParamSourceBase64(base64 AnthropicBase64ImageSourc
 	return AnthropicImageBlockParamSource{
 		AnthropicBase64ImageSource: &base64,
 		Type:                       typ,
+	}
+}
+
+func CreateAnthropicImageBlockParamSourceFile(file AnthropicFileDocumentSource) AnthropicImageBlockParamSource {
+	typ := AnthropicImageBlockParamSourceTypeFile
+
+	typStr := AnthropicFileDocumentSourceType(typ)
+	file.Type = typStr
+
+	return AnthropicImageBlockParamSource{
+		AnthropicFileDocumentSource: &file,
+		Type:                        typ,
 	}
 }
 
@@ -68,6 +82,15 @@ func (u *AnthropicImageBlockParamSource) UnmarshalJSON(data []byte) error {
 		u.AnthropicBase64ImageSource = anthropicBase64ImageSource
 		u.Type = AnthropicImageBlockParamSourceTypeBase64
 		return nil
+	case "file":
+		anthropicFileDocumentSource := new(AnthropicFileDocumentSource)
+		if err := utils.UnmarshalJSON(data, &anthropicFileDocumentSource, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == file) type AnthropicFileDocumentSource within AnthropicImageBlockParamSource: %w", string(data), err)
+		}
+
+		u.AnthropicFileDocumentSource = anthropicFileDocumentSource
+		u.Type = AnthropicImageBlockParamSourceTypeFile
+		return nil
 	case "url":
 		anthropicURLImageSource := new(AnthropicURLImageSource)
 		if err := utils.UnmarshalJSON(data, &anthropicURLImageSource, "", true, nil); err != nil {
@@ -89,6 +112,10 @@ func (u AnthropicImageBlockParamSource) MarshalJSON() ([]byte, error) {
 
 	if u.AnthropicURLImageSource != nil {
 		return utils.MarshalJSON(u.AnthropicURLImageSource, "", true)
+	}
+
+	if u.AnthropicFileDocumentSource != nil {
+		return utils.MarshalJSON(u.AnthropicFileDocumentSource, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type AnthropicImageBlockParamSource: all fields are null")
@@ -151,6 +178,10 @@ func (a *AnthropicImageBlockParam) GetSource() AnthropicImageBlockParamSource {
 
 func (a *AnthropicImageBlockParam) GetSourceBase64() *AnthropicBase64ImageSource {
 	return a.GetSource().AnthropicBase64ImageSource
+}
+
+func (a *AnthropicImageBlockParam) GetSourceFile() *AnthropicFileDocumentSource {
+	return a.GetSource().AnthropicFileDocumentSource
 }
 
 func (a *AnthropicImageBlockParam) GetSourceURLObj() *AnthropicURLImageSource {
