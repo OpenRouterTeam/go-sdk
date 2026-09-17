@@ -320,6 +320,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Thinkingmachines         map[string]any `json:"thinkingmachines,omitzero"`
 	Together                 map[string]any `json:"together,omitzero"`
 	TogetherLite             map[string]any `json:"together-lite,omitzero"`
+	Typesafe                 map[string]any `json:"typesafe,omitzero"`
 	Ubicloud                 map[string]any `json:"ubicloud,omitzero"`
 	Upstage                  map[string]any `json:"upstage,omitzero"`
 	Venice                   map[string]any `json:"venice,omitzero"`
@@ -1258,6 +1259,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetTogetherLite() map[string
 		return nil
 	}
 	return i.TogetherLite
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetTypesafe() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Typesafe
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetUbicloud() map[string]any {

@@ -1,0 +1,41 @@
+---
+title: "Questions"
+---
+
+A Decisions question using a boolean, choice, or ordered score evaluation.
+
+
+## Supported Types
+
+### DecisionsChoiceQuestion
+
+```go
+questions := components.CreateQuestionsChoice(components.DecisionsChoiceQuestion{/* values here */})
+```
+
+### DecisionsNoulQuestion
+
+```go
+questions := components.CreateQuestionsNoul(components.DecisionsNoulQuestion{/* values here */})
+```
+
+### DecisionsScoreQuestion
+
+```go
+questions := components.CreateQuestionsScore(components.DecisionsScoreQuestion{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch questions.Type {
+	case components.QuestionsTypeChoice:
+		// questions.DecisionsChoiceQuestion is populated
+	case components.QuestionsTypeNoul:
+		// questions.DecisionsNoulQuestion is populated
+	case components.QuestionsTypeScore:
+		// questions.DecisionsScoreQuestion is populated
+}
+```

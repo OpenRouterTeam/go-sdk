@@ -139,6 +139,7 @@ type ProviderOptions struct {
 	Thinkingmachines         map[string]any `json:"thinkingmachines,omitzero"`
 	Together                 map[string]any `json:"together,omitzero"`
 	TogetherLite             map[string]any `json:"together-lite,omitzero"`
+	Typesafe                 map[string]any `json:"typesafe,omitzero"`
 	Ubicloud                 map[string]any `json:"ubicloud,omitzero"`
 	Upstage                  map[string]any `json:"upstage,omitzero"`
 	Venice                   map[string]any `json:"venice,omitzero"`
@@ -1077,6 +1078,13 @@ func (p *ProviderOptions) GetTogetherLite() map[string]any {
 		return nil
 	}
 	return p.TogetherLite
+}
+
+func (p *ProviderOptions) GetTypesafe() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Typesafe
 }
 
 func (p *ProviderOptions) GetUbicloud() map[string]any {

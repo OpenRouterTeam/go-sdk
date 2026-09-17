@@ -243,6 +243,10 @@ func main() {
 * [GetRankingsDaily](docs/sdks/datasets/README.md#getrankingsdaily) - Daily token totals for top 50 models
 * [GetSessionCost](docs/sdks/datasets/README.md#getsessioncost) - Cost per session by harness and model
 
+### [Decisions](docs/sdks/decisions/README.md)
+
+* [Decisions](docs/sdks/decisions/README.md#decisions) - Submit a Decisions (questions and answers) request
+
 ### [Embeddings](docs/sdks/embeddings/README.md)
 
 * [Generate](docs/sdks/embeddings/README.md#generate) - Submit an embedding request

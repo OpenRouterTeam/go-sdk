@@ -1,0 +1,43 @@
+---
+title: "Answers"
+---
+
+A Decisions answer using a boolean, choice, or score evaluation.
+
+
+## Supported Types
+
+### DecisionsChoiceAnswer
+
+```go
+answers := components.CreateAnswersChoice(components.DecisionsChoiceAnswer{/* values here */})
+```
+
+### DecisionsNoulAnswer
+
+```go
+answers := components.CreateAnswersNoul(components.DecisionsNoulAnswer{/* values here */})
+```
+
+### DecisionsScoreAnswer
+
+```go
+answers := components.CreateAnswersScore(components.DecisionsScoreAnswer{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch answers.Type {
+	case components.AnswersTypeChoice:
+		// answers.DecisionsChoiceAnswer is populated
+	case components.AnswersTypeNoul:
+		// answers.DecisionsNoulAnswer is populated
+	case components.AnswersTypeScore:
+		// answers.DecisionsScoreAnswer is populated
+	default:
+		// Unknown type - use answers.GetUnknownRaw() for raw JSON
+}
+```
