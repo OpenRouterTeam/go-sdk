@@ -57,9 +57,10 @@ func (e *EasyInputMessageTypeInputImage) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// EasyInputMessageContentInputImage - Image input content item
+// EasyInputMessageContentInputImage - Image input content item. Provide either an image_url (a URL or a base64 data URL) or the file_id of an uploaded image.
 type EasyInputMessageContentInputImage struct {
 	Detail   EasyInputMessageDetail                    `json:"detail"`
+	FileID   optionalnullable.OptionalNullable[string] `json:"file_id,omitzero"`
 	ImageURL optionalnullable.OptionalNullable[string] `json:"image_url,omitzero"`
 	Type     EasyInputMessageTypeInputImage            `json:"type"`
 }
@@ -80,6 +81,13 @@ func (e *EasyInputMessageContentInputImage) GetDetail() EasyInputMessageDetail {
 		return EasyInputMessageDetail("")
 	}
 	return e.Detail
+}
+
+func (e *EasyInputMessageContentInputImage) GetFileID() optionalnullable.OptionalNullable[string] {
+	if e == nil {
+		return nil
+	}
+	return e.FileID
 }
 
 func (e *EasyInputMessageContentInputImage) GetImageURL() optionalnullable.OptionalNullable[string] {
