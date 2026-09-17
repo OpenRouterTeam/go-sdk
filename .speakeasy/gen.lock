@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 64ad04b6e6d4e5a72f99fef29f272e4c
+  docChecksum: b66cddae42ab527a211e56b86e0b6b85
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.154
-  configChecksum: 1b56b1da24e914ed85b031cf0bd300b2
+  releaseVersion: 0.7.155
+  configChecksum: 14406b5f165fb5ce7f83f7d853f16ce7
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 6704b56c-abc6-46c7-bdc1-38c509345551
-  pristine_commit_hash: 89034d94d4dd886395b8cab0569c33cab4e0c8f3
-  pristine_tree_hash: 349df2152e869215e78c48ee5f749edfa09f308a
+  generation_id: f27196c4-4611-4e5f-a261-6674730aaf5c
+  pristine_commit_hash: 13c7b22d1e276191bc276001e1e19e016951b177
+  pristine_tree_hash: 79a972b104b28fd309897090169719703b249849
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6203,8 +6203,8 @@ trackedFiles:
     pristine_git_object: 591742048e294b901272b3a0dfbda5e0bb64b058
   docs/models/components/videogenerationrequest.mdx:
     id: cd475ed04a42
-    last_write_checksum: sha1:5e9d4ff83e6cf9a431c99eee1d55c1912c345de1
-    pristine_git_object: 213efd7fdbe8f7b8a87b3b8e1bf02d8efa3bb828
+    last_write_checksum: sha1:3441ec9c7b233e68eb10207664b9fdcbbdaa055e
+    pristine_git_object: a996eaa67ef5e777ad52d529d0fd5b289d1d7ee2
   docs/models/components/videogenerationrequestaspectratio.mdx:
     id: 828b3d2d4e1a
     last_write_checksum: sha1:adfb933047a751837e83f58372e2a3535d736951
@@ -6223,8 +6223,8 @@ trackedFiles:
     pristine_git_object: 128ff32d26ff7b5c62d6e88777ccecfb29dbd9d7
   docs/models/components/videogenerationresponse.mdx:
     id: c34243f010f7
-    last_write_checksum: sha1:347dd1c58e38ddb582dbd44215be2dcbb854467f
-    pristine_git_object: 79807104cdcdaad98b875d60818e92f5e1e939dd
+    last_write_checksum: sha1:cdd51f7ccb013955f3817bd26793ce700f2ef095
+    pristine_git_object: 00475f351b4e62e4ee75ed441390f1f080574778
   docs/models/components/videogenerationresponsestatus.mdx:
     id: 10a9a5c57135
     last_write_checksum: sha1:43a591bc7b6a286cce7f2192547897a2248a5720
@@ -10291,12 +10291,12 @@ trackedFiles:
     pristine_git_object: f601fa1f8cbbb734585f6c31228430328933914a
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:a467c7a5ed470314179d13f48e31bcb12c4ed688
-    pristine_git_object: 5dca578e9f3151d55736be6447114556113f12e5
+    last_write_checksum: sha1:85b83af9be20917c2c4ca6038720674f7e8ac3a7
+    pristine_git_object: 7a9bf0441b864f29373d371d12a71188539d9cda
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
-    last_write_checksum: sha1:b1196ebd395a89b9f03ce3207738055473c33532
-    pristine_git_object: fdcd07d47a2d70b51e4b4bdbe1c23484026d06b9
+    last_write_checksum: sha1:67f31a1bb28c751b25e5980df877af172a1f2b03
+    pristine_git_object: 10b90254d068f2f88aea9cd083f17d354f7ab621
   models/components/videogenerationusage.go:
     id: 87ab46b77bbf
     last_write_checksum: sha1:77faab3760c9778d5c4fa37cc6de9549cb3096be
@@ -10927,8 +10927,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3c1a5becb096294d6eaf9be653f7807a1742b844
-    pristine_git_object: 496d476a8c69d1905dc8899d3b335a1c57f2555c
+    last_write_checksum: sha1:da1b5a0c8c80b4a9ed6afb1fa838362234640c2a
+    pristine_git_object: 8012df2b808710db7b2938f058834adefdd5d0f1
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11676,7 +11676,7 @@ examples:
         application/json: {"model": "google/veo-3.1"}
       responses:
         "202":
-          application/json: {"id": "job-abc123", "polling_url": "/api/v1/videos/job-abc123", "status": "pending"}
+          application/json: {"id": "gen-vid-1789480874-Ab3dEf9hIjKlMnOpQrSt", "polling_url": "/api/v1/videos/gen-vid-1789480874-Ab3dEf9hIjKlMnOpQrSt", "status": "pending"}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -11700,7 +11700,7 @@ examples:
           jobId: "job-abc123"
       responses:
         "200":
-          application/json: {"id": "job-abc123", "polling_url": "/api/v1/videos/job-abc123", "status": "pending"}
+          application/json: {"id": "gen-vid-1789480874-Ab3dEf9hIjKlMnOpQrSt", "polling_url": "/api/v1/videos/gen-vid-1789480874-Ab3dEf9hIjKlMnOpQrSt", "status": "pending"}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "404":
@@ -14175,7 +14175,4 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Decisions.Create()`: **Added**
-  * `OpenRouter.Decisions.Decisions()`: **Removed** (Breaking ⚠️)
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.PreviousJobId` **Added**\n"

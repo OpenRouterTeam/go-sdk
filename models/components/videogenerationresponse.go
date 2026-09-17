@@ -35,7 +35,8 @@ func (e *VideoGenerationResponseStatus) IsExact() bool {
 type VideoGenerationResponse struct {
 	Error *string `json:"error,omitzero"`
 	// The generation ID associated with this video generation job. Available once the job has been processed.
-	GenerationID *string                       `json:"generation_id,omitzero"`
+	GenerationID *string `json:"generation_id,omitzero"`
+	// The video job ID, in the `gen-vid-<timestamp>-<20 alphanumerics>` generation ID format. Pass it as `previous_job_id` to continue the generation.
 	ID           string                        `json:"id"`
 	PollingURL   string                        `json:"polling_url"`
 	Status       VideoGenerationResponseStatus `json:"status"`
