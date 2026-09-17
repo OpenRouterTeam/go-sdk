@@ -18,7 +18,7 @@ func ExampleNew() {
 		openrouter.WithSecurity("your-api-key"),
 	)
 	fmt.Println(sdk.SDKVersion)
-	// Output: 0.7.155
+	// Output: 0.7.156
 }
 
 // Example demonstrates basic usage of the OpenRouter SDK for chat completions.
