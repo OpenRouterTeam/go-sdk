@@ -2089,3 +2089,13 @@ Based on:
 - [go v0.7.156] .
 ### Releases
 - [Go v0.7.156] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.156 - .
+
+## 2026-09-18 00:33:46
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.787.0 (2.914.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.157] .
+### Releases
+- [Go v0.7.157] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.7.157 - .

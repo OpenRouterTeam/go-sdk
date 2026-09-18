@@ -8465,6 +8465,7 @@ components:
         criteria:
           items:
             type: 'string'
+          minItems: 1
           type: 'array'
         instructions:
           type: 'string'
