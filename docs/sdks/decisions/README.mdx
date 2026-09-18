@@ -36,12 +36,68 @@ func main() {
     )
 
     res, err := s.Alpha.Decisions.Create(ctx, components.DecisionsRequest{
-        Model: "Grand Cherokee",
+        Model: "typesafe/jev-1.13",
         Questions: map[string]components.Questions{
-
+            "is_bug": components.CreateQuestionsNoul(
+                components.DecisionsNoulQuestion{
+                    Criteria: &components.DecisionsNoulQuestionCriteria{
+                        False: components.CreateFalseStr(
+                            "The customer is asking a question or requesting a feature.",
+                        ),
+                        True: components.CreateTrueStr(
+                            "The customer describes broken or unexpected product behavior.",
+                        ),
+                    },
+                    Instructions: components.CreateDecisionsNoulQuestionInstructionsStr(
+                        "Is the customer reporting a software defect?",
+                    ),
+                    Type: components.DecisionsNoulQuestionTypeNoul,
+                },
+            ),
+            "team": components.CreateQuestionsChoice(
+                components.DecisionsChoiceQuestion{
+                    Criteria: map[string]*components.Criteria{
+                        "account": openrouter.Pointer(components.CreateCriteriaStr(
+                            "Login, permissions, or profile issues.",
+                        )),
+                        "frontend": openrouter.Pointer(components.CreateCriteriaStr(
+                            "Rendering, layout, or browser compatibility issues.",
+                        )),
+                        "payments": openrouter.Pointer(components.CreateCriteriaStr(
+                            "Checkout, billing, or payment processing issues.",
+                        )),
+                    },
+                    Instructions: components.CreateDecisionsChoiceQuestionInstructionsStr(
+                        "Which team should own this ticket?",
+                    ),
+                    Type: components.DecisionsChoiceQuestionTypeChoice,
+                },
+            ),
+            "urgency": components.CreateQuestionsScore(
+                components.DecisionsScoreQuestion{
+                    Criteria: []components.Criterion{
+                        components.CreateCriterionStr(
+                            "Can wait for the next release",
+                        ),
+                        components.CreateCriterionStr(
+                            "Should be fixed this week",
+                        ),
+                        components.CreateCriterionStr(
+                            "Blocking revenue right now",
+                        ),
+                    },
+                    Instructions: components.CreateDecisionsScoreQuestionInstructionsStr(
+                        "How urgent is this ticket?",
+                    ),
+                    Type: components.DecisionsScoreQuestionTypeScore,
+                },
+            ),
         },
-        State: components.CreateStateStr(
-            "Maine",
+        State: components.CreateStateMapOfAny(
+            map[string]any{
+                "customer_tier": "enterprise",
+                "ticket": "My checkout page shows a blank screen after I click Pay. I have tried two browsers.",
+            },
         ),
     })
     if err != nil {
