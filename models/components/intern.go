@@ -5,11 +5,11 @@ package components
 // Progress - Active provisioning step, or null once provisioning has settled.
 type Progress struct {
 	// Human-readable label of the active provisioning step.
-	StepLabel string `json:"stepLabel"`
+	StepLabel string `json:"step_label"`
 	// One-based index of the active step.
-	StepNumber int64 `json:"stepNumber"`
+	StepNumber int64 `json:"step_number"`
 	// Number of provisioning steps.
-	TotalSteps int64 `json:"totalSteps"`
+	TotalSteps int64 `json:"total_steps"`
 }
 
 func (p *Progress) GetStepLabel() string {
@@ -67,7 +67,7 @@ type Intern struct {
 	// Vault the intern borrows from another intern, or null when it borrows none.
 	AttachedVaultID *string `json:"attached_vault_id"`
 	// ISO 8601 creation time.
-	CreatedAt string `json:"createdAt"`
+	CreatedAt string `json:"created_at"`
 	// Free-form description.
 	Description *string `json:"description"`
 	// Public hostname the intern is reachable at, or null until provisioning has assigned one.
@@ -77,7 +77,7 @@ type Intern struct {
 	// Standing instructions the intern boots with.
 	Instructions *string `json:"instructions"`
 	// Why the last provisioning attempt failed, when status is failed.
-	LastFailureMessage *string `json:"lastFailureMessage"`
+	LastFailureMessage *string `json:"last_failure_message"`
 	// OpenRouter model slug the intern runs, or null for the workspace default.
 	Model *string `json:"model"`
 	// Intern name, unique per creator within a workspace.
@@ -87,11 +87,11 @@ type Intern struct {
 	// Lifecycle status.
 	Status InternStatus `json:"status"`
 	// ISO 8601 last update time.
-	UpdatedAt string `json:"updatedAt"`
+	UpdatedAt string `json:"updated_at"`
 	// Vault the intern owns, or null before it has been created.
 	VaultID *string `json:"vault_id"`
 	// Workspace that owns the intern and scopes its secrets.
-	WorkspaceID string `json:"workspaceId"`
+	WorkspaceID string `json:"workspace_id"`
 }
 
 func (i *Intern) GetAttachedVaultID() *string {
