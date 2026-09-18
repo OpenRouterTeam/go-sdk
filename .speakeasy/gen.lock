@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: b29ecf305aef4a3fa8fde4ca0e9b2f84
+  docChecksum: 3b614a5703d6f6f899b823fd6764367e
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.161
-  configChecksum: b7619ef3367d8ca5bfd7e8d9cf857eb7
+  releaseVersion: 0.7.162
+  configChecksum: c028c9f1b6fb15fdd7ad9fac49f51523
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b268ccdf-c3d6-4bd7-82bf-4f734ffbb9c6
-  pristine_commit_hash: 130499edd5002e6b6fbd59f6444f08c74a99d46b
-  pristine_tree_hash: 2e364be5abafd132b39702a8a87c17f36a3ed295
+  generation_id: a6a7e9e3-5a46-4afd-bb7d-faeb46294f93
+  pristine_commit_hash: 650a279e692f139cb15f7ba02797cef440d5b5e8
+  pristine_tree_hash: 5f8aca5bcfa2e97b4c581c1a52a4695ad0acb987
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6211,8 +6211,8 @@ trackedFiles:
     pristine_git_object: 9aa5ec2fd42f340c685df9a488751dc448a163c5
   docs/models/components/vaultsecret.mdx:
     id: e36c5643c79a
-    last_write_checksum: sha1:ccce75568dcea892d42d97eb2bd22be5696bd7aa
-    pristine_git_object: 3b3f93531f11a0c6992caeff33b977f9885eff09
+    last_write_checksum: sha1:c2b99a227fc078c535ccf6b42119ee9edc56ae72
+    pristine_git_object: 67332abd21700d4d28838db525865d3557ec50e4
   docs/models/components/vaultsecretcopyrequest.mdx:
     id: 5e0bfa3c7188
     last_write_checksum: sha1:b0d1489d8fa4b225f94169f015296aca6cda5464
@@ -6227,8 +6227,8 @@ trackedFiles:
     pristine_git_object: eafe5927f8c91bba50170b7e1364dbf4be1d6846
   docs/models/components/vaultsecretresponse.mdx:
     id: e107090569e9
-    last_write_checksum: sha1:6fa7256cb7c914f7f0315b3280ba8757aba78ae2
-    pristine_git_object: 0bcfb4919bc5ef43d28eb2ab6fef49fd10faf18b
+    last_write_checksum: sha1:c77add27c837804df6bc18463404c2ed9016fe4e
+    pristine_git_object: 6517479a2b89103d6ebb7068f70c934097280cf7
   docs/models/components/vaultsecretwriterequest.mdx:
     id: a8a88791079f
     last_write_checksum: sha1:2ab1623461d13d535ec4094779cac463df049304
@@ -10307,8 +10307,8 @@ trackedFiles:
     pristine_git_object: f4b994164e03872a8e2ef6d20c8d272dc5861e1c
   models/components/vaultsecret.go:
     id: 6f9927013ecd
-    last_write_checksum: sha1:857fa4bf1848eb7e085fe868c3649bcd8267492c
-    pristine_git_object: 6702c5684401edf48b251308a1eb4a8ee502fb9f
+    last_write_checksum: sha1:a16485b51d52c4f01c86f66d5a050e6b47b60957
+    pristine_git_object: 7c66266095d5e818be396bd56589a38952617347
   models/components/vaultsecretcopyrequest.go:
     id: 94b220df534f
     last_write_checksum: sha1:757a16a12dda16c42e06b7d458033a94630fb654
@@ -10323,8 +10323,8 @@ trackedFiles:
     pristine_git_object: 797d6c61b2bda32c781a1429cb01b13ea29f6681
   models/components/vaultsecretresponse.go:
     id: 72eeda7ecdd3
-    last_write_checksum: sha1:bba8f11cbca25231f9ddb80f8e943feba8ba9a56
-    pristine_git_object: f1fc6e2477f6840755615fe49c7ecab85dc300fa
+    last_write_checksum: sha1:5a7627947796c7e78fd81849935e99a9f338fb7d
+    pristine_git_object: f83c39586a8aad1ca9e9d47fdd7cdd6a82b74522
   models/components/vaultsecretwriterequest.go:
     id: a434ecb5fead
     last_write_checksum: sha1:82824d15d672f82367b4b7b0d0f9b59489609e74
@@ -10967,8 +10967,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:6fcd88038a9615885550faa1781e19e66813dd24
-    pristine_git_object: e811504089b9c00c59fa069823e6e00f8899b2c9
+    last_write_checksum: sha1:4f53f95d8861e71255e3c118be4ab003e6c73855
+    pristine_git_object: 5944b15ecc25bfd86f99ce272ac2f434ac232800
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14215,9 +14215,3 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Interns.ListInterns()`:  `response.Data[]` **Changed** (Breaking ⚠️)
-  * `OpenRouter.Interns.CreateIntern()`:  `response` **Changed** (Breaking ⚠️)
-  * `OpenRouter.Interns.GetIntern()`:  `response` **Changed** (Breaking ⚠️)
-  * `OpenRouter.Interns.UpdateIntern()`:  `response` **Changed** (Breaking ⚠️)
