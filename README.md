@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.157
+> go get github.com/OpenRouterTeam/go-sdk@v0.7.158
 > ```
 
 <!-- No Summary [summary] -->
@@ -187,6 +187,10 @@ func main() {
 <details open>
 <summary>Available methods</summary>
 
+### [Alpha.Decisions](docs/sdks/decisions/README.md)
+
+* [Create](docs/sdks/decisions/README.md#create) - Submit a Decisions (questions and answers) request
+
 ### [Analytics](docs/sdks/analytics/README.md)
 
 * [GetUserActivity](docs/sdks/analytics/README.md#getuseractivity) - Get user activity grouped by endpoint
@@ -242,10 +246,6 @@ func main() {
 * [GetAppRankings](docs/sdks/datasets/README.md#getapprankings) - Top apps by token usage
 * [GetRankingsDaily](docs/sdks/datasets/README.md#getrankingsdaily) - Daily token totals for top 50 models
 * [GetSessionCost](docs/sdks/datasets/README.md#getsessioncost) - Cost per session by harness and model
-
-### [Decisions](docs/sdks/decisions/README.md)
-
-* [Create](docs/sdks/decisions/README.md#create) - Submit a Decisions (questions and answers) request
 
 ### [Embeddings](docs/sdks/embeddings/README.md)
 

@@ -4,38 +4,389 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type Criteria struct {
-	False string `json:"false"`
-	True  string `json:"true"`
+type FalseType string
+
+const (
+	FalseTypeStr        FalseType = "str"
+	FalseTypeMapOfAny   FalseType = "mapOfAny"
+	FalseTypeArrayOfAny FalseType = "arrayOfAny"
+)
+
+// False - A plain string, or a JSON object or array of structured guidance.
+type False struct {
+	Str        *string        `queryParam:"inline" union:"member"`
+	MapOfAny   map[string]any `queryParam:"inline" union:"member"`
+	ArrayOfAny []any          `queryParam:"inline" union:"member"`
+
+	Type FalseType
 }
 
-func (c Criteria) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func CreateFalseStr(str string) False {
+	typ := FalseTypeStr
+
+	return False{
+		Str:  &str,
+		Type: typ,
+	}
 }
 
-func (c *Criteria) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func CreateFalseMapOfAny(mapOfAny map[string]any) False {
+	typ := FalseTypeMapOfAny
+
+	return False{
+		MapOfAny: mapOfAny,
+		Type:     typ,
+	}
+}
+
+func CreateFalseArrayOfAny(arrayOfAny []any) False {
+	typ := FalseTypeArrayOfAny
+
+	return False{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func (u *False) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FalseTypeStr,
+			Value: &str,
+		})
+	}
+
+	var mapOfAny map[string]any = map[string]any{}
+	if err := utils.UnmarshalJSON(data, &mapOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FalseTypeMapOfAny,
+			Value: mapOfAny,
+		})
+	}
+
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  FalseTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for False", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for False", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(FalseType)
+	switch best.Type {
+	case FalseTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case FalseTypeMapOfAny:
+		u.MapOfAny = best.Value.(map[string]any)
+		return nil
+	case FalseTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for False", string(data))
+}
+
+func (u False) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.MapOfAny != nil {
+		return utils.MarshalJSON(u.MapOfAny, "", true)
+	}
+
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type False: all fields are null")
+}
+
+type TrueType string
+
+const (
+	TrueTypeStr        TrueType = "str"
+	TrueTypeMapOfAny   TrueType = "mapOfAny"
+	TrueTypeArrayOfAny TrueType = "arrayOfAny"
+)
+
+// True - A plain string, or a JSON object or array of structured guidance.
+type True struct {
+	Str        *string        `queryParam:"inline" union:"member"`
+	MapOfAny   map[string]any `queryParam:"inline" union:"member"`
+	ArrayOfAny []any          `queryParam:"inline" union:"member"`
+
+	Type TrueType
+}
+
+func CreateTrueStr(str string) True {
+	typ := TrueTypeStr
+
+	return True{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateTrueMapOfAny(mapOfAny map[string]any) True {
+	typ := TrueTypeMapOfAny
+
+	return True{
+		MapOfAny: mapOfAny,
+		Type:     typ,
+	}
+}
+
+func CreateTrueArrayOfAny(arrayOfAny []any) True {
+	typ := TrueTypeArrayOfAny
+
+	return True{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func (u *True) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  TrueTypeStr,
+			Value: &str,
+		})
+	}
+
+	var mapOfAny map[string]any = map[string]any{}
+	if err := utils.UnmarshalJSON(data, &mapOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  TrueTypeMapOfAny,
+			Value: mapOfAny,
+		})
+	}
+
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  TrueTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for True", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for True", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(TrueType)
+	switch best.Type {
+	case TrueTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case TrueTypeMapOfAny:
+		u.MapOfAny = best.Value.(map[string]any)
+		return nil
+	case TrueTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for True", string(data))
+}
+
+func (u True) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.MapOfAny != nil {
+		return utils.MarshalJSON(u.MapOfAny, "", true)
+	}
+
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type True: all fields are null")
+}
+
+type DecisionsNoulQuestionCriteria struct {
+	// A plain string, or a JSON object or array of structured guidance.
+	False False `json:"false"`
+	// A plain string, or a JSON object or array of structured guidance.
+	True True `json:"true"`
+}
+
+func (d DecisionsNoulQuestionCriteria) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DecisionsNoulQuestionCriteria) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Criteria) GetFalse() string {
-	if c == nil {
-		return ""
+func (d *DecisionsNoulQuestionCriteria) GetFalse() False {
+	if d == nil {
+		return False{}
 	}
-	return c.False
+	return d.False
 }
 
-func (c *Criteria) GetTrue() string {
-	if c == nil {
-		return ""
+func (d *DecisionsNoulQuestionCriteria) GetTrue() True {
+	if d == nil {
+		return True{}
 	}
-	return c.True
+	return d.True
+}
+
+type DecisionsNoulQuestionInstructionsType string
+
+const (
+	DecisionsNoulQuestionInstructionsTypeStr        DecisionsNoulQuestionInstructionsType = "str"
+	DecisionsNoulQuestionInstructionsTypeMapOfAny   DecisionsNoulQuestionInstructionsType = "mapOfAny"
+	DecisionsNoulQuestionInstructionsTypeArrayOfAny DecisionsNoulQuestionInstructionsType = "arrayOfAny"
+)
+
+// DecisionsNoulQuestionInstructions - A plain string, or a JSON object or array of structured guidance.
+type DecisionsNoulQuestionInstructions struct {
+	Str        *string        `queryParam:"inline" union:"member"`
+	MapOfAny   map[string]any `queryParam:"inline" union:"member"`
+	ArrayOfAny []any          `queryParam:"inline" union:"member"`
+
+	Type DecisionsNoulQuestionInstructionsType
+}
+
+func CreateDecisionsNoulQuestionInstructionsStr(str string) DecisionsNoulQuestionInstructions {
+	typ := DecisionsNoulQuestionInstructionsTypeStr
+
+	return DecisionsNoulQuestionInstructions{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateDecisionsNoulQuestionInstructionsMapOfAny(mapOfAny map[string]any) DecisionsNoulQuestionInstructions {
+	typ := DecisionsNoulQuestionInstructionsTypeMapOfAny
+
+	return DecisionsNoulQuestionInstructions{
+		MapOfAny: mapOfAny,
+		Type:     typ,
+	}
+}
+
+func CreateDecisionsNoulQuestionInstructionsArrayOfAny(arrayOfAny []any) DecisionsNoulQuestionInstructions {
+	typ := DecisionsNoulQuestionInstructionsTypeArrayOfAny
+
+	return DecisionsNoulQuestionInstructions{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func (u *DecisionsNoulQuestionInstructions) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DecisionsNoulQuestionInstructionsTypeStr,
+			Value: &str,
+		})
+	}
+
+	var mapOfAny map[string]any = map[string]any{}
+	if err := utils.UnmarshalJSON(data, &mapOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DecisionsNoulQuestionInstructionsTypeMapOfAny,
+			Value: mapOfAny,
+		})
+	}
+
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DecisionsNoulQuestionInstructionsTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for DecisionsNoulQuestionInstructions", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for DecisionsNoulQuestionInstructions", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(DecisionsNoulQuestionInstructionsType)
+	switch best.Type {
+	case DecisionsNoulQuestionInstructionsTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case DecisionsNoulQuestionInstructionsTypeMapOfAny:
+		u.MapOfAny = best.Value.(map[string]any)
+		return nil
+	case DecisionsNoulQuestionInstructionsTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for DecisionsNoulQuestionInstructions", string(data))
+}
+
+func (u DecisionsNoulQuestionInstructions) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.MapOfAny != nil {
+		return utils.MarshalJSON(u.MapOfAny, "", true)
+	}
+
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type DecisionsNoulQuestionInstructions: all fields are null")
 }
 
 type DecisionsNoulQuestionType string
@@ -62,9 +413,10 @@ func (e *DecisionsNoulQuestionType) UnmarshalJSON(data []byte) error {
 }
 
 type DecisionsNoulQuestion struct {
-	Criteria     *Criteria                 `json:"criteria,omitzero"`
-	Instructions string                    `json:"instructions"`
-	Type         DecisionsNoulQuestionType `json:"type"`
+	Criteria *DecisionsNoulQuestionCriteria `json:"criteria,omitzero"`
+	// A plain string, or a JSON object or array of structured guidance.
+	Instructions DecisionsNoulQuestionInstructions `json:"instructions"`
+	Type         DecisionsNoulQuestionType         `json:"type"`
 }
 
 func (d DecisionsNoulQuestion) MarshalJSON() ([]byte, error) {
@@ -78,16 +430,16 @@ func (d *DecisionsNoulQuestion) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DecisionsNoulQuestion) GetCriteria() *Criteria {
+func (d *DecisionsNoulQuestion) GetCriteria() *DecisionsNoulQuestionCriteria {
 	if d == nil {
 		return nil
 	}
 	return d.Criteria
 }
 
-func (d *DecisionsNoulQuestion) GetInstructions() string {
+func (d *DecisionsNoulQuestion) GetInstructions() DecisionsNoulQuestionInstructions {
 	if d == nil {
-		return ""
+		return DecisionsNoulQuestionInstructions{}
 	}
 	return d.Instructions
 }

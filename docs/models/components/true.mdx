@@ -1,0 +1,41 @@
+---
+title: "True"
+---
+
+A plain string, or a JSON object or array of structured guidance.
+
+
+## Supported Types
+
+### 
+
+```go
+true := components.CreateTrueStr(string{/* values here */})
+```
+
+### 
+
+```go
+true := components.CreateTrueMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+true := components.CreateTrueArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch true.Type {
+	case components.TrueTypeStr:
+		// true.Str is populated
+	case components.TrueTypeMapOfAny:
+		// true.MapOfAny is populated
+	case components.TrueTypeArrayOfAny:
+		// true.ArrayOfAny is populated
+}
+```

@@ -1,0 +1,41 @@
+---
+title: "False"
+---
+
+A plain string, or a JSON object or array of structured guidance.
+
+
+## Supported Types
+
+### 
+
+```go
+false := components.CreateFalseStr(string{/* values here */})
+```
+
+### 
+
+```go
+false := components.CreateFalseMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+false := components.CreateFalseArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch false.Type {
+	case components.FalseTypeStr:
+		// false.Str is populated
+	case components.FalseTypeMapOfAny:
+		// false.MapOfAny is populated
+	case components.FalseTypeArrayOfAny:
+		// false.ArrayOfAny is populated
+}
+```

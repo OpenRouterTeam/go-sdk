@@ -4,9 +4,242 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
+
+type CriteriaType string
+
+const (
+	CriteriaTypeStr        CriteriaType = "str"
+	CriteriaTypeMapOfAny   CriteriaType = "mapOfAny"
+	CriteriaTypeArrayOfAny CriteriaType = "arrayOfAny"
+)
+
+// Criteria - A plain string, or a JSON object or array of structured guidance.
+type Criteria struct {
+	Str        *string        `queryParam:"inline" union:"member"`
+	MapOfAny   map[string]any `queryParam:"inline" union:"member"`
+	ArrayOfAny []any          `queryParam:"inline" union:"member"`
+
+	Type CriteriaType
+}
+
+func CreateCriteriaStr(str string) Criteria {
+	typ := CriteriaTypeStr
+
+	return Criteria{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateCriteriaMapOfAny(mapOfAny map[string]any) Criteria {
+	typ := CriteriaTypeMapOfAny
+
+	return Criteria{
+		MapOfAny: mapOfAny,
+		Type:     typ,
+	}
+}
+
+func CreateCriteriaArrayOfAny(arrayOfAny []any) Criteria {
+	typ := CriteriaTypeArrayOfAny
+
+	return Criteria{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func (u *Criteria) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CriteriaTypeStr,
+			Value: &str,
+		})
+	}
+
+	var mapOfAny map[string]any = map[string]any{}
+	if err := utils.UnmarshalJSON(data, &mapOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CriteriaTypeMapOfAny,
+			Value: mapOfAny,
+		})
+	}
+
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CriteriaTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Criteria", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Criteria", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(CriteriaType)
+	switch best.Type {
+	case CriteriaTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case CriteriaTypeMapOfAny:
+		u.MapOfAny = best.Value.(map[string]any)
+		return nil
+	case CriteriaTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Criteria", string(data))
+}
+
+func (u Criteria) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.MapOfAny != nil {
+		return utils.MarshalJSON(u.MapOfAny, "", true)
+	}
+
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type Criteria: all fields are null")
+}
+
+type DecisionsChoiceQuestionInstructionsType string
+
+const (
+	DecisionsChoiceQuestionInstructionsTypeStr        DecisionsChoiceQuestionInstructionsType = "str"
+	DecisionsChoiceQuestionInstructionsTypeMapOfAny   DecisionsChoiceQuestionInstructionsType = "mapOfAny"
+	DecisionsChoiceQuestionInstructionsTypeArrayOfAny DecisionsChoiceQuestionInstructionsType = "arrayOfAny"
+)
+
+// DecisionsChoiceQuestionInstructions - A plain string, or a JSON object or array of structured guidance.
+type DecisionsChoiceQuestionInstructions struct {
+	Str        *string        `queryParam:"inline" union:"member"`
+	MapOfAny   map[string]any `queryParam:"inline" union:"member"`
+	ArrayOfAny []any          `queryParam:"inline" union:"member"`
+
+	Type DecisionsChoiceQuestionInstructionsType
+}
+
+func CreateDecisionsChoiceQuestionInstructionsStr(str string) DecisionsChoiceQuestionInstructions {
+	typ := DecisionsChoiceQuestionInstructionsTypeStr
+
+	return DecisionsChoiceQuestionInstructions{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateDecisionsChoiceQuestionInstructionsMapOfAny(mapOfAny map[string]any) DecisionsChoiceQuestionInstructions {
+	typ := DecisionsChoiceQuestionInstructionsTypeMapOfAny
+
+	return DecisionsChoiceQuestionInstructions{
+		MapOfAny: mapOfAny,
+		Type:     typ,
+	}
+}
+
+func CreateDecisionsChoiceQuestionInstructionsArrayOfAny(arrayOfAny []any) DecisionsChoiceQuestionInstructions {
+	typ := DecisionsChoiceQuestionInstructionsTypeArrayOfAny
+
+	return DecisionsChoiceQuestionInstructions{
+		ArrayOfAny: arrayOfAny,
+		Type:       typ,
+	}
+}
+
+func (u *DecisionsChoiceQuestionInstructions) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DecisionsChoiceQuestionInstructionsTypeStr,
+			Value: &str,
+		})
+	}
+
+	var mapOfAny map[string]any = map[string]any{}
+	if err := utils.UnmarshalJSON(data, &mapOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DecisionsChoiceQuestionInstructionsTypeMapOfAny,
+			Value: mapOfAny,
+		})
+	}
+
+	var arrayOfAny []any = []any{}
+	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  DecisionsChoiceQuestionInstructionsTypeArrayOfAny,
+			Value: arrayOfAny,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for DecisionsChoiceQuestionInstructions", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for DecisionsChoiceQuestionInstructions", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(DecisionsChoiceQuestionInstructionsType)
+	switch best.Type {
+	case DecisionsChoiceQuestionInstructionsTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case DecisionsChoiceQuestionInstructionsTypeMapOfAny:
+		u.MapOfAny = best.Value.(map[string]any)
+		return nil
+	case DecisionsChoiceQuestionInstructionsTypeArrayOfAny:
+		u.ArrayOfAny = best.Value.([]any)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for DecisionsChoiceQuestionInstructions", string(data))
+}
+
+func (u DecisionsChoiceQuestionInstructions) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.MapOfAny != nil {
+		return utils.MarshalJSON(u.MapOfAny, "", true)
+	}
+
+	if u.ArrayOfAny != nil {
+		return utils.MarshalJSON(u.ArrayOfAny, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type DecisionsChoiceQuestionInstructions: all fields are null")
+}
 
 type DecisionsChoiceQuestionType string
 
@@ -32,9 +265,10 @@ func (e *DecisionsChoiceQuestionType) UnmarshalJSON(data []byte) error {
 }
 
 type DecisionsChoiceQuestion struct {
-	Criteria     map[string]string           `json:"criteria"`
-	Instructions string                      `json:"instructions"`
-	Type         DecisionsChoiceQuestionType `json:"type"`
+	Criteria map[string]*Criteria `json:"criteria"`
+	// A plain string, or a JSON object or array of structured guidance.
+	Instructions DecisionsChoiceQuestionInstructions `json:"instructions"`
+	Type         DecisionsChoiceQuestionType         `json:"type"`
 }
 
 func (d DecisionsChoiceQuestion) MarshalJSON() ([]byte, error) {
@@ -48,16 +282,16 @@ func (d *DecisionsChoiceQuestion) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DecisionsChoiceQuestion) GetCriteria() map[string]string {
+func (d *DecisionsChoiceQuestion) GetCriteria() map[string]*Criteria {
 	if d == nil {
-		return map[string]string{}
+		return map[string]*Criteria{}
 	}
 	return d.Criteria
 }
 
-func (d *DecisionsChoiceQuestion) GetInstructions() string {
+func (d *DecisionsChoiceQuestion) GetInstructions() DecisionsChoiceQuestionInstructions {
 	if d == nil {
-		return ""
+		return DecisionsChoiceQuestionInstructions{}
 	}
 	return d.Instructions
 }

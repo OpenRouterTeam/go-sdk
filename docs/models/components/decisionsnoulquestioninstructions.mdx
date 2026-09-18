@@ -1,0 +1,41 @@
+---
+title: "DecisionsNoulQuestionInstructions"
+---
+
+A plain string, or a JSON object or array of structured guidance.
+
+
+## Supported Types
+
+### 
+
+```go
+decisionsNoulQuestionInstructions := components.CreateDecisionsNoulQuestionInstructionsStr(string{/* values here */})
+```
+
+### 
+
+```go
+decisionsNoulQuestionInstructions := components.CreateDecisionsNoulQuestionInstructionsMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+decisionsNoulQuestionInstructions := components.CreateDecisionsNoulQuestionInstructionsArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch decisionsNoulQuestionInstructions.Type {
+	case components.DecisionsNoulQuestionInstructionsTypeStr:
+		// decisionsNoulQuestionInstructions.Str is populated
+	case components.DecisionsNoulQuestionInstructionsTypeMapOfAny:
+		// decisionsNoulQuestionInstructions.MapOfAny is populated
+	case components.DecisionsNoulQuestionInstructionsTypeArrayOfAny:
+		// decisionsNoulQuestionInstructions.ArrayOfAny is populated
+}
+```

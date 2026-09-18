@@ -17,7 +17,7 @@ import (
 	"net/url"
 )
 
-// Decisions endpoints
+// Decisions - Alpha feature endpoints for Decisions (questions and answers) requests
 type Decisions struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
