@@ -1,0 +1,41 @@
+---
+title: "Criterion"
+---
+
+A plain string, or a JSON object or array of structured guidance.
+
+
+## Supported Types
+
+### 
+
+```go
+criterion := components.CreateCriterionStr(string{/* values here */})
+```
+
+### 
+
+```go
+criterion := components.CreateCriterionMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+criterion := components.CreateCriterionArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch criterion.Type {
+	case components.CriterionTypeStr:
+		// criterion.Str is populated
+	case components.CriterionTypeMapOfAny:
+		// criterion.MapOfAny is populated
+	case components.CriterionTypeArrayOfAny:
+		// criterion.ArrayOfAny is populated
+}
+```

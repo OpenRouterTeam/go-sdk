@@ -2,9 +2,40 @@
 title: "Criteria"
 ---
 
-## Fields
+A plain string, or a JSON object or array of structured guidance.
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `False`            | `string`           | :heavy_check_mark: | N/A                |
-| `True`             | `string`           | :heavy_check_mark: | N/A                |
+
+## Supported Types
+
+### 
+
+```go
+criteria := components.CreateCriteriaStr(string{/* values here */})
+```
+
+### 
+
+```go
+criteria := components.CreateCriteriaMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+criteria := components.CreateCriteriaArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch criteria.Type {
+	case components.CriteriaTypeStr:
+		// criteria.Str is populated
+	case components.CriteriaTypeMapOfAny:
+		// criteria.MapOfAny is populated
+	case components.CriteriaTypeArrayOfAny:
+		// criteria.ArrayOfAny is populated
+}
+```

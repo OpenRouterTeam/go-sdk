@@ -1,0 +1,41 @@
+---
+title: "Legend"
+---
+
+A plain string, or a JSON object or array of structured guidance.
+
+
+## Supported Types
+
+### 
+
+```go
+legend := components.CreateLegendStr(string{/* values here */})
+```
+
+### 
+
+```go
+legend := components.CreateLegendMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+legend := components.CreateLegendArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch legend.Type {
+	case components.LegendTypeStr:
+		// legend.Str is populated
+	case components.LegendTypeMapOfAny:
+		// legend.MapOfAny is populated
+	case components.LegendTypeArrayOfAny:
+		// legend.ArrayOfAny is populated
+}
+```
