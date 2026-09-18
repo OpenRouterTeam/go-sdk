@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 5b23a23407b99574f893e7da837a81f4
+  docChecksum: 95d87afd329bf26d4dff992bd45c8218
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.156
-  configChecksum: 3b82dce851275ed7854abdffe3615d45
+  releaseVersion: 0.7.157
+  configChecksum: d4809d687b49e725e66ef8b6ceb365be
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 37dce116-84fe-41db-9186-ca23dfdcf451
-  pristine_commit_hash: 6ba1b0aa80d775eb8f717924df2015c73f91fb91
-  pristine_tree_hash: 5676b78db2cf42d6e5ff6efcc1f5790fd54d82e8
+  generation_id: b4764cb0-7fcb-49d3-9f90-2b8e5ef30d84
+  pristine_commit_hash: 0f813d1c124021cfbf548d71908306d7be3fcfc5
+  pristine_tree_hash: 933f54cd5d1af7d33bd40ead153d308142206f62
 features:
   go:
     acceptHeaders: 2.81.2
@@ -10927,8 +10927,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:7ab352d80276f80eed15e762c3053bf62b844118
-    pristine_git_object: 360c61843f962debd49b2751ff2ff86891ee9978
+    last_write_checksum: sha1:2636e725ec3c3a2556d199bb0b19b460a6e19ce0
+    pristine_git_object: c20c37abd20c72a190a23a61ce0428998be2ce0e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14175,4 +14175,3 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Decisions.Create()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Unbiased` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Unbiased` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(unbiased)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(unbiased)` **Added**\n  *  `response.Data.Provider.Enum(unbiased)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(unbiased)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(unbiased)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(unbiased)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(unbiased)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(unbiased)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Ignore[].union(ProviderName).Enum(unbiased)` **Added**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Unbiased` **Added**\n"
