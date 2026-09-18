@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.7.162
+> go get github.com/OpenRouterTeam/go-sdk@v0.8.0
 > ```
 
 <!-- No Summary [summary] -->
@@ -743,6 +743,103 @@ func main() {
 	)
 
 	res, err := s.Analytics.GetUserActivity(ctx, nil, nil, nil, nil, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res != nil {
+		// handle response
+	}
+}
+
+```
+
+### Override Server URL Per-Operation
+
+The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
+```go
+package main
+
+import (
+	"context"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := openrouter.New(
+		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+	)
+
+	res, err := s.Alpha.Decisions.Create(ctx, components.DecisionsRequest{
+		Model: "typesafe/jev-1.13",
+		Questions: map[string]components.Questions{
+			"is_bug": components.CreateQuestionsNoul(
+				components.DecisionsNoulQuestion{
+					Criteria: &components.DecisionsNoulQuestionCriteria{
+						False: components.CreateFalseStr(
+							"The customer is asking a question or requesting a feature.",
+						),
+						True: components.CreateTrueStr(
+							"The customer describes broken or unexpected product behavior.",
+						),
+					},
+					Instructions: components.CreateDecisionsNoulQuestionInstructionsStr(
+						"Is the customer reporting a software defect?",
+					),
+					Type: components.DecisionsNoulQuestionTypeNoul,
+				},
+			),
+			"team": components.CreateQuestionsChoice(
+				components.DecisionsChoiceQuestion{
+					Criteria: map[string]*components.Criteria{
+						"account": openrouter.Pointer(components.CreateCriteriaStr(
+							"Login, permissions, or profile issues.",
+						)),
+						"frontend": openrouter.Pointer(components.CreateCriteriaStr(
+							"Rendering, layout, or browser compatibility issues.",
+						)),
+						"payments": openrouter.Pointer(components.CreateCriteriaStr(
+							"Checkout, billing, or payment processing issues.",
+						)),
+					},
+					Instructions: components.CreateDecisionsChoiceQuestionInstructionsStr(
+						"Which team should own this ticket?",
+					),
+					Type: components.DecisionsChoiceQuestionTypeChoice,
+				},
+			),
+			"urgency": components.CreateQuestionsScore(
+				components.DecisionsScoreQuestion{
+					Criteria: []components.Criterion{
+						components.CreateCriterionStr(
+							"Can wait for the next release",
+						),
+						components.CreateCriterionStr(
+							"Should be fixed this week",
+						),
+						components.CreateCriterionStr(
+							"Blocking revenue right now",
+						),
+					},
+					Instructions: components.CreateDecisionsScoreQuestionInstructionsStr(
+						"How urgent is this ticket?",
+					),
+					Type: components.DecisionsScoreQuestionTypeScore,
+				},
+			),
+		},
+		State: components.CreateStateMapOfAny(
+			map[string]any{
+				"customer_tier": "enterprise",
+				"ticket":        "My checkout page shows a blank screen after I click Pay. I have tried two browsers.",
+			},
+		),
+	}, operations.WithServerURL("https://openrouter.ai"))
 	if err != nil {
 		log.Fatal(err)
 	}
