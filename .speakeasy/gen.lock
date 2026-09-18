@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: d4824e0d44ec438fea979ef707aea2ef
+  docChecksum: ffb65966ca30a9043d66645d247baa20
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.158
-  configChecksum: f3519df2c4ef5854e81b617edda8e9e6
+  releaseVersion: 0.7.159
+  configChecksum: 422b18a07c1d89623dd50b633a79429e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 3dec2d99-df0d-46e2-b853-9c36b453c5ed
-  pristine_commit_hash: 5db3b2609104fa3455229d01959c950b76831d58
-  pristine_tree_hash: 6aebfdbde4b2e6135954d6e4add0d4c31f178dea
+  generation_id: 881d1a5e-558f-46fd-b7e7-ba7665a19eb3
+  pristine_commit_hash: 84cdc4a08b05ea67730da2cfa6878cd42a8101f6
+  pristine_tree_hash: 0a73b171072df0e6c52557966415948be4fc72ad
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7507,8 +7507,8 @@ trackedFiles:
     pristine_git_object: 56b4fa7965b72b472ec7fea8d4bb6dffc5de147f
   docs/sdks/decisions/README.mdx:
     id: a52a116ee1f3
-    last_write_checksum: sha1:e6413ed854fcf5b36cfa04e228630a800b06708c
-    pristine_git_object: ea9a5aa1a5d3d1dbe37c51b78e581afa333770a2
+    last_write_checksum: sha1:3318617c0ceee6d2b9933226e54a51f393c82fd9
+    pristine_git_object: d8aff3c393c6bdda417e001ee2be10b19b5cd966
   docs/sdks/embeddings/README.mdx:
     id: cd71581df291
     last_write_checksum: sha1:6dc782bea366238c31e97cd738e2efcb485ec478
@@ -10963,8 +10963,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:b107deb1ab27987418be586ad15d4962f684d3dd
-    pristine_git_object: 3faadb584a743fccd0e39be1f52ab0929f4d6a82
+    last_write_checksum: sha1:1ee562744b9129ecba7f12fe9a6f8d9e3b598caf
+    pristine_git_object: 75cc8940eec5d278cf5f4d703cb5d6ce2dc4195a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14211,7 +14211,3 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Alpha.Decisions.Create()`: **Added**
-  * `OpenRouter.Decisions.Create()`: **Removed** (Breaking ⚠️)
