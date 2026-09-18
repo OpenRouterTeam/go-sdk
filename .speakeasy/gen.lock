@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 3b614a5703d6f6f899b823fd6764367e
+  docChecksum: 09d240481cd1bc51c43afcfc3cba3f67
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.162
-  configChecksum: c028c9f1b6fb15fdd7ad9fac49f51523
+  releaseVersion: 0.8.0
+  configChecksum: 720bd2da1f8686d80a2a8d29fba493cc
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a6a7e9e3-5a46-4afd-bb7d-faeb46294f93
-  pristine_commit_hash: 650a279e692f139cb15f7ba02797cef440d5b5e8
-  pristine_tree_hash: 5f8aca5bcfa2e97b4c581c1a52a4695ad0acb987
+  generation_id: 6744ef1b-da97-40a8-86e2-ba901c017d2d
+  pristine_commit_hash: 995e24b3e839966636b2ee9d5b2e3ffc64031ad4
+  pristine_tree_hash: 3eb90eac33ff3d110ab5932aecf4d22f192cbeb0
 features:
   go:
     acceptHeaders: 2.81.2
@@ -36,6 +36,7 @@ features:
     intellisenseMarkdownSupport: 0.1.0
     methodArguments: 0.1.1
     methodSecurity: 2.82.6
+    methodServerURLs: 2.82.2
     nameOverrides: 2.81.4
     nullables: 0.2.1
     openEnums: 0.1.0
@@ -119,8 +120,8 @@ trackedFiles:
     pristine_git_object: 85d6ee89e793bfafdcd160ead68839b7038a5d74
   decisions.go:
     id: 7c70c218b6f0
-    last_write_checksum: sha1:0da89884107f54b9462b528136b0b2014270f8d0
-    pristine_git_object: cc0ce837ce98075ad2c390fa0e00cddde4147505
+    last_write_checksum: sha1:e8f4a3f4e99991143133900c60f8cf262ac09ace
+    pristine_git_object: 02f86d2795da02973827f0e8964426ed9bbbac72
   docs/models/components/aabenchmarkentry.mdx:
     id: 4fbde2a0a74e
     last_write_checksum: sha1:bcb2be33042e1e5443f4a3a74c866778eed9436c
@@ -10473,6 +10474,10 @@ trackedFiles:
     id: 3c131df66445
     last_write_checksum: sha1:51ccbdb6b94c9854373c1690310836d64d9b8759
     pristine_git_object: d9cd71e7ba77984e766a34cc9ed27919316f32ad
+  models/operations/createapialphadecisions.go:
+    id: e612e7acd32c
+    last_write_checksum: sha1:74fd15cf6df2a9d0acb4e6a6c7d018f8c6a2810e
+    pristine_git_object: a7f4f92401f5a8771f49e181605e3a485495aefd
   models/operations/createaudiotranscriptionsmultipart.go:
     id: 01ede35bc595
     last_write_checksum: sha1:92cdb63873802f3db4dd4b80e73a534d50f29ca4
@@ -10967,8 +10972,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:4f53f95d8861e71255e3c118be4ab003e6c73855
-    pristine_git_object: 5944b15ecc25bfd86f99ce272ac2f434ac232800
+    last_write_checksum: sha1:afe24c02e8b09eb82b50d7920d5b27d63706a882
+    pristine_git_object: 17df45b3caddd4adeb65ccf1c1bda7632f2d62e0
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
