@@ -6,6 +6,34 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type Decisions struct {
+	Latency *PercentileStats `json:"latency"`
+	// Total requests admitted for this workload in the window.
+	RequestCount *int64           `json:"request_count"`
+	Throughput   *PercentileStats `json:"throughput"`
+}
+
+func (d *Decisions) GetLatency() *PercentileStats {
+	if d == nil {
+		return nil
+	}
+	return d.Latency
+}
+
+func (d *Decisions) GetRequestCount() *int64 {
+	if d == nil {
+		return nil
+	}
+	return d.RequestCount
+}
+
+func (d *Decisions) GetThroughput() *PercentileStats {
+	if d == nil {
+		return nil
+	}
+	return d.Throughput
+}
+
 type Embeddings struct {
 	Latency *PercentileStats `json:"latency"`
 	// Total requests admitted for this workload in the window.
@@ -232,6 +260,7 @@ func (v *VideoGeneration) GetThroughput() *PercentileStats {
 
 // PerfLast30mByWorkload - Endpoint performance over the last 30 minutes, keyed by the kind of request served (e.g. `text_generation`, `image_generation`). Additive to the legacy singular latency and throughput fields; image and video generation report end-to-end latency. Only visible when authenticated with an API key or cookie.
 type PerfLast30mByWorkload struct {
+	Decisions       *Decisions       `json:"decisions,omitzero"`
 	Embeddings      *Embeddings      `json:"embeddings,omitzero"`
 	ImageGeneration *ImageGeneration `json:"image_generation,omitzero"`
 	Rerank          *Rerank          `json:"rerank,omitzero"`
@@ -251,6 +280,13 @@ func (p *PerfLast30mByWorkload) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (p *PerfLast30mByWorkload) GetDecisions() *Decisions {
+	if p == nil {
+		return nil
+	}
+	return p.Decisions
 }
 
 func (p *PerfLast30mByWorkload) GetEmbeddings() *Embeddings {

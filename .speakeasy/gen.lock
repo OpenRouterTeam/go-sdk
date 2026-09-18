@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ffb65966ca30a9043d66645d247baa20
+  docChecksum: 51155b44283f33978ba82c468435fbcb
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.159
-  configChecksum: 422b18a07c1d89623dd50b633a79429e
+  releaseVersion: 0.7.160
+  configChecksum: 88adac8e55be5bc2cfecf54f3e1a7394
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 881d1a5e-558f-46fd-b7e7-ba7665a19eb3
-  pristine_commit_hash: 84cdc4a08b05ea67730da2cfa6878cd42a8101f6
-  pristine_tree_hash: 0a73b171072df0e6c52557966415948be4fc72ad
+  generation_id: ddd6e07f-0612-4836-aaa8-933de2266b92
+  pristine_commit_hash: 668342a6babd02eada1b6e30f838002ca0a249a0
+  pristine_tree_hash: 9c408d18080347c24b4717ad66a8664f74334e3f
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1853,6 +1853,10 @@ trackedFiles:
     id: c1e750010824
     last_write_checksum: sha1:c4a256fbc864ba25aaa2fddf278b299cfe7e7401
     pristine_git_object: c17166e44572b606f89678155d0fee4a58a4bc0a
+  docs/models/components/decisions.mdx:
+    id: 2f3c7fb8b02e
+    last_write_checksum: sha1:569e7d3276f9f0aeb034109703596d9d8056204b
+    pristine_git_object: 72fd4efa369b483c361151db01149d228c9d8005
   docs/models/components/decisionschoiceanswer.mdx:
     id: 4972c1988c1a
     last_write_checksum: sha1:607310e9c7eb5b5901b826aeee62901393f0d87f
@@ -4731,8 +4735,8 @@ trackedFiles:
     pristine_git_object: b149d4fa3819dc124967bebf3bb1b70673ca9b33
   docs/models/components/perflast30mbyworkload.mdx:
     id: b3c9012eeeab
-    last_write_checksum: sha1:a186a2a161f711954c5bf89f55ef1d9223d26627
-    pristine_git_object: e92792407ca7df6e9695507148bfac47ff8abdff
+    last_write_checksum: sha1:4a8cc13698187b5ec517f19b54e2ecb9010654b5
+    pristine_git_object: dde50725f34c20281bbd33905a45d31c59725ab1
   docs/models/components/perrequestlimits.mdx:
     id: ad1bc39d07f7
     last_write_checksum: sha1:aeaa5388b873bd987433e1d94d0a64ede529d5f4
@@ -9759,8 +9763,8 @@ trackedFiles:
     pristine_git_object: 1ef96ca8132f8e9c7657a7e7064dc44c720a046a
   models/components/publicendpoint.go:
     id: "32378212e204"
-    last_write_checksum: sha1:1a9a3449e8b466d88712effcdf18159925c39ffa
-    pristine_git_object: d2a387b07fc8ac09fa0ca7009ac728ed84b91e61
+    last_write_checksum: sha1:8ad5f2b7c1f02b6d496a3748dc038bf93d8bb6b6
+    pristine_git_object: 4435f33435814c6a37305333fe9c88a7eb4b7e83
   models/components/publicpricing.go:
     id: 8596f6c62439
     last_write_checksum: sha1:27958df794cc170d479c41ce42c79839ce3118b3
@@ -10963,8 +10967,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:1ee562744b9129ecba7f12fe9a6f8d9e3b598caf
-    pristine_git_object: 75cc8940eec5d278cf5f4d703cb5d6ce2dc4195a
+    last_write_checksum: sha1:935b28b7045fe18f1733d0ed3b37b87b6c5a6cb7
+    pristine_git_object: 2c6f0ea5ab425ffc024db89534abe535bc5bccb5
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14211,3 +14215,7 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].PerfLast30mByWorkload.Decisions` **Added**
+  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].PerfLast30mByWorkload.Decisions` **Added**
