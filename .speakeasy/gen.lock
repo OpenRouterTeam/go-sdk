@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 51155b44283f33978ba82c468435fbcb
+  docChecksum: b29ecf305aef4a3fa8fde4ca0e9b2f84
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.7.160
-  configChecksum: 88adac8e55be5bc2cfecf54f3e1a7394
+  releaseVersion: 0.7.161
+  configChecksum: b7619ef3367d8ca5bfd7e8d9cf857eb7
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: ddd6e07f-0612-4836-aaa8-933de2266b92
-  pristine_commit_hash: 668342a6babd02eada1b6e30f838002ca0a249a0
-  pristine_tree_hash: 9c408d18080347c24b4717ad66a8664f74334e3f
+  generation_id: b268ccdf-c3d6-4bd7-82bf-4f734ffbb9c6
+  pristine_commit_hash: 130499edd5002e6b6fbd59f6444f08c74a99d46b
+  pristine_tree_hash: 2e364be5abafd132b39702a8a87c17f36a3ed295
 features:
   go:
     acceptHeaders: 2.81.2
@@ -8963,8 +8963,8 @@ trackedFiles:
     pristine_git_object: 1a72a05439f81b74fe77ca2594469150b5af4f6f
   models/components/intern.go:
     id: df131a82366a
-    last_write_checksum: sha1:ae9834b62814fa7017bae7d27ff16dc8a7a7bf45
-    pristine_git_object: c9d77877aee6e73d1f23f8d866852c661896e71c
+    last_write_checksum: sha1:3f68cc45ea8f3fd57332b6aac24a9c0e3bcc4c70
+    pristine_git_object: ddad51840980a0cb57cf99c4a873a3e6d61d47a7
   models/components/internalserverresponseerrordata.go:
     id: 17e0c79d6a0c
     last_write_checksum: sha1:e8508d24275d050e8f74f62e6d62973d3e3b7c01
@@ -10967,8 +10967,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:935b28b7045fe18f1733d0ed3b37b87b6c5a6cb7
-    pristine_git_object: 2c6f0ea5ab425ffc024db89534abe535bc5bccb5
+    last_write_checksum: sha1:6fcd88038a9615885550faa1781e19e66813dd24
+    pristine_git_object: e811504089b9c00c59fa069823e6e00f8899b2c9
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14093,7 +14093,7 @@ examples:
     speakeasy-default-list-interns:
       responses:
         "200":
-          application/json: {"data": [{"attached_vault_id": null, "createdAt": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "lastFailureMessage": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updatedAt": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspaceId": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}], "has_more": false}
+          application/json: {"data": [{"attached_vault_id": null, "created_at": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "last_failure_message": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updated_at": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}], "has_more": false}
         "400":
           application/json: {"error": {"code": "not_found", "message": "Intern not found"}}
         "500":
@@ -14104,7 +14104,7 @@ examples:
         application/json: {"name": "research-assistant", "provision": true, "workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
       responses:
         "200":
-          application/json: {"attached_vault_id": null, "createdAt": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "lastFailureMessage": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updatedAt": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspaceId": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
+          application/json: {"attached_vault_id": null, "created_at": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "last_failure_message": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updated_at": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
         "400":
           application/json: {"error": {"code": "not_found", "message": "Intern not found"}}
         "500":
@@ -14128,7 +14128,7 @@ examples:
           internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
       responses:
         "200":
-          application/json: {"attached_vault_id": null, "createdAt": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "lastFailureMessage": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updatedAt": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspaceId": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
+          application/json: {"attached_vault_id": null, "created_at": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "last_failure_message": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updated_at": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
         "401":
           application/json: {"error": {"code": "not_found", "message": "Intern not found"}}
         "500":
@@ -14142,7 +14142,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"attached_vault_id": null, "createdAt": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "lastFailureMessage": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updatedAt": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspaceId": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
+          application/json: {"attached_vault_id": null, "created_at": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "last_failure_message": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updated_at": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
         "400":
           application/json: {"error": {"code": "not_found", "message": "Intern not found"}}
         "500":
@@ -14217,5 +14217,7 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].PerfLast30mByWorkload.Decisions` **Added**
-  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].PerfLast30mByWorkload.Decisions` **Added**
+  * `OpenRouter.Interns.ListInterns()`:  `response.Data[]` **Changed** (Breaking ⚠️)
+  * `OpenRouter.Interns.CreateIntern()`:  `response` **Changed** (Breaking ⚠️)
+  * `OpenRouter.Interns.GetIntern()`:  `response` **Changed** (Breaking ⚠️)
+  * `OpenRouter.Interns.UpdateIntern()`:  `response` **Changed** (Breaking ⚠️)
