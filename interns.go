@@ -37,11 +37,12 @@ func newInterns(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *h
 // Lists interns visible to the authenticated key, newest first. Filter by workspace and one or more lifecycle statuses. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
-func (s *Interns) ListInterns(ctx context.Context, limit *int64, status []operations.Status, workspaceID *string, opts ...operations.Option) (*components.InternListResponse, error) {
+func (s *Interns) ListInterns(ctx context.Context, limit *int64, status []operations.Status, startingAfter *string, workspaceID *string, opts ...operations.Option) (*components.InternListResponse, error) {
 	request := operations.ListInternsRequest{
-		Limit:       limit,
-		Status:      status,
-		WorkspaceID: workspaceID,
+		Limit:         limit,
+		Status:        status,
+		StartingAfter: startingAfter,
+		WorkspaceID:   workspaceID,
 	}
 
 	o := operations.Options{}
