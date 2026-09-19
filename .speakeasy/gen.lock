@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 09d240481cd1bc51c43afcfc3cba3f67
+  docChecksum: 75f48417d4f3fe9504ab79592b7e51f5
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.0
-  configChecksum: 720bd2da1f8686d80a2a8d29fba493cc
+  releaseVersion: 0.8.1
+  configChecksum: aac7850e3ac32231e543d2ead4e9833f
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 6744ef1b-da97-40a8-86e2-ba901c017d2d
-  pristine_commit_hash: 995e24b3e839966636b2ee9d5b2e3ffc64031ad4
-  pristine_tree_hash: 3eb90eac33ff3d110ab5932aecf4d22f192cbeb0
+  generation_id: 74925682-4439-4eda-b3ea-3f528f01975d
+  pristine_commit_hash: 2904e03a9c1117ce1dd59682b0a0007371a8cd66
+  pristine_tree_hash: f2caa70d1a55d6605ff31e47abf8178a40d47668
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3016,8 +3016,8 @@ trackedFiles:
     pristine_git_object: 160eb890e4c558d20ef558b5d8a59993d8f78078
   docs/models/components/internchatcompletionrequest.mdx:
     id: 01c1b4d5e8c3
-    last_write_checksum: sha1:5bffb65293e5158e51834bfaf85aaa8733756432
-    pristine_git_object: ef5d0ab603c669087dd93252afb458723aed08fd
+    last_write_checksum: sha1:aca3180ca9e504bd5a9df8881cf144d24ef97bf2
+    pristine_git_object: c5c00dc142987f4c5b7408b07c4d2abf7583b971
   docs/models/components/internchatdelta.mdx:
     id: 13d1516434b0
     last_write_checksum: sha1:91944cac25462aaafe25d60a08e0da40e0ba0e19
@@ -6780,8 +6780,8 @@ trackedFiles:
     pristine_git_object: 11dc4d56f147061a253308da0e48eb4da98e6d0c
   docs/models/operations/getcurrentkeydata.mdx:
     id: 20d20b34fed5
-    last_write_checksum: sha1:50e33c84bc3e19626e910b8a344b354783d08393
-    pristine_git_object: 6e82b043694a7a034f2074a9e0284cbb4d75e9e0
+    last_write_checksum: sha1:18883b9b7479cf240a3d892f231dafe4a8ea0570
+    pristine_git_object: 6865668226b69c036ff8f5e3aee312d261d299c8
   docs/models/operations/getcurrentkeyresponse.mdx:
     id: 7e3452452864
     last_write_checksum: sha1:d1c06efb703e5d130076c171b66552ef2e3570e7
@@ -8988,8 +8988,8 @@ trackedFiles:
     pristine_git_object: b1b005a0f32ab76f10cf9be9c6c21a8d7aeb57ee
   models/components/internchatcompletionrequest.go:
     id: b8e3106b8c61
-    last_write_checksum: sha1:026b5025f57b6db246df08c89b8a9c50443f9590
-    pristine_git_object: 0ea557721621fee5c81e525325a5f5ff5f433cdf
+    last_write_checksum: sha1:d0819a7ac1327faf0b4c7fbbf10122f1512f451e
+    pristine_git_object: 038aa76de2e24bebdaceb8edc96da6fe21baed3c
   models/components/internchatdelta.go:
     id: 236bb0111abf
     last_write_checksum: sha1:d56dca73000c27a97557fa3021b9adc77ccc4614
@@ -10612,8 +10612,8 @@ trackedFiles:
     pristine_git_object: ea3609f3338d04256ceb8977eac94c2c1fdb5040
   models/operations/getcurrentkey.go:
     id: 86ac716d02ab
-    last_write_checksum: sha1:d58c4037b96740cff72f6f87400352162cddd14e
-    pristine_git_object: 051f1abba62918ab86703d7e209b305ccd9ddf31
+    last_write_checksum: sha1:b05bd432eefd3a3b17fc1ad4b7792574493797a4
+    pristine_git_object: 4517257a84c56b7d934cc537ddd77d7ae6701a39
   models/operations/getfilemetadata.go:
     id: ac54c1bc940b
     last_write_checksum: sha1:89aeac7e3a0eae9a1d74c73c7edc25a5378de1b2
@@ -10972,8 +10972,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:afe24c02e8b09eb82b50d7920d5b27d63706a882
-    pristine_git_object: 17df45b3caddd4adeb65ccf1c1bda7632f2d62e0
+    last_write_checksum: sha1:f8dca9bb544b29e69d187a477db4c79b1d842549
+    pristine_git_object: 208f290f6bc4bb08040d3863cec11c8fa13532b8
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11372,7 +11372,7 @@ examples:
     speakeasy-default-get-current-key:
       responses:
         "200":
-          application/json: {"data": {"allowed_data_regions": ["global", "europe", "us"], "byok_usage": 17.38, "byok_usage_daily": 17.38, "byok_usage_monthly": 17.38, "byok_usage_weekly": 17.38, "creator_user_id": "user_2dHFtVWx2n56w6HkM0000000000", "free_model_daily_requests": {"limit": 50, "remaining": 38, "used": 12}, "include_byok_in_limit": false, "is_free_tier": false, "is_management_key": false, "is_provisioning_key": false, "label": "sk-or-v1-au7...890", "limit": 100, "limit_remaining": 74.5, "limit_reset": "monthly", "rate_limit": {"interval": "1h", "note": "This field is deprecated and safe to ignore.", "requests": 1000}, "usage": 25.5, "usage_daily": 25.5, "usage_monthly": 25.5, "usage_weekly": 25.5}}
+          application/json: {"data": {"allowed_data_regions": ["global", "europe", "us"], "byok_usage": 17.38, "byok_usage_daily": 17.38, "byok_usage_monthly": 17.38, "byok_usage_weekly": 17.38, "creator_user_id": "user_2dHFtVWx2n56w6HkM0000000000", "free_model_daily_requests": {"limit": 50, "remaining": 38, "used": 12}, "include_byok_in_limit": false, "is_free_tier": false, "is_management_key": false, "is_provisioning_key": false, "label": "sk-or-v1-au7...890", "limit": 100, "limit_remaining": 74.5, "limit_reset": "monthly", "organization_id": null, "rate_limit": {"interval": "1h", "note": "This field is deprecated and safe to ignore.", "requests": 1000}, "usage": 25.5, "usage_daily": 25.5, "usage_monthly": 25.5, "usage_weekly": 25.5, "workspace_id": "0df9e665-d932-5740-b2c7-b52af166bc11"}}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "500":
@@ -14220,3 +14220,6 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.ApiKeys.GetCurrentKeyMetadata()`:  `response.Data` **Changed**

@@ -12,7 +12,7 @@ type InternChatCompletionRequest struct {
 	ApprovalMode *InternApprovalMode `json:"approval_mode,omitzero"`
 	// The conversation. Only the last message is read. A last `user` message starts a run. A last `tool` message answers the interaction named by its `tool_call_id` and requires `session_id`.
 	Messages []InternChatMessage `json:"messages"`
-	// Echoed as `model` on the streamed chunks; the final chunk may carry the model the intern reported instead. The intern chooses its own model, so this value does not change what runs.
+	// Accepted for OpenAI compatibility and ignored. Streamed chunks report the model the intern actually used, or `openrouter/intern` when it did not report one.
 	Model *string `json:"model,omitzero"`
 	// The daemon session to continue, as returned in `session_id` on the final chunk of an earlier response. Omit it to start a new session. Required when the last message has role `tool`.
 	SessionID *string `json:"session_id,omitzero"`
