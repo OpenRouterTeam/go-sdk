@@ -444,6 +444,10 @@ func handleDefaultConstValue(tagValue string, val interface{}, tag reflect.Struc
 			return []byte(fmt.Sprintf("%q", tagValue))
 		}
 	}
+	
+	if !json.Valid([]byte(tagValue)) {
+		return []byte(fmt.Sprintf("%q", tagValue))
+	}
 
 	return []byte(tagValue)
 }
