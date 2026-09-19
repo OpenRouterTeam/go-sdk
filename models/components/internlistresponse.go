@@ -7,6 +7,8 @@ type InternListResponse struct {
 	Data []Intern `json:"data"`
 	// True when more interns match the current filters.
 	HasMore bool `json:"has_more"`
+	// Opaque cursor, present when `has_more` is true. Pass it as `starting_after` to fetch the next page.
+	NextCursor *string `json:"next_cursor,omitzero"`
 }
 
 func (i *InternListResponse) GetData() []Intern {
@@ -21,4 +23,11 @@ func (i *InternListResponse) GetHasMore() bool {
 		return false
 	}
 	return i.HasMore
+}
+
+func (i *InternListResponse) GetNextCursor() *string {
+	if i == nil {
+		return nil
+	}
+	return i.NextCursor
 }

@@ -39,6 +39,8 @@ type ListInternsRequest struct {
 	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// Comma-separated lifecycle statuses to include.
 	Status []Status `queryParam:"style=form,explode=false,name=status"`
+	// The opaque `next_cursor` of the previous page. Returns the interns that come after it in the newest-first order. A malformed cursor is a 400.
+	StartingAfter *string `queryParam:"style=form,explode=true,name=starting_after"`
 	// Only return interns in this workspace. It must match the API key workspace.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
@@ -66,6 +68,13 @@ func (l *ListInternsRequest) GetStatus() []Status {
 		return nil
 	}
 	return l.Status
+}
+
+func (l *ListInternsRequest) GetStartingAfter() *string {
+	if l == nil {
+		return nil
+	}
+	return l.StartingAfter
 }
 
 func (l *ListInternsRequest) GetWorkspaceID() *string {
