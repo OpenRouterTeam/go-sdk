@@ -134,7 +134,7 @@ func main() {
 
 ## DeleteIntern
 
-Starts safe teardown of the intern, its runtime and its private vault. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+Starts safe teardown of the intern, its runtime and its private vault. The body is optional. Send `{"acknowledge_workspace_loss": true}` to delete a `destroy_failed` intern whose `last_failure_message` names `workspace_archive_failed`, accepting that its workspace is not backed up. The request body is capped at 1048576 bytes and a larger body is refused with 413. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 
 ### Example Usage
 
@@ -145,6 +145,7 @@ import(
 	"context"
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"log"
 )
 
@@ -155,7 +156,9 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Interns.DeleteIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7")
+    res, err := s.Interns.DeleteIntern(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.DeleteInternRequest{
+        AcknowledgeWorkspaceLoss: openrouter.Pointer(true),
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -167,11 +170,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
-| `internID`                                               | `string`                                                 | :heavy_check_mark:                                       | ID of an intern visible to the authenticated API key.    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                     |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `ctx`                                                                            | [context.Context](https://pkg.go.dev/context#Context)                            | :heavy_check_mark:                                                               | The context to use for the request.                                              |                                                                                  |
+| `internID`                                                                       | `string`                                                                         | :heavy_check_mark:                                                               | ID of an intern visible to the authenticated API key.                            | 7c9e6679-7425-40de-944b-e07fc1f90ae7                                             |
+| `deleteInternRequest`                                                            | [components.DeleteInternRequest](../../models/components/deleteinternrequest.mdx) | :heavy_check_mark:                                                               | N/A                                                                              | \{<br/>"acknowledge_workspace_loss": true<br/>}                                   |
+| `opts`                                                                           | [][operations.Option](../../models/operations/option.mdx)                         | :heavy_minus_sign:                                                               | The options for this request.                                                    |                                                                                  |
 
 ### Response
 
@@ -179,11 +183,11 @@ func main() {
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| sdkerrors.InternLifecycleError | 401, 403, 404, 408, 409        | application/json               |
-| sdkerrors.InternLifecycleError | 500, 502                       | application/json               |
-| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| sdkerrors.InternLifecycleError    | 400, 401, 403, 404, 408, 409, 413 | application/json                  |
+| sdkerrors.InternLifecycleError    | 500, 502                          | application/json                  |
+| sdkerrors.APIError                | 4XX, 5XX                          | \*/\*                             |
 
 ## GetIntern
 

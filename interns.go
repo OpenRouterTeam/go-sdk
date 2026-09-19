@@ -580,12 +580,13 @@ func (s *Interns) CreateIntern(ctx context.Context, createInternRequest componen
 }
 
 // DeleteIntern - Delete an intern
-// Starts safe teardown of the intern, its runtime and its private vault. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+// Starts safe teardown of the intern, its runtime and its private vault. The body is optional. Send `{"acknowledge_workspace_loss": true}` to delete a `destroy_failed` intern whose `last_failure_message` names `workspace_archive_failed`, accepting that its workspace is not backed up. The request body is capped at 1048576 bytes and a larger body is refused with 413. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
-func (s *Interns) DeleteIntern(ctx context.Context, internID string, opts ...operations.Option) (*components.DeleteInternResponse, error) {
+func (s *Interns) DeleteIntern(ctx context.Context, internID string, deleteInternRequest components.DeleteInternRequest, opts ...operations.Option) (*components.DeleteInternResponse, error) {
 	request := operations.DeleteInternRequest{
-		InternID: internID,
+		InternID:            internID,
+		DeleteInternRequest: deleteInternRequest,
 	}
 
 	o := operations.Options{}
@@ -620,6 +621,10 @@ func (s *Interns) DeleteIntern(ctx context.Context, internID string, opts ...ope
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "DeleteInternRequest", "json", `request:"mediaType=application/json"`)
+	if err != nil {
+		return nil, err
+	}
 
 	timeout := o.Timeout
 	if timeout == nil {
@@ -632,12 +637,15 @@ func (s *Interns) DeleteIntern(ctx context.Context, internID string, opts ...ope
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "DELETE", opURL, nil)
+	req, err := http.NewRequestWithContext(ctx, "DELETE", opURL, bodyReader)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security, "APIKey"); err != nil {
 		return nil, err
@@ -766,6 +774,8 @@ func (s *Interns) DeleteIntern(ctx context.Context, internID string, opts ...ope
 			}
 			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		fallthrough
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode == 403:
@@ -775,6 +785,8 @@ func (s *Interns) DeleteIntern(ctx context.Context, internID string, opts ...ope
 	case httpRes.StatusCode == 408:
 		fallthrough
 	case httpRes.StatusCode == 409:
+		fallthrough
+	case httpRes.StatusCode == 413:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
