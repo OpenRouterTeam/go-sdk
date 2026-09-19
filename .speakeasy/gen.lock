@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 25098ce35e78076c7cc5399888f206bf
+  docChecksum: 7914398331b928772b521ae276bcee33
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.2
-  configChecksum: 30c2634da4d0084815fd7a9ef1fa21ae
+  releaseVersion: 0.8.3
+  configChecksum: 016af85a860004fbe67f582c60d3e553
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b4b8d87c-df4f-4225-80cf-fe2e500540be
-  pristine_commit_hash: 081d2f68d61ca64ac732772e3f8b04828603d5df
-  pristine_tree_hash: a8f6e4d12b35d6ca4528b260fa2248fcac910d07
+  generation_id: 1ceea838-da0b-42e3-bf43-6d55bde47047
+  pristine_commit_hash: 66a7a48b56a7b2f60b9240e322d5f86e97e2cb4d
+  pristine_tree_hash: c5728a900e3a0b9ec79d839f967c998c2878e5b4
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1704,8 +1704,8 @@ trackedFiles:
     pristine_git_object: 0c0484aff9f3676cf7cefc603970dd8761ce1e59
   docs/models/components/createinternrequest.mdx:
     id: 656b7c6200d6
-    last_write_checksum: sha1:7e80e6f3a42828b45ec34c7084cc91a98cc53209
-    pristine_git_object: c655b63e08317b0d72ffbff48381b2ec3e1a95f7
+    last_write_checksum: sha1:e764922b126a2f8daa58b2b38be9e9cdd33ecb9d
+    pristine_git_object: 77788102af75ca0f2a3b6e1d00450dff9a686df6
   docs/models/components/createobservabilitydestinationrequest.mdx:
     id: 8ec187273392
     last_write_checksum: sha1:976a23b1b8233483aa660abfc2bf9749693a35d5
@@ -2996,8 +2996,8 @@ trackedFiles:
     pristine_git_object: 8b871d1ac300d8b87dcad90e3086691e8da03c86
   docs/models/components/internchatassistantmessage.mdx:
     id: 7e699b0b7ee4
-    last_write_checksum: sha1:b16c45c83e19a29310b10420fab53ed866804032
-    pristine_git_object: a3392cb82e1ac5af64bb615d955a059c1eda34a3
+    last_write_checksum: sha1:4b52e5baef861b5795e0530e16a336846b2dc57b
+    pristine_git_object: 9acf19ded6cd26fdd79e8bf96b2cff83654ef650
   docs/models/components/internchatassistantmessagerole.mdx:
     id: 1c2ebfdee197
     last_write_checksum: sha1:329150a69c6e7d7fa5a7db2e917242e466219a63
@@ -7540,8 +7540,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/interns/README.mdx:
     id: 2f8a053ffe78
-    last_write_checksum: sha1:825cac14549874a33bd5d4982a3186c9b4116d17
-    pristine_git_object: cc325ea12b2b2753322ebb680833897663871b76
+    last_write_checksum: sha1:aa2e418075b2cd62524c96f037029e3a07adfe6a
+    pristine_git_object: 6b1fc9e944fb04e815418c26de4ffbcf2ccee552
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
     last_write_checksum: sha1:14ffb11eb5c8db2aa311ac04b4e1e8bea0ca5528
@@ -7692,8 +7692,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   interns.go:
     id: aad99db3b05b
-    last_write_checksum: sha1:aad4ca8cf43a360ef92b4fe434566412b881808e
-    pristine_git_object: 24ac2758ea883986de2abb623450508f42846494
+    last_write_checksum: sha1:6367ec666b72714c3aed03d655a1e44ac45cdde4
+    pristine_git_object: 148008e53b3c7c5f57f74037156c5556470f8d5d
   models.go:
     id: 3af78faf181b
     last_write_checksum: sha1:8cc3e199c4b17ebc74642a4df902f06f8daeb2c7
@@ -8428,8 +8428,8 @@ trackedFiles:
     pristine_git_object: a0f649ed0d639a2214ef55010ca43abf69497b7f
   models/components/createinternrequest.go:
     id: 998ce94158cc
-    last_write_checksum: sha1:63cf06a02d2a94319e6ffa4112813b5bc56d45ee
-    pristine_git_object: 859d450c2fab77dab7f7e2690935a73b95fc8507
+    last_write_checksum: sha1:bfd71672e82b23aea76c2e0d0500aa3a9421f98a
+    pristine_git_object: 8870ebdff2456dc6e3b28c4aad9ba1583f2a7230
   models/components/createobservabilitydestinationrequest.go:
     id: 04ca6b57e0ab
     last_write_checksum: sha1:021c7491263f2ea3b2ce154fed9320ce6b490bcc
@@ -8976,8 +8976,8 @@ trackedFiles:
     pristine_git_object: e11d3835e79d9476f301591b44b70e5fe6bf5811
   models/components/internchatassistantmessage.go:
     id: 75345c204944
-    last_write_checksum: sha1:423827b2d32f3cf67cfa8bc2a490022cfed449a6
-    pristine_git_object: e7add17f981b0f5e556ea388d30d752c15dfd241
+    last_write_checksum: sha1:0e37e634b3173a5a6b59877d030f6b339f5be0e0
+    pristine_git_object: 33a0a4849b11f2a8f625d8c26f461a07ccb2ea9a
   models/components/internchatchoice.go:
     id: b143a9912976
     last_write_checksum: sha1:8ac3775f00fa0ce3bab766e93ed185a956ec6e8d
@@ -10972,8 +10972,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:edea7e3b49a5a8a282fc3ccc6d8785ef460f70ec
-    pristine_git_object: 45a7fdd5f76c40ca791fad829ea8f69605340e9b
+    last_write_checksum: sha1:1af7183f7d5344f43368be0465fb3a41a1a6a347
+    pristine_git_object: fa31eabd38f294643644c93ddafec613ec60e5fd
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14106,7 +14106,7 @@ examples:
   createIntern:
     speakeasy-default-create-intern:
       requestBody:
-        application/json: {"name": "research-assistant", "provision": true, "workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
+        application/json: {"name": "research-assistant", "provision": true}
       responses:
         "200":
           application/json: {"attached_vault_id": null, "created_at": "2026-09-16T08:30:00.000Z", "description": "Researches customer questions", "hostname": "research-assistant.openrouter.ai", "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7", "instructions": null, "last_failure_message": null, "model": "openai/gpt-5.4", "name": "research-assistant", "progress": null, "status": "running", "updated_at": "2026-09-16T08:45:00.000Z", "vault_id": "b431c59d-6eed-41ac-bc89-9a89be79a121", "workspace_id": "89f9f5b2-3f89-4eaf-83ca-5ceae149e8bb"}
@@ -14220,3 +14220,4 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Interns.CreateIntern()`: \n  *  `request.CreateInternRequest.WorkspaceId` **Changed**\n* `OpenRouter.Interns.Chat()`: \n  *  `request.InternChatCompletionRequest.Messages[].union(assistant).Content` **Changed**\n"

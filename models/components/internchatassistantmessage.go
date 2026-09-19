@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type InternChatAssistantMessageRole string
@@ -34,9 +35,9 @@ func (e *InternChatAssistantMessageRole) UnmarshalJSON(data []byte) error {
 // InternChatAssistantMessage - An assistant message from an earlier response. When answering an interaction, echo the streamed `tool_calls` here before the `tool` message.
 type InternChatAssistantMessage struct {
 	// Message text as a string or a list of text parts. Assistant history may carry null. Only the last message is read; earlier messages are accepted so ordinary clients can resend history.
-	Content   *InternChatMessageContent      `json:"content"`
-	Role      InternChatAssistantMessageRole `json:"role"`
-	ToolCalls []InternChatEchoedToolCall     `json:"tool_calls,omitzero"`
+	Content   optionalnullable.OptionalNullable[InternChatMessageContent] `json:"content,omitzero"`
+	Role      InternChatAssistantMessageRole                              `json:"role"`
+	ToolCalls []InternChatEchoedToolCall                                  `json:"tool_calls,omitzero"`
 }
 
 func (i InternChatAssistantMessage) MarshalJSON() ([]byte, error) {
@@ -50,7 +51,7 @@ func (i *InternChatAssistantMessage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InternChatAssistantMessage) GetContent() *InternChatMessageContent {
+func (i *InternChatAssistantMessage) GetContent() optionalnullable.OptionalNullable[InternChatMessageContent] {
 	if i == nil {
 		return nil
 	}

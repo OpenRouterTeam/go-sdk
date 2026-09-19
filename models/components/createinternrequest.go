@@ -7,7 +7,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-// CreateInternRequest - Settings for a new intern in an explicit workspace.
+// CreateInternRequest - Settings for a new intern.
 type CreateInternRequest struct {
 	// Free-form description, or null.
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
@@ -19,8 +19,8 @@ type CreateInternRequest struct {
 	Provision *bool `default:"false" json:"provision"`
 	// Vault owned by another intern in this workspace to attach as a borrowed vault.
 	VaultID *string `json:"vault_id,omitzero"`
-	// Workspace that will own the intern. It must match the API key workspace.
-	WorkspaceID string `json:"workspace_id"`
+	// Workspace that will own the intern. Defaults to the workspace the API key resolves to. When given, it must match the API key workspace.
+	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
 func (c CreateInternRequest) MarshalJSON() ([]byte, error) {
@@ -69,9 +69,9 @@ func (c *CreateInternRequest) GetVaultID() *string {
 	return c.VaultID
 }
 
-func (c *CreateInternRequest) GetWorkspaceID() string {
+func (c *CreateInternRequest) GetWorkspaceID() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.WorkspaceID
 }
