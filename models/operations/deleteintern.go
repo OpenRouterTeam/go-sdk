@@ -2,9 +2,14 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type DeleteInternRequest struct {
 	// ID of an intern visible to the authenticated API key.
-	InternID string `pathParam:"style=simple,explode=false,name=internId"`
+	InternID            string                         `pathParam:"style=simple,explode=false,name=internId"`
+	DeleteInternRequest components.DeleteInternRequest `request:"mediaType=application/json"`
 }
 
 func (d *DeleteInternRequest) GetInternID() string {
@@ -12,4 +17,11 @@ func (d *DeleteInternRequest) GetInternID() string {
 		return ""
 	}
 	return d.InternID
+}
+
+func (d *DeleteInternRequest) GetDeleteInternRequest() components.DeleteInternRequest {
+	if d == nil {
+		return components.DeleteInternRequest{}
+	}
+	return d.DeleteInternRequest
 }
