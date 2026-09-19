@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 75f48417d4f3fe9504ab79592b7e51f5
+  docChecksum: 25098ce35e78076c7cc5399888f206bf
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.1
-  configChecksum: aac7850e3ac32231e543d2ead4e9833f
+  releaseVersion: 0.8.2
+  configChecksum: 30c2634da4d0084815fd7a9ef1fa21ae
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 74925682-4439-4eda-b3ea-3f528f01975d
-  pristine_commit_hash: 2904e03a9c1117ce1dd59682b0a0007371a8cd66
-  pristine_tree_hash: f2caa70d1a55d6605ff31e47abf8178a40d47668
+  generation_id: b4b8d87c-df4f-4225-80cf-fe2e500540be
+  pristine_commit_hash: 081d2f68d61ca64ac732772e3f8b04828603d5df
+  pristine_tree_hash: a8f6e4d12b35d6ca4528b260fa2248fcac910d07
 features:
   go:
     acceptHeaders: 2.81.2
@@ -100,8 +100,8 @@ trackedFiles:
     pristine_git_object: f14a581104d0f769bbc77ac36a5be407d16edf2c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:9f3b050c23b65db283e90e141c6b38aa7e8520b6
-    pristine_git_object: 1e2a8819e7b209fa4768c2a113e694f785119442
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -10972,8 +10972,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:f8dca9bb544b29e69d187a477db4c79b1d842549
-    pristine_git_object: 208f290f6bc4bb08040d3863cec11c8fa13532b8
+    last_write_checksum: sha1:edea7e3b49a5a8a282fc3ccc6d8785ef460f70ec
+    pristine_git_object: 45a7fdd5f76c40ca791fad829ea8f69605340e9b
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14220,6 +14220,3 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.ApiKeys.GetCurrentKeyMetadata()`:  `response.Data` **Changed**
