@@ -101,6 +101,8 @@ type GetCurrentKeyData struct {
 	LimitRemaining *float64 `json:"limit_remaining"`
 	// Type of limit reset for the API key
 	LimitReset *string `json:"limit_reset"`
+	// The ID of the organization that owns this API key, or null when an individual account owns it.
+	OrganizationID *string `json:"organization_id"`
 	// Legacy rate limit information about a key. Will always return -1.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -113,6 +115,8 @@ type GetCurrentKeyData struct {
 	UsageMonthly float64 `json:"usage_monthly"`
 	// OpenRouter credit usage (in USD) for the current UTC week (Monday-Sunday)
 	UsageWeekly float64 `json:"usage_weekly"`
+	// The ID of the workspace this API key spends in, or null when no active workspace resolved for it, for example because the key's workspace was deleted.
+	WorkspaceID *string `json:"workspace_id"`
 }
 
 func (g GetCurrentKeyData) MarshalJSON() ([]byte, error) {
@@ -238,6 +242,13 @@ func (g *GetCurrentKeyData) GetLimitReset() *string {
 	return g.LimitReset
 }
 
+func (g *GetCurrentKeyData) GetOrganizationID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.OrganizationID
+}
+
 func (g *GetCurrentKeyData) GetRateLimit() RateLimit {
 	if g == nil {
 		return RateLimit{}
@@ -271,6 +282,13 @@ func (g *GetCurrentKeyData) GetUsageWeekly() float64 {
 		return 0.0
 	}
 	return g.UsageWeekly
+}
+
+func (g *GetCurrentKeyData) GetWorkspaceID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.WorkspaceID
 }
 
 // GetCurrentKeyResponse - API key details
