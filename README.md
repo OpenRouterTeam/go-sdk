@@ -368,6 +368,10 @@ func main() {
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
 * [CreateTranscriptionMultipart](docs/sdks/stt/README.md#createtranscriptionmultipart) - Create transcription
 
+### [SystemOne](docs/sdks/systemone/README.md)
+
+* [Create](docs/sdks/systemone/README.md#create) - Submit a System One request
+
 ### [TTS](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
