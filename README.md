@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.8.7
+> go get github.com/OpenRouterTeam/go-sdk@v0.8.8
 > ```
 
 <!-- No Summary [summary] -->
@@ -367,6 +367,10 @@ func main() {
 
 * [CreateTranscription](docs/sdks/stt/README.md#createtranscription) - Create transcription
 * [CreateTranscriptionMultipart](docs/sdks/stt/README.md#createtranscriptionmultipart) - Create transcription
+
+### [SystemOne](docs/sdks/systemone/README.md)
+
+* [Create](docs/sdks/systemone/README.md#create) - Submit a System One request
 
 ### [TTS](docs/sdks/tts/README.md)
 

@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8d67e89cf0edde4e09dddebd5f79ec4a
+  docChecksum: edd35b36f1690de727dd7e9fb8b9034c
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.7
-  configChecksum: 25286ca44e21d9912a32f121051a7477
+  releaseVersion: 0.8.8
+  configChecksum: e8449933236fb9cebc6bbd8eb0eee27c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 4df244fb-0a89-4ad6-846e-0c11bc70a9bc
-  pristine_commit_hash: fd868761a228f3d037c40ed4944470061a30a902
-  pristine_tree_hash: b47bc4dd12cadafbd7e813eca689bb8fec8a76e2
+  generation_id: 2a9928a3-8dc3-4a9b-a311-a5a7ee30fd9c
+  pristine_commit_hash: a23f0a2038ab11d05aae13f784257a2908656d82
+  pristine_tree_hash: 1fb5bbdcadcaa00a6bb08b882c49e9dd21ecdd13
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7586,6 +7586,10 @@ trackedFiles:
     id: 190b0dc9a5d1
     last_write_checksum: sha1:2a18efba4544b5922cd10677fecddb9bef20bdce
     pristine_git_object: 3c3b31d3dd62f10d3dc8e8a0eecced91e8e9b7d0
+  docs/sdks/systemone/README.mdx:
+    id: 55c317c71f3d
+    last_write_checksum: sha1:739b8fba36aac7167efff65e0af7a881e41b09ce
+    pristine_git_object: cd471b881e9ce02ac2a08fcb0ce564fee15383f9
   docs/sdks/tts/README.mdx:
     id: cd1132543884
     last_write_checksum: sha1:c475d1fb3062b103be5c84f6ba06c8559d926662
@@ -10980,8 +10984,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:9c3c0c0a119554def5bcb1398ee61a2581a6227b
-    pristine_git_object: 063e6d05abbad07361fa697df813b64c6644e509
+    last_write_checksum: sha1:057a73721f9e396096780d73a1548cf763e4d065
+    pristine_git_object: 93a4d53d859b517db0ccca4396756d62f460169c
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -11022,6 +11026,10 @@ trackedFiles:
     id: 04852909348f
     last_write_checksum: sha1:01640807e7ad834ffd5dd515c2e2e2324399f5bb
     pristine_git_object: 3718619a25f34aff2a571a1a4892737aa1a269ed
+  systemone.go:
+    id: 846025a374ee
+    last_write_checksum: sha1:d56a96069b2a07be61c0dd4458005639b9e8b588
+    pristine_git_object: 5e49d441bf9c6b866c0bc5c84e12927f1da33348
   tts.go:
     id: 9feb76579e2d
     last_write_checksum: sha1:733e0079c2e46ba7d5f90b4f89a7c4ed3a636513
@@ -14233,4 +14241,38 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+  createSystemone:
+    speakeasy-default-create-systemone:
+      requestBody:
+        application/json: {"model": "Taurus", "questions": {}, "state": {"key": "Utah", "key1": "Alaska", "key2": "Ohio"}}
+      responses:
+        "200":
+          application/json: {"answers": {"key": {"score": 9690, "type": "score"}}, "model": "Model Y", "usage": {"input_tokens": 514823, "output_tokens": 883118}}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "402":
+          application/json: {"error": {"code": 402, "message": "Insufficient credits. Add more using https://openrouter.ai/credits"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "413":
+          application/json: {"error": {"code": 413, "message": "Request payload too large"}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "502":
+          application/json: {"error": {"code": 502, "message": "Provider returned error"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
+        "524":
+          application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
+        "529":
+          application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.SystemOne.Create()`: **Added**
