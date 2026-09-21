@@ -3056,8 +3056,9 @@ type MessagesRequest struct {
 	// Plugins you want to enable for this request, including their settings.
 	Plugins []MessagesRequestPlugin `json:"plugins,omitzero"`
 	// When multiple model providers are available, optionally indicate your routing preference.
-	Provider    optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
-	ServiceTier *string                                                `json:"service_tier,omitzero"`
+	Provider    optionalnullable.OptionalNullable[ProviderPreferences]  `json:"provider,omitzero"`
+	Safeguards  optionalnullable.OptionalNullable[[]AnthropicSafeguard] `json:"safeguards,omitzero"`
+	ServiceTier *string                                                 `json:"service_tier,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID     *string                                  `json:"session_id,omitzero"`
 	Speed         optionalnullable.OptionalNullable[Speed] `json:"speed,omitzero"`
@@ -3164,6 +3165,13 @@ func (m *MessagesRequest) GetProvider() optionalnullable.OptionalNullable[Provid
 		return nil
 	}
 	return m.Provider
+}
+
+func (m *MessagesRequest) GetSafeguards() optionalnullable.OptionalNullable[[]AnthropicSafeguard] {
+	if m == nil {
+		return nil
+	}
+	return m.Safeguards
 }
 
 func (m *MessagesRequest) GetServiceTier() *string {

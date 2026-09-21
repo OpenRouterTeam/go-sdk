@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 2db36c84cc01230823402b76e9578b8f
+  docChecksum: b44914396719b83a4aa946177951835b
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.13
-  configChecksum: a8ff5a6b395693f15005ba7940442f47
+  releaseVersion: 0.8.14
+  configChecksum: bbe52924ecdaaf4e7d21b2188fcc8abb
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 20bc41f8-1196-4300-8ddc-02a9cc8fbcda
-  pristine_commit_hash: 8e4b8af7585e34c9e4f327809ef92a6bf23f88f9
-  pristine_tree_hash: 4e345cca63ba9535e11974a882af9a99d657f676
+  generation_id: d04307ee-7698-4051-884f-152da7283d39
+  pristine_commit_hash: cf7eb16bc4258d6b136bcfdfc901f83aed46728a
+  pristine_tree_hash: f13104dd4fe4bdf37b3467db095601c43f09cd29
 features:
   go:
     acceptHeaders: 2.81.2
@@ -474,6 +474,10 @@ trackedFiles:
     id: 940963d759da
     last_write_checksum: sha1:bb36de4f938f25ab568e8bd1a53cb2b384b82050
     pristine_git_object: 6c9270f8ad28b7dd560ddc2b01e555b992bb0358
+  docs/models/components/anthropicsafeguard.mdx:
+    id: 3ea3ac47f009
+    last_write_checksum: sha1:81aeb41abd50e708b7a5e5867873e7b53d9b8cf4
+    pristine_git_object: 71b1f69622f50ca555fced1ff6ff4bb423251492
   docs/models/components/anthropicsearchresultblockparam.mdx:
     id: 0702305b74ff
     last_write_checksum: sha1:a7874d21effd816d857961f88676b13500f3f90b
@@ -3464,8 +3468,8 @@ trackedFiles:
     pristine_git_object: 730d8d574561102ad20065f7b265e3787077ef64
   docs/models/components/messagesrequest.mdx:
     id: d87b0a463f5d
-    last_write_checksum: sha1:f7d9fe9424109d2fccf4465ef274c16cdc32226b
-    pristine_git_object: bbcbb2dcaefb192ed62bfaa5a26814b4d0f07f11
+    last_write_checksum: sha1:1b4f2f7fc1b0a1b0828823df959daa4866937ddf
+    pristine_git_object: 8f21c302777b515cfbdf48323217a87038bfff83
   docs/models/components/messagesrequestmetadata.mdx:
     id: 8d1edfe1b813
     last_write_checksum: sha1:b31aba20261a45ed46bde445aac17b437645ca61
@@ -7878,6 +7882,10 @@ trackedFiles:
     id: 7a6927bf4a51
     last_write_checksum: sha1:576be1dcf563ea9fed9648b13e9873df1a205bbe
     pristine_git_object: f855349e6a85add5ee7129cc587ebda61aad13b6
+  models/components/anthropicsafeguard.go:
+    id: 3a59190aa21c
+    last_write_checksum: sha1:b355baae4f2d388011c0a9a15b8b07d0accb1693
+    pristine_git_object: ae2c7d9fcc0a86d4a763e5173ec46cf1ca604445
   models/components/anthropicsearchresultblockparam.go:
     id: a00bce8c0b7b
     last_write_checksum: sha1:06072a9310ed94b4e927b11afbfd8d8385ecafe4
@@ -9256,8 +9264,8 @@ trackedFiles:
     pristine_git_object: e06eae5ce6d393fe7f279ee8af0509beb2d7c028
   models/components/messagesrequest.go:
     id: c3efb31bbd81
-    last_write_checksum: sha1:262d27d091b8939af3b04f230fb829a63a7913e1
-    pristine_git_object: 6c01f33aab0d901f2923b6fc32e7351ece8ae08c
+    last_write_checksum: sha1:a9db46ff73e9f0ec037cef7eb5d7204a99c75d26
+    pristine_git_object: 663c2a66185d2d963e8f8f60c7e2ee5c1a8552ab
   models/components/messagessearchmodelsservertool.go:
     id: 9a49a7fdac1c
     last_write_checksum: sha1:ac494d0af2f12cc10ee527bd4d28494092015111
@@ -11020,8 +11028,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:d52f1e0ae48f910a2828e35687b5294dbaad60be
-    pristine_git_object: 88a76e0afcff3305511eac8b864ba136cd25fc90
+    last_write_checksum: sha1:bcddb7f3c2d209c8a072ea0047d00b4f75dd034f
+    pristine_git_object: 8df8d224ee2254d940706f7ad73bea7467a5ff90
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14319,10 +14327,4 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Interns.CreateIntern()`:  `error.status[415]` **Added**
-  * `OpenRouter.Interns.DeleteIntern()`:  `error.status[415]` **Added**
-  * `OpenRouter.Interns.UpdateIntern()`:  `error.status[415]` **Added**
-  * `OpenRouter.Interns.ProvisionIntern()`:  `error.status[415]` **Added**
-  * `OpenRouter.Interns.SuspendIntern()`:  `error.status[415]` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Safeguards` **Added**\n"
