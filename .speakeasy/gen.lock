@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 959af198c5a0ad44081eae7a51b22dee
+  docChecksum: 2db36c84cc01230823402b76e9578b8f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.12
-  configChecksum: 3934421638816bc8ff9f073a40503632
+  releaseVersion: 0.8.13
+  configChecksum: a8ff5a6b395693f15005ba7940442f47
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: cb7cf37f-fe69-4973-bcff-d6d265587a16
-  pristine_commit_hash: 309a6a6c229f5e5afe967bf0bde2034647cbe42b
-  pristine_tree_hash: 269d44b9284af568d18fa7d8403f7dda0b714b3e
+  generation_id: 20bc41f8-1196-4300-8ddc-02a9cc8fbcda
+  pristine_commit_hash: 8e4b8af7585e34c9e4f327809ef92a6bf23f88f9
+  pristine_tree_hash: 4e345cca63ba9535e11974a882af9a99d657f676
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7568,8 +7568,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/interns/README.mdx:
     id: 2f8a053ffe78
-    last_write_checksum: sha1:a5bff32aa13239465060c3cc7c9ba212d18e5e7d
-    pristine_git_object: 633f744d66b78711b460d0d47ed3c094e40cfb8e
+    last_write_checksum: sha1:eb1d198261a49bee0b99b7103ddf7e675ace4e59
+    pristine_git_object: fc85aed9680343aad7ce643988c0e03d1b177df2
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
     last_write_checksum: sha1:14ffb11eb5c8db2aa311ac04b4e1e8bea0ca5528
@@ -7728,8 +7728,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   interns.go:
     id: aad99db3b05b
-    last_write_checksum: sha1:db86ac2b578d758bbe3d62dbe355b03584f4e87b
-    pristine_git_object: 24f79a7c93ce0472116816827b983fda825d88c5
+    last_write_checksum: sha1:e2ef019744805d8a5d50a08143ebeab2e6d70ece
+    pristine_git_object: f00e5223fdfae094841b7c5235759f9780d34cab
   models.go:
     id: 3af78faf181b
     last_write_checksum: sha1:8cc3e199c4b17ebc74642a4df902f06f8daeb2c7
@@ -11020,8 +11020,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:99d13f42bfb714d5c8cdb17e1ce0df20c00e33c6
-    pristine_git_object: b75582521a0e9ea3a64fc419e64140d63c1c8f80
+    last_write_checksum: sha1:d52f1e0ae48f910a2828e35687b5294dbaad60be
+    pristine_git_object: 88a76e0afcff3305511eac8b864ba136cd25fc90
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14319,4 +14319,10 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Interns.Chat()`:  `response.status[202]` **Added** (Breaking ⚠️)\n* `OpenRouter.Byok.List()`:  `response.Data[].DeclaredZdr` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.DeclaredZdr` **Added**\n  *  `response.Data.DeclaredZdr` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.DeclaredZdr` **Added**\n* `OpenRouter.Byok.Update()`: \n  *  `request.UpdateByokKeyRequest.DeclaredZdr` **Added**\n  *  `response.Data.DeclaredZdr` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Interns.CreateIntern()`:  `error.status[415]` **Added**
+  * `OpenRouter.Interns.DeleteIntern()`:  `error.status[415]` **Added**
+  * `OpenRouter.Interns.UpdateIntern()`:  `error.status[415]` **Added**
+  * `OpenRouter.Interns.ProvisionIntern()`:  `error.status[415]` **Added**
+  * `OpenRouter.Interns.SuspendIntern()`:  `error.status[415]` **Added**

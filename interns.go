@@ -302,7 +302,7 @@ func (s *Interns) ListInterns(ctx context.Context, limit *int64, status []operat
 }
 
 // CreateIntern - Create an intern
-// Creates an intern in an explicit workspace. The operation also creates its private vault. It can start provisioning immediately or wait for a later provision call. A retry with the same idempotency key and body resumes unfinished work. The request body is capped at 1048576 bytes and a larger body is refused with 413. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+// Creates an intern in an explicit workspace. The operation also creates its private vault. It can start provisioning immediately or wait for a later provision call. A retry with the same idempotency key and body resumes unfinished work. The request body is capped at 1048576 bytes and a larger body is refused with 413. A non-empty body must declare `Content-Type: application/json` or it is refused with 415. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
 func (s *Interns) CreateIntern(ctx context.Context, createInternRequest components.CreateInternRequest, idempotencyKey *string, opts ...operations.Option) (*components.Intern, error) {
@@ -513,6 +513,8 @@ func (s *Interns) CreateIntern(ctx context.Context, createInternRequest componen
 	case httpRes.StatusCode == 409:
 		fallthrough
 	case httpRes.StatusCode == 413:
+		fallthrough
+	case httpRes.StatusCode == 415:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -581,7 +583,7 @@ func (s *Interns) CreateIntern(ctx context.Context, createInternRequest componen
 }
 
 // DeleteIntern - Delete an intern
-// Starts safe teardown of the intern, its runtime and its private vault. The body is optional. Send `{"acknowledge_workspace_loss": true}` to delete a `destroy_failed` intern whose `last_failure_message` names `workspace_archive_failed`, accepting that its workspace is not backed up. The request body is capped at 1048576 bytes and a larger body is refused with 413. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+// Starts safe teardown of the intern, its runtime and its private vault. The body is optional. Send `{"acknowledge_workspace_loss": true}` to delete a `destroy_failed` intern whose `last_failure_message` names `workspace_archive_failed`, accepting that its workspace is not backed up. The request body is capped at 1048576 bytes and a larger body is refused with 413. A non-empty body must declare `Content-Type: application/json` or it is refused with 415. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
 func (s *Interns) DeleteIntern(ctx context.Context, internID string, deleteInternRequest components.DeleteInternRequest, opts ...operations.Option) (*components.DeleteInternResponse, error) {
@@ -788,6 +790,8 @@ func (s *Interns) DeleteIntern(ctx context.Context, internID string, deleteInter
 	case httpRes.StatusCode == 409:
 		fallthrough
 	case httpRes.StatusCode == 413:
+		fallthrough
+	case httpRes.StatusCode == 415:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1115,7 +1119,7 @@ func (s *Interns) GetIntern(ctx context.Context, internID string, opts ...operat
 }
 
 // UpdateIntern - Update an intern
-// Changes the intern name, description, instructions or model. Omitted fields stay unchanged. The request body is capped at 1048576 bytes and a larger body is refused with 413. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+// Changes the intern name, description, instructions or model. Omitted fields stay unchanged. The request body is capped at 1048576 bytes and a larger body is refused with 413. A non-empty body must declare `Content-Type: application/json` or it is refused with 415. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
 func (s *Interns) UpdateIntern(ctx context.Context, internID string, updateInternRequest components.UpdateInternRequest, opts ...operations.Option) (*components.Intern, error) {
@@ -1322,6 +1326,8 @@ func (s *Interns) UpdateIntern(ctx context.Context, internID string, updateInter
 	case httpRes.StatusCode == 409:
 		fallthrough
 	case httpRes.StatusCode == 413:
+		fallthrough
+	case httpRes.StatusCode == 415:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1587,6 +1593,8 @@ func (s *Interns) ProvisionIntern(ctx context.Context, internID string, opts ...
 	case httpRes.StatusCode == 409:
 		fallthrough
 	case httpRes.StatusCode == 413:
+		fallthrough
+	case httpRes.StatusCode == 415:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1854,6 +1862,8 @@ func (s *Interns) SuspendIntern(ctx context.Context, internID string, opts ...op
 	case httpRes.StatusCode == 409:
 		fallthrough
 	case httpRes.StatusCode == 413:
+		fallthrough
+	case httpRes.StatusCode == 415:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
