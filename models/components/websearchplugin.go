@@ -127,6 +127,8 @@ type WebSearchPlugin struct {
 	Mode         *WebSearchMode                                  `json:"mode,omitzero"`
 	SearchPrompt *string                                         `json:"search_prompt,omitzero"`
 	UserLocation optionalnullable.OptionalNullable[UserLocation] `json:"user_location,omitzero"`
+	// Enable SpaceXAI X (Twitter) search alongside native web search, with optional filters. Only applies to SpaceXAI endpoints with native search; omit to search the web only. X search is billed separately by SpaceXAI, per post and per user profile fetched.
+	XSearch *XSearchOptions `json:"x_search,omitzero"`
 }
 
 func (w WebSearchPlugin) MarshalJSON() ([]byte, error) {
@@ -208,4 +210,11 @@ func (w *WebSearchPlugin) GetUserLocation() optionalnullable.OptionalNullable[Us
 		return nil
 	}
 	return w.UserLocation
+}
+
+func (w *WebSearchPlugin) GetXSearch() *XSearchOptions {
+	if w == nil {
+		return nil
+	}
+	return w.XSearch
 }
