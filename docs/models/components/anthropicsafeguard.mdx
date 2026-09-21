@@ -1,0 +1,14 @@
+---
+title: "AnthropicSafeguard"
+---
+
+A server-side safeguard Anthropic evaluates alongside the completion
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   | Example                                                                                       |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `ClassifierContext`                                                                           | map[string]`any`                                                                              | :heavy_minus_sign:                                                                            | N/A                                                                                           |                                                                                               |
+| `Type`                                                                                        | `string`                                                                                      | :heavy_check_mark:                                                                            | N/A                                                                                           |                                                                                               |
+| `AdditionalProperties`                                                                        | map[string]`any`                                                                              | :heavy_minus_sign:                                                                            | N/A                                                                                           | \{<br/>"classifier_context": \{<br/>"permission_mode": "auto",<br/>"v": 1<br/>},<br/>"type": "dangerous_tool_use"<br/>} |
