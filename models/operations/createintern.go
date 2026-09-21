@@ -7,7 +7,7 @@ import (
 )
 
 type CreateInternRequest struct {
-	// Key that makes retries resume the same create operation. Without one, the server derives a stable key from the request body.
+	// Key that makes retries resume the same create operation, from 1 through 255 characters. An empty or longer key is refused with 400. Without the header, the server derives a stable key from the request body.
 	IdempotencyKey      *string                        `header:"style=simple,explode=false,name=Idempotency-Key"`
 	CreateInternRequest components.CreateInternRequest `request:"mediaType=application/json"`
 }

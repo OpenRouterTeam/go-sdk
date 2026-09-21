@@ -37,7 +37,7 @@ func (e *Status) IsExact() bool {
 type ListInternsRequest struct {
 	// Maximum number of interns to return, from 1 through 500.
 	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
-	// Comma-separated lifecycle statuses to include.
+	// Comma-separated lifecycle statuses to include, at most 8. Repeats are collapsed.
 	Status []Status `queryParam:"style=form,explode=false,name=status"`
 	// The opaque `next_cursor` of the previous page. Returns the interns that come after it in the newest-first order. A malformed cursor is a 400.
 	StartingAfter *string `queryParam:"style=form,explode=true,name=starting_after"`

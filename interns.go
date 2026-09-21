@@ -1319,6 +1319,8 @@ func (s *Interns) UpdateIntern(ctx context.Context, internID string, updateInter
 		fallthrough
 	case httpRes.StatusCode == 408:
 		fallthrough
+	case httpRes.StatusCode == 409:
+		fallthrough
 	case httpRes.StatusCode == 413:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -1386,7 +1388,7 @@ func (s *Interns) UpdateIntern(ctx context.Context, internID string, updateInter
 }
 
 // ProvisionIntern - Provision an intern
-// Starts the first boot, or resumes an intern after suspension. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+// Starts the first boot, or resumes an intern after suspension. This operation takes no request body. A body carrying any field is refused with 400 rather than ignored. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
 func (s *Interns) ProvisionIntern(ctx context.Context, internID string, opts ...operations.Option) (*components.ProvisionInternResponse, error) {
@@ -1572,6 +1574,8 @@ func (s *Interns) ProvisionIntern(ctx context.Context, internID string, opts ...
 			}
 			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		fallthrough
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode == 403:
@@ -1581,6 +1585,8 @@ func (s *Interns) ProvisionIntern(ctx context.Context, internID string, opts ...
 	case httpRes.StatusCode == 408:
 		fallthrough
 	case httpRes.StatusCode == 409:
+		fallthrough
+	case httpRes.StatusCode == 413:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1649,7 +1655,7 @@ func (s *Interns) ProvisionIntern(ctx context.Context, internID string, opts ...
 }
 
 // SuspendIntern - Suspend an intern
-// Stops the intern runtime while keeping its disk and configuration for a later provision call. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+// Stops the intern runtime while keeping its disk and configuration for a later provision call. This operation takes no request body. A body carrying any field is refused with 400 rather than ignored. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
 func (s *Interns) SuspendIntern(ctx context.Context, internID string, opts ...operations.Option) (*components.SuspendInternResponse, error) {
@@ -1835,6 +1841,8 @@ func (s *Interns) SuspendIntern(ctx context.Context, internID string, opts ...op
 			}
 			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		fallthrough
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode == 403:
@@ -1844,6 +1852,8 @@ func (s *Interns) SuspendIntern(ctx context.Context, internID string, opts ...op
 	case httpRes.StatusCode == 408:
 		fallthrough
 	case httpRes.StatusCode == 409:
+		fallthrough
+	case httpRes.StatusCode == 413:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1927,7 +1937,7 @@ func (s *Interns) SuspendIntern(ctx context.Context, internID string, opts ...op
 // Available to interns programme members. Callers outside the programme receive `404` for every path under `/api/v1/interns`.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
-func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletionRequest components.InternChatCompletionRequest, opts ...operations.Option) (*stream.EventStream[components.InternChatStreamingResponse], error) {
+func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletionRequest components.InternChatCompletionRequest, opts ...operations.Option) (*operations.CreateInternChatCompletionResponse, error) {
 	request := operations.CreateInternChatCompletionRequest{
 		InternID:                    internID,
 		InternChatCompletionRequest: internChatCompletionRequest,
@@ -2096,6 +2106,8 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 		}
 	}
 
+	res := &operations.CreateInternChatCompletionResponse{}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -2107,7 +2119,7 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 				}
 				return e, nil
 			}, "[DONE]")
-			return out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2123,13 +2135,59 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 		fallthrough
 	case httpRes.StatusCode == 404:
 		fallthrough
-	case httpRes.StatusCode == 409:
+	case httpRes.StatusCode == 408:
 		fallthrough
 	case httpRes.StatusCode == 410:
 		fallthrough
 	case httpRes.StatusCode == 413:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.InternChatErrorResponse
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 409:
 		fallthrough
 	case httpRes.StatusCode == 429:
+		res.Headers = httpRes.Header
+
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.InternChatErrorResponse
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 503:
+		res.Headers = httpRes.Header
+
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -2151,8 +2209,6 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
 	case httpRes.StatusCode == 502:
-		fallthrough
-	case httpRes.StatusCode == 503:
 		fallthrough
 	case httpRes.StatusCode == 504:
 		switch {
@@ -2195,6 +2251,6 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
