@@ -3,6 +3,9 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/types/stream"
 )
@@ -27,9 +30,98 @@ func (c *CreateInternChatCompletionRequest) GetInternChatCompletionRequest() com
 	return c.InternChatCompletionRequest
 }
 
+type CreateInternChatCompletionResponseResultType string
+
+const (
+	CreateInternChatCompletionResponseResultTypeEventStream               CreateInternChatCompletionResponseResultType = "event-stream"
+	CreateInternChatCompletionResponseResultTypeInternChatSteeredResponse CreateInternChatCompletionResponseResultType = "InternChatSteeredResponse"
+)
+
+type CreateInternChatCompletionResponseResult struct {
+	EventStream               *stream.EventStream[components.InternChatStreamingResponse] `queryParam:"inline" union:"member"`
+	InternChatSteeredResponse *components.InternChatSteeredResponse                       `queryParam:"inline" union:"member"`
+
+	Type CreateInternChatCompletionResponseResultType
+}
+
+func CreateCreateInternChatCompletionResponseResultEventStream(eventStream *stream.EventStream[components.InternChatStreamingResponse]) CreateInternChatCompletionResponseResult {
+	typ := CreateInternChatCompletionResponseResultTypeEventStream
+
+	return CreateInternChatCompletionResponseResult{
+		EventStream: eventStream,
+		Type:        typ,
+	}
+}
+
+func CreateCreateInternChatCompletionResponseResultInternChatSteeredResponse(internChatSteeredResponse components.InternChatSteeredResponse) CreateInternChatCompletionResponseResult {
+	typ := CreateInternChatCompletionResponseResultTypeInternChatSteeredResponse
+
+	return CreateInternChatCompletionResponseResult{
+		InternChatSteeredResponse: &internChatSteeredResponse,
+		Type:                      typ,
+	}
+}
+
+func (u *CreateInternChatCompletionResponseResult) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var eventStream *stream.EventStream[components.InternChatStreamingResponse] = &stream.EventStream[components.InternChatStreamingResponse]{}
+	if err := utils.UnmarshalJSON(data, &eventStream, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateInternChatCompletionResponseResultTypeEventStream,
+			Value: eventStream,
+		})
+	}
+
+	var internChatSteeredResponse components.InternChatSteeredResponse = components.InternChatSteeredResponse{}
+	if err := utils.UnmarshalJSON(data, &internChatSteeredResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  CreateInternChatCompletionResponseResultTypeInternChatSteeredResponse,
+			Value: &internChatSteeredResponse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInternChatCompletionResponseResult", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInternChatCompletionResponseResult", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(CreateInternChatCompletionResponseResultType)
+	switch best.Type {
+	case CreateInternChatCompletionResponseResultTypeEventStream:
+		u.EventStream = best.Value.(*stream.EventStream[components.InternChatStreamingResponse])
+		return nil
+	case CreateInternChatCompletionResponseResultTypeInternChatSteeredResponse:
+		u.InternChatSteeredResponse = best.Value.(*components.InternChatSteeredResponse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInternChatCompletionResponseResult", string(data))
+}
+
+func (u CreateInternChatCompletionResponseResult) MarshalJSON() ([]byte, error) {
+	if u.EventStream != nil {
+		return utils.MarshalJSON(u.EventStream, "", true)
+	}
+
+	if u.InternChatSteeredResponse != nil {
+		return utils.MarshalJSON(u.InternChatSteeredResponse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type CreateInternChatCompletionResponseResult: all fields are null")
+}
+
 type CreateInternChatCompletionResponse struct {
 	Headers map[string][]string
-	Result  *stream.EventStream[components.InternChatStreamingResponse]
+	Result  CreateInternChatCompletionResponseResult
 }
 
 func (c *CreateInternChatCompletionResponse) GetHeaders() map[string][]string {
@@ -39,9 +131,9 @@ func (c *CreateInternChatCompletionResponse) GetHeaders() map[string][]string {
 	return c.Headers
 }
 
-func (c *CreateInternChatCompletionResponse) GetResult() *stream.EventStream[components.InternChatStreamingResponse] {
+func (c *CreateInternChatCompletionResponse) GetResult() CreateInternChatCompletionResponseResult {
 	if c == nil {
-		return &stream.EventStream[components.InternChatStreamingResponse]{}
+		return CreateInternChatCompletionResponseResult{}
 	}
 	return c.Result
 }
