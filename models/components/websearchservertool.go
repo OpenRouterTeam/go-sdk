@@ -48,6 +48,8 @@ type WebSearchServerTool struct {
 	Type              WebSearchServerToolType `json:"type"`
 	// User location information for web search
 	UserLocation optionalnullable.OptionalNullable[WebSearchUserLocation] `json:"user_location,omitzero"`
+	// Enable SpaceXAI X (Twitter) search alongside native web search, with optional filters. Only applies to SpaceXAI endpoints with native search; omit to search the web only. X search is billed separately by SpaceXAI, per post and per user profile fetched.
+	XSearch *XSearchOptions `json:"x_search,omitzero"`
 }
 
 func (w WebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -115,4 +117,11 @@ func (w *WebSearchServerTool) GetUserLocation() optionalnullable.OptionalNullabl
 		return nil
 	}
 	return w.UserLocation
+}
+
+func (w *WebSearchServerTool) GetXSearch() *XSearchOptions {
+	if w == nil {
+		return nil
+	}
+	return w.XSearch
 }

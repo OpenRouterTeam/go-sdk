@@ -7,11 +7,11 @@ import (
 )
 
 type WebSearchConfig struct {
-	// Limit search results to these domains. Supported by Exa, Firecrawl, Parallel, Perplexity, and most native providers (Anthropic, OpenAI, xAI). Cannot be used with excluded_domains.
+	// Limit search results to these domains. Supported by Exa, Firecrawl, Parallel, Perplexity, and most native providers (Anthropic, OpenAI, SpaceXAI). Cannot be used with excluded_domains.
 	AllowedDomains []string `json:"allowed_domains,omitzero"`
 	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API. "perplexity" uses the Perplexity Search API (raw ranked results).
 	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
-	// Exclude search results from these domains. Supported by Exa, Firecrawl, Parallel, Perplexity, Anthropic, OpenAI, and xAI. Cannot be used with allowed_domains.
+	// Exclude search results from these domains. Supported by Exa, Firecrawl, Parallel, Perplexity, Anthropic, OpenAI, and SpaceXAI. Cannot be used with allowed_domains.
 	ExcludedDomains []string `json:"excluded_domains,omitzero"`
 	// Exact maximum number of characters of content per search result. Applies to the Exa, Parallel, and Perplexity engines; ignored with native provider search and Firecrawl. For Exa, caps highlight content per result. For Parallel, caps excerpt content per result (default 1,500 when omitted). For Perplexity, maps to the native `max_tokens_per_page` parameter (converted from characters to tokens) and trims the response to the exact character cap. When both `max_characters` and `search_context_size` are set, `max_characters` takes precedence. When omitted, falls back to `search_context_size` mapping (Exa) or engine defaults (Parallel, Perplexity).
 	MaxCharacters *int64 `json:"max_characters,omitzero"`
@@ -27,6 +27,8 @@ type WebSearchConfig struct {
 	SearchContextSize *SearchQualityLevel `json:"search_context_size,omitzero"`
 	// Approximate user location for location-biased results.
 	UserLocation *WebSearchUserLocationServerTool `json:"user_location,omitzero"`
+	// Enable SpaceXAI X (Twitter) search alongside native web search, with optional filters. Only applies to SpaceXAI endpoints with native search; omit to search the web only. X search is billed separately by SpaceXAI, per post and per user profile fetched.
+	XSearch *XSearchOptions `json:"x_search,omitzero"`
 }
 
 func (w WebSearchConfig) MarshalJSON() ([]byte, error) {
@@ -108,4 +110,11 @@ func (w *WebSearchConfig) GetUserLocation() *WebSearchUserLocationServerTool {
 		return nil
 	}
 	return w.UserLocation
+}
+
+func (w *WebSearchConfig) GetXSearch() *XSearchOptions {
+	if w == nil {
+		return nil
+	}
+	return w.XSearch
 }

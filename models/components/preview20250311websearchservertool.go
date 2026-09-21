@@ -47,6 +47,8 @@ type Preview20250311WebSearchServerTool struct {
 	SearchContextSize *SearchContextSizeEnum                                          `json:"search_context_size,omitzero"`
 	Type              Preview20250311WebSearchServerToolType                          `json:"type"`
 	UserLocation      optionalnullable.OptionalNullable[PreviewWebSearchUserLocation] `json:"user_location,omitzero"`
+	// Enable SpaceXAI X (Twitter) search alongside native web search, with optional filters. Only applies to SpaceXAI endpoints with native search; omit to search the web only. X search is billed separately by SpaceXAI, per post and per user profile fetched.
+	XSearch *XSearchOptions `json:"x_search,omitzero"`
 }
 
 func (p Preview20250311WebSearchServerTool) MarshalJSON() ([]byte, error) {
@@ -114,6 +116,13 @@ func (p *Preview20250311WebSearchServerTool) GetUserLocation() optionalnullable.
 		return nil
 	}
 	return p.UserLocation
+}
+
+func (p *Preview20250311WebSearchServerTool) GetXSearch() *XSearchOptions {
+	if p == nil {
+		return nil
+	}
+	return p.XSearch
 }
 
 // #region class-body-preview20250311websearchservertool
