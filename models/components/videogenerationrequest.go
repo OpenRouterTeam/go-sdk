@@ -1222,6 +1222,7 @@ func (v *VideoGenerationRequestProvider) GetOptions() *VideoGenerationRequestOpt
 type VideoGenerationRequestResolution string
 
 const (
+	VideoGenerationRequestResolutionThreeHundredAndSixtyp      VideoGenerationRequestResolution = "360p"
 	VideoGenerationRequestResolutionFourHundredAndEightyp      VideoGenerationRequestResolution = "480p"
 	VideoGenerationRequestResolutionSevenHundredAndTwentyp     VideoGenerationRequestResolution = "720p"
 	VideoGenerationRequestResolutionSevenHundredAndSixtyEightp VideoGenerationRequestResolution = "768p"
@@ -1239,7 +1240,7 @@ func (e VideoGenerationRequestResolution) ToPointer() *VideoGenerationRequestRes
 func (e *VideoGenerationRequestResolution) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "480p", "720p", "768p", "1080p", "1K", "2K", "4K":
+		case "360p", "480p", "720p", "768p", "1080p", "1K", "2K", "4K":
 			return true
 		}
 	}
