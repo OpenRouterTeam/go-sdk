@@ -97,9 +97,40 @@ func (u Code) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type Code: all fields are null")
 }
 
+type InternLifecycleErrorMetadata struct {
+	Reason    string `json:"reason"`
+	Retryable bool   `json:"retryable"`
+}
+
+func (i *InternLifecycleErrorMetadata) GetReason() string {
+	if i == nil {
+		return ""
+	}
+	return i.Reason
+}
+
+func (i *InternLifecycleErrorMetadata) GetRetryable() bool {
+	if i == nil {
+		return false
+	}
+	return i.Retryable
+}
+
 type InternLifecycleErrorError struct {
-	Code    Code   `json:"code"`
-	Message string `json:"message"`
+	Code     Code                          `json:"code"`
+	Message  string                        `json:"message"`
+	Metadata *InternLifecycleErrorMetadata `json:"metadata,omitzero"`
+}
+
+func (i InternLifecycleErrorError) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InternLifecycleErrorError) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (i *InternLifecycleErrorError) GetCode() Code {
@@ -114,4 +145,11 @@ func (i *InternLifecycleErrorError) GetMessage() string {
 		return ""
 	}
 	return i.Message
+}
+
+func (i *InternLifecycleErrorError) GetMetadata() *InternLifecycleErrorMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
 }

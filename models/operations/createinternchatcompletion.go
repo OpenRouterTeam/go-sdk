@@ -4,6 +4,7 @@ package operations
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/types/stream"
 )
 
 type CreateInternChatCompletionRequest struct {
@@ -24,4 +25,23 @@ func (c *CreateInternChatCompletionRequest) GetInternChatCompletionRequest() com
 		return components.InternChatCompletionRequest{}
 	}
 	return c.InternChatCompletionRequest
+}
+
+type CreateInternChatCompletionResponse struct {
+	Headers map[string][]string
+	Result  *stream.EventStream[components.InternChatStreamingResponse]
+}
+
+func (c *CreateInternChatCompletionResponse) GetHeaders() map[string][]string {
+	if c == nil {
+		return map[string][]string{}
+	}
+	return c.Headers
+}
+
+func (c *CreateInternChatCompletionResponse) GetResult() *stream.EventStream[components.InternChatStreamingResponse] {
+	if c == nil {
+		return &stream.EventStream[components.InternChatStreamingResponse]{}
+	}
+	return c.Result
 }
