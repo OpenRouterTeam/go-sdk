@@ -14,6 +14,8 @@ type CreateBYOKKeyRequest struct {
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// Optional allowlist of user IDs that may use this credential. `null` means no restriction.
 	AllowedUserIds optionalnullable.OptionalNullable[[]string] `json:"allowed_user_ids,omitzero"`
+	// Your declaration of whether the upstream provider account behind this credential has zero data retention (ZDR). `null` inherits OpenRouter's data policy for the provider's endpoint; `true` declares the account ZDR so requests that require ZDR may route to this credential even when the shared endpoint retains data; `false` declares it non-ZDR so such requests never route to it. Self-declared and not verified by OpenRouter. Defaults to `null`.
+	DeclaredZdr optionalnullable.OptionalNullable[bool] `json:"declared_zdr,omitzero"`
 	// Whether this credential should be created in a disabled state.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Whether OpenRouter's shared endpoints on this provider are removed for every model, including models outside `allowed_models` and after all of your keys for the provider fail. The provider is skipped instead of spending OpenRouter credits. Only valid on non-fallback credentials. Defaults to `false`.
@@ -62,6 +64,13 @@ func (c *CreateBYOKKeyRequest) GetAllowedUserIds() optionalnullable.OptionalNull
 		return nil
 	}
 	return c.AllowedUserIds
+}
+
+func (c *CreateBYOKKeyRequest) GetDeclaredZdr() optionalnullable.OptionalNullable[bool] {
+	if c == nil {
+		return nil
+	}
+	return c.DeclaredZdr
 }
 
 func (c *CreateBYOKKeyRequest) GetDisabled() *bool {

@@ -1,0 +1,30 @@
+---
+title: "CreateInternChatCompletionResponseResult"
+---
+
+## Supported Types
+
+### 
+
+```go
+createInternChatCompletionResponseResult := operations.CreateCreateInternChatCompletionResponseResultEventStream(*stream.EventStream[components.InternChatStreamingResponse]{/* values here */})
+```
+
+### InternChatSteeredResponse
+
+```go
+createInternChatCompletionResponseResult := operations.CreateCreateInternChatCompletionResponseResultInternChatSteeredResponse(components.InternChatSteeredResponse{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch createInternChatCompletionResponseResult.Type {
+	case operations.CreateInternChatCompletionResponseResultTypeEventStream:
+		// createInternChatCompletionResponseResult.EventStream is populated
+	case operations.CreateInternChatCompletionResponseResultTypeInternChatSteeredResponse:
+		// createInternChatCompletionResponseResult.InternChatSteeredResponse is populated
+}
+```

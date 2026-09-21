@@ -1947,6 +1947,7 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
+		operations.SupportedOptionAcceptHeaderOverride,
 	}
 
 	for _, opt := range opts {
@@ -1995,7 +1996,12 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
-	req.Header.Set("Accept", "text/event-stream")
+	if o.AcceptHeaderOverride != nil {
+		req.Header.Set("Accept", string(*o.AcceptHeaderOverride))
+	} else {
+		req.Header.Set("Accept", "application/json;q=1, text/event-stream;q=0")
+	}
+
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	if reqContentType != "" {
 		req.Header.Set("Content-Type", reqContentType)
@@ -2119,7 +2125,30 @@ func (s *Interns) Chat(ctx context.Context, internID string, internChatCompletio
 				}
 				return e, nil
 			}, "[DONE]")
-			res.Result = out
+			result := operations.CreateCreateInternChatCompletionResponseResultEventStream(out)
+			res.Result = result
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 202:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out components.InternChatSteeredResponse
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			result := operations.CreateCreateInternChatCompletionResponseResultInternChatSteeredResponse(out)
+			res.Result = result
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
