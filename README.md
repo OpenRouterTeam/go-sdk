@@ -189,7 +189,7 @@ func main() {
 
 ### [Alpha.Decisions](docs/sdks/decisions/README.md)
 
-* [Create](docs/sdks/decisions/README.md#create) - Submit a Decisions (questions and answers) request
+* [Create](docs/sdks/decisions/README.md#create) - Submit a Decisions request
 
 ### [Analytics](docs/sdks/analytics/README.md)
 
