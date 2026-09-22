@@ -52,6 +52,12 @@ chatRequestPlugin := components.CreateChatRequestPluginParetoRouter(components.P
 chatRequestPlugin := components.CreateChatRequestPluginResponseHealing(components.ResponseHealingPlugin{/* values here */})
 ```
 
+### SwitchyardRouterPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginSwitchyardRouter(components.SwitchyardRouterPlugin{/* values here */})
+```
+
 ### WebSearchPlugin
 
 ```go
@@ -86,6 +92,8 @@ switch chatRequestPlugin.Type {
 		// chatRequestPlugin.ParetoRouterPlugin is populated
 	case components.ChatRequestPluginTypeResponseHealing:
 		// chatRequestPlugin.ResponseHealingPlugin is populated
+	case components.ChatRequestPluginTypeSwitchyardRouter:
+		// chatRequestPlugin.SwitchyardRouterPlugin is populated
 	case components.ChatRequestPluginTypeWeb:
 		// chatRequestPlugin.WebSearchPlugin is populated
 	case components.ChatRequestPluginTypeWebFetch:

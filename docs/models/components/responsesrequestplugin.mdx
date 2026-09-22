@@ -52,6 +52,12 @@ responsesRequestPlugin := components.CreateResponsesRequestPluginParetoRouter(co
 responsesRequestPlugin := components.CreateResponsesRequestPluginResponseHealing(components.ResponseHealingPlugin{/* values here */})
 ```
 
+### SwitchyardRouterPlugin
+
+```go
+responsesRequestPlugin := components.CreateResponsesRequestPluginSwitchyardRouter(components.SwitchyardRouterPlugin{/* values here */})
+```
+
 ### WebSearchPlugin
 
 ```go
@@ -86,6 +92,8 @@ switch responsesRequestPlugin.Type {
 		// responsesRequestPlugin.ParetoRouterPlugin is populated
 	case components.ResponsesRequestPluginTypeResponseHealing:
 		// responsesRequestPlugin.ResponseHealingPlugin is populated
+	case components.ResponsesRequestPluginTypeSwitchyardRouter:
+		// responsesRequestPlugin.SwitchyardRouterPlugin is populated
 	case components.ResponsesRequestPluginTypeWeb:
 		// responsesRequestPlugin.WebSearchPlugin is populated
 	case components.ResponsesRequestPluginTypeWebFetch:
