@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: b44914396719b83a4aa946177951835b
+  docChecksum: 895cbbb802b2dc1f9691aeaeb4e32f4b
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.14
-  configChecksum: bbe52924ecdaaf4e7d21b2188fcc8abb
+  releaseVersion: 0.8.15
+  configChecksum: 1ee0741e536e91ae4abfa6d620b5ae1f
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: d04307ee-7698-4051-884f-152da7283d39
-  pristine_commit_hash: cf7eb16bc4258d6b136bcfdfc901f83aed46728a
-  pristine_tree_hash: f13104dd4fe4bdf37b3467db095601c43f09cd29
+  generation_id: ff96c27c-fccf-49a8-ac32-e1818b5eb3b1
+  pristine_commit_hash: 17622d66b88ffa5e872097e30408f12c1c07e045
+  pristine_tree_hash: 7869f1319a288359d35479c7eb67fd3b171bb4f6
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1744,12 +1744,16 @@ trackedFiles:
     pristine_git_object: 81504d8270d277c42516e0a052e238d24eb38c6a
   docs/models/components/createworkspacerequest.mdx:
     id: fbf1d17bc268
-    last_write_checksum: sha1:87ec0066e781bba9e607d4f251b03889319f76cd
-    pristine_git_object: b8cc7aa4f73fa4963c4b4ce46dbd07a1f6341729
+    last_write_checksum: sha1:9322964335c87f8df216eafd37c9c0495750b4ff
+    pristine_git_object: 36a87f5b61c0269c57a11b28e5550e3bda30602b
+  docs/models/components/createworkspacerequestdisabledservertool.mdx:
+    id: 31061a8f5fef
+    last_write_checksum: sha1:ad80591033532f8a91ec07a9c383d471460d9fc5
+    pristine_git_object: 1d4d747fdc2f66bf9715d920e670bfddfc7deda1
   docs/models/components/createworkspaceresponse.mdx:
     id: 554dfaf43d2f
-    last_write_checksum: sha1:868e0cff67a739128be4735bb58ed41647ca87a9
-    pristine_git_object: 242b45eac5ebeb10b4a84b744129996e84c09f36
+    last_write_checksum: sha1:eaafe7c62d5ee22b685c4287b7d9e90dea8138d3
+    pristine_git_object: 390c1ae20a5ded73a7853fd22ac3ee39ecc3e8ac
   docs/models/components/criteria.mdx:
     id: 4d6bae5bfd6d
     last_write_checksum: sha1:9044f1916481dd9c020b6efb84c43e315a14f440
@@ -2520,8 +2524,8 @@ trackedFiles:
     pristine_git_object: ef31c525d5c115d8e4a0b684cdf7f5e31325052b
   docs/models/components/getworkspaceresponse.mdx:
     id: 8eeeb80a5619
-    last_write_checksum: sha1:4a6a6ce11916b8f16e0698988007ed700e6dc328
-    pristine_git_object: 29ce08a545038081c8432b6477af885b0d4527eb
+    last_write_checksum: sha1:0d6c6dc143cce4afe3b8ad6a76c9ceababf2acf1
+    pristine_git_object: cb31c72005f617e074efcd8fe1c74571a411e1f8
   docs/models/components/goneresponseerrordata.mdx:
     id: c3212372f168
     last_write_checksum: sha1:2488f4bb858fbf8d0859e090e8a87acc16261416
@@ -6180,12 +6184,16 @@ trackedFiles:
     pristine_git_object: 4e3c83a0d4520295c979f24401fdeb2a9e7580a4
   docs/models/components/updateworkspacerequest.mdx:
     id: 37bea9aebf76
-    last_write_checksum: sha1:5ed706d43bb174e4f90551c0f1b9d570e95c9731
-    pristine_git_object: 191a617dee2dbaa895a5f4a5f2fce72c0a9af250
+    last_write_checksum: sha1:a25936402a5ba4402328cc0472fdd2f1d1d4ad83
+    pristine_git_object: 0390b68969674f020b9b8458bdd76731c4fdd563
+  docs/models/components/updateworkspacerequestdisabledservertool.mdx:
+    id: e8b0c83efe01
+    last_write_checksum: sha1:5256ee77f536f6d45dc09e34434e0b50e7135281
+    pristine_git_object: 4c6b0f5f12d0cb266856e50118f44033801a8fff
   docs/models/components/updateworkspaceresponse.mdx:
     id: 593dbd213d0c
-    last_write_checksum: sha1:fa73e181fa18c9c4732a0d495f941fbd8ecfc081
-    pristine_git_object: 79bc6e1994893d6bf4c6d6a6d089dc07c731356f
+    last_write_checksum: sha1:eac0e7e05e88fb0f36ef3dbb2a691a614776c0e5
+    pristine_git_object: ff023e7647234d0b949a494f2f224c60f9a9a79a
   docs/models/components/upscalefactor.mdx:
     id: 8048a9457d04
     last_write_checksum: sha1:b731eccef6e26e777b320afe013a82cb6ba3f4a7
@@ -6436,8 +6444,8 @@ trackedFiles:
     pristine_git_object: 7d1bf63d8fd4511aa7caada7a7406be6d19bfbac
   docs/models/components/workspace.mdx:
     id: b43c41cd1819
-    last_write_checksum: sha1:4b61b628847d02c6eebd9c44752dd080600786b8
-    pristine_git_object: fbc88f05aed300119a8e47284f476c155ff3800f
+    last_write_checksum: sha1:a530f92199f762ff9be01404a7b3db9b4cc7b4a7
+    pristine_git_object: b1b975a5c330b8ed1209d1bcfeada1425f9967b5
   docs/models/components/workspacebudget.mdx:
     id: ac7e013b7185
     last_write_checksum: sha1:107876a88ce53b0aedf04bd40050e93f53d87e06
@@ -7176,8 +7184,8 @@ trackedFiles:
     pristine_git_object: ce7543051ccf5cd80860a3b5d03c74384dd8867e
   docs/models/operations/listworkspacesresponse.mdx:
     id: d61aa0f8a8d2
-    last_write_checksum: sha1:09874aa582436a88ef03887716e384514cf990ac
-    pristine_git_object: 3d016caa4ea1ac14660ee6ce7b6d98538bf3366e
+    last_write_checksum: sha1:570f689fa75d1e19568d36df0d0d7ada12d43c42
+    pristine_git_object: 856a6e210fa597cf5be2cbce7c0bc0592f533a46
   docs/models/operations/metadata.mdx:
     id: de1ee1e9dc66
     last_write_checksum: sha1:2654b5eae9454e3f6ce5db7176eb1756a68496d1
@@ -8500,8 +8508,8 @@ trackedFiles:
     pristine_git_object: 56e6fe9331febfd51c8119c61a9ca3a812156af8
   models/components/createworkspacerequest.go:
     id: f03152fc7ee9
-    last_write_checksum: sha1:17c8ae165059207252f4f35d25e5decaac688e43
-    pristine_git_object: 9ff94714cf93c9534d349585550bd5557600d4a5
+    last_write_checksum: sha1:22be7c5f9046ea56c9fe53b5eb11b8693a4ad3ed
+    pristine_git_object: 21d8aa333153da3d4188ae2e34575ddcc59517b2
   models/components/createworkspaceresponse.go:
     id: 6007aebeea30
     last_write_checksum: sha1:f9deefc65475960d8b663854b57e934298c88d88
@@ -10340,8 +10348,8 @@ trackedFiles:
     pristine_git_object: 3d166d9c9aed8c347dd22d312e19367aac14679c
   models/components/updateworkspacerequest.go:
     id: 056999cd6eac
-    last_write_checksum: sha1:b92d11493339f09607a35fefca38babd84416751
-    pristine_git_object: d43f9f28bc3b52b9fa3dea4d72435772bbcf2de9
+    last_write_checksum: sha1:b70a1a84a98156c117f81c3ca64b5082ce2ab94a
+    pristine_git_object: a27eaeeb5606b1e4c04a0fd3cb7cc994f89017d4
   models/components/updateworkspaceresponse.go:
     id: 878eb246afc8
     last_write_checksum: sha1:cb1883a5d50d18a8ec7046dc2b4d8a5ecc3460ab
@@ -10484,8 +10492,8 @@ trackedFiles:
     pristine_git_object: 21c0dbc5870aa4c465dea76620e75bf704ae75ef
   models/components/workspace.go:
     id: "5823361002e2"
-    last_write_checksum: sha1:961638b8dbe47be4b14ca6ac1c3ef10154d6f481
-    pristine_git_object: 3483d6e52a71fe584e3bd1e03d49134e8beaabab
+    last_write_checksum: sha1:884312da678fa991793d49aef0162bd76e0c991c
+    pristine_git_object: 35e326cc5b658934b7030f859f8ecb22197cf447
   models/components/workspacebudget.go:
     id: ecb4d9612e06
     last_write_checksum: sha1:0c7678120abbcabe36f147ff233b10106218975e
@@ -11028,8 +11036,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:bcddb7f3c2d209c8a072ea0047d00b4f75dd034f
-    pristine_git_object: 8df8d224ee2254d940706f7ad73bea7467a5ff90
+    last_write_checksum: sha1:54413b0187b2e2dd505fdd1a20ed7137ac412a7b
+    pristine_git_object: 2ffc8558af614532463ca7b4d614407a5cf27efb
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14327,4 +14335,4 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Safeguards` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Workspaces.List()`:  `response.Data[].DisabledServerTools` **Added**\n* `OpenRouter.Workspaces.Create()`: \n  *  `request.Request.DisabledServerTools` **Added**\n  *  `response.Data.DisabledServerTools` **Added**\n* `OpenRouter.Workspaces.Get()`:  `response.Data.DisabledServerTools` **Added**\n* `OpenRouter.Workspaces.Update()`: \n  *  `request.UpdateWorkspaceRequest.DisabledServerTools` **Added**\n  *  `response.Data.DisabledServerTools` **Added**\n"
