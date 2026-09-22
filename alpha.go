@@ -8,7 +8,7 @@ import (
 )
 
 type Alpha struct {
-	// Alpha feature endpoints for Decisions (questions and answers) requests
+	// Alpha feature endpoints for Decisions requests
 	Decisions *Decisions
 
 	rootSDK          *OpenRouter
