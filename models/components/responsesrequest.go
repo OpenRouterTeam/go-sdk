@@ -22,6 +22,7 @@ const (
 	ResponsesRequestPluginTypeModeration         ResponsesRequestPluginType = "moderation"
 	ResponsesRequestPluginTypeParetoRouter       ResponsesRequestPluginType = "pareto-router"
 	ResponsesRequestPluginTypeResponseHealing    ResponsesRequestPluginType = "response-healing"
+	ResponsesRequestPluginTypeSwitchyardRouter   ResponsesRequestPluginType = "switchyard-router"
 	ResponsesRequestPluginTypeWeb                ResponsesRequestPluginType = "web"
 	ResponsesRequestPluginTypeWebFetch           ResponsesRequestPluginType = "web-fetch"
 )
@@ -37,6 +38,7 @@ type ResponsesRequestPlugin struct {
 	ContextCompressionPlugin *ContextCompressionPlugin `queryParam:"inline" union:"member"`
 	ParetoRouterPlugin       *ParetoRouterPlugin       `queryParam:"inline" union:"member"`
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
+	SwitchyardRouterPlugin   *SwitchyardRouterPlugin   `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestPluginType
 }
@@ -134,6 +136,18 @@ func CreateResponsesRequestPluginResponseHealing(responseHealing ResponseHealing
 	return ResponsesRequestPlugin{
 		ResponseHealingPlugin: &responseHealing,
 		Type:                  typ,
+	}
+}
+
+func CreateResponsesRequestPluginSwitchyardRouter(switchyardRouter SwitchyardRouterPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeSwitchyardRouter
+
+	typStr := SwitchyardRouterPluginID(typ)
+	switchyardRouter.ID = typStr
+
+	return ResponsesRequestPlugin{
+		SwitchyardRouterPlugin: &switchyardRouter,
+		Type:                   typ,
 	}
 }
 
@@ -245,6 +259,15 @@ func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.ResponseHealingPlugin = responseHealingPlugin
 		u.Type = ResponsesRequestPluginTypeResponseHealing
 		return nil
+	case "switchyard-router":
+		switchyardRouterPlugin := new(SwitchyardRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &switchyardRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == switchyard-router) type SwitchyardRouterPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.SwitchyardRouterPlugin = switchyardRouterPlugin
+		u.Type = ResponsesRequestPluginTypeSwitchyardRouter
+		return nil
 	case "web":
 		webSearchPlugin := new(WebSearchPlugin)
 		if err := utils.UnmarshalJSON(data, &webSearchPlugin, "", true, nil); err != nil {
@@ -307,6 +330,10 @@ func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.FusionPlugin != nil {
 		return utils.MarshalJSON(u.FusionPlugin, "", true)
+	}
+
+	if u.SwitchyardRouterPlugin != nil {
+		return utils.MarshalJSON(u.SwitchyardRouterPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")
