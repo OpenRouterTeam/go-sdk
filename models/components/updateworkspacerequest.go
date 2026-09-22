@@ -7,6 +7,38 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+type UpdateWorkspaceRequestDisabledServerTool string
+
+const (
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterAdvisor                  UpdateWorkspaceRequestDisabledServerTool = "openrouter:advisor"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterApplyPatch               UpdateWorkspaceRequestDisabledServerTool = "openrouter:apply_patch"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterBash                     UpdateWorkspaceRequestDisabledServerTool = "openrouter:bash"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterDatetime                 UpdateWorkspaceRequestDisabledServerTool = "openrouter:datetime"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterFusion                   UpdateWorkspaceRequestDisabledServerTool = "openrouter:fusion"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterImageGeneration          UpdateWorkspaceRequestDisabledServerTool = "openrouter:image_generation"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterExperimentalSearchModels UpdateWorkspaceRequestDisabledServerTool = "openrouter:experimental__search_models"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterShell                    UpdateWorkspaceRequestDisabledServerTool = "openrouter:shell"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterSubagent                 UpdateWorkspaceRequestDisabledServerTool = "openrouter:subagent"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterToolSearch               UpdateWorkspaceRequestDisabledServerTool = "openrouter:tool_search"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterWebFetch                 UpdateWorkspaceRequestDisabledServerTool = "openrouter:web_fetch"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterWebSearch                UpdateWorkspaceRequestDisabledServerTool = "openrouter:web_search"
+)
+
+func (e UpdateWorkspaceRequestDisabledServerTool) ToPointer() *UpdateWorkspaceRequestDisabledServerTool {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *UpdateWorkspaceRequestDisabledServerTool) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "openrouter:advisor", "openrouter:apply_patch", "openrouter:bash", "openrouter:datetime", "openrouter:fusion", "openrouter:image_generation", "openrouter:experimental__search_models", "openrouter:shell", "openrouter:subagent", "openrouter:tool_search", "openrouter:web_fetch", "openrouter:web_search":
+			return true
+		}
+	}
+	return false
+}
+
 type UpdateWorkspaceRequest struct {
 	// Default image model for this workspace
 	DefaultImageModel optionalnullable.OptionalNullable[string] `json:"default_image_model,omitzero"`
@@ -16,6 +48,8 @@ type UpdateWorkspaceRequest struct {
 	DefaultTextModel optionalnullable.OptionalNullable[string] `json:"default_text_model,omitzero"`
 	// New description for the workspace
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
+	// OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
+	DisabledServerTools optionalnullable.OptionalNullable[[]UpdateWorkspaceRequestDisabledServerTool] `json:"disabled_server_tools,omitzero"`
 	// Optional array of API key IDs to filter I/O logging
 	IoLoggingAPIKeyIds optionalnullable.OptionalNullable[[]int64] `json:"io_logging_api_key_ids,omitzero"`
 	// Sampling rate for I/O logging (0.0001-1)
@@ -69,6 +103,13 @@ func (u *UpdateWorkspaceRequest) GetDescription() optionalnullable.OptionalNulla
 		return nil
 	}
 	return u.Description
+}
+
+func (u *UpdateWorkspaceRequest) GetDisabledServerTools() optionalnullable.OptionalNullable[[]UpdateWorkspaceRequestDisabledServerTool] {
+	if u == nil {
+		return nil
+	}
+	return u.DisabledServerTools
 }
 
 func (u *UpdateWorkspaceRequest) GetIoLoggingAPIKeyIds() optionalnullable.OptionalNullable[[]int64] {
