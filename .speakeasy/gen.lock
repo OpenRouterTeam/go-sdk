@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6704302de1578450024c368901805452
+  docChecksum: c1c8a559f871111edc204c0159b624bd
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.17
-  configChecksum: e082b621dfbd5863cc3e05d1aeedac33
+  releaseVersion: 0.8.18
+  configChecksum: f0de5dbcafa5df16e4a3dbfd6c8ee8f5
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: ad960ef3-e41a-4ad5-9510-a2685916c9ed
-  pristine_commit_hash: 6c56b8e51c6d4e7eb6d6d746feea57dbe7b9686e
-  pristine_tree_hash: 92ae3aee365dfaae76c78c4eeedad63a2217f940
+  generation_id: cfb55eb7-5705-46d0-bb98-c4c0ab44ff1a
+  pristine_commit_hash: 1effbc5a0c7f66ea590b1ce8f8adcdc07fb9591b
+  pristine_tree_hash: 999db38afa80bcc16b9a09bacc90be5bfa066d31
 features:
   go:
     acceptHeaders: 2.81.2
@@ -11036,8 +11036,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:e47bcf262a637b0de52525b4051b864091aff018
-    pristine_git_object: fd362db5f799d6fb5eb7917c934788640ab4f1cf
+    last_write_checksum: sha1:5b529f12f0b4ba10adc7cb17c8325363524102ee
+    pristine_git_object: a3e298a678db179a57d42c27e79c834f2698db02
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
