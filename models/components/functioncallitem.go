@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type FunctionCallItemSubagentItem struct {
@@ -65,18 +66,18 @@ func (e *FunctionCallItemType) UnmarshalJSON(data []byte) error {
 type FunctionCallItem struct {
 	Arguments string `json:"arguments"`
 	// True when the model called a tool declared with `async: true` and may continue its turn before the output is returned. Return the result in a later request as a `function_call_output` with this `call_id`.
-	Async  *bool  `json:"async,omitzero"`
-	CallID string `json:"call_id"`
-	ID     string `json:"id"`
-	Name   string `json:"name"`
+	Async  optionalnullable.OptionalNullable[bool]   `json:"async,omitzero"`
+	CallID string                                    `json:"call_id"`
+	ID     optionalnullable.OptionalNullable[string] `json:"id,omitzero"`
+	Name   string                                    `json:"name"`
 	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
-	Namespace *string         `json:"namespace,omitzero"`
-	Status    *ToolCallStatus `json:"status,omitzero"`
+	Namespace optionalnullable.OptionalNullable[string]         `json:"namespace,omitzero"`
+	Status    optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
 	// EXPERIMENTAL — subject to change without notice. String id that matches the `call_id` of the `openrouter:subagent` server tool call that spawned the subagent. Present on every `function_call` item the subagent projects; absent on ordinary function calls.
-	SubagentID *string `json:"subagent_id,omitzero"`
+	SubagentID optionalnullable.OptionalNullable[string] `json:"subagent_id,omitzero"`
 	// EXPERIMENTAL — subject to change without notice. The subagent's output items produced on this turn. Treat this as an opaque object; you must replay it in the request so that the subagent can continue execution of the tool with the same context. If a subagent created multiple parallel tool calls, only the first tool call will have this field. The other tool calls will only have `subagent_id`. Present only if the tool call originates from a subagent spawned by the `openrouter:subagent` server tool.
-	SubagentItems []FunctionCallItemSubagentItem `json:"subagent_items,omitzero"`
-	Type          FunctionCallItemType           `json:"type"`
+	SubagentItems optionalnullable.OptionalNullable[[]FunctionCallItemSubagentItem] `json:"subagent_items,omitzero"`
+	Type          FunctionCallItemType                                              `json:"type"`
 }
 
 func (f FunctionCallItem) MarshalJSON() ([]byte, error) {
@@ -97,7 +98,7 @@ func (f *FunctionCallItem) GetArguments() string {
 	return f.Arguments
 }
 
-func (f *FunctionCallItem) GetAsync() *bool {
+func (f *FunctionCallItem) GetAsync() optionalnullable.OptionalNullable[bool] {
 	if f == nil {
 		return nil
 	}
@@ -111,9 +112,9 @@ func (f *FunctionCallItem) GetCallID() string {
 	return f.CallID
 }
 
-func (f *FunctionCallItem) GetID() string {
+func (f *FunctionCallItem) GetID() optionalnullable.OptionalNullable[string] {
 	if f == nil {
-		return ""
+		return nil
 	}
 	return f.ID
 }
@@ -125,28 +126,28 @@ func (f *FunctionCallItem) GetName() string {
 	return f.Name
 }
 
-func (f *FunctionCallItem) GetNamespace() *string {
+func (f *FunctionCallItem) GetNamespace() optionalnullable.OptionalNullable[string] {
 	if f == nil {
 		return nil
 	}
 	return f.Namespace
 }
 
-func (f *FunctionCallItem) GetStatus() *ToolCallStatus {
+func (f *FunctionCallItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
 	if f == nil {
 		return nil
 	}
 	return f.Status
 }
 
-func (f *FunctionCallItem) GetSubagentID() *string {
+func (f *FunctionCallItem) GetSubagentID() optionalnullable.OptionalNullable[string] {
 	if f == nil {
 		return nil
 	}
 	return f.SubagentID
 }
 
-func (f *FunctionCallItem) GetSubagentItems() []FunctionCallItemSubagentItem {
+func (f *FunctionCallItem) GetSubagentItems() optionalnullable.OptionalNullable[[]FunctionCallItemSubagentItem] {
 	if f == nil {
 		return nil
 	}

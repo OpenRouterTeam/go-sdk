@@ -913,8 +913,6 @@ const (
 	InputsUnion1TypeApplyPatchCallOutputItem            InputsUnion1Type = "ApplyPatchCallOutputItem"
 	InputsUnion1TypeInputsMessage                       InputsUnion1Type = "Inputs_Message"
 	InputsUnion1TypeInputsReasoning                     InputsUnion1Type = "Inputs_Reasoning"
-	InputsUnion1TypeOutputFunctionCallItem              InputsUnion1Type = "OutputFunctionCallItem"
-	InputsUnion1TypeOutputCustomToolCallItem            InputsUnion1Type = "OutputCustomToolCallItem"
 	InputsUnion1TypeOutputWebSearchCallItem             InputsUnion1Type = "OutputWebSearchCallItem"
 	InputsUnion1TypeOutputFileSearchCallItem            InputsUnion1Type = "OutputFileSearchCallItem"
 	InputsUnion1TypeOutputImageGenerationCallItem       InputsUnion1Type = "OutputImageGenerationCallItem"
@@ -967,8 +965,6 @@ type InputsUnion1 struct {
 	ApplyPatchCallOutputItem            *ApplyPatchCallOutputItem            `queryParam:"inline" union:"member"`
 	InputsMessage                       *InputsMessage                       `queryParam:"inline" union:"member"`
 	InputsReasoning                     *InputsReasoning                     `queryParam:"inline" union:"member"`
-	OutputFunctionCallItem              *OutputFunctionCallItem              `queryParam:"inline" union:"member"`
-	OutputCustomToolCallItem            *OutputCustomToolCallItem            `queryParam:"inline" union:"member"`
 	OutputWebSearchCallItem             *OutputWebSearchCallItem             `queryParam:"inline" union:"member"`
 	OutputFileSearchCallItem            *OutputFileSearchCallItem            `queryParam:"inline" union:"member"`
 	OutputImageGenerationCallItem       *OutputImageGenerationCallItem       `queryParam:"inline" union:"member"`
@@ -1091,24 +1087,6 @@ func CreateInputsUnion1InputsReasoning(inputsReasoning InputsReasoning) InputsUn
 	return InputsUnion1{
 		InputsReasoning: &inputsReasoning,
 		Type:            typ,
-	}
-}
-
-func CreateInputsUnion1OutputFunctionCallItem(outputFunctionCallItem OutputFunctionCallItem) InputsUnion1 {
-	typ := InputsUnion1TypeOutputFunctionCallItem
-
-	return InputsUnion1{
-		OutputFunctionCallItem: &outputFunctionCallItem,
-		Type:                   typ,
-	}
-}
-
-func CreateInputsUnion1OutputCustomToolCallItem(outputCustomToolCallItem OutputCustomToolCallItem) InputsUnion1 {
-	typ := InputsUnion1TypeOutputCustomToolCallItem
-
-	return InputsUnion1{
-		OutputCustomToolCallItem: &outputCustomToolCallItem,
-		Type:                     typ,
 	}
 }
 
@@ -1549,22 +1527,6 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 		})
 	}
 
-	var outputFunctionCallItem OutputFunctionCallItem = OutputFunctionCallItem{}
-	if err := utils.UnmarshalJSON(data, &outputFunctionCallItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsUnion1TypeOutputFunctionCallItem,
-			Value: &outputFunctionCallItem,
-		})
-	}
-
-	var outputCustomToolCallItem OutputCustomToolCallItem = OutputCustomToolCallItem{}
-	if err := utils.UnmarshalJSON(data, &outputCustomToolCallItem, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  InputsUnion1TypeOutputCustomToolCallItem,
-			Value: &outputCustomToolCallItem,
-		})
-	}
-
 	var outputWebSearchCallItem OutputWebSearchCallItem = OutputWebSearchCallItem{}
 	if err := utils.UnmarshalJSON(data, &outputWebSearchCallItem, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -1925,12 +1887,6 @@ func (u *InputsUnion1) UnmarshalJSON(data []byte) error {
 	case InputsUnion1TypeInputsReasoning:
 		u.InputsReasoning = best.Value.(*InputsReasoning)
 		return nil
-	case InputsUnion1TypeOutputFunctionCallItem:
-		u.OutputFunctionCallItem = best.Value.(*OutputFunctionCallItem)
-		return nil
-	case InputsUnion1TypeOutputCustomToolCallItem:
-		u.OutputCustomToolCallItem = best.Value.(*OutputCustomToolCallItem)
-		return nil
 	case InputsUnion1TypeOutputWebSearchCallItem:
 		u.OutputWebSearchCallItem = best.Value.(*OutputWebSearchCallItem)
 		return nil
@@ -2091,14 +2047,6 @@ func (u InputsUnion1) MarshalJSON() ([]byte, error) {
 
 	if u.InputsReasoning != nil {
 		return utils.MarshalJSON(u.InputsReasoning, "", true)
-	}
-
-	if u.OutputFunctionCallItem != nil {
-		return utils.MarshalJSON(u.OutputFunctionCallItem, "", true)
-	}
-
-	if u.OutputCustomToolCallItem != nil {
-		return utils.MarshalJSON(u.OutputCustomToolCallItem, "", true)
 	}
 
 	if u.OutputWebSearchCallItem != nil {
