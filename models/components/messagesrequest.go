@@ -2531,6 +2531,7 @@ type ToolCustom struct {
 	Description  *string                         `json:"description,omitzero"`
 	InputSchema  InputSchema                     `json:"input_schema"`
 	Name         string                          `json:"name"`
+	Strict       *bool                           `json:"strict,omitzero"`
 	Type         *ToolTypeCustom                 `json:"type,omitzero"`
 }
 
@@ -2578,6 +2579,13 @@ func (t *ToolCustom) GetName() string {
 		return ""
 	}
 	return t.Name
+}
+
+func (t *ToolCustom) GetStrict() *bool {
+	if t == nil {
+		return nil
+	}
+	return t.Strict
 }
 
 func (t *ToolCustom) GetType() *ToolTypeCustom {
