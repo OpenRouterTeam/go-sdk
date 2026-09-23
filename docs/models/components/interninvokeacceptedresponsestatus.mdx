@@ -1,0 +1,26 @@
+---
+title: "InternInvokeAcceptedResponseStatus"
+---
+
+`started` when a new run began. `steered` when the session already had a run going and the prompt was delivered into it instead.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.InternInvokeAcceptedResponseStatusStarted
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.InternInvokeAcceptedResponseStatus("custom_value")
+```
+
+
+## Values
+
+| Name                                        | Value                                       |
+| ------------------------------------------- | ------------------------------------------- |
+| `InternInvokeAcceptedResponseStatusStarted` | started                                     |
+| `InternInvokeAcceptedResponseStatusSteered` | steered                                     |
