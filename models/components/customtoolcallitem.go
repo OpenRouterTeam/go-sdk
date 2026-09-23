@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type CustomToolCallItemType string
@@ -34,15 +35,15 @@ func (e *CustomToolCallItemType) UnmarshalJSON(data []byte) error {
 // CustomToolCallItem - A call to a custom (freeform-grammar) tool created by the model — distinct from `function_call`. Used for tools like Codex CLI's `apply_patch` whose payload is opaque text rather than JSON arguments.
 type CustomToolCallItem struct {
 	// True when the model called a tool declared with `async: true` and may continue its turn before the output is returned. Return the result in a later request as a `function_call_output` with this `call_id`.
-	Async  *bool   `json:"async,omitzero"`
-	CallID string  `json:"call_id"`
-	ID     *string `json:"id,omitzero"`
-	Input  string  `json:"input"`
-	Name   string  `json:"name"`
+	Async  optionalnullable.OptionalNullable[bool]   `json:"async,omitzero"`
+	CallID string                                    `json:"call_id"`
+	ID     optionalnullable.OptionalNullable[string] `json:"id,omitzero"`
+	Input  string                                    `json:"input"`
+	Name   string                                    `json:"name"`
 	// Namespace qualifier for tools registered as part of a namespace tool group (e.g. an MCP server)
-	Namespace *string                `json:"namespace,omitzero"`
-	Type      CustomToolCallItemType `json:"type"`
-	Status    *ToolCallStatus        `json:"status,omitzero"`
+	Namespace optionalnullable.OptionalNullable[string]         `json:"namespace,omitzero"`
+	Status    optionalnullable.OptionalNullable[ToolCallStatus] `json:"status,omitzero"`
+	Type      CustomToolCallItemType                            `json:"type"`
 }
 
 func (c CustomToolCallItem) MarshalJSON() ([]byte, error) {
@@ -56,7 +57,7 @@ func (c *CustomToolCallItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CustomToolCallItem) GetAsync() *bool {
+func (c *CustomToolCallItem) GetAsync() optionalnullable.OptionalNullable[bool] {
 	if c == nil {
 		return nil
 	}
@@ -70,7 +71,7 @@ func (c *CustomToolCallItem) GetCallID() string {
 	return c.CallID
 }
 
-func (c *CustomToolCallItem) GetID() *string {
+func (c *CustomToolCallItem) GetID() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
@@ -91,11 +92,18 @@ func (c *CustomToolCallItem) GetName() string {
 	return c.Name
 }
 
-func (c *CustomToolCallItem) GetNamespace() *string {
+func (c *CustomToolCallItem) GetNamespace() optionalnullable.OptionalNullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.Namespace
+}
+
+func (c *CustomToolCallItem) GetStatus() optionalnullable.OptionalNullable[ToolCallStatus] {
+	if c == nil {
+		return nil
+	}
+	return c.Status
 }
 
 func (c *CustomToolCallItem) GetType() CustomToolCallItemType {
@@ -103,11 +111,4 @@ func (c *CustomToolCallItem) GetType() CustomToolCallItemType {
 		return CustomToolCallItemType("")
 	}
 	return c.Type
-}
-
-func (c *CustomToolCallItem) GetStatus() *ToolCallStatus {
-	if c == nil {
-		return nil
-	}
-	return c.Status
 }

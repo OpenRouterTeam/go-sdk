@@ -58,18 +58,6 @@ inputsUnion1 := components.CreateInputsUnion1InputsMessage(components.InputsMess
 inputsUnion1 := components.CreateInputsUnion1InputsReasoning(components.InputsReasoning{/* values here */})
 ```
 
-### OutputFunctionCallItem
-
-```go
-inputsUnion1 := components.CreateInputsUnion1OutputFunctionCallItem(components.OutputFunctionCallItem{/* values here */})
-```
-
-### OutputCustomToolCallItem
-
-```go
-inputsUnion1 := components.CreateInputsUnion1OutputCustomToolCallItem(components.OutputCustomToolCallItem{/* values here */})
-```
-
 ### OutputWebSearchCallItem
 
 ```go
@@ -334,10 +322,6 @@ switch inputsUnion1.Type {
 		// inputsUnion1.InputsMessage is populated
 	case components.InputsUnion1TypeInputsReasoning:
 		// inputsUnion1.InputsReasoning is populated
-	case components.InputsUnion1TypeOutputFunctionCallItem:
-		// inputsUnion1.OutputFunctionCallItem is populated
-	case components.InputsUnion1TypeOutputCustomToolCallItem:
-		// inputsUnion1.OutputCustomToolCallItem is populated
 	case components.InputsUnion1TypeOutputWebSearchCallItem:
 		// inputsUnion1.OutputWebSearchCallItem is populated
 	case components.InputsUnion1TypeOutputFileSearchCallItem:
