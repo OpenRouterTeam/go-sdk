@@ -17,6 +17,7 @@ Create, inspect, update, provision, suspend and delete OpenRouter interns throug
 * [ProvisionIntern](#provisionintern) - Provision an intern
 * [SuspendIntern](#suspendintern) - Suspend an intern
 * [Chat](#chat) - Stream a chat completion with an intern
+* [Invoke](#invoke) - Start an intern run without waiting for it
 
 ## ListInterns
 
@@ -493,4 +494,69 @@ func main() {
 | sdkerrors.InternChatErrorResponse | 409, 429                          | application/json                  |
 | sdkerrors.InternChatErrorResponse | 503                               | application/json                  |
 | sdkerrors.InternChatErrorResponse | 502, 504                          | application/json                  |
+| sdkerrors.APIError                | 4XX, 5XX                          | \*/\*                             |
+
+## Invoke
+
+Starts a run on one of your interns and answers `202` with the `session_id` as soon as the intern accepts it. The run keeps going on the intern after the response. Nothing about its progress comes back on this request; the intern reports through its own tools, such as Slack.
+
+Send the same `session_id` later to continue the conversation, for example to hand the intern a decision on work it started. If that session already has a run going, the prompt is delivered into it and the status is `steered`. A `session_id` is accepted only from the caller it was issued to, on the same intern; any other, including sessions started from Slack or the chat endpoint, is refused with `404`.
+
+Runs started here self-drive: the intern consents to its own tool approvals, and a question it asks is answered by its own fallback. A run ends when the intern finishes it or after its execution deadline (1 hour by default).
+
+Available to interns programme members. Callers outside the programme receive `404` for every path under `/api/v1/interns`.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.Invoke(ctx, "a11e0000-0000-4000-8000-000000000005", components.InternInvokeRequest{
+        Input: "New support ticket 48213. Case token: ct_9f2c. Investigate and reply.",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |                                                                                      |
+| `internID`                                                                           | `string`                                                                             | :heavy_check_mark:                                                                   | The intern to run.                                                                   | a11e0000-0000-4000-8000-000000000005                                                 |
+| `internInvokeRequest`                                                                | [components.InternInvokeRequest](../../models/components/interninvokerequest.mdx)     | :heavy_check_mark:                                                                   | N/A                                                                                  | \{<br/>"input": "New support ticket 48213. Case token: ct_9f2c. Investigate and reply."<br/>} |
+| `opts`                                                                               | [][operations.Option](../../models/operations/option.mdx)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |                                                                                      |
+
+### Response
+
+**[*operations.InvokeInternResponse](../../models/operations/invokeinternresponse.mdx), error**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| sdkerrors.InternChatErrorResponse | 400, 401, 403, 404, 408, 413      | application/json                  |
+| sdkerrors.InternChatErrorResponse | 409, 429                          | application/json                  |
+| sdkerrors.InternChatErrorResponse | 503                               | application/json                  |
+| sdkerrors.InternChatErrorResponse | 500, 502, 504                     | application/json                  |
 | sdkerrors.APIError                | 4XX, 5XX                          | \*/\*                             |
