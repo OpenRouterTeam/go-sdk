@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: f3131db17e852c8e07aaa8defbfb390e
+  docChecksum: d842359a0150183e336cf9eea8d8e84f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.22
-  configChecksum: aff2e0daa787f13c05dee21160afb75a
+  releaseVersion: 0.8.23
+  configChecksum: 11dde7b41e49fbc781ffc34007aef113
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: fcbd7e11-0452-477c-badb-27a38ca2632c
-  pristine_commit_hash: 0b19b302de8f3756ebefcd2ccfb3e6462b6f7e6d
-  pristine_tree_hash: d67d510152e0092ef4bea6692cfc6dfa27dd34e9
+  generation_id: 6bd06c27-c378-4ccc-a314-68b70992d724
+  pristine_commit_hash: 5cb8713d7418e20975782e54a02c773f42f6c0cd
+  pristine_tree_hash: de0893fbba24c0f96c2f341b415d721b31f31752
 features:
   go:
     acceptHeaders: 2.81.2
@@ -100,8 +100,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -4920,8 +4920,8 @@ trackedFiles:
     pristine_git_object: 5646fd73b60d03e1b9da2ee8fd57b69390894d4f
   docs/models/components/providerpreferences.mdx:
     id: add44b220760
-    last_write_checksum: sha1:f82ceae2b14a01d6970988325fc1d31ae9a6fb4b
-    pristine_git_object: 1455efaa1935e950dd8bf4e1eef25ddc589bd60a
+    last_write_checksum: sha1:fd82d686314e2cfd30ca0217a08666e3802120ab
+    pristine_git_object: 09dcd175f59179d4ec1f636dda84fb45330d75a6
   docs/models/components/providerpreferencesignore.mdx:
     id: eef71bba75a2
     last_write_checksum: sha1:3339b2a2caeb10720d249805106afd1a058805d1
@@ -9844,8 +9844,8 @@ trackedFiles:
     pristine_git_object: 2d45a2a93c2409f1054efd1d535601fe05a134a4
   models/components/providerpreferences.go:
     id: 7df9c8025650
-    last_write_checksum: sha1:e383ef43f1bc55d9177f49622fd434774c163f36
-    pristine_git_object: ac3da83c6341cbc6f3770b228cba74a126985dce
+    last_write_checksum: sha1:1709750451b16fd597467f066e557942d202772f
+    pristine_git_object: e14ad2f60a813fe6b88b358a37f76ea8b2f19ac9
   models/components/providerresponse.go:
     id: d7f4a6aea47d
     last_write_checksum: sha1:ff068885cb7af3e11a4ea928f832b7ed6bdc8f02
@@ -11084,8 +11084,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:0bd17d9859affebea35d95a7ed3a96e9265a59fb
-    pristine_git_object: 8658cebc3a4d087978171a35fd30a796d04c8f1a
+    last_write_checksum: sha1:81accf6770e430d9d86ecd46bd87ec12b812100a
+    pristine_git_object: bddcb7270ce62cc04adc3d2583a62d82a6948c07
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14401,4 +14401,4 @@ examples:
         "500":
           application/json: {"error": {"code": 409, "message": "That question is no longer waiting for an answer."}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed** (Breaking ⚠️)\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed** (Breaking ⚠️)\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Alpha.Decisions.Create()`: \n  *  `request.Request.Provider.Options` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Options` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Options` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Options` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Options` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Options` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Options` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Options` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Options` **Added**\n* `OpenRouter.SystemOne.Create()`: \n  *  `request.Request.Provider.Options` **Added**\n"
