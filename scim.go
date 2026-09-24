@@ -1549,10 +1549,12 @@ func (s *Scim) Update(ctx context.Context, id string, updateScimGroupMappingRequ
 
 // ListGroups - List SCIM groups
 // List SCIM groups for the organization. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *Scim) ListGroups(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, opts ...operations.Option) (*operations.ListScimGroupsResponse, error) {
+func (s *Scim) ListGroups(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, displayName *string, externalID *string, opts ...operations.Option) (*operations.ListScimGroupsResponse, error) {
 	request := operations.ListScimGroupsRequest{
-		Offset: offset,
-		Limit:  limit,
+		Offset:      offset,
+		Limit:       limit,
+		DisplayName: displayName,
+		ExternalID:  externalID,
 	}
 
 	o := operations.Options{}
@@ -1759,6 +1761,8 @@ func (s *Scim) ListGroups(ctx context.Context, offset optionalnullable.OptionalN
 			ctx,
 			optionalnullable.From(&nOS),
 			limit,
+			displayName,
+			externalID,
 			opts...,
 		)
 	}
