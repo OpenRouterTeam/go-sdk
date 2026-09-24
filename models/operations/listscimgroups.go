@@ -13,6 +13,10 @@ type ListScimGroupsRequest struct {
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
+	// Exact match filter on display_name. Omitted or empty returns groups unfiltered by name (subject to offset/limit). When external_id is also present, both must match.
+	DisplayName *string `queryParam:"style=form,explode=true,name=display_name"`
+	// Exact match filter on external_id, e.g. the identity provider (such as Entra ID) group object ID. Omitted or empty returns groups unfiltered by external_id (subject to offset/limit). When display_name is also present, both must match.
+	ExternalID *string `queryParam:"style=form,explode=true,name=external_id"`
 }
 
 func (l ListScimGroupsRequest) MarshalJSON() ([]byte, error) {
@@ -38,6 +42,20 @@ func (l *ListScimGroupsRequest) GetLimit() *int64 {
 		return nil
 	}
 	return l.Limit
+}
+
+func (l *ListScimGroupsRequest) GetDisplayName() *string {
+	if l == nil {
+		return nil
+	}
+	return l.DisplayName
+}
+
+func (l *ListScimGroupsRequest) GetExternalID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.ExternalID
 }
 
 type ListScimGroupsResponse struct {
