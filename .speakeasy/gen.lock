@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: d842359a0150183e336cf9eea8d8e84f
+  docChecksum: d2668cb3dac1aaf82bb1a98d2c5e4f3d
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.23
-  configChecksum: 11dde7b41e49fbc781ffc34007aef113
+  releaseVersion: 0.8.24
+  configChecksum: 19f13b073d978f2a4c8e93a7bb804fda
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 6bd06c27-c378-4ccc-a314-68b70992d724
-  pristine_commit_hash: 5cb8713d7418e20975782e54a02c773f42f6c0cd
-  pristine_tree_hash: de0893fbba24c0f96c2f341b415d721b31f31752
+  generation_id: 9df104c7-052b-4a03-8679-adc1bef55cf1
+  pristine_commit_hash: 8c18ac8ed4531484af6899fc9c2c918ef6f07c87
+  pristine_tree_hash: 9c1a92425ee3865741363776ad827294859589a7
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3150,6 +3150,10 @@ trackedFiles:
     id: ec4a0537a6f4
     last_write_checksum: sha1:ae459ed5ab430af275fe5a3116a49ad8392b487b
     pristine_git_object: b973c623911aa556d8baa58e6ff292024c18b46f
+  docs/models/components/interndaemonaccess.mdx:
+    id: c7ed113384d9
+    last_write_checksum: sha1:08d2d4cf99200572c0508edbed9ca72a748cd085
+    pristine_git_object: bdfb79accb2a8098d792725236054ca18050eea3
   docs/models/components/interninvokeacceptedresponse.mdx:
     id: c833cd76278f
     last_write_checksum: sha1:bcb67c421aaff03d8aad5b82e47e3c8a888ce40b
@@ -6862,6 +6866,10 @@ trackedFiles:
     id: fafa5172a6b1
     last_write_checksum: sha1:5c71c313d2fc014041b7de49a8c7e5b7cacfcd0d
     pristine_git_object: f66e886eb8ea70a90adfa31cedae720dd9389b7c
+  docs/models/operations/getinterndaemonaccessrequest.mdx:
+    id: 7c557e903580
+    last_write_checksum: sha1:3e87c8c6dd5366092c75fcfc8780a2ad487acd89
+    pristine_git_object: fcddf168aaf81894bc0af022a0ed6f5bdf2be7eb
   docs/models/operations/getinternrequest.mdx:
     id: 7b20846959da
     last_write_checksum: sha1:0983b105a2a73fd393ec27452e1ec27d4161e8dc
@@ -7612,8 +7620,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/interns/README.mdx:
     id: 2f8a053ffe78
-    last_write_checksum: sha1:28dfee1f5ed92008ebbd7a322165efc4c1e4f952
-    pristine_git_object: a6fb3c58a978a8f9353527f95cd88371b2a98d16
+    last_write_checksum: sha1:3a7e76df30c85990cfa7583f78c35ab261e4ef2f
+    pristine_git_object: 76e6487ae177ec0123882e06700574e013c1ddff
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
     last_write_checksum: sha1:14ffb11eb5c8db2aa311ac04b4e1e8bea0ca5528
@@ -7772,8 +7780,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   interns.go:
     id: aad99db3b05b
-    last_write_checksum: sha1:f5a2eb4623d66babe8f575b3fa7d488010b108c5
-    pristine_git_object: 97186312c1160d9047be162b3952909e69cdfbe3
+    last_write_checksum: sha1:5eee48e0e491ad72ced445a21c6f15170e3f1455
+    pristine_git_object: a5ec3370c1b12cedc2673f260fecc4fff28fd121
   models.go:
     id: 3af78faf181b
     last_write_checksum: sha1:8cc3e199c4b17ebc74642a4df902f06f8daeb2c7
@@ -9154,6 +9162,10 @@ trackedFiles:
     id: 71cd4cfcc27c
     last_write_checksum: sha1:027c4bed41a29f4c439712eb7d42c567c70b8509
     pristine_git_object: 5d489fbe0165cc60ff5e99e23ff65308286f6e13
+  models/components/interndaemonaccess.go:
+    id: 05e7a447eb45
+    last_write_checksum: sha1:825f8ab98111ff99da9889e7c248c14a65884f9a
+    pristine_git_object: 9db5f830c91de36c51b16cf8b9ef33a8235b9e37
   models/components/interninvokeacceptedresponse.go:
     id: "397111903274"
     last_write_checksum: sha1:8028cd4209a833dbbbd20bb9eb1970886d59fd6f
@@ -10738,6 +10750,10 @@ trackedFiles:
     id: fb0ff33467d4
     last_write_checksum: sha1:985b82d544908d3a018ed0eec8932323605025ec
     pristine_git_object: cf7e5f87bb093047bcc442bf4e7a5450645c703e
+  models/operations/getinterndaemonaccess.go:
+    id: af9c7b13ba51
+    last_write_checksum: sha1:3ace7bf80400a2d66949843e41c047fd5d820989
+    pristine_git_object: 1417c0ea1c18a2e4cdcdffa389e17275cf2a029f
   models/operations/getkey.go:
     id: 69bc377378e8
     last_write_checksum: sha1:d6ba3cea7dccbcb68f95e8d55930c0e86b2bb904
@@ -11084,8 +11100,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:81accf6770e430d9d86ecd46bd87ec12b812100a
-    pristine_git_object: bddcb7270ce62cc04adc3d2583a62d82a6948c07
+    last_write_checksum: sha1:96c03851153ff16070f0d9d8f852b3ba39f35500
+    pristine_git_object: 7071aaac18255ce2f93a48ab522573f0ee556a29
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14400,5 +14416,19 @@ examples:
           application/json: {"error": {"code": 409, "message": "That question is no longer waiting for an answer."}}
         "500":
           application/json: {"error": {"code": 409, "message": "That question is no longer waiting for an answer."}}
+  getInternDaemonAccess:
+    speakeasy-default-get-intern-daemon-access:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+      responses:
+        "200":
+          application/json: {"origin": "https://research-assistant-7c9e6679.or.bot", "token": "daemon_token"}
+        "401":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
+        "500":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Alpha.Decisions.Create()`: \n  *  `request.Request.Provider.Options` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider.Options` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider.Options` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider.Options` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider.Options` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider.Options` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider.Options` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Options` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider.Options` **Added**\n* `OpenRouter.SystemOne.Create()`: \n  *  `request.Request.Provider.Options` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Interns.GetInternDaemonAccess()`: **Added**

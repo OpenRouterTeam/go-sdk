@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.8.23
+> go get github.com/OpenRouterTeam/go-sdk@v0.8.24
 > ```
 
 <!-- No Summary [summary] -->
@@ -300,6 +300,7 @@ func main() {
 * [DeleteIntern](docs/sdks/interns/README.md#deleteintern) - Delete an intern
 * [GetIntern](docs/sdks/interns/README.md#getintern) - Get an intern
 * [UpdateIntern](docs/sdks/interns/README.md#updateintern) - Update an intern
+* [GetInternDaemonAccess](docs/sdks/interns/README.md#getinterndaemonaccess) - Get an intern's daemon access
 * [ProvisionIntern](docs/sdks/interns/README.md#provisionintern) - Provision an intern
 * [SuspendIntern](docs/sdks/interns/README.md#suspendintern) - Suspend an intern
 * [Chat](docs/sdks/interns/README.md#chat) - Stream a chat completion with an intern
