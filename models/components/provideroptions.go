@@ -125,6 +125,7 @@ type ProviderOptions struct {
 	SakanaAi                 map[string]any `json:"sakana-ai,omitzero"`
 	Sambanova                map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked         map[string]any `json:"sambanova-cloaked,omitzero"`
+	Scaledown                map[string]any `json:"scaledown,omitzero"`
 	Seed                     map[string]any `json:"seed,omitzero"`
 	SfCompute                map[string]any `json:"sf-compute,omitzero"`
 	Siliconflow              map[string]any `json:"siliconflow,omitzero"`
@@ -981,6 +982,13 @@ func (p *ProviderOptions) GetSambanovaCloaked() map[string]any {
 		return nil
 	}
 	return p.SambanovaCloaked
+}
+
+func (p *ProviderOptions) GetScaledown() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Scaledown
 }
 
 func (p *ProviderOptions) GetSeed() map[string]any {
