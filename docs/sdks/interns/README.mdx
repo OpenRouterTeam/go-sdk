@@ -14,6 +14,7 @@ Create, inspect, update, provision, suspend and delete OpenRouter interns throug
 * [DeleteIntern](#deleteintern) - Delete an intern
 * [GetIntern](#getintern) - Get an intern
 * [UpdateIntern](#updateintern) - Update an intern
+* [GetInternDaemonAccess](#getinterndaemonaccess) - Get an intern's daemon access
 * [ProvisionIntern](#provisionintern) - Provision an intern
 * [SuspendIntern](#suspendintern) - Suspend an intern
 * [Chat](#chat) - Stream a chat completion with an intern
@@ -302,6 +303,59 @@ func main() {
 | sdkerrors.InternLifecycleError         | 400, 401, 403, 404, 408, 409, 413, 415 | application/json                       |
 | sdkerrors.InternLifecycleError         | 500                                    | application/json                       |
 | sdkerrors.APIError                     | 4XX, 5XX                               | \*/\*                                  |
+
+## GetInternDaemonAccess
+
+Returns the origin and daemon token that attach `ori tui --host` to one visible, running intern. The token is a credential: the response is sent with `Cache-Control: no-store`, each reveal is logged by caller and intern, and a caller may make 10 reveals per minute. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.GetInternDaemonAccess(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |                                                          |
+| `internID`                                               | `string`                                                 | :heavy_check_mark:                                       | ID of an intern visible to the authenticated API key.    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | :heavy_minus_sign:                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.InternDaemonAccess](../../models/components/interndaemonaccess.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 401, 403, 404, 408, 409, 429   | application/json               |
+| sdkerrors.InternLifecycleError | 500                            | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
 
 ## ProvisionIntern
 
