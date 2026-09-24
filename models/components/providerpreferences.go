@@ -461,6 +461,8 @@ type ProviderPreferences struct {
 	MaxPrice *MaxPrice `json:"max_price,omitzero"`
 	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
 	Only optionalnullable.OptionalNullable[[]ProviderPreferencesOnly] `json:"only,omitzero"`
+	// Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
+	Options *ProviderOptions `json:"options,omitzero"`
 	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
 	Order optionalnullable.OptionalNullable[[]ProviderPreferencesOrder] `json:"order,omitzero"`
 	// Preferred maximum latency (in seconds). Can be a number (applies to p50) or an object with percentile-specific cutoffs. Endpoints above the threshold(s) may still be used, but are deprioritized in routing. When using fallback models, this may cause a fallback model to be used instead of the primary model if it meets the threshold.
@@ -528,6 +530,13 @@ func (p *ProviderPreferences) GetOnly() optionalnullable.OptionalNullable[[]Prov
 		return nil
 	}
 	return p.Only
+}
+
+func (p *ProviderPreferences) GetOptions() *ProviderOptions {
+	if p == nil {
+		return nil
+	}
+	return p.Options
 }
 
 func (p *ProviderPreferences) GetOrder() optionalnullable.OptionalNullable[[]ProviderPreferencesOrder] {
