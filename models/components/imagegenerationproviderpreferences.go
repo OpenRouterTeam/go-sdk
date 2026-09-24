@@ -306,6 +306,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	SakanaAi                 map[string]any `json:"sakana-ai,omitzero"`
 	Sambanova                map[string]any `json:"sambanova,omitzero"`
 	SambanovaCloaked         map[string]any `json:"sambanova-cloaked,omitzero"`
+	Scaledown                map[string]any `json:"scaledown,omitzero"`
 	Seed                     map[string]any `json:"seed,omitzero"`
 	SfCompute                map[string]any `json:"sf-compute,omitzero"`
 	Siliconflow              map[string]any `json:"siliconflow,omitzero"`
@@ -1162,6 +1163,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetSambanovaCloaked() map[st
 		return nil
 	}
 	return i.SambanovaCloaked
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetScaledown() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Scaledown
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetSeed() map[string]any {
