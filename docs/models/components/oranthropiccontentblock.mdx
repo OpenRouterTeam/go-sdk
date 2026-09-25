@@ -1,0 +1,144 @@
+---
+title: "ORAnthropicContentBlock"
+---
+
+## Supported Types
+
+### AnthropicAdvisorToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockAdvisorToolResult(components.AnthropicAdvisorToolResult{/* values here */})
+```
+
+### AnthropicBashCodeExecutionToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockBashCodeExecutionToolResult(components.AnthropicBashCodeExecutionToolResult{/* values here */})
+```
+
+### AnthropicCodeExecutionToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockCodeExecutionToolResult(components.AnthropicCodeExecutionToolResult{/* values here */})
+```
+
+### AnthropicCompactionBlock
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockCompaction(components.AnthropicCompactionBlock{/* values here */})
+```
+
+### AnthropicContainerUpload
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockContainerUpload(components.AnthropicContainerUpload{/* values here */})
+```
+
+### ORAnthropicBashToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockOpenrouterBashToolResult(components.ORAnthropicBashToolResult{/* values here */})
+```
+
+### ORAnthropicShellToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockOpenrouterShellToolResult(components.ORAnthropicShellToolResult{/* values here */})
+```
+
+### AnthropicRedactedThinkingBlock
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockRedactedThinking(components.AnthropicRedactedThinkingBlock{/* values here */})
+```
+
+### ORAnthropicServerToolUseBlock
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockServerToolUse(components.ORAnthropicServerToolUseBlock{/* values here */})
+```
+
+### AnthropicTextBlock
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockText(components.AnthropicTextBlock{/* values here */})
+```
+
+### AnthropicTextEditorCodeExecutionToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockTextEditorCodeExecutionToolResult(components.AnthropicTextEditorCodeExecutionToolResult{/* values here */})
+```
+
+### AnthropicThinkingBlock
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockThinking(components.AnthropicThinkingBlock{/* values here */})
+```
+
+### AnthropicToolSearchToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockToolSearchToolResult(components.AnthropicToolSearchToolResult{/* values here */})
+```
+
+### AnthropicToolUseBlock
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockToolUse(components.AnthropicToolUseBlock{/* values here */})
+```
+
+### AnthropicWebFetchToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockWebFetchToolResult(components.AnthropicWebFetchToolResult{/* values here */})
+```
+
+### AnthropicWebSearchToolResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockWebSearchToolResult(components.AnthropicWebSearchToolResult{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch orAnthropicContentBlock.Type {
+	case components.ORAnthropicContentBlockTypeAdvisorToolResult:
+		// orAnthropicContentBlock.AnthropicAdvisorToolResult is populated
+	case components.ORAnthropicContentBlockTypeBashCodeExecutionToolResult:
+		// orAnthropicContentBlock.AnthropicBashCodeExecutionToolResult is populated
+	case components.ORAnthropicContentBlockTypeCodeExecutionToolResult:
+		// orAnthropicContentBlock.AnthropicCodeExecutionToolResult is populated
+	case components.ORAnthropicContentBlockTypeCompaction:
+		// orAnthropicContentBlock.AnthropicCompactionBlock is populated
+	case components.ORAnthropicContentBlockTypeContainerUpload:
+		// orAnthropicContentBlock.AnthropicContainerUpload is populated
+	case components.ORAnthropicContentBlockTypeOpenrouterBashToolResult:
+		// orAnthropicContentBlock.ORAnthropicBashToolResult is populated
+	case components.ORAnthropicContentBlockTypeOpenrouterShellToolResult:
+		// orAnthropicContentBlock.ORAnthropicShellToolResult is populated
+	case components.ORAnthropicContentBlockTypeRedactedThinking:
+		// orAnthropicContentBlock.AnthropicRedactedThinkingBlock is populated
+	case components.ORAnthropicContentBlockTypeServerToolUse:
+		// orAnthropicContentBlock.ORAnthropicServerToolUseBlock is populated
+	case components.ORAnthropicContentBlockTypeText:
+		// orAnthropicContentBlock.AnthropicTextBlock is populated
+	case components.ORAnthropicContentBlockTypeTextEditorCodeExecutionToolResult:
+		// orAnthropicContentBlock.AnthropicTextEditorCodeExecutionToolResult is populated
+	case components.ORAnthropicContentBlockTypeThinking:
+		// orAnthropicContentBlock.AnthropicThinkingBlock is populated
+	case components.ORAnthropicContentBlockTypeToolSearchToolResult:
+		// orAnthropicContentBlock.AnthropicToolSearchToolResult is populated
+	case components.ORAnthropicContentBlockTypeToolUse:
+		// orAnthropicContentBlock.AnthropicToolUseBlock is populated
+	case components.ORAnthropicContentBlockTypeWebFetchToolResult:
+		// orAnthropicContentBlock.AnthropicWebFetchToolResult is populated
+	case components.ORAnthropicContentBlockTypeWebSearchToolResult:
+		// orAnthropicContentBlock.AnthropicWebSearchToolResult is populated
+	default:
+		// Unknown type - use orAnthropicContentBlock.GetUnknownRaw() for raw JSON
+}
+```

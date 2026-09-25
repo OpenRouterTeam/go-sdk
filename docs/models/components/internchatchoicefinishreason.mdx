@@ -1,0 +1,27 @@
+---
+title: "InternChatChoiceFinishReason"
+---
+
+`null` while streaming. `stop` when the run completed, `tool_calls` when the run is waiting for the caller to answer the streamed tool call, `error` on the terminal error chunk.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.InternChatChoiceFinishReasonError
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.InternChatChoiceFinishReason("custom_value")
+```
+
+
+## Values
+
+| Name                                    | Value                                   |
+| --------------------------------------- | --------------------------------------- |
+| `InternChatChoiceFinishReasonError`     | error                                   |
+| `InternChatChoiceFinishReasonStop`      | stop                                    |
+| `InternChatChoiceFinishReasonToolCalls` | tool_calls                              |

@@ -1,0 +1,32 @@
+---
+title: "AnthropicToolSearchContent"
+---
+
+## Supported Types
+
+### AnthropicToolSearchResultError
+
+```go
+anthropicToolSearchContent := components.CreateAnthropicToolSearchContentToolSearchToolResultError(components.AnthropicToolSearchResultError{/* values here */})
+```
+
+### AnthropicToolSearchResult
+
+```go
+anthropicToolSearchContent := components.CreateAnthropicToolSearchContentToolSearchToolSearchResult(components.AnthropicToolSearchResult{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicToolSearchContent.Type {
+	case components.AnthropicToolSearchContentTypeToolSearchToolResultError:
+		// anthropicToolSearchContent.AnthropicToolSearchResultError is populated
+	case components.AnthropicToolSearchContentTypeToolSearchToolSearchResult:
+		// anthropicToolSearchContent.AnthropicToolSearchResult is populated
+	default:
+		// Unknown type - use anthropicToolSearchContent.GetUnknownRaw() for raw JSON
+}
+```

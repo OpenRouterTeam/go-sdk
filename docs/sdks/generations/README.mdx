@@ -156,7 +156,7 @@ func main() {
     )
 
     res, err := s.Generations.SubmitFeedback(ctx, components.SubmitGenerationFeedbackRequest{
-        Category: components.CategoryIncorrectResponse,
+        Category: components.SubmitGenerationFeedbackRequestCategoryIncorrectResponse,
         Comment: openrouter.Pointer("The model repeated the same paragraph three times."),
         GenerationID: "gen-3bhGkxlo4XFrqiabUM7NDtwDzWwG",
     })

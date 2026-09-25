@@ -93,26 +93,26 @@ func (m *MessagesShellToolResultBlockFile) GetType() MessagesShellToolResultBloc
 	return m.Type
 }
 
-type TypeOpenrouterShellToolResult string
+type MessagesShellToolResultBlockTypeOpenrouterShellToolResult string
 
 const (
-	TypeOpenrouterShellToolResultOpenrouterShellToolResult TypeOpenrouterShellToolResult = "openrouter_shell_tool_result"
+	MessagesShellToolResultBlockTypeOpenrouterShellToolResultOpenrouterShellToolResult MessagesShellToolResultBlockTypeOpenrouterShellToolResult = "openrouter_shell_tool_result"
 )
 
-func (e TypeOpenrouterShellToolResult) ToPointer() *TypeOpenrouterShellToolResult {
+func (e MessagesShellToolResultBlockTypeOpenrouterShellToolResult) ToPointer() *MessagesShellToolResultBlockTypeOpenrouterShellToolResult {
 	return &e
 }
-func (e *TypeOpenrouterShellToolResult) UnmarshalJSON(data []byte) error {
+func (e *MessagesShellToolResultBlockTypeOpenrouterShellToolResult) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openrouter_shell_tool_result":
-		*e = TypeOpenrouterShellToolResult(v)
+		*e = MessagesShellToolResultBlockTypeOpenrouterShellToolResult(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeOpenrouterShellToolResult: %v", v)
+		return fmt.Errorf("invalid value for MessagesShellToolResultBlockTypeOpenrouterShellToolResult: %v", v)
 	}
 }
 
@@ -122,9 +122,9 @@ type MessagesShellToolResultBlock struct {
 	ContainerID *string        `json:"container_id,omitzero"`
 	Content     map[string]any `json:"content"`
 	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
-	Files     []MessagesShellToolResultBlockFile `json:"files,omitzero"`
-	ToolUseID string                             `json:"tool_use_id"`
-	Type      TypeOpenrouterShellToolResult      `json:"type"`
+	Files     []MessagesShellToolResultBlockFile                        `json:"files,omitzero"`
+	ToolUseID string                                                    `json:"tool_use_id"`
+	Type      MessagesShellToolResultBlockTypeOpenrouterShellToolResult `json:"type"`
 }
 
 func (m MessagesShellToolResultBlock) MarshalJSON() ([]byte, error) {
@@ -166,9 +166,9 @@ func (m *MessagesShellToolResultBlock) GetToolUseID() string {
 	return m.ToolUseID
 }
 
-func (m *MessagesShellToolResultBlock) GetType() TypeOpenrouterShellToolResult {
+func (m *MessagesShellToolResultBlock) GetType() MessagesShellToolResultBlockTypeOpenrouterShellToolResult {
 	if m == nil {
-		return TypeOpenrouterShellToolResult("")
+		return MessagesShellToolResultBlockTypeOpenrouterShellToolResult("")
 	}
 	return m.Type
 }

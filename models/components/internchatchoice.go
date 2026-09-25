@@ -2,21 +2,21 @@
 
 package components
 
-// FinishReason - `null` while streaming. `stop` when the run completed, `tool_calls` when the run is waiting for the caller to answer the streamed tool call, `error` on the terminal error chunk.
-type FinishReason string
+// InternChatChoiceFinishReason - `null` while streaming. `stop` when the run completed, `tool_calls` when the run is waiting for the caller to answer the streamed tool call, `error` on the terminal error chunk.
+type InternChatChoiceFinishReason string
 
 const (
-	FinishReasonError     FinishReason = "error"
-	FinishReasonStop      FinishReason = "stop"
-	FinishReasonToolCalls FinishReason = "tool_calls"
+	InternChatChoiceFinishReasonError     InternChatChoiceFinishReason = "error"
+	InternChatChoiceFinishReasonStop      InternChatChoiceFinishReason = "stop"
+	InternChatChoiceFinishReasonToolCalls InternChatChoiceFinishReason = "tool_calls"
 )
 
-func (e FinishReason) ToPointer() *FinishReason {
+func (e InternChatChoiceFinishReason) ToPointer() *InternChatChoiceFinishReason {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FinishReason) IsExact() bool {
+func (e *InternChatChoiceFinishReason) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "error", "stop", "tool_calls":
@@ -31,8 +31,8 @@ type InternChatChoice struct {
 	// The incremental content of one chunk. The first chunk carries `role`, text chunks carry `content`, reasoning chunks carry `reasoning`, and an interaction chunk carries one complete `tool_calls` entry.
 	Delta InternChatDelta `json:"delta"`
 	// `null` while streaming. `stop` when the run completed, `tool_calls` when the run is waiting for the caller to answer the streamed tool call, `error` on the terminal error chunk.
-	FinishReason *FinishReason `json:"finish_reason"`
-	Index        int64         `json:"index"`
+	FinishReason *InternChatChoiceFinishReason `json:"finish_reason"`
+	Index        int64                         `json:"index"`
 }
 
 func (i *InternChatChoice) GetDelta() InternChatDelta {
@@ -42,7 +42,7 @@ func (i *InternChatChoice) GetDelta() InternChatDelta {
 	return i.Delta
 }
 
-func (i *InternChatChoice) GetFinishReason() *FinishReason {
+func (i *InternChatChoice) GetFinishReason() *InternChatChoiceFinishReason {
 	if i == nil {
 		return nil
 	}

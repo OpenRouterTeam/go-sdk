@@ -1,0 +1,30 @@
+---
+title: "AnthropicWebSearchToolResultContent"
+---
+
+## Supported Types
+
+### 
+
+```go
+anthropicWebSearchToolResultContent := components.CreateAnthropicWebSearchToolResultContentArrayOfAnthropicWebSearchResult([]components.AnthropicWebSearchResult{/* values here */})
+```
+
+### AnthropicWebSearchToolResultError
+
+```go
+anthropicWebSearchToolResultContent := components.CreateAnthropicWebSearchToolResultContentAnthropicWebSearchToolResultError(components.AnthropicWebSearchToolResultError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicWebSearchToolResultContent.Type {
+	case components.AnthropicWebSearchToolResultContentTypeArrayOfAnthropicWebSearchResult:
+		// anthropicWebSearchToolResultContent.ArrayOfAnthropicWebSearchResult is populated
+	case components.AnthropicWebSearchToolResultContentTypeAnthropicWebSearchToolResultError:
+		// anthropicWebSearchToolResultContent.AnthropicWebSearchToolResultError is populated
+}
+```

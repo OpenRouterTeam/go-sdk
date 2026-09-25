@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.8.28
+> go get github.com/OpenRouterTeam/go-sdk@v0.8.29
 > ```
 
 <!-- No Summary [summary] -->
@@ -205,6 +205,13 @@ func main() {
 * [Delete](docs/sdks/apikeys/README.md#delete) - Delete an API key
 * [Get](docs/sdks/apikeys/README.md#get) - Get a single API key
 * [Update](docs/sdks/apikeys/README.md#update) - Update an API key
+
+### [Batch](docs/sdks/batch/README.md)
+
+* [List](docs/sdks/batch/README.md#list) - List batches
+* [CreateBatches](docs/sdks/batch/README.md#createbatches) - Create a batch
+* [Delete](docs/sdks/batch/README.md#delete) - Delete a batch
+* [GetBatches](docs/sdks/batch/README.md#getbatches) - Get a batch
 
 ### [Benchmarks](docs/sdks/benchmarks/README.md)
 
@@ -478,7 +485,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -490,7 +496,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.BYOK.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, nil)
+	res, err := s.Batch.List(ctx, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

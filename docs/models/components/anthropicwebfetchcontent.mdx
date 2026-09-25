@@ -1,0 +1,32 @@
+---
+title: "AnthropicWebFetchContent"
+---
+
+## Supported Types
+
+### AnthropicWebFetchBlock
+
+```go
+anthropicWebFetchContent := components.CreateAnthropicWebFetchContentWebFetchResult(components.AnthropicWebFetchBlock{/* values here */})
+```
+
+### AnthropicWebFetchToolResultError
+
+```go
+anthropicWebFetchContent := components.CreateAnthropicWebFetchContentWebFetchToolResultError(components.AnthropicWebFetchToolResultError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicWebFetchContent.Type {
+	case components.AnthropicWebFetchContentTypeWebFetchResult:
+		// anthropicWebFetchContent.AnthropicWebFetchBlock is populated
+	case components.AnthropicWebFetchContentTypeWebFetchToolResultError:
+		// anthropicWebFetchContent.AnthropicWebFetchToolResultError is populated
+	default:
+		// Unknown type - use anthropicWebFetchContent.GetUnknownRaw() for raw JSON
+}
+```

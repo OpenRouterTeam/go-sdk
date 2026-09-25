@@ -1,0 +1,33 @@
+---
+title: "BatchListTimestamp"
+---
+
+Only include batches created strictly after this timestamp.
+
+
+## Supported Types
+
+### 
+
+```go
+batchListTimestamp := components.CreateBatchListTimestampStr(string{/* values here */})
+```
+
+### 
+
+```go
+batchListTimestamp := components.CreateBatchListTimestampDate(types.Date{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch batchListTimestamp.Type {
+	case components.BatchListTimestampTypeStr:
+		// batchListTimestamp.Str is populated
+	case components.BatchListTimestampTypeDate:
+		// batchListTimestamp.Date is populated
+}
+```

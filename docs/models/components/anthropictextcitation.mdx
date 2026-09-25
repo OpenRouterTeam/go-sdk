@@ -1,0 +1,56 @@
+---
+title: "AnthropicTextCitation"
+---
+
+## Supported Types
+
+### AnthropicCitationCharLocation
+
+```go
+anthropicTextCitation := components.CreateAnthropicTextCitationCharLocation(components.AnthropicCitationCharLocation{/* values here */})
+```
+
+### AnthropicCitationContentBlockLocation
+
+```go
+anthropicTextCitation := components.CreateAnthropicTextCitationContentBlockLocation(components.AnthropicCitationContentBlockLocation{/* values here */})
+```
+
+### AnthropicCitationPageLocation
+
+```go
+anthropicTextCitation := components.CreateAnthropicTextCitationPageLocation(components.AnthropicCitationPageLocation{/* values here */})
+```
+
+### AnthropicCitationSearchResultLocation
+
+```go
+anthropicTextCitation := components.CreateAnthropicTextCitationSearchResultLocation(components.AnthropicCitationSearchResultLocation{/* values here */})
+```
+
+### AnthropicCitationWebSearchResultLocation
+
+```go
+anthropicTextCitation := components.CreateAnthropicTextCitationWebSearchResultLocation(components.AnthropicCitationWebSearchResultLocation{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicTextCitation.Type {
+	case components.AnthropicTextCitationTypeCharLocation:
+		// anthropicTextCitation.AnthropicCitationCharLocation is populated
+	case components.AnthropicTextCitationTypeContentBlockLocation:
+		// anthropicTextCitation.AnthropicCitationContentBlockLocation is populated
+	case components.AnthropicTextCitationTypePageLocation:
+		// anthropicTextCitation.AnthropicCitationPageLocation is populated
+	case components.AnthropicTextCitationTypeSearchResultLocation:
+		// anthropicTextCitation.AnthropicCitationSearchResultLocation is populated
+	case components.AnthropicTextCitationTypeWebSearchResultLocation:
+		// anthropicTextCitation.AnthropicCitationWebSearchResultLocation is populated
+	default:
+		// Unknown type - use anthropicTextCitation.GetUnknownRaw() for raw JSON
+}
+```

@@ -93,26 +93,26 @@ func (m *MessagesBashToolResultBlockFile) GetType() MessagesBashToolResultBlockT
 	return m.Type
 }
 
-type TypeOpenrouterBashToolResult string
+type MessagesBashToolResultBlockTypeOpenrouterBashToolResult string
 
 const (
-	TypeOpenrouterBashToolResultOpenrouterBashToolResult TypeOpenrouterBashToolResult = "openrouter_bash_tool_result"
+	MessagesBashToolResultBlockTypeOpenrouterBashToolResultOpenrouterBashToolResult MessagesBashToolResultBlockTypeOpenrouterBashToolResult = "openrouter_bash_tool_result"
 )
 
-func (e TypeOpenrouterBashToolResult) ToPointer() *TypeOpenrouterBashToolResult {
+func (e MessagesBashToolResultBlockTypeOpenrouterBashToolResult) ToPointer() *MessagesBashToolResultBlockTypeOpenrouterBashToolResult {
 	return &e
 }
-func (e *TypeOpenrouterBashToolResult) UnmarshalJSON(data []byte) error {
+func (e *MessagesBashToolResultBlockTypeOpenrouterBashToolResult) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openrouter_bash_tool_result":
-		*e = TypeOpenrouterBashToolResult(v)
+		*e = MessagesBashToolResultBlockTypeOpenrouterBashToolResult(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeOpenrouterBashToolResult: %v", v)
+		return fmt.Errorf("invalid value for MessagesBashToolResultBlockTypeOpenrouterBashToolResult: %v", v)
 	}
 }
 
@@ -122,9 +122,9 @@ type MessagesBashToolResultBlock struct {
 	ContainerID *string        `json:"container_id,omitzero"`
 	Content     map[string]any `json:"content"`
 	// Citations for the files the sandbox command created or modified, most-recently-touched first (at most 10). Retrieve them via the Container Files API.
-	Files     []MessagesBashToolResultBlockFile `json:"files,omitzero"`
-	ToolUseID string                            `json:"tool_use_id"`
-	Type      TypeOpenrouterBashToolResult      `json:"type"`
+	Files     []MessagesBashToolResultBlockFile                       `json:"files,omitzero"`
+	ToolUseID string                                                  `json:"tool_use_id"`
+	Type      MessagesBashToolResultBlockTypeOpenrouterBashToolResult `json:"type"`
 }
 
 func (m MessagesBashToolResultBlock) MarshalJSON() ([]byte, error) {
@@ -166,9 +166,9 @@ func (m *MessagesBashToolResultBlock) GetToolUseID() string {
 	return m.ToolUseID
 }
 
-func (m *MessagesBashToolResultBlock) GetType() TypeOpenrouterBashToolResult {
+func (m *MessagesBashToolResultBlock) GetType() MessagesBashToolResultBlockTypeOpenrouterBashToolResult {
 	if m == nil {
-		return TypeOpenrouterBashToolResult("")
+		return MessagesBashToolResultBlockTypeOpenrouterBashToolResult("")
 	}
 	return m.Type
 }

@@ -49,34 +49,34 @@ func (f *FailedModel) GetStatusCode() *int64 {
 	return f.StatusCode
 }
 
-type Response struct {
+type OutputFusionServerToolItemResponse struct {
 	Content *string `json:"content,omitzero"`
 	Model   string  `json:"model"`
 }
 
-func (r Response) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
+func (o OutputFusionServerToolItemResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (r *Response) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+func (o *OutputFusionServerToolItemResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *Response) GetContent() *string {
-	if r == nil {
+func (o *OutputFusionServerToolItemResponse) GetContent() *string {
+	if o == nil {
 		return nil
 	}
-	return r.Content
+	return o.Content
 }
 
-func (r *Response) GetModel() string {
-	if r == nil {
+func (o *OutputFusionServerToolItemResponse) GetModel() string {
+	if o == nil {
 		return ""
 	}
-	return r.Model
+	return o.Model
 }
 
 type OutputFusionServerToolItemType string
@@ -114,7 +114,7 @@ type OutputFusionServerToolItem struct {
 	FailureReason *string `json:"failure_reason,omitzero"`
 	ID            *string `json:"id,omitzero"`
 	// Analysis models that produced a response in this fusion run, with each model's full panel content.
-	Responses []Response `json:"responses,omitzero"`
+	Responses []OutputFusionServerToolItemResponse `json:"responses,omitzero"`
 	// Web pages the analysis panels and analyst retrieved via web search during this fusion run, deduplicated by URL across the whole run. Present when at least one model cited a source.
 	Sources []FusionSource                 `json:"sources,omitzero"`
 	Status  ToolCallStatus                 `json:"status"`
@@ -167,7 +167,7 @@ func (o *OutputFusionServerToolItem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputFusionServerToolItem) GetResponses() []Response {
+func (o *OutputFusionServerToolItem) GetResponses() []OutputFusionServerToolItemResponse {
 	if o == nil {
 		return nil
 	}

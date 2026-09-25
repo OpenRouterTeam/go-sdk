@@ -8,21 +8,21 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type Event string
+type DebugEventEvent string
 
 const (
-	EventAdapterRequest          Event = "adapter_request"
-	EventUpstreamHeadersReceived Event = "upstream_headers_received"
-	EventFirstTokenReceived      Event = "first_token_received"
-	EventUpstreamBodyEnded       Event = "upstream_body_ended"
+	DebugEventEventAdapterRequest          DebugEventEvent = "adapter_request"
+	DebugEventEventUpstreamHeadersReceived DebugEventEvent = "upstream_headers_received"
+	DebugEventEventFirstTokenReceived      DebugEventEvent = "first_token_received"
+	DebugEventEventUpstreamBodyEnded       DebugEventEvent = "upstream_body_ended"
 )
 
-func (e Event) ToPointer() *Event {
+func (e DebugEventEvent) ToPointer() *DebugEventEvent {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Event) IsExact() bool {
+func (e *DebugEventEvent) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "adapter_request", "upstream_headers_received", "first_token_received", "upstream_body_ended":
@@ -32,68 +32,68 @@ func (e *Event) IsExact() bool {
 	return false
 }
 
-type Timings struct {
-	EpochMs int64 `json:"epoch_ms"`
-	Event   Event `json:"event"`
-	StartMs int64 `json:"start_ms"`
+type DebugEventTimings struct {
+	EpochMs int64           `json:"epoch_ms"`
+	Event   DebugEventEvent `json:"event"`
+	StartMs int64           `json:"start_ms"`
 }
 
-func (t Timings) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(t, "", false)
-}
-
-func (t *Timings) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (t *Timings) GetEpochMs() int64 {
-	if t == nil {
-		return 0
-	}
-	return t.EpochMs
-}
-
-func (t *Timings) GetEvent() Event {
-	if t == nil {
-		return Event("")
-	}
-	return t.Event
-}
-
-func (t *Timings) GetStartMs() int64 {
-	if t == nil {
-		return 0
-	}
-	return t.StartMs
-}
-
-type Debug struct {
-	EchoUpstreamBody map[string]any `json:"echo_upstream_body,omitzero"`
-	Timings          *Timings       `json:"timings,omitzero"`
-}
-
-func (d Debug) MarshalJSON() ([]byte, error) {
+func (d DebugEventTimings) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(d, "", false)
 }
 
-func (d *Debug) UnmarshalJSON(data []byte) error {
+func (d *DebugEventTimings) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (d *Debug) GetEchoUpstreamBody() map[string]any {
+func (d *DebugEventTimings) GetEpochMs() int64 {
+	if d == nil {
+		return 0
+	}
+	return d.EpochMs
+}
+
+func (d *DebugEventTimings) GetEvent() DebugEventEvent {
+	if d == nil {
+		return DebugEventEvent("")
+	}
+	return d.Event
+}
+
+func (d *DebugEventTimings) GetStartMs() int64 {
+	if d == nil {
+		return 0
+	}
+	return d.StartMs
+}
+
+type DebugEventDebug struct {
+	EchoUpstreamBody map[string]any     `json:"echo_upstream_body,omitzero"`
+	Timings          *DebugEventTimings `json:"timings,omitzero"`
+}
+
+func (d DebugEventDebug) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DebugEventDebug) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DebugEventDebug) GetEchoUpstreamBody() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.EchoUpstreamBody
 }
 
-func (d *Debug) GetTimings() *Timings {
+func (d *DebugEventDebug) GetTimings() *DebugEventTimings {
 	if d == nil {
 		return nil
 	}
@@ -125,9 +125,9 @@ func (e *DebugEventType) UnmarshalJSON(data []byte) error {
 
 // DebugEvent - Debug event emitted when debug.echo_upstream_body is true. Contains the transformed upstream request body or timing milestones.
 type DebugEvent struct {
-	Debug          Debug          `json:"debug"`
-	SequenceNumber int64          `json:"sequence_number"`
-	Type           DebugEventType `json:"type"`
+	Debug          DebugEventDebug `json:"debug"`
+	SequenceNumber int64           `json:"sequence_number"`
+	Type           DebugEventType  `json:"type"`
 }
 
 func (d DebugEvent) MarshalJSON() ([]byte, error) {
@@ -141,9 +141,9 @@ func (d *DebugEvent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DebugEvent) GetDebug() Debug {
+func (d *DebugEvent) GetDebug() DebugEventDebug {
 	if d == nil {
-		return Debug{}
+		return DebugEventDebug{}
 	}
 	return d.Debug
 }

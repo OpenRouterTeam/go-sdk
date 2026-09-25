@@ -1,0 +1,48 @@
+---
+title: "AnthropicTextEditorCodeExecutionContent"
+---
+
+## Supported Types
+
+### AnthropicTextEditorCodeExecutionCreateResult
+
+```go
+anthropicTextEditorCodeExecutionContent := components.CreateAnthropicTextEditorCodeExecutionContentTextEditorCodeExecutionCreateResult(components.AnthropicTextEditorCodeExecutionCreateResult{/* values here */})
+```
+
+### AnthropicTextEditorCodeExecutionStrReplaceResult
+
+```go
+anthropicTextEditorCodeExecutionContent := components.CreateAnthropicTextEditorCodeExecutionContentTextEditorCodeExecutionStrReplaceResult(components.AnthropicTextEditorCodeExecutionStrReplaceResult{/* values here */})
+```
+
+### AnthropicTextEditorCodeExecutionToolResultError
+
+```go
+anthropicTextEditorCodeExecutionContent := components.CreateAnthropicTextEditorCodeExecutionContentTextEditorCodeExecutionToolResultError(components.AnthropicTextEditorCodeExecutionToolResultError{/* values here */})
+```
+
+### AnthropicTextEditorCodeExecutionViewResult
+
+```go
+anthropicTextEditorCodeExecutionContent := components.CreateAnthropicTextEditorCodeExecutionContentTextEditorCodeExecutionViewResult(components.AnthropicTextEditorCodeExecutionViewResult{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicTextEditorCodeExecutionContent.Type {
+	case components.AnthropicTextEditorCodeExecutionContentTypeTextEditorCodeExecutionCreateResult:
+		// anthropicTextEditorCodeExecutionContent.AnthropicTextEditorCodeExecutionCreateResult is populated
+	case components.AnthropicTextEditorCodeExecutionContentTypeTextEditorCodeExecutionStrReplaceResult:
+		// anthropicTextEditorCodeExecutionContent.AnthropicTextEditorCodeExecutionStrReplaceResult is populated
+	case components.AnthropicTextEditorCodeExecutionContentTypeTextEditorCodeExecutionToolResultError:
+		// anthropicTextEditorCodeExecutionContent.AnthropicTextEditorCodeExecutionToolResultError is populated
+	case components.AnthropicTextEditorCodeExecutionContentTypeTextEditorCodeExecutionViewResult:
+		// anthropicTextEditorCodeExecutionContent.AnthropicTextEditorCodeExecutionViewResult is populated
+	default:
+		// Unknown type - use anthropicTextEditorCodeExecutionContent.GetUnknownRaw() for raw JSON
+}
+```
