@@ -31,9 +31,9 @@ func (e *SpeechInputReferenceTextType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// SpeechInputReferenceText - Transcript of the accompanying reference audio
+// SpeechInputReferenceText - Transcript of an `input_audio` part
 type SpeechInputReferenceText struct {
-	// Transcript of the accompanying reference audio.
+	// Transcript of an `input_audio` part. With a single clip it may appear before or after the clip; with multiple clips it must immediately follow the clip it transcribes.
 	Text string                       `json:"text"`
 	Type SpeechInputReferenceTextType `json:"type"`
 }

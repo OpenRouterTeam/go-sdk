@@ -2,10 +2,16 @@
 title: "SpeechInputReference"
 ---
 
-Reference content part for stateless voice cloning
+Reference content part for stateless voice cloning or voice design
 
 
 ## Supported Types
+
+### SpeechInputReferenceImage
+
+```go
+speechInputReference := components.CreateSpeechInputReferenceImageURL(components.SpeechInputReferenceImage{/* values here */})
+```
 
 ### SpeechInputReferenceAudio
 
@@ -25,6 +31,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch speechInputReference.Type {
+	case components.SpeechInputReferenceTypeImageURL:
+		// speechInputReference.SpeechInputReferenceImage is populated
 	case components.SpeechInputReferenceTypeInputAudio:
 		// speechInputReference.SpeechInputReferenceAudio is populated
 	case components.SpeechInputReferenceTypeText:

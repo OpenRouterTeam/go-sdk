@@ -31,7 +31,7 @@ func (e *SpeechInputReferenceAudioType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// SpeechInputReferenceAudio - Reference audio input for stateless voice cloning
+// SpeechInputReferenceAudio - Reference audio input for stateless voice cloning. Up to three parts per request; the Nth audio part is addressable from `input` as `@AudioN` on providers that support multiple references.
 type SpeechInputReferenceAudio struct {
 	// Reference audio input object
 	InputAudio SpeechInputReferenceAudioInput `json:"input_audio"`

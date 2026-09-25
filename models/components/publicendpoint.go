@@ -519,13 +519,17 @@ type PublicEndpoint struct {
 	ModelName string `json:"model_name"`
 	Name      string `json:"name"`
 	// Endpoint performance over the last 30 minutes, keyed by the kind of request served (e.g. `text_generation`, `image_generation`). Additive to the legacy singular latency and throughput fields; image and video generation report end-to-end latency. Only visible when authenticated with an API key or cookie.
-	PerfLast30mByWorkload   *PerfLast30mByWorkload `json:"perf_last_30m_by_workload,omitzero"`
-	Pricing                 Pricing                `json:"pricing"`
-	ProviderName            ProviderName           `json:"provider_name"`
-	Quantization            *Quantization          `json:"quantization"`
-	Status                  *EndpointStatus        `json:"status,omitzero"`
-	SupportedParameters     []Parameter            `json:"supported_parameters"`
-	SupportsImplicitCaching bool                   `json:"supports_implicit_caching"`
+	PerfLast30mByWorkload *PerfLast30mByWorkload `json:"perf_last_30m_by_workload,omitzero"`
+	Pricing               Pricing                `json:"pricing"`
+	ProviderName          ProviderName           `json:"provider_name"`
+	Quantization          *Quantization          `json:"quantization"`
+	Status                *EndpointStatus        `json:"status,omitzero"`
+	SupportedParameters   []Parameter            `json:"supported_parameters"`
+	// Whether this TTS endpoint accepts an `image_url` reference describing the desired voice. Requests carrying an image reference are only routed to endpoints where this is true.
+	SupportsImageReference  *bool `default:"false" json:"supports_image_reference"`
+	SupportsImplicitCaching bool  `json:"supports_implicit_caching"`
+	// Whether this TTS endpoint accepts more than one `input_audio` reference clip per request. Requests carrying several clips are only routed to endpoints where this is true.
+	SupportsMultipleAudioReferences *bool `default:"false" json:"supports_multiple_audio_references"`
 	// Per-variant `tool_choice` support. `tool_choice` in `supported_parameters` only says the parameter is accepted; these flags say which of its values passed testing.
 	SupportsToolChoice ToolChoiceSupport `json:"supports_tool_choice"`
 	// Whether this TTS endpoint accepts inline reference audio (`input_references`) for stateless voice cloning. Requests carrying reference audio are only routed to endpoints where this is true.
@@ -641,11 +645,25 @@ func (p *PublicEndpoint) GetSupportedParameters() []Parameter {
 	return p.SupportedParameters
 }
 
+func (p *PublicEndpoint) GetSupportsImageReference() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SupportsImageReference
+}
+
 func (p *PublicEndpoint) GetSupportsImplicitCaching() bool {
 	if p == nil {
 		return false
 	}
 	return p.SupportsImplicitCaching
+}
+
+func (p *PublicEndpoint) GetSupportsMultipleAudioReferences() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.SupportsMultipleAudioReferences
 }
 
 func (p *PublicEndpoint) GetSupportsToolChoice() ToolChoiceSupport {
