@@ -24,6 +24,8 @@ const (
 	ImageGenerationRequestAspectRatioFortyFive                  ImageGenerationRequestAspectRatio = "4:5"
 	ImageGenerationRequestAspectRatioFiftyTwo                   ImageGenerationRequestAspectRatio = "5:2"
 	ImageGenerationRequestAspectRatioFiftyFour                  ImageGenerationRequestAspectRatio = "5:4"
+	ImageGenerationRequestAspectRatioFiftySeven                 ImageGenerationRequestAspectRatio = "5:7"
+	ImageGenerationRequestAspectRatioSeventyFive                ImageGenerationRequestAspectRatio = "7:5"
 	ImageGenerationRequestAspectRatioEightyOne                  ImageGenerationRequestAspectRatio = "8:1"
 	ImageGenerationRequestAspectRatioNineHundredAndSixteen      ImageGenerationRequestAspectRatio = "9:16"
 	ImageGenerationRequestAspectRatioOneHundredAndSixtyNine     ImageGenerationRequestAspectRatio = "16:9"
@@ -44,7 +46,7 @@ func (e ImageGenerationRequestAspectRatio) ToPointer() *ImageGenerationRequestAs
 func (e *ImageGenerationRequestAspectRatio) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "1:1", "1:2", "1:4", "1:8", "2:1", "2:3", "2.35:1", "3:2", "3:4", "4:1", "4:3", "4:5", "5:2", "5:4", "8:1", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto":
+		case "1:1", "1:2", "1:4", "1:8", "2:1", "2:3", "2.35:1", "3:2", "3:4", "4:1", "4:3", "4:5", "5:2", "5:4", "5:7", "7:5", "8:1", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto":
 			return true
 		}
 	}
@@ -131,10 +133,11 @@ func (e *ImageGenerationRequestQuality) IsExact() bool {
 type ImageGenerationRequestResolution string
 
 const (
-	ImageGenerationRequestResolutionFiveHundredAndTwelve ImageGenerationRequestResolution = "512"
-	ImageGenerationRequestResolutionOneK                 ImageGenerationRequestResolution = "1K"
-	ImageGenerationRequestResolutionTwoK                 ImageGenerationRequestResolution = "2K"
-	ImageGenerationRequestResolutionFourK                ImageGenerationRequestResolution = "4K"
+	ImageGenerationRequestResolutionFiveHundredAndTwelve      ImageGenerationRequestResolution = "512"
+	ImageGenerationRequestResolutionSevenHundredAndSixtyEight ImageGenerationRequestResolution = "768"
+	ImageGenerationRequestResolutionOneK                      ImageGenerationRequestResolution = "1K"
+	ImageGenerationRequestResolutionTwoK                      ImageGenerationRequestResolution = "2K"
+	ImageGenerationRequestResolutionFourK                     ImageGenerationRequestResolution = "4K"
 )
 
 func (e ImageGenerationRequestResolution) ToPointer() *ImageGenerationRequestResolution {
@@ -145,7 +148,7 @@ func (e ImageGenerationRequestResolution) ToPointer() *ImageGenerationRequestRes
 func (e *ImageGenerationRequestResolution) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "512", "1K", "2K", "4K":
+		case "512", "768", "1K", "2K", "4K":
 			return true
 		}
 	}
