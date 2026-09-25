@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 35d51121d918704fef88834da31cf17f
+  docChecksum: e71afb9ad878a05d222a4282761dbce6
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.29
-  configChecksum: 90372b2cd6c38293eeeff240334fdee6
+  releaseVersion: 0.8.30
+  configChecksum: 5fc33d577bb46ee461e52a903ef591c4
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 7960c5dd-56c0-4219-9b2e-aae097814e11
-  pristine_commit_hash: 2d094b0a688c977c999327c9212bc0e6fff2adb2
-  pristine_tree_hash: f173d48f7dba96ea361509e44dfe776e210d9796
+  generation_id: 4eb3c695-2737-4832-bed1-00ec0f03d4eb
+  pristine_commit_hash: ec96314eb0d3ae4000814186bfde3aa44e12062a
+  pristine_tree_hash: ddb52771dac7129c4e1df1bbae24949b89b9d865
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3408,8 +3408,8 @@ trackedFiles:
     pristine_git_object: 591544620fc439f8aae66f093a244da810d051ea
   docs/models/components/imagegenerationrequestaspectratio.mdx:
     id: 57d69bdf90ec
-    last_write_checksum: sha1:662965fa8d23b3217c5e8ce24a65603b0bbfdb38
-    pristine_git_object: 42363e871999937a37d2626ae17fbbcb4ab8a952
+    last_write_checksum: sha1:ba394f074a6dd83bd62cd4b09734458f62d7ecfc
+    pristine_git_object: 872d99dcc9ae1066d0599856b23fe2dc14e5cbf4
   docs/models/components/imagegenerationrequestbackground.mdx:
     id: 08bcf5832adc
     last_write_checksum: sha1:6da8e8b152df587a0d93a2859af9ff2513ac200e
@@ -3424,8 +3424,8 @@ trackedFiles:
     pristine_git_object: 18ce714e4cd5a3a2fe942befe02d4628bcdc2f3e
   docs/models/components/imagegenerationrequestresolution.mdx:
     id: 648403136a6f
-    last_write_checksum: sha1:05e966a73c982323e16b1f0155d00acae59d2a46
-    pristine_git_object: 06aa727c875a810ac55e1eb43396e192deeb67a5
+    last_write_checksum: sha1:cbc122c7cd022c97ec796e7734e9e9fc7fb73320
+    pristine_git_object: f52053a72140a359e2aed2ba52b48bb02f83c715
   docs/models/components/imagegenerationresponse.mdx:
     id: 5cb833e1c00f
     last_write_checksum: sha1:1f815a8e9d8e158e42cab4ddfa754248cdf9e7b3
@@ -10148,8 +10148,8 @@ trackedFiles:
     pristine_git_object: d32db00fac32a531a438d6a467b94558acbd6d7f
   models/components/imagegenerationrequest.go:
     id: 2a1c3242c506
-    last_write_checksum: sha1:818ca6a56052a1de43a98e9d945f2701e059daf5
-    pristine_git_object: e437a97c86c1aac3c60974e1408ac68e2384d14d
+    last_write_checksum: sha1:85fea9ec1429d61b741d533b1ab9d65e2718b93d
+    pristine_git_object: e30a1ee882ec0d8655fe15920e3fcc7c17a3c864
   models/components/imagegenerationresponse.go:
     id: bfcc44d3ad67
     last_write_checksum: sha1:6c133bc51c83d5747936cf1546933cf27c536099
@@ -12360,8 +12360,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:e988fea0dad1f67a3eea300740ca7261e0e696c1
-    pristine_git_object: e69105688acf085e8711684f6c557e0211e139b1
+    last_write_checksum: sha1:b8addeee8ea89364b3aef5434444b62382f80aba
+    pristine_git_object: c6b4f52dc37e38fa895bc53a16e8da048c551ffb
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -15777,7 +15777,4 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Batch.List()`: **Added**
-  * `OpenRouter.Batch.CreateBatches()`: **Added**
-  * `OpenRouter.Batch.Delete()`: **Added**
-  * `OpenRouter.Batch.GetBatches()`: **Added**
+  * `OpenRouter.Images.Generate()`:  `request.Request` **Changed**
