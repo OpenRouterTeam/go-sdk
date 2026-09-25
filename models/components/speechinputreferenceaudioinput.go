@@ -8,10 +8,12 @@ import (
 
 // SpeechInputReferenceAudioInput - Reference audio input object
 type SpeechInputReferenceAudioInput struct {
-	// Base64-encoded reference audio (optionally a data URI). Supported audio formats are provider-specific. Limited to 20 MiB of base64 (15 MiB of decoded audio).
-	Data string `json:"data"`
+	// Base64-encoded reference audio (optionally a data URI). Supported audio formats are provider-specific. Limited to 20 MiB of base64 (15 MiB of decoded audio). Exactly one of `data` or `url` is required.
+	Data *string `json:"data,omitzero"`
 	// Audio format of the reference audio (e.g., wav, mp3). Optional; most providers detect the format from the audio bytes.
 	Format *string `json:"format,omitzero"`
+	// Public http(s) URL of the reference audio. OpenRouter downloads it (15 MiB max) and forwards the bytes, never the URL. Exactly one of `data` or `url` is required.
+	URL *string `json:"url,omitzero"`
 }
 
 func (s SpeechInputReferenceAudioInput) MarshalJSON() ([]byte, error) {
@@ -25,9 +27,9 @@ func (s *SpeechInputReferenceAudioInput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SpeechInputReferenceAudioInput) GetData() string {
+func (s *SpeechInputReferenceAudioInput) GetData() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.Data
 }
@@ -37,4 +39,11 @@ func (s *SpeechInputReferenceAudioInput) GetFormat() *string {
 		return nil
 	}
 	return s.Format
+}
+
+func (s *SpeechInputReferenceAudioInput) GetURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.URL
 }
