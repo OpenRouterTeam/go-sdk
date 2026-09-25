@@ -108,8 +108,8 @@ func (i *ImageGenerationUsagePromptTokensDetails) GetVideoTokens() optionalnulla
 	return i.VideoTokens
 }
 
-// ServerToolUse - Usage for server-side tool execution (e.g., web search)
-type ServerToolUse struct {
+// ImageGenerationUsageServerToolUse - Usage for server-side tool execution (e.g., web search)
+type ImageGenerationUsageServerToolUse struct {
 	// Number of OpenRouter server tool calls that executed and produced a result.
 	ToolCallsExecuted optionalnullable.OptionalNullable[int64] `json:"tool_calls_executed,omitzero"`
 	// Total number of OpenRouter server-orchestrated tool calls the model requested, across all tool types. Provider-native tools (e.g. native web search) are not counted here.
@@ -118,36 +118,36 @@ type ServerToolUse struct {
 	WebSearchRequests optionalnullable.OptionalNullable[int64] `json:"web_search_requests,omitzero"`
 }
 
-func (s ServerToolUse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (i ImageGenerationUsageServerToolUse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
 }
 
-func (s *ServerToolUse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+func (i *ImageGenerationUsageServerToolUse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *ServerToolUse) GetToolCallsExecuted() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
+func (i *ImageGenerationUsageServerToolUse) GetToolCallsExecuted() optionalnullable.OptionalNullable[int64] {
+	if i == nil {
 		return nil
 	}
-	return s.ToolCallsExecuted
+	return i.ToolCallsExecuted
 }
 
-func (s *ServerToolUse) GetToolCallsRequested() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
+func (i *ImageGenerationUsageServerToolUse) GetToolCallsRequested() optionalnullable.OptionalNullable[int64] {
+	if i == nil {
 		return nil
 	}
-	return s.ToolCallsRequested
+	return i.ToolCallsRequested
 }
 
-func (s *ServerToolUse) GetWebSearchRequests() optionalnullable.OptionalNullable[int64] {
-	if s == nil {
+func (i *ImageGenerationUsageServerToolUse) GetWebSearchRequests() optionalnullable.OptionalNullable[int64] {
+	if i == nil {
 		return nil
 	}
-	return s.WebSearchRequests
+	return i.WebSearchRequests
 }
 
 // ImageGenerationUsage - Token and cost usage for the image generation request, when available
@@ -168,7 +168,7 @@ type ImageGenerationUsage struct {
 	// Breakdown of tokens used in the prompt.
 	PromptTokensDetails optionalnullable.OptionalNullable[ImageGenerationUsagePromptTokensDetails] `json:"prompt_tokens_details,omitzero"`
 	// Usage for server-side tool execution (e.g., web search)
-	ServerToolUse optionalnullable.OptionalNullable[ServerToolUse] `json:"server_tool_use,omitzero"`
+	ServerToolUse optionalnullable.OptionalNullable[ImageGenerationUsageServerToolUse] `json:"server_tool_use,omitzero"`
 	// The service tier used by the upstream provider for this request
 	ServiceTier optionalnullable.OptionalNullable[string]         `json:"service_tier,omitzero"`
 	Speed       optionalnullable.OptionalNullable[AnthropicSpeed] `json:"speed,omitzero"`
@@ -250,7 +250,7 @@ func (i *ImageGenerationUsage) GetPromptTokensDetails() optionalnullable.Optiona
 	return i.PromptTokensDetails
 }
 
-func (i *ImageGenerationUsage) GetServerToolUse() optionalnullable.OptionalNullable[ServerToolUse] {
+func (i *ImageGenerationUsage) GetServerToolUse() optionalnullable.OptionalNullable[ImageGenerationUsageServerToolUse] {
 	if i == nil {
 		return nil
 	}

@@ -80,22 +80,22 @@ func (c *ContentCompaction) GetType() MessagesMessageParamTypeCompaction {
 	return c.Type
 }
 
-type ErrorCode string
+type MessagesMessageParamErrorCode string
 
 const (
-	ErrorCodeInvalidToolInput ErrorCode = "invalid_tool_input"
-	ErrorCodeUnavailable      ErrorCode = "unavailable"
-	ErrorCodeMaxUsesExceeded  ErrorCode = "max_uses_exceeded"
-	ErrorCodeTooManyRequests  ErrorCode = "too_many_requests"
-	ErrorCodeQueryTooLong     ErrorCode = "query_too_long"
+	MessagesMessageParamErrorCodeInvalidToolInput MessagesMessageParamErrorCode = "invalid_tool_input"
+	MessagesMessageParamErrorCodeUnavailable      MessagesMessageParamErrorCode = "unavailable"
+	MessagesMessageParamErrorCodeMaxUsesExceeded  MessagesMessageParamErrorCode = "max_uses_exceeded"
+	MessagesMessageParamErrorCodeTooManyRequests  MessagesMessageParamErrorCode = "too_many_requests"
+	MessagesMessageParamErrorCodeQueryTooLong     MessagesMessageParamErrorCode = "query_too_long"
 )
 
-func (e ErrorCode) ToPointer() *ErrorCode {
+func (e MessagesMessageParamErrorCode) ToPointer() *MessagesMessageParamErrorCode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ErrorCode) IsExact() bool {
+func (e *MessagesMessageParamErrorCode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "invalid_tool_input", "unavailable", "max_uses_exceeded", "too_many_requests", "query_too_long":
@@ -105,32 +105,32 @@ func (e *ErrorCode) IsExact() bool {
 	return false
 }
 
-type TypeWebSearchToolResultError string
+type MessagesMessageParamTypeWebSearchToolResultError string
 
 const (
-	TypeWebSearchToolResultErrorWebSearchToolResultError TypeWebSearchToolResultError = "web_search_tool_result_error"
+	MessagesMessageParamTypeWebSearchToolResultErrorWebSearchToolResultError MessagesMessageParamTypeWebSearchToolResultError = "web_search_tool_result_error"
 )
 
-func (e TypeWebSearchToolResultError) ToPointer() *TypeWebSearchToolResultError {
+func (e MessagesMessageParamTypeWebSearchToolResultError) ToPointer() *MessagesMessageParamTypeWebSearchToolResultError {
 	return &e
 }
-func (e *TypeWebSearchToolResultError) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeWebSearchToolResultError) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "web_search_tool_result_error":
-		*e = TypeWebSearchToolResultError(v)
+		*e = MessagesMessageParamTypeWebSearchToolResultError(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeWebSearchToolResultError: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeWebSearchToolResultError: %v", v)
 	}
 }
 
 type ContentWebSearchToolResultError struct {
-	ErrorCode ErrorCode                    `json:"error_code"`
-	Type      TypeWebSearchToolResultError `json:"type"`
+	ErrorCode MessagesMessageParamErrorCode                    `json:"error_code"`
+	Type      MessagesMessageParamTypeWebSearchToolResultError `json:"type"`
 }
 
 func (c ContentWebSearchToolResultError) MarshalJSON() ([]byte, error) {
@@ -144,16 +144,16 @@ func (c *ContentWebSearchToolResultError) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ContentWebSearchToolResultError) GetErrorCode() ErrorCode {
+func (c *ContentWebSearchToolResultError) GetErrorCode() MessagesMessageParamErrorCode {
 	if c == nil {
-		return ErrorCode("")
+		return MessagesMessageParamErrorCode("")
 	}
 	return c.ErrorCode
 }
 
-func (c *ContentWebSearchToolResultError) GetType() TypeWebSearchToolResultError {
+func (c *ContentWebSearchToolResultError) GetType() MessagesMessageParamTypeWebSearchToolResultError {
 	if c == nil {
-		return TypeWebSearchToolResultError("")
+		return MessagesMessageParamTypeWebSearchToolResultError("")
 	}
 	return c.Type
 }
@@ -247,35 +247,35 @@ func (u MessagesMessageParamContentUnion3) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type MessagesMessageParamContentUnion3: all fields are null")
 }
 
-type TypeWebSearchToolResult string
+type MessagesMessageParamTypeWebSearchToolResult string
 
 const (
-	TypeWebSearchToolResultWebSearchToolResult TypeWebSearchToolResult = "web_search_tool_result"
+	MessagesMessageParamTypeWebSearchToolResultWebSearchToolResult MessagesMessageParamTypeWebSearchToolResult = "web_search_tool_result"
 )
 
-func (e TypeWebSearchToolResult) ToPointer() *TypeWebSearchToolResult {
+func (e MessagesMessageParamTypeWebSearchToolResult) ToPointer() *MessagesMessageParamTypeWebSearchToolResult {
 	return &e
 }
-func (e *TypeWebSearchToolResult) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeWebSearchToolResult) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "web_search_tool_result":
-		*e = TypeWebSearchToolResult(v)
+		*e = MessagesMessageParamTypeWebSearchToolResult(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeWebSearchToolResult: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeWebSearchToolResult: %v", v)
 	}
 }
 
 type ContentWebSearchToolResult struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
-	CacheControl *AnthropicCacheControlDirective   `json:"cache_control,omitzero"`
-	Content      MessagesMessageParamContentUnion3 `json:"content"`
-	ToolUseID    string                            `json:"tool_use_id"`
-	Type         TypeWebSearchToolResult           `json:"type"`
+	CacheControl *AnthropicCacheControlDirective             `json:"cache_control,omitzero"`
+	Content      MessagesMessageParamContentUnion3           `json:"content"`
+	ToolUseID    string                                      `json:"tool_use_id"`
+	Type         MessagesMessageParamTypeWebSearchToolResult `json:"type"`
 }
 
 func (c ContentWebSearchToolResult) MarshalJSON() ([]byte, error) {
@@ -310,43 +310,43 @@ func (c *ContentWebSearchToolResult) GetToolUseID() string {
 	return c.ToolUseID
 }
 
-func (c *ContentWebSearchToolResult) GetType() TypeWebSearchToolResult {
+func (c *ContentWebSearchToolResult) GetType() MessagesMessageParamTypeWebSearchToolResult {
 	if c == nil {
-		return TypeWebSearchToolResult("")
+		return MessagesMessageParamTypeWebSearchToolResult("")
 	}
 	return c.Type
 }
 
-type TypeServerToolUse string
+type MessagesMessageParamTypeServerToolUse string
 
 const (
-	TypeServerToolUseServerToolUse TypeServerToolUse = "server_tool_use"
+	MessagesMessageParamTypeServerToolUseServerToolUse MessagesMessageParamTypeServerToolUse = "server_tool_use"
 )
 
-func (e TypeServerToolUse) ToPointer() *TypeServerToolUse {
+func (e MessagesMessageParamTypeServerToolUse) ToPointer() *MessagesMessageParamTypeServerToolUse {
 	return &e
 }
-func (e *TypeServerToolUse) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeServerToolUse) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "server_tool_use":
-		*e = TypeServerToolUse(v)
+		*e = MessagesMessageParamTypeServerToolUse(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeServerToolUse: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeServerToolUse: %v", v)
 	}
 }
 
 type ContentServerToolUse struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
-	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
-	ID           string                          `json:"id"`
-	Input        any                             `json:"input,omitzero"`
-	Name         string                          `json:"name"`
-	Type         TypeServerToolUse               `json:"type"`
+	CacheControl *AnthropicCacheControlDirective       `json:"cache_control,omitzero"`
+	ID           string                                `json:"id"`
+	Input        any                                   `json:"input,omitzero"`
+	Name         string                                `json:"name"`
+	Type         MessagesMessageParamTypeServerToolUse `json:"type"`
 }
 
 func (c ContentServerToolUse) MarshalJSON() ([]byte, error) {
@@ -388,39 +388,39 @@ func (c *ContentServerToolUse) GetName() string {
 	return c.Name
 }
 
-func (c *ContentServerToolUse) GetType() TypeServerToolUse {
+func (c *ContentServerToolUse) GetType() MessagesMessageParamTypeServerToolUse {
 	if c == nil {
-		return TypeServerToolUse("")
+		return MessagesMessageParamTypeServerToolUse("")
 	}
 	return c.Type
 }
 
-type TypeRedactedThinking string
+type MessagesMessageParamTypeRedactedThinking string
 
 const (
-	TypeRedactedThinkingRedactedThinking TypeRedactedThinking = "redacted_thinking"
+	MessagesMessageParamTypeRedactedThinkingRedactedThinking MessagesMessageParamTypeRedactedThinking = "redacted_thinking"
 )
 
-func (e TypeRedactedThinking) ToPointer() *TypeRedactedThinking {
+func (e MessagesMessageParamTypeRedactedThinking) ToPointer() *MessagesMessageParamTypeRedactedThinking {
 	return &e
 }
-func (e *TypeRedactedThinking) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeRedactedThinking) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "redacted_thinking":
-		*e = TypeRedactedThinking(v)
+		*e = MessagesMessageParamTypeRedactedThinking(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeRedactedThinking: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeRedactedThinking: %v", v)
 	}
 }
 
 type ContentRedactedThinking struct {
-	Data string               `json:"data"`
-	Type TypeRedactedThinking `json:"type"`
+	Data string                                   `json:"data"`
+	Type MessagesMessageParamTypeRedactedThinking `json:"type"`
 }
 
 func (c ContentRedactedThinking) MarshalJSON() ([]byte, error) {
@@ -441,40 +441,40 @@ func (c *ContentRedactedThinking) GetData() string {
 	return c.Data
 }
 
-func (c *ContentRedactedThinking) GetType() TypeRedactedThinking {
+func (c *ContentRedactedThinking) GetType() MessagesMessageParamTypeRedactedThinking {
 	if c == nil {
-		return TypeRedactedThinking("")
+		return MessagesMessageParamTypeRedactedThinking("")
 	}
 	return c.Type
 }
 
-type TypeThinking string
+type MessagesMessageParamTypeThinking string
 
 const (
-	TypeThinkingThinking TypeThinking = "thinking"
+	MessagesMessageParamTypeThinkingThinking MessagesMessageParamTypeThinking = "thinking"
 )
 
-func (e TypeThinking) ToPointer() *TypeThinking {
+func (e MessagesMessageParamTypeThinking) ToPointer() *MessagesMessageParamTypeThinking {
 	return &e
 }
-func (e *TypeThinking) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeThinking) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "thinking":
-		*e = TypeThinking(v)
+		*e = MessagesMessageParamTypeThinking(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeThinking: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeThinking: %v", v)
 	}
 }
 
 type ContentThinking struct {
-	Signature string       `json:"signature"`
-	Thinking  string       `json:"thinking"`
-	Type      TypeThinking `json:"type"`
+	Signature string                           `json:"signature"`
+	Thinking  string                           `json:"thinking"`
+	Type      MessagesMessageParamTypeThinking `json:"type"`
 }
 
 func (c ContentThinking) MarshalJSON() ([]byte, error) {
@@ -502,9 +502,9 @@ func (c *ContentThinking) GetThinking() string {
 	return c.Thinking
 }
 
-func (c *ContentThinking) GetType() TypeThinking {
+func (c *ContentThinking) GetType() MessagesMessageParamTypeThinking {
 	if c == nil {
-		return TypeThinking("")
+		return MessagesMessageParamTypeThinking("")
 	}
 	return c.Type
 }
@@ -633,7 +633,7 @@ func CreateMessagesMessageParamContentUnion1SearchResult(searchResult AnthropicS
 func CreateMessagesMessageParamContentUnion1Document(document AnthropicDocumentBlockParam) MessagesMessageParamContentUnion1 {
 	typ := MessagesMessageParamContentUnion1TypeDocument
 
-	typStr := TypeDocument(typ)
+	typStr := AnthropicDocumentBlockParamTypeDocument(typ)
 	document.Type = typStr
 
 	return MessagesMessageParamContentUnion1{
@@ -895,26 +895,26 @@ func (c *ContentToolResult) GetType() TypeToolResult {
 	return c.Type
 }
 
-type TypeToolUse string
+type MessagesMessageParamTypeToolUse string
 
 const (
-	TypeToolUseToolUse TypeToolUse = "tool_use"
+	MessagesMessageParamTypeToolUseToolUse MessagesMessageParamTypeToolUse = "tool_use"
 )
 
-func (e TypeToolUse) ToPointer() *TypeToolUse {
+func (e MessagesMessageParamTypeToolUse) ToPointer() *MessagesMessageParamTypeToolUse {
 	return &e
 }
-func (e *TypeToolUse) UnmarshalJSON(data []byte) error {
+func (e *MessagesMessageParamTypeToolUse) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "tool_use":
-		*e = TypeToolUse(v)
+		*e = MessagesMessageParamTypeToolUse(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeToolUse: %v", v)
+		return fmt.Errorf("invalid value for MessagesMessageParamTypeToolUse: %v", v)
 	}
 }
 
@@ -924,7 +924,7 @@ type ContentToolUse struct {
 	ID           string                          `json:"id"`
 	Input        any                             `json:"input,omitzero"`
 	Name         string                          `json:"name"`
-	Type         TypeToolUse                     `json:"type"`
+	Type         MessagesMessageParamTypeToolUse `json:"type"`
 }
 
 func (c ContentToolUse) MarshalJSON() ([]byte, error) {
@@ -966,9 +966,9 @@ func (c *ContentToolUse) GetName() string {
 	return c.Name
 }
 
-func (c *ContentToolUse) GetType() TypeToolUse {
+func (c *ContentToolUse) GetType() MessagesMessageParamTypeToolUse {
 	if c == nil {
-		return TypeToolUse("")
+		return MessagesMessageParamTypeToolUse("")
 	}
 	return c.Type
 }
@@ -1042,7 +1042,7 @@ func CreateMessagesMessageParamContentUnion4Image(image AnthropicImageBlockParam
 func CreateMessagesMessageParamContentUnion4Document(document AnthropicDocumentBlockParam) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeDocument
 
-	typStr := TypeDocument(typ)
+	typStr := AnthropicDocumentBlockParamTypeDocument(typ)
 	document.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1054,7 +1054,7 @@ func CreateMessagesMessageParamContentUnion4Document(document AnthropicDocumentB
 func CreateMessagesMessageParamContentUnion4ToolUse(toolUse ContentToolUse) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeToolUse
 
-	typStr := TypeToolUse(typ)
+	typStr := MessagesMessageParamTypeToolUse(typ)
 	toolUse.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1078,7 +1078,7 @@ func CreateMessagesMessageParamContentUnion4ToolResult(toolResult ContentToolRes
 func CreateMessagesMessageParamContentUnion4Thinking(thinking ContentThinking) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeThinking
 
-	typStr := TypeThinking(typ)
+	typStr := MessagesMessageParamTypeThinking(typ)
 	thinking.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1090,7 +1090,7 @@ func CreateMessagesMessageParamContentUnion4Thinking(thinking ContentThinking) M
 func CreateMessagesMessageParamContentUnion4RedactedThinking(redactedThinking ContentRedactedThinking) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeRedactedThinking
 
-	typStr := TypeRedactedThinking(typ)
+	typStr := MessagesMessageParamTypeRedactedThinking(typ)
 	redactedThinking.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1102,7 +1102,7 @@ func CreateMessagesMessageParamContentUnion4RedactedThinking(redactedThinking Co
 func CreateMessagesMessageParamContentUnion4ServerToolUse(serverToolUse ContentServerToolUse) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeServerToolUse
 
-	typStr := TypeServerToolUse(typ)
+	typStr := MessagesMessageParamTypeServerToolUse(typ)
 	serverToolUse.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1114,7 +1114,7 @@ func CreateMessagesMessageParamContentUnion4ServerToolUse(serverToolUse ContentS
 func CreateMessagesMessageParamContentUnion4WebSearchToolResult(webSearchToolResult ContentWebSearchToolResult) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeWebSearchToolResult
 
-	typStr := TypeWebSearchToolResult(typ)
+	typStr := MessagesMessageParamTypeWebSearchToolResult(typ)
 	webSearchToolResult.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1186,7 +1186,7 @@ func CreateMessagesMessageParamContentUnion4ToolRemoval(toolRemoval MessagesTool
 func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouterShellToolResult MessagesShellToolResultBlock) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult
 
-	typStr := TypeOpenrouterShellToolResult(typ)
+	typStr := MessagesShellToolResultBlockTypeOpenrouterShellToolResult(typ)
 	openrouterShellToolResult.Type = typStr
 
 	return MessagesMessageParamContentUnion4{
@@ -1198,7 +1198,7 @@ func CreateMessagesMessageParamContentUnion4OpenrouterShellToolResult(openrouter
 func CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(openrouterBashToolResult MessagesBashToolResultBlock) MessagesMessageParamContentUnion4 {
 	typ := MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
 
-	typStr := TypeOpenrouterBashToolResult(typ)
+	typStr := MessagesBashToolResultBlockTypeOpenrouterBashToolResult(typ)
 	openrouterBashToolResult.Type = typStr
 
 	return MessagesMessageParamContentUnion4{

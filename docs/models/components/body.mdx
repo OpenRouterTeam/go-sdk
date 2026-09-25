@@ -1,0 +1,46 @@
+---
+title: "Body"
+---
+
+## Supported Types
+
+### BodyChatCompletion
+
+```go
+body := components.CreateBodyBodyChatCompletion(components.BodyChatCompletion{/* values here */})
+```
+
+### OpenResponsesResult
+
+```go
+body := components.CreateBodyOpenResponsesResult(components.OpenResponsesResult{/* values here */})
+```
+
+### BodyMessage
+
+```go
+body := components.CreateBodyBodyMessage(components.BodyMessage{/* values here */})
+```
+
+### BodyList
+
+```go
+body := components.CreateBodyBodyList(components.BodyList{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch body.Type {
+	case components.BodyTypeBodyChatCompletion:
+		// body.BodyChatCompletion is populated
+	case components.BodyTypeOpenResponsesResult:
+		// body.OpenResponsesResult is populated
+	case components.BodyTypeBodyMessage:
+		// body.BodyMessage is populated
+	case components.BodyTypeBodyList:
+		// body.BodyList is populated
+}
+```

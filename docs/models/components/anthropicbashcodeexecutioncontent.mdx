@@ -1,0 +1,32 @@
+---
+title: "AnthropicBashCodeExecutionContent"
+---
+
+## Supported Types
+
+### AnthropicBashCodeExecutionResult
+
+```go
+anthropicBashCodeExecutionContent := components.CreateAnthropicBashCodeExecutionContentBashCodeExecutionResult(components.AnthropicBashCodeExecutionResult{/* values here */})
+```
+
+### AnthropicBashCodeExecutionToolResultError
+
+```go
+anthropicBashCodeExecutionContent := components.CreateAnthropicBashCodeExecutionContentBashCodeExecutionToolResultError(components.AnthropicBashCodeExecutionToolResultError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicBashCodeExecutionContent.Type {
+	case components.AnthropicBashCodeExecutionContentTypeBashCodeExecutionResult:
+		// anthropicBashCodeExecutionContent.AnthropicBashCodeExecutionResult is populated
+	case components.AnthropicBashCodeExecutionContentTypeBashCodeExecutionToolResultError:
+		// anthropicBashCodeExecutionContent.AnthropicBashCodeExecutionToolResultError is populated
+	default:
+		// Unknown type - use anthropicBashCodeExecutionContent.GetUnknownRaw() for raw JSON
+}
+```

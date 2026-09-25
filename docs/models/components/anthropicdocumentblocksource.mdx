@@ -1,0 +1,32 @@
+---
+title: "AnthropicDocumentBlockSource"
+---
+
+## Supported Types
+
+### AnthropicBase64PdfSource
+
+```go
+anthropicDocumentBlockSource := components.CreateAnthropicDocumentBlockSourceApplicationPdf(components.AnthropicBase64PdfSource{/* values here */})
+```
+
+### AnthropicPlainTextSource
+
+```go
+anthropicDocumentBlockSource := components.CreateAnthropicDocumentBlockSourceTextPlain(components.AnthropicPlainTextSource{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicDocumentBlockSource.Type {
+	case components.AnthropicDocumentBlockSourceTypeApplicationPdf:
+		// anthropicDocumentBlockSource.AnthropicBase64PdfSource is populated
+	case components.AnthropicDocumentBlockSourceTypeTextPlain:
+		// anthropicDocumentBlockSource.AnthropicPlainTextSource is populated
+	default:
+		// Unknown type - use anthropicDocumentBlockSource.GetUnknownRaw() for raw JSON
+}
+```

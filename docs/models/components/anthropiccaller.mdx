@@ -1,0 +1,40 @@
+---
+title: "AnthropicCaller"
+---
+
+## Supported Types
+
+### AnthropicCodeExecution20250825Caller
+
+```go
+anthropicCaller := components.CreateAnthropicCallerCodeExecution20250825(components.AnthropicCodeExecution20250825Caller{/* values here */})
+```
+
+### AnthropicCodeExecution20260120Caller
+
+```go
+anthropicCaller := components.CreateAnthropicCallerCodeExecution20260120(components.AnthropicCodeExecution20260120Caller{/* values here */})
+```
+
+### AnthropicDirectCaller
+
+```go
+anthropicCaller := components.CreateAnthropicCallerDirect(components.AnthropicDirectCaller{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicCaller.Type {
+	case components.AnthropicCallerTypeCodeExecution20250825:
+		// anthropicCaller.AnthropicCodeExecution20250825Caller is populated
+	case components.AnthropicCallerTypeCodeExecution20260120:
+		// anthropicCaller.AnthropicCodeExecution20260120Caller is populated
+	case components.AnthropicCallerTypeDirect:
+		// anthropicCaller.AnthropicDirectCaller is populated
+	default:
+		// Unknown type - use anthropicCaller.GetUnknownRaw() for raw JSON
+}
+```

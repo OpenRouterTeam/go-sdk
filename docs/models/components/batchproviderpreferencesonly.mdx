@@ -1,0 +1,30 @@
+---
+title: "BatchProviderPreferencesOnly"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+batchProviderPreferencesOnly := components.CreateBatchProviderPreferencesOnlyProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+batchProviderPreferencesOnly := components.CreateBatchProviderPreferencesOnlyStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch batchProviderPreferencesOnly.Type {
+	case components.BatchProviderPreferencesOnlyTypeProviderName:
+		// batchProviderPreferencesOnly.ProviderName is populated
+	case components.BatchProviderPreferencesOnlyTypeStr:
+		// batchProviderPreferencesOnly.Str is populated
+}
+```

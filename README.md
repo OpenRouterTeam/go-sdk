@@ -206,6 +206,13 @@ func main() {
 * [Get](docs/sdks/apikeys/README.md#get) - Get a single API key
 * [Update](docs/sdks/apikeys/README.md#update) - Update an API key
 
+### [Batch](docs/sdks/batch/README.md)
+
+* [List](docs/sdks/batch/README.md#list) - List batches
+* [CreateBatches](docs/sdks/batch/README.md#createbatches) - Create a batch
+* [Delete](docs/sdks/batch/README.md#delete) - Delete a batch
+* [GetBatches](docs/sdks/batch/README.md#getbatches) - Get a batch
+
 ### [Benchmarks](docs/sdks/benchmarks/README.md)
 
 * [GetBenchmarks](docs/sdks/benchmarks/README.md#getbenchmarks) - List Benchmarks
@@ -478,7 +485,6 @@ package main
 import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -490,7 +496,7 @@ func main() {
 		openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
 	)
 
-	res, err := s.BYOK.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, nil)
+	res, err := s.Batch.List(ctx, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

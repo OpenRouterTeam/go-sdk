@@ -1,0 +1,40 @@
+---
+title: "ORAnthropicNullableCaller"
+---
+
+## Supported Types
+
+### AnthropicCodeExecution20250825Caller
+
+```go
+orAnthropicNullableCaller := components.CreateORAnthropicNullableCallerCodeExecution20250825(components.AnthropicCodeExecution20250825Caller{/* values here */})
+```
+
+### AnthropicCodeExecution20260120Caller
+
+```go
+orAnthropicNullableCaller := components.CreateORAnthropicNullableCallerCodeExecution20260120(components.AnthropicCodeExecution20260120Caller{/* values here */})
+```
+
+### AnthropicDirectCaller
+
+```go
+orAnthropicNullableCaller := components.CreateORAnthropicNullableCallerDirect(components.AnthropicDirectCaller{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch orAnthropicNullableCaller.Type {
+	case components.ORAnthropicNullableCallerTypeCodeExecution20250825:
+		// orAnthropicNullableCaller.AnthropicCodeExecution20250825Caller is populated
+	case components.ORAnthropicNullableCallerTypeCodeExecution20260120:
+		// orAnthropicNullableCaller.AnthropicCodeExecution20260120Caller is populated
+	case components.ORAnthropicNullableCallerTypeDirect:
+		// orAnthropicNullableCaller.AnthropicDirectCaller is populated
+	default:
+		// Unknown type - use orAnthropicNullableCaller.GetUnknownRaw() for raw JSON
+}
+```

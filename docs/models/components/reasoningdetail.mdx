@@ -1,0 +1,48 @@
+---
+title: "ReasoningDetail"
+---
+
+## Supported Types
+
+### ReasoningDetailSummary
+
+```go
+reasoningDetail := components.CreateReasoningDetailReasoningSummary(components.ReasoningDetailSummary{/* values here */})
+```
+
+### ReasoningDetailEncrypted
+
+```go
+reasoningDetail := components.CreateReasoningDetailReasoningEncrypted(components.ReasoningDetailEncrypted{/* values here */})
+```
+
+### ReasoningDetailText
+
+```go
+reasoningDetail := components.CreateReasoningDetailReasoningText(components.ReasoningDetailText{/* values here */})
+```
+
+### ReasoningDetailServerToolCall
+
+```go
+reasoningDetail := components.CreateReasoningDetailReasoningServerToolCall(components.ReasoningDetailServerToolCall{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch reasoningDetail.Type {
+	case components.ReasoningDetailTypeReasoningSummary:
+		// reasoningDetail.ReasoningDetailSummary is populated
+	case components.ReasoningDetailTypeReasoningEncrypted:
+		// reasoningDetail.ReasoningDetailEncrypted is populated
+	case components.ReasoningDetailTypeReasoningText:
+		// reasoningDetail.ReasoningDetailText is populated
+	case components.ReasoningDetailTypeReasoningServerToolCall:
+		// reasoningDetail.ReasoningDetailServerToolCall is populated
+	default:
+		// Unknown type - use reasoningDetail.GetUnknownRaw() for raw JSON
+}
+```

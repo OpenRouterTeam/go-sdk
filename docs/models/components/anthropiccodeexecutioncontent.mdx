@@ -1,0 +1,40 @@
+---
+title: "AnthropicCodeExecutionContent"
+---
+
+## Supported Types
+
+### AnthropicCodeExecutionResult
+
+```go
+anthropicCodeExecutionContent := components.CreateAnthropicCodeExecutionContentCodeExecutionResult(components.AnthropicCodeExecutionResult{/* values here */})
+```
+
+### AnthropicCodeExecutionToolResultError
+
+```go
+anthropicCodeExecutionContent := components.CreateAnthropicCodeExecutionContentCodeExecutionToolResultError(components.AnthropicCodeExecutionToolResultError{/* values here */})
+```
+
+### AnthropicEncryptedCodeExecutionResult
+
+```go
+anthropicCodeExecutionContent := components.CreateAnthropicCodeExecutionContentEncryptedCodeExecutionResult(components.AnthropicEncryptedCodeExecutionResult{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch anthropicCodeExecutionContent.Type {
+	case components.AnthropicCodeExecutionContentTypeCodeExecutionResult:
+		// anthropicCodeExecutionContent.AnthropicCodeExecutionResult is populated
+	case components.AnthropicCodeExecutionContentTypeCodeExecutionToolResultError:
+		// anthropicCodeExecutionContent.AnthropicCodeExecutionToolResultError is populated
+	case components.AnthropicCodeExecutionContentTypeEncryptedCodeExecutionResult:
+		// anthropicCodeExecutionContent.AnthropicEncryptedCodeExecutionResult is populated
+	default:
+		// Unknown type - use anthropicCodeExecutionContent.GetUnknownRaw() for raw JSON
+}
+```

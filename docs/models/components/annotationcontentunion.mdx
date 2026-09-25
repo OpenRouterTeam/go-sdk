@@ -1,0 +1,32 @@
+---
+title: "AnnotationContentUnion"
+---
+
+## Supported Types
+
+### ContentText
+
+```go
+annotationContentUnion := components.CreateAnnotationContentUnionText(components.ContentText{/* values here */})
+```
+
+### ContentImageURL
+
+```go
+annotationContentUnion := components.CreateAnnotationContentUnionImageURL(components.ContentImageURL{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch annotationContentUnion.Type {
+	case components.AnnotationContentUnionTypeText:
+		// annotationContentUnion.ContentText is populated
+	case components.AnnotationContentUnionTypeImageURL:
+		// annotationContentUnion.ContentImageURL is populated
+	default:
+		// Unknown type - use annotationContentUnion.GetUnknownRaw() for raw JSON
+}
+```

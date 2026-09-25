@@ -1,0 +1,33 @@
+---
+title: "Embedding"
+---
+
+Embedding vector as an array of floats or a base64 string
+
+
+## Supported Types
+
+### 
+
+```go
+embedding := components.CreateEmbeddingArrayOfNumber([]float64{/* values here */})
+```
+
+### 
+
+```go
+embedding := components.CreateEmbeddingStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch embedding.Type {
+	case components.EmbeddingTypeArrayOfNumber:
+		// embedding.ArrayOfNumber is populated
+	case components.EmbeddingTypeStr:
+		// embedding.Str is populated
+}
+```

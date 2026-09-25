@@ -1,0 +1,30 @@
+---
+title: "BatchPaymentRequiredResponseStatus"
+---
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.BatchPaymentRequiredResponseStatusValidating
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.BatchPaymentRequiredResponseStatus("custom_value")
+```
+
+
+## Values
+
+| Name                                           | Value                                          |
+| ---------------------------------------------- | ---------------------------------------------- |
+| `BatchPaymentRequiredResponseStatusValidating` | validating                                     |
+| `BatchPaymentRequiredResponseStatusInProgress` | in_progress                                    |
+| `BatchPaymentRequiredResponseStatusFinalizing` | finalizing                                     |
+| `BatchPaymentRequiredResponseStatusCompleted`  | completed                                      |
+| `BatchPaymentRequiredResponseStatusFailed`     | failed                                         |
+| `BatchPaymentRequiredResponseStatusExpired`    | expired                                        |
+| `BatchPaymentRequiredResponseStatusCancelling` | cancelling                                     |
+| `BatchPaymentRequiredResponseStatusCancelled`  | cancelled                                      |

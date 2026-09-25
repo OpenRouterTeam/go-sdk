@@ -1,0 +1,40 @@
+---
+title: "Annotation"
+---
+
+## Supported Types
+
+### AnnotationFile
+
+```go
+annotation := components.CreateAnnotationFile(components.AnnotationFile{/* values here */})
+```
+
+### AnnotationURLCitation
+
+```go
+annotation := components.CreateAnnotationURLCitation(components.AnnotationURLCitation{/* values here */})
+```
+
+### AnnotationWebSearchCitation
+
+```go
+annotation := components.CreateAnnotationWebSearchCitation(components.AnnotationWebSearchCitation{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch annotation.Type {
+	case components.AnnotationTypeFileValue:
+		// annotation.AnnotationFile is populated
+	case components.AnnotationTypeURLCitationValue:
+		// annotation.AnnotationURLCitation is populated
+	case components.AnnotationTypeWebSearchCitation:
+		// annotation.AnnotationWebSearchCitation is populated
+	default:
+		// Unknown type - use annotation.GetUnknownRaw() for raw JSON
+}
+```

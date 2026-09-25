@@ -1,0 +1,30 @@
+---
+title: "ORAnthropicStopReason"
+---
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ORAnthropicStopReasonEndTurn
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ORAnthropicStopReason("custom_value")
+```
+
+
+## Values
+
+| Name                                              | Value                                             |
+| ------------------------------------------------- | ------------------------------------------------- |
+| `ORAnthropicStopReasonEndTurn`                    | end_turn                                          |
+| `ORAnthropicStopReasonMaxTokens`                  | max_tokens                                        |
+| `ORAnthropicStopReasonModelContextWindowExceeded` | model_context_window_exceeded                     |
+| `ORAnthropicStopReasonStopSequence`               | stop_sequence                                     |
+| `ORAnthropicStopReasonToolUse`                    | tool_use                                          |
+| `ORAnthropicStopReasonPauseTurn`                  | pause_turn                                        |
+| `ORAnthropicStopReasonRefusal`                    | refusal                                           |
+| `ORAnthropicStopReasonCompaction`                 | compaction                                        |

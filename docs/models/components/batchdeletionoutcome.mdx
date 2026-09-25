@@ -1,0 +1,27 @@
+---
+title: "BatchDeletionOutcome"
+---
+
+Outcome for one deletion target: `deleted` (removed), `unsupported` (the provider has no batch-delete API; supported file cleanup still runs), or `not_applicable` (the batch never reached that target).
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.BatchDeletionOutcomeDeleted
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.BatchDeletionOutcome("custom_value")
+```
+
+
+## Values
+
+| Name                                | Value                               |
+| ----------------------------------- | ----------------------------------- |
+| `BatchDeletionOutcomeDeleted`       | deleted                             |
+| `BatchDeletionOutcomeUnsupported`   | unsupported                         |
+| `BatchDeletionOutcomeNotApplicable` | not_applicable                      |

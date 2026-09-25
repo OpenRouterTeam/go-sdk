@@ -425,26 +425,26 @@ func (u AnthropicDocumentBlockParamSourceUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type AnthropicDocumentBlockParamSourceUnion: all fields are null")
 }
 
-type TypeDocument string
+type AnthropicDocumentBlockParamTypeDocument string
 
 const (
-	TypeDocumentDocument TypeDocument = "document"
+	AnthropicDocumentBlockParamTypeDocumentDocument AnthropicDocumentBlockParamTypeDocument = "document"
 )
 
-func (e TypeDocument) ToPointer() *TypeDocument {
+func (e AnthropicDocumentBlockParamTypeDocument) ToPointer() *AnthropicDocumentBlockParamTypeDocument {
 	return &e
 }
-func (e *TypeDocument) UnmarshalJSON(data []byte) error {
+func (e *AnthropicDocumentBlockParamTypeDocument) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "document":
-		*e = TypeDocument(v)
+		*e = AnthropicDocumentBlockParamTypeDocument(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeDocument: %v", v)
+		return fmt.Errorf("invalid value for AnthropicDocumentBlockParamTypeDocument: %v", v)
 	}
 }
 
@@ -455,7 +455,7 @@ type AnthropicDocumentBlockParam struct {
 	Context      optionalnullable.OptionalNullable[string]                               `json:"context,omitzero"`
 	Source       AnthropicDocumentBlockParamSourceUnion                                  `json:"source"`
 	Title        optionalnullable.OptionalNullable[string]                               `json:"title,omitzero"`
-	Type         TypeDocument                                                            `json:"type"`
+	Type         AnthropicDocumentBlockParamTypeDocument                                 `json:"type"`
 }
 
 func (a AnthropicDocumentBlockParam) MarshalJSON() ([]byte, error) {
@@ -524,9 +524,9 @@ func (a *AnthropicDocumentBlockParam) GetTitle() optionalnullable.OptionalNullab
 	return a.Title
 }
 
-func (a *AnthropicDocumentBlockParam) GetType() TypeDocument {
+func (a *AnthropicDocumentBlockParam) GetType() AnthropicDocumentBlockParamTypeDocument {
 	if a == nil {
-		return TypeDocument("")
+		return AnthropicDocumentBlockParamTypeDocument("")
 	}
 	return a.Type
 }
