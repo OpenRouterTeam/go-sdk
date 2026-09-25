@@ -1394,7 +1394,7 @@ func (s *Interns) UpdateIntern(ctx context.Context, internID string, updateInter
 }
 
 // GetInternDaemonAccess - Get an intern's daemon access
-// Returns the origin and daemon token that attach `ori tui --host` to one visible, running intern. The token is a credential: the response is sent with `Cache-Control: no-store`, each reveal is logged by caller and intern, and a caller may make 10 reveals per minute. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+// Returns the origin and daemon token that attach `ori tui --host` to one visible, running intern. The token is a credential: the response is sent with `Cache-Control: no-store`, and each reveal is logged by caller and intern. The API key selects the caller, workspace and visible interns. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
 //
 // If set, this operation will use [Security.APIKey] from the global security.
 func (s *Interns) GetInternDaemonAccess(ctx context.Context, internID string, opts ...operations.Option) (*components.InternDaemonAccess, error) {
@@ -1589,8 +1589,6 @@ func (s *Interns) GetInternDaemonAccess(ctx context.Context, internID string, op
 	case httpRes.StatusCode == 408:
 		fallthrough
 	case httpRes.StatusCode == 409:
-		fallthrough
-	case httpRes.StatusCode == 429:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
