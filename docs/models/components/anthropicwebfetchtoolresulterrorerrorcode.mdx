@@ -9,7 +9,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-value := components.AnthropicWebFetchToolResultErrorErrorCodeInvalidToolInput
+value := components.AnthropicWebFetchToolResultErrorErrorCodeContentTooLarge
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.AnthropicWebFetchToolResultErrorErrorCode("custom_value")
@@ -20,6 +20,7 @@ custom := components.AnthropicWebFetchToolResultErrorErrorCode("custom_value")
 
 | Name                                                              | Value                                                             |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `AnthropicWebFetchToolResultErrorErrorCodeContentTooLarge`        | content_too_large                                                 |
 | `AnthropicWebFetchToolResultErrorErrorCodeInvalidToolInput`       | invalid_tool_input                                                |
 | `AnthropicWebFetchToolResultErrorErrorCodeURLTooLong`             | url_too_long                                                      |
 | `AnthropicWebFetchToolResultErrorErrorCodeURLNotAllowed`          | url_not_allowed                                                   |
