@@ -22,6 +22,12 @@ thinking := components.CreateThinkingDisabled(components.ThinkingDisabled{/* val
 thinking := components.CreateThinkingAdaptive(components.ThinkingAdaptive{/* values here */})
 ```
 
+### ThinkingBetweenTools
+
+```go
+thinking := components.CreateThinkingBetweenTools(components.ThinkingBetweenTools{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -34,5 +40,7 @@ switch thinking.Type {
 		// thinking.ThinkingDisabled is populated
 	case components.ThinkingTypeAdaptive:
 		// thinking.ThinkingAdaptive is populated
+	case components.ThinkingTypeBetweenTools:
+		// thinking.ThinkingBetweenTools is populated
 }
 ```
