@@ -307,7 +307,8 @@ func main() {
 * [DeleteIntern](docs/sdks/interns/README.md#deleteintern) - Delete an intern
 * [GetIntern](docs/sdks/interns/README.md#getintern) - Get an intern
 * [UpdateIntern](docs/sdks/interns/README.md#updateintern) - Update an intern
-* [GetInternDaemonAccess](docs/sdks/interns/README.md#getinterndaemonaccess) - Get an intern's daemon access
+* [GetInternDaemon](docs/sdks/interns/README.md#getinterndaemon) - Get an intern's daemon access
+* [~~GetInternDaemonAccess~~](docs/sdks/interns/README.md#getinterndaemonaccess) - Get an intern's daemon access (deprecated alias) :warning: **Deprecated**
 * [ProvisionIntern](docs/sdks/interns/README.md#provisionintern) - Provision an intern
 * [SuspendIntern](docs/sdks/interns/README.md#suspendintern) - Suspend an intern
 * [Chat](docs/sdks/interns/README.md#chat) - Stream a chat completion with an intern

@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1c2773bf20615cba57492fcd697a5cac
+  docChecksum: 16bce09d8efdebb8425fc5358528906e
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.33
-  configChecksum: 089e51b77b6583c1031f9850cd129f60
+  releaseVersion: 0.8.34
+  configChecksum: 208ab373f5d974f291e55d272453f2b7
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: bc85300f-161c-41bf-afd1-f7909216ece1
-  pristine_commit_hash: 479088caf90fca87bb021a6e156eb50768bf57cb
-  pristine_tree_hash: 4c2dde3ada3881b52d55a58b19e4cb3870a6ddf1
+  generation_id: 8b9d3251-6dd4-462c-9afd-75d48464562b
+  pristine_commit_hash: 75cbe95494bd7d561883a8d898d08384c10288f3
+  pristine_tree_hash: 44946460b66e4a24b94d703085e27acd03b40a84
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6700,12 +6700,16 @@ trackedFiles:
     pristine_git_object: 6e8bb5af4a2bf6eafc7d2416dc63615d8d197c83
   docs/models/components/thinking.mdx:
     id: 6af3f68ac2b3
-    last_write_checksum: sha1:5e1d50893d74a2c6bb2bedab91ff18d43d7a7acc
-    pristine_git_object: 3945d86e6cec75245bbae12706e291f4a4e2054a
+    last_write_checksum: sha1:92b04c8bbc0ae6ae4fe2b8cf0114cf04e48ba7cb
+    pristine_git_object: d8631dd59ec7403fc67f1a7f08701f96ebf9e986
   docs/models/components/thinkingadaptive.mdx:
     id: f5cd99c7f548
     last_write_checksum: sha1:e2f1970daacf5946178e22e0fd409a7016e99c61
     pristine_git_object: 6fb273f81338274a53899b48b9e2752e1e3c2299
+  docs/models/components/thinkingbetweentools.mdx:
+    id: 32b7e83fc7a5
+    last_write_checksum: sha1:d5f3a17355f2661b29b517a7657861c8f3c9d8b5
+    pristine_git_object: 46973e9e65a7272e741cfafedb4cc6e4270ddac9
   docs/models/components/thinkingdisabled.mdx:
     id: c6fa18c84a72
     last_write_checksum: sha1:889e436435f4a73171239929ac43e50de03137be
@@ -6886,6 +6890,10 @@ trackedFiles:
     id: 15de72936278
     last_write_checksum: sha1:0d1b48fe596f498c8e0393d685ce9d6a401612f7
     pristine_git_object: 4135fb23aecb93fdf5ed5d140f64b01d1e2334be
+  docs/models/components/typebetweentools.mdx:
+    id: aa828c6b465a
+    last_write_checksum: sha1:91f129bfe55cd4ad337b3342ed019b4009a0ab7c
+    pristine_git_object: f689b66b90d1c2159b297c9de474a286b6584136
   docs/models/components/typeclearthinking20251015.mdx:
     id: 006330bf3c49
     last_write_checksum: sha1:74740df8a72949a7b1e7059e3334788316bbe155
@@ -7786,6 +7794,10 @@ trackedFiles:
     id: 7c557e903580
     last_write_checksum: sha1:3e87c8c6dd5366092c75fcfc8780a2ad487acd89
     pristine_git_object: fcddf168aaf81894bc0af022a0ed6f5bdf2be7eb
+  docs/models/operations/getinterndaemonrequest.mdx:
+    id: b7f9c365664a
+    last_write_checksum: sha1:86dc904b4efb2b0a56fe1dc7a4e40b7d280b15ee
+    pristine_git_object: 0194b7a0b5b719b6bafcc793c0fe2e45ead6bb31
   docs/models/operations/getinternrequest.mdx:
     id: 7b20846959da
     last_write_checksum: sha1:0983b105a2a73fd393ec27452e1ec27d4161e8dc
@@ -8556,8 +8568,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/interns/README.mdx:
     id: 2f8a053ffe78
-    last_write_checksum: sha1:a6520415ee3d7b0305d8d308e3943ee0fc979317
-    pristine_git_object: a0196b54a931dc72c27656e0e09c69f927c64189
+    last_write_checksum: sha1:b4b5f9cbf0997e7666e6d00245e003871bf87bc6
+    pristine_git_object: 9de0a581ccda8ac8dfe2ba5f5b190206fc71a989
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
     last_write_checksum: sha1:14ffb11eb5c8db2aa311ac04b4e1e8bea0ca5528
@@ -8716,8 +8728,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   interns.go:
     id: aad99db3b05b
-    last_write_checksum: sha1:8e96d922823b0e99cd3e50ce3badb6aa88ad795f
-    pristine_git_object: eb1e40a910e95a533907db763e712e5215084c60
+    last_write_checksum: sha1:1235be4151e4230f42a2238e9d92e2b2469ff055
+    pristine_git_object: d71672d15a3e5711ba76e3857a8235d9e6e9bf76
   models.go:
     id: 3af78faf181b
     last_write_checksum: sha1:8cc3e199c4b17ebc74642a4df902f06f8daeb2c7
@@ -10536,8 +10548,8 @@ trackedFiles:
     pristine_git_object: e06eae5ce6d393fe7f279ee8af0509beb2d7c028
   models/components/messagesrequest.go:
     id: c3efb31bbd81
-    last_write_checksum: sha1:77589cfe96c68a7a24739434d86e7cc3afd73232
-    pristine_git_object: 49335a91fdfe0148444cd8c50bfb55872f9a0707
+    last_write_checksum: sha1:a2abe9778afc170def9e59911a89aba389b5d791
+    pristine_git_object: dff75c75c4578bb7cc4470bd0020f90a4686bd72
   models/components/messagessearchmodelsservertool.go:
     id: 9a49a7fdac1c
     last_write_checksum: sha1:ac494d0af2f12cc10ee527bd4d28494092015111
@@ -12002,6 +12014,10 @@ trackedFiles:
     id: fb0ff33467d4
     last_write_checksum: sha1:985b82d544908d3a018ed0eec8932323605025ec
     pristine_git_object: cf7e5f87bb093047bcc442bf4e7a5450645c703e
+  models/operations/getinterndaemon.go:
+    id: a366562fa313
+    last_write_checksum: sha1:5ff3cb23936bd126c93c7983ea95ef5fc05c5a69
+    pristine_git_object: 69c4519424e2f63469b9d12d4bfaaee28208f58e
   models/operations/getinterndaemonaccess.go:
     id: af9c7b13ba51
     last_write_checksum: sha1:3ace7bf80400a2d66949843e41c047fd5d820989
@@ -12364,8 +12380,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:f02bd4a99e2ef7e400a2463af97edd9c0f3877c8
-    pristine_git_object: e22fa18a1203c18856a5cfdc6febaaffb66fd698
+    last_write_checksum: sha1:3e632528112358750c6711747f70a84551353f2f
+    pristine_git_object: 1fd69d3df83da331f1653d7a21d66fb1a67104be
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -15780,5 +15796,17 @@ examples:
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
         "500":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
+  getInternDaemon:
+    speakeasy-default-get-intern-daemon:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+      responses:
+        "200":
+          application/json: {"origin": "https://research-assistant-7c9e6679.or.bot", "token": "daemon_token"}
+        "401":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
+        "500":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Batch.CreateBatches()`:  `response.Results[].Response.Body.union(class (2)).Content[].union(web_fetch_tool_result).Content.union(web_fetch_tool_result_error).ErrorCode.Enum(urlNotInPriorContext)` **Added**\n* `OpenRouter.Batch.GetBatches()`:  `response.Results[].Response.Body.union(class (2)).Content[].union(web_fetch_tool_result).Content.union(web_fetch_tool_result_error).ErrorCode.Enum(urlNotInPriorContext)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].NativeTools` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].NativeTools` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Messages[].Content.union(Array<>)[].union(web_search_tool_result).Content.union(class (1)).ErrorCode.Enum(requestTooLarge)` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Interns.GetInternDaemon()`: **Added**\n* `OpenRouter.Interns.GetInternDaemonAccess()`: **Deprecated**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Thinking.union(between_tools)` **Added**\n"

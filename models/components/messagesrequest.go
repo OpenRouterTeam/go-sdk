@@ -1235,6 +1235,51 @@ func (u System) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type System: all fields are null")
 }
 
+type TypeBetweenTools string
+
+const (
+	TypeBetweenToolsBetweenTools TypeBetweenTools = "between_tools"
+)
+
+func (e TypeBetweenTools) ToPointer() *TypeBetweenTools {
+	return &e
+}
+func (e *TypeBetweenTools) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "between_tools":
+		*e = TypeBetweenTools(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeBetweenTools: %v", v)
+	}
+}
+
+type ThinkingBetweenTools struct {
+	Type TypeBetweenTools `json:"type"`
+}
+
+func (t ThinkingBetweenTools) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *ThinkingBetweenTools) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *ThinkingBetweenTools) GetType() TypeBetweenTools {
+	if t == nil {
+		return TypeBetweenTools("")
+	}
+	return t.Type
+}
+
 type TypeAdaptive string
 
 const (
@@ -1416,12 +1461,14 @@ const (
 	ThinkingTypeEnabled       ThinkingType = "enabled"
 	ThinkingTypeDisabledValue ThinkingType = "disabled"
 	ThinkingTypeAdaptive      ThinkingType = "adaptive"
+	ThinkingTypeBetweenTools  ThinkingType = "between_tools"
 )
 
 type Thinking struct {
-	ThinkingEnabled  *ThinkingEnabled  `queryParam:"inline" union:"member"`
-	ThinkingDisabled *ThinkingDisabled `queryParam:"inline" union:"member"`
-	ThinkingAdaptive *ThinkingAdaptive `queryParam:"inline" union:"member"`
+	ThinkingEnabled      *ThinkingEnabled      `queryParam:"inline" union:"member"`
+	ThinkingDisabled     *ThinkingDisabled     `queryParam:"inline" union:"member"`
+	ThinkingAdaptive     *ThinkingAdaptive     `queryParam:"inline" union:"member"`
+	ThinkingBetweenTools *ThinkingBetweenTools `queryParam:"inline" union:"member"`
 
 	Type ThinkingType
 }
@@ -1459,6 +1506,18 @@ func CreateThinkingAdaptive(adaptive ThinkingAdaptive) Thinking {
 	return Thinking{
 		ThinkingAdaptive: &adaptive,
 		Type:             typ,
+	}
+}
+
+func CreateThinkingBetweenTools(betweenTools ThinkingBetweenTools) Thinking {
+	typ := ThinkingTypeBetweenTools
+
+	typStr := TypeBetweenTools(typ)
+	betweenTools.Type = typStr
+
+	return Thinking{
+		ThinkingBetweenTools: &betweenTools,
+		Type:                 typ,
 	}
 }
 
@@ -1501,6 +1560,15 @@ func (u *Thinking) UnmarshalJSON(data []byte) error {
 		u.ThinkingAdaptive = thinkingAdaptive
 		u.Type = ThinkingTypeAdaptive
 		return nil
+	case "between_tools":
+		thinkingBetweenTools := new(ThinkingBetweenTools)
+		if err := utils.UnmarshalJSON(data, &thinkingBetweenTools, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == between_tools) type ThinkingBetweenTools within Thinking: %w", string(data), err)
+		}
+
+		u.ThinkingBetweenTools = thinkingBetweenTools
+		u.Type = ThinkingTypeBetweenTools
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Thinking", string(data))
@@ -1517,6 +1585,10 @@ func (u Thinking) MarshalJSON() ([]byte, error) {
 
 	if u.ThinkingAdaptive != nil {
 		return utils.MarshalJSON(u.ThinkingAdaptive, "", true)
+	}
+
+	if u.ThinkingBetweenTools != nil {
+		return utils.MarshalJSON(u.ThinkingBetweenTools, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Thinking: all fields are null")
@@ -3289,6 +3361,13 @@ func (m *MessagesRequest) GetThinkingDisabled() *ThinkingDisabled {
 func (m *MessagesRequest) GetThinkingAdaptive() *ThinkingAdaptive {
 	if v := m.GetThinking(); v != nil {
 		return v.ThinkingAdaptive
+	}
+	return nil
+}
+
+func (m *MessagesRequest) GetThinkingBetweenTools() *ThinkingBetweenTools {
+	if v := m.GetThinking(); v != nil {
+		return v.ThinkingBetweenTools
 	}
 	return nil
 }
