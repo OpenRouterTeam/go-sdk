@@ -1,0 +1,26 @@
+---
+title: "DraftOnly"
+---
+
+When `true`, only delete the endpoint if it is still a draft (409 otherwise).
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.DraftOnlyTrue
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.DraftOnly("custom_value")
+```
+
+
+## Values
+
+| Name             | Value            |
+| ---------------- | ---------------- |
+| `DraftOnlyTrue`  | true             |
+| `DraftOnlyFalse` | false            |

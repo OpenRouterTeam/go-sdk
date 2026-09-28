@@ -1,0 +1,33 @@
+---
+title: "NotFound"
+---
+
+The model, provider, or validation workspace was not found. When `activate` was passed and the draft was created, `data` carries it and any validation checks.
+
+
+## Supported Types
+
+### CreatePrivateEndpointValidationFailedResponseError
+
+```go
+notFound := sdkerrors.CreateNotFoundCreatePrivateEndpointValidationFailedResponseError(sdkerrors.CreatePrivateEndpointValidationFailedResponseError{/* values here */})
+```
+
+### NotFoundResponseError
+
+```go
+notFound := sdkerrors.CreateNotFoundNotFoundResponseError(sdkerrors.NotFoundResponseError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch notFound.Type {
+	case sdkerrors.NotFoundTypeCreatePrivateEndpointValidationFailedResponseError:
+		// notFound.CreatePrivateEndpointValidationFailedResponseError is populated
+	case sdkerrors.NotFoundTypeNotFoundResponseError:
+		// notFound.NotFoundResponseError is populated
+}
+```

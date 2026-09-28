@@ -1,0 +1,33 @@
+---
+title: "UnprocessableEntity"
+---
+
+The request was invalid, or validation failed. When `activate` was passed and the draft was created, `data` carries it and any validation checks.
+
+
+## Supported Types
+
+### CreatePrivateEndpointValidationFailedResponseError
+
+```go
+unprocessableEntity := sdkerrors.CreateUnprocessableEntityCreatePrivateEndpointValidationFailedResponseError(sdkerrors.CreatePrivateEndpointValidationFailedResponseError{/* values here */})
+```
+
+### UnprocessableEntityResponseError
+
+```go
+unprocessableEntity := sdkerrors.CreateUnprocessableEntityUnprocessableEntityResponseError(sdkerrors.UnprocessableEntityResponseError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch unprocessableEntity.Type {
+	case sdkerrors.UnprocessableEntityTypeCreatePrivateEndpointValidationFailedResponseError:
+		// unprocessableEntity.CreatePrivateEndpointValidationFailedResponseError is populated
+	case sdkerrors.UnprocessableEntityTypeUnprocessableEntityResponseError:
+		// unprocessableEntity.UnprocessableEntityResponseError is populated
+}
+```

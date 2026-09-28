@@ -1,0 +1,33 @@
+---
+title: "Conflict"
+---
+
+The request conflicts with the endpoint state, such as a stale validation. When `activate` was passed and the draft was created, `data` carries it and any validation checks.
+
+
+## Supported Types
+
+### CreatePrivateEndpointValidationFailedResponseError
+
+```go
+conflict := sdkerrors.CreateConflictCreatePrivateEndpointValidationFailedResponseError(sdkerrors.CreatePrivateEndpointValidationFailedResponseError{/* values here */})
+```
+
+### ConflictResponseError
+
+```go
+conflict := sdkerrors.CreateConflictConflictResponseError(sdkerrors.ConflictResponseError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch conflict.Type {
+	case sdkerrors.ConflictTypeCreatePrivateEndpointValidationFailedResponseError:
+		// conflict.CreatePrivateEndpointValidationFailedResponseError is populated
+	case sdkerrors.ConflictTypeConflictResponseError:
+		// conflict.ConflictResponseError is populated
+}
+```
