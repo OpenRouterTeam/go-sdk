@@ -11,6 +11,7 @@ import (
 type AnthropicWebFetchToolResultErrorErrorCode string
 
 const (
+	AnthropicWebFetchToolResultErrorErrorCodeContentTooLarge        AnthropicWebFetchToolResultErrorErrorCode = "content_too_large"
 	AnthropicWebFetchToolResultErrorErrorCodeInvalidToolInput       AnthropicWebFetchToolResultErrorErrorCode = "invalid_tool_input"
 	AnthropicWebFetchToolResultErrorErrorCodeURLTooLong             AnthropicWebFetchToolResultErrorErrorCode = "url_too_long"
 	AnthropicWebFetchToolResultErrorErrorCodeURLNotAllowed          AnthropicWebFetchToolResultErrorErrorCode = "url_not_allowed"
@@ -30,7 +31,7 @@ func (e AnthropicWebFetchToolResultErrorErrorCode) ToPointer() *AnthropicWebFetc
 func (e *AnthropicWebFetchToolResultErrorErrorCode) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "invalid_tool_input", "url_too_long", "url_not_allowed", "url_not_in_prior_context", "url_not_accessible", "unsupported_content_type", "too_many_requests", "max_uses_exceeded", "unavailable":
+		case "content_too_large", "invalid_tool_input", "url_too_long", "url_not_allowed", "url_not_in_prior_context", "url_not_accessible", "unsupported_content_type", "too_many_requests", "max_uses_exceeded", "unavailable":
 			return true
 		}
 	}

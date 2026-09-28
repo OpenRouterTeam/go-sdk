@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 16bce09d8efdebb8425fc5358528906e
+  docChecksum: f4d5ae95f220eb70afd3e8f8dcf6bf42
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.34
-  configChecksum: 208ab373f5d974f291e55d272453f2b7
+  releaseVersion: 0.8.35
+  configChecksum: 0608aacb44e59577672e8025cad77384
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 8b9d3251-6dd4-462c-9afd-75d48464562b
-  pristine_commit_hash: 75cbe95494bd7d561883a8d898d08384c10288f3
-  pristine_tree_hash: 44946460b66e4a24b94d703085e27acd03b40a84
+  generation_id: 3acc3366-35bb-4d64-b53d-04c7df258d72
+  pristine_commit_hash: 0addd06650636dc286d51a59e646ef881526f810
+  pristine_tree_hash: 2f57cbcf79d5b39f5c195154f319111e2140ac19
 features:
   go:
     acceptHeaders: 2.81.2
@@ -104,8 +104,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -1008,8 +1008,8 @@ trackedFiles:
     pristine_git_object: 3923fcf4e1761260292cd1918af82b7877860b1a
   docs/models/components/anthropicwebfetchtoolresulterrorerrorcode.mdx:
     id: f389758f5438
-    last_write_checksum: sha1:a1d898d5c7fa990d9c3aeeed4184e1de27ab59a8
-    pristine_git_object: 22715a906c8807374e5a3db6926a28696975bff0
+    last_write_checksum: sha1:11149d51cfc5cb769df61d830ef547485df32471
+    pristine_git_object: a8f27613e972f9fbf8fc871c04b0c7ae602b4240
   docs/models/components/anthropicwebfetchtoolresulterrortype.mdx:
     id: 29a34e0e382b
     last_write_checksum: sha1:f95c295cbb2c07382ba6b8ec9811f7318bd27947
@@ -9152,8 +9152,8 @@ trackedFiles:
     pristine_git_object: cf46fd27a57ba508e45cfd3af79e2485cbfd2a50
   models/components/anthropicwebfetchtoolresulterror.go:
     id: 87eeb05071e6
-    last_write_checksum: sha1:f9bf275a1223b8692f4b56b76ede45964e143b4c
-    pristine_git_object: d7bc23ea2d710c10c371989a37d3744f1f573af4
+    last_write_checksum: sha1:c6c7cd3ddedae68531d7c862ecc27ac138421d79
+    pristine_git_object: 496cba7f3c3f2aeb458a79e71cdefa1c4d0e5353
   models/components/anthropicwebsearchresult.go:
     id: 6fda669b3762
     last_write_checksum: sha1:5ef86c48493c195dc56961c4bb3f1f2e6e959463
@@ -12380,8 +12380,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3e632528112358750c6711747f70a84551353f2f
-    pristine_git_object: 1fd69d3df83da331f1653d7a21d66fb1a67104be
+    last_write_checksum: sha1:fa83e6c8b9e3afaf95854f41ce45fda47c8fd68d
+    pristine_git_object: 1d4ae33e28bff7da876236b2353db0e22ee407f6
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -15809,4 +15809,7 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Interns.GetInternDaemon()`: **Added**\n* `OpenRouter.Interns.GetInternDaemonAccess()`: **Deprecated**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Thinking.union(between_tools)` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Batch.CreateBatches()`:  `response.Results[].Response.Body.union(class (2)).Content[].union(web_fetch_tool_result).Content.union(web_fetch_tool_result_error).ErrorCode.Enum(contentTooLarge)` **Added**
+  * `OpenRouter.Batch.GetBatches()`:  `response.Results[].Response.Body.union(class (2)).Content[].union(web_fetch_tool_result).Content.union(web_fetch_tool_result_error).ErrorCode.Enum(contentTooLarge)` **Added**
