@@ -88,6 +88,7 @@ const (
 	MessagesMessageParamErrorCodeMaxUsesExceeded  MessagesMessageParamErrorCode = "max_uses_exceeded"
 	MessagesMessageParamErrorCodeTooManyRequests  MessagesMessageParamErrorCode = "too_many_requests"
 	MessagesMessageParamErrorCodeQueryTooLong     MessagesMessageParamErrorCode = "query_too_long"
+	MessagesMessageParamErrorCodeRequestTooLarge  MessagesMessageParamErrorCode = "request_too_large"
 )
 
 func (e MessagesMessageParamErrorCode) ToPointer() *MessagesMessageParamErrorCode {
@@ -98,7 +99,7 @@ func (e MessagesMessageParamErrorCode) ToPointer() *MessagesMessageParamErrorCod
 func (e *MessagesMessageParamErrorCode) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "invalid_tool_input", "unavailable", "max_uses_exceeded", "too_many_requests", "query_too_long":
+		case "invalid_tool_input", "unavailable", "max_uses_exceeded", "too_many_requests", "query_too_long", "request_too_large":
 			return true
 		}
 	}
