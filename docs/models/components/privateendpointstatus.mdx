@@ -1,0 +1,27 @@
+---
+title: "PrivateEndpointStatus"
+---
+
+Lifecycle state. `draft` endpoints are not routable until validated and activated; `disabled` endpoints are activated but temporarily not routable.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.PrivateEndpointStatusDraft
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PrivateEndpointStatus("custom_value")
+```
+
+
+## Values
+
+| Name                            | Value                           |
+| ------------------------------- | ------------------------------- |
+| `PrivateEndpointStatusDraft`    | draft                           |
+| `PrivateEndpointStatusActive`   | active                          |
+| `PrivateEndpointStatusDisabled` | disabled                        |

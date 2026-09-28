@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.8.35
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.0
 > ```
 
 <!-- No Summary [summary] -->
@@ -349,6 +349,19 @@ func main() {
 * [CreatePresetsResponses](docs/sdks/presets/README.md#createpresetsresponses) - Create a preset from a responses request body
 * [ListVersions](docs/sdks/presets/README.md#listversions) - List versions of a preset
 * [GetVersion](docs/sdks/presets/README.md#getversion) - Get a specific version of a preset
+
+### [PrivateEndpoints](docs/sdks/privateendpoints/README.md)
+
+* [List](docs/sdks/privateendpoints/README.md#list) - List private endpoints
+* [Create](docs/sdks/privateendpoints/README.md#create) - Create a private endpoint
+* [Delete](docs/sdks/privateendpoints/README.md#delete) - Delete a private endpoint
+* [Get](docs/sdks/privateendpoints/README.md#get) - Get a private endpoint
+* [Update](docs/sdks/privateendpoints/README.md#update) - Update a draft private endpoint
+* [Activate](docs/sdks/privateendpoints/README.md#activate) - Activate a validated private endpoint
+* [Disable](docs/sdks/privateendpoints/README.md#disable) - Disable a private endpoint
+* [Enable](docs/sdks/privateendpoints/README.md#enable) - Enable a private endpoint
+* [UpdatePricing](docs/sdks/privateendpoints/README.md#updatepricing) - Set private endpoint pricing
+* [Validate](docs/sdks/privateendpoints/README.md#validate) - Validate a draft private endpoint
 
 ### [Providers](docs/sdks/providers/README.md)
 

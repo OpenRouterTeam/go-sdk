@@ -1,0 +1,40 @@
+---
+title: "PrivateEndpointCheckReason"
+---
+
+Why the check failed.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.PrivateEndpointCheckReasonDatabaseError
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PrivateEndpointCheckReason("custom_value")
+```
+
+
+## Values
+
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `PrivateEndpointCheckReasonDatabaseError`        | database_error                                   |
+| `PrivateEndpointCheckReasonEndpointLimitReached` | endpoint_limit_reached                           |
+| `PrivateEndpointCheckReasonInvalidBaseURL`       | invalid_base_url                                 |
+| `PrivateEndpointCheckReasonModelNotFound`        | model_not_found                                  |
+| `PrivateEndpointCheckReasonProviderNotFound`     | provider_not_found                               |
+| `PrivateEndpointCheckReasonEndpointNotFound`     | endpoint_not_found                               |
+| `PrivateEndpointCheckReasonWorkspaceNotFound`    | workspace_not_found                              |
+| `PrivateEndpointCheckReasonNoBYOKKey`            | no_byok_key                                      |
+| `PrivateEndpointCheckReasonKeyDecryptionFailed`  | key_decryption_failed                            |
+| `PrivateEndpointCheckReasonUpstreamError`        | upstream_error                                   |
+| `PrivateEndpointCheckReasonInvalidResponse`      | invalid_response                                 |
+| `PrivateEndpointCheckReasonInvalidStream`        | invalid_stream                                   |
+| `PrivateEndpointCheckReasonMissingUsage`         | missing_usage                                    |
+| `PrivateEndpointCheckReasonModelMismatch`        | model_mismatch                                   |
+| `PrivateEndpointCheckReasonNotValidated`         | not_validated                                    |
+| `PrivateEndpointCheckReasonValidationStale`      | validation_stale                                 |

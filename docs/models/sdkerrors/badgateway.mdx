@@ -1,0 +1,33 @@
+---
+title: "BadGateway"
+---
+
+An upstream dependency failed. When `activate` was passed and the draft was created, `data` carries it and any validation checks.
+
+
+## Supported Types
+
+### CreatePrivateEndpointValidationFailedResponseError
+
+```go
+badGateway := sdkerrors.CreateBadGatewayCreatePrivateEndpointValidationFailedResponseError(sdkerrors.CreatePrivateEndpointValidationFailedResponseError{/* values here */})
+```
+
+### BadGatewayResponseError
+
+```go
+badGateway := sdkerrors.CreateBadGatewayBadGatewayResponseError(sdkerrors.BadGatewayResponseError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch badGateway.Type {
+	case sdkerrors.BadGatewayTypeCreatePrivateEndpointValidationFailedResponseError:
+		// badGateway.CreatePrivateEndpointValidationFailedResponseError is populated
+	case sdkerrors.BadGatewayTypeBadGatewayResponseError:
+		// badGateway.BadGatewayResponseError is populated
+}
+```

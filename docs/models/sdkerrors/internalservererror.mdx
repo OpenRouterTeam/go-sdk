@@ -1,0 +1,33 @@
+---
+title: "InternalServerError"
+---
+
+Internal server error. When `activate` was passed and the draft was created, `data` carries it and any validation checks.
+
+
+## Supported Types
+
+### CreatePrivateEndpointValidationFailedResponseError
+
+```go
+internalServerError := sdkerrors.CreateInternalServerErrorCreatePrivateEndpointValidationFailedResponseError(sdkerrors.CreatePrivateEndpointValidationFailedResponseError{/* values here */})
+```
+
+### InternalServerResponseError
+
+```go
+internalServerError := sdkerrors.CreateInternalServerErrorInternalServerResponseError(sdkerrors.InternalServerResponseError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch internalServerError.Type {
+	case sdkerrors.InternalServerErrorTypeCreatePrivateEndpointValidationFailedResponseError:
+		// internalServerError.CreatePrivateEndpointValidationFailedResponseError is populated
+	case sdkerrors.InternalServerErrorTypeInternalServerResponseError:
+		// internalServerError.InternalServerResponseError is populated
+}
+```
