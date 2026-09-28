@@ -6,6 +6,18 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type NativeTools struct {
+	// The provider tool type the request is translated to when this tool runs natively, e.g. `web_search_20260209` on Anthropic or `google_search` on Gemini.
+	Type string `json:"type"`
+}
+
+func (n *NativeTools) GetType() string {
+	if n == nil {
+		return ""
+	}
+	return n.Type
+}
+
 type Decisions struct {
 	Latency *PercentileStats `json:"latency"`
 	// Total requests admitted for this workload in the window.
@@ -518,6 +530,8 @@ type PublicEndpoint struct {
 	ModelID   string `json:"model_id"`
 	ModelName string `json:"model_name"`
 	Name      string `json:"name"`
+	// The server tools this endpoint accepts as the provider's own built-in tool (`engine: "native"`) instead of an OpenRouter engine, keyed by canonical `openrouter:*` name. Each value names the provider tool type the request is translated to. Where that tool runs (provider-side, or returned to the client as with Anthropic bash) is documented per tool. Empty when the provider has none.
+	NativeTools map[string]NativeTools `json:"native_tools"`
 	// Endpoint performance over the last 30 minutes, keyed by the kind of request served (e.g. `text_generation`, `image_generation`). Additive to the legacy singular latency and throughput fields; image and video generation report end-to-end latency. Only visible when authenticated with an API key or cookie.
 	PerfLast30mByWorkload *PerfLast30mByWorkload `json:"perf_last_30m_by_workload,omitzero"`
 	Pricing               Pricing                `json:"pricing"`
@@ -601,6 +615,13 @@ func (p *PublicEndpoint) GetName() string {
 		return ""
 	}
 	return p.Name
+}
+
+func (p *PublicEndpoint) GetNativeTools() map[string]NativeTools {
+	if p == nil {
+		return map[string]NativeTools{}
+	}
+	return p.NativeTools
 }
 
 func (p *PublicEndpoint) GetPerfLast30mByWorkload() *PerfLast30mByWorkload {

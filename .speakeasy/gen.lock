@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: c4a804c2b4a40bf0024d660c52e478c4
+  docChecksum: 1c2773bf20615cba57492fcd697a5cac
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.8.32
-  configChecksum: ab2f0a4f8569a5b755210ef0e9bf8572
+  releaseVersion: 0.8.33
+  configChecksum: 089e51b77b6583c1031f9850cd129f60
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 1c470f16-baa8-4baf-99b2-876921afa363
-  pristine_commit_hash: 605bb4708963b28ed4e5b7c380b8b9e7571e401c
-  pristine_tree_hash: 5d549abfb32865941797e4f74a1474be4f9797a1
+  generation_id: bc85300f-161c-41bf-afd1-f7909216ece1
+  pristine_commit_hash: 479088caf90fca87bb021a6e156eb50768bf57cb
+  pristine_tree_hash: 4c2dde3ada3881b52d55a58b19e4cb3870a6ddf1
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1008,8 +1008,8 @@ trackedFiles:
     pristine_git_object: 3923fcf4e1761260292cd1918af82b7877860b1a
   docs/models/components/anthropicwebfetchtoolresulterrorerrorcode.mdx:
     id: f389758f5438
-    last_write_checksum: sha1:a7539f951665fad70dc4e9a403fc1643deac9b65
-    pristine_git_object: 54dc99d423847c46518ddd6e765e063d244395e9
+    last_write_checksum: sha1:a1d898d5c7fa990d9c3aeeed4184e1de27ab59a8
+    pristine_git_object: 22715a906c8807374e5a3db6926a28696975bff0
   docs/models/components/anthropicwebfetchtoolresulterrortype.mdx:
     id: 29a34e0e382b
     last_write_checksum: sha1:f95c295cbb2c07382ba6b8ec9811f7318bd27947
@@ -4264,8 +4264,8 @@ trackedFiles:
     pristine_git_object: 5d12dbdba2670305c3794358d67317722b9a461b
   docs/models/components/messagesmessageparamerrorcode.mdx:
     id: 537b0847d435
-    last_write_checksum: sha1:fcbe9c75d92d7a915c1873e2a98b9a8ed49f695f
-    pristine_git_object: da934631cac4ad3ca4089c0f7565368932006777
+    last_write_checksum: sha1:92eb24550894263e6607332b376915421084dd04
+    pristine_git_object: d8e3ff4c284067bfa2a323f52016c060992a8d62
   docs/models/components/messagesmessageparamrole.mdx:
     id: 722d9a3bd77f
     last_write_checksum: sha1:dd5db5b1bf10f8a935d8066122fa4ac274a302b9
@@ -4554,6 +4554,10 @@ trackedFiles:
     id: 36b32810b1a6
     last_write_checksum: sha1:5016e1735735518c5f74a05f22ff6e30bc2b1dfa
     pristine_git_object: b2b31df11731a73f724da5909216592f05c812a2
+  docs/models/components/nativetools.mdx:
+    id: c694d17d85f4
+    last_write_checksum: sha1:7628c27be35dc1d45b2bd2c45eaab791f9a66092
+    pristine_git_object: 2e0483ed4f267a5cfc961594ead416fbb0a741b6
   docs/models/components/never.mdx:
     id: 1887017b0f73
     last_write_checksum: sha1:bd5621e07e19f3cc4b640ecb15ff036c94474ca6
@@ -5860,8 +5864,8 @@ trackedFiles:
     pristine_git_object: 0b1066907451e465095ec04fcf71cbf4e6019a38
   docs/models/components/publicendpoint.mdx:
     id: 63d6ef18c590
-    last_write_checksum: sha1:84aa58570c2fa81e017dff4233e5798b759ba3d7
-    pristine_git_object: 70ca038b1dc2d40804401fcb39b90a7ba77f386b
+    last_write_checksum: sha1:734c1913aea0953c0c174e120e3babf5288dae64
+    pristine_git_object: cfef15d90304c8f53952e917f238db630c52319e
   docs/models/components/publicpricing.mdx:
     id: c23229563aba
     last_write_checksum: sha1:bfc74c17989b9ad338568c72e1b78a86f9a39232
@@ -9136,8 +9140,8 @@ trackedFiles:
     pristine_git_object: cf46fd27a57ba508e45cfd3af79e2485cbfd2a50
   models/components/anthropicwebfetchtoolresulterror.go:
     id: 87eeb05071e6
-    last_write_checksum: sha1:a0c1ceb40441e7d5701138e113e06093a201d803
-    pristine_git_object: 1cb8a40d00240b766e4a8dffe52aa3d50432770f
+    last_write_checksum: sha1:f9bf275a1223b8692f4b56b76ede45964e143b4c
+    pristine_git_object: d7bc23ea2d710c10c371989a37d3744f1f573af4
   models/components/anthropicwebsearchresult.go:
     id: 6fda669b3762
     last_write_checksum: sha1:5ef86c48493c195dc56961c4bb3f1f2e6e959463
@@ -10524,8 +10528,8 @@ trackedFiles:
     pristine_git_object: 42269c455a159a109bd218f5d93297cb5be68db9
   models/components/messagesmessageparam.go:
     id: 95d11a0f5285
-    last_write_checksum: sha1:85615ddfe987d896e1080ad418c9ef7986f8d0b7
-    pristine_git_object: 7cb85970f87b83b943a42c7aeb2bd25891827d81
+    last_write_checksum: sha1:9f8683522b64683fab766d3eeb6bf76e5ad2d656
+    pristine_git_object: 484e4e94daf566d1dd7ba446c434c09e2d151d0c
   models/components/messagesoutputconfig.go:
     id: 6de33a59cf6c
     last_write_checksum: sha1:f4769a956721655a58bbd688d79347d0698c63a6
@@ -11108,8 +11112,8 @@ trackedFiles:
     pristine_git_object: 1ef96ca8132f8e9c7657a7e7064dc44c720a046a
   models/components/publicendpoint.go:
     id: "32378212e204"
-    last_write_checksum: sha1:be2c7f4c44ef4222f5f13704ae76d15ce92ab5d5
-    pristine_git_object: bb11f4a28dbed30c21a635c434e5c53bbb20fc88
+    last_write_checksum: sha1:4ca3c0499decf895f818812b070fadd9939d03e3
+    pristine_git_object: cc5cbbf2eb00873795a60b1718deba12a7ee7482
   models/components/publicpricing.go:
     id: 8596f6c62439
     last_write_checksum: sha1:27958df794cc170d479c41ce42c79839ce3118b3
@@ -12360,8 +12364,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:1f4bc21cba0b81fe3fe7d9ecdf9be271eaf7ec1c
-    pristine_git_object: 412ef38bc79edbd3172cb8555d13c9d0faef4742
+    last_write_checksum: sha1:f02bd4a99e2ef7e400a2463af97edd9c0f3877c8
+    pristine_git_object: e22fa18a1203c18856a5cfdc6febaaffb66fd698
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -12657,7 +12661,7 @@ examples:
           slug: "<value>"
       responses:
         "200":
-          application/json: {"data": {"architecture": {"input_modalities": ["text"], "instruct_type": "chatml", "modality": "text->text", "output_modalities": ["text"], "tokenizer": "GPT"}, "created": 1692901234, "description": "GPT-4 is a large multimodal model that can solve difficult problems with greater accuracy.", "endpoints": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_image_reference": false, "supports_implicit_caching": true, "supports_multiple_audio_references": false, "supports_tool_choice": {"auto": true, "function": true, "none": true, "required": true}, "supports_voice_cloning": false, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}], "id": "openai/gpt-4", "name": "GPT-4"}}
+          application/json: {"data": {"architecture": {"input_modalities": ["text"], "instruct_type": "chatml", "modality": "text->text", "output_modalities": ["text"], "tokenizer": "GPT"}, "created": 1692901234, "description": "GPT-4 is a large multimodal model that can solve difficult problems with greater accuracy.", "endpoints": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "native_tools": {}, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_image_reference": false, "supports_implicit_caching": true, "supports_multiple_audio_references": false, "supports_tool_choice": {"auto": true, "function": true, "none": true, "required": true}, "supports_voice_cloning": false, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}], "id": "openai/gpt-4", "name": "GPT-4"}}
         "404":
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
@@ -12668,7 +12672,7 @@ examples:
     speakeasy-default-list-endpoints-zdr:
       responses:
         "200":
-          application/json: {"data": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_image_reference": false, "supports_implicit_caching": true, "supports_multiple_audio_references": false, "supports_tool_choice": {"auto": true, "function": true, "none": true, "required": true}, "supports_voice_cloning": false, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}]}
+          application/json: {"data": [{"context_length": 8192, "latency_last_30m": {"p50": 0.25, "p75": 0.35, "p90": 0.48, "p99": 0.85}, "max_completion_tokens": 4096, "max_prompt_tokens": 8192, "model_id": "openai/gpt-4", "model_name": "GPT-4", "name": "OpenAI: GPT-4", "native_tools": {}, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "provider_name": "OpenAI", "quantization": "fp16", "supported_parameters": ["temperature", "top_p", "max_tokens"], "supports_image_reference": false, "supports_implicit_caching": true, "supports_multiple_audio_references": false, "supports_tool_choice": {"auto": true, "function": true, "none": true, "required": true}, "supports_voice_cloning": false, "tag": "openai", "throughput_last_30m": {"p50": 45.2, "p75": 38.5, "p90": 28.3, "p99": 15.1}, "uptime_last_1d": 99.8, "uptime_last_30m": 99.5, "uptime_last_5m": 100}]}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
@@ -15777,6 +15781,4 @@ examples:
         "500":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Embeddings.Generate()`:  `error.status[504]` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Batch.CreateBatches()`:  `response.Results[].Response.Body.union(class (2)).Content[].union(web_fetch_tool_result).Content.union(web_fetch_tool_result_error).ErrorCode.Enum(urlNotInPriorContext)` **Added**\n* `OpenRouter.Batch.GetBatches()`:  `response.Results[].Response.Body.union(class (2)).Content[].union(web_fetch_tool_result).Content.union(web_fetch_tool_result_error).ErrorCode.Enum(urlNotInPriorContext)` **Added**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].NativeTools` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].NativeTools` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Messages[].Content.union(Array<>)[].union(web_search_tool_result).Content.union(class (1)).ErrorCode.Enum(requestTooLarge)` **Added**\n"
