@@ -34,6 +34,12 @@ messagesRequestPlugin := components.CreateMessagesRequestPluginFileParser(compon
 messagesRequestPlugin := components.CreateMessagesRequestPluginFusion(components.FusionPlugin{/* values here */})
 ```
 
+### JevRouterPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginJevRouter(components.JevRouterPlugin{/* values here */})
+```
+
 ### ModerationPlugin
 
 ```go
@@ -86,6 +92,8 @@ switch messagesRequestPlugin.Type {
 		// messagesRequestPlugin.FileParserPlugin is populated
 	case components.MessagesRequestPluginTypeFusion:
 		// messagesRequestPlugin.FusionPlugin is populated
+	case components.MessagesRequestPluginTypeJevRouter:
+		// messagesRequestPlugin.JevRouterPlugin is populated
 	case components.MessagesRequestPluginTypeModeration:
 		// messagesRequestPlugin.ModerationPlugin is populated
 	case components.MessagesRequestPluginTypeParetoRouter:
