@@ -1,0 +1,28 @@
+---
+title: "PricingSource"
+---
+
+Who bills the engine's calls beyond the model's tokens: `openrouter` (the `pricing` rows, from the caller's credits), `provider` (a per-call tool fee from the model's provider on the inference call, at its own rates), `byok` (the engine's vendor, against the caller's own key), or `none` (no charge)
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.PricingSourceOpenrouter
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PricingSource("custom_value")
+```
+
+
+## Values
+
+| Name                      | Value                     |
+| ------------------------- | ------------------------- |
+| `PricingSourceOpenrouter` | openrouter                |
+| `PricingSourceProvider`   | provider                  |
+| `PricingSourceBYOK`       | byok                      |
+| `PricingSourceNone`       | none                      |

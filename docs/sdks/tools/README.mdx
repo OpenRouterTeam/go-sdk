@@ -1,0 +1,130 @@
+---
+title: "Tools"
+description: "The catalog of server tools OpenRouter runs on behalf of a model: accepted `tools[].type` spellings per API format, engines and pricing, and which endpoints run each tool natively. See https://openrouter.ai/docs/guides/features/server-tools."
+---
+
+## Overview
+
+The catalog of server tools OpenRouter runs on behalf of a model: accepted `tools[].type` spellings per API format, engines and pricing, and which endpoints run each tool natively. See https://openrouter.ai/docs/guides/features/server-tools.
+
+### Available Operations
+
+* [ListTools](#listtools) - List server tools
+* [GetTool](#gettool) - Get a server tool
+
+## ListTools
+
+Lists every server tool OpenRouter can run on behalf of a model: accepted `tools[].type` spellings per API format, the engines behind it with their pricing, and how many endpoints run it natively.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"os"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New()
+
+    res, err := s.Tools.ListTools(ctx, operations.ListToolsSecurity{
+        Bearer: os.Getenv("OPENROUTER_BEARER"),
+    }, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      | Example                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                            | :heavy_check_mark:                                                                                               | The context to use for the request.                                                                              |                                                                                                                  |
+| `security`                                                                                                       | [operations.ListToolsSecurity](../../models/operations/listtoolssecurity.mdx)                                     | :heavy_check_mark:                                                                                               | The security requirements to use for the request.                                                                |                                                                                                                  |
+| `offset`                                                                                                         | optionalnullable.OptionalNullable[`int64`]                                                                       | :heavy_minus_sign:                                                                                               | Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned      | 0                                                                                                                |
+| `limit`                                                                                                          | `*int64`                                                                                                         | :heavy_minus_sign:                                                                                               | Maximum number of records to return (max 100). When both offset and limit are omitted, the full list is returned | 50                                                                                                               |
+| `apiFormat`                                                                                                      | [*operations.APIFormat](../../models/operations/apiformat.mdx)                                                    | :heavy_minus_sign:                                                                                               | Only tools usable on this API format                                                                             | responses                                                                                                        |
+| `opts`                                                                                                           | [][operations.Option](../../models/operations/option.mdx)                                                         | :heavy_minus_sign:                                                                                               | The options for this request.                                                                                    |                                                                                                                  |
+
+### Response
+
+**[*components.ListToolsResponse](../../models/components/listtoolsresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetTool
+
+One server tool by canonical name or any accepted alias, with the models that run it natively.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"os"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New()
+
+    res, err := s.Tools.GetTool(ctx, operations.GetToolSecurity{
+        Bearer: os.Getenv("OPENROUTER_BEARER"),
+    }, "openrouter:web_search")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              | Example                                                                  |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |                                                                          |
+| `security`                                                               | [operations.GetToolSecurity](../../models/operations/gettoolsecurity.mdx) | :heavy_check_mark:                                                       | The security requirements to use for the request.                        |                                                                          |
+| `name`                                                                   | `string`                                                                 | :heavy_check_mark:                                                       | Canonical `openrouter:*` name or any accepted `tools[].type` alias       | openrouter:web_search                                                    |
+| `opts`                                                                   | [][operations.Option](../../models/operations/option.mdx)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |                                                                          |
+
+### Response
+
+**[*operations.GetToolResponse](../../models/operations/gettoolresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |

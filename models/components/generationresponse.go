@@ -35,21 +35,21 @@ func (e *APIType) IsExact() bool {
 	return false
 }
 
-// DataRegion - The data region this generation was routed through: 'global', 'europe', or 'us'.
-type DataRegion string
+// GenerationResponseDataRegion - The data region this generation was routed through: 'global', 'europe', or 'us'.
+type GenerationResponseDataRegion string
 
 const (
-	DataRegionGlobal DataRegion = "global"
-	DataRegionEurope DataRegion = "europe"
-	DataRegionUs     DataRegion = "us"
+	GenerationResponseDataRegionGlobal GenerationResponseDataRegion = "global"
+	GenerationResponseDataRegionEurope GenerationResponseDataRegion = "europe"
+	GenerationResponseDataRegionUs     GenerationResponseDataRegion = "us"
 )
 
-func (e DataRegion) ToPointer() *DataRegion {
+func (e GenerationResponseDataRegion) ToPointer() *GenerationResponseDataRegion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DataRegion) IsExact() bool {
+func (e *GenerationResponseDataRegion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "global", "europe", "us":
@@ -72,7 +72,7 @@ type GenerationResponseData struct {
 	// ISO 8601 timestamp of when the generation was created
 	CreatedAt string `json:"created_at"`
 	// The data region this generation was routed through: 'global', 'europe', or 'us'.
-	DataRegion DataRegion `json:"data_region"`
+	DataRegion GenerationResponseDataRegion `json:"data_region"`
 	// External user identifier
 	ExternalUser *string `json:"external_user"`
 	// Reason the generation finished
@@ -188,9 +188,9 @@ func (g *GenerationResponseData) GetCreatedAt() string {
 	return g.CreatedAt
 }
 
-func (g *GenerationResponseData) GetDataRegion() DataRegion {
+func (g *GenerationResponseData) GetDataRegion() GenerationResponseDataRegion {
 	if g == nil {
-		return DataRegion("")
+		return GenerationResponseDataRegion("")
 	}
 	return g.DataRegion
 }
