@@ -1091,6 +1091,8 @@ func (s *Batch) GetBatches(ctx context.Context, id string, opts ...operations.Op
 		fallthrough
 	case httpRes.StatusCode == 404:
 		fallthrough
+	case httpRes.StatusCode == 410:
+		fallthrough
 	case httpRes.StatusCode == 429:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
