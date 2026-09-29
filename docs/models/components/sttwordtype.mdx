@@ -1,0 +1,26 @@
+---
+title: "STTWordType"
+---
+
+Kind of entry; omitted or "word" for spoken words, "audio_event" for non-speech sounds the provider tags with timestamps
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.STTWordTypeWord
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.STTWordType("custom_value")
+```
+
+
+## Values
+
+| Name                    | Value                   |
+| ----------------------- | ----------------------- |
+| `STTWordTypeWord`       | word                    |
+| `STTWordTypeAudioEvent` | audio_event             |

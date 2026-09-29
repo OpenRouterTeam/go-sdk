@@ -2,24 +2,98 @@
 
 package components
 
-// STTInputAudio - Base64-encoded audio to transcribe
+import (
+	"errors"
+	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
+type STTInputAudioType string
+
+const (
+	STTInputAudioTypeSTTInlineInputAudio STTInputAudioType = "STTInlineInputAudio"
+	STTInputAudioTypeSTTURLInputAudio    STTInputAudioType = "STTUrlInputAudio"
+)
+
+// STTInputAudio - Audio to transcribe: inline base64 bytes, or a URL the provider downloads directly.
 type STTInputAudio struct {
-	// Base64-encoded audio data (raw bytes, not a data URI)
-	Data string `json:"data"`
-	// Audio format (e.g., wav, mp3, flac, m4a, ogg, webm, aac). Supported formats vary by provider.
-	Format string `json:"format"`
+	STTInlineInputAudio *STTInlineInputAudio `queryParam:"inline" union:"member"`
+	STTURLInputAudio    *STTURLInputAudio    `queryParam:"inline" union:"member"`
+
+	Type STTInputAudioType
 }
 
-func (s *STTInputAudio) GetData() string {
-	if s == nil {
-		return ""
+func CreateSTTInputAudioSTTInlineInputAudio(sttInlineInputAudio STTInlineInputAudio) STTInputAudio {
+	typ := STTInputAudioTypeSTTInlineInputAudio
+
+	return STTInputAudio{
+		STTInlineInputAudio: &sttInlineInputAudio,
+		Type:                typ,
 	}
-	return s.Data
 }
 
-func (s *STTInputAudio) GetFormat() string {
-	if s == nil {
-		return ""
+func CreateSTTInputAudioSTTURLInputAudio(sttURLInputAudio STTURLInputAudio) STTInputAudio {
+	typ := STTInputAudioTypeSTTURLInputAudio
+
+	return STTInputAudio{
+		STTURLInputAudio: &sttURLInputAudio,
+		Type:             typ,
 	}
-	return s.Format
+}
+
+func (u *STTInputAudio) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var sttInlineInputAudio STTInlineInputAudio = STTInlineInputAudio{}
+	if err := utils.UnmarshalJSON(data, &sttInlineInputAudio, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTInputAudioTypeSTTInlineInputAudio,
+			Value: &sttInlineInputAudio,
+		})
+	}
+
+	var sttURLInputAudio STTURLInputAudio = STTURLInputAudio{}
+	if err := utils.UnmarshalJSON(data, &sttURLInputAudio, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTInputAudioTypeSTTURLInputAudio,
+			Value: &sttURLInputAudio,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTInputAudio", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTInputAudio", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(STTInputAudioType)
+	switch best.Type {
+	case STTInputAudioTypeSTTInlineInputAudio:
+		u.STTInlineInputAudio = best.Value.(*STTInlineInputAudio)
+		return nil
+	case STTInputAudioTypeSTTURLInputAudio:
+		u.STTURLInputAudio = best.Value.(*STTURLInputAudio)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTInputAudio", string(data))
+}
+
+func (u STTInputAudio) MarshalJSON() ([]byte, error) {
+	if u.STTInlineInputAudio != nil {
+		return utils.MarshalJSON(u.STTInlineInputAudio, "", true)
+	}
+
+	if u.STTURLInputAudio != nil {
+		return utils.MarshalJSON(u.STTURLInputAudio, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type STTInputAudio: all fields are null")
 }

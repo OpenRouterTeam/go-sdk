@@ -72,16 +72,24 @@ func (e *TimestampGranularities) IsExact() bool {
 }
 
 type CreateAudioTranscriptionsMultipartRequest struct {
-	// The audio file to transcribe. The format is derived from the filename extension or the file part content type. Max 25 MB; send larger files as base64 JSON via input_audio.
-	File CreateAudioTranscriptionsMultipartFile `multipartForm:"file,name=file"`
+	// Label each word with the speaker who said it (words[].speaker, words[].speaker_label). Requires response_format "verbose_json" (400 otherwise); word timestamps are included even when timestamp_granularities[] omits "word". Only supported by some providers; 400 when the selected model cannot diarize.
+	Diarize *bool `multipartForm:"name=diarize"`
+	// The audio file to transcribe. The format is derived from the filename extension or the file part content type. Max 25 MB; send larger files as base64 JSON via input_audio, or by URL via source_url. Exactly one of file or source_url is required.
+	File *CreateAudioTranscriptionsMultipartFile `multipartForm:"file,name=file"`
+	// Domain terms, names, or phrases to bias recognition toward; repeat the part once per term (keyterms=... is also accepted). Only supported by some providers; 400 when the selected model cannot use keyterms.
+	Keyterms []string `multipartForm:"name=keyterms[]"`
 	// The language of the input audio (ISO-639-1).
 	Language *string `multipartForm:"name=language"`
 	// The model to use for transcription.
 	Model string `multipartForm:"name=model"`
+	// JSON-encoded provider preferences object, the same shape as the JSON body field: { "options": { "<provider-slug>": { ... } } }. Only options for the matched provider are forwarded. Must decode to a JSON object.
+	Provider *string `multipartForm:"name=provider"`
 	// The response format. "json" (default) returns { text, usage }; "verbose_json" additionally returns task, language, duration, and segment-level timestamps (OpenAI-compatible providers only).
 	ResponseFormat *ResponseFormat `multipartForm:"name=response_format"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence.
 	SessionID *string `multipartForm:"name=session_id"`
+	// Publicly reachable http(s) URL of the audio file, downloaded by the provider directly (no size limit on our side). The format is derived from the URL path extension. Only supported by some providers; exactly one of file or source_url is required.
+	SourceURL *string `multipartForm:"name=source_url"`
 	// The sampling temperature.
 	Temperature *float64 `multipartForm:"name=temperature"`
 	// Timestamp detail levels to include when response_format is "verbose_json". "word" additionally returns word-level timestamps in the words array.
@@ -103,11 +111,25 @@ func (c *CreateAudioTranscriptionsMultipartRequest) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-func (c *CreateAudioTranscriptionsMultipartRequest) GetFile() CreateAudioTranscriptionsMultipartFile {
+func (c *CreateAudioTranscriptionsMultipartRequest) GetDiarize() *bool {
 	if c == nil {
-		return CreateAudioTranscriptionsMultipartFile{}
+		return nil
+	}
+	return c.Diarize
+}
+
+func (c *CreateAudioTranscriptionsMultipartRequest) GetFile() *CreateAudioTranscriptionsMultipartFile {
+	if c == nil {
+		return nil
 	}
 	return c.File
+}
+
+func (c *CreateAudioTranscriptionsMultipartRequest) GetKeyterms() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Keyterms
 }
 
 func (c *CreateAudioTranscriptionsMultipartRequest) GetLanguage() *string {
@@ -124,6 +146,13 @@ func (c *CreateAudioTranscriptionsMultipartRequest) GetModel() string {
 	return c.Model
 }
 
+func (c *CreateAudioTranscriptionsMultipartRequest) GetProvider() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Provider
+}
+
 func (c *CreateAudioTranscriptionsMultipartRequest) GetResponseFormat() *ResponseFormat {
 	if c == nil {
 		return nil
@@ -136,6 +165,13 @@ func (c *CreateAudioTranscriptionsMultipartRequest) GetSessionID() *string {
 		return nil
 	}
 	return c.SessionID
+}
+
+func (c *CreateAudioTranscriptionsMultipartRequest) GetSourceURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SourceURL
 }
 
 func (c *CreateAudioTranscriptionsMultipartRequest) GetTemperature() *float64 {

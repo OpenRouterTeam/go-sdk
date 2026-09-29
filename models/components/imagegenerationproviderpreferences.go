@@ -232,6 +232,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Deepseek                 map[string]any `json:"deepseek,omitzero"`
 	Dekallm                  map[string]any `json:"dekallm,omitzero"`
 	Digitalocean             map[string]any `json:"digitalocean,omitzero"`
+	Elevenlabs               map[string]any `json:"elevenlabs,omitzero"`
 	Enfer                    map[string]any `json:"enfer,omitzero"`
 	FakeProvider             map[string]any `json:"fake-provider,omitzero"`
 	Featherless              map[string]any `json:"featherless,omitzero"`
@@ -646,6 +647,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetDigitalocean() map[string
 		return nil
 	}
 	return i.Digitalocean
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetElevenlabs() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Elevenlabs
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetEnfer() map[string]any {

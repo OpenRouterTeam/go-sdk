@@ -33,7 +33,7 @@ func newSTT(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks
 }
 
 // CreateTranscription - Create transcription
-// Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
+// Transcribes audio into text. Accepts base64-encoded audio input as JSON, an OpenAI-style multipart/form-data file upload, or a URL the provider downloads directly, and returns the transcribed text.
 func (s *STT) CreateTranscription(ctx context.Context, request components.STTRequest, opts ...operations.Option) (*components.STTResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -518,7 +518,7 @@ func (s *STT) CreateTranscription(ctx context.Context, request components.STTReq
 }
 
 // CreateTranscriptionMultipart - Create transcription
-// Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
+// Transcribes audio into text. Accepts base64-encoded audio input as JSON, an OpenAI-style multipart/form-data file upload, or a URL the provider downloads directly, and returns the transcribed text.
 func (s *STT) CreateTranscriptionMultipart(ctx context.Context, request operations.CreateAudioTranscriptionsMultipartRequest, opts ...operations.Option) (*components.STTResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
