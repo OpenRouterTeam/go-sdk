@@ -2,12 +2,32 @@
 title: "STTInputAudio"
 ---
 
-Base64-encoded audio to transcribe
+Audio to transcribe: inline base64 bytes, or a URL the provider downloads directly.
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `Data`                                                                                        | `string`                                                                                      | :heavy_check_mark:                                                                            | Base64-encoded audio data (raw bytes, not a data URI)                                         |
-| `Format`                                                                                      | `string`                                                                                      | :heavy_check_mark:                                                                            | Audio format (e.g., wav, mp3, flac, m4a, ogg, webm, aac). Supported formats vary by provider. |
+### STTInlineInputAudio
+
+```go
+sttInputAudio := components.CreateSTTInputAudioSTTInlineInputAudio(components.STTInlineInputAudio{/* values here */})
+```
+
+### STTURLInputAudio
+
+```go
+sttInputAudio := components.CreateSTTInputAudioSTTURLInputAudio(components.STTURLInputAudio{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch sttInputAudio.Type {
+	case components.STTInputAudioTypeSTTInlineInputAudio:
+		// sttInputAudio.STTInlineInputAudio is populated
+	case components.STTInputAudioTypeSTTURLInputAudio:
+		// sttInputAudio.STTURLInputAudio is populated
+}
+```

@@ -51,6 +51,7 @@ type ProviderOptions struct {
 	Deepseek                 map[string]any `json:"deepseek,omitzero"`
 	Dekallm                  map[string]any `json:"dekallm,omitzero"`
 	Digitalocean             map[string]any `json:"digitalocean,omitzero"`
+	Elevenlabs               map[string]any `json:"elevenlabs,omitzero"`
 	Enfer                    map[string]any `json:"enfer,omitzero"`
 	FakeProvider             map[string]any `json:"fake-provider,omitzero"`
 	Featherless              map[string]any `json:"featherless,omitzero"`
@@ -465,6 +466,13 @@ func (p *ProviderOptions) GetDigitalocean() map[string]any {
 		return nil
 	}
 	return p.Digitalocean
+}
+
+func (p *ProviderOptions) GetElevenlabs() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Elevenlabs
 }
 
 func (p *ProviderOptions) GetEnfer() map[string]any {

@@ -53,10 +53,14 @@ func (e *STTRequestResponseFormat) IsExact() bool {
 	return false
 }
 
-// STTRequest - Speech-to-text request input. Accepts a JSON body with input_audio containing base64-encoded audio.
+// STTRequest - Speech-to-text request input. Accepts a JSON body with input_audio containing base64-encoded audio or a URL the provider downloads.
 type STTRequest struct {
-	// Base64-encoded audio to transcribe
+	// Label each word with the speaker who said it. Speaker labels are returned on the words array (speaker, speaker_label), so response_format must be "verbose_json" (a "json" request is rejected with a 400) and word timestamps are included even when timestamp_granularities omits "word". Only supported by some providers; the request is rejected with a 400 when the selected model cannot diarize. Providers may charge extra.
+	Diarize *bool `json:"diarize,omitzero"`
+	// Audio to transcribe: inline base64 bytes, or a URL the provider downloads directly.
 	InputAudio STTInputAudio `json:"input_audio"`
+	// Domain terms, names, or phrases to bias recognition toward. Only supported by some providers; the request is rejected with a 400 when the selected model cannot use keyterms. Providers may cap the number of terms or characters per term and may charge extra.
+	Keyterms []string `json:"keyterms,omitzero"`
 	// ISO-639-1 language code (e.g., "en", "ja"). Auto-detected if omitted.
 	Language *string `json:"language,omitzero"`
 	// STT model identifier
@@ -88,11 +92,25 @@ func (s *STTRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (s *STTRequest) GetDiarize() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Diarize
+}
+
 func (s *STTRequest) GetInputAudio() STTInputAudio {
 	if s == nil {
 		return STTInputAudio{}
 	}
 	return s.InputAudio
+}
+
+func (s *STTRequest) GetKeyterms() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keyterms
 }
 
 func (s *STTRequest) GetLanguage() *string {

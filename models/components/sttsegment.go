@@ -10,6 +10,8 @@ import (
 type STTSegment struct {
 	// Average log probability of the segment
 	AvgLogprob *float64 `json:"avg_logprob,omitzero"`
+	// Zero-based audio channel index for the segment, present when the provider transcribes channels separately
+	Channel *int64 `json:"channel,omitzero"`
 	// Compression ratio of the segment
 	CompressionRatio *float64 `json:"compression_ratio,omitzero"`
 	// Segment end time in seconds
@@ -22,6 +24,8 @@ type STTSegment struct {
 	Seek *int64 `json:"seek,omitzero"`
 	// Speaker index for the segment, present when the provider returns diarization data
 	Speaker *int64 `json:"speaker,omitzero"`
+	// Provider speaker label for the segment, present when the provider labels speakers with a string
+	SpeakerLabel *string `json:"speaker_label,omitzero"`
 	// Segment start time in seconds
 	Start float64 `json:"start"`
 	// Temperature used for the segment
@@ -48,6 +52,13 @@ func (s *STTSegment) GetAvgLogprob() *float64 {
 		return nil
 	}
 	return s.AvgLogprob
+}
+
+func (s *STTSegment) GetChannel() *int64 {
+	if s == nil {
+		return nil
+	}
+	return s.Channel
 }
 
 func (s *STTSegment) GetCompressionRatio() *float64 {
@@ -90,6 +101,13 @@ func (s *STTSegment) GetSpeaker() *int64 {
 		return nil
 	}
 	return s.Speaker
+}
+
+func (s *STTSegment) GetSpeakerLabel() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SpeakerLabel
 }
 
 func (s *STTSegment) GetStart() float64 {

@@ -2,18 +2,54 @@
 
 package components
 
+// STTWordType - Kind of entry; omitted or "word" for spoken words, "audio_event" for non-speech sounds the provider tags with timestamps
+type STTWordType string
+
+const (
+	STTWordTypeWord       STTWordType = "word"
+	STTWordTypeAudioEvent STTWordType = "audio_event"
+)
+
+func (e STTWordType) ToPointer() *STTWordType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *STTWordType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "word", "audio_event":
+			return true
+		}
+	}
+	return false
+}
+
 // STTWord - A timestamped word, returned when the provider includes word-level timestamps
 type STTWord struct {
+	// Zero-based audio channel index for the word, present when the provider transcribes channels separately
+	Channel *int64 `json:"channel,omitzero"`
 	// Provider confidence for the word from 0 to 1, present when the provider returns per-word confidence
 	Confidence *float64 `json:"confidence,omitzero"`
 	// Word end time in seconds
 	End float64 `json:"end"`
 	// Speaker index for the word, present when the provider returns diarization data
 	Speaker *int64 `json:"speaker,omitzero"`
+	// Provider speaker label for the word, present when the provider labels speakers with a string
+	SpeakerLabel *string `json:"speaker_label,omitzero"`
 	// Word start time in seconds
 	Start float64 `json:"start"`
-	// The transcribed word
+	// Kind of entry; omitted or "word" for spoken words, "audio_event" for non-speech sounds the provider tags with timestamps
+	Type *STTWordType `json:"type,omitzero"`
+	// The transcribed word, or the event tag such as "(laughter)" when type is audio_event
 	Word string `json:"word"`
+}
+
+func (s *STTWord) GetChannel() *int64 {
+	if s == nil {
+		return nil
+	}
+	return s.Channel
 }
 
 func (s *STTWord) GetConfidence() *float64 {
@@ -37,11 +73,25 @@ func (s *STTWord) GetSpeaker() *int64 {
 	return s.Speaker
 }
 
+func (s *STTWord) GetSpeakerLabel() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SpeakerLabel
+}
+
 func (s *STTWord) GetStart() float64 {
 	if s == nil {
 		return 0.0
 	}
 	return s.Start
+}
+
+func (s *STTWord) GetType() *STTWordType {
+	if s == nil {
+		return nil
+	}
+	return s.Type
 }
 
 func (s *STTWord) GetWord() string {

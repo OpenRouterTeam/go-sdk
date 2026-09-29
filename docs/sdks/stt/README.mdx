@@ -14,7 +14,7 @@ Speech-to-text endpoints
 
 ## CreateTranscription
 
-Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
+Transcribes audio into text. Accepts base64-encoded audio input as JSON, an OpenAI-style multipart/form-data file upload, or a URL the provider downloads directly, and returns the transcribed text.
 
 ### Example Usage
 
@@ -37,10 +37,12 @@ func main() {
     )
 
     res, err := s.STT.CreateTranscription(ctx, components.STTRequest{
-        InputAudio: components.STTInputAudio{
-            Data: "UklGRiQA...",
-            Format: "wav",
-        },
+        InputAudio: components.CreateSTTInputAudioSTTInlineInputAudio(
+            components.STTInlineInputAudio{
+                Data: "UklGRiQA...",
+                Format: "wav",
+            },
+        ),
         Language: openrouter.Pointer("en"),
         Model: "openai/whisper-large-v3",
     })
@@ -86,7 +88,7 @@ func main() {
 
 ## CreateTranscriptionMultipart
 
-Transcribes audio into text. Accepts base64-encoded audio input as JSON or an OpenAI-style multipart/form-data file upload, and returns the transcribed text.
+Transcribes audio into text. Accepts base64-encoded audio input as JSON, an OpenAI-style multipart/form-data file upload, or a URL the provider downloads directly, and returns the transcribed text.
 
 ### Example Usage
 
@@ -114,7 +116,7 @@ func main() {
     }
 
     res, err := s.STT.CreateTranscriptionMultipart(ctx, operations.CreateAudioTranscriptionsMultipartRequest{
-        File: operations.CreateAudioTranscriptionsMultipartFile{
+        File: &operations.CreateAudioTranscriptionsMultipartFile{
             FileName: "example.file",
             Content: example,
         },

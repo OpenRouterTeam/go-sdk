@@ -12,8 +12,12 @@ type STTResponse struct {
 	Confidence *float64 `json:"confidence,omitzero"`
 	// Duration of the input audio in seconds, present when response_format is verbose_json
 	Duration *float64 `json:"duration,omitzero"`
+	// Detected entities with character offsets into text, present when the provider runs entity detection
+	Entities []STTEntity `json:"entities,omitzero"`
 	// Detected or forced language, present when response_format is verbose_json
 	Language *string `json:"language,omitzero"`
+	// Provider confidence in the detected language from 0 to 1, present when response_format is verbose_json and the provider scores language detection
+	LanguageConfidence *float64 `json:"language_confidence,omitzero"`
 	// Timestamped transcript segments, present when response_format is verbose_json
 	Segments []STTSegment `json:"segments,omitzero"`
 	// The task performed, present when response_format is verbose_json
@@ -51,11 +55,25 @@ func (s *STTResponse) GetDuration() *float64 {
 	return s.Duration
 }
 
+func (s *STTResponse) GetEntities() []STTEntity {
+	if s == nil {
+		return nil
+	}
+	return s.Entities
+}
+
 func (s *STTResponse) GetLanguage() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Language
+}
+
+func (s *STTResponse) GetLanguageConfidence() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.LanguageConfidence
 }
 
 func (s *STTResponse) GetSegments() []STTSegment {
