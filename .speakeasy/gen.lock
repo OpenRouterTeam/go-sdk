@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: c951b85ad48f0173c85b01f1350f44ef
+  docChecksum: 12340955a8827b54be97cfb5ddde085c
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.2
-  configChecksum: ad45179f09dc93b51599958228e154bb
+  releaseVersion: 0.9.3
+  configChecksum: 41a7ddcc653adb0abb5de38901df2969
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: d99fcffe-527e-4285-9bc3-7b7a86f64cc0
-  pristine_commit_hash: de8e7eab11b602d4378ffd19d84153249085eb7c
-  pristine_tree_hash: 11066b82d13faaca8f27086c790da3ebadf9f19c
+  generation_id: 76cb2e43-c9a9-497a-8bd3-c3b9da7e2dca
+  pristine_commit_hash: c13c5787488607043dce7378d1ab2edc86fe779a
+  pristine_tree_hash: cff4ba5bce66306c12b644e64b62b33ed750068b
 features:
   go:
     acceptHeaders: 2.81.2
@@ -85,8 +85,8 @@ trackedFiles:
     pristine_git_object: 40c7211ceb7b4b052a219a2c1ded343cb20a79c9
   batch.go:
     id: f0580a64f821
-    last_write_checksum: sha1:72f19d3194c8a8e9665041ac44959e2406e79b10
-    pristine_git_object: 2af2b671a57bfcd8139332ef390c3dfc301f9a2f
+    last_write_checksum: sha1:e665d74307f94d032221149976b1d0c7850f3e24
+    pristine_git_object: 7d2965bf5cc6ca2833801bc364bc8241238d77cc
   benchmarks.go:
     id: 645ff3c22b39
     last_write_checksum: sha1:ab2cec8f324927e1923577739124766be0ed954c
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -8685,8 +8685,8 @@ trackedFiles:
     pristine_git_object: b9770b015ca6b9cff39091a33dac484236278696
   docs/sdks/batch/README.mdx:
     id: e367aa4f4295
-    last_write_checksum: sha1:9d174c29745e8f75f913fbc9f24527b6aeaa5bc2
-    pristine_git_object: 7cf3103137e221ba4596cbcea9d53836c53ae097
+    last_write_checksum: sha1:3c3f1d13862f80193d7d2a3e984df38a9c906d91
+    pristine_git_object: 231563cb955456b82d4abb6cafca5c718819d3f1
   docs/sdks/benchmarks/README.mdx:
     id: 5b483a6770ba
     last_write_checksum: sha1:c6aa04c9dbbfd1dc7d45aa8005d504c37afa4975
@@ -12705,8 +12705,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:999719fc7c5e1eecb70650e60a3752626e8e7db3
-    pristine_git_object: a7947dedcdbbcc79a0fca557653f05890ed51ad8
+    last_write_checksum: sha1:9447e47494c4f12279b63f54897087331d2b9902
+    pristine_git_object: d702e373069cafcc1f307e2c4115810d3ef2a163
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -16553,3 +16553,6 @@ examples:
         "504":
           application/json: {"error": {"code": 504, "message": "Vault request timed out"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Batch.GetBatches()`:  `error.status[410]` **Added**
