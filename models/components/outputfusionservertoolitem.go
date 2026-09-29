@@ -108,7 +108,7 @@ type OutputFusionServerToolItem struct {
 	Analysis *FusionAnalysisResult `json:"analysis,omitzero"`
 	// Error message when the fusion run did not produce an analysis result.
 	Error *string `json:"error,omitzero"`
-	// Models that were requested as part of the analysis panel but did not produce a response. Present when at least one requested analysis model failed. The fusion result is still usable but was produced from a degraded panel.
+	// Models that were requested as part of the analysis panel but did not produce a response. Present when at least one requested analysis model failed. On a completed item the fusion result is still usable but was produced from a degraded panel; on a failed item it lists the panels that failed before the run stopped, so the caller can see which models were attempted even though no analysis was produced.
 	FailedModels []FailedModel `json:"failed_models,omitzero"`
 	// Typed failure reason when the fusion run failed. Possible values include: all_panels_failed, insufficient_credits, rate_limited, invalid_model, judge_not_valid_json, judge_schema_mismatch, judge_upstream_error, judge_empty_completion. The four analysis-stage codes keep their pre-rename `judge_` spelling so existing consumers keep matching. The consumer-cancellation code is `cancelled`.
 	FailureReason *string `json:"failure_reason,omitzero"`
