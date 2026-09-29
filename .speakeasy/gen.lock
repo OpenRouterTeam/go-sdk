@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 4ccf1dd807ad77897f5c7d0a5adba751
+  docChecksum: a6d539a0c7dc31e827f75036c66725f2
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.0
-  configChecksum: 1e489fd61859eeabe52b4dcb2a356944
+  releaseVersion: 0.9.1
+  configChecksum: d65c0dbb71606d2a9bbfcb6a6949256e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 66099f6f-d3ad-4422-af17-f419c2e81718
-  pristine_commit_hash: e3b23cf1826027158e4f7134d0c25141216120f3
-  pristine_tree_hash: 2f737191af03d932031e3b21b4e91fdbe440986d
+  generation_id: 2d963e44-a64f-4b15-8c69-473673ea25b7
+  pristine_commit_hash: 436d2d300235da20e297bc7d3a81a889a8abbedf
+  pristine_tree_hash: 00656cade63d5eb414b310a8c863102fb0b7c0fd
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6323,10 +6323,6 @@ trackedFiles:
     id: b8e635354a01
     last_write_checksum: sha1:227151e39246920c7d074afb2c3bd03b257b7730
     pristine_git_object: 02df4c02ded0dfda1143c6a621b19dcf852d692c
-  docs/models/components/scope.mdx:
-    id: 4515993c7a3b
-    last_write_checksum: sha1:bbb423ec129da0e84f2ac5626408daeb61e2845b
-    pristine_git_object: ef5cf16c2d4eba2ef3fc22f7ed8cdb40c47b1598
   docs/models/components/searchcontextsizeenum.mdx:
     id: 446944be384e
     last_write_checksum: sha1:fed60dd09200cb268c6682b0271980ee86a7b9f8
@@ -6809,8 +6805,12 @@ trackedFiles:
     pristine_git_object: fe3f819fb51291c7d69d180ebcdf708600216153
   docs/models/components/tokenexchangerequest.mdx:
     id: e765447920dd
-    last_write_checksum: sha1:726461167454929eed96a9b40bf5b6745a71a0c8
-    pristine_git_object: efb5d75ca85e07fd95c5ec81311837994bd972b9
+    last_write_checksum: sha1:499f088202af6b1ef65b7e9a3ba171c987f2d21d
+    pristine_git_object: af5fa8f94123e9ded584f25babbcace2f097c66e
+  docs/models/components/tokenexchangerequestscope.mdx:
+    id: cd6b6c26a6d0
+    last_write_checksum: sha1:8d7b82efe5c40c6f57d3998c1bb9897eefa72148
+    pristine_git_object: d01b57617053d92abe7d35eeee735e40be3b34d4
   docs/models/components/tokenexchangeresponse.mdx:
     id: 15ce0a8c7aed
     last_write_checksum: sha1:61299a6d70a1f66e6f9f918cf55e611a400d92ca
@@ -7279,6 +7279,18 @@ trackedFiles:
     id: ad277efc54f4
     last_write_checksum: sha1:75deafdbbf4052a067fad67db0646cdb4bdc2c58
     pristine_git_object: 9aa5ec2fd42f340c685df9a488751dc448a163c5
+  docs/models/components/vaulteffectivesecret.mdx:
+    id: eeed84b2232e
+    last_write_checksum: sha1:1340163aff848ef2b4f796895850fd1d826af8e1
+    pristine_git_object: 626d95cc79ca90e67d2186f7fb30c454df3b291d
+  docs/models/components/vaulteffectivesecretlistresponse.mdx:
+    id: 0eb6274f6c31
+    last_write_checksum: sha1:a7308df6c6db75e1a793b40d6955c2d5b13f2678
+    pristine_git_object: 40ecb59817470aca40b1d2813d87894d77cb2143
+  docs/models/components/vaulteffectivesecretscope.mdx:
+    id: 16c24b5153b2
+    last_write_checksum: sha1:23700ecb9ab08faecdf66348a084cb9bcaac685b
+    pristine_git_object: 3e6e7692bf9c9f78f140ede90e27863da730759d
   docs/models/components/vaultsecret.mdx:
     id: e36c5643c79a
     last_write_checksum: sha1:c2b99a227fc078c535ccf6b42119ee9edc56ae72
@@ -8151,6 +8163,10 @@ trackedFiles:
     id: 1a8a60496451
     last_write_checksum: sha1:a929115ebbe9a6ac38848346c8011c8f299e71fa
     pristine_git_object: c83a428b0ad832ffd6ae5608176d73a5a00dc2a2
+  docs/models/operations/listinterneffectivevaultsecretsrequest.mdx:
+    id: 903c64583cbf
+    last_write_checksum: sha1:83377f261f09b31626004c56a6bed939af7fb7df
+    pristine_git_object: aa12d39dddc7d7fa3b712440e56defa8548f8c46
   docs/models/operations/listinternsrequest.mdx:
     id: 74ce63b4e73a
     last_write_checksum: sha1:695d6f1c6821155c933a0eddbe7907d7dae4533f
@@ -8733,8 +8749,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/interns/README.mdx:
     id: 2f8a053ffe78
-    last_write_checksum: sha1:b4b5f9cbf0997e7666e6d00245e003871bf87bc6
-    pristine_git_object: 9de0a581ccda8ac8dfe2ba5f5b190206fc71a989
+    last_write_checksum: sha1:92d385c4db5d3c9da6cef40a6e6adb08478108a8
+    pristine_git_object: d9cea2d8473e65b9e9560edd037bb71f23981804
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
     last_write_checksum: sha1:14ffb11eb5c8db2aa311ac04b4e1e8bea0ca5528
@@ -8789,8 +8805,8 @@ trackedFiles:
     pristine_git_object: 09ef99f1bdcbcb860a51539cade39eb5423b207e
   docs/sdks/vault/README.mdx:
     id: 3738c6722acd
-    last_write_checksum: sha1:8804b4d870a6d64140a975835468f526196efe2b
-    pristine_git_object: 5e6b5d1ab4264287fd425194079e0c5faa4bf985
+    last_write_checksum: sha1:abcb55ce5e43a626ae403cad4a534b7f583e3f80
+    pristine_git_object: beee2079056624190b8aa344a4352cf2c637d5de
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
     last_write_checksum: sha1:f1832c16d927963d106c4633e594de946eccfe5c
@@ -8897,8 +8913,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   interns.go:
     id: aad99db3b05b
-    last_write_checksum: sha1:1235be4151e4230f42a2238e9d92e2b2469ff055
-    pristine_git_object: d71672d15a3e5711ba76e3857a8235d9e6e9bf76
+    last_write_checksum: sha1:1790d5e92eb32f7fc55ba9b5de33055b7f375c0c
+    pristine_git_object: dc04f275c3cfcd686b76fbe81fe1be9fe2c73aef
   models.go:
     id: 3af78faf181b
     last_write_checksum: sha1:8cc3e199c4b17ebc74642a4df902f06f8daeb2c7
@@ -11781,8 +11797,8 @@ trackedFiles:
     pristine_git_object: ea804a04dfb6b4bbf08cc9a905f137eb3e5506bd
   models/components/tokenexchangerequest.go:
     id: 6ba10a45d47a
-    last_write_checksum: sha1:18fcb0d5acd2ec4987425c9e001be94697fd0ca5
-    pristine_git_object: 3632c95a7cfc9b9e2e2f2e5800669e11827ac72b
+    last_write_checksum: sha1:23ce8835b1d9c79e0c7876c10c5782e8e5bb319b
+    pristine_git_object: 1798842826e7965e2c72862923bfd2de6cf47c6a
   models/components/tokenexchangeresponse.go:
     id: 1660412c508f
     last_write_checksum: sha1:5f329aff63d3249a591bb44783d700df6b8cb18f
@@ -11931,6 +11947,14 @@ trackedFiles:
     id: ef68bd453d91
     last_write_checksum: sha1:6903db874438b3d0ace13b12ce714a2c171a24e4
     pristine_git_object: 634224d3ad1f8d45f9580fc7f42748b1308d040d
+  models/components/vaulteffectivesecret.go:
+    id: 7f7ebe55b9fd
+    last_write_checksum: sha1:8541df68c622ce86500ac113445f46ae7e47bc66
+    pristine_git_object: a68c389d9355fd3d35fab5ffafff93dbd39e6a7f
+  models/components/vaulteffectivesecretlistresponse.go:
+    id: 175562d208f2
+    last_write_checksum: sha1:9595b4445a15d3cbcbf00579c4cd1f321cb2fe59
+    pristine_git_object: a68873e905cb65e46359651818247481aa098c80
   models/components/vaultsecret.go:
     id: 6f9927013ecd
     last_write_checksum: sha1:a16485b51d52c4f01c86f66d5a050e6b47b60957
@@ -12415,6 +12439,10 @@ trackedFiles:
     id: 7ecdce043f52
     last_write_checksum: sha1:d931901a39c9dec25411192d53eb4bec7dcceb7f
     pristine_git_object: 5b013cbc0bcb23305cfce3fc5337c468a5779c14
+  models/operations/listinterneffectivevaultsecrets.go:
+    id: da37351bba6d
+    last_write_checksum: sha1:6edd23883a19aad5fb836565498c79fe0c2a0a75
+    pristine_git_object: 596288ec4a78d54173079cec491f430139ce8029
   models/operations/listinterns.go:
     id: 9296d4925eae
     last_write_checksum: sha1:19a6a6d8e378d1df5bf86d62eb6e275cc0cee895
@@ -12677,8 +12705,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:8e6551cfb3b45c5821996c08139789642d6ba7ef
-    pristine_git_object: 28232641cafad354ba073dee4c0f9db1bc62f11d
+    last_write_checksum: sha1:6fababe1871485d987b76e445ffe8135e2153ded
+    pristine_git_object: f6456e437d9c8ecdc897e276ca721da9de87aa4d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -12753,8 +12781,8 @@ trackedFiles:
     pristine_git_object: f590f26543adbbb82e2fe183b8051b1ff1ab49c6
   vault.go:
     id: 522e6cb92fe9
-    last_write_checksum: sha1:d7758b7a1c60c4d90ffba029a48a8ee91a2dd15a
-    pristine_git_object: 5b6275ec82aa4bac97e54d1fd526d2c869acaeb9
+    last_write_checksum: sha1:6311488cae3eef12614c87d5c5a8408ee6631ba0
+    pristine_git_object: 923f03ac3051bf9c5c4dc662fc5680b9ee5ccdb7
   videogeneration.go:
     id: cb32a6d68bf0
     last_write_checksum: sha1:43c30bc86bc19208039ea75020b9ed91b42116e3
@@ -16353,16 +16381,178 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "502":
           application/json: {"error": {"code": 502, "message": "Provider returned error"}}
+  listInternEffectiveVaultSecrets:
+    speakeasy-default-list-intern-effective-vault-secrets:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "200":
+          application/json: {"data": [{"created_at": "2026-09-15T17:44:00.000Z", "fingerprint": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08", "hosts": ["api.github.com"], "name": "github_token", "scope": "intern"}, {"created_at": "2026-09-15T17:44:00.000Z", "fingerprint": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "hosts": ["api.linear.app"], "name": "linear_api_key", "scope": "workspace"}, {"created_at": "2026-08-01T09:30:00.000Z", "fingerprint": null, "hosts": null, "name": "legacy_token", "scope": "workspace"}], "has_more": false}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "408":
+          application/json: {"error": {"code": 408, "message": "Operation timed out. Please try again later."}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "502":
+          application/json: {"error": {"code": 502, "message": "Provider returned error"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
+        "504":
+          application/json: {"error": {"code": 504, "message": "The operation was aborted due to timeout"}}
+    invalid-vault-request:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid vault request"}}
+    invalid-or-missing-api-key:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "401":
+          application/json: {"error": {"code": 401, "message": "Invalid or missing API key"}}
+    regional-hostname:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "403":
+          application/json: {"error": {"code": 403, "message": "The Intern API does not support regional data residency yet. Please use the global endpoint at openrouter.ai."}}
+    workspace-scope-unavailable:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "403":
+          application/json: {"error": {"code": 403, "message": "Vault scope is unavailable"}}
+    not-found:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "404":
+          application/json: {"error": {"code": 404, "message": "Not found"}}
+    body-timed-out:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "408":
+          application/json: {"error": {"code": 408, "message": "Request body timed out"}}
+    route-deadline:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "408":
+          application/json: {"error": {"code": 408, "message": "Vault request timed out"}}
+    rate-limited:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "429":
+          application/json: {"error": {"code": 429, "message": "Too many vault requests"}}
+    internal-error:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+    invalid-vault-response:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "502":
+          application/json: {"error": {"code": 502, "message": "Invalid vault response"}}
+    vault-request-failed:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "502":
+          application/json: {"error": {"code": 502, "message": "Vault request failed"}}
+    vault-unavailable:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "503":
+          application/json: {"error": {"code": 503, "message": "Vault service is unavailable"}}
+    writes-disabled:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "503":
+          application/json: {"error": {"code": 503, "message": "Vault writes are not enabled"}}
+    vault-timed-out:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+        query:
+          limit: 50
+          offset: 0
+      responses:
+        "504":
+          application/json: {"error": {"code": 504, "message": "Vault request timed out"}}
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.PrivateEndpoints.List()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Create()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Delete()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Get()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Update()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Activate()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Disable()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Enable()`: **Added**
-  * `OpenRouter.PrivateEndpoints.UpdatePricing()`: **Added**
-  * `OpenRouter.PrivateEndpoints.Validate()`: **Added**
+  * `OpenRouter.Vault.ListInternEffectiveVaultSecrets()`: **Added**

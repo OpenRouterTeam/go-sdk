@@ -55,27 +55,27 @@ func (e *RequestedTokenType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Scope - Optional; only `inference` is available.
-type Scope string
+// TokenExchangeRequestScope - Optional; only `inference` is available.
+type TokenExchangeRequestScope string
 
 const (
-	ScopeInference Scope = "inference"
+	TokenExchangeRequestScopeInference TokenExchangeRequestScope = "inference"
 )
 
-func (e Scope) ToPointer() *Scope {
+func (e TokenExchangeRequestScope) ToPointer() *TokenExchangeRequestScope {
 	return &e
 }
-func (e *Scope) UnmarshalJSON(data []byte) error {
+func (e *TokenExchangeRequestScope) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "inference":
-		*e = Scope(v)
+		*e = TokenExchangeRequestScope(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Scope: %v", v)
+		return fmt.Errorf("invalid value for TokenExchangeRequestScope: %v", v)
 	}
 }
 
@@ -112,7 +112,7 @@ type TokenExchangeRequest struct {
 	// Optional; when present must be `urn:ietf:params:oauth:token-type:access_token`.
 	RequestedTokenType *RequestedTokenType `form:"name=requested_token_type"`
 	// Optional; only `inference` is available.
-	Scope *Scope `form:"name=scope"`
+	Scope *TokenExchangeRequestScope `form:"name=scope"`
 	// The JWT issued by your identity provider.
 	SubjectToken string `form:"name=subject_token"`
 	// Must be `urn:ietf:params:oauth:token-type:jwt`.
@@ -140,7 +140,7 @@ func (t *TokenExchangeRequest) GetRequestedTokenType() *RequestedTokenType {
 	return t.RequestedTokenType
 }
 
-func (t *TokenExchangeRequest) GetScope() *Scope {
+func (t *TokenExchangeRequest) GetScope() *TokenExchangeRequestScope {
 	if t == nil {
 		return nil
 	}

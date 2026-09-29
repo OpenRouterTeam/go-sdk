@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.0
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.1
 > ```
 
 <!-- No Summary [summary] -->
@@ -401,6 +401,7 @@ func main() {
 
 ### [Vault](docs/sdks/vault/README.md)
 
+* [ListInternEffectiveVaultSecrets](docs/sdks/vault/README.md#listinterneffectivevaultsecrets) - List the secrets an intern receives
 * [ListInternVaultSecrets](docs/sdks/vault/README.md#listinternvaultsecrets) - List intern secrets
 * [DeleteInternVaultSecret](docs/sdks/vault/README.md#deleteinternvaultsecret) - Delete an intern secret
 * [StoreInternVaultSecret](docs/sdks/vault/README.md#storeinternvaultsecret) - Store an intern secret
