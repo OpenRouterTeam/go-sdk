@@ -401,6 +401,7 @@ func main() {
 
 ### [Vault](docs/sdks/vault/README.md)
 
+* [ListInternEffectiveVaultSecrets](docs/sdks/vault/README.md#listinterneffectivevaultsecrets) - List the secrets an intern receives
 * [ListInternVaultSecrets](docs/sdks/vault/README.md#listinternvaultsecrets) - List intern secrets
 * [DeleteInternVaultSecret](docs/sdks/vault/README.md#deleteinternvaultsecret) - Delete an intern secret
 * [StoreInternVaultSecret](docs/sdks/vault/README.md#storeinternvaultsecret) - Store an intern secret
