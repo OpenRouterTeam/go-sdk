@@ -34,6 +34,12 @@ chatRequestPlugin := components.CreateChatRequestPluginFileParser(components.Fil
 chatRequestPlugin := components.CreateChatRequestPluginFusion(components.FusionPlugin{/* values here */})
 ```
 
+### JevRouterPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginJevRouter(components.JevRouterPlugin{/* values here */})
+```
+
 ### ModerationPlugin
 
 ```go
@@ -86,6 +92,8 @@ switch chatRequestPlugin.Type {
 		// chatRequestPlugin.FileParserPlugin is populated
 	case components.ChatRequestPluginTypeFusion:
 		// chatRequestPlugin.FusionPlugin is populated
+	case components.ChatRequestPluginTypeJevRouter:
+		// chatRequestPlugin.JevRouterPlugin is populated
 	case components.ChatRequestPluginTypeModeration:
 		// chatRequestPlugin.ModerationPlugin is populated
 	case components.ChatRequestPluginTypeParetoRouter:

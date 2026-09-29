@@ -34,6 +34,12 @@ responsesRequestPlugin := components.CreateResponsesRequestPluginFileParser(comp
 responsesRequestPlugin := components.CreateResponsesRequestPluginFusion(components.FusionPlugin{/* values here */})
 ```
 
+### JevRouterPlugin
+
+```go
+responsesRequestPlugin := components.CreateResponsesRequestPluginJevRouter(components.JevRouterPlugin{/* values here */})
+```
+
 ### ModerationPlugin
 
 ```go
@@ -86,6 +92,8 @@ switch responsesRequestPlugin.Type {
 		// responsesRequestPlugin.FileParserPlugin is populated
 	case components.ResponsesRequestPluginTypeFusion:
 		// responsesRequestPlugin.FusionPlugin is populated
+	case components.ResponsesRequestPluginTypeJevRouter:
+		// responsesRequestPlugin.JevRouterPlugin is populated
 	case components.ResponsesRequestPluginTypeModeration:
 		// responsesRequestPlugin.ModerationPlugin is populated
 	case components.ResponsesRequestPluginTypeParetoRouter:

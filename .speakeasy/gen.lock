@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 12340955a8827b54be97cfb5ddde085c
+  docChecksum: a75776a71c2137918114b10534c6b7e9
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.3
-  configChecksum: 41a7ddcc653adb0abb5de38901df2969
+  releaseVersion: 0.9.4
+  configChecksum: 7acfa9d08efbe4c0555ee1d66cd60c2b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 76cb2e43-c9a9-497a-8bd3-c3b9da7e2dca
-  pristine_commit_hash: c13c5787488607043dce7378d1ab2edc86fe779a
-  pristine_tree_hash: cff4ba5bce66306c12b644e64b62b33ed750068b
+  generation_id: 2513cb12-c155-4070-9bd0-9cf1affd5441
+  pristine_commit_hash: 2f9723ad64e5391c02674376bfffeefb8f893309
+  pristine_tree_hash: 51e001aa79accb37c85005b3b35caf7c98e1d8b8
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -1861,8 +1861,8 @@ trackedFiles:
     pristine_git_object: be8f2dc5e3855f636670f678e3af4d49a4f50826
   docs/models/components/chatrequestplugin.mdx:
     id: e2fd0c5410af
-    last_write_checksum: sha1:6b8771dde887b4978c702b9699ee2ddbd8fda20a
-    pristine_git_object: a2bb2cbc4a9fd7a687a96a5407affbf000c2cf4f
+    last_write_checksum: sha1:ec1402655a420f5d83bc757e529cf2181bca6479
+    pristine_git_object: 6c7aad535ba227a06dc223a4966e67c9f0adc199
   docs/models/components/chatrequestreasoning.mdx:
     id: 83b6de534b26
     last_write_checksum: sha1:16978f07a5888594b5494c946a565496bd73f6e8
@@ -4003,6 +4003,14 @@ trackedFiles:
     id: 21e53998234a
     last_write_checksum: sha1:4ae0d5cae526739ba7a1dad9afe9370973eaf4ae
     pristine_git_object: 92ecc4557016f980d69965a02659571d176b5fdb
+  docs/models/components/jevrouterplugin.mdx:
+    id: 9c8962fbd491
+    last_write_checksum: sha1:c515cfb283ccb1c901468e7cb4f6ee78be15b6cc
+    pristine_git_object: 218bb9607d98e4a97b35b0952abf9101238ceaca
+  docs/models/components/jevrouterpluginid.mdx:
+    id: 757e9fe716c2
+    last_write_checksum: sha1:bf779305d2b703870b358bb7d596de0d4741d995
+    pristine_git_object: 063671aadd26d86918666cbae8c244725f05cea8
   docs/models/components/keep.mdx:
     id: d0e14366497e
     last_write_checksum: sha1:5bef8be4e5e48d49469d859bdef13ada5ff3e218
@@ -4365,8 +4373,8 @@ trackedFiles:
     pristine_git_object: 0464ea9704c53981c1d6b2eb677c0abdadfa029a
   docs/models/components/messagesrequestplugin.mdx:
     id: 4043467171db
-    last_write_checksum: sha1:ed314c8a4d7d75bbb76d4777a2e5438ee2513d92
-    pristine_git_object: 794685258e8943ee6a1070d5c4aa0f1d3d6cc1b7
+    last_write_checksum: sha1:b0a516702c3d5335b785c07abdb51bf05d8b7ce2
+    pristine_git_object: 999e04ea6f4b54d4705c4f470649544937f9e759
   docs/models/components/messagesrequesttool.mdx:
     id: a541bf634560
     last_write_checksum: sha1:213a05e4e30d4765d7fc470deed970ae06aff56a
@@ -6253,8 +6261,8 @@ trackedFiles:
     pristine_git_object: 7ecca353a914289c9b9f1e3741f111f5fd3016a1
   docs/models/components/responsesrequestplugin.mdx:
     id: f825cd32ebe8
-    last_write_checksum: sha1:dfbadf940a7382c3f61258a8b6aebc40ca317290
-    pristine_git_object: 4b204091a8b869e49413e0f01061ac6e8883a9f3
+    last_write_checksum: sha1:865bcf3715a6f5be11aed3edd05ef37f5fd2c267
+    pristine_git_object: 2b370f97ddc05ac4a573b390f0e9291e5a427551
   docs/models/components/responsesrequestservicetier.mdx:
     id: 15132a4b8319
     last_write_checksum: sha1:388543c2097b5ca6ee326a1e847b039b457adda2
@@ -9677,8 +9685,8 @@ trackedFiles:
     pristine_git_object: 01d9b75ce8c5d57a84a8b3eb39f6d803c6396116
   models/components/chatrequest.go:
     id: 3e77961c64d1
-    last_write_checksum: sha1:3fd96fe3463e09e29c1d09e8d63c2eb8d0769a4c
-    pristine_git_object: b5087fded1548e33a774fcc93e16dbd5e08b3277
+    last_write_checksum: sha1:f2d2b52a8dfde99bbdc38ef1331b62617cfad068
+    pristine_git_object: cc7dd3bdf67b0adfd2c58c0b389cdd424da5dc6a
   models/components/chatresult.go:
     id: c5506a624942
     last_write_checksum: sha1:fbc9ac21aee30b5929647d10b305707f3168ce53
@@ -10607,6 +10615,10 @@ trackedFiles:
     id: 16d768f20336
     last_write_checksum: sha1:f24a0937bdf5ad2e09da1c5312b43aa4a14dae10
     pristine_git_object: 86de458cf0304749072d79284ad50ab2707bd525
+  models/components/jevrouterplugin.go:
+    id: de5341af7443
+    last_write_checksum: sha1:199bb4d23dcda9bd4b40d3a07d6580fa30c4ccdf
+    pristine_git_object: 31c99468e86587100123b5dfd6f0c388491ce924
   models/components/keyassignment.go:
     id: 6e32615a3eec
     last_write_checksum: sha1:683bd140357e1d9c2169453dd76377a078c638fa
@@ -10757,8 +10769,8 @@ trackedFiles:
     pristine_git_object: e06eae5ce6d393fe7f279ee8af0509beb2d7c028
   models/components/messagesrequest.go:
     id: c3efb31bbd81
-    last_write_checksum: sha1:a2abe9778afc170def9e59911a89aba389b5d791
-    pristine_git_object: dff75c75c4578bb7cc4470bd0020f90a4686bd72
+    last_write_checksum: sha1:4a1ac07c75815a2a975f69fe01624278262851c8
+    pristine_git_object: df8c6b2a06226ebcf59de76cd09350603b22c1a5
   models/components/messagessearchmodelsservertool.go:
     id: 9a49a7fdac1c
     last_write_checksum: sha1:ac494d0af2f12cc10ee527bd4d28494092015111
@@ -11513,8 +11525,8 @@ trackedFiles:
     pristine_git_object: 113842d99ca345d75697b94cbde1ecf3a9ea04db
   models/components/responsesrequest.go:
     id: 3fbf1b29b488
-    last_write_checksum: sha1:7c4e23576752025cfbf94f409d158ccd5604e6d1
-    pristine_git_object: b1b9c3343697a35f34d924936e6bb7839e60264d
+    last_write_checksum: sha1:a71dbaf3ff55b98b95eb2c593c7196a478d58dd9
+    pristine_git_object: a8fee695eb35c26cf22ee526ffe295963194fe1b
   models/components/responsesstreamingresponse.go:
     id: f5d13584dda6
     last_write_checksum: sha1:e23bd654fe10635901cf16da11498c2e2205d5c8
@@ -12705,8 +12717,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:9447e47494c4f12279b63f54897087331d2b9902
-    pristine_git_object: d702e373069cafcc1f307e2c4115810d3ef2a163
+    last_write_checksum: sha1:00ef26b124a0ccc294d0592e1ca1792cd1541bca
+    pristine_git_object: fda28d50152bc42066440c06db2c42370c72c535
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -16553,6 +16565,4 @@ examples:
         "504":
           application/json: {"error": {"code": 504, "message": "Vault request timed out"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Batch.GetBatches()`:  `error.status[410]` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router)` **Added**\n"

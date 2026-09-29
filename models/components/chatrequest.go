@@ -41,6 +41,7 @@ const (
 	ChatRequestPluginTypeContextCompression ChatRequestPluginType = "context-compression"
 	ChatRequestPluginTypeFileParser         ChatRequestPluginType = "file-parser"
 	ChatRequestPluginTypeFusion             ChatRequestPluginType = "fusion"
+	ChatRequestPluginTypeJevRouter          ChatRequestPluginType = "jev-router"
 	ChatRequestPluginTypeModeration         ChatRequestPluginType = "moderation"
 	ChatRequestPluginTypeParetoRouter       ChatRequestPluginType = "pareto-router"
 	ChatRequestPluginTypeResponseHealing    ChatRequestPluginType = "response-healing"
@@ -61,6 +62,7 @@ type ChatRequestPlugin struct {
 	ParetoRouterPlugin       *ParetoRouterPlugin       `queryParam:"inline" union:"member"`
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 	SwitchyardRouterPlugin   *SwitchyardRouterPlugin   `queryParam:"inline" union:"member"`
+	JevRouterPlugin          *JevRouterPlugin          `queryParam:"inline" union:"member"`
 
 	Type ChatRequestPluginType
 }
@@ -122,6 +124,18 @@ func CreateChatRequestPluginFusion(fusion FusionPlugin) ChatRequestPlugin {
 	return ChatRequestPlugin{
 		FusionPlugin: &fusion,
 		Type:         typ,
+	}
+}
+
+func CreateChatRequestPluginJevRouter(jevRouter JevRouterPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeJevRouter
+
+	typStr := JevRouterPluginID(typ)
+	jevRouter.ID = typStr
+
+	return ChatRequestPlugin{
+		JevRouterPlugin: &jevRouter,
+		Type:            typ,
 	}
 }
 
@@ -254,6 +268,15 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.FusionPlugin = fusionPlugin
 		u.Type = ChatRequestPluginTypeFusion
 		return nil
+	case "jev-router":
+		jevRouterPlugin := new(JevRouterPlugin)
+		if err := utils.UnmarshalJSON(data, &jevRouterPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == jev-router) type JevRouterPlugin within ChatRequestPlugin: %w", string(data), err)
+		}
+
+		u.JevRouterPlugin = jevRouterPlugin
+		u.Type = ChatRequestPluginTypeJevRouter
+		return nil
 	case "moderation":
 		moderationPlugin := new(ModerationPlugin)
 		if err := utils.UnmarshalJSON(data, &moderationPlugin, "", true, nil); err != nil {
@@ -356,6 +379,10 @@ func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.SwitchyardRouterPlugin != nil {
 		return utils.MarshalJSON(u.SwitchyardRouterPlugin, "", true)
+	}
+
+	if u.JevRouterPlugin != nil {
+		return utils.MarshalJSON(u.JevRouterPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ChatRequestPlugin: all fields are null")
