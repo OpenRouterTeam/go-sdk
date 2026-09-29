@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: a75776a71c2137918114b10534c6b7e9
+  docChecksum: 13385159d4e4eee1ca25580f2d72dbda
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.4
-  configChecksum: 7acfa9d08efbe4c0555ee1d66cd60c2b
+  releaseVersion: 0.9.5
+  configChecksum: cfa3d46aac7ed88d36f0d90b9395dcf7
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 2513cb12-c155-4070-9bd0-9cf1affd5441
-  pristine_commit_hash: 2f9723ad64e5391c02674376bfffeefb8f893309
-  pristine_tree_hash: 51e001aa79accb37c85005b3b35caf7c98e1d8b8
+  generation_id: c723f6de-9984-416e-86f2-7908762cba41
+  pristine_commit_hash: 189441b04ece397fc1cd1b0b7bc415fc990e03db
+  pristine_tree_hash: fb70a29f16cce30f224bb9f61ba397e160665846
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4005,8 +4005,8 @@ trackedFiles:
     pristine_git_object: 92ecc4557016f980d69965a02659571d176b5fdb
   docs/models/components/jevrouterplugin.mdx:
     id: 9c8962fbd491
-    last_write_checksum: sha1:c515cfb283ccb1c901468e7cb4f6ee78be15b6cc
-    pristine_git_object: 218bb9607d98e4a97b35b0952abf9101238ceaca
+    last_write_checksum: sha1:2b35f96eb912eda6b07207a6823fb5dce2beb52e
+    pristine_git_object: 0c2907f9d2b82bcfcf654c494f0664440396fa06
   docs/models/components/jevrouterpluginid.mdx:
     id: 757e9fe716c2
     last_write_checksum: sha1:bf779305d2b703870b358bb7d596de0d4741d995
@@ -10617,8 +10617,8 @@ trackedFiles:
     pristine_git_object: 86de458cf0304749072d79284ad50ab2707bd525
   models/components/jevrouterplugin.go:
     id: de5341af7443
-    last_write_checksum: sha1:199bb4d23dcda9bd4b40d3a07d6580fa30c4ccdf
-    pristine_git_object: 31c99468e86587100123b5dfd6f0c388491ce924
+    last_write_checksum: sha1:8c2771647f66c314313214b388617b141df02fd2
+    pristine_git_object: 7595b4e667e4fd76cb7debc7e7b2876fb54456b0
   models/components/keyassignment.go:
     id: 6e32615a3eec
     last_write_checksum: sha1:683bd140357e1d9c2169453dd76377a078c638fa
@@ -12717,8 +12717,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:00ef26b124a0ccc294d0592e1ca1792cd1541bca
-    pristine_git_object: fda28d50152bc42066440c06db2c42370c72c535
+    last_write_checksum: sha1:9842d0a754973bcf4b8226f719efbafc3b8a64e5
+    pristine_git_object: 38b477a102575bcaa4ff6caf2847b8ba36754cb5
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -16565,4 +16565,4 @@ examples:
         "504":
           application/json: {"error": {"code": 504, "message": "Vault request timed out"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router)` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router)` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router).AllowedModels` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router).AllowedModels` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(jev-router).AllowedModels` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).AllowedModels` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).AllowedModels` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).AllowedModels` **Added**\n"

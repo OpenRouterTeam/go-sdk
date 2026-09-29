@@ -32,10 +32,12 @@ func (e *JevRouterPluginID) UnmarshalJSON(data []byte) error {
 }
 
 type JevRouterPlugin struct {
-	// Remove these models from the router. Each entry is a model slug or a wildcard pattern (e.g. "xiaomi/*"). Up to 1024 patterns, each at most 1024 characters, with 65536 total characters across all patterns. Applied after `models`, so an excluded pattern always wins over an included one; excluding every pool model fails the request with 404 rather than routing to an excluded model.
+	// Alias of `models`, matching the auto-router field name. Entries from both fields are combined.
+	AllowedModels []string `json:"allowed_models,omitzero"`
+	// Remove these models from the router. Each entry is a model slug or a wildcard pattern (e.g. "xiaomi/*"). A `~author/family-latest` alias matches every revision of that family. Up to 1024 patterns, each at most 1024 characters, with 65536 total characters across all patterns. Applied after `models`, so an excluded pattern always wins over an included one; when the lists leave no model the request can use, it fails with 404 rather than routing outside them.
 	ExcludedModels []string          `json:"excluded_models,omitzero"`
 	ID             JevRouterPluginID `json:"id"`
-	// Restrict the router to these models. Each entry is a model slug or a wildcard pattern (e.g. "anthropic/*"), matched against the current pool; models outside the pool are ignored. Up to 1024 patterns, each at most 1024 characters, with 65536 total characters across all patterns. When omitted or empty, every model in the pool is a candidate; when no pool model matches, the list is ignored and the whole pool is used (`excluded_models` still apply).
+	// Restrict the router to these models. Each entry is a model slug or a wildcard pattern (e.g. "anthropic/*"), matched against the current pool; models outside the pool are ignored. A `~author/family-latest` alias matches every revision of that family. Up to 1024 patterns, each at most 1024 characters, with 65536 total characters across all patterns. When omitted or empty, every model in the pool is a candidate; when no pool model matches, the list is ignored and the whole pool is used (`excluded_models` still apply). `allowed_models` is an alias; entries from both fields are combined.
 	Models []string `json:"models,omitzero"`
 }
 
@@ -48,6 +50,13 @@ func (j *JevRouterPlugin) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (j *JevRouterPlugin) GetAllowedModels() []string {
+	if j == nil {
+		return nil
+	}
+	return j.AllowedModels
 }
 
 func (j *JevRouterPlugin) GetExcludedModels() []string {
