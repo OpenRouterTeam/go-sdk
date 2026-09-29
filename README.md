@@ -395,6 +395,11 @@ func main() {
 
 * [Create](docs/sdks/systemone/README.md#create) - Submit a System One request
 
+### [Tools](docs/sdks/tools/README.md)
+
+* [ListTools](docs/sdks/tools/README.md#listtools) - List server tools
+* [GetTool](docs/sdks/tools/README.md#gettool) - Get a server tool
+
 ### [TTS](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech

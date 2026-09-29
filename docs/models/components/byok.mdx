@@ -1,0 +1,27 @@
+---
+title: "BYOK"
+---
+
+Whether the engine needs the caller's own key, saved in plugin settings: `required` (OpenRouter holds none), `optional` (OpenRouter's key is used unless the caller saved one), or `none`
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.BYOKRequired
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.BYOK("custom_value")
+```
+
+
+## Values
+
+| Name           | Value          |
+| -------------- | -------------- |
+| `BYOKRequired` | required       |
+| `BYOKOptional` | optional       |
+| `BYOKNone`     | none           |

@@ -1,0 +1,27 @@
+---
+title: "ServerToolExecutedBy"
+---
+
+Who runs the tool call: the model provider during inference (`provider`), OpenRouter (`openrouter`), or the caller's application after the call is returned (`client`).
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ServerToolExecutedByProvider
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ServerToolExecutedBy("custom_value")
+```
+
+
+## Values
+
+| Name                             | Value                            |
+| -------------------------------- | -------------------------------- |
+| `ServerToolExecutedByProvider`   | provider                         |
+| `ServerToolExecutedByOpenrouter` | openrouter                       |
+| `ServerToolExecutedByClient`     | client                           |

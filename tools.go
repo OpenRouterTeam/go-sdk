@@ -12,53 +12,40 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"github.com/OpenRouterTeam/go-sdk/retry"
-	"github.com/OpenRouterTeam/go-sdk/types/stream"
 	"net/http"
 	"net/url"
 )
 
-// Chat - Stream a chat completion with an intern
-// Sends a prompt to one of your interns and streams the reply as OpenAI-compatible server-sent events ending with `[DONE]`. The run executes on the intern, which may pause to ask you something. It then streams one `openrouter.provide_input` tool call and finishes with `finish_reason: "tool_calls"`, and the run stays open on the intern.
-//
-// Every response, whether it ends with `stop`, `tool_calls` or `error`, is followed by a final chunk with empty `choices` that carries `session_id`, then `data: [DONE]`. That chunk carries the `usage` the intern reported for the run, after `stop` or `error`, and `null` when the intern reported none. After `tool_calls` its `usage` is `null` because the turn is not over. Read through `[DONE]`: the `session_id` you need to reply arrives after the `tool_calls` finish chunk.
-//
-// To answer, send a second request with the same `session_id`, the assistant message echoing that tool call, and a `tool` message whose `tool_call_id` is the tool call id and whose `content` is the answer. The answer is delivered to the run that asked and the stream continues from where it paused. A question stays open for its interaction deadline (5 minutes by default) and the run is cancelled when that passes. Rejected replies do not extend the deadline.
-//
-// Closing the connection after the `[DONE]` that follows `finish_reason: "tool_calls"` keeps the run alive. Disconnecting while a response is still streaming cancels the run. The stream writes a `: keepalive` comment whenever nothing else has been written for 30 seconds, so a disconnect is noticed within that interval even while the intern is silent.
-//
-// A run the intern ends while you are still connected, by cancellation or by a deadline, ends the stream with a `finish_reason: "error"` chunk carrying `410` and reason `run_ended`, then the final empty-`choices` chunk and `[DONE]`. That error reports only an ending the intern confirmed. A connection that breaks without that confirmation ends with reason `stream_severed`, and a client that has already disconnected is promised no final event.
-//
-// Set `approval_mode` to `manual` to have the intern ask before approval-bearing tools such as the shell. Omitted, the run self-drives and consents on your behalf. The mode belongs to the run started by that prompt and must be repeated on later prompts.
-//
-// Available to interns programme members. Callers outside the programme receive `404` for every path under `/api/v1/interns`.
-type Chat struct {
+// Tools - The catalog of server tools OpenRouter runs on behalf of a model: accepted `tools[].type` spellings per API format, engines and pricing, and which endpoints run each tool natively. See https://openrouter.ai/docs/guides/features/server-tools.
+type Tools struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newChat(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Chat {
-	return &Chat{
+func newTools(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *Tools {
+	return &Tools{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
 	}
 }
 
-// Send - Create a chat completion
-// Sends a request for a model response for the given chat conversation. Supports both streaming and non-streaming modes.
-func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOpenRouterMetadata *components.MetadataLevel, opts ...operations.Option) (*operations.SendChatCompletionRequestResponse, error) {
-	request := operations.SendChatCompletionRequestRequest{
-		ChatRequest:         chatRequest,
-		XOpenRouterMetadata: xOpenRouterMetadata,
+// ListTools - List server tools
+// Lists every server tool OpenRouter can run on behalf of a model: accepted `tools[].type` spellings per API format, the engines behind it with their pricing, and how many endpoints run it natively.
+func (s *Tools) ListTools(ctx context.Context, security operations.ListToolsSecurity, offset optionalnullable.OptionalNullable[int64], limit *int64, apiFormat *operations.APIFormat, opts ...operations.Option) (*components.ListToolsResponse, error) {
+	request := operations.ListToolsRequest{
+		Offset:    offset,
+		Limit:     limit,
+		APIFormat: apiFormat,
 	}
 
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
 		operations.SupportedOptionTimeout,
-		operations.SupportedOptionAcceptHeaderOverride,
 	}
 
 	for _, opt := range opts {
@@ -73,7 +60,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/chat/completions")
+	opURL, err := url.JoinPath(baseURL, "/tools")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -83,13 +70,9 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "sendChatCompletionRequest",
+		OperationID:      "listTools",
 		OAuth2Scopes:     nil,
-		SecuritySource:   s.sdkConfiguration.Security,
-	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "ChatRequest", "json", `request:"mediaType=application/json"`)
-	if err != nil {
-		return nil, err
+		SecuritySource:   utils.AsSecuritySource(security),
 	}
 
 	timeout := o.Timeout
@@ -103,24 +86,18 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 		defer cancel()
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
+	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
-	if o.AcceptHeaderOverride != nil {
-		req.Header.Set("Accept", string(*o.AcceptHeaderOverride))
-	} else {
-		req.Header.Set("Accept", "application/json;q=1, text/event-stream;q=0")
-	}
-
+	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-	if reqContentType != "" {
-		req.Header.Set("Content-Type", reqContentType)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
-	utils.PopulateHeaders(ctx, req, request, nil)
-
-	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
+	if err := utils.PopulateSecurity(ctx, req, utils.AsSecuritySource(security)); err != nil {
 		return nil, err
 	}
 
@@ -234,44 +211,12 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 				return nil, err
 			}
 
-			var out components.ChatResult
+			var out components.ListToolsResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			result := operations.CreateSendChatCompletionRequestResponseChatResult(out)
-			return &result, nil
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `text/event-stream`):
-			out := stream.NewEventStream(ctx, httpRes.Body, func(se []byte) (components.ChatStreamingResponse, error) {
-				var e components.ChatStreamingResponse
-				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(se), &e, ""); err != nil {
-					return components.ChatStreamingResponse{}, err
-				}
-				return e, nil
-			}, "[DONE]")
-			result := operations.CreateSendChatCompletionRequestResponseEventStream(out)
-			return &result, nil
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 400:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.BadRequestResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
+			return &out, nil
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -288,27 +233,6 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 			}
 
 			var out sdkerrors.UnauthorizedResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 402:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.PaymentRequiredResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -363,90 +287,6 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 			}
 			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 408:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.RequestTimeoutResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 413:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.PayloadTooLargeResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 422:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.UnprocessableEntityResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 429:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.TooManyRequestsResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -456,90 +296,6 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 			}
 
 			var out sdkerrors.InternalServerResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 502:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.BadGatewayResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 503:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.ServiceUnavailableResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 524:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.EdgeNetworkTimeoutResponseError
-			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
-			}
-
-			return nil, &out
-		default:
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
-		}
-	case httpRes.StatusCode == 529:
-		switch {
-		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
-			rawBody, err := utils.ConsumeRawBody(httpRes)
-			if err != nil {
-				return nil, err
-			}
-
-			var out sdkerrors.ProviderOverloadedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -573,5 +329,304 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 	}
 
 	return nil, nil
+
+}
+
+// GetTool - Get a server tool
+// One server tool by canonical name or any accepted alias, with the models that run it natively.
+func (s *Tools) GetTool(ctx context.Context, security operations.GetToolSecurity, name string, opts ...operations.Option) (*operations.GetToolResponse, error) {
+	request := operations.GetToolRequest{
+		Name: name,
+	}
+
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionRetries,
+		operations.SupportedOptionTimeout,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/tools/{name}", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		SDK:              s.rootSDK,
+		SDKConfiguration: s.sdkConfiguration,
+		BaseURL:          baseURL,
+		Context:          ctx,
+		OperationID:      "getTool",
+		OAuth2Scopes:     nil,
+		SecuritySource:   utils.AsSecuritySource(security),
+	}
+
+	timeout := o.Timeout
+	if timeout == nil {
+		timeout = s.sdkConfiguration.Timeout
+	}
+
+	if timeout != nil {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, *timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateSecurity(ctx, req, utils.AsSecuritySource(security)); err != nil {
+		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
+	}
+
+	globalRetryConfig := s.sdkConfiguration.RetryConfig
+	retryConfig := o.Retries
+	if retryConfig == nil {
+		if globalRetryConfig != nil {
+			retryConfig = globalRetryConfig
+		} else {
+			retryConfig = &retry.Config{
+				Strategy: "backoff", Backoff: &retry.BackoffStrategy{
+					InitialInterval: 500,
+					MaxInterval:     60000,
+					Exponent:        1.5,
+					MaxElapsedTime:  3600000,
+				},
+				RetryConnectionErrors: true,
+			}
+		}
+	}
+
+	var httpRes *http.Response
+	if retryConfig != nil {
+		httpRes, err = utils.Retry(ctx, utils.Retries{
+			Config: retryConfig,
+			StatusCodes: []string{
+				"5XX",
+			},
+		}, func() (*http.Response, error) {
+			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
+				copyBody, err := req.GetBody()
+
+				if err != nil {
+					return nil, err
+				}
+
+				req.Body = copyBody
+			}
+
+			req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+			if err != nil {
+				if retry.IsPermanentError(err) || retry.IsTemporaryError(err) {
+					return nil, err
+				}
+
+				return nil, retry.Permanent(err)
+			}
+
+			httpRes, err := s.sdkConfiguration.Client.Do(req)
+			if err != nil || httpRes == nil {
+				if err != nil {
+					err = fmt.Errorf("error sending request: %w", err)
+				} else {
+					err = fmt.Errorf("error sending request: no response")
+				}
+
+				_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+			}
+			return httpRes, err
+		})
+
+		if err != nil {
+			return nil, err
+		} else {
+			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+			if err != nil {
+				return nil, err
+			}
+		}
+	} else {
+		req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
+		if err != nil {
+			return nil, err
+		}
+
+		httpRes, err = s.sdkConfiguration.Client.Do(req)
+		if err != nil || httpRes == nil {
+			if err != nil {
+				err = fmt.Errorf("error sending request: %w", err)
+			} else {
+				err = fmt.Errorf("error sending request: no response")
+			}
+
+			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
+			return nil, err
+		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
+			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
+			if err != nil {
+				return nil, err
+			} else if _httpRes != nil {
+				httpRes = _httpRes
+			}
+		} else {
+			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	res := &operations.GetToolResponse{}
+
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out components.GetToolResponse
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.Result = &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 308:
+		res.Headers = httpRes.Header
+
+		utils.DrainBody(httpRes)
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.UnauthorizedResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 403:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.ForbiddenResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 404:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.NotFoundResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 500:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.InternalServerResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewAPIError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+	default:
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+	}
+
+	return res, nil
 
 }
