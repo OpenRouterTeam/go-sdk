@@ -169,8 +169,9 @@ func (e *ProviderResponseProviderName) IsExact() bool {
 type RoutedServiceTier string
 
 const (
-	RoutedServiceTierFlex     RoutedServiceTier = "flex"
-	RoutedServiceTierPriority RoutedServiceTier = "priority"
+	RoutedServiceTierFlex      RoutedServiceTier = "flex"
+	RoutedServiceTierPriority  RoutedServiceTier = "priority"
+	RoutedServiceTierUltrafast RoutedServiceTier = "ultrafast"
 )
 
 func (e RoutedServiceTier) ToPointer() *RoutedServiceTier {
@@ -181,7 +182,7 @@ func (e RoutedServiceTier) ToPointer() *RoutedServiceTier {
 func (e *RoutedServiceTier) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "flex", "priority":
+		case "flex", "priority", "ultrafast":
 			return true
 		}
 	}

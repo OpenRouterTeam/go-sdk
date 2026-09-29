@@ -419,16 +419,17 @@ func (r *ReasoningConfig) GetMaxTokens() optionalnullable.OptionalNullable[int64
 	return r.MaxTokens
 }
 
-// ResponsesRequestServiceTier - The service tier to use for processing this request. `fast` is accepted as an alias for `priority`.
+// ResponsesRequestServiceTier - The service tier to use for processing this request. `fast` is accepted as an alias for `priority`. `ultrafast` prefers ultrafast endpoints and falls back to `priority`, then default endpoints.
 type ResponsesRequestServiceTier string
 
 const (
-	ResponsesRequestServiceTierAuto     ResponsesRequestServiceTier = "auto"
-	ResponsesRequestServiceTierDefault  ResponsesRequestServiceTier = "default"
-	ResponsesRequestServiceTierFast     ResponsesRequestServiceTier = "fast"
-	ResponsesRequestServiceTierFlex     ResponsesRequestServiceTier = "flex"
-	ResponsesRequestServiceTierPriority ResponsesRequestServiceTier = "priority"
-	ResponsesRequestServiceTierScale    ResponsesRequestServiceTier = "scale"
+	ResponsesRequestServiceTierAuto      ResponsesRequestServiceTier = "auto"
+	ResponsesRequestServiceTierDefault   ResponsesRequestServiceTier = "default"
+	ResponsesRequestServiceTierFast      ResponsesRequestServiceTier = "fast"
+	ResponsesRequestServiceTierFlex      ResponsesRequestServiceTier = "flex"
+	ResponsesRequestServiceTierPriority  ResponsesRequestServiceTier = "priority"
+	ResponsesRequestServiceTierScale     ResponsesRequestServiceTier = "scale"
+	ResponsesRequestServiceTierUltrafast ResponsesRequestServiceTier = "ultrafast"
 )
 
 func (e ResponsesRequestServiceTier) ToPointer() *ResponsesRequestServiceTier {
@@ -439,7 +440,7 @@ func (e ResponsesRequestServiceTier) ToPointer() *ResponsesRequestServiceTier {
 func (e *ResponsesRequestServiceTier) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "auto", "default", "fast", "flex", "priority", "scale":
+		case "auto", "default", "fast", "flex", "priority", "scale", "ultrafast":
 			return true
 		}
 	}
@@ -1368,7 +1369,7 @@ type ResponsesRequest struct {
 	Reasoning optionalnullable.OptionalNullable[ReasoningConfig] `json:"reasoning,omitzero"`
 	// Recommended per-end-user identifier for abuse isolation. Use a stable ID, hash, or pseudonym. When a provider requires a user identity, OpenRouter folds it into the hashed identity sent upstream and never forwards it raw. If omitted, requests use an account-level identity, so provider policy blocks can affect the whole account.
 	SafetyIdentifier optionalnullable.OptionalNullable[string] `json:"safety_identifier,omitzero"`
-	// The service tier to use for processing this request. `fast` is accepted as an alias for `priority`.
+	// The service tier to use for processing this request. `fast` is accepted as an alias for `priority`. `ultrafast` prefers ultrafast endpoints and falls back to `priority`, then default endpoints.
 	ServiceTier optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
