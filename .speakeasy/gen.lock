@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ea28f73445d5aaf00200db46ac3c5ef3
+  docChecksum: 7330d36e97b07f1851892f4754312cfd
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.9
-  configChecksum: 04ef64a6bd1d23c094ab865366d391fa
+  releaseVersion: 0.9.10
+  configChecksum: a295021e1371031305df688e06e08280
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: cb3c1aa0-de9a-4ff1-a35a-71e0ddf12487
-  pristine_commit_hash: eae091031016319c6a968f48dfe6afdfe3cf1e09
-  pristine_tree_hash: 04c580c54522d695b17f24fbe1987c415878f579
+  generation_id: 85dda561-584e-4180-959e-ec6583676358
+  pristine_commit_hash: 3e3cb8003219ab11f5c314bb7a4826e5e0a1a703
+  pristine_tree_hash: 52300c4a10ccca39bc118d1fb439ed1dd73c8562
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -8225,8 +8225,8 @@ trackedFiles:
     pristine_git_object: 8f349e35ba308d4dbdc5c3ea0a1678321ab6514b
   docs/models/operations/listcontainerfilesrequest.mdx:
     id: f92bb567b314
-    last_write_checksum: sha1:fb60ee8d588c0294d257ec0b296c5c25f3acd11a
-    pristine_git_object: 873b46fbab0fe3578d3c531715c0b3de938becdb
+    last_write_checksum: sha1:e4c9d2f61a213fa9b3914b84a4483c64ad3c1da2
+    pristine_git_object: 3074faa6b95de965ac22e349479614da8a98296a
   docs/models/operations/listdata.mdx:
     id: 50698a46e95c
     last_write_checksum: sha1:8f8c5acd6a9e1a237c21caf7c94cfc71bf55f426
@@ -8845,8 +8845,8 @@ trackedFiles:
     pristine_git_object: 1ba80d0ada312235511d6006847d3264aa61283b
   docs/sdks/containers/README.mdx:
     id: cc963972ad75
-    last_write_checksum: sha1:36b0cd700a1c46b22812e866d6d72f5e6e7b4d2a
-    pristine_git_object: c60dad84f4c68b460ea108ed1bf6a9aac1a29a02
+    last_write_checksum: sha1:7eeb263dda8c81fbdf9834b72717770b66f0782f
+    pristine_git_object: 11013aa8d86c2f7befad4d05f6227e9b8f658c80
   docs/sdks/credits/README.mdx:
     id: 2ba51de8de3f
     last_write_checksum: sha1:6840c872a50554a58c33f3ef4533ce21af8b6247
@@ -12605,8 +12605,8 @@ trackedFiles:
     pristine_git_object: 574fcf1eab6057af97296ef35bf6b97ab725582c
   models/operations/listcontainerfiles.go:
     id: a5d7da5fd18e
-    last_write_checksum: sha1:e80272ac062e53f6aa176da6ebe7928a12d54a6f
-    pristine_git_object: 6c6926e49bf0b9107780e903a8bdde6676768c90
+    last_write_checksum: sha1:3a8ea810e8c7ebbb88c7f50550442ac36e94d1a1
+    pristine_git_object: 68d8b3cedd38307fd16b4c4c4e222d898c04e5fb
   models/operations/listembeddingsmodels.go:
     id: cb1333992087
     last_write_checksum: sha1:105c804e688e5843f80c09e4562df4f08f3181dc
@@ -12913,8 +12913,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:06474f4f87f7096780907fdb3dafc13f2841bb5f
-    pristine_git_object: eda1b766ba47965f651ae75830245513c88d6a98
+    last_write_checksum: sha1:198326a10294443e18c32b6d3c355eb2151cc96d
+    pristine_git_object: 618370f539c702193aff1c1f8ad01774c71a5610
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
