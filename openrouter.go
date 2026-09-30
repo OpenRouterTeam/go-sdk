@@ -84,6 +84,8 @@ type OpenRouter struct {
 	Datasets *Datasets
 	// Text embedding endpoints
 	Embeddings *Embeddings
+	// End Users endpoints
+	EndUsers *EndUsers
 	// Endpoint information
 	Endpoints *Endpoints
 	// Files endpoints
@@ -218,9 +220,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.9.11",
+		SDKVersion: "0.9.12",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.9.11 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.9.12 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -260,6 +262,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Credits = newCredits(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Datasets = newDatasets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Embeddings = newEmbeddings(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.EndUsers = newEndUsers(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Endpoints = newEndpoints(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Files = newFiles(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
