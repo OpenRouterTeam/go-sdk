@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.12
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.13
 > ```
 
 <!-- No Summary [summary] -->
@@ -347,6 +347,8 @@ func main() {
 ### [Organization](docs/sdks/organization/README.md)
 
 * [ListMembers](docs/sdks/organization/README.md#listmembers) - List organization members
+* [GetSettings](docs/sdks/organization/README.md#getsettings) - Get organization settings
+* [UpdateSettings](docs/sdks/organization/README.md#updatesettings) - Update organization settings
 
 ### [Presets](docs/sdks/presets/README.md)
 
