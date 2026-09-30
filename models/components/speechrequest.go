@@ -67,7 +67,7 @@ type SpeechRequest struct {
 	ResponseFormat *SpeechRequestResponseFormat `default:"pcm" json:"response_format"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
-	// Playback speed multiplier. Only used by models that support it (e.g. OpenAI TTS). Ignored by other providers.
+	// Playback speed multiplier. Honored by models that support it (e.g. OpenAI TTS). Other providers either ignore it or return a 400 for a non-default value when the model has no speed control.
 	Speed *float64 `json:"speed,omitzero"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
 	Trace *TraceConfig `json:"trace,omitzero"`
