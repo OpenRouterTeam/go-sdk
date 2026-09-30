@@ -1,0 +1,88 @@
+---
+title: "AlignmentResponsesRejected"
+---
+
+## Supported Types
+
+### OutputItemApplyPatchCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedApplyPatchCall(components.OutputItemApplyPatchCall{/* values here */})
+```
+
+### OutputItemCodeInterpreterCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedCodeInterpreterCall(components.OutputItemCodeInterpreterCall{/* values here */})
+```
+
+### OutputItemCustomToolCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedCustomToolCall(components.OutputItemCustomToolCall{/* values here */})
+```
+
+### OutputItemFileSearchCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedFileSearchCall(components.OutputItemFileSearchCall{/* values here */})
+```
+
+### OutputItemFunctionCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedFunctionCall(components.OutputItemFunctionCall{/* values here */})
+```
+
+### OutputItemImageGenerationCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedImageGenerationCall(components.OutputItemImageGenerationCall{/* values here */})
+```
+
+### OutputMessage
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedMessage(components.OutputMessage{/* values here */})
+```
+
+### OutputItemReasoning
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedReasoning(components.OutputItemReasoning{/* values here */})
+```
+
+### OutputItemWebSearchCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedWebSearchCall(components.OutputItemWebSearchCall{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch alignmentResponsesRejected.Type {
+	case components.AlignmentResponsesRejectedTypeApplyPatchCall:
+		// alignmentResponsesRejected.OutputItemApplyPatchCall is populated
+	case components.AlignmentResponsesRejectedTypeCodeInterpreterCall:
+		// alignmentResponsesRejected.OutputItemCodeInterpreterCall is populated
+	case components.AlignmentResponsesRejectedTypeCustomToolCall:
+		// alignmentResponsesRejected.OutputItemCustomToolCall is populated
+	case components.AlignmentResponsesRejectedTypeFileSearchCall:
+		// alignmentResponsesRejected.OutputItemFileSearchCall is populated
+	case components.AlignmentResponsesRejectedTypeFunctionCall:
+		// alignmentResponsesRejected.OutputItemFunctionCall is populated
+	case components.AlignmentResponsesRejectedTypeImageGenerationCall:
+		// alignmentResponsesRejected.OutputItemImageGenerationCall is populated
+	case components.AlignmentResponsesRejectedTypeMessage:
+		// alignmentResponsesRejected.OutputMessage is populated
+	case components.AlignmentResponsesRejectedTypeReasoning:
+		// alignmentResponsesRejected.OutputItemReasoning is populated
+	case components.AlignmentResponsesRejectedTypeWebSearchCall:
+		// alignmentResponsesRejected.OutputItemWebSearchCall is populated
+	default:
+		// Unknown type - use alignmentResponsesRejected.GetUnknownRaw() for raw JSON
+}
+```

@@ -447,7 +447,7 @@ func CreateOutputItemsShellCallOutput(shellCallOutput OutputShellCallOutputItem)
 func CreateOutputItemsWebSearchCall(webSearchCall OutputWebSearchCallItem) OutputItems {
 	typ := OutputItemsTypeWebSearchCall
 
-	typStr := TypeWebSearchCall(typ)
+	typStr := OutputWebSearchCallItemTypeWebSearchCall(typ)
 	webSearchCall.Type = typStr
 
 	return OutputItems{

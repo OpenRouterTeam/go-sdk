@@ -4,6 +4,12 @@ title: "MessagesRequestPlugin"
 
 ## Supported Types
 
+### AlignmentPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginAlignment(components.AlignmentPlugin{/* values here */})
+```
+
 ### AutoBetaRouterPlugin
 
 ```go
@@ -82,6 +88,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch messagesRequestPlugin.Type {
+	case components.MessagesRequestPluginTypeAlignment:
+		// messagesRequestPlugin.AlignmentPlugin is populated
 	case components.MessagesRequestPluginTypeAutoBetaRouter:
 		// messagesRequestPlugin.AutoBetaRouterPlugin is populated
 	case components.MessagesRequestPluginTypeAutoRouter:

@@ -1,0 +1,38 @@
+---
+title: "OutputItemFunctionCallStatusUnion"
+---
+
+## Supported Types
+
+### OutputItemFunctionCallStatusCompleted
+
+```go
+outputItemFunctionCallStatusUnion := components.CreateOutputItemFunctionCallStatusUnionOutputItemFunctionCallStatusCompleted(components.OutputItemFunctionCallStatusCompleted{/* values here */})
+```
+
+### OutputItemFunctionCallStatusIncomplete
+
+```go
+outputItemFunctionCallStatusUnion := components.CreateOutputItemFunctionCallStatusUnionOutputItemFunctionCallStatusIncomplete(components.OutputItemFunctionCallStatusIncomplete{/* values here */})
+```
+
+### OutputItemFunctionCallStatusInProgress
+
+```go
+outputItemFunctionCallStatusUnion := components.CreateOutputItemFunctionCallStatusUnionOutputItemFunctionCallStatusInProgress(components.OutputItemFunctionCallStatusInProgress{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch outputItemFunctionCallStatusUnion.Type {
+	case components.OutputItemFunctionCallStatusUnionTypeOutputItemFunctionCallStatusCompleted:
+		// outputItemFunctionCallStatusUnion.OutputItemFunctionCallStatusCompleted is populated
+	case components.OutputItemFunctionCallStatusUnionTypeOutputItemFunctionCallStatusIncomplete:
+		// outputItemFunctionCallStatusUnion.OutputItemFunctionCallStatusIncomplete is populated
+	case components.OutputItemFunctionCallStatusUnionTypeOutputItemFunctionCallStatusInProgress:
+		// outputItemFunctionCallStatusUnion.OutputItemFunctionCallStatusInProgress is populated
+}
+```

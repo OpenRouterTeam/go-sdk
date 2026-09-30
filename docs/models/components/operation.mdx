@@ -1,0 +1,40 @@
+---
+title: "Operation"
+---
+
+## Supported Types
+
+### ApplyPatchCreateFileOperation
+
+```go
+operation := components.CreateOperationCreateFile(components.ApplyPatchCreateFileOperation{/* values here */})
+```
+
+### ApplyPatchDeleteFileOperation
+
+```go
+operation := components.CreateOperationDeleteFile(components.ApplyPatchDeleteFileOperation{/* values here */})
+```
+
+### ApplyPatchUpdateFileOperation
+
+```go
+operation := components.CreateOperationUpdateFile(components.ApplyPatchUpdateFileOperation{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch operation.Type {
+	case components.OperationTypeCreateFile:
+		// operation.ApplyPatchCreateFileOperation is populated
+	case components.OperationTypeDeleteFile:
+		// operation.ApplyPatchDeleteFileOperation is populated
+	case components.OperationTypeUpdateFile:
+		// operation.ApplyPatchUpdateFileOperation is populated
+	default:
+		// Unknown type - use operation.GetUnknownRaw() for raw JSON
+}
+```

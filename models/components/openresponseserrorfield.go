@@ -48,33 +48,42 @@ func (e *CodeEnum) IsExact() bool {
 	return false
 }
 
-// ResponsesErrorField - Error information returned from the API
-type ResponsesErrorField struct {
+// OpenResponsesErrorField - Error of a failed response; `metadata` carries OpenRouter-specific details.
+type OpenResponsesErrorField struct {
 	Code    CodeEnum `json:"code"`
 	Message string   `json:"message"`
+	// OpenRouter-specific details of a failed response, such as the alignment object of an alignment error.
+	Metadata *OpenResponsesErrorMetadata `json:"metadata,omitzero"`
 }
 
-func (r ResponsesErrorField) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
+func (o OpenResponsesErrorField) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (r *ResponsesErrorField) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+func (o *OpenResponsesErrorField) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *ResponsesErrorField) GetCode() CodeEnum {
-	if r == nil {
+func (o *OpenResponsesErrorField) GetCode() CodeEnum {
+	if o == nil {
 		return CodeEnum("")
 	}
-	return r.Code
+	return o.Code
 }
 
-func (r *ResponsesErrorField) GetMessage() string {
-	if r == nil {
+func (o *OpenResponsesErrorField) GetMessage() string {
+	if o == nil {
 		return ""
 	}
-	return r.Message
+	return o.Message
+}
+
+func (o *OpenResponsesErrorField) GetMetadata() *OpenResponsesErrorMetadata {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
 }

@@ -1,0 +1,30 @@
+---
+title: "AlignmentRejected"
+---
+
+## Supported Types
+
+### AlignmentChatRejected
+
+```go
+alignmentRejected := components.CreateAlignmentRejectedAlignmentChatRejected(components.AlignmentChatRejected{/* values here */})
+```
+
+### 
+
+```go
+alignmentRejected := components.CreateAlignmentRejectedArrayOfAlignmentResponsesRejected([]components.AlignmentResponsesRejected{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch alignmentRejected.Type {
+	case components.AlignmentRejectedTypeAlignmentChatRejected:
+		// alignmentRejected.AlignmentChatRejected is populated
+	case components.AlignmentRejectedTypeArrayOfAlignmentResponsesRejected:
+		// alignmentRejected.ArrayOfAlignmentResponsesRejected is populated
+}
+```
