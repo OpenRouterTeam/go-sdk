@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.11
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.12
 > ```
 
 <!-- No Summary [summary] -->
@@ -258,6 +258,14 @@ func main() {
 
 * [Generate](docs/sdks/embeddings/README.md#generate) - Submit an embedding request
 * [ListModels](docs/sdks/embeddings/README.md#listmodels) - List all embeddings models
+
+### [EndUsers](docs/sdks/endusers/README.md)
+
+* [List](docs/sdks/endusers/README.md#list) - List registered end users
+* [Create](docs/sdks/endusers/README.md#create) - Register an end user
+* [Delete](docs/sdks/endusers/README.md#delete) - Deactivate a registered end user
+* [Get](docs/sdks/endusers/README.md#get) - Get a registered end user
+* [Update](docs/sdks/endusers/README.md#update) - Update a registered end user
 
 ### [Endpoints](docs/sdks/endpoints/README.md)
 
