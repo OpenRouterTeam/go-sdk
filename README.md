@@ -347,6 +347,8 @@ func main() {
 ### [Organization](docs/sdks/organization/README.md)
 
 * [ListMembers](docs/sdks/organization/README.md#listmembers) - List organization members
+* [GetSettings](docs/sdks/organization/README.md#getsettings) - Get organization settings
+* [UpdateSettings](docs/sdks/organization/README.md#updatesettings) - Update organization settings
 
 ### [Presets](docs/sdks/presets/README.md)
 
