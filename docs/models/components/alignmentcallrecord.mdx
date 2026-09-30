@@ -1,0 +1,40 @@
+---
+title: "AlignmentCallRecord"
+---
+
+## Supported Types
+
+### AlignmentAllowedCallRecord
+
+```go
+alignmentCallRecord := components.CreateAlignmentCallRecordAllowed(components.AlignmentAllowedCallRecord{/* values here */})
+```
+
+### AlignmentBlockedCallRecord
+
+```go
+alignmentCallRecord := components.CreateAlignmentCallRecordBlocked(components.AlignmentBlockedCallRecord{/* values here */})
+```
+
+### AlignmentUnavailableCallRecord
+
+```go
+alignmentCallRecord := components.CreateAlignmentCallRecordUnavailable(components.AlignmentUnavailableCallRecord{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch alignmentCallRecord.Type {
+	case components.AlignmentCallRecordTypeAllowed:
+		// alignmentCallRecord.AlignmentAllowedCallRecord is populated
+	case components.AlignmentCallRecordTypeBlocked:
+		// alignmentCallRecord.AlignmentBlockedCallRecord is populated
+	case components.AlignmentCallRecordTypeUnavailable:
+		// alignmentCallRecord.AlignmentUnavailableCallRecord is populated
+	default:
+		// Unknown type - use alignmentCallRecord.GetUnknownRaw() for raw JSON
+}
+```

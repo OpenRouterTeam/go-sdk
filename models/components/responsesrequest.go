@@ -14,6 +14,7 @@ import (
 type ResponsesRequestPluginType string
 
 const (
+	ResponsesRequestPluginTypeAlignment          ResponsesRequestPluginType = "alignment"
 	ResponsesRequestPluginTypeAutoBetaRouter     ResponsesRequestPluginType = "auto-beta-router"
 	ResponsesRequestPluginTypeAutoRouter         ResponsesRequestPluginType = "auto-router"
 	ResponsesRequestPluginTypeContextCompression ResponsesRequestPluginType = "context-compression"
@@ -41,8 +42,21 @@ type ResponsesRequestPlugin struct {
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 	SwitchyardRouterPlugin   *SwitchyardRouterPlugin   `queryParam:"inline" union:"member"`
 	JevRouterPlugin          *JevRouterPlugin          `queryParam:"inline" union:"member"`
+	AlignmentPlugin          *AlignmentPlugin          `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestPluginType
+}
+
+func CreateResponsesRequestPluginAlignment(alignment AlignmentPlugin) ResponsesRequestPlugin {
+	typ := ResponsesRequestPluginTypeAlignment
+
+	typStr := AlignmentPluginID(typ)
+	alignment.ID = typStr
+
+	return ResponsesRequestPlugin{
+		AlignmentPlugin: &alignment,
+		Type:            typ,
+	}
 }
 
 func CreateResponsesRequestPluginAutoBetaRouter(autoBetaRouter AutoBetaRouterPlugin) ResponsesRequestPlugin {
@@ -201,6 +215,15 @@ func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.ID {
+	case "alignment":
+		alignmentPlugin := new(AlignmentPlugin)
+		if err := utils.UnmarshalJSON(data, &alignmentPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == alignment) type AlignmentPlugin within ResponsesRequestPlugin: %w", string(data), err)
+		}
+
+		u.AlignmentPlugin = alignmentPlugin
+		u.Type = ResponsesRequestPluginTypeAlignment
+		return nil
 	case "auto-beta-router":
 		autoBetaRouterPlugin := new(AutoBetaRouterPlugin)
 		if err := utils.UnmarshalJSON(data, &autoBetaRouterPlugin, "", true, nil); err != nil {
@@ -361,6 +384,10 @@ func (u ResponsesRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.JevRouterPlugin != nil {
 		return utils.MarshalJSON(u.JevRouterPlugin, "", true)
+	}
+
+	if u.AlignmentPlugin != nil {
+		return utils.MarshalJSON(u.AlignmentPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ResponsesRequestPlugin: all fields are null")

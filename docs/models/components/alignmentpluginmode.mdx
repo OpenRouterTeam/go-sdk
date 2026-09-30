@@ -1,0 +1,26 @@
+---
+title: "AlignmentPluginMode"
+---
+
+`enforce`: a turn that breaks a rule is withheld, retried, and finally returned as an error. `audit`: every turn is evaluated and returned. Default `enforce`.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AlignmentPluginModeEnforce
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.AlignmentPluginMode("custom_value")
+```
+
+
+## Values
+
+| Name                         | Value                        |
+| ---------------------------- | ---------------------------- |
+| `AlignmentPluginModeEnforce` | enforce                      |
+| `AlignmentPluginModeAudit`   | audit                        |

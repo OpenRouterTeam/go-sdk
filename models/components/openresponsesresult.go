@@ -788,8 +788,8 @@ type OpenResponsesResult struct {
 	Background  optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
 	CompletedAt *int64                                  `json:"completed_at"`
 	CreatedAt   int64                                   `json:"created_at"`
-	// Error information returned from the API
-	Error             *ResponsesErrorField                     `json:"error"`
+	// Error of a failed response; `metadata` carries OpenRouter-specific details.
+	Error             *OpenResponsesErrorField                 `json:"error"`
 	FrequencyPenalty  *float64                                 `json:"frequency_penalty"`
 	ID                string                                   `json:"id"`
 	IncompleteDetails *IncompleteDetails                       `json:"incomplete_details"`
@@ -825,6 +825,8 @@ type OpenResponsesResult struct {
 	// Token usage information for the response
 	Usage optionalnullable.OptionalNullable[Usage]  `json:"usage,omitzero"`
 	User  optionalnullable.OptionalNullable[string] `json:"user,omitzero"`
+	// Beta. The result of the alignment plugin for this request; the shape may change.
+	Alignment *Alignment `json:"alignment,omitzero"`
 	// Canonical OpenRouter error type, stable across all API formats
 	ErrorType          *APIErrorType       `json:"error_type,omitzero"`
 	OpenrouterMetadata *OpenRouterMetadata `json:"openrouter_metadata,omitzero"`
@@ -862,7 +864,7 @@ func (o *OpenResponsesResult) GetCreatedAt() int64 {
 	return o.CreatedAt
 }
 
-func (o *OpenResponsesResult) GetError() *ResponsesErrorField {
+func (o *OpenResponsesResult) GetError() *OpenResponsesErrorField {
 	if o == nil {
 		return nil
 	}
@@ -1084,6 +1086,13 @@ func (o *OpenResponsesResult) GetUser() optionalnullable.OptionalNullable[string
 		return nil
 	}
 	return o.User
+}
+
+func (o *OpenResponsesResult) GetAlignment() *Alignment {
+	if o == nil {
+		return nil
+	}
+	return o.Alignment
 }
 
 func (o *OpenResponsesResult) GetErrorType() *APIErrorType {

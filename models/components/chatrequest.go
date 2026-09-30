@@ -36,6 +36,7 @@ func (e *Modality) IsExact() bool {
 type ChatRequestPluginType string
 
 const (
+	ChatRequestPluginTypeAlignment          ChatRequestPluginType = "alignment"
 	ChatRequestPluginTypeAutoBetaRouter     ChatRequestPluginType = "auto-beta-router"
 	ChatRequestPluginTypeAutoRouter         ChatRequestPluginType = "auto-router"
 	ChatRequestPluginTypeContextCompression ChatRequestPluginType = "context-compression"
@@ -63,8 +64,21 @@ type ChatRequestPlugin struct {
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 	SwitchyardRouterPlugin   *SwitchyardRouterPlugin   `queryParam:"inline" union:"member"`
 	JevRouterPlugin          *JevRouterPlugin          `queryParam:"inline" union:"member"`
+	AlignmentPlugin          *AlignmentPlugin          `queryParam:"inline" union:"member"`
 
 	Type ChatRequestPluginType
+}
+
+func CreateChatRequestPluginAlignment(alignment AlignmentPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeAlignment
+
+	typStr := AlignmentPluginID(typ)
+	alignment.ID = typStr
+
+	return ChatRequestPlugin{
+		AlignmentPlugin: &alignment,
+		Type:            typ,
+	}
 }
 
 func CreateChatRequestPluginAutoBetaRouter(autoBetaRouter AutoBetaRouterPlugin) ChatRequestPlugin {
@@ -223,6 +237,15 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.ID {
+	case "alignment":
+		alignmentPlugin := new(AlignmentPlugin)
+		if err := utils.UnmarshalJSON(data, &alignmentPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == alignment) type AlignmentPlugin within ChatRequestPlugin: %w", string(data), err)
+		}
+
+		u.AlignmentPlugin = alignmentPlugin
+		u.Type = ChatRequestPluginTypeAlignment
+		return nil
 	case "auto-beta-router":
 		autoBetaRouterPlugin := new(AutoBetaRouterPlugin)
 		if err := utils.UnmarshalJSON(data, &autoBetaRouterPlugin, "", true, nil); err != nil {
@@ -383,6 +406,10 @@ func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.JevRouterPlugin != nil {
 		return utils.MarshalJSON(u.JevRouterPlugin, "", true)
+	}
+
+	if u.AlignmentPlugin != nil {
+		return utils.MarshalJSON(u.AlignmentPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ChatRequestPlugin: all fields are null")

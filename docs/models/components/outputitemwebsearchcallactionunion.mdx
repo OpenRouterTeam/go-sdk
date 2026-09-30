@@ -1,0 +1,40 @@
+---
+title: "OutputItemWebSearchCallActionUnion"
+---
+
+## Supported Types
+
+### OutputItemWebSearchCallActionSearch
+
+```go
+outputItemWebSearchCallActionUnion := components.CreateOutputItemWebSearchCallActionUnionSearch(components.OutputItemWebSearchCallActionSearch{/* values here */})
+```
+
+### OutputItemWebSearchCallActionOpenPage
+
+```go
+outputItemWebSearchCallActionUnion := components.CreateOutputItemWebSearchCallActionUnionOpenPage(components.OutputItemWebSearchCallActionOpenPage{/* values here */})
+```
+
+### OutputItemWebSearchCallActionFindInPage
+
+```go
+outputItemWebSearchCallActionUnion := components.CreateOutputItemWebSearchCallActionUnionFindInPage(components.OutputItemWebSearchCallActionFindInPage{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch outputItemWebSearchCallActionUnion.Type {
+	case components.OutputItemWebSearchCallActionUnionTypeSearch:
+		// outputItemWebSearchCallActionUnion.OutputItemWebSearchCallActionSearch is populated
+	case components.OutputItemWebSearchCallActionUnionTypeOpenPage:
+		// outputItemWebSearchCallActionUnion.OutputItemWebSearchCallActionOpenPage is populated
+	case components.OutputItemWebSearchCallActionUnionTypeFindInPage:
+		// outputItemWebSearchCallActionUnion.OutputItemWebSearchCallActionFindInPage is populated
+	default:
+		// Unknown type - use outputItemWebSearchCallActionUnion.GetUnknownRaw() for raw JSON
+}
+```

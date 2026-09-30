@@ -2524,6 +2524,8 @@ func (b *BodyUsage1) GetTotalTokens() int64 {
 // #endregion class-body-bodyusage1
 
 type BodyChatCompletion struct {
+	// Beta. The result of the alignment plugin for this request; the shape may change.
+	Alignment          *Alignment                                `json:"alignment,omitzero"`
 	Choices            []Choice                                  `json:"choices"`
 	Created            int64                                     `json:"created"`
 	Debug              *BatchObjectDebug                         `json:"debug,omitzero"`
@@ -2546,6 +2548,13 @@ func (b *BodyChatCompletion) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (b *BodyChatCompletion) GetAlignment() *Alignment {
+	if b == nil {
+		return nil
+	}
+	return b.Alignment
 }
 
 func (b *BodyChatCompletion) GetChoices() []Choice {

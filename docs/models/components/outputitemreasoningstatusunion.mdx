@@ -1,0 +1,38 @@
+---
+title: "OutputItemReasoningStatusUnion"
+---
+
+## Supported Types
+
+### OutputItemReasoningStatusCompleted
+
+```go
+outputItemReasoningStatusUnion := components.CreateOutputItemReasoningStatusUnionOutputItemReasoningStatusCompleted(components.OutputItemReasoningStatusCompleted{/* values here */})
+```
+
+### OutputItemReasoningStatusIncomplete
+
+```go
+outputItemReasoningStatusUnion := components.CreateOutputItemReasoningStatusUnionOutputItemReasoningStatusIncomplete(components.OutputItemReasoningStatusIncomplete{/* values here */})
+```
+
+### OutputItemReasoningStatusInProgress
+
+```go
+outputItemReasoningStatusUnion := components.CreateOutputItemReasoningStatusUnionOutputItemReasoningStatusInProgress(components.OutputItemReasoningStatusInProgress{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch outputItemReasoningStatusUnion.Type {
+	case components.OutputItemReasoningStatusUnionTypeOutputItemReasoningStatusCompleted:
+		// outputItemReasoningStatusUnion.OutputItemReasoningStatusCompleted is populated
+	case components.OutputItemReasoningStatusUnionTypeOutputItemReasoningStatusIncomplete:
+		// outputItemReasoningStatusUnion.OutputItemReasoningStatusIncomplete is populated
+	case components.OutputItemReasoningStatusUnionTypeOutputItemReasoningStatusInProgress:
+		// outputItemReasoningStatusUnion.OutputItemReasoningStatusInProgress is populated
+}
+```

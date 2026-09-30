@@ -798,6 +798,7 @@ func (m *MessagesRequestMetadata) GetUserID() optionalnullable.OptionalNullable[
 type MessagesRequestPluginType string
 
 const (
+	MessagesRequestPluginTypeAlignment          MessagesRequestPluginType = "alignment"
 	MessagesRequestPluginTypeAutoBetaRouter     MessagesRequestPluginType = "auto-beta-router"
 	MessagesRequestPluginTypeAutoRouter         MessagesRequestPluginType = "auto-router"
 	MessagesRequestPluginTypeContextCompression MessagesRequestPluginType = "context-compression"
@@ -825,8 +826,21 @@ type MessagesRequestPlugin struct {
 	FusionPlugin             *FusionPlugin             `queryParam:"inline" union:"member"`
 	SwitchyardRouterPlugin   *SwitchyardRouterPlugin   `queryParam:"inline" union:"member"`
 	JevRouterPlugin          *JevRouterPlugin          `queryParam:"inline" union:"member"`
+	AlignmentPlugin          *AlignmentPlugin          `queryParam:"inline" union:"member"`
 
 	Type MessagesRequestPluginType
+}
+
+func CreateMessagesRequestPluginAlignment(alignment AlignmentPlugin) MessagesRequestPlugin {
+	typ := MessagesRequestPluginTypeAlignment
+
+	typStr := AlignmentPluginID(typ)
+	alignment.ID = typStr
+
+	return MessagesRequestPlugin{
+		AlignmentPlugin: &alignment,
+		Type:            typ,
+	}
 }
 
 func CreateMessagesRequestPluginAutoBetaRouter(autoBetaRouter AutoBetaRouterPlugin) MessagesRequestPlugin {
@@ -985,6 +999,15 @@ func (u *MessagesRequestPlugin) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.ID {
+	case "alignment":
+		alignmentPlugin := new(AlignmentPlugin)
+		if err := utils.UnmarshalJSON(data, &alignmentPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == alignment) type AlignmentPlugin within MessagesRequestPlugin: %w", string(data), err)
+		}
+
+		u.AlignmentPlugin = alignmentPlugin
+		u.Type = MessagesRequestPluginTypeAlignment
+		return nil
 	case "auto-beta-router":
 		autoBetaRouterPlugin := new(AutoBetaRouterPlugin)
 		if err := utils.UnmarshalJSON(data, &autoBetaRouterPlugin, "", true, nil); err != nil {
@@ -1145,6 +1168,10 @@ func (u MessagesRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.JevRouterPlugin != nil {
 		return utils.MarshalJSON(u.JevRouterPlugin, "", true)
+	}
+
+	if u.AlignmentPlugin != nil {
+		return utils.MarshalJSON(u.AlignmentPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesRequestPlugin: all fields are null")
