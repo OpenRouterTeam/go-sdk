@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 08e1a7a71ca3970e004583b061664e28
+  docChecksum: 1e710052958e02f0dcf0673f2a18a150
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.18
-  configChecksum: 7d342148d68e06dcebe3acfa2f22d0e9
+  releaseVersion: 0.9.19
+  configChecksum: 6b1f31b92c372d991ab35dd71836a6b4
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 61512043-a051-4913-9020-a616aa5e6be8
-  pristine_commit_hash: d8c0496d412c12f79ddbb6e3ea7745274f8d17c4
-  pristine_tree_hash: 3e7738e9d29d71f3657e0756c3a7c1b4e383ea29
+  generation_id: cb39fe22-aae9-4468-b3c3-218ffc2db66d
+  pristine_commit_hash: c76773a21671361aef2077c85c63fc6a36ca8a57
+  pristine_tree_hash: 05f134fe8c97a61dfddd29e5e21821d1c57555d0
 features:
   go:
     acceptHeaders: 2.81.2
@@ -81,8 +81,8 @@ trackedFiles:
     pristine_git_object: 19cafdf94c8623199653cce8f3d90e2dceec2348
   apikeys.go:
     id: 8baafe5dc76e
-    last_write_checksum: sha1:d7099a7ea5e65438708ea9fb895125fe3ec0ecaf
-    pristine_git_object: 40c7211ceb7b4b052a219a2c1ded343cb20a79c9
+    last_write_checksum: sha1:5456625dc2ef3850ab45727d2b3f755ff3c2e9bd
+    pristine_git_object: 478ce12522170a32ea362eb8de209a03ce11215c
   batch.go:
     id: f0580a64f821
     last_write_checksum: sha1:e665d74307f94d032221149976b1d0c7850f3e24
@@ -9117,8 +9117,8 @@ trackedFiles:
     pristine_git_object: 84d83302a14fcf3cfda0caff3b3d2d5d5028bc71
   docs/sdks/apikeys/README.mdx:
     id: 27fcaae1c346
-    last_write_checksum: sha1:088527c8cdaec2bd5d7ecb0be3f876c3ee00f9d8
-    pristine_git_object: b9770b015ca6b9cff39091a33dac484236278696
+    last_write_checksum: sha1:e044b2de49a7ab6d28f9a2a1e2c013fa0d438a79
+    pristine_git_object: 3d86efb6f28f4a03606fc12757902a0d9e138e6b
   docs/sdks/batch/README.mdx:
     id: e367aa4f4295
     last_write_checksum: sha1:3c3f1d13862f80193d7d2a3e984df38a9c906d91
@@ -13361,8 +13361,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:1857ccfbe1db1afa68fccaf5db53ee35f4aa332e
-    pristine_git_object: 0bdd6eb24649f8e98bd664bef478a27567a4c705
+    last_write_checksum: sha1:192c8a66f4560a2853d4b596ef4233f3fed12c7f
+    pristine_git_object: edb55991440b48a25c1b08b0de5a9fc53294d3a9
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13741,6 +13741,24 @@ examples:
           application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+    invalid_parameters:
+      parameters:
+        path:
+          hash: "f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943"
+      requestBody:
+        application/json: {}
+      responses:
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+    no_update_fields:
+      parameters:
+        path:
+          hash: "f01d52606dc8f0a8303a7b5cc3fa07109c2e346cec7c0a16b40de462992ce943"
+      requestBody:
+        application/json: {}
+      responses:
+        "400":
+          application/json: {"error": {"code": 400, "message": "No update fields provided"}}
   deleteKeys:
     speakeasy-default-delete-keys:
       parameters:
@@ -17359,4 +17377,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Resolution.Enum(1.5K)` **Added**\n"

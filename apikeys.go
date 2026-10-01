@@ -1483,6 +1483,10 @@ func (s *APIKeys) Get(ctx context.Context, hash string, opts ...operations.Optio
 
 // Update an API key
 // Update an existing API key. Authenticate with a [management key](/docs/guides/overview/auth/management-api-keys).
+//
+// <Warning>
+// You can't change `workspace_id` through the API. The request body accepts only the fields listed below, and unrecognized fields are ignored. To move a key to another workspace, use the OpenRouter dashboard. If the body contains none of the accepted fields, the request fails with `400` and the message `No update fields provided`.
+// </Warning>
 func (s *APIKeys) Update(ctx context.Context, hash string, requestBody operations.UpdateKeysRequestBody, opts ...operations.Option) (*operations.UpdateKeysResponse, error) {
 	request := operations.UpdateKeysRequest{
 		Hash:        hash,
