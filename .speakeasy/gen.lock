@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: d5c867dda1d562bee467a2e5783bfaa8
+  docChecksum: 175ab9a935334fd9caf8d71122e6f88e
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.14
-  configChecksum: b492d04ab177f705f5cc40072162c65e
+  releaseVersion: 0.9.15
+  configChecksum: 9dc406629abf90a5d30e8230750b894e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 85629781-511a-4fac-8d0e-cca039c83734
-  pristine_commit_hash: 88a60fdcfc177b3e2256f5dafcae53a88b17201a
-  pristine_tree_hash: f1a9e04b8c308570306606a478f93ae7a2b0cc1c
+  generation_id: b703769b-103d-4635-af5a-a89f5b537c3c
+  pristine_commit_hash: 1976f9fbaa0f783051b99807fb788d0e718b09cb
+  pristine_tree_hash: 4dd77ef49d5fe8296381316fdc641c411f689af3
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -1851,6 +1851,10 @@ trackedFiles:
     id: ccf896b32e8c
     last_write_checksum: sha1:5807ae86fd50a977c40726d9c8afcec20a517fab
     pristine_git_object: 5aa214808709dedb4ac850a71f05cdb0d56ed76d
+  docs/models/components/chatdynamicservertool.mdx:
+    id: 156a12146fd3
+    last_write_checksum: sha1:1780cec2a9ee1294dae7dc4bdfd77c8949dd2364
+    pristine_git_object: 0adb257b8a1ca60caf4702b012ddbf846f594c4a
   docs/models/components/chatfinishreasonenum.mdx:
     id: e71939a265a4
     last_write_checksum: sha1:c4bef08e542fdf10e14a3b54d3e08a28c122c3ea
@@ -1897,8 +1901,8 @@ trackedFiles:
     pristine_git_object: e73650184d39cfcbac5804d5c45aadb600ea4fbb
   docs/models/components/chatfunctiontool.mdx:
     id: a5e42518489f
-    last_write_checksum: sha1:a23db351b02d971aa7db6446ebd54b4153ed4d72
-    pristine_git_object: 65502dff41249e20399c19f3aa967775d1fc61e2
+    last_write_checksum: sha1:6c3043642b38cd8df582c2fe0ff8f2890c452b23
+    pristine_git_object: 5101b96c224bf39b9126286a0b77cc981d2571d9
   docs/models/components/chatfunctiontoolfunction.mdx:
     id: bd709ba7f018
     last_write_checksum: sha1:bd2a4c41afc56860d2f654511d5b2411d73a0edf
@@ -10127,6 +10131,10 @@ trackedFiles:
     id: acb90ce54a7d
     last_write_checksum: sha1:ef4568bac4ff89bd327d2ffeae82d9420a2ac623
     pristine_git_object: 220269ca67fc46f2aedbe8800786bef2be35a1d7
+  models/components/chatdynamicservertool.go:
+    id: df2cd97fd677
+    last_write_checksum: sha1:c7a26644b31dc914f19486b56af4dc77a0930a31
+    pristine_git_object: c68ffc70ec0f17848fbed8087715d61a59c65459
   models/components/chatfinishreasonenum.go:
     id: c0f759f58abc
     last_write_checksum: sha1:82ad7b52b790d43cf54f47ef9f1351041b929e0d
@@ -10153,8 +10161,8 @@ trackedFiles:
     pristine_git_object: 229607fc482e8f37a16da91b45d761bc4b53362a
   models/components/chatfunctiontool.go:
     id: 2404feb24575
-    last_write_checksum: sha1:6f2af8a239c886a904e5cdd7f837527cb7ca5576
-    pristine_git_object: 502a3838127b03f6c84f1b8ac3235a54feb7caf5
+    last_write_checksum: sha1:b1c0bf12722a8b6fcdd196110d6c89106cb1258e
+    pristine_git_object: 8cf940585b062ffc3f9e70e3b459e8e433c28857
   models/components/chatjsonschemaconfig.go:
     id: 927e3d07c53d
     last_write_checksum: sha1:732bb6d2e0cae555e8794fb0304b17ddc3691ff9
@@ -13353,8 +13361,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:ed631d85a003d68bc1d06aa5a41b8267dbd1d1f5
-    pristine_git_object: 6910981b04c815b401654a8bd9b7c5e6ca1a02f4
+    last_write_checksum: sha1:5ee1c03c9c6ecd0c8c16b4edb76fa0b971354f74
+    pristine_git_object: 2d8f67f53fbcf5cfe9ce244298c647a193163fa3
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17347,3 +17355,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(ChatDynamicServerTool)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(ChatDynamicServerTool)` **Added**\n"

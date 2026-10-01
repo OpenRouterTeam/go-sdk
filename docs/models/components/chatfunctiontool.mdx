@@ -79,6 +79,12 @@ chatFunctionTool := components.CreateChatFunctionToolOpenRouterWebSearchServerTo
 chatFunctionTool := components.CreateChatFunctionToolChatWebSearchShorthand(components.ChatWebSearchShorthand{/* values here */})
 ```
 
+### ChatDynamicServerTool
+
+```go
+chatFunctionTool := components.CreateChatFunctionToolChatDynamicServerTool(components.ChatDynamicServerTool{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -109,5 +115,7 @@ switch chatFunctionTool.Type {
 		// chatFunctionTool.OpenRouterWebSearchServerTool is populated
 	case components.ChatFunctionToolUnionTypeChatWebSearchShorthand:
 		// chatFunctionTool.ChatWebSearchShorthand is populated
+	case components.ChatFunctionToolUnionTypeChatDynamicServerTool:
+		// chatFunctionTool.ChatDynamicServerTool is populated
 }
 ```
