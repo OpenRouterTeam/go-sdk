@@ -139,6 +139,7 @@ const (
 	ChatFunctionToolUnionTypeWebFetchServerTool                  ChatFunctionToolUnionType = "WebFetchServerTool"
 	ChatFunctionToolUnionTypeOpenRouterWebSearchServerTool       ChatFunctionToolUnionType = "OpenRouterWebSearchServerTool"
 	ChatFunctionToolUnionTypeChatWebSearchShorthand              ChatFunctionToolUnionType = "ChatWebSearchShorthand"
+	ChatFunctionToolUnionTypeChatDynamicServerTool               ChatFunctionToolUnionType = "ChatDynamicServerTool"
 )
 
 // ChatFunctionTool - Tool definition for function calling (regular function or OpenRouter built-in server tool)
@@ -155,6 +156,7 @@ type ChatFunctionTool struct {
 	WebFetchServerTool                  *WebFetchServerTool                  `queryParam:"inline" union:"member"`
 	OpenRouterWebSearchServerTool       *OpenRouterWebSearchServerTool       `queryParam:"inline" union:"member"`
 	ChatWebSearchShorthand              *ChatWebSearchShorthand              `queryParam:"inline" union:"member"`
+	ChatDynamicServerTool               *ChatDynamicServerTool               `queryParam:"inline" union:"member"`
 
 	Type ChatFunctionToolUnionType
 }
@@ -267,6 +269,15 @@ func CreateChatFunctionToolChatWebSearchShorthand(chatWebSearchShorthand ChatWeb
 	}
 }
 
+func CreateChatFunctionToolChatDynamicServerTool(chatDynamicServerTool ChatDynamicServerTool) ChatFunctionTool {
+	typ := ChatFunctionToolUnionTypeChatDynamicServerTool
+
+	return ChatFunctionTool{
+		ChatDynamicServerTool: &chatDynamicServerTool,
+		Type:                  typ,
+	}
+}
+
 func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
@@ -368,6 +379,14 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		})
 	}
 
+	var chatDynamicServerTool ChatDynamicServerTool = ChatDynamicServerTool{}
+	if err := utils.UnmarshalJSON(data, &chatDynamicServerTool, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChatFunctionToolUnionTypeChatDynamicServerTool,
+			Value: &chatDynamicServerTool,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChatFunctionTool", string(data))
 	}
@@ -416,6 +435,9 @@ func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
 		return nil
 	case ChatFunctionToolUnionTypeChatWebSearchShorthand:
 		u.ChatWebSearchShorthand = best.Value.(*ChatWebSearchShorthand)
+		return nil
+	case ChatFunctionToolUnionTypeChatDynamicServerTool:
+		u.ChatDynamicServerTool = best.Value.(*ChatDynamicServerTool)
 		return nil
 	}
 
@@ -469,6 +491,10 @@ func (u ChatFunctionTool) MarshalJSON() ([]byte, error) {
 
 	if u.ChatWebSearchShorthand != nil {
 		return utils.MarshalJSON(u.ChatWebSearchShorthand, "", true)
+	}
+
+	if u.ChatDynamicServerTool != nil {
+		return utils.MarshalJSON(u.ChatDynamicServerTool, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ChatFunctionTool: all fields are null")
