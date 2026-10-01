@@ -5,6 +5,8 @@ package components
 type ActivityItem struct {
 	// BYOK inference cost in USD (external credits spent)
 	BYOKUsageInference float64 `json:"byok_usage_inference"`
+	// Total prompt tokens read from the provider prompt cache (cache hits). Generally a subset of `prompt_tokens`; for replayed response-cache hits the provider may report the two counters over disjoint token sets, so `cached_tokens` can exceed `prompt_tokens`.
+	CachedTokens int64 `json:"cached_tokens"`
 	// Total completion tokens generated
 	CompletionTokens int64 `json:"completion_tokens"`
 	// Date of the activity (YYYY-MM-DD format)
@@ -34,6 +36,13 @@ func (a *ActivityItem) GetBYOKUsageInference() float64 {
 		return 0.0
 	}
 	return a.BYOKUsageInference
+}
+
+func (a *ActivityItem) GetCachedTokens() int64 {
+	if a == nil {
+		return 0
+	}
+	return a.CachedTokens
 }
 
 func (a *ActivityItem) GetCompletionTokens() int64 {

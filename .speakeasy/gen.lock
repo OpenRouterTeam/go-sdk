@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 991af84ce7e81300d24a24f7438751a9
+  docChecksum: 4a571cf89ded060ac0a94ff3522e73e8
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.16
-  configChecksum: 7fb82ec64a3082e5164eae9c775dab49
+  releaseVersion: 0.9.17
+  configChecksum: b385d0974ad5a444d8dc750de60c714a
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 4393ba5b-b106-4684-9338-8224508e7100
-  pristine_commit_hash: e6a0bcb896908d26b7d1ac59b70132687fee9352
-  pristine_tree_hash: 44ee58190caad50509cf951359777ad92f7370ca
+  generation_id: 1e388d27-90e5-495c-9e83-7ad6b7cd579b
+  pristine_commit_hash: 52f3eb2d3569ae23ed097a87ed6e0dae4f8b29ca
+  pristine_tree_hash: b2fe81b851a3bd90f673ac0be57a91db4705d375
 features:
   go:
     acceptHeaders: 2.81.2
@@ -137,8 +137,8 @@ trackedFiles:
     pristine_git_object: bc92ff7ed1cbd2466997fbc664ff77ced8e0a4b6
   docs/models/components/activityitem.mdx:
     id: 4de9ab90c88d
-    last_write_checksum: sha1:64b01e8beca8000487f675543d617ce27c9c24c7
-    pristine_git_object: b7c885dbd2a9398de5ca5db48d1a8ed8e2de4113
+    last_write_checksum: sha1:ede23084f097b9e3d4a02dd6f35e546c70341bd4
+    pristine_git_object: 2207b59bae3047eee9b466345a15d1057088f483
   docs/models/components/activityresponse.mdx:
     id: cd8e92ab314d
     last_write_checksum: sha1:dd71dc77bf09abfca744cdcd5e417756856f8633
@@ -9373,8 +9373,8 @@ trackedFiles:
     pristine_git_object: 16b9a9eff2f6cf1dad4c2c5bc0a05eef7e92f865
   models/components/activityitem.go:
     id: 11d3801b0dad
-    last_write_checksum: sha1:4642e20a0e80b9d2bbaaca425bf09045b699bec4
-    pristine_git_object: 8e15ff00deb2d7a35189d99ad131bd960b64224b
+    last_write_checksum: sha1:a40fabcf09ecd7dd47a385ccecead0a840fddc57
+    pristine_git_object: 8b3a05bc3c9fc6af1a264ee0b6d48eace79c1505
   models/components/activityresponse.go:
     id: 797c277328a4
     last_write_checksum: sha1:3be5b61c5cd92c78d71014892a73b929d091de3e
@@ -13361,8 +13361,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:dc87d1a73a7cdd3f2d2828a14ffffae4642976bc
-    pristine_git_object: 2f286af0e20ee92c29e406f7db2577dfc00fcd8a
+    last_write_checksum: sha1:8b6c2d0ded79fc036c4321e9a6fd7459436ff0cc
+    pristine_git_object: ad8f01128f571cbe320f943fdb6a19a184ffa542
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13503,7 +13503,7 @@ examples:
     speakeasy-default-get-user-activity:
       responses:
         "200":
-          application/json: {"data": [{"byok_usage_inference": 0.012, "completion_tokens": 125, "date": "2025-08-24", "endpoint_id": "550e8400-e29b-41d4-a716-446655440000", "model": "openai/gpt-4.1", "model_permaslug": "openai/gpt-4.1-2025-04-14", "prompt_tokens": 50, "provider_name": "OpenAI", "reasoning_tokens": 25, "requests": 5, "usage": 0.015}]}
+          application/json: {"data": [{"byok_usage_inference": 0.012, "cached_tokens": 10, "completion_tokens": 125, "date": "2025-08-24", "endpoint_id": "550e8400-e29b-41d4-a716-446655440000", "model": "openai/gpt-4.1", "model_permaslug": "openai/gpt-4.1-2025-04-14", "prompt_tokens": 50, "provider_name": "OpenAI", "reasoning_tokens": 25, "requests": 5, "usage": 0.015}]}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -17361,5 +17361,4 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Generations.GetGeneration()`:  `error.status[400]` **Added**
-  * `OpenRouter.Generations.ListGenerationContent()`:  `error.status[400]` **Added**
+  * `OpenRouter.Analytics.GetUserActivity()`:  `response.Data[].CachedTokens` **Added**
