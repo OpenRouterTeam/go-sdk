@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 4a571cf89ded060ac0a94ff3522e73e8
+  docChecksum: 08e1a7a71ca3970e004583b061664e28
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.17
-  configChecksum: b385d0974ad5a444d8dc750de60c714a
+  releaseVersion: 0.9.18
+  configChecksum: 7d342148d68e06dcebe3acfa2f22d0e9
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 1e388d27-90e5-495c-9e83-7ad6b7cd579b
-  pristine_commit_hash: 52f3eb2d3569ae23ed097a87ed6e0dae4f8b29ca
-  pristine_tree_hash: b2fe81b851a3bd90f673ac0be57a91db4705d375
+  generation_id: 61512043-a051-4913-9020-a616aa5e6be8
+  pristine_commit_hash: d8c0496d412c12f79ddbb6e3ea7745274f8d17c4
+  pristine_tree_hash: 3e7738e9d29d71f3657e0756c3a7c1b4e383ea29
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3553,8 +3553,8 @@ trackedFiles:
     pristine_git_object: 18ce714e4cd5a3a2fe942befe02d4628bcdc2f3e
   docs/models/components/imagegenerationrequestresolution.mdx:
     id: 648403136a6f
-    last_write_checksum: sha1:cbc122c7cd022c97ec796e7734e9e9fc7fb73320
-    pristine_git_object: f52053a72140a359e2aed2ba52b48bb02f83c715
+    last_write_checksum: sha1:b120ccccffaf47faae849ef25ae48694b0393b36
+    pristine_git_object: 747bf3807c51776993bda37696ef17680f7e61b9
   docs/models/components/imagegenerationresponse.mdx:
     id: 5cb833e1c00f
     last_write_checksum: sha1:1f815a8e9d8e158e42cab4ddfa754248cdf9e7b3
@@ -10881,8 +10881,8 @@ trackedFiles:
     pristine_git_object: 61b00f77bd205ef5e19d9da99cf691abc9f83ccd
   models/components/imagegenerationrequest.go:
     id: 2a1c3242c506
-    last_write_checksum: sha1:85fea9ec1429d61b741d533b1ab9d65e2718b93d
-    pristine_git_object: e30a1ee882ec0d8655fe15920e3fcc7c17a3c864
+    last_write_checksum: sha1:3113e12eb6f57c6bcc0d4e41351ab3e429718252
+    pristine_git_object: 1817de14ba18ad8aba21ec19221f213b9c8abe43
   models/components/imagegenerationresponse.go:
     id: bfcc44d3ad67
     last_write_checksum: sha1:6c133bc51c83d5747936cf1546933cf27c536099
@@ -13361,8 +13361,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:8b6c2d0ded79fc036c4321e9a6fd7459436ff0cc
-    pristine_git_object: ad8f01128f571cbe320f943fdb6a19a184ffa542
+    last_write_checksum: sha1:1857ccfbe1db1afa68fccaf5db53ee35f4aa332e
+    pristine_git_object: 0bdd6eb24649f8e98bd664bef478a27567a4c705
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17359,6 +17359,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Analytics.GetUserActivity()`:  `response.Data[].CachedTokens` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Resolution.Enum(1.5K)` **Added**\n"
