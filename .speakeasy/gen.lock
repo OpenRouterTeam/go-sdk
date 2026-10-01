@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 13de6fd43dfd78b44600b7662f15bf02
+  docChecksum: d5c867dda1d562bee467a2e5783bfaa8
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.13
-  configChecksum: 9f1bc601f229c68b73d22444ce29c424
+  releaseVersion: 0.9.14
+  configChecksum: b492d04ab177f705f5cc40072162c65e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 513d8a22-1409-4cfd-806a-fca86d0565db
-  pristine_commit_hash: 2d8ab47c5a46e53d6f99647f1de23078c3e645ff
-  pristine_tree_hash: c91eae3cb45f97318bee5e3916a9d747816cac9a
+  generation_id: 85629781-511a-4fac-8d0e-cca039c83734
+  pristine_commit_hash: 88a60fdcfc177b3e2256f5dafcae53a88b17201a
+  pristine_tree_hash: f1a9e04b8c308570306606a478f93ae7a2b0cc1c
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -217,8 +217,8 @@ trackedFiles:
     pristine_git_object: 79eaa666bfa0cddff51b7cd3c56bde981ef47c71
   docs/models/components/algorithm.mdx:
     id: 4318be7fdc38
-    last_write_checksum: sha1:f17e128554a580111e471696509e4be0646f501d
-    pristine_git_object: 0336666b026f8a7315adf7472c4e559444e1a01e
+    last_write_checksum: sha1:e6c7059b43e5b3117bc0b0640331e6cf9fef2c0d
+    pristine_git_object: 74fe941f7ccda11af81a0b0c573171d9b1895f06
   docs/models/components/alignment.mdx:
     id: 88f0125c420b
     last_write_checksum: sha1:e8f52c69def3d67583a5785a83fbd6805f245231
@@ -7101,8 +7101,8 @@ trackedFiles:
     pristine_git_object: 5f1fdbb8f7994cd443541ec53c873897887a374a
   docs/models/components/switchyardrouterplugin.mdx:
     id: d0001743a973
-    last_write_checksum: sha1:cb089e4ecfa633b2d87acefcc401c41de1a45d55
-    pristine_git_object: 8fce58940de6fab6cefd04aeeb5aa5494caa509c
+    last_write_checksum: sha1:4a3d2c3f66d50cd988208a9dff68d5e29de0545c
+    pristine_git_object: 10e09b5967db59bde798c1157a23211cef08996b
   docs/models/components/switchyardrouterpluginid.mdx:
     id: f587bf985ed8
     last_write_checksum: sha1:2e70c6871b04971eb9484a0756f7854dae4ba62a
@@ -12373,8 +12373,8 @@ trackedFiles:
     pristine_git_object: ff17d16126df12f1461091d12c9a6df89efabe73
   models/components/switchyardrouterplugin.go:
     id: b309d3c90fc8
-    last_write_checksum: sha1:f1eedce485f41bbd78f2f15e60d0cd8e1ba68eb4
-    pristine_git_object: 53810b53b65cb00a8c80f72e01d0cea98f6112cf
+    last_write_checksum: sha1:878ad0baa50814aa526cc7f8efb72b96d2a0c5c4
+    pristine_git_object: fdc6dc9b1fda1b99d4c09d4becad735bf0c3c11b
   models/components/taskclassificationitem.go:
     id: 760f562ef93a
     last_write_checksum: sha1:0bed7435fc8a53352287e79868d2f3bfd105b937
@@ -13353,8 +13353,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:01d3ba8e249fe09e22bfdbca71b16584df0a027c
-    pristine_git_object: 90601820ca691b4917170edb196b63bf156c4a72
+    last_write_checksum: sha1:ed631d85a003d68bc1d06aa5a41b8267dbd1d1f5
+    pristine_git_object: 6910981b04c815b401654a8bd9b7c5e6ca1a02f4
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17347,7 +17347,3 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Organization.GetSettings()`: **Added**
-  * `OpenRouter.Organization.UpdateSettings()`: **Added**
