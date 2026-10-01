@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 175ab9a935334fd9caf8d71122e6f88e
+  docChecksum: 991af84ce7e81300d24a24f7438751a9
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.15
-  configChecksum: 9dc406629abf90a5d30e8230750b894e
+  releaseVersion: 0.9.16
+  configChecksum: 7fb82ec64a3082e5164eae9c775dab49
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b703769b-103d-4635-af5a-a89f5b537c3c
-  pristine_commit_hash: 1976f9fbaa0f783051b99807fb788d0e718b09cb
-  pristine_tree_hash: 4dd77ef49d5fe8296381316fdc641c411f689af3
+  generation_id: 4393ba5b-b106-4684-9338-8224508e7100
+  pristine_commit_hash: e6a0bcb896908d26b7d1ac59b70132687fee9352
+  pristine_tree_hash: 44ee58190caad50509cf951359777ad92f7370ca
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -9177,8 +9177,8 @@ trackedFiles:
     pristine_git_object: 8087d035c713a9a7feefc9181db83b2efda7d12e
   docs/sdks/generations/README.mdx:
     id: a754fecc8514
-    last_write_checksum: sha1:b531275c52f2f760b68fce209d19c3aa0eac844b
-    pristine_git_object: 464c0b03a9c2bf5861ae70028f392b2a179d7ecf
+    last_write_checksum: sha1:373679828a2ec6c5defcb590668fc23ad33da8cc
+    pristine_git_object: 796f1e5d99085cd64238a0c32d9752d30eebbf2a
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
     last_write_checksum: sha1:84440b4428e4765e8192527d871da8aed3c48453
@@ -9281,8 +9281,8 @@ trackedFiles:
     pristine_git_object: 4eae69e2b6c9586a700f639bbe322af78fc3c842
   generations.go:
     id: ad539e13a3f6
-    last_write_checksum: sha1:6d1bc2484c0a06893335852bf69cd97ec61a157e
-    pristine_git_object: 2b0d66639bb8a1bb90759ec02aeadb394d0cf678
+    last_write_checksum: sha1:6beee0dd40a230f0be8ca33ae3a7b1499e9fbe15
+    pristine_git_object: 8e9a16689fb0b2ef7a283068206e0bc81e027475
   go.mod:
     id: c47645c391ad
     last_write_checksum: sha1:ba90465104f4b129a0ced01d50d453c828d3cc41
@@ -13361,8 +13361,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:5ee1c03c9c6ecd0c8c16b4edb76fa0b971354f74
-    pristine_git_object: 2d8f67f53fbcf5cfe9ce244298c647a193163fa3
+    last_write_checksum: sha1:dc87d1a73a7cdd3f2d2828a14ffffae4642976bc
+    pristine_git_object: 2f286af0e20ee92c29e406f7db2577dfc00fcd8a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13615,6 +13615,8 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
   listModelsCount:
     speakeasy-default-list-models-count:
       responses:
@@ -14248,6 +14250,8 @@ examples:
           application/json: {"error": {"code": 524, "message": "Request timed out. Please try again later."}}
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
   listWorkspaces:
     speakeasy-default-list-workspaces:
       parameters:
@@ -17355,4 +17359,7 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Tools[].union(ChatDynamicServerTool)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Tools[].union(ChatDynamicServerTool)` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Generations.GetGeneration()`:  `error.status[400]` **Added**
+  * `OpenRouter.Generations.ListGenerationContent()`:  `error.status[400]` **Added**
