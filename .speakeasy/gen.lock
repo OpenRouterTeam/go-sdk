@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1e710052958e02f0dcf0673f2a18a150
+  docChecksum: e0679e5a284910df5d3e3ac0ee007f80
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.19
-  configChecksum: 6b1f31b92c372d991ab35dd71836a6b4
+  releaseVersion: 0.9.20
+  configChecksum: 325a5d0965070972fc9bf176d389cc4c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: cb39fe22-aae9-4468-b3c3-218ffc2db66d
-  pristine_commit_hash: c76773a21671361aef2077c85c63fc6a36ca8a57
-  pristine_tree_hash: 05f134fe8c97a61dfddd29e5e21821d1c57555d0
+  generation_id: 8ba0bdae-f657-4dc6-9d68-c5924aed81c1
+  pristine_commit_hash: 50cb333124075eb2f2bd0f6791fdf7fbb6f46cab
+  pristine_tree_hash: 44a355f319846f0dc4e2b7cfcaa793662000ca15
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: 300f5ee15b73e7ecfd6b16e25d132ad1e4af8442
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -13361,8 +13361,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:192c8a66f4560a2853d4b596ef4233f3fed12c7f
-    pristine_git_object: edb55991440b48a25c1b08b0de5a9fc53294d3a9
+    last_write_checksum: sha1:2c615e8da0b5eed45ba80d026fb0516dccac2ad5
+    pristine_git_object: 302b1b8a7852a235c71e693f5987e175f565043d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
