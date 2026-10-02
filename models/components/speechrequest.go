@@ -4,12 +4,46 @@ package components
 
 import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-// SpeechRequestProvider - Provider-specific passthrough configuration
+// SpeechRequestDataCollection - Data collection setting. If no available model provider meets the requirement, your request will return an error.
+// - allow: (default) allow providers which store user data non-transiently and may train on it
+//
+// - deny: use only providers which do not collect user data.
+type SpeechRequestDataCollection string
+
+const (
+	SpeechRequestDataCollectionDeny  SpeechRequestDataCollection = "deny"
+	SpeechRequestDataCollectionAllow SpeechRequestDataCollection = "allow"
+)
+
+func (e SpeechRequestDataCollection) ToPointer() *SpeechRequestDataCollection {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SpeechRequestDataCollection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "deny", "allow":
+			return true
+		}
+	}
+	return false
+}
+
+// SpeechRequestProvider - Provider configuration: data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 type SpeechRequestProvider struct {
+	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
+	// - allow: (default) allow providers which store user data non-transiently and may train on it
+	//
+	// - deny: use only providers which do not collect user data.
+	DataCollection optionalnullable.OptionalNullable[SpeechRequestDataCollection] `json:"data_collection,omitzero"`
 	// Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 	Options *ProviderOptions `json:"options,omitzero"`
+	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
+	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 }
 
 func (s SpeechRequestProvider) MarshalJSON() ([]byte, error) {
@@ -23,11 +57,25 @@ func (s *SpeechRequestProvider) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (s *SpeechRequestProvider) GetDataCollection() optionalnullable.OptionalNullable[SpeechRequestDataCollection] {
+	if s == nil {
+		return nil
+	}
+	return s.DataCollection
+}
+
 func (s *SpeechRequestProvider) GetOptions() *ProviderOptions {
 	if s == nil {
 		return nil
 	}
 	return s.Options
+}
+
+func (s *SpeechRequestProvider) GetZdr() optionalnullable.OptionalNullable[bool] {
+	if s == nil {
+		return nil
+	}
+	return s.Zdr
 }
 
 // SpeechRequestResponseFormat - Audio output format
@@ -61,7 +109,7 @@ type SpeechRequest struct {
 	InputReferences []SpeechInputReference `json:"input_references,omitzero"`
 	// TTS model identifier
 	Model string `json:"model"`
-	// Provider-specific passthrough configuration
+	// Provider configuration: data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 	Provider *SpeechRequestProvider `json:"provider,omitzero"`
 	// Audio output format
 	ResponseFormat *SpeechRequestResponseFormat `default:"pcm" json:"response_format"`

@@ -82,7 +82,7 @@ type CreateAudioTranscriptionsMultipartRequest struct {
 	Language *string `multipartForm:"name=language"`
 	// The model to use for transcription.
 	Model string `multipartForm:"name=model"`
-	// JSON-encoded provider preferences object, the same shape as the JSON body field: { "options": { "<provider-slug>": { ... } } }. Only options for the matched provider are forwarded. Must decode to a JSON object.
+	// JSON-encoded provider preferences object, the same shape as the JSON body field: { "zdr": true, "data_collection": "deny", "options": { "<provider-slug>": { ... } } }. Only options for the matched provider are forwarded. Must decode to a JSON object.
 	Provider *string `multipartForm:"name=provider"`
 	// The response format. "json" (default) returns { text, usage }; "verbose_json" additionally returns task, language, duration, and segment-level timestamps (OpenAI-compatible providers only).
 	ResponseFormat *ResponseFormat `multipartForm:"name=response_format"`
