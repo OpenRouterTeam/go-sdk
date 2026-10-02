@@ -14,7 +14,9 @@ type ObservabilityClickhouseDestinationConfig struct {
 	Headers  map[string]string `json:"headers,omitzero"`
 	Host     string            `json:"host"`
 	Password string            `json:"password"`
-	Table    *string           `default:"OPENROUTER_TRACES" json:"table"`
+	// Send the cache_write_tokens column (schema v2). Turn this on after the table has that column.
+	ShouldIncludeCacheWriteTokens *bool   `default:"false" json:"shouldIncludeCacheWriteTokens"`
+	Table                         *string `default:"OPENROUTER_TRACES" json:"table"`
 	// If you have not set a specific username in ClickHouse, simply type in 'default' below.
 	Username string `json:"username"`
 }
@@ -56,6 +58,13 @@ func (o *ObservabilityClickhouseDestinationConfig) GetPassword() string {
 		return ""
 	}
 	return o.Password
+}
+
+func (o *ObservabilityClickhouseDestinationConfig) GetShouldIncludeCacheWriteTokens() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldIncludeCacheWriteTokens
 }
 
 func (o *ObservabilityClickhouseDestinationConfig) GetTable() *string {

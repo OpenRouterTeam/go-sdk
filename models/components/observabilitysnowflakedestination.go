@@ -12,11 +12,13 @@ type ObservabilitySnowflakeDestinationConfig struct {
 	Account  string  `json:"account"`
 	Database *string `default:"SNOWFLAKE_LEARNING_DB" json:"database"`
 	// Custom HTTP headers to include in requests to this destination.
-	Headers   map[string]string `json:"headers,omitzero"`
-	Schema    *string           `default:"PUBLIC" json:"schema"`
-	Table     *string           `default:"OPENROUTER_TRACES" json:"table"`
-	Token     string            `json:"token"`
-	Warehouse *string           `default:"COMPUTE_WH" json:"warehouse"`
+	Headers map[string]string `json:"headers,omitzero"`
+	Schema  *string           `default:"PUBLIC" json:"schema"`
+	// Send the cache_write_tokens column (schema v2). Turn this on after the table has that column.
+	ShouldIncludeCacheWriteTokens *bool   `default:"false" json:"shouldIncludeCacheWriteTokens"`
+	Table                         *string `default:"OPENROUTER_TRACES" json:"table"`
+	Token                         string  `json:"token"`
+	Warehouse                     *string `default:"COMPUTE_WH" json:"warehouse"`
 }
 
 func (o ObservabilitySnowflakeDestinationConfig) MarshalJSON() ([]byte, error) {
@@ -56,6 +58,13 @@ func (o *ObservabilitySnowflakeDestinationConfig) GetSchema() *string {
 		return nil
 	}
 	return o.Schema
+}
+
+func (o *ObservabilitySnowflakeDestinationConfig) GetShouldIncludeCacheWriteTokens() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldIncludeCacheWriteTokens
 }
 
 func (o *ObservabilitySnowflakeDestinationConfig) GetTable() *string {
