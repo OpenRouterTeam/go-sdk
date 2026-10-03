@@ -4,12 +4,13 @@ package utils
 
 import (
 	"context"
+	cryptorand "crypto/rand"
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/retry"
 	"io"
 	"math"
-	"math/rand"
 	"net"
 	"net/http"
 	"net/url"
@@ -19,6 +20,16 @@ import (
 	"syscall"
 	"time"
 )
+
+// secureRandFloat64 returns a non-cryptographic-use random float64 in [0, 1)
+// generated using crypto/rand instead of math/rand.
+func secureRandFloat64() float64 {
+	var b [8]byte
+	if _, err := cryptorand.Read(b[:]); err != nil {
+		return 0.5
+	}
+	return float64(binary.BigEndian.Uint64(b[:])) / (1 << 64)
+}
 
 // Deprecated: Use retry.BackoffStrategy instead.
 type BackoffStrategy = retry.BackoffStrategy
@@ -252,8 +263,8 @@ func nextInterval(s *retry.BackoffStrategy, attempt int) time.Duration {
 
 	interval := initialInterval * math.Pow(float64(attempt+1), exponent)
 
-	jitter := rand.Float64() * jitterFactor * interval
-	if rand.Float64() < 0.5 {
+	jitter := secureRandFloat64() * jitterFactor * interval
+	if secureRandFloat64() < 0.5 {
 		jitter = -1 * jitter
 	}
 
