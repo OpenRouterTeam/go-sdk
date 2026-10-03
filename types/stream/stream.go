@@ -235,8 +235,7 @@ func (es *EventStream[T]) Next() bool {
 			}
 			encoding, _ = et.GetEventEncoding(ev)
 		} else {
-			var a interface{}
-			if err := json.Unmarshal([]byte(data), &a); err != nil {
+			if !json.Valid([]byte(data)) {
 				encoding = "string"
 			}
 		}
@@ -244,11 +243,10 @@ func (es *EventStream[T]) Next() bool {
 		// "auto" means the data field is a mixed union (JSON + plain-text variants).
 		// Probe the actual data to decide.
 		if encoding == "auto" {
-			var a interface{}
-			if err := json.Unmarshal([]byte(data), &a); err != nil {
-				encoding = "string"
-			} else {
+			if json.Valid([]byte(data)) {
 				encoding = "application/json"
+			} else {
+				encoding = "string"
 			}
 		}
 
