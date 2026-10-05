@@ -81,7 +81,7 @@ type BatchSubmitBody struct {
 	CompletionWindow *BatchSubmitBodyCompletionWindow `default:"24h" json:"completion_window"`
 	Endpoint         Endpoint                         `json:"endpoint"`
 	Model            string                           `json:"model"`
-	// Batch provider routing preferences. Only `provider.only` is supported.
+	// Batch provider routing preferences. Only `provider.only` and `provider.allow_fallbacks` are supported.
 	Provider optionalnullable.OptionalNullable[BatchProviderPreferences] `json:"provider,omitzero"`
 	Requests []Request                                                   `json:"requests"`
 }
