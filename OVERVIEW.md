@@ -126,4 +126,4 @@ Get your API key from [openrouter.ai/settings/keys](https://openrouter.ai/settin
 
 ## Quick start
 
-See [examples/README.md](examples/README.md) for runnable examples, starting with [examples/chat](examples/chat), or the [API Reference](https://openrouter.ai/docs/sdks/go/api-reference) for the full method list.
+See [examples/README.md](examples/README.md) for runnable examples, starting with [examples/chat](examples/chat), or the [API Reference](https://openrouter.ai/docs/client-sdks/go) for the full method list.
