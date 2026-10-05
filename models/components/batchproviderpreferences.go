@@ -98,8 +98,13 @@ func (u BatchProviderPreferencesOnly) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type BatchProviderPreferencesOnly: all fields are null")
 }
 
-// BatchProviderPreferences - Batch provider routing preferences. Only `provider.only` is supported.
+// BatchProviderPreferences - Batch provider routing preferences. Only `provider.only` and `provider.allow_fallbacks` are supported.
 type BatchProviderPreferences struct {
+	// Whether to allow backup providers to serve requests
+	// - true: (default) when the primary provider (or your custom providers in "order") is unavailable, use the next best provider.
+	// - false: use only the primary/custom provider, and return the upstream error if it's unavailable.
+	//
+	AllowFallbacks optionalnullable.OptionalNullable[bool] `json:"allow_fallbacks,omitzero"`
 	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
 	Only optionalnullable.OptionalNullable[[]BatchProviderPreferencesOnly] `json:"only,omitzero"`
 }
@@ -113,6 +118,13 @@ func (b *BatchProviderPreferences) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (b *BatchProviderPreferences) GetAllowFallbacks() optionalnullable.OptionalNullable[bool] {
+	if b == nil {
+		return nil
+	}
+	return b.AllowFallbacks
 }
 
 func (b *BatchProviderPreferences) GetOnly() optionalnullable.OptionalNullable[[]BatchProviderPreferencesOnly] {

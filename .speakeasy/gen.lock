@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: e1f8f2e5c0101fe5dda20e0917815b41
+  docChecksum: cabc0b07550802fc225e4e433448a198
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.22
-  configChecksum: 7b659088c00a57d1e797fcdffbecefc0
+  releaseVersion: 0.9.23
+  configChecksum: 9ea9fa3d6497b2bf56512210de7ebe23
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a27e8874-d8c2-4511-af14-6845dd51a789
-  pristine_commit_hash: c4266efcaf607e2620f074061de1a88881466034
-  pristine_tree_hash: 4f68b3d06d2b7f3a6ec87bee27e1dadf24b10a5b
+  generation_id: 0c3be42c-d671-4705-938c-581d89509ca1
+  pristine_commit_hash: 30340d21aa66ad38f197f60bc16362f13f8853dd
+  pristine_tree_hash: 2a3a65eb8e37bef3f70b38b484d572185b782c84
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1581,16 +1581,16 @@ trackedFiles:
     pristine_git_object: 08fa6c4986c5bc67cdf03573aad16ce90fca3dcf
   docs/models/components/batchproviderpreferences.mdx:
     id: 2a592b990f1b
-    last_write_checksum: sha1:7342087a2ae6d93ab78b18a5cbaef6b5d2c2a961
-    pristine_git_object: 9bb797d7040e23ba3a7a9f9c2572b83b3a1ff752
+    last_write_checksum: sha1:2bb21066788db01ebf2a5584555bd4fb259761b3
+    pristine_git_object: d9734d0b44d43c73db3b896083060f650e16b7ba
   docs/models/components/batchproviderpreferencesonly.mdx:
     id: 6abc9927464d
     last_write_checksum: sha1:61ed14b1bf6399ce9a1b5c74e9e7afbcf0756fac
     pristine_git_object: 48b0a4d5b44d284464c4676164127a6f04459f82
   docs/models/components/batchsubmitbody.mdx:
     id: a746e87bc2b7
-    last_write_checksum: sha1:6845d64dc902a5cea9926be4b9b6de62b0b90a20
-    pristine_git_object: 49ad42f207186df6256508d637d5d66c528c3e7f
+    last_write_checksum: sha1:a27af40ec464e2fda054646186b134ca5cde322c
+    pristine_git_object: 0753ceb2497b959c43db34e3cb8896e516e18955
   docs/models/components/batchsubmitbodycompletionwindow.mdx:
     id: 96a839691860
     last_write_checksum: sha1:a6733afa21e8d287d885bd013a1eeb83a48ce3dc
@@ -10013,12 +10013,12 @@ trackedFiles:
     pristine_git_object: 7a3140c04afce97a11c2db2c44851069c23aafa1
   models/components/batchproviderpreferences.go:
     id: 275877f4e3ff
-    last_write_checksum: sha1:e6647b877189e609111f605c6880685214042792
-    pristine_git_object: 32f5919f4465b608ae057e748c86880570cd75ea
+    last_write_checksum: sha1:80e541876f5c906a0c8c54e9be380f30a084e149
+    pristine_git_object: 549bcea1b1613ebd644fe9ba0427438b7c8b65cd
   models/components/batchsubmitbody.go:
     id: c5f5b0a6aa7c
-    last_write_checksum: sha1:7bf592cc1c8db0c12285dd836908274900583d18
-    pristine_git_object: 348ccf8c783ce8ae2648ae77a3153a2754654231
+    last_write_checksum: sha1:3fac0f638fae588bb2a5bcdfc7f673ea9f761f50
+    pristine_git_object: d9169309603d4e2c210acd23ba1f8ec35979d6e7
   models/components/booleancapability.go:
     id: 80cc0854286c
     last_write_checksum: sha1:8dc45e20d89992fcd46d714056fcebfee550f1f8
@@ -13369,8 +13369,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:b841561f66ce8ec445a5a700eec713c9780d88c7
-    pristine_git_object: 29cbbde1618da5cc0972806fb19389d5e2668988
+    last_write_checksum: sha1:fdb7dc0a2ae2ac2a017fa5f6df21f747e0beeda4
+    pristine_git_object: 7d284e1916cfc6be4211f70572aa1217071a83b5
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17385,4 +17385,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Batch.CreateBatches()`: \n  *  `request.Request.Provider.AllowFallbacks` **Added**\n"
