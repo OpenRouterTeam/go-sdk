@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:a8e71cc486884990182a0931a1c1e13b1149d2746f4434ee88a4f42d2f30f7e2
         sourceBlobDigest: sha256:950794f1b7cf69c4f37dd7e4f8ebbd1d1eca33f255c5b20d1dde3303858ee2e5
         codeSamplesNamespace: open-router-chat-completions-api-go-code-samples
-        codeSamplesRevisionDigest: sha256:d2f965609c6b5ae8846f1e57396cfebd886363f0372a6d835db811e5b4c946cd
+        codeSamplesRevisionDigest: sha256:301e3f016a0c1bb29d6f4534b90e89bca2b44af932d68202eebe43b29fdc40c0
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: 1.787.0
@@ -29,6 +29,7 @@ workflow:
                 - location: .speakeasy/overlays/allof-simplify.overlay.yaml
                 - location: .speakeasy/overlays/boolean-query-params.overlay.yaml
                 - location: .speakeasy/overlays/deprecated-beta-responses-alias.overlay.yaml
+                - location: .speakeasy/overlays/drop-service-tier-default.overlay.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/openrouter/sdk/open-router-chat-completions-api

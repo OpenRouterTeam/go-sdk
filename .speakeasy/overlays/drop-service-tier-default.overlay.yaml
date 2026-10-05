@@ -1,0 +1,13 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Drop the service_tier default from ResponsesRequest
+  version: 0.0.0
+actions:
+  # The Go generator emits `default:"auto"` on the OptionalNullable enum field,
+  # and the marshaller cannot encode that default, so every ResponsesRequest
+  # without an explicit ServiceTier fails to marshal (issue #301). The API
+  # already applies `auto` server-side when the field is omitted.
+  - target: $.components.schemas.ResponsesRequest.properties.service_tier.default
+    description: Remove the default so an omitted service_tier is not serialized
+    remove: true
