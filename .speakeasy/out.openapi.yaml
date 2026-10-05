@@ -27732,7 +27732,6 @@ components:
             - 'string'
             - 'null'
         service_tier:
-          default: 'auto'
           description: 'The service tier to use for processing this request. `fast` is accepted as an alias for `priority`. `ultrafast` prefers ultrafast endpoints and falls back to `priority`, then default endpoints.'
           enum:
             - 'auto'
