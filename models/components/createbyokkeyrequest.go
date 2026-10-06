@@ -7,6 +7,30 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// CreateBYOKKeyRequestDeclaredRegion - Your declaration of the data region in which the upstream provider account behind this credential processes requests, used for routing eligibility on OpenRouter's regional hosts. `null` means undeclared and `global` is behaviorally identical: the credential follows the region OpenRouter records for the endpoint. `europe` or `us` lets requests to `eu.openrouter.ai` or `us.openrouter.ai` use this credential for that provider (private endpoints, endpoints pinned to another cloud region, cross-region inference profiles and video models are excluded). Self-declared and not verified by OpenRouter. For OpenAI and Fireworks the region comes from the key material (a `{"api_key": ..., "region": ...}` key), so the value must match the key's region. Among other providers, only Azure accepts `europe` or `us`. Defaults to the key's region for OpenAI and Fireworks, otherwise `null`.
+type CreateBYOKKeyRequestDeclaredRegion string
+
+const (
+	CreateBYOKKeyRequestDeclaredRegionGlobal CreateBYOKKeyRequestDeclaredRegion = "global"
+	CreateBYOKKeyRequestDeclaredRegionEurope CreateBYOKKeyRequestDeclaredRegion = "europe"
+	CreateBYOKKeyRequestDeclaredRegionUs     CreateBYOKKeyRequestDeclaredRegion = "us"
+)
+
+func (e CreateBYOKKeyRequestDeclaredRegion) ToPointer() *CreateBYOKKeyRequestDeclaredRegion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateBYOKKeyRequestDeclaredRegion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "global", "europe", "us":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateBYOKKeyRequest struct {
 	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) that may use this credential. `null` means no restriction. Must contain at least one hash if provided. Hashes that do not belong to your account return a 400.
 	AllowedAPIKeyHashes optionalnullable.OptionalNullable[[]string] `json:"allowed_api_key_hashes,omitzero"`
@@ -14,6 +38,8 @@ type CreateBYOKKeyRequest struct {
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
 	// Optional allowlist of user IDs that may use this credential. `null` means no restriction.
 	AllowedUserIds optionalnullable.OptionalNullable[[]string] `json:"allowed_user_ids,omitzero"`
+	// Your declaration of the data region in which the upstream provider account behind this credential processes requests, used for routing eligibility on OpenRouter's regional hosts. `null` means undeclared and `global` is behaviorally identical: the credential follows the region OpenRouter records for the endpoint. `europe` or `us` lets requests to `eu.openrouter.ai` or `us.openrouter.ai` use this credential for that provider (private endpoints, endpoints pinned to another cloud region, cross-region inference profiles and video models are excluded). Self-declared and not verified by OpenRouter. For OpenAI and Fireworks the region comes from the key material (a `{"api_key": ..., "region": ...}` key), so the value must match the key's region. Among other providers, only Azure accepts `europe` or `us`. Defaults to the key's region for OpenAI and Fireworks, otherwise `null`.
+	DeclaredRegion optionalnullable.OptionalNullable[CreateBYOKKeyRequestDeclaredRegion] `json:"declared_region,omitzero"`
 	// Your declaration of whether the upstream provider account behind this credential has zero data retention (ZDR). `null` inherits OpenRouter's data policy for the provider's endpoint; `true` declares the account ZDR so requests that require ZDR may route to this credential even when the shared endpoint retains data; `false` declares it non-ZDR so such requests never route to it. Self-declared and not verified by OpenRouter. Defaults to `null`.
 	DeclaredZdr optionalnullable.OptionalNullable[bool] `json:"declared_zdr,omitzero"`
 	// Whether this credential should be created in a disabled state.
@@ -64,6 +90,13 @@ func (c *CreateBYOKKeyRequest) GetAllowedUserIds() optionalnullable.OptionalNull
 		return nil
 	}
 	return c.AllowedUserIds
+}
+
+func (c *CreateBYOKKeyRequest) GetDeclaredRegion() optionalnullable.OptionalNullable[CreateBYOKKeyRequestDeclaredRegion] {
+	if c == nil {
+		return nil
+	}
+	return c.DeclaredRegion
 }
 
 func (c *CreateBYOKKeyRequest) GetDeclaredZdr() optionalnullable.OptionalNullable[bool] {
