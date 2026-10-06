@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: db4cafaf93c85e729bd47516a02d67c1
+  docChecksum: 83e72b2ec0ed8ebf8eddb40e4d876614
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.24
-  configChecksum: 5afc82c7ff5d9744f42f6471f5081bd4
+  releaseVersion: 0.9.25
+  configChecksum: 22026f94aaf0e35c351800c5a2eebb1e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 520d6e30-e2d2-4cf3-976a-499aa0de5021
-  pristine_commit_hash: 0ccff27be3162e1bec6ba43ed9845b11f9e930b1
-  pristine_tree_hash: 456c0f34ab45eae16b75687eef3e6f6d96244acc
+  generation_id: 055acb6f-d612-4887-8144-6bd13576f75d
+  pristine_commit_hash: 01746665dc01b56d9d830289ca3f0a6bce7ae63b
+  pristine_tree_hash: d0c49e4dda6f5d43c886ab8e7c471186bec5aac1
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -7121,8 +7121,8 @@ trackedFiles:
     pristine_git_object: 5f1fdbb8f7994cd443541ec53c873897887a374a
   docs/models/components/switchyardrouterplugin.mdx:
     id: d0001743a973
-    last_write_checksum: sha1:4a3d2c3f66d50cd988208a9dff68d5e29de0545c
-    pristine_git_object: 10e09b5967db59bde798c1157a23211cef08996b
+    last_write_checksum: sha1:178b8fe706fa0dafbee823bc4665c98c11c07416
+    pristine_git_object: dbfba90aae9c671946d078f5c6e74f246b9f1e79
   docs/models/components/switchyardrouterpluginid.mdx:
     id: f587bf985ed8
     last_write_checksum: sha1:2e70c6871b04971eb9484a0756f7854dae4ba62a
@@ -12401,8 +12401,8 @@ trackedFiles:
     pristine_git_object: ff17d16126df12f1461091d12c9a6df89efabe73
   models/components/switchyardrouterplugin.go:
     id: b309d3c90fc8
-    last_write_checksum: sha1:878ad0baa50814aa526cc7f8efb72b96d2a0c5c4
-    pristine_git_object: fdc6dc9b1fda1b99d4c09d4becad735bf0c3c11b
+    last_write_checksum: sha1:2a2cfc61949612fe701992da3b37dbca7bbce05c
+    pristine_git_object: aab1c6a2957c7c7dbcfff79ba79e43f8da2b784f
   models/components/taskclassificationitem.go:
     id: 760f562ef93a
     last_write_checksum: sha1:0bed7435fc8a53352287e79868d2f3bfd105b937
@@ -13381,8 +13381,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:0eb732dca8f8a97c52afa0ef7b5315613a26bf31
-    pristine_git_object: 3b251356450af4350bb7674183d12eebae135bd7
+    last_write_checksum: sha1:54d5249b387cbbfb686a87a0e9872fd42ee6aa0c
+    pristine_git_object: 65e9dd3fd3f057c58eab28cb3530a499c935776d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17399,4 +17399,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Byok.List()`:  `response.Data[].DeclaredRegion` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.DeclaredRegion` **Added**\n  *  `response.Data.DeclaredRegion` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.DeclaredRegion` **Added**\n* `OpenRouter.Byok.Update()`: \n  *  `request.UpdateByokKeyRequest.DeclaredRegion` **Added**\n  *  `response.Data.DeclaredRegion` **Added**\n  *  `error.status[409]` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(switchyard-router).JudgeModel` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(switchyard-router).JudgeModel` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(switchyard-router).JudgeModel` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(switchyard-router).JudgeModel` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(switchyard-router).JudgeModel` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(switchyard-router).JudgeModel` **Added**\n"
