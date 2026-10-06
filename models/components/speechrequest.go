@@ -103,10 +103,12 @@ func (e *SpeechRequestResponseFormat) IsExact() bool {
 
 // SpeechRequest - Text-to-speech request input
 type SpeechRequest struct {
-	// Text to synthesize
-	Input string `json:"input"`
+	// Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is currently supported by Gemini TTS models only.
+	Input SpeechInput `json:"input"`
 	// Reference content for stateless voice cloning or voice design. Audio mode: one to three `input_audio` parts, each optionally paired with a `text` part carrying its transcript (a single clip accepts its transcript before or after it; with multiple clips each transcript immediately follows its clip); only routed to endpoints that support voice cloning (and multiple references when more than one part is sent). Image mode: exactly one `image_url` part; only routed to endpoints that support image references. The two modes cannot be mixed. An empty array is treated as no reference.
 	InputReferences []SpeechInputReference `json:"input_references,omitzero"`
+	// Delivery instructions for the whole request, such as tone, pacing, or emotion. Supported by OpenAI gpt-4o-mini-tts and Gemini TTS models. Ignored by other providers.
+	Instructions *string `json:"instructions,omitzero"`
 	// TTS model identifier
 	Model string `json:"model"`
 	// Provider configuration: data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
@@ -136,9 +138,9 @@ func (s *SpeechRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SpeechRequest) GetInput() string {
+func (s *SpeechRequest) GetInput() SpeechInput {
 	if s == nil {
-		return ""
+		return SpeechInput{}
 	}
 	return s.Input
 }
@@ -148,6 +150,13 @@ func (s *SpeechRequest) GetInputReferences() []SpeechInputReference {
 		return nil
 	}
 	return s.InputReferences
+}
+
+func (s *SpeechRequest) GetInstructions() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Instructions
 }
 
 func (s *SpeechRequest) GetModel() string {

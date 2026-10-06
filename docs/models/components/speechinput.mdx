@@ -1,0 +1,33 @@
+---
+title: "SpeechInput"
+---
+
+Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is currently supported by Gemini TTS models only.
+
+
+## Supported Types
+
+### 
+
+```go
+speechInput := components.CreateSpeechInputStr(string{/* values here */})
+```
+
+### 
+
+```go
+speechInput := components.CreateSpeechInputArrayOfSpeechTurn([]components.SpeechTurn{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch speechInput.Type {
+	case components.SpeechInputTypeStr:
+		// speechInput.Str is populated
+	case components.SpeechInputTypeArrayOfSpeechTurn:
+		// speechInput.ArrayOfSpeechTurn is populated
+}
+```
