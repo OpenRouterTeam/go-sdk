@@ -1,0 +1,246 @@
+---
+title: "ToolSearchOutputItemToolUnion"
+---
+
+## Supported Types
+
+### ToolSearchOutputItemToolFunction
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionToolSearchOutputItemToolFunction(components.ToolSearchOutputItemToolFunction{/* values here */})
+```
+
+### PreviewWebSearchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionPreviewWebSearchServerTool(components.PreviewWebSearchServerTool{/* values here */})
+```
+
+### Preview20250311WebSearchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionPreview20250311WebSearchServerTool(components.Preview20250311WebSearchServerTool{/* values here */})
+```
+
+### LegacyWebSearchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionLegacyWebSearchServerTool(components.LegacyWebSearchServerTool{/* values here */})
+```
+
+### WebSearchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionWebSearchServerTool(components.WebSearchServerTool{/* values here */})
+```
+
+### FileSearchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionFileSearchServerTool(components.FileSearchServerTool{/* values here */})
+```
+
+### ComputerUseServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionComputerUseServerTool(components.ComputerUseServerTool{/* values here */})
+```
+
+### CodeInterpreterServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionCodeInterpreterServerTool(components.CodeInterpreterServerTool{/* values here */})
+```
+
+### McpServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionMcpServerTool(components.McpServerTool{/* values here */})
+```
+
+### ImageGenerationServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionImageGenerationServerTool(components.ImageGenerationServerTool{/* values here */})
+```
+
+### CodexLocalShellTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionCodexLocalShellTool(components.CodexLocalShellTool{/* values here */})
+```
+
+### ShellServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionShellServerTool(components.ShellServerTool{/* values here */})
+```
+
+### ApplyPatchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionApplyPatchServerTool(components.ApplyPatchServerTool{/* values here */})
+```
+
+### CustomTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionCustomTool(components.CustomTool{/* values here */})
+```
+
+### NamespaceTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionNamespaceTool(components.NamespaceTool{/* values here */})
+```
+
+### AdvisorServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionAdvisorServerToolOpenRouter(components.AdvisorServerToolOpenRouter{/* values here */})
+```
+
+### SubagentServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionSubagentServerToolOpenRouter(components.SubagentServerToolOpenRouter{/* values here */})
+```
+
+### DatetimeServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionDatetimeServerTool(components.DatetimeServerTool{/* values here */})
+```
+
+### FilesServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionFilesServerTool(components.FilesServerTool{/* values here */})
+```
+
+### FusionServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionFusionServerToolOpenRouter(components.FusionServerToolOpenRouter{/* values here */})
+```
+
+### ImageGenerationServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionImageGenerationServerToolOpenRouter(components.ImageGenerationServerToolOpenRouter{/* values here */})
+```
+
+### SearchModelsServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionSearchModelsServerToolOpenRouter(components.SearchModelsServerToolOpenRouter{/* values here */})
+```
+
+### WebFetchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionWebFetchServerTool(components.WebFetchServerTool{/* values here */})
+```
+
+### WebSearchServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionWebSearchServerToolOpenRouter(components.WebSearchServerToolOpenRouter{/* values here */})
+```
+
+### ApplyPatchServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionApplyPatchServerToolOpenRouter(components.ApplyPatchServerToolOpenRouter{/* values here */})
+```
+
+### BashServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionBashServerTool(components.BashServerTool{/* values here */})
+```
+
+### ShellServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionShellServerToolOpenRouter(components.ShellServerToolOpenRouter{/* values here */})
+```
+
+### ToolSearchServerTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionToolSearchServerTool(components.ToolSearchServerTool{/* values here */})
+```
+
+### ToolSearchOutputItemTool
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionToolSearchOutputItemTool(components.ToolSearchOutputItemTool{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch toolSearchOutputItemToolUnion.Type {
+	case components.ToolSearchOutputItemToolUnionTypeToolSearchOutputItemToolFunction:
+		// toolSearchOutputItemToolUnion.ToolSearchOutputItemToolFunction is populated
+	case components.ToolSearchOutputItemToolUnionTypePreviewWebSearchServerTool:
+		// toolSearchOutputItemToolUnion.PreviewWebSearchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypePreview20250311WebSearchServerTool:
+		// toolSearchOutputItemToolUnion.Preview20250311WebSearchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeLegacyWebSearchServerTool:
+		// toolSearchOutputItemToolUnion.LegacyWebSearchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeWebSearchServerTool:
+		// toolSearchOutputItemToolUnion.WebSearchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeFileSearchServerTool:
+		// toolSearchOutputItemToolUnion.FileSearchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeComputerUseServerTool:
+		// toolSearchOutputItemToolUnion.ComputerUseServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeCodeInterpreterServerTool:
+		// toolSearchOutputItemToolUnion.CodeInterpreterServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeMcpServerTool:
+		// toolSearchOutputItemToolUnion.McpServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeImageGenerationServerTool:
+		// toolSearchOutputItemToolUnion.ImageGenerationServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeCodexLocalShellTool:
+		// toolSearchOutputItemToolUnion.CodexLocalShellTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeShellServerTool:
+		// toolSearchOutputItemToolUnion.ShellServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeApplyPatchServerTool:
+		// toolSearchOutputItemToolUnion.ApplyPatchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeCustomTool:
+		// toolSearchOutputItemToolUnion.CustomTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeNamespaceTool:
+		// toolSearchOutputItemToolUnion.NamespaceTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeAdvisorServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.AdvisorServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeSubagentServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.SubagentServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeDatetimeServerTool:
+		// toolSearchOutputItemToolUnion.DatetimeServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeFilesServerTool:
+		// toolSearchOutputItemToolUnion.FilesServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeFusionServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.FusionServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeImageGenerationServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.ImageGenerationServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeSearchModelsServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.SearchModelsServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeWebFetchServerTool:
+		// toolSearchOutputItemToolUnion.WebFetchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeWebSearchServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.WebSearchServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeApplyPatchServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.ApplyPatchServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeBashServerTool:
+		// toolSearchOutputItemToolUnion.BashServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeShellServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.ShellServerToolOpenRouter is populated
+	case components.ToolSearchOutputItemToolUnionTypeToolSearchServerTool:
+		// toolSearchOutputItemToolUnion.ToolSearchServerTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeToolSearchOutputItemTool:
+		// toolSearchOutputItemToolUnion.ToolSearchOutputItemTool is populated
+}
+```
