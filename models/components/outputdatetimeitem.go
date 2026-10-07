@@ -34,9 +34,11 @@ func (e *OutputDatetimeItemType) UnmarshalJSON(data []byte) error {
 // OutputDatetimeItem - An openrouter:datetime server tool output item
 type OutputDatetimeItem struct {
 	// ISO 8601 datetime string
-	Datetime string         `json:"datetime"`
-	ID       *string        `json:"id,omitzero"`
-	Status   ToolCallStatus `json:"status"`
+	Datetime string `json:"datetime"`
+	// The error message when the tool call failed before producing a result. Set together with `status: 'failed'`; absent on a successful call.
+	Error  *string                `json:"error,omitzero"`
+	ID     *string                `json:"id,omitzero"`
+	Status FailableToolCallStatus `json:"status"`
 	// IANA timezone name
 	Timezone string                 `json:"timezone"`
 	Type     OutputDatetimeItemType `json:"type"`
@@ -60,6 +62,13 @@ func (o *OutputDatetimeItem) GetDatetime() string {
 	return o.Datetime
 }
 
+func (o *OutputDatetimeItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
+}
+
 func (o *OutputDatetimeItem) GetID() *string {
 	if o == nil {
 		return nil
@@ -67,9 +76,9 @@ func (o *OutputDatetimeItem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputDatetimeItem) GetStatus() ToolCallStatus {
+func (o *OutputDatetimeItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }

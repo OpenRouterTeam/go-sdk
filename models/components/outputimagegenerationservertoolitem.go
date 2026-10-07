@@ -34,6 +34,8 @@ func (e *OutputImageGenerationServerToolItemType) UnmarshalJSON(data []byte) err
 
 // OutputImageGenerationServerToolItem - An openrouter:image_generation server tool output item
 type OutputImageGenerationServerToolItem struct {
+	// The error message when the tool call failed before producing a result. Set together with `status: 'failed'`; absent on a successful call.
+	Error    *string `json:"error,omitzero"`
 	ID       *string `json:"id,omitzero"`
 	ImageB64 *string `json:"imageB64,omitzero"`
 	ImageURL *string `json:"imageUrl,omitzero"`
@@ -42,7 +44,7 @@ type OutputImageGenerationServerToolItem struct {
 	// The generated image as a base64-encoded string or URL, matching OpenAI image_generation_call format
 	Result        optionalnullable.OptionalNullable[string] `json:"result,omitzero"`
 	RevisedPrompt *string                                   `json:"revisedPrompt,omitzero"`
-	Status        ToolCallStatus                            `json:"status"`
+	Status        FailableToolCallStatus                    `json:"status"`
 	Type          OutputImageGenerationServerToolItemType   `json:"type"`
 }
 
@@ -55,6 +57,13 @@ func (o *OutputImageGenerationServerToolItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (o *OutputImageGenerationServerToolItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
 }
 
 func (o *OutputImageGenerationServerToolItem) GetID() *string {
@@ -99,9 +108,9 @@ func (o *OutputImageGenerationServerToolItem) GetRevisedPrompt() *string {
 	return o.RevisedPrompt
 }
 
-func (o *OutputImageGenerationServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputImageGenerationServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }

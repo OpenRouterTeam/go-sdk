@@ -34,11 +34,13 @@ func (e *OutputSearchModelsServerToolItemType) UnmarshalJSON(data []byte) error 
 // OutputSearchModelsServerToolItem - An openrouter:experimental__search_models server tool output item
 type OutputSearchModelsServerToolItem struct {
 	// The JSON arguments submitted to the search tool (e.g. {"query":"Claude"})
-	Arguments *string                              `json:"arguments,omitzero"`
-	ID        *string                              `json:"id,omitzero"`
-	Query     *string                              `json:"query,omitzero"`
-	Status    ToolCallStatus                       `json:"status"`
-	Type      OutputSearchModelsServerToolItemType `json:"type"`
+	Arguments *string `json:"arguments,omitzero"`
+	// The error message when the tool call failed before producing a result. Set together with `status: 'failed'`; absent on a successful call.
+	Error  *string                              `json:"error,omitzero"`
+	ID     *string                              `json:"id,omitzero"`
+	Query  *string                              `json:"query,omitzero"`
+	Status FailableToolCallStatus               `json:"status"`
+	Type   OutputSearchModelsServerToolItemType `json:"type"`
 }
 
 func (o OutputSearchModelsServerToolItem) MarshalJSON() ([]byte, error) {
@@ -59,6 +61,13 @@ func (o *OutputSearchModelsServerToolItem) GetArguments() *string {
 	return o.Arguments
 }
 
+func (o *OutputSearchModelsServerToolItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
+}
+
 func (o *OutputSearchModelsServerToolItem) GetID() *string {
 	if o == nil {
 		return nil
@@ -73,9 +82,9 @@ func (o *OutputSearchModelsServerToolItem) GetQuery() *string {
 	return o.Query
 }
 
-func (o *OutputSearchModelsServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputSearchModelsServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }
