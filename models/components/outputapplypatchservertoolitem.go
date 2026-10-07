@@ -34,10 +34,12 @@ func (e *OutputApplyPatchServerToolItemType) UnmarshalJSON(data []byte) error {
 // OutputApplyPatchServerToolItem - An openrouter:apply_patch server tool output item. The turn halts when validation succeeds so the client can apply the patch and echo an `apply_patch_call_output` on the next turn.
 type OutputApplyPatchServerToolItem struct {
 	CallID *string `json:"call_id,omitzero"`
-	ID     *string `json:"id,omitzero"`
+	// The error message when the tool call failed before producing a result. Set together with `status: 'failed'`; absent on a successful call.
+	Error *string `json:"error,omitzero"`
+	ID    *string `json:"id,omitzero"`
 	// The patch operation requested by an `apply_patch_call`. `create_file` and `update_file` carry a V4A diff; `delete_file` omits it.
 	Operation *ApplyPatchCallOperation           `json:"operation,omitzero"`
-	Status    ToolCallStatus                     `json:"status"`
+	Status    FailableToolCallStatus             `json:"status"`
 	Type      OutputApplyPatchServerToolItemType `json:"type"`
 }
 
@@ -57,6 +59,13 @@ func (o *OutputApplyPatchServerToolItem) GetCallID() *string {
 		return nil
 	}
 	return o.CallID
+}
+
+func (o *OutputApplyPatchServerToolItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
 }
 
 func (o *OutputApplyPatchServerToolItem) GetID() *string {
@@ -94,9 +103,9 @@ func (o *OutputApplyPatchServerToolItem) GetOperationUpdateFile() *ApplyPatchUpd
 	return nil
 }
 
-func (o *OutputApplyPatchServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputApplyPatchServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }

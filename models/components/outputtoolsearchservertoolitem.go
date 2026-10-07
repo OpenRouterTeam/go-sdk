@@ -33,9 +33,11 @@ func (e *OutputToolSearchServerToolItemType) UnmarshalJSON(data []byte) error {
 
 // OutputToolSearchServerToolItem - An openrouter:tool_search server tool output item
 type OutputToolSearchServerToolItem struct {
+	// The error message when the tool call failed before producing a result. Set together with `status: 'failed'`; absent on a successful call.
+	Error  *string                            `json:"error,omitzero"`
 	ID     *string                            `json:"id,omitzero"`
 	Query  *string                            `json:"query,omitzero"`
-	Status ToolCallStatus                     `json:"status"`
+	Status FailableToolCallStatus             `json:"status"`
 	Type   OutputToolSearchServerToolItemType `json:"type"`
 }
 
@@ -48,6 +50,13 @@ func (o *OutputToolSearchServerToolItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (o *OutputToolSearchServerToolItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
 }
 
 func (o *OutputToolSearchServerToolItem) GetID() *string {
@@ -64,9 +73,9 @@ func (o *OutputToolSearchServerToolItem) GetQuery() *string {
 	return o.Query
 }
 
-func (o *OutputToolSearchServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputToolSearchServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }

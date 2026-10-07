@@ -149,9 +149,11 @@ func (e *OutputWebSearchServerToolItemTypeOpenrouterWebSearch) UnmarshalJSON(dat
 // OutputWebSearchServerToolItem - An openrouter:web_search server tool output item
 type OutputWebSearchServerToolItem struct {
 	// The search action performed, matching OpenAI web_search_call.action shape. Includes the query the model issued and optional source URLs returned by the search provider.
-	Action *OutputWebSearchServerToolItemAction                 `json:"action,omitzero"`
+	Action *OutputWebSearchServerToolItemAction `json:"action,omitzero"`
+	// The error message when the tool call failed before producing a result. Set together with `status: 'failed'`; absent on a successful call.
+	Error  *string                                              `json:"error,omitzero"`
 	ID     *string                                              `json:"id,omitzero"`
-	Status ToolCallStatus                                       `json:"status"`
+	Status FailableToolCallStatus                               `json:"status"`
 	Type   OutputWebSearchServerToolItemTypeOpenrouterWebSearch `json:"type"`
 }
 
@@ -173,6 +175,13 @@ func (o *OutputWebSearchServerToolItem) GetAction() *OutputWebSearchServerToolIt
 	return o.Action
 }
 
+func (o *OutputWebSearchServerToolItem) GetError() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Error
+}
+
 func (o *OutputWebSearchServerToolItem) GetID() *string {
 	if o == nil {
 		return nil
@@ -180,9 +189,9 @@ func (o *OutputWebSearchServerToolItem) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputWebSearchServerToolItem) GetStatus() ToolCallStatus {
+func (o *OutputWebSearchServerToolItem) GetStatus() FailableToolCallStatus {
 	if o == nil {
-		return ToolCallStatus("")
+		return FailableToolCallStatus("")
 	}
 	return o.Status
 }
