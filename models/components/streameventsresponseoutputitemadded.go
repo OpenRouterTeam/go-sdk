@@ -178,6 +178,10 @@ func (s *StreamEventsResponseOutputItemAdded) GetItemShellCallOutput() *OutputSh
 	return s.GetItem().OutputShellCallOutputItem
 }
 
+func (s *StreamEventsResponseOutputItemAdded) GetItemToolSearchCall() *OutputToolSearchCallItem {
+	return s.GetItem().OutputToolSearchCallItem
+}
+
 func (s *StreamEventsResponseOutputItemAdded) GetItemWebSearchCall() *OutputWebSearchCallItem {
 	return s.GetItem().OutputWebSearchCallItem
 }
