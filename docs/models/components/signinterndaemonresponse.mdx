@@ -1,0 +1,14 @@
+---
+title: "SignInternDaemonResponse"
+---
+
+Headers the CLI copies onto the daemon request so the sidecar can verify who is asking.
+
+
+## Fields
+
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `XOriInvokeSignature`                                                         | `string`                                                                      | :heavy_check_mark:                                                            | Base64 Ed25519 signature over the intern id, timestamp, user and body digest. |
+| `XOriInvokeTimestamp`                                                         | `string`                                                                      | :heavy_check_mark:                                                            | Unix seconds at signing; the daemon refuses proofs older than its window.     |
+| `XOriInvokeUser`                                                              | `string`                                                                      | :heavy_check_mark:                                                            | The verified OAuth subject the proof names. Never taken from the request.     |
