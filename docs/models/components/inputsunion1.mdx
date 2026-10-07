@@ -298,6 +298,18 @@ inputsUnion1 := components.CreateInputsUnion1AgentMessageItem(components.AgentMe
 inputsUnion1 := components.CreateInputsUnion1ConfigurationUpdateItem(components.ConfigurationUpdateItem{/* values here */})
 ```
 
+### ToolSearchCallItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1ToolSearchCallItem(components.ToolSearchCallItem{/* values here */})
+```
+
+### ToolSearchOutputItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1ToolSearchOutputItem(components.ToolSearchOutputItem{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -402,5 +414,9 @@ switch inputsUnion1.Type {
 		// inputsUnion1.AgentMessageItem is populated
 	case components.InputsUnion1TypeConfigurationUpdateItem:
 		// inputsUnion1.ConfigurationUpdateItem is populated
+	case components.InputsUnion1TypeToolSearchCallItem:
+		// inputsUnion1.ToolSearchCallItem is populated
+	case components.InputsUnion1TypeToolSearchOutputItem:
+		// inputsUnion1.ToolSearchOutputItem is populated
 }
 ```
