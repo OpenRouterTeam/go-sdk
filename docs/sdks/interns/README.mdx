@@ -16,6 +16,8 @@ Create, inspect, update, provision, suspend and delete OpenRouter interns throug
 * [UpdateIntern](#updateintern) - Update an intern
 * [GetInternDaemon](#getinterndaemon) - Get an intern's daemon access
 * [~~GetInternDaemonAccess~~](#getinterndaemonaccess) - Get an intern's daemon access (deprecated alias) ⚠️ **Deprecated**
+* [~~SignInternDaemonAccessRequest~~](#signinterndaemonaccessrequest) - Sign a daemon request with the caller's identity (deprecated alias) ⚠️ **Deprecated**
+* [SignInternDaemonRequest](#signinterndaemonrequest) - Sign a daemon request with the caller's identity
 * [ProvisionIntern](#provisionintern) - Provision an intern
 * [SuspendIntern](#suspendintern) - Suspend an intern
 * [Chat](#chat) - Stream a chat completion with an intern
@@ -412,6 +414,124 @@ func main() {
 | sdkerrors.InternLifecycleError | 401, 403, 404, 408, 409        | application/json               |
 | sdkerrors.InternLifecycleError | 500                            | application/json               |
 | sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
+
+## ~~SignInternDaemonAccessRequest~~
+
+Deprecated alias of `POST /interns/{internId}/daemon/sign` with the same request, response, and errors. The API key selects the caller, workspace and visible interns. An intern's own API key sees only that intern: the collection and every other intern answer 404 to it. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+> ⚠️ **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.SignInternDaemonAccessRequest(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.SignInternDaemonRequest{
+        BodySha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | ✅                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `internID`                                                                               | `string`                                                                                 | ✅                                                                       | ID of an intern visible to the authenticated API key.                                    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                                                     |
+| `signInternDaemonRequest`                                                                | [components.SignInternDaemonRequest](../../models/components/signinterndaemonrequest.mdx) | ✅                                                                       | N/A                                                                                      |                                                                                          |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.mdx)                                 | ➖                                                                       | The options for this request.                                                            |                                                                                          |
+
+### Response
+
+**[*operations.SignInternDaemonAccessRequestResponse](../../models/operations/signinterndaemonaccessrequestresponse.mdx), error**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| sdkerrors.InternLifecycleError    | 400, 401, 403, 404, 408, 413, 415 | application/json                  |
+| sdkerrors.InternLifecycleError    | 429                               | application/json                  |
+| sdkerrors.InternLifecycleError    | 500                               | application/json                  |
+| sdkerrors.APIError                | 4XX, 5XX                          | \*/\*                             |
+
+## SignInternDaemonRequest
+
+Signs the SHA-256 digest of one request the CLI is about to send to the intern daemon, binding it to the intern and to the signed-in member so personal connections resolve. Only an OAuth session from `ori login --oidc` whose grant carries `vault:read` can sign: an API key is refused with 403 because it names no person, and an `interns`-only grant is refused with 403 because a proof releases that user's personal connections. The route is behind the same gate as chat and counts against the chat turn limiter. The response is sent with `Cache-Control: no-store`. The API key selects the caller, workspace and visible interns. An intern's own API key sees only that intern: the collection and every other intern answer 404 to it. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.SignInternDaemonRequest(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", components.SignInternDaemonRequest{
+        BodySha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              | Example                                                                                  |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `ctx`                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                    | ✅                                                                       | The context to use for the request.                                                      |                                                                                          |
+| `internID`                                                                               | `string`                                                                                 | ✅                                                                       | ID of an intern visible to the authenticated API key.                                    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                                                     |
+| `signInternDaemonRequest`                                                                | [components.SignInternDaemonRequest](../../models/components/signinterndaemonrequest.mdx) | ✅                                                                       | N/A                                                                                      |                                                                                          |
+| `opts`                                                                                   | [][operations.Option](../../models/operations/option.mdx)                                 | ➖                                                                       | The options for this request.                                                            |                                                                                          |
+
+### Response
+
+**[*operations.SignInternDaemonRequestResponse](../../models/operations/signinterndaemonrequestresponse.mdx), error**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| sdkerrors.InternLifecycleError    | 400, 401, 403, 404, 408, 413, 415 | application/json                  |
+| sdkerrors.InternLifecycleError    | 429                               | application/json                  |
+| sdkerrors.InternLifecycleError    | 500                               | application/json                  |
+| sdkerrors.APIError                | 4XX, 5XX                          | \*/\*                             |
 
 ## ProvisionIntern
 

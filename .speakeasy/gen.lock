@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 0c472055b55a5811fcaac7070636960f
+  docChecksum: 3f903d5df5ec7af40a98032b516d732f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.30
-  configChecksum: 295f1e182e13d8412d4337e7a7a96217
+  releaseVersion: 0.9.31
+  configChecksum: 683ef525f09150f98ece39de24a67564
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 58fb5804-c710-4367-b3bf-40af02781c5b
-  pristine_commit_hash: 2f0156f6fb94c748bb76128d910c1f4f97aadd48
-  pristine_tree_hash: f3c5f513055b6b6cbf172e2df2f9ee191165260d
+  generation_id: 0028ccfc-a686-428b-ac11-1437988c3510
+  pristine_commit_hash: 3b994642f6199e422dea36ddf72a7a9fc1c1a242
+  pristine_tree_hash: 7afbb17675eacb997ab4750a02f84fe515f31ebd
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -6819,6 +6819,14 @@ trackedFiles:
     id: c36f557e0536
     last_write_checksum: sha1:d6984fb758d574a6b790c7377d88a9eb4bda972f
     pristine_git_object: 076bb3e656d7c8ecec47d7d397834b6a611b9354
+  docs/models/components/signinterndaemonrequest.mdx:
+    id: 2801144d26fd
+    last_write_checksum: sha1:3ed4eee57bb3314870e350a845ac419f29d62812
+    pristine_git_object: 2626f282a39e13dab72fc2c584f96c2f02395c73
+  docs/models/components/signinterndaemonresponse.mdx:
+    id: 222066ecb4ce
+    last_write_checksum: sha1:26dd38220215839d2f1bbc0b201fa9102645779f
+    pristine_git_object: 235af92d359bfc98e12d37e1b846fbd39179a02b
   docs/models/components/sourcecontent.mdx:
     id: 176b79ac9d99
     last_write_checksum: sha1:d206fcda9910654195781b1504be77b240955d37
@@ -8919,6 +8927,22 @@ trackedFiles:
     id: 385bfde59033
     last_write_checksum: sha1:34c87a3ab3a8626ad3aad3ae8aa2fe45f11531a2
     pristine_git_object: ad88d9bb1759d512ae11d1e26fc007a069c98278
+  docs/models/operations/signinterndaemonaccessrequestrequest.mdx:
+    id: b985e97fc8aa
+    last_write_checksum: sha1:c5f534041a915e3b8dec4600fe8f8c9d77fdf3ae
+    pristine_git_object: ffed5a92f1d396631775274b12620a3a83f8bba8
+  docs/models/operations/signinterndaemonaccessrequestresponse.mdx:
+    id: b4751fbdb9c5
+    last_write_checksum: sha1:56045326176042d465e36f7592eea14f527d2190
+    pristine_git_object: 3d66673bcc69d7353c33bccab398b6bf970be693
+  docs/models/operations/signinterndaemonrequestrequest.mdx:
+    id: b12cefeb6c09
+    last_write_checksum: sha1:c99c5a476ef4713cafd920b4efe974d36854dea2
+    pristine_git_object: 0cdf914aab715054e94d0e63851fda8a4b40a513
+  docs/models/operations/signinterndaemonrequestresponse.mdx:
+    id: d21743f93421
+    last_write_checksum: sha1:319ce7a482f5d5a1b8d47957cefa68b145207e47
+    pristine_git_object: f69184d9898b4bd40d68aded386d70de075d4b37
   docs/models/operations/source.mdx:
     id: b2403346c727
     last_write_checksum: sha1:38b3c82ce2d71d9f290cad327ec82c06ebe195c8
@@ -9265,8 +9289,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/interns/README.mdx:
     id: 2f8a053ffe78
-    last_write_checksum: sha1:92d385c4db5d3c9da6cef40a6e6adb08478108a8
-    pristine_git_object: d9cea2d8473e65b9e9560edd037bb71f23981804
+    last_write_checksum: sha1:de19a2011425cd996e389759fdd6489c9fe294a2
+    pristine_git_object: 9a5005eadcd5f041331060f44c50937d42d93185
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
     last_write_checksum: sha1:14ffb11eb5c8db2aa311ac04b4e1e8bea0ca5528
@@ -9437,8 +9461,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   interns.go:
     id: aad99db3b05b
-    last_write_checksum: sha1:1790d5e92eb32f7fc55ba9b5de33055b7f375c0c
-    pristine_git_object: dc04f275c3cfcd686b76fbe81fe1be9fe2c73aef
+    last_write_checksum: sha1:d2f7cddd2849fb4d347702c168c8521b3aab1b47
+    pristine_git_object: a8105139aa088823a46e396e8effb1a78af79c26
   models.go:
     id: 3af78faf181b
     last_write_checksum: sha1:8cc3e199c4b17ebc74642a4df902f06f8daeb2c7
@@ -12299,6 +12323,14 @@ trackedFiles:
     id: 39591930569e
     last_write_checksum: sha1:63e7ab8c1ed737caf24e9d682054667d59a39c5f
     pristine_git_object: 696bbae97193bc399544e814a3e9d99a24522909
+  models/components/signinterndaemonrequest.go:
+    id: 10d8c4761b5b
+    last_write_checksum: sha1:77e99e6d54624f347f113fe2ec494c1c9da9f57a
+    pristine_git_object: f69996634ea91a8de2278bf6a1bf5e5a5c39f291
+  models/components/signinterndaemonresponse.go:
+    id: 5180e2f51b38
+    last_write_checksum: sha1:008498e645b58cef2cb54eafac24d4bb08ab1c4a
+    pristine_git_object: 46b3570e5a2f70a8a83cd2e555d2b766632a8fb1
   models/components/speechinput.go:
     id: f06a6ad93262
     last_write_checksum: sha1:d5fb44f155276151446fff8c2d8bf81b71f77907
@@ -13275,6 +13307,14 @@ trackedFiles:
     id: 9da92c1f7b53
     last_write_checksum: sha1:71b2e7bd747a68d78fbc663d101b0f037e608759
     pristine_git_object: 33f53b6f4b818e200a1084ee76be6eb34d40cc0f
+  models/operations/signinterndaemonaccessrequest.go:
+    id: 9334f0a3bf86
+    last_write_checksum: sha1:21579d2784601614af404c97a44ea08908bb2b17
+    pristine_git_object: 581d52b6d549366558791d8125fbd07c63e6ad4d
+  models/operations/signinterndaemonrequest.go:
+    id: cdb064550845
+    last_write_checksum: sha1:f416a404687156f067311be20b446055f0d64192
+    pristine_git_object: 81d32c4a923692a277480ede9082c4adeca0973b
   models/operations/storeinternvaultsecret.go:
     id: 44fbe3949743
     last_write_checksum: sha1:775411c05f4e364df85d394e98e522c50fe23d7d
@@ -13453,8 +13493,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:42517bfb4893d182c1f6c06a4a0e9cdc25601e8c
-    pristine_git_object: 99750f95cbbb14ffa6cf646fdbbbb6a26d936949
+    last_write_checksum: sha1:c7f1dfbc85eecec579fee0bdd213b75467d215b1
+    pristine_git_object: a9c5d4c8a9582368e1da0418ec338a35f9ee580a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17470,5 +17510,40 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+  signInternDaemonAccessRequest:
+    speakeasy-default-sign-intern-daemon-access-request:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+      requestBody:
+        application/json: {"bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+      responses:
+        "200":
+          application/json: {"x-ori-invoke-signature": "MEUCIQ...", "x-ori-invoke-timestamp": "1789000000", "x-ori-invoke-user": "user_2abc"}
+        "400":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
+        "429":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
+        "500":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
+  signInternDaemonRequest:
+    speakeasy-default-sign-intern-daemon-request:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+      requestBody:
+        application/json: {"bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+      responses:
+        "200":
+          application/json: {"x-ori-invoke-signature": "MEUCIQ...", "x-ori-invoke-timestamp": "1789000000", "x-ori-invoke-user": "user_2abc"}
+        "400":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
+        "429":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
+        "500":
+          application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[]` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Interns.SignInternDaemonAccessRequest()`: **Added**
+  * `OpenRouter.Interns.SignInternDaemonRequest()`: **Added**
