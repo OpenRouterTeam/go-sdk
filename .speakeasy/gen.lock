@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1e0badb8140859c09428fcab186d75a2
+  docChecksum: 870247a0039fb6be47f47fd4858294b1
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.33
-  configChecksum: c698c1dcf6daafa501f17b598720450f
+  releaseVersion: 0.9.34
+  configChecksum: ee27d0baac470f7b492a880af351f041
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 9e90b912-656e-4af5-bf97-b41ce92fa645
-  pristine_commit_hash: 89ee5d489d25df731a817bcd444c1d0974a275e4
-  pristine_tree_hash: e15b920fef9522203ddb362e24de9a92affb9da7
+  generation_id: 8bceff92-cc68-4988-a79d-b07dedce4bfa
+  pristine_commit_hash: e8c8dc56be541326ca7ef9e1c9fb7a7baaecf1c7
+  pristine_tree_hash: 90035725493e80cf5375f86f957625d9d4b2df93
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -4117,8 +4117,8 @@ trackedFiles:
     pristine_git_object: 92ecc4557016f980d69965a02659571d176b5fdb
   docs/models/components/jevrouterplugin.mdx:
     id: 9c8962fbd491
-    last_write_checksum: sha1:2b35f96eb912eda6b07207a6823fb5dce2beb52e
-    pristine_git_object: 0c2907f9d2b82bcfcf654c494f0664440396fa06
+    last_write_checksum: sha1:7c97ac5bc14b8f8f6f4c81c694e2fe8254ede63e
+    pristine_git_object: da7aee03de3a82c4d55ce01ed0b1de46abe26a3f
   docs/models/components/jevrouterpluginid.mdx:
     id: 757e9fe716c2
     last_write_checksum: sha1:bf779305d2b703870b358bb7d596de0d4741d995
@@ -11241,8 +11241,8 @@ trackedFiles:
     pristine_git_object: 86de458cf0304749072d79284ad50ab2707bd525
   models/components/jevrouterplugin.go:
     id: de5341af7443
-    last_write_checksum: sha1:8c2771647f66c314313214b388617b141df02fd2
-    pristine_git_object: 7595b4e667e4fd76cb7debc7e7b2876fb54456b0
+    last_write_checksum: sha1:86c7c7fed5f543fc71c72d1bed858579fe0ce4d9
+    pristine_git_object: 38bdb28e16908096247a5e6be8be6103c2a45eb7
   models/components/keyassignment.go:
     id: 6e32615a3eec
     last_write_checksum: sha1:683bd140357e1d9c2169453dd76377a078c638fa
@@ -13509,8 +13509,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:060a0160ef9cbc7724769fbd5a65b851ba9e9100
-    pristine_git_object: 7dd94e5797c6db9b4b8c532ee614e0bb11170176
+    last_write_checksum: sha1:dabaec2311f6a0d50148e17964a0afb91845d775
+    pristine_git_object: e7a5caa7e09e1ff024f20be6898549fd9ec5181d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17559,3 +17559,4 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).CostTier` **Added**\n"
