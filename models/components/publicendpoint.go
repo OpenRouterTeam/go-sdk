@@ -550,10 +550,10 @@ type PublicEndpoint struct {
 	SupportsVoiceCloning *bool            `default:"false" json:"supports_voice_cloning"`
 	Tag                  string           `json:"tag"`
 	ThroughputLast30m    *PercentileStats `json:"throughput_last_30m"`
-	// Uptime percentage over the last 1 day, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
+	// Uptime percentage over the last day: the share of minutes in which at least 80% of provider attempts succeeded, counting only minutes with 10 or more attempts. Rate-limited and caller-caused failures are excluded. Null when no minute had enough traffic.
 	UptimeLast1d  *float64 `json:"uptime_last_1d"`
 	UptimeLast30m *float64 `json:"uptime_last_30m"`
-	// Uptime percentage over the last 5 minutes, calculated as successful requests / (successful + error requests) * 100. Rate-limited requests are excluded. Returns null if insufficient data.
+	// Uptime percentage over the last 5 minutes: the share of minutes in which at least 80% of provider attempts succeeded, counting only minutes with 10 or more attempts. Rate-limited and caller-caused failures are excluded. Null when no minute had enough traffic.
 	UptimeLast5m *float64 `json:"uptime_last_5m"`
 }
 
