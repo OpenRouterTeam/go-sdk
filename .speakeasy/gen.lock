@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 25507788862498772ab5f9cbd283a333
+  docChecksum: dab666f005acdd377e0536c9668eff31
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.35
-  configChecksum: fe3438611dcc88240fc3f0236b1a9893
+  releaseVersion: 0.9.36
+  configChecksum: 105580322e969fdcef259c26db15d5de
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: ab4f0fa9-e34c-409e-9870-842c70fedfc5
-  pristine_commit_hash: 6ce3272155a388dfda1cef021b5931686fc133fe
-  pristine_tree_hash: 2e6de24ad445a308b8af2eefcde1b378951fc23e
+  generation_id: 8f04f1ce-0a87-4492-bafb-6f363c73d674
+  pristine_commit_hash: 1b5733d0363a27a8e7127553c9b811715f96ed9f
+  pristine_tree_hash: 465636b1578ecf3f4394b841bb3136fbe0dd7b86
 features:
   go:
     acceptHeaders: 2.81.2
@@ -13509,8 +13509,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:34d5b7bab99ce66507eb717589421af36b801f70
-    pristine_git_object: 1acaf076b6dd9afc6e489ba729e1ba572ffe1d9f
+    last_write_checksum: sha1:600da98bc806c1378a531d03e8eaabba0296db1b
+    pristine_git_object: bfc05ca81fecfe28c7dff49e61d25d494366d664
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17559,6 +17559,3 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.ApiKeys.List()`:  `request.IncludeExpired` **Added**
