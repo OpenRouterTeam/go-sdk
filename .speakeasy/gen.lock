@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 870247a0039fb6be47f47fd4858294b1
+  docChecksum: 25507788862498772ab5f9cbd283a333
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.34
-  configChecksum: ee27d0baac470f7b492a880af351f041
+  releaseVersion: 0.9.35
+  configChecksum: fe3438611dcc88240fc3f0236b1a9893
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 8bceff92-cc68-4988-a79d-b07dedce4bfa
-  pristine_commit_hash: e8c8dc56be541326ca7ef9e1c9fb7a7baaecf1c7
-  pristine_tree_hash: 90035725493e80cf5375f86f957625d9d4b2df93
+  generation_id: ab4f0fa9-e34c-409e-9870-842c70fedfc5
+  pristine_commit_hash: 6ce3272155a388dfda1cef021b5931686fc133fe
+  pristine_tree_hash: 2e6de24ad445a308b8af2eefcde1b378951fc23e
 features:
   go:
     acceptHeaders: 2.81.2
@@ -81,8 +81,8 @@ trackedFiles:
     pristine_git_object: 19cafdf94c8623199653cce8f3d90e2dceec2348
   apikeys.go:
     id: 8baafe5dc76e
-    last_write_checksum: sha1:5456625dc2ef3850ab45727d2b3f755ff3c2e9bd
-    pristine_git_object: 478ce12522170a32ea362eb8de209a03ce11215c
+    last_write_checksum: sha1:9dbffe740376eddece85f84cf3bba452f5a18b87
+    pristine_git_object: d3ad9c42e034c25ec87f33a321749d6cd0346185
   batch.go:
     id: f0580a64f821
     last_write_checksum: sha1:e665d74307f94d032221149976b1d0c7850f3e24
@@ -8773,8 +8773,8 @@ trackedFiles:
     pristine_git_object: d691c60180befdd36e29a82761cb3de5cca64043
   docs/models/operations/listrequest.mdx:
     id: dd2bb74c6178
-    last_write_checksum: sha1:e188b5301c6162eab3a84d65026bfcbb36850355
-    pristine_git_object: 4da8ce5c699e056dc51dcf15425dee5327312365
+    last_write_checksum: sha1:db502193fa26dc3d961fcb1a1efd1865cd7f8948
+    pristine_git_object: 6c701d0952abb577163eefbe00383637d26e7be6
   docs/models/operations/listresponse.mdx:
     id: 46ed19423815
     last_write_checksum: sha1:4ecb3f83f269f49c9d0df656c436054f6502b7f0
@@ -9229,8 +9229,8 @@ trackedFiles:
     pristine_git_object: 84d83302a14fcf3cfda0caff3b3d2d5d5028bc71
   docs/sdks/apikeys/README.mdx:
     id: 27fcaae1c346
-    last_write_checksum: sha1:e044b2de49a7ab6d28f9a2a1e2c013fa0d438a79
-    pristine_git_object: 3d86efb6f28f4a03606fc12757902a0d9e138e6b
+    last_write_checksum: sha1:166303b0b79c6059000ceeb6095b60d540cc9281
+    pristine_git_object: 9b084cf944397dd1ec6278cefdbe9c076ba702af
   docs/sdks/batch/README.mdx:
     id: e367aa4f4295
     last_write_checksum: sha1:3c3f1d13862f80193d7d2a3e984df38a9c906d91
@@ -13169,8 +13169,8 @@ trackedFiles:
     pristine_git_object: 5b448a3a97be6a5b4c25a10c5383da3045c86acc
   models/operations/list.go:
     id: 5327f0e32b30
-    last_write_checksum: sha1:58607d83e87fdf3d329064ca842ac8378e2cd639
-    pristine_git_object: 4bd96fa0921e2de5aa504cfceb810b82c54ebb28
+    last_write_checksum: sha1:67a60a2c02f9820b71ee1a98fafd326205105643
+    pristine_git_object: b49f064f7a57680a4effc178cb96ebc9b44d5e66
   models/operations/listbatches.go:
     id: eb63754972df
     last_write_checksum: sha1:cf4373dbf8f76ab085d1356268e992ff5fbafd8b
@@ -13509,8 +13509,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:dabaec2311f6a0d50148e17964a0afb91845d775
-    pristine_git_object: e7a5caa7e09e1ff024f20be6898549fd9ec5181d
+    last_write_checksum: sha1:34d5b7bab99ce66507eb717589421af36b801f70
+    pristine_git_object: 1acaf076b6dd9afc6e489ba729e1ba572ffe1d9f
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17559,4 +17559,6 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).CostTier` **Added**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(jev-router).CostTier` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.ApiKeys.List()`:  `request.IncludeExpired` **Added**
