@@ -13,7 +13,7 @@ type ListEndUsersRequest struct {
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
-	// Immutable case-sensitive tracking string supplied as user on inference requests. URL-encode it in resource paths.
+	// Immutable case-sensitive tracking string supplied as user on inference requests or as external.user on API keys: 1 to 512 characters, well-formed Unicode, no NUL, no surrounding whitespace. URL-encode it in resource paths; an ID of `.` or `..` cannot be addressed by path, so look it up with the list filter.
 	User *string `queryParam:"style=form,explode=true,name=user"`
 	// Include deactivated registrations.
 	IncludeInactive *bool `default:"false" queryParam:"style=form,explode=true,name=include_inactive"`

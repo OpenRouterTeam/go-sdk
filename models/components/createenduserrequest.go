@@ -3,7 +3,7 @@
 package components
 
 type CreateEndUserRequest struct {
-	// Immutable case-sensitive tracking string supplied as user on inference requests. URL-encode it in resource paths.
+	// Immutable case-sensitive tracking string supplied as user on inference requests or as external.user on API keys: 1 to 512 characters, well-formed Unicode, no NUL, no surrounding whitespace. URL-encode it in resource paths; an ID of `.` or `..` cannot be addressed by path, so look it up with the list filter.
 	User string `json:"user"`
 }
 
