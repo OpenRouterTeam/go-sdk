@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 3d5ada548d4f46175e971e318342a856
+  docChecksum: 152801ba65a086577f0868a7157e824f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.39
-  configChecksum: 822e38092ee4090725a96fbe6b60d0aa
+  releaseVersion: 0.9.40
+  configChecksum: 16681185d66ee22c4ea535985ddb0fff
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 8b8d2c82-b892-4488-8c68-a271483fd28e
-  pristine_commit_hash: b47cd5df18ec0830f5d3e30f7f52552e90f15b2e
-  pristine_tree_hash: ffa988c274b1cc5b7ea18c368d397cbc2aabd2ea
+  generation_id: b8386591-bbe1-4f48-8f1c-f02332b78ee9
+  pristine_commit_hash: 3f5b756b412557e6f1d5646e052958c6802369a5
+  pristine_tree_hash: c7572ffa741a927ce28eb269661809030309183b
 features:
   go:
     acceptHeaders: 2.81.2
@@ -81,8 +81,8 @@ trackedFiles:
     pristine_git_object: 19cafdf94c8623199653cce8f3d90e2dceec2348
   apikeys.go:
     id: 8baafe5dc76e
-    last_write_checksum: sha1:d285e2245720832622d899c9dcf76727ac695365
-    pristine_git_object: add418e98163433ad044968d604c1d656d015a1a
+    last_write_checksum: sha1:5997710d0d25a8497b7e8c45be2bfa8b696e1cfa
+    pristine_git_object: ac5d82bd7ba64e8df5647615af36a21fce09d4ff
   batch.go:
     id: f0580a64f821
     last_write_checksum: sha1:e665d74307f94d032221149976b1d0c7850f3e24
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -9229,8 +9229,8 @@ trackedFiles:
     pristine_git_object: 84d83302a14fcf3cfda0caff3b3d2d5d5028bc71
   docs/sdks/apikeys/README.mdx:
     id: 27fcaae1c346
-    last_write_checksum: sha1:5366a46528638b28fb4aceb7b5de872fdd873b2c
-    pristine_git_object: f2d671a76d5e8defce6bc68eefbefe186d2cb53b
+    last_write_checksum: sha1:991161b72115b14ac37a0edfe5eb0c70116664f0
+    pristine_git_object: 82741de770e0e8b724e060212b47875bde68e602
   docs/sdks/batch/README.mdx:
     id: e367aa4f4295
     last_write_checksum: sha1:3c3f1d13862f80193d7d2a3e984df38a9c906d91
@@ -13509,8 +13509,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:de8d47cdaea09f7fadcb0ca083560ee10cf6721b
-    pristine_git_object: 9a5419707442ca5d29b9ad3d2e7bbf388ba2c656
+    last_write_checksum: sha1:74b74a7dcf6d3151895ceddde35eaaa08cdd627c
+    pristine_git_object: df2f98ff45fa57acfd0639fa58b2ece90d57b66d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17563,4 +17563,3 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.ApiKeys.Update()`: \n  *  `request.RequestBody.WorkspaceId` **Added**\n  *  `error` **Changed**\n"
