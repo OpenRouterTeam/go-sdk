@@ -36,7 +36,7 @@ generation:
   documentation: mintlify
   preApplyUnionDiscriminators: true
 go:
-  version: 0.9.38
+  version: 0.9.39
   additionalDependencies: {}
   baseErrorName: OpenRouterError
   clientServerStatusCodesAsErrors: true
