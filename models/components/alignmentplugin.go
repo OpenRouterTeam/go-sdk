@@ -54,7 +54,7 @@ func (e *AlignmentPluginMode) IsExact() bool {
 	return false
 }
 
-// AlignmentPlugin - Beta. States the listed rules to the model and evaluates every turn against them. Requests are evaluated only for entities admitted to the beta; the configuration, metadata, and error shapes may change.
+// AlignmentPlugin - Beta. States the listed rules to the model and evaluates every turn against them; the configuration, metadata, and error shapes may change.
 type AlignmentPlugin struct {
 	ID AlignmentPluginID `json:"id"`
 	// Whether the rules are stated to the model in a system message on every provider call. Default true.
