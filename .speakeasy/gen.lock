@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 69646e97f999247d54e6c12796e404a5
+  docChecksum: 1465979ab89a0f1af12ea84cd1e18672
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.37
-  configChecksum: 9569d21cb93fb8dd9a2510051884350c
+  releaseVersion: 0.9.38
+  configChecksum: 8fb9aabef9178e100ca5822bb6f64acc
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 866bbcee-3b7a-4172-976b-277e9f868c70
-  pristine_commit_hash: 13ddd8be5ded3b2087dbeaa380896db2f17578d9
-  pristine_tree_hash: 698f8bf6be61b767dd6c51e98266c1f4881bfc6e
+  generation_id: 5c69bd42-3f31-4ee2-baa1-e4a139f86967
+  pristine_commit_hash: 7c448c2e1f828419c563575dd1340056a5103ecb
+  pristine_tree_hash: 6a1c13f284155900994d26522933c1612555810e
 features:
   go:
     acceptHeaders: 2.81.2
@@ -281,8 +281,8 @@ trackedFiles:
     pristine_git_object: 6773f4af0632ab49f8cda1f4ce3b373ca99f511b
   docs/models/components/alignmentplugin.mdx:
     id: de98661e846c
-    last_write_checksum: sha1:e80fddb2721025fdf8a21f53279d4785d8c5a2ba
-    pristine_git_object: 27910344e4b6c477fe5df97df32ee5524d21858b
+    last_write_checksum: sha1:17c8a551f6a0fe5396c5437bbdf1e18f3df19de6
+    pristine_git_object: 577e249e59d235a962ef94516e7c47603fa70688
   docs/models/components/alignmentpluginid.mdx:
     id: 54d83e9c8615
     last_write_checksum: sha1:50d59081b6ea534a2735fd49d7de3294d704ff84
@@ -9545,8 +9545,8 @@ trackedFiles:
     pristine_git_object: a0eac9bc65b1790b8c53fce154f37f67c312ed17
   models/components/alignmentplugin.go:
     id: c6b3bf7933e9
-    last_write_checksum: sha1:936e5a0b76123f96629ea6d7195b9a565a6fa5d8
-    pristine_git_object: c14c4896cfb49655b60728282e5b9b9db6a8b05f
+    last_write_checksum: sha1:dcc4b001ea49bcd583876518e6e41ebd6445655e
+    pristine_git_object: da5fc8dfe0c78bf86193c33f7edbba6d50d372bc
   models/components/alignmentrejected.go:
     id: 978661ee7633
     last_write_checksum: sha1:949df5675b7390c9a17c8e567e882b76c4d6c0ee
@@ -13509,8 +13509,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:c5d68fe900e5b30fe93ee26a24fabfe32d12b1fe
-    pristine_git_object: 94e6e806d8d133dc16d488d902c416c5951a71fc
+    last_write_checksum: sha1:173e2ec8731cc8c200d8d3debc8bfd4b1172a8fb
+    pristine_git_object: 0195edceb6aba3d5dd9c8a36628cc1ade42f047c
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
