@@ -43,6 +43,8 @@ type UpdateKeysRequestBody struct {
 	LimitReset optionalnullable.OptionalNullable[UpdateKeysLimitReset] `json:"limit_reset,omitzero"`
 	// New name for the API key
 	Name *string `json:"name,omitzero"`
+	// Move the API key to this workspace. The key keeps its value; guardrail selections move with it, while other workspace-scoped settings (presets, BYOK keys, broadcast destinations, routing rules) do not. Sending the key's current workspace is a no-op.
+	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
 func (u *UpdateKeysRequestBody) GetDisabled() *bool {
@@ -78,6 +80,13 @@ func (u *UpdateKeysRequestBody) GetName() *string {
 		return nil
 	}
 	return u.Name
+}
+
+func (u *UpdateKeysRequestBody) GetWorkspaceID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.WorkspaceID
 }
 
 type UpdateKeysRequest struct {
