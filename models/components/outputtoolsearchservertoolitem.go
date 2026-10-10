@@ -8,6 +8,44 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type Match struct {
+	Definition   map[string]any `json:"definition"`
+	SchemaDigest string         `json:"schema_digest"`
+	ToolID       string         `json:"tool_id"`
+}
+
+func (m Match) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *Match) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *Match) GetDefinition() map[string]any {
+	if m == nil {
+		return map[string]any{}
+	}
+	return m.Definition
+}
+
+func (m *Match) GetSchemaDigest() string {
+	if m == nil {
+		return ""
+	}
+	return m.SchemaDigest
+}
+
+func (m *Match) GetToolID() string {
+	if m == nil {
+		return ""
+	}
+	return m.ToolID
+}
+
 type OutputToolSearchServerToolItemType string
 
 const (
@@ -34,11 +72,12 @@ func (e *OutputToolSearchServerToolItemType) UnmarshalJSON(data []byte) error {
 // OutputToolSearchServerToolItem - An openrouter:tool_search server tool output item
 type OutputToolSearchServerToolItem struct {
 	// The error message when the tool call failed before producing a result. Set together with `status: 'failed'`; absent on a successful call.
-	Error  *string                            `json:"error,omitzero"`
-	ID     *string                            `json:"id,omitzero"`
-	Query  *string                            `json:"query,omitzero"`
-	Status FailableToolCallStatus             `json:"status"`
-	Type   OutputToolSearchServerToolItemType `json:"type"`
+	Error   *string                            `json:"error,omitzero"`
+	ID      *string                            `json:"id,omitzero"`
+	Matches []Match                            `json:"matches,omitzero"`
+	Query   *string                            `json:"query,omitzero"`
+	Status  FailableToolCallStatus             `json:"status"`
+	Type    OutputToolSearchServerToolItemType `json:"type"`
 }
 
 func (o OutputToolSearchServerToolItem) MarshalJSON() ([]byte, error) {
@@ -64,6 +103,13 @@ func (o *OutputToolSearchServerToolItem) GetID() *string {
 		return nil
 	}
 	return o.ID
+}
+
+func (o *OutputToolSearchServerToolItem) GetMatches() []Match {
+	if o == nil {
+		return nil
+	}
+	return o.Matches
 }
 
 func (o *OutputToolSearchServerToolItem) GetQuery() *string {

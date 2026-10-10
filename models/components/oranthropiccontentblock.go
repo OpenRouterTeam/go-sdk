@@ -19,6 +19,7 @@ const (
 	ORAnthropicContentBlockTypeContainerUpload                   ORAnthropicContentBlockType = "container_upload"
 	ORAnthropicContentBlockTypeOpenrouterBashToolResult          ORAnthropicContentBlockType = "openrouter_bash_tool_result"
 	ORAnthropicContentBlockTypeOpenrouterShellToolResult         ORAnthropicContentBlockType = "openrouter_shell_tool_result"
+	ORAnthropicContentBlockTypeOpenrouterToolSearchResult        ORAnthropicContentBlockType = "openrouter_tool_search_result"
 	ORAnthropicContentBlockTypeRedactedThinking                  ORAnthropicContentBlockType = "redacted_thinking"
 	ORAnthropicContentBlockTypeServerToolUse                     ORAnthropicContentBlockType = "server_tool_use"
 	ORAnthropicContentBlockTypeText                              ORAnthropicContentBlockType = "text"
@@ -48,6 +49,7 @@ type ORAnthropicContentBlock struct {
 	AnthropicAdvisorToolResult                 *AnthropicAdvisorToolResult                 `queryParam:"inline" union:"member"`
 	ORAnthropicShellToolResult                 *ORAnthropicShellToolResult                 `queryParam:"inline" union:"member"`
 	ORAnthropicBashToolResult                  *ORAnthropicBashToolResult                  `queryParam:"inline" union:"member"`
+	ORAnthropicToolSearchResult                *ORAnthropicToolSearchResult                `queryParam:"inline" union:"member"`
 	UnknownRaw                                 json.RawMessage                             `json:"-" union:"unknown"`
 
 	Type ORAnthropicContentBlockType
@@ -134,6 +136,18 @@ func CreateORAnthropicContentBlockOpenrouterShellToolResult(openrouterShellToolR
 	return ORAnthropicContentBlock{
 		ORAnthropicShellToolResult: &openrouterShellToolResult,
 		Type:                       typ,
+	}
+}
+
+func CreateORAnthropicContentBlockOpenrouterToolSearchResult(openrouterToolSearchResult ORAnthropicToolSearchResult) ORAnthropicContentBlock {
+	typ := ORAnthropicContentBlockTypeOpenrouterToolSearchResult
+
+	typStr := ORAnthropicToolSearchResultType(typ)
+	openrouterToolSearchResult.Type = typStr
+
+	return ORAnthropicContentBlock{
+		ORAnthropicToolSearchResult: &openrouterToolSearchResult,
+		Type:                        typ,
 	}
 }
 
@@ -342,6 +356,15 @@ func (u *ORAnthropicContentBlock) UnmarshalJSON(data []byte) error {
 		u.ORAnthropicShellToolResult = orAnthropicShellToolResult
 		u.Type = ORAnthropicContentBlockTypeOpenrouterShellToolResult
 		return nil
+	case "openrouter_tool_search_result":
+		orAnthropicToolSearchResult := new(ORAnthropicToolSearchResult)
+		if err := utils.UnmarshalJSON(data, &orAnthropicToolSearchResult, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter_tool_search_result) type ORAnthropicToolSearchResult within ORAnthropicContentBlock: %w", string(data), err)
+		}
+
+		u.ORAnthropicToolSearchResult = orAnthropicToolSearchResult
+		u.Type = ORAnthropicContentBlockTypeOpenrouterToolSearchResult
+		return nil
 	case "redacted_thinking":
 		anthropicRedactedThinkingBlock := new(AnthropicRedactedThinkingBlock)
 		if err := utils.UnmarshalJSON(data, &anthropicRedactedThinkingBlock, "", true, nil); err != nil {
@@ -494,6 +517,10 @@ func (u ORAnthropicContentBlock) MarshalJSON() ([]byte, error) {
 
 	if u.ORAnthropicBashToolResult != nil {
 		return utils.MarshalJSON(u.ORAnthropicBashToolResult, "", true)
+	}
+
+	if u.ORAnthropicToolSearchResult != nil {
+		return utils.MarshalJSON(u.ORAnthropicToolSearchResult, "", true)
 	}
 
 	if u.UnknownRaw != nil {

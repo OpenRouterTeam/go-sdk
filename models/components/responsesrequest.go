@@ -497,17 +497,41 @@ func (e *ResponsesRequestType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type ResponsesRequestAllowedCaller string
+
+const (
+	ResponsesRequestAllowedCallerDirect       ResponsesRequestAllowedCaller = "direct"
+	ResponsesRequestAllowedCallerProgrammatic ResponsesRequestAllowedCaller = "programmatic"
+)
+
+func (e ResponsesRequestAllowedCaller) ToPointer() *ResponsesRequestAllowedCaller {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ResponsesRequestAllowedCaller) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "direct", "programmatic":
+			return true
+		}
+	}
+	return false
+}
+
 // ResponsesRequestToolFunction - Function tool definition
 type ResponsesRequestToolFunction struct {
-	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	Name        string                                    `json:"name"`
-	Parameters  map[string]any                            `json:"parameters"`
-	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
-	Type        ResponsesRequestType                      `json:"type"`
+	Description    optionalnullable.OptionalNullable[string]                          `json:"description,omitzero"`
+	Name           string                                                             `json:"name"`
+	Parameters     map[string]any                                                     `json:"parameters"`
+	Strict         optionalnullable.OptionalNullable[bool]                            `json:"strict,omitzero"`
+	Type           ResponsesRequestType                                               `json:"type"`
+	AllowedCallers optionalnullable.OptionalNullable[[]ResponsesRequestAllowedCaller] `json:"allowed_callers,omitzero"`
 	// Lets the model keep working after calling this tool instead of waiting for its output. The tool is still executed by the client; return the result in a later request as a `function_call_output` with the original `call_id`. Only honored by providers whose Responses API supports async tools; ignored elsewhere.
 	Async *bool `json:"async,omitzero"`
-	// Withhold this tool from the model until `openrouter:tool_search` finds it. Requires the tool search server tool; at least one tool must remain non-deferred.
-	DeferLoading *bool `json:"defer_loading,omitzero"`
+	// Withhold this tool from the model until `openrouter:tool_search` finds it. Where the request declares no search tool, OpenRouter may add `openrouter:tool_search` to serve the flag, and otherwise sends the tool in full. A request that declares the search tool itself must keep at least one tool non-deferred.
+	DeferLoading *bool                                             `json:"defer_loading,omitzero"`
+	OutputSchema optionalnullable.OptionalNullable[map[string]any] `json:"output_schema,omitzero"`
 }
 
 func (r ResponsesRequestToolFunction) MarshalJSON() ([]byte, error) {
@@ -556,6 +580,13 @@ func (r *ResponsesRequestToolFunction) GetType() ResponsesRequestType {
 	return r.Type
 }
 
+func (r *ResponsesRequestToolFunction) GetAllowedCallers() optionalnullable.OptionalNullable[[]ResponsesRequestAllowedCaller] {
+	if r == nil {
+		return nil
+	}
+	return r.AllowedCallers
+}
+
 func (r *ResponsesRequestToolFunction) GetAsync() *bool {
 	if r == nil {
 		return nil
@@ -568,6 +599,13 @@ func (r *ResponsesRequestToolFunction) GetDeferLoading() *bool {
 		return nil
 	}
 	return r.DeferLoading
+}
+
+func (r *ResponsesRequestToolFunction) GetOutputSchema() optionalnullable.OptionalNullable[map[string]any] {
+	if r == nil {
+		return nil
+	}
+	return r.OutputSchema
 }
 
 type ResponsesRequestToolUnionType string
@@ -1363,7 +1401,9 @@ type ResponsesRequest struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
-	Debug            *ChatDebugOptions                          `json:"debug,omitzero"`
+	Debug *ChatDebugOptions `json:"debug,omitzero"`
+	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation; keep the catalog unchanged.
+	DeferredTools    *DeferredToolsControl                      `json:"deferred_tools,omitzero"`
 	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
 	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
 	ImageConfig map[string]ImageConfig                                    `json:"image_config,omitzero"`
@@ -1450,6 +1490,13 @@ func (r *ResponsesRequest) GetDebug() *ChatDebugOptions {
 		return nil
 	}
 	return r.Debug
+}
+
+func (r *ResponsesRequest) GetDeferredTools() *DeferredToolsControl {
+	if r == nil {
+		return nil
+	}
+	return r.DeferredTools
 }
 
 func (r *ResponsesRequest) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {

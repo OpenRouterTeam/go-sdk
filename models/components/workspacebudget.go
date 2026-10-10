@@ -2,21 +2,21 @@
 
 package components
 
-// ResetInterval - Interval at which spend resets. Null means a lifetime (one-time) budget.
-type ResetInterval string
+// WorkspaceBudgetResetInterval - Interval at which spend resets. Null means a lifetime (one-time) budget.
+type WorkspaceBudgetResetInterval string
 
 const (
-	ResetIntervalDaily   ResetInterval = "daily"
-	ResetIntervalWeekly  ResetInterval = "weekly"
-	ResetIntervalMonthly ResetInterval = "monthly"
+	WorkspaceBudgetResetIntervalDaily   WorkspaceBudgetResetInterval = "daily"
+	WorkspaceBudgetResetIntervalWeekly  WorkspaceBudgetResetInterval = "weekly"
+	WorkspaceBudgetResetIntervalMonthly WorkspaceBudgetResetInterval = "monthly"
 )
 
-func (e ResetInterval) ToPointer() *ResetInterval {
+func (e WorkspaceBudgetResetInterval) ToPointer() *WorkspaceBudgetResetInterval {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ResetInterval) IsExact() bool {
+func (e *WorkspaceBudgetResetInterval) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "daily", "weekly", "monthly":
@@ -34,7 +34,7 @@ type WorkspaceBudget struct {
 	// Spending limit in USD for this interval
 	LimitUsd float64 `json:"limit_usd"`
 	// Interval at which spend resets. Null means a lifetime (one-time) budget.
-	ResetInterval *ResetInterval `json:"reset_interval"`
+	ResetInterval *WorkspaceBudgetResetInterval `json:"reset_interval"`
 	// ISO 8601 timestamp of when the budget was last updated
 	UpdatedAt string `json:"updated_at"`
 	// ID of the workspace the budget belongs to
@@ -62,7 +62,7 @@ func (w *WorkspaceBudget) GetLimitUsd() float64 {
 	return w.LimitUsd
 }
 
-func (w *WorkspaceBudget) GetResetInterval() *ResetInterval {
+func (w *WorkspaceBudget) GetResetInterval() *WorkspaceBudgetResetInterval {
 	if w == nil {
 		return nil
 	}

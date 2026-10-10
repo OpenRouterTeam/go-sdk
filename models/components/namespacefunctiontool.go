@@ -9,19 +9,19 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type AllowedCaller string
+type NamespaceFunctionToolAllowedCaller string
 
 const (
-	AllowedCallerDirect       AllowedCaller = "direct"
-	AllowedCallerProgrammatic AllowedCaller = "programmatic"
+	NamespaceFunctionToolAllowedCallerDirect       NamespaceFunctionToolAllowedCaller = "direct"
+	NamespaceFunctionToolAllowedCallerProgrammatic NamespaceFunctionToolAllowedCaller = "programmatic"
 )
 
-func (e AllowedCaller) ToPointer() *AllowedCaller {
+func (e NamespaceFunctionToolAllowedCaller) ToPointer() *NamespaceFunctionToolAllowedCaller {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AllowedCaller) IsExact() bool {
+func (e *NamespaceFunctionToolAllowedCaller) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "direct", "programmatic":
@@ -56,7 +56,7 @@ func (e *NamespaceFunctionToolType) UnmarshalJSON(data []byte) error {
 
 // NamespaceFunctionTool - A function tool grouped inside a namespace tool
 type NamespaceFunctionTool struct {
-	AllowedCallers optionalnullable.OptionalNullable[[]AllowedCaller] `json:"allowed_callers,omitzero"`
+	AllowedCallers optionalnullable.OptionalNullable[[]NamespaceFunctionToolAllowedCaller] `json:"allowed_callers,omitzero"`
 	// Lets the model keep working after calling this tool instead of waiting for its output. The tool is still executed by the client; return the result in a later request as a `function_call_output` with the original `call_id`. Only honored by providers whose Responses API supports async tools; ignored elsewhere.
 	Async        *bool                                             `json:"async,omitzero"`
 	DeferLoading *bool                                             `json:"defer_loading,omitzero"`
@@ -79,7 +79,7 @@ func (n *NamespaceFunctionTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (n *NamespaceFunctionTool) GetAllowedCallers() optionalnullable.OptionalNullable[[]AllowedCaller] {
+func (n *NamespaceFunctionTool) GetAllowedCallers() optionalnullable.OptionalNullable[[]NamespaceFunctionToolAllowedCaller] {
 	if n == nil {
 		return nil
 	}

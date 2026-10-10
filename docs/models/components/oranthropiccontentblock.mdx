@@ -46,6 +46,12 @@ orAnthropicContentBlock := components.CreateORAnthropicContentBlockOpenrouterBas
 orAnthropicContentBlock := components.CreateORAnthropicContentBlockOpenrouterShellToolResult(components.ORAnthropicShellToolResult{/* values here */})
 ```
 
+### ORAnthropicToolSearchResult
+
+```go
+orAnthropicContentBlock := components.CreateORAnthropicContentBlockOpenrouterToolSearchResult(components.ORAnthropicToolSearchResult{/* values here */})
+```
+
 ### AnthropicRedactedThinkingBlock
 
 ```go
@@ -120,6 +126,8 @@ switch orAnthropicContentBlock.Type {
 		// orAnthropicContentBlock.ORAnthropicBashToolResult is populated
 	case components.ORAnthropicContentBlockTypeOpenrouterShellToolResult:
 		// orAnthropicContentBlock.ORAnthropicShellToolResult is populated
+	case components.ORAnthropicContentBlockTypeOpenrouterToolSearchResult:
+		// orAnthropicContentBlock.ORAnthropicToolSearchResult is populated
 	case components.ORAnthropicContentBlockTypeRedactedThinking:
 		// orAnthropicContentBlock.AnthropicRedactedThinkingBlock is populated
 	case components.ORAnthropicContentBlockTypeServerToolUse:

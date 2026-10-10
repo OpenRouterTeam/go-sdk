@@ -34,6 +34,8 @@ func (e *VideoGenerationResponseStatus) IsExact() bool {
 
 type VideoGenerationResponse struct {
 	Error *string `json:"error,omitzero"`
+	// Unix timestamp in seconds when OpenRouter's stored copy of the outputs stops being available. Present only when that copy exists.
+	ExpiresAt *int64 `json:"expires_at,omitzero"`
 	// The generation ID associated with this video generation job. Available once the job has been processed.
 	GenerationID *string `json:"generation_id,omitzero"`
 	// The video job ID, in the `gen-vid-<timestamp>-<20 alphanumerics>` generation ID format. Pass it as `previous_job_id` to continue the generation.
@@ -61,6 +63,13 @@ func (v *VideoGenerationResponse) GetError() *string {
 		return nil
 	}
 	return v.Error
+}
+
+func (v *VideoGenerationResponse) GetExpiresAt() *int64 {
+	if v == nil {
+		return nil
+	}
+	return v.ExpiresAt
 }
 
 func (v *VideoGenerationResponse) GetGenerationID() *string {

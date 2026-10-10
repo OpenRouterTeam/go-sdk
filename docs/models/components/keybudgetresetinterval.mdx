@@ -1,0 +1,27 @@
+---
+title: "KeyBudgetResetInterval"
+---
+
+UTC window the spend is counted over (weeks start Monday); null for a lifetime budget that never resets.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.KeyBudgetResetIntervalDaily
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.KeyBudgetResetInterval("custom_value")
+```
+
+
+## Values
+
+| Name                            | Value                           |
+| ------------------------------- | ------------------------------- |
+| `KeyBudgetResetIntervalDaily`   | daily                           |
+| `KeyBudgetResetIntervalWeekly`  | weekly                          |
+| `KeyBudgetResetIntervalMonthly` | monthly                         |

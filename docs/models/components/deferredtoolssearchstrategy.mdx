@@ -1,0 +1,41 @@
+---
+title: "DeferredToolsSearchStrategy"
+---
+
+Router-local regex/BM25 or caller-owned custom search.
+
+
+## Supported Types
+
+### DeferredBm25Search
+
+```go
+deferredToolsSearchStrategy := components.CreateDeferredToolsSearchStrategyBm25(components.DeferredBm25Search{/* values here */})
+```
+
+### DeferredCustomSearch
+
+```go
+deferredToolsSearchStrategy := components.CreateDeferredToolsSearchStrategyCustom(components.DeferredCustomSearch{/* values here */})
+```
+
+### DeferredRegexSearch
+
+```go
+deferredToolsSearchStrategy := components.CreateDeferredToolsSearchStrategyRegex(components.DeferredRegexSearch{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch deferredToolsSearchStrategy.Type {
+	case components.DeferredToolsSearchStrategyTypeBm25:
+		// deferredToolsSearchStrategy.DeferredBm25Search is populated
+	case components.DeferredToolsSearchStrategyTypeCustom:
+		// deferredToolsSearchStrategy.DeferredCustomSearch is populated
+	case components.DeferredToolsSearchStrategyTypeRegex:
+		// deferredToolsSearchStrategy.DeferredRegexSearch is populated
+}
+```

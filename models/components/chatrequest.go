@@ -783,6 +783,8 @@ type ChatRequest struct {
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
 	Debug *ChatDebugOptions `json:"debug,omitzero"`
+	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation; keep the catalog unchanged.
+	DeferredTools *DeferredToolsControl `json:"deferred_tools,omitzero"`
 	// Frequency penalty (-2.0 to 2.0)
 	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
 	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.
@@ -885,6 +887,13 @@ func (c *ChatRequest) GetDebug() *ChatDebugOptions {
 		return nil
 	}
 	return c.Debug
+}
+
+func (c *ChatRequest) GetDeferredTools() *DeferredToolsControl {
+	if c == nil {
+		return nil
+	}
+	return c.DeferredTools
 }
 
 func (c *ChatRequest) GetFrequencyPenalty() optionalnullable.OptionalNullable[float64] {
