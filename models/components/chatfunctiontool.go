@@ -12,6 +12,7 @@ import (
 
 // ChatFunctionToolFunctionFunction - Function definition for tool calling
 type ChatFunctionToolFunctionFunction struct {
+	DeferLoading *bool `json:"defer_loading,omitzero"`
 	// Function description for the model
 	Description *string `json:"description,omitzero"`
 	// Function name (a-z, A-Z, 0-9, underscores, dashes, max 64 chars)
@@ -31,6 +32,13 @@ func (c *ChatFunctionToolFunctionFunction) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *ChatFunctionToolFunctionFunction) GetDeferLoading() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DeferLoading
 }
 
 func (c *ChatFunctionToolFunctionFunction) GetDescription() *string {
@@ -87,6 +95,7 @@ func (e *ChatFunctionToolType) UnmarshalJSON(data []byte) error {
 type ChatFunctionToolFunction struct {
 	// Anthropic-style cache breakpoint for the content part. Interchangeable with the OpenAI-style `prompt_cache_breakpoint` marker: OpenRouter converts between the two based on the provider serving the request.
 	CacheControl *ChatContentCacheControl `json:"cache_control,omitzero"`
+	DeferLoading *bool                    `json:"defer_loading,omitzero"`
 	// Function definition for tool calling
 	Function ChatFunctionToolFunctionFunction `json:"function"`
 	Type     ChatFunctionToolType             `json:"type"`
@@ -108,6 +117,13 @@ func (c *ChatFunctionToolFunction) GetCacheControl() *ChatContentCacheControl {
 		return nil
 	}
 	return c.CacheControl
+}
+
+func (c *ChatFunctionToolFunction) GetDeferLoading() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DeferLoading
 }
 
 func (c *ChatFunctionToolFunction) GetFunction() ChatFunctionToolFunctionFunction {

@@ -1,0 +1,30 @@
+---
+title: "KeyBudgetScope"
+---
+
+Which budget layer this is, in the order enforcement checks them: the workspace default guardrail against the member aggregate (`workspace_default_member`) and against this key (`workspace_default_key`), the member guardrail (`member`), the API key guardrail (`api_key`), a workspace budget (`workspace`), or the key's own limit (`key_limit`).
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.KeyBudgetScopeWorkspaceDefaultMember
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.KeyBudgetScope("custom_value")
+```
+
+
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `KeyBudgetScopeWorkspaceDefaultMember` | workspace_default_member               |
+| `KeyBudgetScopeWorkspaceDefaultKey`    | workspace_default_key                  |
+| `KeyBudgetScopeMember`                 | member                                 |
+| `KeyBudgetScopeAPIKey`                 | api_key                                |
+| `KeyBudgetScopeWorkspace`              | workspace                              |
+| `KeyBudgetScopeKeyLimit`               | key_limit                              |

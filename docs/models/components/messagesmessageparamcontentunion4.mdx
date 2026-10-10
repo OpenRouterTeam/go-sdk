@@ -100,6 +100,12 @@ messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamConten
 messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(components.MessagesBashToolResultBlock{/* values here */})
 ```
 
+### ORAnthropicToolSearchResultParam
+
+```go
+messagesMessageParamContentUnion4 := components.CreateMessagesMessageParamContentUnion4OpenrouterToolSearchResult(components.ORAnthropicToolSearchResultParam{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -138,5 +144,7 @@ switch messagesMessageParamContentUnion4.Type {
 		// messagesMessageParamContentUnion4.MessagesShellToolResultBlock is populated
 	case components.MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult:
 		// messagesMessageParamContentUnion4.MessagesBashToolResultBlock is populated
+	case components.MessagesMessageParamContentUnion4TypeOpenrouterToolSearchResult:
+		// messagesMessageParamContentUnion4.ORAnthropicToolSearchResultParam is populated
 }
 ```

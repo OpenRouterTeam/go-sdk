@@ -977,41 +977,43 @@ func (c *ContentToolUse) GetType() MessagesMessageParamTypeToolUse {
 type MessagesMessageParamContentUnion4Type string
 
 const (
-	MessagesMessageParamContentUnion4TypeText                      MessagesMessageParamContentUnion4Type = "text"
-	MessagesMessageParamContentUnion4TypeImage                     MessagesMessageParamContentUnion4Type = "image"
-	MessagesMessageParamContentUnion4TypeDocument                  MessagesMessageParamContentUnion4Type = "document"
-	MessagesMessageParamContentUnion4TypeToolUse                   MessagesMessageParamContentUnion4Type = "tool_use"
-	MessagesMessageParamContentUnion4TypeToolResult                MessagesMessageParamContentUnion4Type = "tool_result"
-	MessagesMessageParamContentUnion4TypeThinking                  MessagesMessageParamContentUnion4Type = "thinking"
-	MessagesMessageParamContentUnion4TypeRedactedThinking          MessagesMessageParamContentUnion4Type = "redacted_thinking"
-	MessagesMessageParamContentUnion4TypeServerToolUse             MessagesMessageParamContentUnion4Type = "server_tool_use"
-	MessagesMessageParamContentUnion4TypeWebSearchToolResult       MessagesMessageParamContentUnion4Type = "web_search_tool_result"
-	MessagesMessageParamContentUnion4TypeSearchResult              MessagesMessageParamContentUnion4Type = "search_result"
-	MessagesMessageParamContentUnion4TypeCompaction                MessagesMessageParamContentUnion4Type = "compaction"
-	MessagesMessageParamContentUnion4TypeAdvisorToolResult         MessagesMessageParamContentUnion4Type = "advisor_tool_result"
-	MessagesMessageParamContentUnion4TypeToolAddition              MessagesMessageParamContentUnion4Type = "tool_addition"
-	MessagesMessageParamContentUnion4TypeToolRemoval               MessagesMessageParamContentUnion4Type = "tool_removal"
-	MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult MessagesMessageParamContentUnion4Type = "openrouter_shell_tool_result"
-	MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult  MessagesMessageParamContentUnion4Type = "openrouter_bash_tool_result"
+	MessagesMessageParamContentUnion4TypeText                       MessagesMessageParamContentUnion4Type = "text"
+	MessagesMessageParamContentUnion4TypeImage                      MessagesMessageParamContentUnion4Type = "image"
+	MessagesMessageParamContentUnion4TypeDocument                   MessagesMessageParamContentUnion4Type = "document"
+	MessagesMessageParamContentUnion4TypeToolUse                    MessagesMessageParamContentUnion4Type = "tool_use"
+	MessagesMessageParamContentUnion4TypeToolResult                 MessagesMessageParamContentUnion4Type = "tool_result"
+	MessagesMessageParamContentUnion4TypeThinking                   MessagesMessageParamContentUnion4Type = "thinking"
+	MessagesMessageParamContentUnion4TypeRedactedThinking           MessagesMessageParamContentUnion4Type = "redacted_thinking"
+	MessagesMessageParamContentUnion4TypeServerToolUse              MessagesMessageParamContentUnion4Type = "server_tool_use"
+	MessagesMessageParamContentUnion4TypeWebSearchToolResult        MessagesMessageParamContentUnion4Type = "web_search_tool_result"
+	MessagesMessageParamContentUnion4TypeSearchResult               MessagesMessageParamContentUnion4Type = "search_result"
+	MessagesMessageParamContentUnion4TypeCompaction                 MessagesMessageParamContentUnion4Type = "compaction"
+	MessagesMessageParamContentUnion4TypeAdvisorToolResult          MessagesMessageParamContentUnion4Type = "advisor_tool_result"
+	MessagesMessageParamContentUnion4TypeToolAddition               MessagesMessageParamContentUnion4Type = "tool_addition"
+	MessagesMessageParamContentUnion4TypeToolRemoval                MessagesMessageParamContentUnion4Type = "tool_removal"
+	MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult  MessagesMessageParamContentUnion4Type = "openrouter_shell_tool_result"
+	MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult   MessagesMessageParamContentUnion4Type = "openrouter_bash_tool_result"
+	MessagesMessageParamContentUnion4TypeOpenrouterToolSearchResult MessagesMessageParamContentUnion4Type = "openrouter_tool_search_result"
 )
 
 type MessagesMessageParamContentUnion4 struct {
-	AnthropicTextBlockParam         *AnthropicTextBlockParam         `queryParam:"inline" union:"member"`
-	AnthropicImageBlockParam        *AnthropicImageBlockParam        `queryParam:"inline" union:"member"`
-	AnthropicDocumentBlockParam     *AnthropicDocumentBlockParam     `queryParam:"inline" union:"member"`
-	ContentToolUse                  *ContentToolUse                  `queryParam:"inline" union:"member"`
-	ContentToolResult               *ContentToolResult               `queryParam:"inline" union:"member"`
-	ContentThinking                 *ContentThinking                 `queryParam:"inline" union:"member"`
-	ContentRedactedThinking         *ContentRedactedThinking         `queryParam:"inline" union:"member"`
-	ContentServerToolUse            *ContentServerToolUse            `queryParam:"inline" union:"member"`
-	ContentWebSearchToolResult      *ContentWebSearchToolResult      `queryParam:"inline" union:"member"`
-	AnthropicSearchResultBlockParam *AnthropicSearchResultBlockParam `queryParam:"inline" union:"member"`
-	ContentCompaction               *ContentCompaction               `queryParam:"inline" union:"member"`
-	MessagesAdvisorToolResultBlock  *MessagesAdvisorToolResultBlock  `queryParam:"inline" union:"member"`
-	MessagesToolAdditionBlock       *MessagesToolAdditionBlock       `queryParam:"inline" union:"member"`
-	MessagesToolRemovalBlock        *MessagesToolRemovalBlock        `queryParam:"inline" union:"member"`
-	MessagesShellToolResultBlock    *MessagesShellToolResultBlock    `queryParam:"inline" union:"member"`
-	MessagesBashToolResultBlock     *MessagesBashToolResultBlock     `queryParam:"inline" union:"member"`
+	AnthropicTextBlockParam          *AnthropicTextBlockParam          `queryParam:"inline" union:"member"`
+	AnthropicImageBlockParam         *AnthropicImageBlockParam         `queryParam:"inline" union:"member"`
+	AnthropicDocumentBlockParam      *AnthropicDocumentBlockParam      `queryParam:"inline" union:"member"`
+	ContentToolUse                   *ContentToolUse                   `queryParam:"inline" union:"member"`
+	ContentToolResult                *ContentToolResult                `queryParam:"inline" union:"member"`
+	ContentThinking                  *ContentThinking                  `queryParam:"inline" union:"member"`
+	ContentRedactedThinking          *ContentRedactedThinking          `queryParam:"inline" union:"member"`
+	ContentServerToolUse             *ContentServerToolUse             `queryParam:"inline" union:"member"`
+	ContentWebSearchToolResult       *ContentWebSearchToolResult       `queryParam:"inline" union:"member"`
+	AnthropicSearchResultBlockParam  *AnthropicSearchResultBlockParam  `queryParam:"inline" union:"member"`
+	ContentCompaction                *ContentCompaction                `queryParam:"inline" union:"member"`
+	MessagesAdvisorToolResultBlock   *MessagesAdvisorToolResultBlock   `queryParam:"inline" union:"member"`
+	MessagesToolAdditionBlock        *MessagesToolAdditionBlock        `queryParam:"inline" union:"member"`
+	MessagesToolRemovalBlock         *MessagesToolRemovalBlock         `queryParam:"inline" union:"member"`
+	MessagesShellToolResultBlock     *MessagesShellToolResultBlock     `queryParam:"inline" union:"member"`
+	MessagesBashToolResultBlock      *MessagesBashToolResultBlock      `queryParam:"inline" union:"member"`
+	ORAnthropicToolSearchResultParam *ORAnthropicToolSearchResultParam `queryParam:"inline" union:"member"`
 
 	Type MessagesMessageParamContentUnion4Type
 }
@@ -1208,6 +1210,18 @@ func CreateMessagesMessageParamContentUnion4OpenrouterBashToolResult(openrouterB
 	}
 }
 
+func CreateMessagesMessageParamContentUnion4OpenrouterToolSearchResult(openrouterToolSearchResult ORAnthropicToolSearchResultParam) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeOpenrouterToolSearchResult
+
+	typStr := ORAnthropicToolSearchResultParamType(typ)
+	openrouterToolSearchResult.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		ORAnthropicToolSearchResultParam: &openrouterToolSearchResult,
+		Type:                             typ,
+	}
+}
+
 func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1364,6 +1378,15 @@ func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) error {
 		u.MessagesBashToolResultBlock = messagesBashToolResultBlock
 		u.Type = MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult
 		return nil
+	case "openrouter_tool_search_result":
+		orAnthropicToolSearchResultParam := new(ORAnthropicToolSearchResultParam)
+		if err := utils.UnmarshalJSON(data, &orAnthropicToolSearchResultParam, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter_tool_search_result) type ORAnthropicToolSearchResultParam within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.ORAnthropicToolSearchResultParam = orAnthropicToolSearchResultParam
+		u.Type = MessagesMessageParamContentUnion4TypeOpenrouterToolSearchResult
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesMessageParamContentUnion4", string(data))
@@ -1432,6 +1455,10 @@ func (u MessagesMessageParamContentUnion4) MarshalJSON() ([]byte, error) {
 
 	if u.MessagesBashToolResultBlock != nil {
 		return utils.MarshalJSON(u.MessagesBashToolResultBlock, "", true)
+	}
+
+	if u.ORAnthropicToolSearchResultParam != nil {
+		return utils.MarshalJSON(u.ORAnthropicToolSearchResultParam, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesMessageParamContentUnion4: all fields are null")

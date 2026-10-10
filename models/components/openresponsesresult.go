@@ -56,17 +56,41 @@ func (e *OpenResponsesResultType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type OpenResponsesResultAllowedCaller string
+
+const (
+	OpenResponsesResultAllowedCallerDirect       OpenResponsesResultAllowedCaller = "direct"
+	OpenResponsesResultAllowedCallerProgrammatic OpenResponsesResultAllowedCaller = "programmatic"
+)
+
+func (e OpenResponsesResultAllowedCaller) ToPointer() *OpenResponsesResultAllowedCaller {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OpenResponsesResultAllowedCaller) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "direct", "programmatic":
+			return true
+		}
+	}
+	return false
+}
+
 // OpenResponsesResultToolFunction - Function tool definition
 type OpenResponsesResultToolFunction struct {
-	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	Name        string                                    `json:"name"`
-	Parameters  map[string]any                            `json:"parameters"`
-	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
-	Type        OpenResponsesResultType                   `json:"type"`
+	Description    optionalnullable.OptionalNullable[string]                             `json:"description,omitzero"`
+	Name           string                                                                `json:"name"`
+	Parameters     map[string]any                                                        `json:"parameters"`
+	Strict         optionalnullable.OptionalNullable[bool]                               `json:"strict,omitzero"`
+	Type           OpenResponsesResultType                                               `json:"type"`
+	AllowedCallers optionalnullable.OptionalNullable[[]OpenResponsesResultAllowedCaller] `json:"allowed_callers,omitzero"`
 	// Lets the model keep working after calling this tool instead of waiting for its output. The tool is still executed by the client; return the result in a later request as a `function_call_output` with the original `call_id`. Only honored by providers whose Responses API supports async tools; ignored elsewhere.
 	Async *bool `json:"async,omitzero"`
-	// Withhold this tool from the model until `openrouter:tool_search` finds it. Requires the tool search server tool; at least one tool must remain non-deferred.
-	DeferLoading *bool `json:"defer_loading,omitzero"`
+	// Withhold this tool from the model until `openrouter:tool_search` finds it. Where the request declares no search tool, OpenRouter may add `openrouter:tool_search` to serve the flag, and otherwise sends the tool in full. A request that declares the search tool itself must keep at least one tool non-deferred.
+	DeferLoading *bool                                             `json:"defer_loading,omitzero"`
+	OutputSchema optionalnullable.OptionalNullable[map[string]any] `json:"output_schema,omitzero"`
 }
 
 func (o OpenResponsesResultToolFunction) MarshalJSON() ([]byte, error) {
@@ -115,6 +139,13 @@ func (o *OpenResponsesResultToolFunction) GetType() OpenResponsesResultType {
 	return o.Type
 }
 
+func (o *OpenResponsesResultToolFunction) GetAllowedCallers() optionalnullable.OptionalNullable[[]OpenResponsesResultAllowedCaller] {
+	if o == nil {
+		return nil
+	}
+	return o.AllowedCallers
+}
+
 func (o *OpenResponsesResultToolFunction) GetAsync() *bool {
 	if o == nil {
 		return nil
@@ -127,6 +158,13 @@ func (o *OpenResponsesResultToolFunction) GetDeferLoading() *bool {
 		return nil
 	}
 	return o.DeferLoading
+}
+
+func (o *OpenResponsesResultToolFunction) GetOutputSchema() optionalnullable.OptionalNullable[map[string]any] {
+	if o == nil {
+		return nil
+	}
+	return o.OutputSchema
 }
 
 type OpenResponsesResultToolUnionType string

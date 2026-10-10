@@ -69,6 +69,8 @@ func (r *RateLimit) GetRequests() int64 {
 type GetCurrentKeyData struct {
 	// Data regions permitted for this API key by the guardrail policies on the key and the account regional-routing entitlement. Empty when no region is permitted. Reflects region policy only: other key restrictions, such as management keys being blocked from inference, still apply.
 	AllowedDataRegions []AllowedDataRegion `json:"allowed_data_regions"`
+	// Every budget layer enforcement checks for requests made with this key, in the order it checks them: guardrail budgets, workspace budgets, then the key's own limit. Empty when nothing is budgeted. `effective_budget` is the budget that blocks requests first: the entry enforcement rejects on when one is already spent, otherwise the entry with the least `remaining_usd`; null when nothing is budgeted. `limit` and `limit_remaining` above describe only the key's own limit.
+	Budgets []components.KeyBudget `json:"budgets"`
 	// Total external BYOK usage (in USD) for the API key
 	BYOKUsage float64 `json:"byok_usage"`
 	// External BYOK usage (in USD) for the current UTC day
@@ -78,7 +80,8 @@ type GetCurrentKeyData struct {
 	// External BYOK usage (in USD) for the current UTC week (Monday-Sunday)
 	BYOKUsageWeekly float64 `json:"byok_usage_weekly"`
 	// The user ID of the key creator. For organization-owned keys, this is the member who created the key. For individual users, this is the user's own ID.
-	CreatorUserID *string `json:"creator_user_id"`
+	CreatorUserID   *string               `json:"creator_user_id"`
+	EffectiveBudget *components.KeyBudget `json:"effective_budget"`
 	// ISO 8601 UTC timestamp when the API key expires, or null if no expiration
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
 	// Free-model (`:free` variant) daily request quota for the account that owns the key. Reports the same counter and tier limit that free-model enforcement reads for accounts subject to the free-model limits; the counter resets at UTC midnight. Accounts and endpoints exempt from free-model limits, and BYOK requests, are not gated by it, so `remaining` is the tier policy rather than an enforced ceiling for them.
@@ -137,6 +140,13 @@ func (g *GetCurrentKeyData) GetAllowedDataRegions() []AllowedDataRegion {
 	return g.AllowedDataRegions
 }
 
+func (g *GetCurrentKeyData) GetBudgets() []components.KeyBudget {
+	if g == nil {
+		return []components.KeyBudget{}
+	}
+	return g.Budgets
+}
+
 func (g *GetCurrentKeyData) GetBYOKUsage() float64 {
 	if g == nil {
 		return 0.0
@@ -170,6 +180,13 @@ func (g *GetCurrentKeyData) GetCreatorUserID() *string {
 		return nil
 	}
 	return g.CreatorUserID
+}
+
+func (g *GetCurrentKeyData) GetEffectiveBudget() *components.KeyBudget {
+	if g == nil {
+		return nil
+	}
+	return g.EffectiveBudget
 }
 
 func (g *GetCurrentKeyData) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {

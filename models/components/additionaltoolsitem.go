@@ -91,17 +91,41 @@ func (e *AdditionalToolsItemTypeFunction) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type AdditionalToolsItemAllowedCaller string
+
+const (
+	AdditionalToolsItemAllowedCallerDirect       AdditionalToolsItemAllowedCaller = "direct"
+	AdditionalToolsItemAllowedCallerProgrammatic AdditionalToolsItemAllowedCaller = "programmatic"
+)
+
+func (e AdditionalToolsItemAllowedCaller) ToPointer() *AdditionalToolsItemAllowedCaller {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *AdditionalToolsItemAllowedCaller) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "direct", "programmatic":
+			return true
+		}
+	}
+	return false
+}
+
 // AdditionalToolsItemToolFunction - Function tool definition
 type AdditionalToolsItemToolFunction struct {
-	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	Name        string                                    `json:"name"`
-	Parameters  map[string]any                            `json:"parameters"`
-	Strict      optionalnullable.OptionalNullable[bool]   `json:"strict,omitzero"`
-	Type        AdditionalToolsItemTypeFunction           `json:"type"`
+	Description    optionalnullable.OptionalNullable[string]                             `json:"description,omitzero"`
+	Name           string                                                                `json:"name"`
+	Parameters     map[string]any                                                        `json:"parameters"`
+	Strict         optionalnullable.OptionalNullable[bool]                               `json:"strict,omitzero"`
+	Type           AdditionalToolsItemTypeFunction                                       `json:"type"`
+	AllowedCallers optionalnullable.OptionalNullable[[]AdditionalToolsItemAllowedCaller] `json:"allowed_callers,omitzero"`
 	// Lets the model keep working after calling this tool instead of waiting for its output. The tool is still executed by the client; return the result in a later request as a `function_call_output` with the original `call_id`. Only honored by providers whose Responses API supports async tools; ignored elsewhere.
 	Async *bool `json:"async,omitzero"`
-	// Withhold this tool from the model until `openrouter:tool_search` finds it. Requires the tool search server tool; at least one tool must remain non-deferred.
-	DeferLoading *bool `json:"defer_loading,omitzero"`
+	// Withhold this tool from the model until `openrouter:tool_search` finds it. Where the request declares no search tool, OpenRouter may add `openrouter:tool_search` to serve the flag, and otherwise sends the tool in full. A request that declares the search tool itself must keep at least one tool non-deferred.
+	DeferLoading *bool                                             `json:"defer_loading,omitzero"`
+	OutputSchema optionalnullable.OptionalNullable[map[string]any] `json:"output_schema,omitzero"`
 }
 
 func (a AdditionalToolsItemToolFunction) MarshalJSON() ([]byte, error) {
@@ -150,6 +174,13 @@ func (a *AdditionalToolsItemToolFunction) GetType() AdditionalToolsItemTypeFunct
 	return a.Type
 }
 
+func (a *AdditionalToolsItemToolFunction) GetAllowedCallers() optionalnullable.OptionalNullable[[]AdditionalToolsItemAllowedCaller] {
+	if a == nil {
+		return nil
+	}
+	return a.AllowedCallers
+}
+
 func (a *AdditionalToolsItemToolFunction) GetAsync() *bool {
 	if a == nil {
 		return nil
@@ -162,6 +193,13 @@ func (a *AdditionalToolsItemToolFunction) GetDeferLoading() *bool {
 		return nil
 	}
 	return a.DeferLoading
+}
+
+func (a *AdditionalToolsItemToolFunction) GetOutputSchema() optionalnullable.OptionalNullable[map[string]any] {
+	if a == nil {
+		return nil
+	}
+	return a.OutputSchema
 }
 
 type AdditionalToolsItemToolUnionType string

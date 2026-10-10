@@ -3205,6 +3205,8 @@ type MessagesRequest struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl      *AnthropicCacheControlDirective                      `json:"cache_control,omitzero"`
 	ContextManagement optionalnullable.OptionalNullable[ContextManagement] `json:"context_management,omitzero"`
+	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation; keep the catalog unchanged.
+	DeferredTools *DeferredToolsControl `json:"deferred_tools,omitzero"`
 	// Fallback models to try if the primary model fails or refuses, in order. Handled by OpenRouter multi-model routing rather than Anthropic server-side fallbacks; cannot be combined with `models`. Each entry accepts only `model`. Maximum of 3 entries.
 	Fallbacks optionalnullable.OptionalNullable[[]MessagesFallbackParam] `json:"fallbacks,omitzero"`
 	MaxTokens *int64                                                     `json:"max_tokens,omitzero"`
@@ -3263,6 +3265,13 @@ func (m *MessagesRequest) GetContextManagement() optionalnullable.OptionalNullab
 		return nil
 	}
 	return m.ContextManagement
+}
+
+func (m *MessagesRequest) GetDeferredTools() *DeferredToolsControl {
+	if m == nil {
+		return nil
+	}
+	return m.DeferredTools
 }
 
 func (m *MessagesRequest) GetFallbacks() optionalnullable.OptionalNullable[[]MessagesFallbackParam] {
