@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: a3bf0b7a8255ace2bb38b361081dc870
+  docChecksum: 9a4835c946f4bd9efb3e0631f163ae7e
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.41
-  configChecksum: 0baed5cf6fd5cd3d40c355f3e1f6f462
+  releaseVersion: 0.9.42
+  configChecksum: caa6ffc9409ba965d0aeb36afc4c046c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 8fc82ef9-0092-4cf5-b7da-6df293a80c94
-  pristine_commit_hash: a61e2a0cb9cbf470982132152e1aaff56c74b2b9
-  pristine_tree_hash: 9c4f95728fd891ace58da4e9e873f98ea87d519b
+  generation_id: 95abfa08-80f0-4a10-aa50-0eb0e116ee36
+  pristine_commit_hash: 96dcaa9193865f69686dcc30ca2047ce94ec0bcc
+  pristine_tree_hash: f88fd4d070c9bba8447d27281d9e20227e1e67da
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -13633,8 +13633,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:998fc816bbe65b127063b4ed3e5d1ec4b5411017
-    pristine_git_object: 37adc83fe223ce9fe08788d3df7f91d137f60bd8
+    last_write_checksum: sha1:c179eca4c368535b78fa765ed92cf858ea679efe
+    pristine_git_object: 941728a89ced7a7bfa15677be0f887c090844906
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17687,4 +17687,3 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Batch.CreateBatches()`:  `response.Results[].Response.Body` **Changed**\n* `OpenRouter.Batch.GetBatches()`:  `response.Results[].Response.Body` **Changed**\n* `OpenRouter.Chat.Send()`:  `request.ChatRequest` **Changed**\n* `OpenRouter.ApiKeys.GetCurrentKeyMetadata()`:  `response.Data` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`:  `request.ChatRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`:  `request.MessagesRequest` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`:  `request.ResponsesRequest` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`:  `response.ExpiresAt` **Added**\n* `OpenRouter.VideoGeneration.GetGeneration()`:  `response.ExpiresAt` **Added**\n"
