@@ -98,6 +98,10 @@ func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterApplyPatch() *Outp
 	return s.GetItem().OutputApplyPatchServerToolItem
 }
 
+func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterArmorBlocked() *OutputArmorBlockedItem {
+	return s.GetItem().OutputArmorBlockedItem
+}
+
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterBash() *OutputBashServerToolItem {
 	return s.GetItem().OutputBashServerToolItem
 }

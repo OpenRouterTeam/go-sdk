@@ -160,6 +160,12 @@ inputsUnion1 := components.CreateInputsUnion1OutputToolSearchServerToolItem(comp
 inputsUnion1 := components.CreateInputsUnion1OutputMemoryServerToolItem(components.OutputMemoryServerToolItem{/* values here */})
 ```
 
+### OutputArmorBlockedItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1OutputArmorBlockedItem(components.OutputArmorBlockedItem{/* values here */})
+```
+
 ### OutputMcpServerToolItem
 
 ```go
@@ -368,6 +374,8 @@ switch inputsUnion1.Type {
 		// inputsUnion1.OutputToolSearchServerToolItem is populated
 	case components.InputsUnion1TypeOutputMemoryServerToolItem:
 		// inputsUnion1.OutputMemoryServerToolItem is populated
+	case components.InputsUnion1TypeOutputArmorBlockedItem:
+		// inputsUnion1.OutputArmorBlockedItem is populated
 	case components.InputsUnion1TypeOutputMcpServerToolItem:
 		// inputsUnion1.OutputMcpServerToolItem is populated
 	case components.InputsUnion1TypeOutputSearchModelsServerToolItem:

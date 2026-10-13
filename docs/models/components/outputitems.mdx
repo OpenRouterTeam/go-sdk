@@ -67,6 +67,12 @@ outputItems := components.CreateOutputItemsOpenrouterAdvisor(components.OutputAd
 outputItems := components.CreateOutputItemsOpenrouterApplyPatch(components.OutputApplyPatchServerToolItem{/* values here */})
 ```
 
+### OutputArmorBlockedItem
+
+```go
+outputItems := components.CreateOutputItemsOpenrouterArmorBlocked(components.OutputArmorBlockedItem{/* values here */})
+```
+
 ### OutputBashServerToolItem
 
 ```go
@@ -225,6 +231,8 @@ switch outputItems.Type {
 		// outputItems.OutputAdvisorServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterApplyPatch:
 		// outputItems.OutputApplyPatchServerToolItem is populated
+	case components.OutputItemsTypeOpenrouterArmorBlocked:
+		// outputItems.OutputArmorBlockedItem is populated
 	case components.OutputItemsTypeOpenrouterBash:
 		// outputItems.OutputBashServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterBrowserUse:
