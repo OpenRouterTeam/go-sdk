@@ -50,6 +50,8 @@ type CreateObservabilityDestinationRequest struct {
 	APIKeyHashes optionalnullable.OptionalNullable[[]string] `json:"api_key_hashes,omitzero"`
 	// When true, include cost and billing generation metadata.
 	BroadcastGenerationCost *bool `default:"false" json:"broadcast_generation_cost"`
+	// Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+	BroadcastGenerationCostAllocation *bool `default:"false" json:"broadcast_generation_cost_allocation"`
 	// When true, include identity generation metadata.
 	BroadcastGenerationIdentity *bool `default:"false" json:"broadcast_generation_identity"`
 	// When true, include request-context generation metadata.
@@ -97,6 +99,13 @@ func (c *CreateObservabilityDestinationRequest) GetBroadcastGenerationCost() *bo
 		return nil
 	}
 	return c.BroadcastGenerationCost
+}
+
+func (c *CreateObservabilityDestinationRequest) GetBroadcastGenerationCostAllocation() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.BroadcastGenerationCostAllocation
 }
 
 func (c *CreateObservabilityDestinationRequest) GetBroadcastGenerationIdentity() *bool {
