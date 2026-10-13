@@ -103,11 +103,11 @@ func (e *SpeechRequestResponseFormat) IsExact() bool {
 
 // SpeechRequest - Text-to-speech request input
 type SpeechRequest struct {
-	// Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is currently supported by Gemini TTS models only.
+	// Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is supported by Gemini TTS models and by Fish Audio models other than S1.
 	Input SpeechInput `json:"input"`
 	// Reference content for stateless voice cloning or voice design. Audio mode: one to three `input_audio` parts, each optionally paired with a `text` part carrying its transcript (a single clip accepts its transcript before or after it; with multiple clips each transcript immediately follows its clip); only routed to endpoints that support voice cloning (and multiple references when more than one part is sent). Image mode: exactly one `image_url` part; only routed to endpoints that support image references. The two modes cannot be mixed. An empty array is treated as no reference.
 	InputReferences []SpeechInputReference `json:"input_references,omitzero"`
-	// Delivery instructions for the whole request, such as tone, pacing, or emotion. Supported by OpenAI gpt-4o-mini-tts and Gemini TTS models. Ignored by other providers.
+	// Delivery instructions for the whole request, such as tone, pacing, or emotion. Supported by OpenAI gpt-4o-mini-tts, Gemini TTS, and Fish Audio models. Ignored by other providers.
 	Instructions *string `json:"instructions,omitzero"`
 	// TTS model identifier
 	Model string `json:"model"`
