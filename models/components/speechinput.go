@@ -15,7 +15,7 @@ const (
 	SpeechInputTypeArrayOfSpeechTurn SpeechInputType = "arrayOfSpeechTurn"
 )
 
-// SpeechInput - Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is currently supported by Gemini TTS models only.
+// SpeechInput - Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is supported by Gemini TTS models and by Fish Audio models other than S1.
 type SpeechInput struct {
 	Str               *string      `queryParam:"inline" union:"member"`
 	ArrayOfSpeechTurn []SpeechTurn `queryParam:"inline" union:"member"`
