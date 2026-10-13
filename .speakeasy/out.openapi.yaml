@@ -9732,6 +9732,11 @@ components:
           description: 'When true, include cost and billing generation metadata.'
           example: false
           type: 'boolean'
+        broadcast_generation_cost_allocation:
+          default: false
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
+          example: false
+          type: 'boolean'
         broadcast_generation_identity:
           default: false
           description: 'When true, include identity generation metadata.'
@@ -9819,6 +9824,7 @@ components:
         data:
           api_key_hashes: null
           broadcast_generation_cost: false
+          broadcast_generation_cost_allocation: false
           broadcast_generation_identity: false
           broadcast_generation_request_context: false
           config:
@@ -12909,6 +12915,7 @@ components:
         data:
           api_key_hashes: null
           broadcast_generation_cost: false
+          broadcast_generation_cost_allocation: false
           broadcast_generation_identity: false
           broadcast_generation_request_context: false
           config:
@@ -16067,6 +16074,7 @@ components:
         data:
           - api_key_hashes: null
             broadcast_generation_cost: false
+            broadcast_generation_cost_allocation: false
             broadcast_generation_identity: false
             broadcast_generation_request_context: false
             config:
@@ -19157,6 +19165,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -19187,6 +19196,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -19281,6 +19294,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -19295,6 +19309,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -19324,6 +19339,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -19413,6 +19432,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -19427,6 +19447,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -19458,6 +19479,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -19560,6 +19585,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -19574,6 +19600,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -19603,6 +19630,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -19695,6 +19726,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -19747,6 +19779,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -19882,6 +19915,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -19911,6 +19945,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20000,6 +20038,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20014,6 +20053,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20043,6 +20083,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20132,6 +20176,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20146,6 +20191,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20175,6 +20221,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20268,6 +20318,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20282,6 +20333,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20310,6 +20362,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20399,6 +20455,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20413,6 +20470,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20442,6 +20500,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20532,6 +20594,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20546,6 +20609,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20573,6 +20637,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20654,6 +20722,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20668,6 +20737,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20696,6 +20766,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20781,6 +20855,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20795,6 +20870,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20823,6 +20899,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -20909,6 +20989,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -20923,6 +21004,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -20952,6 +21034,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -21057,6 +21143,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -21071,6 +21158,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -21099,6 +21187,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -21185,6 +21277,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -21199,6 +21292,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -21227,6 +21321,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -21331,6 +21429,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -21345,6 +21444,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -21375,6 +21475,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -21468,6 +21572,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -21482,6 +21587,7 @@ components:
       example:
         api_key_hashes: null
         broadcast_generation_cost: false
+        broadcast_generation_cost_allocation: false
         broadcast_generation_identity: false
         broadcast_generation_request_context: false
         config:
@@ -21509,6 +21615,10 @@ components:
             - 'null'
         broadcast_generation_cost:
           description: 'When true, include cost and billing generation metadata.'
+          example: false
+          type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
           example: false
           type: 'boolean'
         broadcast_generation_identity:
@@ -21596,6 +21706,7 @@ components:
         - 'enabled'
         - 'privacy_mode'
         - 'broadcast_generation_cost'
+        - 'broadcast_generation_cost_allocation'
         - 'broadcast_generation_identity'
         - 'broadcast_generation_request_context'
         - 'sampling_rate'
@@ -32136,6 +32247,10 @@ components:
           description: 'Whether to include cost and billing generation metadata.'
           example: false
           type: 'boolean'
+        broadcast_generation_cost_allocation:
+          description: 'Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.'
+          example: false
+          type: 'boolean'
         broadcast_generation_identity:
           description: 'Whether to include identity generation metadata.'
           example: false
@@ -32187,6 +32302,7 @@ components:
         data:
           api_key_hashes: null
           broadcast_generation_cost: false
+          broadcast_generation_cost_allocation: false
           broadcast_generation_identity: false
           broadcast_generation_request_context: false
           config:
@@ -46456,6 +46572,7 @@ paths:
                 data:
                   - api_key_hashes: null
                     broadcast_generation_cost: false
+                    broadcast_generation_cost_allocation: false
                     broadcast_generation_identity: false
                     broadcast_generation_request_context: false
                     config:
@@ -46547,6 +46664,7 @@ paths:
                 data:
                   api_key_hashes: null
                   broadcast_generation_cost: false
+                  broadcast_generation_cost_allocation: false
                   broadcast_generation_identity: false
                   broadcast_generation_request_context: false
                   config:
@@ -46700,6 +46818,7 @@ paths:
                 data:
                   api_key_hashes: null
                   broadcast_generation_cost: false
+                  broadcast_generation_cost_allocation: false
                   broadcast_generation_identity: false
                   broadcast_generation_request_context: false
                   config:
@@ -46785,6 +46904,7 @@ paths:
                 data:
                   api_key_hashes: null
                   broadcast_generation_cost: false
+                  broadcast_generation_cost_allocation: false
                   broadcast_generation_identity: false
                   broadcast_generation_request_context: false
                   config:

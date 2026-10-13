@@ -86,6 +86,8 @@ type ObservabilityDatadogDestination struct {
 	APIKeyHashes []string `json:"api_key_hashes"`
 	// When true, include cost and billing generation metadata.
 	BroadcastGenerationCost bool `json:"broadcast_generation_cost"`
+	// Beta. When true, include openrouter_cost_allocation: per-token-kind usage and cost, sent only when they reconcile with the billed cost.
+	BroadcastGenerationCostAllocation bool `json:"broadcast_generation_cost_allocation"`
 	// When true, include identity generation metadata.
 	BroadcastGenerationIdentity bool `json:"broadcast_generation_identity"`
 	// When true, include request-context generation metadata.
@@ -137,6 +139,13 @@ func (o *ObservabilityDatadogDestination) GetBroadcastGenerationCost() bool {
 		return false
 	}
 	return o.BroadcastGenerationCost
+}
+
+func (o *ObservabilityDatadogDestination) GetBroadcastGenerationCostAllocation() bool {
+	if o == nil {
+		return false
+	}
+	return o.BroadcastGenerationCostAllocation
 }
 
 func (o *ObservabilityDatadogDestination) GetBroadcastGenerationIdentity() bool {
