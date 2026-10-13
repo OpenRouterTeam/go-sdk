@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: f8fb2865d4b076a742f3cfff28d4ec32
+  docChecksum: 069bcca14d3a62001f0ba11d36dce75b
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.45
-  configChecksum: 77b5132e5221d4d368b76aa400c08f71
+  releaseVersion: 0.9.46
+  configChecksum: 5234b2153d5a8587de74cd14150a1a4d
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 309a64ef-fbf3-4994-a965-cf24e8e43dec
-  pristine_commit_hash: 33a53988105f69f72ba8685e766cd23e1b0606be
-  pristine_tree_hash: 951e39cdb73899b623752a67e81e36c3035fe482
+  generation_id: f07a796a-18da-407c-9a3d-1c328802bdae
+  pristine_commit_hash: aac9db69f628692ca88170ffbbcfc79a8600bbe5
+  pristine_tree_hash: 7f29f23fe35e0dc9029b21b6c565506aba60d74d
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -2565,8 +2565,8 @@ trackedFiles:
     pristine_git_object: 695800505a097a86cafe1ba60fd6faae6c19b861
   docs/models/components/createguardrailrequest.mdx:
     id: f2be013836bb
-    last_write_checksum: sha1:250e4e8d76ab1455dde1aa8390c160955317c820
-    pristine_git_object: 0190d43c237a0927e9c59f643eb80ab5f58a9017
+    last_write_checksum: sha1:b5cea9dda62ed8d8b0a128893c5314bc0030e202
+    pristine_git_object: f72b4769f7da18b37cc75f49bd91dee734b64bbd
   docs/models/components/createguardrailresponse.mdx:
     id: 71fa8e3f3541
     last_write_checksum: sha1:21cef45a4df2643a8eaa8fa19687048a2d80308b
@@ -3481,8 +3481,8 @@ trackedFiles:
     pristine_git_object: 0c18b6c7242ec163a11c89329f8207a9d9c66ef7
   docs/models/components/guardrail.mdx:
     id: f08bb1289d4f
-    last_write_checksum: sha1:5346467cbaff0655330781636d2c1cc1c5a3daad
-    pristine_git_object: 6a4bb0e54059a3a649b6fe1c6e8712ec94b96572
+    last_write_checksum: sha1:259d6b6471883641a113f9faac863fc9b6928431
+    pristine_git_object: ebd4985faa7af87564cdc308116d8c3fba399efb
   docs/models/components/guardraildataregion.mdx:
     id: fdec32c8c684
     last_write_checksum: sha1:6c48ad000a52c35e94916a498ffff6dcf168746b
@@ -7745,8 +7745,8 @@ trackedFiles:
     pristine_git_object: d17764d8fdde44127e08f8c7b656878286650c41
   docs/models/components/updateguardrailrequest.mdx:
     id: edddc69821ba
-    last_write_checksum: sha1:00f9fb40a556ee1e7eafa79285ec8057c8ce9efe
-    pristine_git_object: 06174c34e384e4c9ff53fd54df6ad2a462bae420
+    last_write_checksum: sha1:efe291bb2ac9cf57acf9b5aa2bf501f501213d18
+    pristine_git_object: 28ba3f714eeca0d100fccbf64ff2d1fb7f48a911
   docs/models/components/updateguardrailresponse.mdx:
     id: c4d79f6839a6
     last_write_checksum: sha1:25009ed6c148c0fbec500cc343fdf812e29b7b4e
@@ -10641,8 +10641,8 @@ trackedFiles:
     pristine_git_object: 196bd3776d4bb90eb951d2ae2bd5e8a795e060c3
   models/components/createguardrailrequest.go:
     id: a62ed1a0ae01
-    last_write_checksum: sha1:19a4ab6c590e871ecb00d98baea534e7b43fcc13
-    pristine_git_object: 74c60cebc70e788386b32f42a9ea2aa99f50a9e0
+    last_write_checksum: sha1:97331e9c7439f493288cd8b1cc09d156a6cc1e5c
+    pristine_git_object: a6c8638c645e01773f563aa644b603d15ff43daa
   models/components/createguardrailresponse.go:
     id: 65e5b5cb6746
     last_write_checksum: sha1:53c063df40ab8f40e29a1ed628f4537f21b1cf3f
@@ -11073,8 +11073,8 @@ trackedFiles:
     pristine_git_object: 89ffb3d964cb71352e08aadabe2394d1443160f9
   models/components/guardrail.go:
     id: 0a53b6641f18
-    last_write_checksum: sha1:2a0746961c824f88a736eda52171ae69e8f75d9c
-    pristine_git_object: 23edbbd222d7deb8eb2fbf3ee179a5415be01651
+    last_write_checksum: sha1:a3790d938850e7bd189d8a236356e47b67704176
+    pristine_git_object: d1a250a551f78c96e11483ffe3fdaa0f61964a46
   models/components/guardraildataregion.go:
     id: 3e9e61b3998c
     last_write_checksum: sha1:19d8f3ab37ee7e228509b1e18ce0130a1d77e621
@@ -12789,8 +12789,8 @@ trackedFiles:
     pristine_git_object: a18e8f8d4b8736c02b3ee028bda97511158ba145
   models/components/updateguardrailrequest.go:
     id: 0a41a686a6ba
-    last_write_checksum: sha1:06d416eec451ef38ef10e6cced6f5ab61c1bace7
-    pristine_git_object: e3d00d2d4930ee114c0611ccadaf11b6402e6ab9
+    last_write_checksum: sha1:e53aaaa35c0ecdf900eb257ef709f20e84135d3a
+    pristine_git_object: 2174aa9bf314a154effcb9c60b0988c8afd8a94d
   models/components/updateguardrailresponse.go:
     id: 5a3580ea8a15
     last_write_checksum: sha1:e17b7dc763b86b36d0ee259e888303506f220c9c
@@ -13649,8 +13649,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:20fccd42de83055e8190b17d16477077e6db1a3b
-    pristine_git_object: 55a2507b8491c74c19efbd6778a7b89e1fa8a7e6
+    last_write_checksum: sha1:b530e01362d342435d9215bec2d1eeedf4d480e0
+    pristine_git_object: 5b4067455f885022f7cf7c666589f583308f5af9
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17703,4 +17703,4 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].AllowSafetyRetentionGoogle` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.AllowSafetyRetentionGoogle` **Added**\n  *  `response.Data.AllowSafetyRetentionGoogle` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.AllowSafetyRetentionGoogle` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.AllowSafetyRetentionGoogle` **Added**\n  *  `response.Data.AllowSafetyRetentionGoogle` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].AllowSafetyRetentionOther` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.AllowSafetyRetentionOther` **Added**\n  *  `response.Data.AllowSafetyRetentionOther` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.AllowSafetyRetentionOther` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.AllowSafetyRetentionOther` **Added**\n  *  `response.Data.AllowSafetyRetentionOther` **Added**\n"
