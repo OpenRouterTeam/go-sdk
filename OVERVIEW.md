@@ -117,7 +117,7 @@ go get github.com/OpenRouterTeam/go-sdk
 For beta releases, pin an explicit version:
 
 ```bash
-go get github.com/OpenRouterTeam/go-sdk@v0.9.53
+go get github.com/OpenRouterTeam/go-sdk@v0.9.54
 ```
 
 **Requirements:** Go 1.25 or higher
