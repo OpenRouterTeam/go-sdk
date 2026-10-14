@@ -34,6 +34,8 @@ func (e *ChatResultObject) UnmarshalJSON(data []byte) error {
 
 // ChatResult - Chat completion response
 type ChatResult struct {
+	// Beta. The result of the alignment plugin for this request; the shape may change.
+	Alignment *Alignment `json:"alignment,omitzero"`
 	// List of completion choices
 	Choices []ChatChoice `json:"choices"`
 	// Unix timestamp of creation
@@ -61,6 +63,13 @@ func (c *ChatResult) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *ChatResult) GetAlignment() *Alignment {
+	if c == nil {
+		return nil
+	}
+	return c.Alignment
 }
 
 func (c *ChatResult) GetChoices() []ChatChoice {
