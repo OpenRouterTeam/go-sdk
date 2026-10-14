@@ -39,10 +39,13 @@ type VideoGenerationResponse struct {
 	// The generation ID associated with this video generation job. Available once the job has been processed.
 	GenerationID *string `json:"generation_id,omitzero"`
 	// The video job ID, in the `gen-vid-<timestamp>-<20 alphanumerics>` generation ID format. Pass it as `previous_job_id` to continue the generation.
-	ID           string                        `json:"id"`
-	PollingURL   string                        `json:"polling_url"`
-	Status       VideoGenerationResponseStatus `json:"status"`
-	UnsignedUrls []string                      `json:"unsigned_urls,omitzero"`
+	ID         string                        `json:"id"`
+	PollingURL string                        `json:"polling_url"`
+	Status     VideoGenerationResponseStatus `json:"status"`
+	// OpenRouter content URLs for each output. They need your API key in the `Authorization` header and keep working for as long as the output is available.
+	UnsignedUrls []string `json:"unsigned_urls,omitzero"`
+	// Signed download URLs for OpenRouter's stored copy of each output, usable without an API key until `expires_at`. Anyone holding a URL can download that output until it expires, so treat it like a secret. Present only when the stored copy exists.
+	Urls []string `json:"urls,omitzero"`
 	// Usage and cost information for the video generation. Available once the job has completed.
 	Usage *VideoGenerationUsage `json:"usage,omitzero"`
 }
@@ -105,6 +108,13 @@ func (v *VideoGenerationResponse) GetUnsignedUrls() []string {
 		return nil
 	}
 	return v.UnsignedUrls
+}
+
+func (v *VideoGenerationResponse) GetUrls() []string {
+	if v == nil {
+		return nil
+	}
+	return v.Urls
 }
 
 func (v *VideoGenerationResponse) GetUsage() *VideoGenerationUsage {

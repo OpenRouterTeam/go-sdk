@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 3ea1eff0157fd84ce1ea58d5412e91ae
+  docChecksum: fbd832ea0c258b2702acc43086806b15
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.50
-  configChecksum: 2d40a753fa0691c87ee02d078f345980
+  releaseVersion: 0.9.51
+  configChecksum: 5fd3ea4994f6cbdc588464377b6b6d9f
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 75aa92f0-bffe-47fe-bd8f-e33e71f7fea5
-  pristine_commit_hash: c49bc3a58fb258205293ec13da1c234b085e2e3f
-  pristine_tree_hash: 6bf39198a464fb4a85bf7619d1393800be5fdafd
+  generation_id: ba7dc51c-08a7-4538-9ec9-5bfdc7b4d217
+  pristine_commit_hash: 6903dbb1b600393d18fa79cb0b1912ef8e165f08
+  pristine_tree_hash: 5943a42e431216b84a21b6071f183d36f5fb2406
 features:
   go:
     acceptHeaders: 2.81.2
@@ -8033,8 +8033,8 @@ trackedFiles:
     pristine_git_object: c818c74c9c0ee41358835c5bafc54d306fe86ddc
   docs/models/components/videogenerationresponse.mdx:
     id: c34243f010f7
-    last_write_checksum: sha1:11a94d883f7b9927d0272f1c899e7e3d37f00a08
-    pristine_git_object: ca56e1334ab648ab195d4bd911db6652163d3421
+    last_write_checksum: sha1:4bf35188485f90c412310a87f61959d1a2cb6f9d
+    pristine_git_object: c5a295e39fe01cbac13d3c5c61db47da12f3e64c
   docs/models/components/videogenerationresponsestatus.mdx:
     id: 10a9a5c57135
     last_write_checksum: sha1:43a591bc7b6a286cce7f2192547897a2248a5720
@@ -13037,8 +13037,8 @@ trackedFiles:
     pristine_git_object: e273054d1342915655fd7cf4bbbe69088ca5d675
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
-    last_write_checksum: sha1:3f528a5dc8c5aea4dc4712ed4d6df69cc9fae9a5
-    pristine_git_object: 3a5544b0ef76a930f74fd7f59f96ef5feb8958e2
+    last_write_checksum: sha1:17d8e9f426ba771a35a1284972b8f3b07efecb85
+    pristine_git_object: ec29f35f13c06e7fd6a143f2295338b90f8c9d4e
   models/components/videogenerationusage.go:
     id: 87ab46b77bbf
     last_write_checksum: sha1:77faab3760c9778d5c4fa37cc6de9549cb3096be
@@ -13801,8 +13801,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:4562cb4d1051ba636a5500e911548a673f9f79ac
-    pristine_git_object: ebf9c62821203d65019cd951e3d65e5693630eac
+    last_write_checksum: sha1:c3b445164b26cea16216b4050dc6c5e5d1027d79
+    pristine_git_object: 9553f8212fb5175e941a633dc63f8e97bc693c21
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17865,4 +17865,7 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Batch.CreateBatches()`:  `response.Results[].Response.Body` **Changed**\n* `OpenRouter.Batch.GetBatches()`:  `response.Results[].Response.Body` **Changed**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Plugins[].union(armor)` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Plugins[].union(armor)` **Added**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Plugins[].union(armor)` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Plugins[].union(armor)` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(armor)` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Plugins[].union(armor)` **Added**\n  *  `response` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.VideoGeneration.Generate()`:  `response.Urls` **Added**
+  * `OpenRouter.VideoGeneration.GetGeneration()`:  `response.Urls` **Added**
