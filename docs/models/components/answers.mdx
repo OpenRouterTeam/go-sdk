@@ -2,10 +2,16 @@
 title: "Answers"
 ---
 
-A Decisions answer using a boolean, choice, or score evaluation.
+A Decisions answer using a boolean, choice, score, or image bounding-box evaluation.
 
 
 ## Supported Types
+
+### DecisionsBoxAnswer
+
+```go
+answers := components.CreateAnswersBox(components.DecisionsBoxAnswer{/* values here */})
+```
 
 ### DecisionsChoiceAnswer
 
@@ -31,6 +37,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch answers.Type {
+	case components.AnswersTypeBox:
+		// answers.DecisionsBoxAnswer is populated
 	case components.AnswersTypeChoice:
 		// answers.DecisionsChoiceAnswer is populated
 	case components.AnswersTypeNoul:

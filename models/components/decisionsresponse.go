@@ -12,20 +12,34 @@ import (
 type AnswersType string
 
 const (
+	AnswersTypeBox     AnswersType = "box"
 	AnswersTypeChoice  AnswersType = "choice"
 	AnswersTypeNoul    AnswersType = "noul"
 	AnswersTypeScore   AnswersType = "score"
 	AnswersTypeUnknown AnswersType = "UNKNOWN"
 )
 
-// Answers - A Decisions answer using a boolean, choice, or score evaluation.
+// Answers - A Decisions answer using a boolean, choice, score, or image bounding-box evaluation.
 type Answers struct {
 	DecisionsNoulAnswer   *DecisionsNoulAnswer   `queryParam:"inline" union:"member"`
 	DecisionsChoiceAnswer *DecisionsChoiceAnswer `queryParam:"inline" union:"member"`
 	DecisionsScoreAnswer  *DecisionsScoreAnswer  `queryParam:"inline" union:"member"`
+	DecisionsBoxAnswer    *DecisionsBoxAnswer    `queryParam:"inline" union:"member"`
 	UnknownRaw            json.RawMessage        `json:"-" union:"unknown"`
 
 	Type AnswersType
+}
+
+func CreateAnswersBox(box DecisionsBoxAnswer) Answers {
+	typ := AnswersTypeBox
+
+	typStr := DecisionsBoxAnswerType(typ)
+	box.Type = typStr
+
+	return Answers{
+		DecisionsBoxAnswer: &box,
+		Type:               typ,
+	}
 }
 
 func CreateAnswersChoice(choice DecisionsChoiceAnswer) Answers {
@@ -98,6 +112,15 @@ func (u *Answers) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.Type {
+	case "box":
+		decisionsBoxAnswer := new(DecisionsBoxAnswer)
+		if err := utils.UnmarshalJSON(data, &decisionsBoxAnswer, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == box) type DecisionsBoxAnswer within Answers: %w", string(data), err)
+		}
+
+		u.DecisionsBoxAnswer = decisionsBoxAnswer
+		u.Type = AnswersTypeBox
+		return nil
 	case "choice":
 		decisionsChoiceAnswer := new(DecisionsChoiceAnswer)
 		if err := utils.UnmarshalJSON(data, &decisionsChoiceAnswer, "", true, nil); err != nil {
@@ -144,6 +167,10 @@ func (u Answers) MarshalJSON() ([]byte, error) {
 
 	if u.DecisionsScoreAnswer != nil {
 		return utils.MarshalJSON(u.DecisionsScoreAnswer, "", true)
+	}
+
+	if u.DecisionsBoxAnswer != nil {
+		return utils.MarshalJSON(u.DecisionsBoxAnswer, "", true)
 	}
 
 	if u.UnknownRaw != nil {

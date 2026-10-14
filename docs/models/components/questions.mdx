@@ -2,10 +2,16 @@
 title: "Questions"
 ---
 
-A Decisions question using a boolean, choice, or ordered score evaluation.
+A Decisions question using a boolean, choice, ordered score, or image bounding-box evaluation.
 
 
 ## Supported Types
+
+### DecisionsBoxQuestion
+
+```go
+questions := components.CreateQuestionsBox(components.DecisionsBoxQuestion{/* values here */})
+```
 
 ### DecisionsChoiceQuestion
 
@@ -31,6 +37,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch questions.Type {
+	case components.QuestionsTypeBox:
+		// questions.DecisionsBoxQuestion is populated
 	case components.QuestionsTypeChoice:
 		// questions.DecisionsChoiceQuestion is populated
 	case components.QuestionsTypeNoul:

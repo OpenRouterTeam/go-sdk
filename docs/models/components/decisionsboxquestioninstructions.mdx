@@ -1,0 +1,41 @@
+---
+title: "DecisionsBoxQuestionInstructions"
+---
+
+A plain string, or a JSON object or array of structured guidance.
+
+
+## Supported Types
+
+### 
+
+```go
+decisionsBoxQuestionInstructions := components.CreateDecisionsBoxQuestionInstructionsStr(string{/* values here */})
+```
+
+### 
+
+```go
+decisionsBoxQuestionInstructions := components.CreateDecisionsBoxQuestionInstructionsMapOfAny(map[string]any{/* values here */})
+```
+
+### 
+
+```go
+decisionsBoxQuestionInstructions := components.CreateDecisionsBoxQuestionInstructionsArrayOfAny([]any{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch decisionsBoxQuestionInstructions.Type {
+	case components.DecisionsBoxQuestionInstructionsTypeStr:
+		// decisionsBoxQuestionInstructions.Str is populated
+	case components.DecisionsBoxQuestionInstructionsTypeMapOfAny:
+		// decisionsBoxQuestionInstructions.MapOfAny is populated
+	case components.DecisionsBoxQuestionInstructionsTypeArrayOfAny:
+		// decisionsBoxQuestionInstructions.ArrayOfAny is populated
+}
+```
