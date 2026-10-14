@@ -2,26 +2,29 @@
 title: "Environment"
 ---
 
-## Example Usage
+## Supported Types
+
+### 
 
 ```go
-import (
-	"github.com/OpenRouterTeam/go-sdk/models/components"
-)
-
-value := components.EnvironmentWindows
-
-// Open enum: custom values can be created with a direct type cast
-custom := components.Environment("custom_value")
+environment := components.CreateEnvironmentStr(string{/* values here */})
 ```
 
+### ArmorEnvironmentEntry
 
-## Values
+```go
+environment := components.CreateEnvironmentArmorEnvironmentEntry(components.ArmorEnvironmentEntry{/* values here */})
+```
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `EnvironmentWindows` | windows              |
-| `EnvironmentMac`     | mac                  |
-| `EnvironmentLinux`   | linux                |
-| `EnvironmentUbuntu`  | ubuntu               |
-| `EnvironmentBrowser` | browser              |
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch environment.Type {
+	case components.EnvironmentTypeStr:
+		// environment.Str is populated
+	case components.EnvironmentTypeArmorEnvironmentEntry:
+		// environment.ArmorEnvironmentEntry is populated
+}
+```

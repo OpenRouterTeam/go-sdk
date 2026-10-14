@@ -8,22 +8,22 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type Environment string
+type EnvironmentEnum string
 
 const (
-	EnvironmentWindows Environment = "windows"
-	EnvironmentMac     Environment = "mac"
-	EnvironmentLinux   Environment = "linux"
-	EnvironmentUbuntu  Environment = "ubuntu"
-	EnvironmentBrowser Environment = "browser"
+	EnvironmentEnumWindows EnvironmentEnum = "windows"
+	EnvironmentEnumMac     EnvironmentEnum = "mac"
+	EnvironmentEnumLinux   EnvironmentEnum = "linux"
+	EnvironmentEnumUbuntu  EnvironmentEnum = "ubuntu"
+	EnvironmentEnumBrowser EnvironmentEnum = "browser"
 )
 
-func (e Environment) ToPointer() *Environment {
+func (e EnvironmentEnum) ToPointer() *EnvironmentEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Environment) IsExact() bool {
+func (e *EnvironmentEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "windows", "mac", "linux", "ubuntu", "browser":
@@ -60,7 +60,7 @@ func (e *ComputerUseServerToolType) UnmarshalJSON(data []byte) error {
 type ComputerUseServerTool struct {
 	DisplayHeight int64                     `json:"display_height"`
 	DisplayWidth  int64                     `json:"display_width"`
-	Environment   Environment               `json:"environment"`
+	Environment   EnvironmentEnum           `json:"environment"`
 	Type          ComputerUseServerToolType `json:"type"`
 }
 
@@ -89,9 +89,9 @@ func (c *ComputerUseServerTool) GetDisplayWidth() int64 {
 	return c.DisplayWidth
 }
 
-func (c *ComputerUseServerTool) GetEnvironment() Environment {
+func (c *ComputerUseServerTool) GetEnvironment() EnvironmentEnum {
 	if c == nil {
-		return Environment("")
+		return EnvironmentEnum("")
 	}
 	return c.Environment
 }

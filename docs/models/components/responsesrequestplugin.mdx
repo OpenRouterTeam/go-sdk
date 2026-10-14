@@ -10,6 +10,12 @@ title: "ResponsesRequestPlugin"
 responsesRequestPlugin := components.CreateResponsesRequestPluginAlignment(components.AlignmentPlugin{/* values here */})
 ```
 
+### ArmorPlugin
+
+```go
+responsesRequestPlugin := components.CreateResponsesRequestPluginArmor(components.ArmorPlugin{/* values here */})
+```
+
 ### AutoBetaRouterPlugin
 
 ```go
@@ -90,6 +96,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch responsesRequestPlugin.Type {
 	case components.ResponsesRequestPluginTypeAlignment:
 		// responsesRequestPlugin.AlignmentPlugin is populated
+	case components.ResponsesRequestPluginTypeArmor:
+		// responsesRequestPlugin.ArmorPlugin is populated
 	case components.ResponsesRequestPluginTypeAutoBetaRouter:
 		// responsesRequestPlugin.AutoBetaRouterPlugin is populated
 	case components.ResponsesRequestPluginTypeAutoRouter:

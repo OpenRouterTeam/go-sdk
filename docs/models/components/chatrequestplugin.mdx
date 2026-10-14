@@ -10,6 +10,12 @@ title: "ChatRequestPlugin"
 chatRequestPlugin := components.CreateChatRequestPluginAlignment(components.AlignmentPlugin{/* values here */})
 ```
 
+### ArmorPlugin
+
+```go
+chatRequestPlugin := components.CreateChatRequestPluginArmor(components.ArmorPlugin{/* values here */})
+```
+
 ### AutoBetaRouterPlugin
 
 ```go
@@ -90,6 +96,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch chatRequestPlugin.Type {
 	case components.ChatRequestPluginTypeAlignment:
 		// chatRequestPlugin.AlignmentPlugin is populated
+	case components.ChatRequestPluginTypeArmor:
+		// chatRequestPlugin.ArmorPlugin is populated
 	case components.ChatRequestPluginTypeAutoBetaRouter:
 		// chatRequestPlugin.AutoBetaRouterPlugin is populated
 	case components.ChatRequestPluginTypeAutoRouter:
