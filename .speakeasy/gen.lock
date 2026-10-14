@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: e851d3708c03a299eccaab55cced9a66
+  docChecksum: 9f6c4f254465171565456f10a96842fb
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.52
-  configChecksum: 5792e9af27bea6d223a883aeaaa627ee
+  releaseVersion: 0.9.53
+  configChecksum: 9699fac6bc359cb22e9eb1250a28ed59
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: beabf9e9-2d02-404d-a40a-8655dd0ad321
-  pristine_commit_hash: 81033815b6cab48b9a76e54f9e1a677bb27801a5
-  pristine_tree_hash: a0efc2624659bca79f235a0068ce46775705ba6d
+  generation_id: 5b83872b-dfff-49ff-b8ba-1b2b6fe95aa3
+  pristine_commit_hash: 26c87d00b2aa01b529706da356aa8dbbdddcea21
+  pristine_tree_hash: 82feb10d0ca10ddc62c2b3258a2c39175ddfff1e
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
-    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
+    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
+    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -9513,8 +9513,8 @@ trackedFiles:
     pristine_git_object: 796f1e5d99085cd64238a0c32d9752d30eebbf2a
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
-    last_write_checksum: sha1:84440b4428e4765e8192527d871da8aed3c48453
-    pristine_git_object: 6f0e6fdda307ec757cba9b92fa6efc2112320595
+    last_write_checksum: sha1:670a7015896135efc180ad42f38f9f59ff2a0b5d
+    pristine_git_object: 7072de29b0810a6419c710903968fd885f316cfa
   docs/sdks/images/README.mdx:
     id: 534a6c102c4f
     last_write_checksum: sha1:fef3a5f9d92e1b02098a1555dbaacecf48c73fb0
@@ -9621,8 +9621,8 @@ trackedFiles:
     pristine_git_object: eae78f3c2cd96ed8cefd70602553933b59bd1fd7
   guardrails.go:
     id: eb364a316712
-    last_write_checksum: sha1:bccd97c0e57db655a6c9181b3a23bd7b6f0f61aa
-    pristine_git_object: e710537a9e9198ae0f0bddd753d3b2db10ae1088
+    last_write_checksum: sha1:ed896f705c3b39a5fe0f4519b82a1dfe96cbacb6
+    pristine_git_object: 0ea93087854e55eab37c2575e02e61057b72aea1
   images.go:
     id: d0bc8e6fab7e
     last_write_checksum: sha1:c9af5f01aba5c6a9e23f179d8f57adc1ebfd66b3
@@ -13801,8 +13801,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:319c43cdbe3f3b09b1aceeecc99a4fee2029cb76
-    pristine_git_object: a324c793147f1dbe27abe5dcd29962faaec1bff1
+    last_write_checksum: sha1:f1792de4f7f1ef99f265a5471f6e9c37453ebe23
+    pristine_git_object: 777cb35e1a366d46a2a17ae0e1a8cf6d9919ddd0
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14339,6 +14339,10 @@ examples:
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
   listMemberAssignments:
     speakeasy-default-list-member-assignments:
       parameters:
@@ -14352,6 +14356,10 @@ examples:
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
   listGuardrailKeyAssignments:
     speakeasy-default-list-guardrail-key-assignments:
       parameters:
@@ -17867,5 +17875,5 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].SupportsDiarization` **Added**
-  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].SupportsDiarization` **Added**
+  * `OpenRouter.Guardrails.ListKeyAssignments()`:  `error` **Changed**
+  * `OpenRouter.Guardrails.ListMemberAssignments()`:  `error` **Changed**
