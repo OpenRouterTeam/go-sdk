@@ -27137,7 +27137,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27157,7 +27157,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27177,7 +27177,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27197,7 +27197,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27217,7 +27217,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27237,7 +27237,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27257,7 +27257,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27277,7 +27277,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27297,7 +27297,7 @@ components:
                 throughput:
                   allOf:
                     - $ref: '#/components/schemas/PercentileStats'
-                    - description: 'Throughput percentiles in tokens per second. Only meaningful for text generation; null for workloads without token throughput.'
+                    - description: 'Throughput percentiles in tokens per second; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only meaningful for text generation; null for workloads without token throughput.'
               required:
                 - 'latency'
                 - 'throughput'
@@ -27394,7 +27394,7 @@ components:
         throughput_last_30m:
           allOf:
             - $ref: '#/components/schemas/PercentileStats'
-            - description: 'Throughput percentiles in tokens per second over the last 30 minutes. Throughput measures output token generation speed. Only visible when authenticated with an API key or cookie; returns null for unauthenticated requests.'
+            - description: 'Throughput percentiles in tokens per second over the last 30 minutes. Throughput measures output token generation speed; pN is the speed that N% of requests reached or exceeded, so p90 is lower than p50. Only visible when authenticated with an API key or cookie; returns null for unauthenticated requests.'
         uptime_last_1d:
           description: 'Uptime percentage over the last day: the share of minutes in which at least 80% of provider attempts succeeded, counting only minutes with 10 or more attempts. Rate-limited and caller-caused failures are excluded. Null when no minute had enough traffic.'
           format: 'double'

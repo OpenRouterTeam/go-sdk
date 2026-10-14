@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 069bcca14d3a62001f0ba11d36dce75b
+  docChecksum: 13db76e9b9a1f677d17ef8fd5665661f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.46
-  configChecksum: 5234b2153d5a8587de74cd14150a1a4d
+  releaseVersion: 0.9.47
+  configChecksum: 740d38a82ddff2dd1d7ad94bd994921c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f07a796a-18da-407c-9a3d-1c328802bdae
-  pristine_commit_hash: aac9db69f628692ca88170ffbbcfc79a8600bbe5
-  pristine_tree_hash: 7f29f23fe35e0dc9029b21b6c565506aba60d74d
+  generation_id: 0f5acecc-d9c8-47f8-8b79-0fbee6cef3d5
+  pristine_commit_hash: ff5e2a368b48d41bbdfa0060626e6db7c8aa80dd
+  pristine_tree_hash: acbc8f04435917f0d74f94cf7e25ffca901dd770
 features:
   go:
     acceptHeaders: 2.81.2
@@ -13649,8 +13649,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:b530e01362d342435d9215bec2d1eeedf4d480e0
-    pristine_git_object: 5b4067455f885022f7cf7c666589f583308f5af9
+    last_write_checksum: sha1:a06a1dbaba56c5ad77a2c1537c0254af7f6da23f
+    pristine_git_object: 585f83a3e33cc69886e99a2542ff71e2d0452e65
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17703,4 +17703,3 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].AllowSafetyRetentionOther` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.AllowSafetyRetentionOther` **Added**\n  *  `response.Data.AllowSafetyRetentionOther` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.AllowSafetyRetentionOther` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.AllowSafetyRetentionOther` **Added**\n  *  `response.Data.AllowSafetyRetentionOther` **Added**\n"
