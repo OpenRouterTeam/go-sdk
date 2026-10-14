@@ -98,6 +98,7 @@ func (e *ChatStreamChunkObject) UnmarshalJSON(data []byte) error {
 
 // ChatStreamChunk - Streaming chat completion chunk
 type ChatStreamChunk struct {
+	Alignment *Alignment `json:"alignment,omitzero"`
 	// List of streaming chunk choices
 	Choices []ChatStreamChoice `json:"choices"`
 	// Unix timestamp of creation
@@ -127,6 +128,13 @@ func (c *ChatStreamChunk) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *ChatStreamChunk) GetAlignment() *Alignment {
+	if c == nil {
+		return nil
+	}
+	return c.Alignment
 }
 
 func (c *ChatStreamChunk) GetChoices() []ChatStreamChoice {
