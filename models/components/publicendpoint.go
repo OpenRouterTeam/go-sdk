@@ -539,6 +539,8 @@ type PublicEndpoint struct {
 	Quantization          *Quantization          `json:"quantization"`
 	Status                *EndpointStatus        `json:"status,omitzero"`
 	SupportedParameters   []Parameter            `json:"supported_parameters"`
+	// Whether this STT endpoint can label each transcript segment with a speaker (speaker diarization). False when the endpoint has not declared support.
+	SupportsDiarization bool `json:"supports_diarization"`
 	// Whether this TTS endpoint accepts an `image_url` reference describing the desired voice. Requests carrying an image reference are only routed to endpoints where this is true.
 	SupportsImageReference  *bool `default:"false" json:"supports_image_reference"`
 	SupportsImplicitCaching bool  `json:"supports_implicit_caching"`
@@ -664,6 +666,13 @@ func (p *PublicEndpoint) GetSupportedParameters() []Parameter {
 		return []Parameter{}
 	}
 	return p.SupportedParameters
+}
+
+func (p *PublicEndpoint) GetSupportsDiarization() bool {
+	if p == nil {
+		return false
+	}
+	return p.SupportsDiarization
 }
 
 func (p *PublicEndpoint) GetSupportsImageReference() *bool {
