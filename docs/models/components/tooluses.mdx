@@ -1,0 +1,40 @@
+---
+title: "ToolUses"
+---
+
+## Supported Types
+
+### ToolUsesEvaluated
+
+```go
+toolUses := components.CreateToolUsesEvaluated(components.ToolUsesEvaluated{/* values here */})
+```
+
+### ToolUsesSkipped
+
+```go
+toolUses := components.CreateToolUsesSkipped(components.ToolUsesSkipped{/* values here */})
+```
+
+### ToolUsesUnavailable
+
+```go
+toolUses := components.CreateToolUsesUnavailable(components.ToolUsesUnavailable{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch toolUses.Type {
+	case components.ToolUsesTypeEvaluated:
+		// toolUses.ToolUsesEvaluated is populated
+	case components.ToolUsesTypeSkipped:
+		// toolUses.ToolUsesSkipped is populated
+	case components.ToolUsesTypeUnavailable:
+		// toolUses.ToolUsesUnavailable is populated
+	default:
+		// Unknown type - use toolUses.GetUnknownRaw() for raw JSON
+}
+```

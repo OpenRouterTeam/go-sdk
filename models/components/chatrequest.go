@@ -37,6 +37,7 @@ type ChatRequestPluginType string
 
 const (
 	ChatRequestPluginTypeAlignment          ChatRequestPluginType = "alignment"
+	ChatRequestPluginTypeArmor              ChatRequestPluginType = "armor"
 	ChatRequestPluginTypeAutoBetaRouter     ChatRequestPluginType = "auto-beta-router"
 	ChatRequestPluginTypeAutoRouter         ChatRequestPluginType = "auto-router"
 	ChatRequestPluginTypeContextCompression ChatRequestPluginType = "context-compression"
@@ -65,6 +66,7 @@ type ChatRequestPlugin struct {
 	SwitchyardRouterPlugin   *SwitchyardRouterPlugin   `queryParam:"inline" union:"member"`
 	JevRouterPlugin          *JevRouterPlugin          `queryParam:"inline" union:"member"`
 	AlignmentPlugin          *AlignmentPlugin          `queryParam:"inline" union:"member"`
+	ArmorPlugin              *ArmorPlugin              `queryParam:"inline" union:"member"`
 
 	Type ChatRequestPluginType
 }
@@ -78,6 +80,18 @@ func CreateChatRequestPluginAlignment(alignment AlignmentPlugin) ChatRequestPlug
 	return ChatRequestPlugin{
 		AlignmentPlugin: &alignment,
 		Type:            typ,
+	}
+}
+
+func CreateChatRequestPluginArmor(armor ArmorPlugin) ChatRequestPlugin {
+	typ := ChatRequestPluginTypeArmor
+
+	typStr := ArmorPluginID(typ)
+	armor.ID = typStr
+
+	return ChatRequestPlugin{
+		ArmorPlugin: &armor,
+		Type:        typ,
 	}
 }
 
@@ -246,6 +260,15 @@ func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
 		u.AlignmentPlugin = alignmentPlugin
 		u.Type = ChatRequestPluginTypeAlignment
 		return nil
+	case "armor":
+		armorPlugin := new(ArmorPlugin)
+		if err := utils.UnmarshalJSON(data, &armorPlugin, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == armor) type ArmorPlugin within ChatRequestPlugin: %w", string(data), err)
+		}
+
+		u.ArmorPlugin = armorPlugin
+		u.Type = ChatRequestPluginTypeArmor
+		return nil
 	case "auto-beta-router":
 		autoBetaRouterPlugin := new(AutoBetaRouterPlugin)
 		if err := utils.UnmarshalJSON(data, &autoBetaRouterPlugin, "", true, nil); err != nil {
@@ -410,6 +433,10 @@ func (u ChatRequestPlugin) MarshalJSON() ([]byte, error) {
 
 	if u.AlignmentPlugin != nil {
 		return utils.MarshalJSON(u.AlignmentPlugin, "", true)
+	}
+
+	if u.ArmorPlugin != nil {
+		return utils.MarshalJSON(u.ArmorPlugin, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ChatRequestPlugin: all fields are null")

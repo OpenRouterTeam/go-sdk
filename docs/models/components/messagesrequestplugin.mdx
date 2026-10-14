@@ -10,6 +10,12 @@ title: "MessagesRequestPlugin"
 messagesRequestPlugin := components.CreateMessagesRequestPluginAlignment(components.AlignmentPlugin{/* values here */})
 ```
 
+### ArmorPlugin
+
+```go
+messagesRequestPlugin := components.CreateMessagesRequestPluginArmor(components.ArmorPlugin{/* values here */})
+```
+
 ### AutoBetaRouterPlugin
 
 ```go
@@ -90,6 +96,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch messagesRequestPlugin.Type {
 	case components.MessagesRequestPluginTypeAlignment:
 		// messagesRequestPlugin.AlignmentPlugin is populated
+	case components.MessagesRequestPluginTypeArmor:
+		// messagesRequestPlugin.ArmorPlugin is populated
 	case components.MessagesRequestPluginTypeAutoBetaRouter:
 		// messagesRequestPlugin.AutoBetaRouterPlugin is populated
 	case components.MessagesRequestPluginTypeAutoRouter:

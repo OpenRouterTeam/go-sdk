@@ -1,0 +1,30 @@
+---
+title: "HardDeny"
+---
+
+## Supported Types
+
+### 
+
+```go
+hardDeny := components.CreateHardDenyStr(string{/* values here */})
+```
+
+### ArmorRule
+
+```go
+hardDeny := components.CreateHardDenyArmorRule(components.ArmorRule{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch hardDeny.Type {
+	case components.HardDenyTypeStr:
+		// hardDeny.Str is populated
+	case components.HardDenyTypeArmorRule:
+		// hardDeny.ArmorRule is populated
+}
+```

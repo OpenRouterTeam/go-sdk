@@ -46,6 +46,8 @@ type ChatResult struct {
 	Model              string              `json:"model"`
 	Object             ChatResultObject    `json:"object"`
 	OpenrouterMetadata *OpenRouterMetadata `json:"openrouter_metadata,omitzero"`
+	// OpenRouter Armor's verdict for each client tool call of this response, present whenever Armor evaluated the response (even when nothing was flagged). Independent of the `openrouter_metadata` opt-in.
+	SafeguardResults []ArmorSafeguardResult `json:"safeguard_results,omitzero"`
 	// The service tier used by the upstream provider for this request
 	ServiceTier optionalnullable.OptionalNullable[string] `json:"service_tier,omitzero"`
 	// System fingerprint
@@ -112,6 +114,13 @@ func (c *ChatResult) GetOpenrouterMetadata() *OpenRouterMetadata {
 		return nil
 	}
 	return c.OpenrouterMetadata
+}
+
+func (c *ChatResult) GetSafeguardResults() []ArmorSafeguardResult {
+	if c == nil {
+		return nil
+	}
+	return c.SafeguardResults
 }
 
 func (c *ChatResult) GetServiceTier() optionalnullable.OptionalNullable[string] {

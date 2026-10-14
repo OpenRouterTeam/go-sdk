@@ -2534,9 +2534,11 @@ type BodyChatCompletion struct {
 	Object             BodyObjectChatCompletion                  `json:"object"`
 	OpenrouterMetadata *OpenRouterMetadata                       `json:"openrouter_metadata,omitzero"`
 	Provider           optionalnullable.OptionalNullable[string] `json:"provider,omitzero"`
-	ServiceTier        optionalnullable.OptionalNullable[string] `json:"service_tier,omitzero"`
-	SystemFingerprint  optionalnullable.OptionalNullable[string] `json:"system_fingerprint,omitzero"`
-	Usage              *BodyUsage1                               `json:"usage,omitzero"`
+	// OpenRouter Armor's verdict for each client tool call of this response, present whenever Armor evaluated the response (even when nothing was flagged). Independent of the `openrouter_metadata` opt-in.
+	SafeguardResults  []ArmorSafeguardResult                    `json:"safeguard_results,omitzero"`
+	ServiceTier       optionalnullable.OptionalNullable[string] `json:"service_tier,omitzero"`
+	SystemFingerprint optionalnullable.OptionalNullable[string] `json:"system_fingerprint,omitzero"`
+	Usage             *BodyUsage1                               `json:"usage,omitzero"`
 }
 
 func (b BodyChatCompletion) MarshalJSON() ([]byte, error) {
@@ -2611,6 +2613,13 @@ func (b *BodyChatCompletion) GetProvider() optionalnullable.OptionalNullable[str
 		return nil
 	}
 	return b.Provider
+}
+
+func (b *BodyChatCompletion) GetSafeguardResults() []ArmorSafeguardResult {
+	if b == nil {
+		return nil
+	}
+	return b.SafeguardResults
 }
 
 func (b *BodyChatCompletion) GetServiceTier() optionalnullable.OptionalNullable[string] {

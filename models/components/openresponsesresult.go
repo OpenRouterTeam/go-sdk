@@ -868,6 +868,8 @@ type OpenResponsesResult struct {
 	// Canonical OpenRouter error type, stable across all API formats
 	ErrorType          *APIErrorType       `json:"error_type,omitzero"`
 	OpenrouterMetadata *OpenRouterMetadata `json:"openrouter_metadata,omitzero"`
+	// OpenRouter Armor's verdict for each client tool call of this response, present whenever Armor evaluated the response (even when nothing was flagged). Independent of the `openrouter_metadata` opt-in.
+	SafeguardResults []ArmorSafeguardResult `json:"safeguard_results,omitzero"`
 }
 
 func (o OpenResponsesResult) MarshalJSON() ([]byte, error) {
@@ -1145,4 +1147,11 @@ func (o *OpenResponsesResult) GetOpenrouterMetadata() *OpenRouterMetadata {
 		return nil
 	}
 	return o.OpenrouterMetadata
+}
+
+func (o *OpenResponsesResult) GetSafeguardResults() []ArmorSafeguardResult {
+	if o == nil {
+		return nil
+	}
+	return o.SafeguardResults
 }
