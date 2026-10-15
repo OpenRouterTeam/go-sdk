@@ -537,8 +537,10 @@ type PublicEndpoint struct {
 	Pricing               Pricing                `json:"pricing"`
 	ProviderName          ProviderName           `json:"provider_name"`
 	Quantization          *Quantization          `json:"quantization"`
-	Status                *EndpointStatus        `json:"status,omitzero"`
-	SupportedParameters   []Parameter            `json:"supported_parameters"`
+	// The service tier this endpoint sells, or null for a standard endpoint. The same value whether the provider selects the tier with a request parameter or with a dedicated model id. Always the canonical tier: priority covers the fast request alias and the turbo, highspeed, and prime provider model-id spellings, none of which this field reports.
+	ServiceTier         *PublicServiceTier `json:"service_tier"`
+	Status              *EndpointStatus    `json:"status,omitzero"`
+	SupportedParameters []Parameter        `json:"supported_parameters"`
 	// Whether this STT endpoint can label each transcript segment with a speaker (speaker diarization). False when the endpoint has not declared support.
 	SupportsDiarization bool `json:"supports_diarization"`
 	// Whether this TTS endpoint accepts an `image_url` reference describing the desired voice. Requests carrying an image reference are only routed to endpoints where this is true.
@@ -652,6 +654,13 @@ func (p *PublicEndpoint) GetQuantization() *Quantization {
 		return nil
 	}
 	return p.Quantization
+}
+
+func (p *PublicEndpoint) GetServiceTier() *PublicServiceTier {
+	if p == nil {
+		return nil
+	}
+	return p.ServiceTier
 }
 
 func (p *PublicEndpoint) GetStatus() *EndpointStatus {
