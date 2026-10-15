@@ -501,6 +501,96 @@ func (e *ResponsesRequestServiceTier) IsExact() bool {
 	return false
 }
 
+type ResponsesRequestStopType string
+
+const (
+	ResponsesRequestStopTypeStr        ResponsesRequestStopType = "str"
+	ResponsesRequestStopTypeArrayOfStr ResponsesRequestStopType = "arrayOfStr"
+)
+
+// ResponsesRequestStop - Stop sequences (up to 4)
+type ResponsesRequestStop struct {
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
+
+	Type ResponsesRequestStopType
+}
+
+func CreateResponsesRequestStopStr(str string) ResponsesRequestStop {
+	typ := ResponsesRequestStopTypeStr
+
+	return ResponsesRequestStop{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateResponsesRequestStopArrayOfStr(arrayOfStr []string) ResponsesRequestStop {
+	typ := ResponsesRequestStopTypeArrayOfStr
+
+	return ResponsesRequestStop{
+		ArrayOfStr: arrayOfStr,
+		Type:       typ,
+	}
+}
+
+func (u *ResponsesRequestStop) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ResponsesRequestStopTypeStr,
+			Value: &str,
+		})
+	}
+
+	var arrayOfStr []string = []string{}
+	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ResponsesRequestStopTypeArrayOfStr,
+			Value: arrayOfStr,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestStop", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestStop", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ResponsesRequestStopType)
+	switch best.Type {
+	case ResponsesRequestStopTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case ResponsesRequestStopTypeArrayOfStr:
+		u.ArrayOfStr = best.Value.([]string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestStop", string(data))
+}
+
+func (u ResponsesRequestStop) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.ArrayOfStr != nil {
+		return utils.MarshalJSON(u.ArrayOfStr, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type ResponsesRequestStop: all fields are null")
+}
+
 type ResponsesRequestType string
 
 const (
@@ -1467,6 +1557,8 @@ type ResponsesRequest struct {
 	ServiceTier optionalnullable.OptionalNullable[ResponsesRequestServiceTier] `default:"auto" json:"service_tier"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). When provided, OpenRouter uses it as the sticky routing key, routing all requests in the session to the same provider to maximize prompt cache hits. Also used for observability grouping. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
+	// Stop sequences (up to 4)
+	Stop optionalnullable.OptionalNullable[ResponsesRequestStop] `json:"stop,omitzero"`
 	// Stop conditions for the server-tool agent loop. Any condition firing halts the loop (OR logic). When set, this overrides `max_tool_calls`. When a condition fires while the model is still emitting tool calls, the pending tool calls are executed and one final turn is made with tool calls disabled so the response ends with a natural-language answer instead of an unfinished tool call.
 	StopServerToolsWhen []StopServerToolsWhenCondition `json:"stop_server_tools_when,omitzero"`
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
@@ -1685,6 +1777,13 @@ func (r *ResponsesRequest) GetSessionID() *string {
 		return nil
 	}
 	return r.SessionID
+}
+
+func (r *ResponsesRequest) GetStop() optionalnullable.OptionalNullable[ResponsesRequestStop] {
+	if r == nil {
+		return nil
+	}
+	return r.Stop
 }
 
 func (r *ResponsesRequest) GetStopServerToolsWhen() []StopServerToolsWhenCondition {

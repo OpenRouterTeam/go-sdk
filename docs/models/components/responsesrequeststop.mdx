@@ -1,0 +1,33 @@
+---
+title: "ResponsesRequestStop"
+---
+
+Stop sequences (up to 4)
+
+
+## Supported Types
+
+### 
+
+```go
+responsesRequestStop := components.CreateResponsesRequestStopStr(string{/* values here */})
+```
+
+### 
+
+```go
+responsesRequestStop := components.CreateResponsesRequestStopArrayOfStr([]string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch responsesRequestStop.Type {
+	case components.ResponsesRequestStopTypeStr:
+		// responsesRequestStop.Str is populated
+	case components.ResponsesRequestStopTypeArrayOfStr:
+		// responsesRequestStop.ArrayOfStr is populated
+}
+```

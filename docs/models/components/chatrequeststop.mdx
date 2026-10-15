@@ -1,0 +1,33 @@
+---
+title: "ChatRequestStop"
+---
+
+Stop sequences (up to 4)
+
+
+## Supported Types
+
+### 
+
+```go
+chatRequestStop := components.CreateChatRequestStopStr(string{/* values here */})
+```
+
+### 
+
+```go
+chatRequestStop := components.CreateChatRequestStopArrayOfStr([]string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch chatRequestStop.Type {
+	case components.ChatRequestStopTypeStr:
+		// chatRequestStop.Str is populated
+	case components.ChatRequestStopTypeArrayOfStr:
+		// chatRequestStop.ArrayOfStr is populated
+}
+```
