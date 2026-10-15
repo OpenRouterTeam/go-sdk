@@ -19,6 +19,39 @@ func (l *ListModelsUserSecurity) GetBearer() string {
 	return l.Bearer
 }
 
+// ListModelsUserSort - Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
+type ListModelsUserSort string
+
+const (
+	ListModelsUserSortMostPopular             ListModelsUserSort = "most-popular"
+	ListModelsUserSortNewest                  ListModelsUserSort = "newest"
+	ListModelsUserSortTopWeekly               ListModelsUserSort = "top-weekly"
+	ListModelsUserSortPricingLowToHigh        ListModelsUserSort = "pricing-low-to-high"
+	ListModelsUserSortPricingHighToLow        ListModelsUserSort = "pricing-high-to-low"
+	ListModelsUserSortContextHighToLow        ListModelsUserSort = "context-high-to-low"
+	ListModelsUserSortThroughputHighToLow     ListModelsUserSort = "throughput-high-to-low"
+	ListModelsUserSortLatencyLowToHigh        ListModelsUserSort = "latency-low-to-high"
+	ListModelsUserSortIntelligenceHighToLow   ListModelsUserSort = "intelligence-high-to-low"
+	ListModelsUserSortCodingHighToLow         ListModelsUserSort = "coding-high-to-low"
+	ListModelsUserSortAgenticHighToLow        ListModelsUserSort = "agentic-high-to-low"
+	ListModelsUserSortDesignArenaEloHighToLow ListModelsUserSort = "design-arena-elo-high-to-low"
+)
+
+func (e ListModelsUserSort) ToPointer() *ListModelsUserSort {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ListModelsUserSort) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "most-popular", "newest", "top-weekly", "pricing-low-to-high", "pricing-high-to-low", "context-high-to-low", "throughput-high-to-low", "latency-low-to-high", "intelligence-high-to-low", "coding-high-to-low", "agentic-high-to-low", "design-arena-elo-high-to-low":
+			return true
+		}
+	}
+	return false
+}
+
 type ListModelsUserRequest struct {
 	// Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
@@ -26,6 +59,8 @@ type ListModelsUserRequest struct {
 	Limit *int64 `default:"500" queryParam:"style=form,explode=true,name=limit"`
 	// Filter models by output modality. Accepts a comma-separated list of modalities (text, image, embeddings, audio, video, rerank, decisions, speech, transcription) or "all" to include all models. Defaults to "text".
 	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
+	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
+	Sort *ListModelsUserSort `queryParam:"style=form,explode=true,name=sort"`
 }
 
 func (l ListModelsUserRequest) MarshalJSON() ([]byte, error) {
@@ -58,6 +93,13 @@ func (l *ListModelsUserRequest) GetOutputModalities() *string {
 		return nil
 	}
 	return l.OutputModalities
+}
+
+func (l *ListModelsUserRequest) GetSort() *ListModelsUserSort {
+	if l == nil {
+		return nil
+	}
+	return l.Sort
 }
 
 type ListModelsUserResponse struct {
