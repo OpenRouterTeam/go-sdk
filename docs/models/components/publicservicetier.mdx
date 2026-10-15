@@ -1,0 +1,27 @@
+---
+title: "PublicServiceTier"
+---
+
+The service tier this endpoint sells, or null for a standard endpoint. The same value whether the provider selects the tier with a request parameter or with a dedicated model id. Always the canonical tier: priority covers the fast request alias and the turbo, highspeed, and prime provider model-id spellings, none of which this field reports.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.PublicServiceTierFlex
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PublicServiceTier("custom_value")
+```
+
+
+## Values
+
+| Name                         | Value                        |
+| ---------------------------- | ---------------------------- |
+| `PublicServiceTierFlex`      | flex                         |
+| `PublicServiceTierPriority`  | priority                     |
+| `PublicServiceTierUltrafast` | ultrafast                    |
