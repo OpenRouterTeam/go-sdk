@@ -60,8 +60,9 @@ type TokenExchangeResponse struct {
 	// Seconds until the access token expires: at most 15 minutes, and never later than the subject token expires.
 	ExpiresIn       int64           `json:"expires_in"`
 	IssuedTokenType IssuedTokenType `json:"issued_token_type"`
-	Scope           string          `json:"scope"`
-	TokenType       TokenType       `json:"token_type"`
+	// The one capability the token grants, fixed by the kind of key the policy acts as: `inference` or `management`.
+	Scope     string    `json:"scope"`
+	TokenType TokenType `json:"token_type"`
 }
 
 func (t *TokenExchangeResponse) GetAccessToken() string {

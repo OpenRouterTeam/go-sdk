@@ -31360,11 +31360,13 @@ components:
           example: 'urn:ietf:params:oauth:token-type:access_token'
           type: 'string'
         scope:
-          description: 'Optional; only `inference` is available.'
+          description: 'Optional; when present must match the policy''s key: `management` for a management key, `inference` otherwise.'
           enum:
             - 'inference'
+            - 'management'
           example: 'inference'
           type: 'string'
+          x-speakeasy-unknown-values: allow
         subject_token:
           description: 'The JWT issued by your identity provider.'
           example: '<jwt from your identity provider>'
@@ -31407,6 +31409,7 @@ components:
           example: 'urn:ietf:params:oauth:token-type:access_token'
           type: 'string'
         scope:
+          description: 'The one capability the token grants, fixed by the kind of key the policy acts as: `inference` or `management`.'
           example: 'inference'
           type: 'string'
         token_type:
@@ -52258,6 +52261,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/RequestTimeoutResponse'
           description: 'Request Timeout - The route deadline passed before the request completed, or the request body stopped arriving.'
+        '409':
+          content:
+            application/json:
+              examples:
+                conflict:
+                  summary: 'Conflict'
+                  value:
+                    error:
+                      code: 409
+                      message: 'Vault request conflicts with existing secrets'
+              schema:
+                $ref: '#/components/schemas/ConflictResponse'
+          description: 'Conflict - The secret belongs to a connection (for example an MCP or GitHub connection) and can only be replaced or removed by reconnecting or disconnecting it.'
         '429':
           content:
             application/json:
@@ -52469,15 +52485,15 @@ paths:
           content:
             application/json:
               examples:
-                transfer-in-progress:
-                  summary: 'Transfer in progress'
+                conflict:
+                  summary: 'Conflict'
                   value:
                     error:
                       code: 409
                       message: 'Vault request conflicts with existing secrets'
               schema:
                 $ref: '#/components/schemas/ConflictResponse'
-          description: 'Conflict - The intern is being transferred to another workspace and its vault has not moved yet. Retry once the transfer finishes.'
+          description: 'Conflict - The secret belongs to a connection (for example an MCP or GitHub connection) and can only be replaced or removed by reconnecting or disconnecting it. Also returned while the intern is being transferred to another workspace and its vault has not moved yet.'
         '413':
           content:
             application/json:
@@ -52699,7 +52715,7 @@ paths:
                       message: 'Vault request conflicts with existing secrets'
               schema:
                 $ref: '#/components/schemas/ConflictResponse'
-          description: 'Conflict - A named workspace secret has no hosts yet, or the intern is being transferred to another workspace. Nothing is copied.'
+          description: 'Conflict - A named workspace secret has no hosts yet, the intern already holds a secret of that name that belongs to a connection, or the intern is being transferred to another workspace. Nothing is copied.'
         '413':
           content:
             application/json:
@@ -53096,6 +53112,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/RequestTimeoutResponse'
           description: 'Request Timeout - The route deadline passed before the request completed, or the request body stopped arriving.'
+        '409':
+          content:
+            application/json:
+              examples:
+                conflict:
+                  summary: 'Conflict'
+                  value:
+                    error:
+                      code: 409
+                      message: 'Vault request conflicts with existing secrets'
+              schema:
+                $ref: '#/components/schemas/ConflictResponse'
+          description: 'Conflict - The secret belongs to a connection (for example an MCP or GitHub connection) and can only be replaced or removed by reconnecting or disconnecting it.'
         '429':
           content:
             application/json:
@@ -53294,6 +53323,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/RequestTimeoutResponse'
           description: 'Request Timeout - The route deadline passed before the request completed, or the request body stopped arriving.'
+        '409':
+          content:
+            application/json:
+              examples:
+                conflict:
+                  summary: 'Conflict'
+                  value:
+                    error:
+                      code: 409
+                      message: 'Vault request conflicts with existing secrets'
+              schema:
+                $ref: '#/components/schemas/ConflictResponse'
+          description: 'Conflict - The secret belongs to a connection (for example an MCP or GitHub connection) and can only be replaced or removed by reconnecting or disconnecting it.'
         '413':
           content:
             application/json:

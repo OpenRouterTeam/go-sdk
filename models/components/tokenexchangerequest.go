@@ -55,28 +55,27 @@ func (e *RequestedTokenType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TokenExchangeRequestScope - Optional; only `inference` is available.
+// TokenExchangeRequestScope - Optional; when present must match the policy's key: `management` for a management key, `inference` otherwise.
 type TokenExchangeRequestScope string
 
 const (
-	TokenExchangeRequestScopeInference TokenExchangeRequestScope = "inference"
+	TokenExchangeRequestScopeInference  TokenExchangeRequestScope = "inference"
+	TokenExchangeRequestScopeManagement TokenExchangeRequestScope = "management"
 )
 
 func (e TokenExchangeRequestScope) ToPointer() *TokenExchangeRequestScope {
 	return &e
 }
-func (e *TokenExchangeRequestScope) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TokenExchangeRequestScope) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "inference", "management":
+			return true
+		}
 	}
-	switch v {
-	case "inference":
-		*e = TokenExchangeRequestScope(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for TokenExchangeRequestScope: %v", v)
-	}
+	return false
 }
 
 // SubjectTokenType - Must be `urn:ietf:params:oauth:token-type:jwt`.
@@ -111,7 +110,7 @@ type TokenExchangeRequest struct {
 	GrantType GrantType `form:"name=grant_type"`
 	// Optional; when present must be `urn:ietf:params:oauth:token-type:access_token`.
 	RequestedTokenType *RequestedTokenType `form:"name=requested_token_type"`
-	// Optional; only `inference` is available.
+	// Optional; when present must match the policy's key: `management` for a management key, `inference` otherwise.
 	Scope *TokenExchangeRequestScope `form:"name=scope"`
 	// The JWT issued by your identity provider.
 	SubjectToken string `form:"name=subject_token"`

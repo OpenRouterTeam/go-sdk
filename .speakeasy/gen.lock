@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ced07d41c20d06a4930c960cac952074
+  docChecksum: 79649fce2c2b4258fb11dbb976780768
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.56
-  configChecksum: 1217b1db4ed68a6b0b0abfb610f77e82
+  releaseVersion: 0.9.57
+  configChecksum: 7371be82da9c5fc064f0a30433d25919
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a5866a4b-6b58-411c-9819-6ff33f40fa69
-  pristine_commit_hash: 87f5057d7caea0a59c5f974f95ca2ed0c7584310
-  pristine_tree_hash: 8c1dcb02e95b34de91237a3a743464584b8f7e7f
+  generation_id: d3e31b5d-424f-4e2a-8195-91393db8bfda
+  pristine_commit_hash: 6d2761109ba55f588d7ef73f8913c43aff13b03d
+  pristine_tree_hash: 706ee21e1d97fece20dd6333df16cc6b3c853b03
 features:
   go:
     acceptHeaders: 2.81.2
@@ -105,8 +105,8 @@ trackedFiles:
     pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
   chat.go:
     id: 81535ccb3ff5
-    last_write_checksum: sha1:3fe05c99a2a3f927bac689dc6dd9f0e6c51bc7b3
-    pristine_git_object: fedc9b46b5d2a7a4fc521b1af68b563cf4e116d8
+    last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
+    pristine_git_object: 3ec067932ab585739098c417f40010f895bed95e
   classifications.go:
     id: 711367120ab6
     last_write_checksum: sha1:1503d324707d56ecefdc2ec29ada40857bbff956
@@ -7433,16 +7433,16 @@ trackedFiles:
     pristine_git_object: fe3f819fb51291c7d69d180ebcdf708600216153
   docs/models/components/tokenexchangerequest.mdx:
     id: e765447920dd
-    last_write_checksum: sha1:499f088202af6b1ef65b7e9a3ba171c987f2d21d
-    pristine_git_object: af5fa8f94123e9ded584f25babbcace2f097c66e
+    last_write_checksum: sha1:2056ecce03bea796dc7d3daf5f85a67474331aad
+    pristine_git_object: 86073c28ae7f5e28bcbc0845dfe3c31c66460005
   docs/models/components/tokenexchangerequestscope.mdx:
     id: cd6b6c26a6d0
-    last_write_checksum: sha1:8d7b82efe5c40c6f57d3998c1bb9897eefa72148
-    pristine_git_object: d01b57617053d92abe7d35eeee735e40be3b34d4
+    last_write_checksum: sha1:2925194d6956dc19a07ff28ef298615636b50aec
+    pristine_git_object: 94b2029d2f21c616afd11ce0e240c6716125227e
   docs/models/components/tokenexchangeresponse.mdx:
     id: 15ce0a8c7aed
-    last_write_checksum: sha1:61299a6d70a1f66e6f9f918cf55e611a400d92ca
-    pristine_git_object: c09a735253d975ca318ba41a08e29fb2f2d3a7f9
+    last_write_checksum: sha1:8b299ddbb8845f22042e616d1cbb9f61223fc7dd
+    pristine_git_object: 04d23275f035f9c55fd492d178c71a149fa917f2
   docs/models/components/tokentype.mdx:
     id: a80ba0b6735d
     last_write_checksum: sha1:9dd4fbcf3da16abbc21b2741c08dd93e460c578e
@@ -9613,8 +9613,8 @@ trackedFiles:
     pristine_git_object: f66abb8ed8e0ca947433d3edb044bd34a59b923f
   docs/sdks/vault/README.mdx:
     id: 3738c6722acd
-    last_write_checksum: sha1:abcb55ce5e43a626ae403cad4a534b7f583e3f80
-    pristine_git_object: beee2079056624190b8aa344a4352cf2c637d5de
+    last_write_checksum: sha1:146e55cad4020ef840d6cc930d4b643edef43e7f
+    pristine_git_object: 8ae5ede8cdd7cf70a4adaa09fc7b26c45036adce
   docs/sdks/videogeneration/README.mdx:
     id: 9a8fa04c3872
     last_write_checksum: sha1:f463bc2a3adae1a516586bce2f1db8602dc3a064
@@ -12877,12 +12877,12 @@ trackedFiles:
     pristine_git_object: ea804a04dfb6b4bbf08cc9a905f137eb3e5506bd
   models/components/tokenexchangerequest.go:
     id: 6ba10a45d47a
-    last_write_checksum: sha1:23ce8835b1d9c79e0c7876c10c5782e8e5bb319b
-    pristine_git_object: 1798842826e7965e2c72862923bfd2de6cf47c6a
+    last_write_checksum: sha1:8937cd19e1c060b6286ef2fc3141e15e1cd3acbe
+    pristine_git_object: e08d51e9e488e55dda3551e38280edc55c1601bb
   models/components/tokenexchangeresponse.go:
     id: 1660412c508f
-    last_write_checksum: sha1:5f329aff63d3249a591bb44783d700df6b8cb18f
-    pristine_git_object: 4b33cd2778512f573d39aec64130cf8069e2333d
+    last_write_checksum: sha1:40f914c5b1b5993643317ad878a66bd730bc1d0d
+    pristine_git_object: 13c894b89518caccfb46428e102776867f29f77c
   models/components/toolcallstatus.go:
     id: 1102e85ed572
     last_write_checksum: sha1:3715e8a0c0a4a166f3a6b3f83fb6675cf2b2a6ce
@@ -13845,8 +13845,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:181ba747855f69f9941d3e0970f44ce36479a93c
-    pristine_git_object: b94be1642bbb00ddfdd3f7c42c758fedea378029
+    last_write_checksum: sha1:b3da1db27647088318c973fdd2cc465b69477d0d
+    pristine_git_object: 3ee0bea9413dac92abebe87a601e88646513bd39
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13925,8 +13925,8 @@ trackedFiles:
     pristine_git_object: f590f26543adbbb82e2fe183b8051b1ff1ab49c6
   vault.go:
     id: 522e6cb92fe9
-    last_write_checksum: sha1:6311488cae3eef12614c87d5c5a8408ee6631ba0
-    pristine_git_object: 923f03ac3051bf9c5c4dc662fc5680b9ee5ccdb7
+    last_write_checksum: sha1:61196320f497983b00813ce7604c7132b57e9d1f
+    pristine_git_object: e8a68fd033fcc1c3670bc0275ffd1f996ec633ce
   videogeneration.go:
     id: cb32a6d68bf0
     last_write_checksum: sha1:dacbc2860dc4299562ceec2b8ba8d11eeca7d09b
@@ -16226,6 +16226,16 @@ examples:
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
         "504":
           application/json: {"error": {"code": 504, "message": "The operation was aborted due to timeout"}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+    conflict:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+          name: "github_token"
+      responses:
+        "409":
+          application/json: {"error": {"code": 409, "message": "Vault request conflicts with existing secrets"}}
   storeInternVaultSecret:
     speakeasy-default-store-intern-vault-secret:
       parameters:
@@ -16421,6 +16431,16 @@ examples:
       responses:
         "504":
           application/json: {"error": {"code": 504, "message": "Vault request timed out"}}
+    conflict:
+      parameters:
+        path:
+          internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
+          name: "github_token"
+      requestBody:
+        application/json: {"hosts": ["api.github.com"], "value": "ghp_exampleTokenValue"}
+      responses:
+        "409":
+          application/json: {"error": {"code": 409, "message": "Vault request conflicts with existing secrets"}}
   copyVaultSecretsToIntern:
     speakeasy-default-copy-vault-secrets-to-intern:
       parameters:
@@ -16864,6 +16884,15 @@ examples:
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
         "504":
           application/json: {"error": {"code": 504, "message": "The operation was aborted due to timeout"}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+    conflict:
+      parameters:
+        path:
+          name: "github_token"
+      responses:
+        "409":
+          application/json: {"error": {"code": 409, "message": "Vault request conflicts with existing secrets"}}
   storeVaultSecret:
     speakeasy-default-store-vault-secret:
       parameters:
@@ -16896,6 +16925,8 @@ examples:
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
         "504":
           application/json: {"error": {"code": 504, "message": "The operation was aborted due to timeout"}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
     invalid-vault-request:
       parameters:
         path:
@@ -17031,6 +17062,15 @@ examples:
       responses:
         "504":
           application/json: {"error": {"code": 504, "message": "Vault request timed out"}}
+    conflict:
+      parameters:
+        path:
+          name: "github_token"
+      requestBody:
+        application/json: {"hosts": ["api.github.com"], "value": "ghp_exampleTokenValue"}
+      responses:
+        "409":
+          application/json: {"error": {"code": 409, "message": "Vault request conflicts with existing secrets"}}
   listInterns:
     speakeasy-default-list-interns:
       responses:
@@ -17919,7 +17959,4 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ServiceTier` **Added**
-  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ServiceTier` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.OAuth.CreateOauthToken()`: \n  *  `request.Request.Scope` **Changed**\n* `OpenRouter.Vault.DeleteInternVaultSecret()`:  `error.status[409]` **Added**\n* `OpenRouter.Vault.DeleteVaultSecret()`:  `error.status[409]` **Added**\n* `OpenRouter.Vault.StoreVaultSecret()`:  `error.status[409]` **Added**\n"
