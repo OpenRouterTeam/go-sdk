@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 0861a8867bc7f3ad38433238b7d063ce
+  docChecksum: 7ee189da63bf4bb61fe3539c3a6fbb36
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.59
-  configChecksum: 2bbcc44e386a41ee8ce321afc84966ba
+  releaseVersion: 0.9.60
+  configChecksum: 05805466c4cbaf39e0784a32dd01dded
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 29d38ab3-b251-4a6f-a3ff-3a048cd002f8
-  pristine_commit_hash: 29bc6301b2410903c96b436b4450c778d91f82a5
-  pristine_tree_hash: ebce1701734b4368ae749a5955e9483863e8dc0c
+  generation_id: cb0316f0-08ee-4d54-b32d-cacb357cbd57
+  pristine_commit_hash: da6983d38b00597786c7388b619306ee11521a3e
+  pristine_tree_hash: 1ba340308eb46fc8c4aa59d51caa3bd19b1db5a7
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1445,8 +1445,8 @@ trackedFiles:
     pristine_git_object: f799f19f529ff0b3e9c095ec8b34844005bc76d0
   docs/models/components/batchlistitem.mdx:
     id: a77e4d5d83df
-    last_write_checksum: sha1:b07d5712dfa6e81ee321e12b5a6ec57245196d06
-    pristine_git_object: df613e1bc8d05c009a7cf6caf0bf445cd280bc54
+    last_write_checksum: sha1:f9741ae9db8ff4f7470b31dff27ed86d60809fe2
+    pristine_git_object: f99ec7efce0ce4238dae7d5bbb0537b5f7d9dd1c
   docs/models/components/batchlistitemcompletiontokensdetails.mdx:
     id: 382b65131fa0
     last_write_checksum: sha1:0bb4b5dee1a0dde82f3e3ef6a7792dbdfaca8f6c
@@ -1501,8 +1501,8 @@ trackedFiles:
     pristine_git_object: ca3d0cb3491f2194cf0c5b29ea91f9883dfaa4fb
   docs/models/components/batchobject.mdx:
     id: cba02b7679c0
-    last_write_checksum: sha1:f0af35a099411125c401f71ad4d849df6ffc9212
-    pristine_git_object: 35f896573797616c144f052d45d2296f4f929073
+    last_write_checksum: sha1:2fe4a7e69ae48f8a7e4a3848fff5ad0795ffc379
+    pristine_git_object: ec53a1655e6b77f19063810b67c036e0529387e8
   docs/models/components/batchobjectcompletiontokensdetails.mdx:
     id: f384c7a586e2
     last_write_checksum: sha1:f324c1d526f1b4de543de490b3bb31519d8a309c
@@ -9381,8 +9381,8 @@ trackedFiles:
     pristine_git_object: 864644026fdf1173951a733095db3b66d143b4b4
   docs/models/sdkerrors/batchpaymentrequiredresponseerror.mdx:
     id: ccaa54e7ac02
-    last_write_checksum: sha1:21cf7db8bacc2568af828ae04eec82ee47057c5e
-    pristine_git_object: 384ea1eed491a229d13420c7b9d1666a1059f108
+    last_write_checksum: sha1:5743ce8cde0f42235a5c75a39beb7b7314030872
+    pristine_git_object: 08576a4b55d363720e50231a9ecc96c8a17747d9
   docs/models/sdkerrors/clientclosedrequestresponseerror.mdx:
     id: 5fb42055235b
     last_write_checksum: sha1:aff419f61cbdb076e47ffab89171c56c6abd4f5d
@@ -10377,8 +10377,8 @@ trackedFiles:
     pristine_git_object: 6cc7c2a817ec01cd3ec0af255643516245bbb4ab
   models/components/batchlistitem.go:
     id: d608493ba13c
-    last_write_checksum: sha1:aaf8d8c12a336fb18b03070cef4b0b179e334424
-    pristine_git_object: a6ae6960f49e4e4ded9c90a879821a875d67227d
+    last_write_checksum: sha1:8dea799f447a5222dc7dc9524c5817747010a91a
+    pristine_git_object: c4feec638e5d6844af8c7349b2d00d556d4fc5d1
   models/components/batchlistresponse.go:
     id: 0408b6e24b99
     last_write_checksum: sha1:2c2c13223828ed1ee409feab4de513b47c044155
@@ -10393,8 +10393,8 @@ trackedFiles:
     pristine_git_object: d16a3138085dfd81f0efaa48f7f3d0ca6be4ce7e
   models/components/batchobject.go:
     id: 1cede8184d9d
-    last_write_checksum: sha1:b95b1c34e801751c89a30561c06dc5f1e49fe0cf
-    pristine_git_object: 588164b617d059d4df238c13eeb0470fdcec2dcc
+    last_write_checksum: sha1:59c18bb617cdafcb9075f319c92da37e6cd8cfca
+    pristine_git_object: dcdfab4e74e69c3d584adcfb8af550f2ee7939b5
   models/components/batchpaymentrequiredresponseerror.go:
     id: dc77b8e4ff02
     last_write_checksum: sha1:4d0b8b99c93fcc58d172caab36c589d504fcec21
@@ -13753,8 +13753,8 @@ trackedFiles:
     pristine_git_object: be9a48109ff4245f1daba20117e869b509a94700
   models/sdkerrors/batchpaymentrequiredresponseerror.go:
     id: 423408c63653
-    last_write_checksum: sha1:6835f73571be616bd16561a1320fdd1d57e0678b
-    pristine_git_object: c10e6d56dc9da966480f6cc9e2a3a7eabc120aa0
+    last_write_checksum: sha1:3212fd415423e53d0a5d8ccb1f49e4242f05aacd
+    pristine_git_object: 8802154217ec468a4bf7d2145c2aa35e380e7f56
   models/sdkerrors/clientclosedrequestresponseerror.go:
     id: 003cbc51d77a
     last_write_checksum: sha1:b359b4081c79e14098b58d9c2a27da8cabeffe39
@@ -13849,8 +13849,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:11241c22b5e5d4fdf7fa02022948b9ff2b5ae392
-    pristine_git_object: 1992181c0faa358cc2edbd7b9553888e98b2c9ca
+    last_write_checksum: sha1:ac35be326fac79e296b4871115c9f597343cb712
+    pristine_git_object: 5329b1c2b18b0a7edafae2f3bdedf991c4909940
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17290,7 +17290,7 @@ examples:
         application/json: {"completion_window": "24h", "endpoint": "/v1/chat/completions", "model": "openai/gpt-4o", "requests": [{"body": {"messages": [{"content": "Summarize ...", "role": "user"}], "model": "openai/gpt-4o"}, "custom_id": "req-0001"}]}
       responses:
         "202":
-          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
+          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "expires_at": 239149, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "provider": "<value>", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
         "400":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
         "500":
@@ -17300,7 +17300,7 @@ examples:
         application/json: {"completion_window": "24h", "endpoint": "/v1/messages", "model": "openai/gpt-5-nano", "requests": [{"body": {"max_tokens": 1024, "messages": [{"content": "Summarize ...", "role": "user"}], "model": "openai/gpt-5-nano"}, "custom_id": "req-0001"}]}
       responses:
         "202":
-          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
+          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "expires_at": 239149, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "provider": "<value>", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
         "400":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
         "500":
@@ -17310,7 +17310,7 @@ examples:
         application/json: {"completion_window": "24h", "endpoint": "/v1/chat/completions", "model": "google/gemini-3.6-flash", "requests": [{"body": {"messages": [{"content": "Summarize ...", "role": "user"}], "model": "google/gemini-3.6-flash"}, "custom_id": "req-0001"}]}
       responses:
         "202":
-          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
+          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "expires_at": 239149, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "provider": "<value>", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
         "400":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
         "500":
@@ -17320,7 +17320,7 @@ examples:
         application/json: {"completion_window": "24h", "endpoint": "/v1/responses", "model": "openai/gpt-4o", "requests": [{"body": {"input": [{"content": [{"text": "Summarize ...", "type": "input_text"}], "role": "user"}], "model": "openai/gpt-4o"}, "custom_id": "req-0001"}]}
       responses:
         "202":
-          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
+          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "expires_at": 239149, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "provider": "<value>", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
         "400":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
         "500":
@@ -17330,7 +17330,7 @@ examples:
         application/json: {"completion_window": "24h", "endpoint": "/v1/responses", "model": "Land Cruiser", "requests": [{"body": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "custom_id": "<id>"}]}
       responses:
         "202":
-          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
+          application/json: {"completion_window": "24h", "created_at": 511243, "endpoint": "<value>", "error": {"message": "<value>"}, "expires_at": 239149, "finalized_at": 665164, "id": "<id>", "model": "CX-9", "object": "batch", "provider": "<value>", "request_counts": {"completed": 719289, "failed": 238478, "total": 928444}, "results": [{"custom_id": "<id>", "error": {"message": "<value>", "param": "<value>", "type": "<value>"}, "id": "<id>", "response": {"body": {"completed_at": 1704067210, "created_at": 1704067200, "error": null, "frequency_penalty": null, "id": "resp-abc123", "incomplete_details": null, "instructions": null, "metadata": null, "model": "gpt-4", "object": "response", "output": [{"content": [{"text": "Hello! How can I help you today?", "type": "output_text"}], "id": "msg-abc123", "role": "assistant", "type": "message"}], "parallel_tool_calls": true, "presence_penalty": null, "status": "completed", "temperature": null, "tool_choice": "auto", "tools": [], "top_p": null}, "request_id": "<id>", "status_code": 296735}}], "status": "in_progress", "usage": {"completion_tokens": 323461, "prompt_tokens": 784076, "total_tokens": 757531}}
         "400":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
         "500":
@@ -17354,9 +17354,9 @@ examples:
           id: "batch_abc123"
       responses:
         "200":
-          application/json: {"completion_window": "24h", "created_at": 503378, "endpoint": "<value>", "error": {"message": "<value>"}, "finalized_at": 354647, "id": "<id>", "model": "Challenger", "object": "batch", "request_counts": {"completed": 781860, "failed": 146323, "total": 565365}, "results": null, "status": "failed", "usage": {"completion_tokens": 871340, "prompt_tokens": 424032, "total_tokens": 553781}}
+          application/json: {"completion_window": "24h", "created_at": 503378, "endpoint": "<value>", "error": {"message": "<value>"}, "expires_at": 631751, "finalized_at": 354647, "id": "<id>", "model": "Challenger", "object": "batch", "provider": "<value>", "request_counts": {"completed": 781860, "failed": 146323, "total": 565365}, "results": null, "status": "failed", "usage": {"completion_tokens": 871340, "prompt_tokens": 424032, "total_tokens": 553781}}
         "402":
-          application/json: {"completion_window": "24h", "created_at": 852840, "endpoint": "<value>", "error": {"code": 991646, "message": "<value>"}, "finalized_at": 879297, "id": "<id>", "model": "Model S", "object": "batch", "request_counts": {"completed": 849535, "failed": 962054, "total": 811028}, "results": "<value>", "status": "validating", "usage": {"completion_tokens": 368503, "prompt_tokens": 726701, "total_tokens": 328573}}
+          application/json: {"completion_window": "24h", "created_at": 852840, "endpoint": "<value>", "error": {"code": 991646, "message": "<value>"}, "expires_at": 254986, "finalized_at": 879297, "id": "<id>", "model": "Model S", "object": "batch", "provider": "<value>", "request_counts": {"completed": 849535, "failed": 962054, "total": 811028}, "results": "<value>", "status": "validating", "usage": {"completion_tokens": 368503, "prompt_tokens": 726701, "total_tokens": 328573}}
         "401":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
         "500":
@@ -17963,3 +17963,4 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Batch.List()`:  `response.Data[]` **Changed**\n* `OpenRouter.Batch.CreateBatches()`:  `response` **Changed**\n* `OpenRouter.Batch.GetBatches()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n"

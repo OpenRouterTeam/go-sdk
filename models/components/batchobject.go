@@ -3116,14 +3116,18 @@ type BatchObject struct {
 	CreatedAt        int64                       `json:"created_at"`
 	Endpoint         string                      `json:"endpoint"`
 	Error            *BatchObjectError           `json:"error"`
-	FinalizedAt      *int64                      `json:"finalized_at"`
-	ID               string                      `json:"id"`
-	Model            string                      `json:"model"`
-	Object           BatchObjectObjectBatch      `json:"object"`
-	RequestCounts    BatchObjectRequestCounts    `json:"request_counts"`
-	Results          []Result                    `json:"results"`
-	Status           BatchObjectStatus           `json:"status"`
-	Usage            *BatchObjectUsage           `json:"usage"`
+	// Unix timestamp after which the assigned provider no longer completes unfinished requests. Derived from the provider's documented batch window, so it can exceed `created_at` plus `completion_window` (Google Vertex can take up to 96 hours). `null` when the provider documents no hard expiry.
+	ExpiresAt   *int64                 `json:"expires_at"`
+	FinalizedAt *int64                 `json:"finalized_at"`
+	ID          string                 `json:"id"`
+	Model       string                 `json:"model"`
+	Object      BatchObjectObjectBatch `json:"object"`
+	// Provider OpenRouter assigned to run the batch, using the same name as the `provider` field of sync responses.
+	Provider      *string                  `json:"provider"`
+	RequestCounts BatchObjectRequestCounts `json:"request_counts"`
+	Results       []Result                 `json:"results"`
+	Status        BatchObjectStatus        `json:"status"`
+	Usage         *BatchObjectUsage        `json:"usage"`
 }
 
 func (b *BatchObject) GetCompletionWindow() BatchObjectCompletionWindow {
@@ -3154,6 +3158,13 @@ func (b *BatchObject) GetError() *BatchObjectError {
 	return b.Error
 }
 
+func (b *BatchObject) GetExpiresAt() *int64 {
+	if b == nil {
+		return nil
+	}
+	return b.ExpiresAt
+}
+
 func (b *BatchObject) GetFinalizedAt() *int64 {
 	if b == nil {
 		return nil
@@ -3180,6 +3191,13 @@ func (b *BatchObject) GetObject() BatchObjectObjectBatch {
 		return BatchObjectObjectBatch("")
 	}
 	return b.Object
+}
+
+func (b *BatchObject) GetProvider() *string {
+	if b == nil {
+		return nil
+	}
+	return b.Provider
 }
 
 func (b *BatchObject) GetRequestCounts() BatchObjectRequestCounts {
