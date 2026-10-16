@@ -34,7 +34,7 @@ func (e *ChatWebSearchShorthandType) IsExact() bool {
 type ChatWebSearchShorthand struct {
 	// Limit search results to these domains. Supported by Exa, Firecrawl, Parallel, Perplexity, and most native providers (Anthropic, OpenAI, SpaceXAI). Cannot be used with excluded_domains.
 	AllowedDomains []string `json:"allowed_domains,omitzero"`
-	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses Firecrawl (requires BYOK). "parallel" uses the Parallel search API. "perplexity" uses the Perplexity Search API (raw ranked results).
+	// Which search engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in search. "exa" forces the Exa search API. "firecrawl" uses the Firecrawl search API. "parallel" uses the Parallel search API. "perplexity" uses the Perplexity Search API (raw ranked results).
 	Engine *WebSearchEngineEnum `json:"engine,omitzero"`
 	// Exclude search results from these domains. Supported by Exa, Firecrawl, Parallel, Perplexity, Anthropic, OpenAI, and SpaceXAI. Cannot be used with allowed_domains.
 	ExcludedDomains []string `json:"excluded_domains,omitzero"`
