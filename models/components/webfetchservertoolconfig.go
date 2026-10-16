@@ -12,7 +12,7 @@ type WebFetchServerToolConfig struct {
 	AllowedDomains []string `json:"allowed_domains,omitzero"`
 	// Never fetch from these domains.
 	BlockedDomains []string `json:"blocked_domains,omitzero"`
-	// Which fetch engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in fetch. "exa" uses Exa Contents API. "openrouter" uses direct HTTP fetch. "firecrawl" uses Firecrawl scrape (requires BYOK). "parallel" uses the Parallel extract API.
+	// Which fetch engine to use. "auto" (default) uses native if the provider supports it, otherwise Exa. "native" forces the provider's built-in fetch. "exa" uses Exa Contents API. "openrouter" uses direct HTTP fetch. "firecrawl" uses Firecrawl scrape. "parallel" uses the Parallel extract API.
 	Engine *WebFetchEngineEnum `json:"engine,omitzero"`
 	// Maximum content length in approximate tokens. Content exceeding this limit is truncated.
 	MaxContentTokens *int64 `json:"max_content_tokens,omitzero"`
