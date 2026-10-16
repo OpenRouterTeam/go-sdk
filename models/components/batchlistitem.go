@@ -364,11 +364,15 @@ type BatchListItem struct {
 	CreatedAt        int64                         `json:"created_at"`
 	Endpoint         string                        `json:"endpoint"`
 	Error            *BatchListItemError           `json:"error"`
-	FinalizedAt      *int64                        `json:"finalized_at"`
-	ID               string                        `json:"id"`
-	Model            string                        `json:"model"`
-	Object           BatchListItemObject           `json:"object"`
-	RequestCounts    BatchListItemRequestCounts    `json:"request_counts"`
+	// Unix timestamp after which the assigned provider no longer completes unfinished requests. Derived from the provider's documented batch window, so it can exceed `created_at` plus `completion_window` (Google Vertex can take up to 96 hours). `null` when the provider documents no hard expiry.
+	ExpiresAt   *int64              `json:"expires_at"`
+	FinalizedAt *int64              `json:"finalized_at"`
+	ID          string              `json:"id"`
+	Model       string              `json:"model"`
+	Object      BatchListItemObject `json:"object"`
+	// Provider OpenRouter assigned to run the batch, using the same name as the `provider` field of sync responses.
+	Provider      *string                    `json:"provider"`
+	RequestCounts BatchListItemRequestCounts `json:"request_counts"`
 	// Always null: retrieve the batch with `GET /batches/{id}` to access its results.
 	Results any                 `json:"results"`
 	Status  BatchListItemStatus `json:"status"`
@@ -403,6 +407,13 @@ func (b *BatchListItem) GetError() *BatchListItemError {
 	return b.Error
 }
 
+func (b *BatchListItem) GetExpiresAt() *int64 {
+	if b == nil {
+		return nil
+	}
+	return b.ExpiresAt
+}
+
 func (b *BatchListItem) GetFinalizedAt() *int64 {
 	if b == nil {
 		return nil
@@ -429,6 +440,13 @@ func (b *BatchListItem) GetObject() BatchListItemObject {
 		return BatchListItemObject("")
 	}
 	return b.Object
+}
+
+func (b *BatchListItem) GetProvider() *string {
+	if b == nil {
+		return nil
+	}
+	return b.Provider
 }
 
 func (b *BatchListItem) GetRequestCounts() BatchListItemRequestCounts {

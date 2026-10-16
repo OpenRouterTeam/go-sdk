@@ -13,11 +13,15 @@ type BatchPaymentRequiredResponseError struct {
 	CreatedAt        int64                                                   `json:"created_at"`
 	Endpoint         string                                                  `json:"endpoint"`
 	Error_           components.BatchPaymentRequiredResponseError            `json:"error"`
-	FinalizedAt      *int64                                                  `json:"finalized_at"`
-	ID               string                                                  `json:"id"`
-	Model            string                                                  `json:"model"`
-	Object           components.BatchPaymentRequiredResponseObject           `json:"object"`
-	RequestCounts    components.BatchPaymentRequiredResponseRequestCounts    `json:"request_counts"`
+	// Unix timestamp after which the assigned provider no longer completes unfinished requests. Derived from the provider's documented batch window, so it can exceed `created_at` plus `completion_window` (Google Vertex can take up to 96 hours). `null` when the provider documents no hard expiry.
+	ExpiresAt   *int64                                        `json:"expires_at"`
+	FinalizedAt *int64                                        `json:"finalized_at"`
+	ID          string                                        `json:"id"`
+	Model       string                                        `json:"model"`
+	Object      components.BatchPaymentRequiredResponseObject `json:"object"`
+	// Provider OpenRouter assigned to run the batch, using the same name as the `provider` field of sync responses.
+	Provider      *string                                              `json:"provider"`
+	RequestCounts components.BatchPaymentRequiredResponseRequestCounts `json:"request_counts"`
 	// Always null: results are withheld until the batch charge is covered.
 	Results any                                           `json:"results"`
 	Status  components.BatchPaymentRequiredResponseStatus `json:"status"`

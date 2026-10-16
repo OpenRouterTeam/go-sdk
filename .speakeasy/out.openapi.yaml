@@ -5105,6 +5105,11 @@ components:
           type:
             - 'object'
             - 'null'
+        expires_at:
+          description: 'Unix timestamp after which the assigned provider no longer completes unfinished requests. Derived from the provider''s documented batch window, so it can exceed `created_at` plus `completion_window` (Google Vertex can take up to 96 hours). `null` when the provider documents no hard expiry.'
+          type:
+            - 'integer'
+            - 'null'
         finalized_at:
           type:
             - 'integer'
@@ -5117,6 +5122,11 @@ components:
           enum:
             - 'batch'
           type: 'string'
+        provider:
+          description: 'Provider OpenRouter assigned to run the batch, using the same name as the `provider` field of sync responses.'
+          type:
+            - 'string'
+            - 'null'
         request_counts:
           properties:
             completed:
@@ -5270,6 +5280,8 @@ components:
         - 'status'
         - 'created_at'
         - 'finalized_at'
+        - 'provider'
+        - 'expires_at'
         - 'request_counts'
         - 'usage'
         - 'error'
@@ -5351,6 +5363,11 @@ components:
           type:
             - 'object'
             - 'null'
+        expires_at:
+          description: 'Unix timestamp after which the assigned provider no longer completes unfinished requests. Derived from the provider''s documented batch window, so it can exceed `created_at` plus `completion_window` (Google Vertex can take up to 96 hours). `null` when the provider documents no hard expiry.'
+          type:
+            - 'integer'
+            - 'null'
         finalized_at:
           type:
             - 'integer'
@@ -5363,6 +5380,11 @@ components:
           enum:
             - 'batch'
           type: 'string'
+        provider:
+          description: 'Provider OpenRouter assigned to run the batch, using the same name as the `provider` field of sync responses.'
+          type:
+            - 'string'
+            - 'null'
         request_counts:
           properties:
             completed:
@@ -6234,6 +6256,8 @@ components:
         - 'status'
         - 'created_at'
         - 'finalized_at'
+        - 'provider'
+        - 'expires_at'
         - 'request_counts'
         - 'usage'
         - 'results'
@@ -6260,6 +6284,11 @@ components:
             - 'code'
             - 'message'
           type: 'object'
+        expires_at:
+          description: 'Unix timestamp after which the assigned provider no longer completes unfinished requests. Derived from the provider''s documented batch window, so it can exceed `created_at` plus `completion_window` (Google Vertex can take up to 96 hours). `null` when the provider documents no hard expiry.'
+          type:
+            - 'integer'
+            - 'null'
         finalized_at:
           type:
             - 'integer'
@@ -6272,6 +6301,11 @@ components:
           enum:
             - 'batch'
           type: 'string'
+        provider:
+          description: 'Provider OpenRouter assigned to run the batch, using the same name as the `provider` field of sync responses.'
+          type:
+            - 'string'
+            - 'null'
         request_counts:
           properties:
             completed:
@@ -6425,6 +6459,8 @@ components:
         - 'status'
         - 'created_at'
         - 'finalized_at'
+        - 'provider'
+        - 'expires_at'
         - 'request_counts'
         - 'usage'
         - 'results'
