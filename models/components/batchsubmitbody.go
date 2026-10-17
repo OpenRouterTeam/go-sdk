@@ -78,6 +78,8 @@ func (r *Request) GetCustomID() string {
 
 // BatchSubmitBody - Batch submit request body.
 type BatchSubmitBody struct {
+	// HTTPS URL that receives a `batch.completed`, `batch.failed`, `batch.cancelled` or `batch.expired` webhook event when the batch reaches a terminal status. Must appear before `requests` in the request body.
+	CallbackURL      *string                          `json:"callback_url,omitzero"`
 	CompletionWindow *BatchSubmitBodyCompletionWindow `default:"24h" json:"completion_window"`
 	Endpoint         Endpoint                         `json:"endpoint"`
 	Model            string                           `json:"model"`
@@ -95,6 +97,13 @@ func (b *BatchSubmitBody) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (b *BatchSubmitBody) GetCallbackURL() *string {
+	if b == nil {
+		return nil
+	}
+	return b.CallbackURL
 }
 
 func (b *BatchSubmitBody) GetCompletionWindow() *BatchSubmitBodyCompletionWindow {
