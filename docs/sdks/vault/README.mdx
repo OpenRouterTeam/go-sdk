@@ -9,6 +9,7 @@ Store host-bound secrets for a workspace or for one intern. Scope is selected by
 
 ### Available Operations
 
+* [ListInternConnections](#listinternconnections) - List the connections an intern can use
 * [ListInternEffectiveVaultSecrets](#listinterneffectivevaultsecrets) - List the secrets an intern receives
 * [ListInternVaultSecrets](#listinternvaultsecrets) - List intern secrets
 * [DeleteInternVaultSecret](#deleteinternvaultsecret) - Delete an intern secret
@@ -17,6 +18,67 @@ Store host-bound secrets for a workspace or for one intern. Scope is selected by
 * [ListVaultSecrets](#listvaultsecrets) - List workspace secrets
 * [DeleteVaultSecret](#deletevaultsecret) - Delete a workspace secret
 * [StoreVaultSecret](#storevaultsecret) - Store a workspace secret
+
+## ListInternConnections
+
+Lists the connections in scope for the intern, by the key of their card on the dashboard's Connections tab: `github`, `slack`, `google`, a catalog MCP server such as `linear` or `notion`, or `mcp:<host>` for a custom MCP server. A connection is listed when it is stored, enabled, and not turned off or hidden for this intern, as the Connections tab lists it; whether its last test passed is not part of the rule. `ori features add` checks a feature's `ori.requires.connections` against this list. Keys only, never credentials. Returns 404 for an intern the key cannot see. The scope is selected by the API key: workspace routes act on the key's active workspace and intern routes act on one intern inside that workspace. There is no default workspace and no fallback to another scope. Every vault route, including reads, requires access to the Intern API programme and returns 404 outside it. An intern's own API key is confined to that intern: it can always read the intern's secrets and effective secrets, writes to them follow the rules above, and every other intern and every workspace route answers 404. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Vault.ListInternConnections(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                   | Type                                                        | Required                                                    | Description                                                 | Example                                                     |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `ctx`                                                       | [context.Context](https://pkg.go.dev/context#Context)       | ✅                                          | The context to use for the request.                         |                                                             |
+| `internID`                                                  | `string`                                                    | ✅                                          | UUID of an intern in the workspace selected by the API key. | 7c9e6679-7425-40de-944b-e07fc1f90ae7                        |
+| `opts`                                                      | [][operations.Option](../../models/operations/option.mdx)    | ➖                                          | The options for this request.                               |                                                             |
+
+### Response
+
+**[*operations.ListInternConnectionsResponse](../../models/operations/listinternconnectionsresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.RequestTimeoutResponseError     | 408                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.GatewayTimeoutResponseError     | 504                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |
 
 ## ListInternEffectiveVaultSecrets
 
