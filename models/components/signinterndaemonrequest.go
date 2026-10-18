@@ -2,9 +2,74 @@
 
 package components
 
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
+// SignInternDaemonRequestMethod - The HTTP method of the daemon request.
+type SignInternDaemonRequestMethod string
+
+const (
+	SignInternDaemonRequestMethodPost SignInternDaemonRequestMethod = "POST"
+)
+
+func (e SignInternDaemonRequestMethod) ToPointer() *SignInternDaemonRequestMethod {
+	return &e
+}
+func (e *SignInternDaemonRequestMethod) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "POST":
+		*e = SignInternDaemonRequestMethod(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for SignInternDaemonRequestMethod: %v", v)
+	}
+}
+
+// Route - The daemon request the proof is for. When present the response also carries the single-use, route-bound proof (`x-ori-invoke-signature-v2`, `x-ori-invoke-nonce`).
+type Route struct {
+	// The HTTP method of the daemon request.
+	Method SignInternDaemonRequestMethod `json:"method"`
+	// The daemon request path, percent-encoded as sent, without origin or query. The route-bound proof admits only this path.
+	Path string `json:"path"`
+}
+
+func (r *Route) GetMethod() SignInternDaemonRequestMethod {
+	if r == nil {
+		return SignInternDaemonRequestMethod("")
+	}
+	return r.Method
+}
+
+func (r *Route) GetPath() string {
+	if r == nil {
+		return ""
+	}
+	return r.Path
+}
+
 type SignInternDaemonRequest struct {
 	// Lower-case hex SHA-256 of the exact bytes the CLI will send as the daemon request body.
 	BodySha256 string `json:"bodySha256"`
+	// The daemon request the proof is for. When present the response also carries the single-use, route-bound proof (`x-ori-invoke-signature-v2`, `x-ori-invoke-nonce`).
+	Route *Route `json:"route,omitzero"`
+}
+
+func (s SignInternDaemonRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SignInternDaemonRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *SignInternDaemonRequest) GetBodySha256() string {
@@ -12,4 +77,11 @@ func (s *SignInternDaemonRequest) GetBodySha256() string {
 		return ""
 	}
 	return s.BodySha256
+}
+
+func (s *SignInternDaemonRequest) GetRoute() *Route {
+	if s == nil {
+		return nil
+	}
+	return s.Route
 }
