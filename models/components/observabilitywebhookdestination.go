@@ -8,19 +8,19 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type Method string
+type ObservabilityWebhookDestinationMethod string
 
 const (
-	MethodPost Method = "POST"
-	MethodPut  Method = "PUT"
+	ObservabilityWebhookDestinationMethodPost ObservabilityWebhookDestinationMethod = "POST"
+	ObservabilityWebhookDestinationMethodPut  ObservabilityWebhookDestinationMethod = "PUT"
 )
 
-func (e Method) ToPointer() *Method {
+func (e ObservabilityWebhookDestinationMethod) ToPointer() *ObservabilityWebhookDestinationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Method) IsExact() bool {
+func (e *ObservabilityWebhookDestinationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "POST", "PUT":
@@ -31,9 +31,9 @@ func (e *Method) IsExact() bool {
 }
 
 type ObservabilityWebhookDestinationConfig struct {
-	Headers map[string]string `json:"headers,omitzero"`
-	Method  *Method           `default:"POST" json:"method"`
-	URL     string            `json:"url"`
+	Headers map[string]string                      `json:"headers,omitzero"`
+	Method  *ObservabilityWebhookDestinationMethod `default:"POST" json:"method"`
+	URL     string                                 `json:"url"`
 }
 
 func (o ObservabilityWebhookDestinationConfig) MarshalJSON() ([]byte, error) {
@@ -54,7 +54,7 @@ func (o *ObservabilityWebhookDestinationConfig) GetHeaders() map[string]string {
 	return o.Headers
 }
 
-func (o *ObservabilityWebhookDestinationConfig) GetMethod() *Method {
+func (o *ObservabilityWebhookDestinationConfig) GetMethod() *ObservabilityWebhookDestinationMethod {
 	if o == nil {
 		return nil
 	}
