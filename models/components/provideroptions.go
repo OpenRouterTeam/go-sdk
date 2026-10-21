@@ -117,6 +117,7 @@ type ProviderOptions struct {
 	Quiver                   map[string]any `json:"quiver,omitzero"`
 	Recraft                  map[string]any `json:"recraft,omitzero"`
 	Recursal                 map[string]any `json:"recursal,omitzero"`
+	Recursive                map[string]any `json:"recursive,omitzero"`
 	Reflection               map[string]any `json:"reflection,omitzero"`
 	Reka                     map[string]any `json:"reka,omitzero"`
 	Relace                   map[string]any `json:"relace,omitzero"`
@@ -929,6 +930,13 @@ func (p *ProviderOptions) GetRecursal() map[string]any {
 		return nil
 	}
 	return p.Recursal
+}
+
+func (p *ProviderOptions) GetRecursive() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Recursive
 }
 
 func (p *ProviderOptions) GetReflection() map[string]any {

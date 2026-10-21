@@ -298,6 +298,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Quiver                   map[string]any `json:"quiver,omitzero"`
 	Recraft                  map[string]any `json:"recraft,omitzero"`
 	Recursal                 map[string]any `json:"recursal,omitzero"`
+	Recursive                map[string]any `json:"recursive,omitzero"`
 	Reflection               map[string]any `json:"reflection,omitzero"`
 	Reka                     map[string]any `json:"reka,omitzero"`
 	Relace                   map[string]any `json:"relace,omitzero"`
@@ -1110,6 +1111,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetRecursal() map[string]any
 		return nil
 	}
 	return i.Recursal
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetRecursive() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Recursive
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetReflection() map[string]any {
