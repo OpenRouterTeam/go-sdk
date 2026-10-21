@@ -1,19 +1,16 @@
 ---
-title: "EndUsers"
-description: "End Users endpoints"
+title: "ExternalUsers"
 ---
 
 ## Overview
 
-End Users endpoints
-
 ### Available Operations
 
-* [List](#list) - List registered end users
-* [Create](#create) - Register an end user
-* [Delete](#delete) - Deactivate a registered end user
-* [Get](#get) - Get a registered end user
-* [Update](#update) - Update a registered end user
+* [List](#list) - List registered external users
+* [Create](#create) - Register an external user
+* [Delete](#delete) - Deactivate a registered external user
+* [Get](#get) - Get a registered external user
+* [Update](#update) - Update a registered external user
 
 ## List
 
@@ -39,7 +36,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.EndUsers.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, openrouter.Pointer(false))
+    res, err := s.ExternalUsers.List(ctx, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](50), nil, openrouter.Pointer(false))
     if err != nil {
         log.Fatal(err)
     }
@@ -74,7 +71,7 @@ func main() {
 
 ### Response
 
-**[*operations.ListEndUsersResponse](../../models/operations/listendusersresponse.mdx), error**
+**[*operations.ListExternalUsersResponse](../../models/operations/listexternalusersresponse.mdx), error**
 
 ### Errors
 
@@ -110,7 +107,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.EndUsers.Create(ctx, components.CreateEndUserRequest{
+    res, err := s.ExternalUsers.Create(ctx, components.CreateExternalUserRequest{
         User: "employee_123",
     })
     if err != nil {
@@ -124,15 +121,15 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | ✅                                                                 | The context to use for the request.                                                |
-| `request`                                                                          | [components.CreateEndUserRequest](../../models/components/createenduserrequest.mdx) | ✅                                                                 | The request object to use for the request.                                         |
-| `opts`                                                                             | [][operations.Option](../../models/operations/option.mdx)                           | ➖                                                                 | The options for this request.                                                      |
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                        | ✅                                                                           | The context to use for the request.                                                          |
+| `request`                                                                                    | [components.CreateExternalUserRequest](../../models/components/createexternaluserrequest.mdx) | ✅                                                                           | The request object to use for the request.                                                   |
+| `opts`                                                                                       | [][operations.Option](../../models/operations/option.mdx)                                     | ➖                                                                           | The options for this request.                                                                |
 
 ### Response
 
-**[*components.EndUserResponse](../../models/components/enduserresponse.mdx), error**
+**[*components.ExternalUserResponse](../../models/components/externaluserresponse.mdx), error**
 
 ### Errors
 
@@ -168,7 +165,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    err := s.EndUsers.Delete(ctx, "employee_123")
+    err := s.ExternalUsers.Delete(ctx, "employee_123")
     if err != nil {
         log.Fatal(err)
     }
@@ -220,7 +217,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.EndUsers.Get(ctx, "employee_123")
+    res, err := s.ExternalUsers.Get(ctx, "employee_123")
     if err != nil {
         log.Fatal(err)
     }
@@ -240,7 +237,7 @@ func main() {
 
 ### Response
 
-**[*components.EndUserResponse](../../models/components/enduserresponse.mdx), error**
+**[*components.ExternalUserResponse](../../models/components/externaluserresponse.mdx), error**
 
 ### Errors
 
@@ -276,7 +273,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.EndUsers.Update(ctx, "employee_123", components.UpdateEndUserRequest{
+    res, err := s.ExternalUsers.Update(ctx, "employee_123", components.UpdateExternalUserRequest{
         IsActive: true,
     })
     if err != nil {
@@ -294,12 +291,12 @@ func main() {
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                                                                                                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                                                                                                                                                                | ✅                                                                                                                                                                                                                                                                                                   | The context to use for the request.                                                                                                                                                                                                                                                                                  |                                                                                                                                                                                                                                                                                                                      |
 | `user`                                                                                                                                                                                                                                                                                                               | `string`                                                                                                                                                                                                                                                                                                             | ✅                                                                                                                                                                                                                                                                                                   | Immutable case-sensitive tracking string supplied as user on inference requests or as external.user on API keys: 1 to 512 characters, well-formed Unicode, no NUL, no surrounding whitespace. URL-encode it in resource paths; an ID of `.` or `..` cannot be addressed by path, so look it up with the list filter. | employee_123                                                                                                                                                                                                                                                                                                         |
-| `updateEndUserRequest`                                                                                                                                                                                                                                                                                               | [components.UpdateEndUserRequest](../../models/components/updateenduserrequest.mdx)                                                                                                                                                                                                                                   | ✅                                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                                  | \{<br/>"is_active": true<br/>}                                                                                                                                                                                                                                                                                        |
+| `updateExternalUserRequest`                                                                                                                                                                                                                                                                                          | [components.UpdateExternalUserRequest](../../models/components/updateexternaluserrequest.mdx)                                                                                                                                                                                                                         | ✅                                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                                  | \{<br/>"is_active": true<br/>}                                                                                                                                                                                                                                                                                        |
 | `opts`                                                                                                                                                                                                                                                                                                               | [][operations.Option](../../models/operations/option.mdx)                                                                                                                                                                                                                                                             | ➖                                                                                                                                                                                                                                                                                                   | The options for this request.                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                                      |
 
 ### Response
 
-**[*components.EndUserResponse](../../models/components/enduserresponse.mdx), error**
+**[*components.ExternalUserResponse](../../models/components/externaluserresponse.mdx), error**
 
 ### Errors
 

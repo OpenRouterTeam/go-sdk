@@ -18,6 +18,7 @@ Create, inspect, update, provision, suspend and delete OpenRouter interns throug
 * [~~GetInternDaemonAccess~~](#getinterndaemonaccess) - Get an intern's daemon access (deprecated alias) ⚠️ **Deprecated**
 * [~~SignInternDaemonAccessRequest~~](#signinterndaemonaccessrequest) - Sign a daemon request with the caller's identity (deprecated alias) ⚠️ **Deprecated**
 * [SignInternDaemonRequest](#signinterndaemonrequest) - Sign a daemon request with the caller's identity
+* [GetInternIcon](#getinternicon) - Get an intern's icon
 * [ProvisionIntern](#provisionintern) - Provision an intern
 * [SuspendIntern](#suspendintern) - Suspend an intern
 * [Chat](#chat) - Stream a chat completion with an intern
@@ -532,6 +533,60 @@ func main() {
 | sdkerrors.InternLifecycleError    | 429                               | application/json                  |
 | sdkerrors.InternLifecycleError    | 500                               | application/json                  |
 | sdkerrors.APIError                | 4XX, 5XX                          | \*/\*                             |
+
+## GetInternIcon
+
+Returns the icon image of one visible intern. Pass the intern's `icon_sha256` as `v` to receive a response that can be cached indefinitely. The API key selects the caller, workspace and visible interns. An intern's own API key sees only that intern: the collection and every other intern answer 404 to it. There is no default workspace fallback. Requests on regional hostnames such as `eu.openrouter.ai` are refused. [API key](/docs/api-reference/authentication) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Interns.GetInternIcon(ctx, "7c9e6679-7425-40de-944b-e07fc1f90ae7", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | ✅                                       | The context to use for the request.                      |                                                          |
+| `internID`                                               | `string`                                                 | ✅                                       | ID of an intern visible to the authenticated API key.    | 7c9e6679-7425-40de-944b-e07fc1f90ae7                     |
+| `v`                                                      | `*string`                                                | ➖                                       | The `icon_sha256` the caller expects.                    |                                                          |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | ➖                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[io.ReadCloser](../../.mdx), error**
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| sdkerrors.InternLifecycleError | 401, 403, 404, 408             | application/json               |
+| sdkerrors.InternLifecycleError | 500                            | application/json               |
+| sdkerrors.APIError             | 4XX, 5XX                       | \*/\*                          |
 
 ## ProvisionIntern
 

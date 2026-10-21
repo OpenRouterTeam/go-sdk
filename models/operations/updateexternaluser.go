@@ -6,22 +6,22 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 )
 
-type UpdateEndUserRequest struct {
+type UpdateExternalUserRequest struct {
 	// Immutable case-sensitive tracking string supplied as user on inference requests or as external.user on API keys: 1 to 512 characters, well-formed Unicode, no NUL, no surrounding whitespace. URL-encode it in resource paths; an ID of `.` or `..` cannot be addressed by path, so look it up with the list filter.
-	User                 string                          `pathParam:"style=simple,explode=false,name=user"`
-	UpdateEndUserRequest components.UpdateEndUserRequest `request:"mediaType=application/json"`
+	User                      string                               `pathParam:"style=simple,explode=false,name=user"`
+	UpdateExternalUserRequest components.UpdateExternalUserRequest `request:"mediaType=application/json"`
 }
 
-func (u *UpdateEndUserRequest) GetUser() string {
+func (u *UpdateExternalUserRequest) GetUser() string {
 	if u == nil {
 		return ""
 	}
 	return u.User
 }
 
-func (u *UpdateEndUserRequest) GetUpdateEndUserRequest() components.UpdateEndUserRequest {
+func (u *UpdateExternalUserRequest) GetUpdateExternalUserRequest() components.UpdateExternalUserRequest {
 	if u == nil {
-		return components.UpdateEndUserRequest{}
+		return components.UpdateExternalUserRequest{}
 	}
-	return u.UpdateEndUserRequest
+	return u.UpdateExternalUserRequest
 }

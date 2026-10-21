@@ -2,12 +2,12 @@
 
 package components
 
-type UpdateEndUserRequest struct {
+type UpdateExternalUserRequest struct {
 	// Registration state only; does not enforce inference access.
 	IsActive bool `json:"is_active"`
 }
 
-func (u *UpdateEndUserRequest) GetIsActive() bool {
+func (u *UpdateExternalUserRequest) GetIsActive() bool {
 	if u == nil {
 		return false
 	}
