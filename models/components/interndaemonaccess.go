@@ -2,10 +2,23 @@
 
 package components
 
-// InternDaemonAccess - The intern daemon's origin and the bearer `ori tui --host` sends to it as `ORI_DAEMON_TOKEN`.
+type Viewer struct {
+	// The caller's Ori principals on this intern: `clerk:<user>`, and, when the grant carries `vault:read`, `slack:<team>:<user>` for each Slack account they linked to it. A session started by one of them in a one-to-one Slack DM is the caller's to see.
+	Principals []string `json:"principals"`
+}
+
+func (v *Viewer) GetPrincipals() []string {
+	if v == nil {
+		return []string{}
+	}
+	return v.Principals
+}
+
+// InternDaemonAccess - The intern daemon's origin, the bearer `ori tui --host` sends to it as `ORI_DAEMON_TOKEN`, and who the caller is on the intern.
 type InternDaemonAccess struct {
 	Origin string `json:"origin"`
 	Token  string `json:"token"`
+	Viewer Viewer `json:"viewer"`
 }
 
 func (i *InternDaemonAccess) GetOrigin() string {
@@ -20,4 +33,11 @@ func (i *InternDaemonAccess) GetToken() string {
 		return ""
 	}
 	return i.Token
+}
+
+func (i *InternDaemonAccess) GetViewer() Viewer {
+	if i == nil {
+		return Viewer{}
+	}
+	return i.Viewer
 }
