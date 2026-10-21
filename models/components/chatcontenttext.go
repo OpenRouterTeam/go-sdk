@@ -36,7 +36,7 @@ func (e *ChatContentTextType) UnmarshalJSON(data []byte) error {
 type ChatContentText struct {
 	// Anthropic-style cache breakpoint for the content part. Interchangeable with the OpenAI-style `prompt_cache_breakpoint` marker: OpenRouter converts between the two based on the provider serving the request.
 	CacheControl *ChatContentCacheControl `json:"cache_control,omitzero"`
-	// Marks an explicit prompt-cache boundary on this content block (OpenAI-style). Everything through the block carrying this marker is part of the candidate cached prefix. Supported natively by OpenAI GPT-5.6 and newer; on providers that use Anthropic-style `cache_control`, OpenRouter converts the marker to that format automatically.
+	// Marks an explicit prompt-cache boundary on this content block (OpenAI-style). Everything through the block carrying this marker is part of the candidate cached prefix. Supported natively by OpenAI GPT-5.6 and newer; on providers that use Anthropic-style `cache_control`, OpenRouter converts the marker to that format automatically. `ttl` ("30m" or "12h") overrides the request-level `prompt_cache_options.ttl` for this boundary; 12h writes bill at the higher cache-write rate.
 	PromptCacheBreakpoint optionalnullable.OptionalNullable[PromptCacheBreakpoint] `json:"prompt_cache_breakpoint,omitzero"`
 	Text                  string                                                   `json:"text"`
 	Type                  ChatContentTextType                                      `json:"type"`

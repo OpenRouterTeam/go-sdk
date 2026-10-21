@@ -70,6 +70,8 @@ func (e *InternStatus) IsExact() bool {
 type Intern struct {
 	// Vault the intern borrows from another intern, or null when it borrows none.
 	AttachedVaultID *string `json:"attached_vault_id"`
+	// Whether this key may change the intern (update, provision, suspend, delete). Present on list and retrieve; false while lifecycle writes are closed for the account.
+	CanEdit *bool `json:"can_edit,omitzero"`
 	// ISO 8601 creation time.
 	CreatedAt string `json:"created_at"`
 	// Whether the user behind the key created the intern. Present on list and retrieve; absent for organization keys, which act for no user.
@@ -107,6 +109,13 @@ func (i *Intern) GetAttachedVaultID() *string {
 		return nil
 	}
 	return i.AttachedVaultID
+}
+
+func (i *Intern) GetCanEdit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CanEdit
 }
 
 func (i *Intern) GetCreatedAt() string {
