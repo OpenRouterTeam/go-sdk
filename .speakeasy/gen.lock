@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 779ac35efdbd28b11b1e6f20e0422699
+  docChecksum: 0ea96e4aa680d576659dc64f9136b983
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.66
-  configChecksum: 30294a827b000adfaa59a73820612eb9
+  releaseVersion: 0.9.67
+  configChecksum: ae2c89a34f7f2acc16ebc56bbeffb801
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 8a8320c1-e4e2-4421-9181-7d2b104dffb8
-  pristine_commit_hash: 3e343679b14c729ed16115198feade15fb6c1a67
-  pristine_tree_hash: 94f7dbcda9d71afc06c4c6a471b214b1f0619283
+  generation_id: 74fe3fdf-b11a-4cf4-80bb-2011961540fe
+  pristine_commit_hash: d9f22bb0eb46bf4460133de8350eda50100f3b42
+  pristine_tree_hash: 6f37b0e121a5c2af673becf17217818c5dce0b94
 features:
   go:
     acceptHeaders: 2.81.2
@@ -13933,8 +13933,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:b7d880f2644516202a5b40fa90bc15d4d9b52020
-    pristine_git_object: 303f9cf9d8943777204a0700962105cd8d758cd8
+    last_write_checksum: sha1:91fab085583023ae0df235e78616aa252e418609
+    pristine_git_object: 866846e2bc73dfa7d58c9528c40c1485139567cb
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -18280,4 +18280,3 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Interns.GetInternConnections()`: **Added**\n* `OpenRouter.Batch.CreateBatches()`:  `response.Results[].Response.Body.union(OpenResponsesResult).Instructions.union(Array<>)[].union(class (0)).Content.union(Array<>)[].union(input_text).PromptCacheBreakpoint.Ttl` **Added**\n* `OpenRouter.Batch.GetBatches()`:  `response.Results[].Response.Body.union(OpenResponsesResult).Instructions.union(Array<>)[].union(OpenAIResponseInputMessageItem).Content[].union(input_text).PromptCacheBreakpoint.Ttl` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Messages[].union(developer).Content.union(Array<ChatContentText>)[].PromptCacheBreakpoint.Ttl` **Added**\n  *  `response.Choices[].Message.Content.union(Array<ChatContentItems>)[].union(text).PromptCacheBreakpoint.Ttl` **Added**\n* `OpenRouter.Interns.ListInterns()`:  `response.Data[].CanEdit` **Added**\n* `OpenRouter.Interns.CreateIntern()`:  `response.CanEdit` **Added**\n* `OpenRouter.Interns.GetIntern()`:  `response.CanEdit` **Added**\n* `OpenRouter.Interns.UpdateIntern()`:  `response.CanEdit` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Messages[].union(system).Content.union(Array<ChatContentText>)[].PromptCacheBreakpoint.Ttl` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(EasyInputMessage).Content.union(Array<>)[].union(input_text).PromptCacheBreakpoint.Ttl` **Added**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(CustomToolCallOutputItem).Output.union(Array<>)[].union(input_text).PromptCacheBreakpoint.Ttl` **Added**\n  *  `response` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Input.union(Array<>)[].union(AgentMessageItem).Content[].union(input_text).PromptCacheBreakpoint.Ttl` **Added**\n  *  `response` **Changed**\n"
