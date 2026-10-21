@@ -8,7 +8,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type ListEndUsersRequest struct {
+type ListExternalUsersRequest struct {
 	// Number of records to skip for pagination
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
@@ -19,54 +19,54 @@ type ListEndUsersRequest struct {
 	IncludeInactive *bool `default:"false" queryParam:"style=form,explode=true,name=include_inactive"`
 }
 
-func (l ListEndUsersRequest) MarshalJSON() ([]byte, error) {
+func (l ListExternalUsersRequest) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(l, "", false)
 }
 
-func (l *ListEndUsersRequest) UnmarshalJSON(data []byte) error {
+func (l *ListExternalUsersRequest) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (l *ListEndUsersRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
+func (l *ListExternalUsersRequest) GetOffset() optionalnullable.OptionalNullable[int64] {
 	if l == nil {
 		return nil
 	}
 	return l.Offset
 }
 
-func (l *ListEndUsersRequest) GetLimit() *int64 {
+func (l *ListExternalUsersRequest) GetLimit() *int64 {
 	if l == nil {
 		return nil
 	}
 	return l.Limit
 }
 
-func (l *ListEndUsersRequest) GetUser() *string {
+func (l *ListExternalUsersRequest) GetUser() *string {
 	if l == nil {
 		return nil
 	}
 	return l.User
 }
 
-func (l *ListEndUsersRequest) GetIncludeInactive() *bool {
+func (l *ListExternalUsersRequest) GetIncludeInactive() *bool {
 	if l == nil {
 		return nil
 	}
 	return l.IncludeInactive
 }
 
-type ListEndUsersResponse struct {
-	Result components.ListEndUsersResponse
+type ListExternalUsersResponse struct {
+	Result components.ListExternalUsersResponse
 
-	Next func() (*ListEndUsersResponse, error)
+	Next func() (*ListExternalUsersResponse, error)
 }
 
-func (l *ListEndUsersResponse) GetResult() components.ListEndUsersResponse {
+func (l *ListExternalUsersResponse) GetResult() components.ListExternalUsersResponse {
 	if l == nil {
-		return components.ListEndUsersResponse{}
+		return components.ListExternalUsersResponse{}
 	}
 	return l.Result
 }

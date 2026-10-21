@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type EndUser struct {
+type ExternalUser struct {
 	// Registration creation time.
 	CreatedAt time.Time `json:"created_at"`
 	// Whether this registration is active. Not an inference authorization decision.
@@ -18,39 +18,39 @@ type EndUser struct {
 	User string `json:"user"`
 }
 
-func (e EndUser) MarshalJSON() ([]byte, error) {
+func (e ExternalUser) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(e, "", false)
 }
 
-func (e *EndUser) UnmarshalJSON(data []byte) error {
+func (e *ExternalUser) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *EndUser) GetCreatedAt() time.Time {
+func (e *ExternalUser) GetCreatedAt() time.Time {
 	if e == nil {
 		return time.Time{}
 	}
 	return e.CreatedAt
 }
 
-func (e *EndUser) GetIsActive() bool {
+func (e *ExternalUser) GetIsActive() bool {
 	if e == nil {
 		return false
 	}
 	return e.IsActive
 }
 
-func (e *EndUser) GetUpdatedAt() time.Time {
+func (e *ExternalUser) GetUpdatedAt() time.Time {
 	if e == nil {
 		return time.Time{}
 	}
 	return e.UpdatedAt
 }
 
-func (e *EndUser) GetUser() string {
+func (e *ExternalUser) GetUser() string {
 	if e == nil {
 		return ""
 	}

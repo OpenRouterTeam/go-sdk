@@ -25,6 +25,7 @@ const (
 	AcceptHeaderEnumAudioWildcard          AcceptHeaderEnum = "audio/*"
 	AcceptHeaderEnumTextEventStream        AcceptHeaderEnum = "text/event-stream"
 	AcceptHeaderEnumApplicationOctetStream AcceptHeaderEnum = "application/octet-stream"
+	AcceptHeaderEnumImageWildcard          AcceptHeaderEnum = "image/*"
 	AcceptHeaderEnumVideoMp4               AcceptHeaderEnum = "video/mp4"
 )
 

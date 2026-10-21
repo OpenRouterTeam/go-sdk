@@ -2,20 +2,20 @@
 
 package components
 
-type ListEndUsersResponse struct {
-	Data []EndUser `json:"data"`
+type ListExternalUsersResponse struct {
+	Data []ExternalUser `json:"data"`
 	// Number of registrations matching the filters before pagination.
 	TotalCount int64 `json:"total_count"`
 }
 
-func (l *ListEndUsersResponse) GetData() []EndUser {
+func (l *ListExternalUsersResponse) GetData() []ExternalUser {
 	if l == nil {
-		return []EndUser{}
+		return []ExternalUser{}
 	}
 	return l.Data
 }
 
-func (l *ListEndUsersResponse) GetTotalCount() int64 {
+func (l *ListExternalUsersResponse) GetTotalCount() int64 {
 	if l == nil {
 		return 0
 	}

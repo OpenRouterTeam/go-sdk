@@ -19,25 +19,24 @@ import (
 	"net/url"
 )
 
-// EndUsers - End Users endpoints
-type EndUsers struct {
+type ExternalUsers struct {
 	rootSDK          *OpenRouter
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
 }
 
-func newEndUsers(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *EndUsers {
-	return &EndUsers{
+func newExternalUsers(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks.Hooks) *ExternalUsers {
+	return &ExternalUsers{
 		rootSDK:          rootSDK,
 		sdkConfiguration: sdkConfig,
 		hooks:            hooks,
 	}
 }
 
-// List registered end users
+// List registered external users
 // List registrations belonging to the authenticated organization. Inactive registrations are excluded by default. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *EndUsers) List(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, user *string, includeInactive *bool, opts ...operations.Option) (*operations.ListEndUsersResponse, error) {
-	request := operations.ListEndUsersRequest{
+func (s *ExternalUsers) List(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, user *string, includeInactive *bool, opts ...operations.Option) (*operations.ListExternalUsersResponse, error) {
+	request := operations.ListExternalUsersRequest{
 		Offset:          offset,
 		Limit:           limit,
 		User:            user,
@@ -62,7 +61,7 @@ func (s *EndUsers) List(ctx context.Context, offset optionalnullable.OptionalNul
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/end-users")
+	opURL, err := url.JoinPath(baseURL, "/external-users")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -72,7 +71,7 @@ func (s *EndUsers) List(ctx context.Context, offset optionalnullable.OptionalNul
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "listEndUsers",
+		OperationID:      "listExternalUsers",
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -204,8 +203,8 @@ func (s *EndUsers) List(ctx context.Context, offset optionalnullable.OptionalNul
 		}
 	}
 
-	res := &operations.ListEndUsersResponse{}
-	res.Next = func() (*operations.ListEndUsersResponse, error) {
+	res := &operations.ListExternalUsersResponse{}
+	res.Next = func() (*operations.ListExternalUsersResponse, error) {
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -263,7 +262,7 @@ func (s *EndUsers) List(ctx context.Context, offset optionalnullable.OptionalNul
 				return nil, err
 			}
 
-			var out components.ListEndUsersResponse
+			var out components.ListExternalUsersResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -384,9 +383,9 @@ func (s *EndUsers) List(ctx context.Context, offset optionalnullable.OptionalNul
 
 }
 
-// Create - Register an end user
+// Create - Register an external user
 // Register a caller-supplied tracking ID under the authenticated organization. No login account, policy, or credentials are created. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *EndUsers) Create(ctx context.Context, request components.CreateEndUserRequest, opts ...operations.Option) (*components.EndUserResponse, error) {
+func (s *ExternalUsers) Create(ctx context.Context, request components.CreateExternalUserRequest, opts ...operations.Option) (*components.ExternalUserResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -405,7 +404,7 @@ func (s *EndUsers) Create(ctx context.Context, request components.CreateEndUserR
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := url.JoinPath(baseURL, "/end-users")
+	opURL, err := url.JoinPath(baseURL, "/external-users")
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -415,7 +414,7 @@ func (s *EndUsers) Create(ctx context.Context, request components.CreateEndUserR
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "createEndUser",
+		OperationID:      "createExternalUser",
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -559,7 +558,7 @@ func (s *EndUsers) Create(ctx context.Context, request components.CreateEndUserR
 				return nil, err
 			}
 
-			var out components.EndUserResponse
+			var out components.ExternalUserResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -701,10 +700,10 @@ func (s *EndUsers) Create(ctx context.Context, request components.CreateEndUserR
 
 }
 
-// Delete - Deactivate a registered end user
+// Delete - Deactivate a registered external user
 // Soft-deactivate a registration while retaining its tracking ID. Repeat deactivation succeeds. This does not block inference; reactivate through PATCH. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *EndUsers) Delete(ctx context.Context, user string, opts ...operations.Option) error {
-	request := operations.DeleteEndUserRequest{
+func (s *ExternalUsers) Delete(ctx context.Context, user string, opts ...operations.Option) error {
+	request := operations.DeleteExternalUserRequest{
 		User: user,
 	}
 
@@ -726,7 +725,7 @@ func (s *EndUsers) Delete(ctx context.Context, user string, opts ...operations.O
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/end-users/{user}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/external-users/{user}", request, nil)
 	if err != nil {
 		return fmt.Errorf("error generating URL: %w", err)
 	}
@@ -736,7 +735,7 @@ func (s *EndUsers) Delete(ctx context.Context, user string, opts ...operations.O
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "deleteEndUser",
+		OperationID:      "deleteExternalUser",
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -974,10 +973,10 @@ func (s *EndUsers) Delete(ctx context.Context, user string, opts ...operations.O
 	return nil
 }
 
-// Get a registered end user
+// Get a registered external user
 // Retrieve an active or inactive registration by its URL-encoded, caller-supplied tracking ID. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *EndUsers) Get(ctx context.Context, user string, opts ...operations.Option) (*components.EndUserResponse, error) {
-	request := operations.GetEndUserRequest{
+func (s *ExternalUsers) Get(ctx context.Context, user string, opts ...operations.Option) (*components.ExternalUserResponse, error) {
+	request := operations.GetExternalUserRequest{
 		User: user,
 	}
 
@@ -999,7 +998,7 @@ func (s *EndUsers) Get(ctx context.Context, user string, opts ...operations.Opti
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/end-users/{user}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/external-users/{user}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1009,7 +1008,7 @@ func (s *EndUsers) Get(ctx context.Context, user string, opts ...operations.Opti
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getEndUser",
+		OperationID:      "getExternalUser",
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -1146,7 +1145,7 @@ func (s *EndUsers) Get(ctx context.Context, user string, opts ...operations.Opti
 				return nil, err
 			}
 
-			var out components.EndUserResponse
+			var out components.ExternalUserResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -1267,12 +1266,12 @@ func (s *EndUsers) Get(ctx context.Context, user string, opts ...operations.Opti
 
 }
 
-// Update a registered end user
+// Update a registered external user
 // Update registration state without changing identity. State changes do not enforce inference access. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *EndUsers) Update(ctx context.Context, user string, updateEndUserRequest components.UpdateEndUserRequest, opts ...operations.Option) (*components.EndUserResponse, error) {
-	request := operations.UpdateEndUserRequest{
-		User:                 user,
-		UpdateEndUserRequest: updateEndUserRequest,
+func (s *ExternalUsers) Update(ctx context.Context, user string, updateExternalUserRequest components.UpdateExternalUserRequest, opts ...operations.Option) (*components.ExternalUserResponse, error) {
+	request := operations.UpdateExternalUserRequest{
+		User:                      user,
+		UpdateExternalUserRequest: updateExternalUserRequest,
 	}
 
 	o := operations.Options{}
@@ -1293,7 +1292,7 @@ func (s *EndUsers) Update(ctx context.Context, user string, updateEndUserRequest
 	} else {
 		baseURL = *o.ServerURL
 	}
-	opURL, err := utils.GenerateURL(ctx, baseURL, "/end-users/{user}", request, nil)
+	opURL, err := utils.GenerateURL(ctx, baseURL, "/external-users/{user}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
@@ -1303,11 +1302,11 @@ func (s *EndUsers) Update(ctx context.Context, user string, updateEndUserRequest
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "updateEndUser",
+		OperationID:      "updateExternalUser",
 		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateEndUserRequest", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateExternalUserRequest", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1447,7 +1446,7 @@ func (s *EndUsers) Update(ctx context.Context, user string, updateEndUserRequest
 				return nil, err
 			}
 
-			var out components.EndUserResponse
+			var out components.ExternalUserResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

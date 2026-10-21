@@ -259,18 +259,18 @@ func main() {
 * [Generate](docs/sdks/embeddings/README.md#generate) - Submit an embedding request
 * [ListModels](docs/sdks/embeddings/README.md#listmodels) - List all embeddings models
 
-### [EndUsers](docs/sdks/endusers/README.md)
-
-* [List](docs/sdks/endusers/README.md#list) - List registered end users
-* [Create](docs/sdks/endusers/README.md#create) - Register an end user
-* [Delete](docs/sdks/endusers/README.md#delete) - Deactivate a registered end user
-* [Get](docs/sdks/endusers/README.md#get) - Get a registered end user
-* [Update](docs/sdks/endusers/README.md#update) - Update a registered end user
-
 ### [Endpoints](docs/sdks/endpoints/README.md)
 
 * [ListZdrEndpoints](docs/sdks/endpoints/README.md#listzdrendpoints) - Preview the impact of ZDR on the available endpoints
 * [List](docs/sdks/endpoints/README.md#list) - List all endpoints for a model
+
+### [ExternalUsers](docs/sdks/externalusers/README.md)
+
+* [List](docs/sdks/externalusers/README.md#list) - List registered external users
+* [Create](docs/sdks/externalusers/README.md#create) - Register an external user
+* [Delete](docs/sdks/externalusers/README.md#delete) - Deactivate a registered external user
+* [Get](docs/sdks/externalusers/README.md#get) - Get a registered external user
+* [Update](docs/sdks/externalusers/README.md#update) - Update a registered external user
 
 ### [Files](docs/sdks/files/README.md)
 
@@ -319,6 +319,7 @@ func main() {
 * [~~GetInternDaemonAccess~~](docs/sdks/interns/README.md#getinterndaemonaccess) - Get an intern's daemon access (deprecated alias) :warning: **Deprecated**
 * [~~SignInternDaemonAccessRequest~~](docs/sdks/interns/README.md#signinterndaemonaccessrequest) - Sign a daemon request with the caller's identity (deprecated alias) :warning: **Deprecated**
 * [SignInternDaemonRequest](docs/sdks/interns/README.md#signinterndaemonrequest) - Sign a daemon request with the caller's identity
+* [GetInternIcon](docs/sdks/interns/README.md#getinternicon) - Get an intern's icon
 * [ProvisionIntern](docs/sdks/interns/README.md#provisionintern) - Provision an intern
 * [SuspendIntern](docs/sdks/interns/README.md#suspendintern) - Suspend an intern
 * [Chat](docs/sdks/interns/README.md#chat) - Stream a chat completion with an intern
