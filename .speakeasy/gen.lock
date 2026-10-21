@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 737f69da42875b643436876381b884d6
+  docChecksum: 71af0beead4a194f5faf53ab98549854
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.68
-  configChecksum: 3cf3619ef8c1f6a2494f8f0b85cf943e
+  releaseVersion: 0.9.69
+  configChecksum: af5e86d1f982eb527089de3e08a0c67e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: c6a0e101-b90b-4833-8435-1a9bb162351b
-  pristine_commit_hash: b4fcf83453999a2336856b9e3d670274de4228dc
-  pristine_tree_hash: 57e36227a12541cc8e01da0857f95bc1351b981b
+  generation_id: 63056ea8-3772-42f3-9a8c-93dc631cb128
+  pristine_commit_hash: 2bbcdbb496efd4a02ed49715213863746566a1de
+  pristine_tree_hash: 3233cb44a0edd9d7764e4bf53174c14d1a1c9166
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4213,8 +4213,8 @@ trackedFiles:
     pristine_git_object: 048965335a4e37037bfeadb9b793382df7b3a899
   docs/models/components/interndaemonaccess.mdx:
     id: c7ed113384d9
-    last_write_checksum: sha1:08d2d4cf99200572c0508edbed9ca72a748cd085
-    pristine_git_object: bdfb79accb2a8098d792725236054ca18050eea3
+    last_write_checksum: sha1:8dff7952ecaec0396683c263fb8bade91515d524
+    pristine_git_object: 07dab816b721a579720028f0e42876fe0fc5321c
   docs/models/components/interninvokeacceptedresponse.mdx:
     id: c833cd76278f
     last_write_checksum: sha1:bcb67c421aaff03d8aad5b82e47e3c8a888ce40b
@@ -8131,6 +8131,10 @@ trackedFiles:
     id: 0bf98133a121
     last_write_checksum: sha1:0f59509353c553ab3d89c012338770de9e09777a
     pristine_git_object: 635d4df44d3e79dd3eff5edc5b5c403194974216
+  docs/models/components/viewer.mdx:
+    id: 74fe4b75e05e
+    last_write_checksum: sha1:c234a9ff00f4cc429732d8d437796ebe090d679c
+    pristine_git_object: 9cf6a134aa6e59b8eeccc2a5a76a5780e3550e30
   docs/models/components/watch.mdx:
     id: 7833dc804790
     last_write_checksum: sha1:8885f472cc850684e907e088fc073919a649b7f2
@@ -9637,8 +9641,8 @@ trackedFiles:
     pristine_git_object: f26db505897d39275d8af46dc83da241b0a7b1ae
   docs/sdks/organization/README.mdx:
     id: f41b85542db0
-    last_write_checksum: sha1:74d7eb66c16970c51436d92dcf2afb57e27bea42
-    pristine_git_object: 34271883611d8ec26b2585eac6b248803af51514
+    last_write_checksum: sha1:1381312affbd31107f4cc461c53b529093745f94
+    pristine_git_object: 90358ce3e079a27c7e30534a2c3ff492579a5a8d
   docs/sdks/presets/README.mdx:
     id: eeb505928d52
     last_write_checksum: sha1:3ae6f0628fae8a0a1caba0ad13c9a5a6e53b5442
@@ -11605,8 +11609,8 @@ trackedFiles:
     pristine_git_object: 9737ecb17cc091f338e73e2505f17358a14c4d68
   models/components/interndaemonaccess.go:
     id: 05e7a447eb45
-    last_write_checksum: sha1:825f8ab98111ff99da9889e7c248c14a65884f9a
-    pristine_git_object: 9db5f830c91de36c51b16cf8b9ef33a8235b9e37
+    last_write_checksum: sha1:3c2484c1211caa78da4a995ca0ba3aeaa7f62224
+    pristine_git_object: 89ed85957d162083aac7aae701c2945e2ac049e8
   models/components/interninvokeacceptedresponse.go:
     id: "397111903274"
     last_write_checksum: sha1:8028cd4209a833dbbbd20bb9eb1970886d59fd6f
@@ -13933,8 +13937,8 @@ trackedFiles:
     pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:8a4c3548595cc765c332cbf59b11431a0b8666b7
-    pristine_git_object: b0e450288f5c28247ac613c33baa5d36826a0609
+    last_write_checksum: sha1:caae9adb192150173aff43395e7c47628d3e0d56
+    pristine_git_object: 6bc83746ec5f047df2dc6b265ef4942be95ca12a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13945,8 +13949,8 @@ trackedFiles:
     pristine_git_object: e6e5a01c6e721e879e24a38a1f97e3e27d4686d4
   organization.go:
     id: 041fecce87b2
-    last_write_checksum: sha1:10349d3f64292300c9403bfcd15d2e7fdd33bfc5
-    pristine_git_object: 1faeb0b2abb86f50f2354daa33c67bceb2b94437
+    last_write_checksum: sha1:efc3713788e8a3cbb98e2d95784574c200c3d1d2
+    pristine_git_object: 4995257c559fab854853f52e0376dfdf7da73442
   presets.go:
     id: e1866fc48c6b
     last_write_checksum: sha1:b69e250319a32b3cedd523aee0dbaab40455b2c3
@@ -14694,6 +14698,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   createRerank:
     speakeasy-default-create-rerank:
       requestBody:
@@ -17354,7 +17360,7 @@ examples:
           internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
       responses:
         "200":
-          application/json: {"origin": "https://research-assistant-7c9e6679.or.bot", "token": "daemon_token"}
+          application/json: {"origin": "https://research-assistant-7c9e6679.or.bot", "token": "daemon_token", "viewer": {"principals": ["clerk:user_2abc", "slack:T0123:U0456"]}}
         "401":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
         "500":
@@ -17452,7 +17458,7 @@ examples:
           internId: "7c9e6679-7425-40de-944b-e07fc1f90ae7"
       responses:
         "200":
-          application/json: {"origin": "https://research-assistant-7c9e6679.or.bot", "token": "daemon_token"}
+          application/json: {"origin": "https://research-assistant-7c9e6679.or.bot", "token": "daemon_token", "viewer": {"principals": ["clerk:user_2abc", "slack:T0123:U0456"]}}
         "401":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
         "500":
@@ -17999,6 +18005,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   updateOrganizationSettings:
     speakeasy-default-update-organization-settings:
       requestBody:
@@ -18014,6 +18022,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   signInternDaemonAccessRequest:
     speakeasy-default-sign-intern-daemon-access-request:
       parameters:
@@ -18280,4 +18290,10 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Alpha.Decisions.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Recursive` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Recursive` **Added**\n* `OpenRouter.Batch.CreateBatches()`: \n  *  `request.Request.Provider.Only[].union(ProviderName).Enum(recursive)` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(recursive)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(recursive)` **Added**\n  *  `response.Data.Provider.Enum(recursive)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(recursive)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(recursive)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider` **Changed**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(recursive)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(recursive)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(recursive)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.PrivateEndpoints.Create()`: \n  *  `request.CreatePrivateEndpointRequest.Pricing` **Changed**\n* `OpenRouter.PrivateEndpoints.Get()`:  `response.Data.Pricing` **Changed**\n* `OpenRouter.PrivateEndpoints.Update()`:  `response.Data.Pricing` **Changed**\n* `OpenRouter.PrivateEndpoints.UpdatePricing()`: \n  *  `request.UpdatePrivateEndpointPricingRequest.Pricing` **Changed**\n  *  `response.Data.Pricing` **Changed**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.SystemOne.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Recursive` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Interns.GetInternDaemon()`:  `response.Viewer` **Added**
+  * `OpenRouter.Interns.GetInternDaemonAccess()`:  `response.Viewer` **Added**
+  * `OpenRouter.Organization.ListMembers()`:  `error.status[403]` **Added**
+  * `OpenRouter.Organization.GetSettings()`:  `error.status[403]` **Added**
+  * `OpenRouter.Organization.UpdateSettings()`:  `error.status[403]` **Added**
