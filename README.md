@@ -315,6 +315,7 @@ func main() {
 * [DeleteIntern](docs/sdks/interns/README.md#deleteintern) - Delete an intern
 * [GetIntern](docs/sdks/interns/README.md#getintern) - Get an intern
 * [UpdateIntern](docs/sdks/interns/README.md#updateintern) - Update an intern
+* [GetInternConnections](docs/sdks/interns/README.md#getinternconnections) - List an intern's connections
 * [GetInternDaemon](docs/sdks/interns/README.md#getinterndaemon) - Get an intern's daemon access
 * [~~GetInternDaemonAccess~~](docs/sdks/interns/README.md#getinterndaemonaccess) - Get an intern's daemon access (deprecated alias) :warning: **Deprecated**
 * [~~SignInternDaemonAccessRequest~~](docs/sdks/interns/README.md#signinterndaemonaccessrequest) - Sign a daemon request with the caller's identity (deprecated alias) :warning: **Deprecated**
