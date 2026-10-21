@@ -4,10 +4,28 @@ package components
 
 // PrivateEndpointPricing - Negotiated per-token rates reported for requests routed to this endpoint.
 type PrivateEndpointPricing struct {
+	// USD per cache-read prompt token, as a decimal string. Omit it to bill cache reads at the provider pricing strategy's default, which for most strategies is the prompt rate.
+	CacheRead *string `json:"cache_read,omitzero"`
+	// USD per cache-write prompt token, as a decimal string. Omit it to bill cache writes at the provider pricing strategy's default.
+	CacheWrite *string `json:"cache_write,omitzero"`
 	// USD per completion token, as a decimal string.
 	Completion string `json:"completion"`
 	// USD per prompt token, as a decimal string.
 	Prompt string `json:"prompt"`
+}
+
+func (p *PrivateEndpointPricing) GetCacheRead() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CacheRead
+}
+
+func (p *PrivateEndpointPricing) GetCacheWrite() *string {
+	if p == nil {
+		return nil
+	}
+	return p.CacheWrite
 }
 
 func (p *PrivateEndpointPricing) GetCompletion() string {
