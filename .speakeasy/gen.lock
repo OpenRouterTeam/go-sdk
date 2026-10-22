@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: d55e460d302ab2e1f96549814dd4fbcb
+  docChecksum: d5f7137b7920c1e06e823276a86fef6f
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.70
-  configChecksum: 73003540c5581513cd3b476c9ac78a16
+  releaseVersion: 0.9.71
+  configChecksum: 1f198412fc5f67e34bf485a3e4319631
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 370d0e63-adec-4ab7-a315-0d94b6be0ade
-  pristine_commit_hash: 6142dc2201f788b4141a1b7347b1ab3be6eea7b5
-  pristine_tree_hash: 1856e14d094a3a58e5f992196b465130371fdbd8
+  generation_id: 015d3bec-93d0-439b-8894-b5a2953f1336
+  pristine_commit_hash: dc05bb1b5e7b2d6256215ce8ef22c30c6e68080b
+  pristine_tree_hash: 6fe7f8918187527153c3f5ffbf1d107ad26ee1cf
 features:
   go:
     acceptHeaders: 2.81.2
@@ -101,8 +101,8 @@ trackedFiles:
     pristine_git_object: a16ada41ee9142d31c238697fca17dd6420fcacd
   byok.go:
     id: 020bd36a4af9
-    last_write_checksum: sha1:2609405b7c0ac216676ae9d390e85ef8fa325a95
-    pristine_git_object: a2e44316e3d85259a78edd2f1f8443abb967892c
+    last_write_checksum: sha1:bc795d991ee1026e86abf8977a230d97d9ffa723
+    pristine_git_object: e42e998a52393f4383d552294b55d8c7ced67845
   chat.go:
     id: 81535ccb3ff5
     last_write_checksum: sha1:bf12b147b40656ae0086e01601410f01ae94e039
@@ -9569,8 +9569,8 @@ trackedFiles:
     pristine_git_object: 71d14851ffbee2884a7ead21b5ef4efc8f997b2e
   docs/sdks/byok/README.mdx:
     id: 17792f3b180d
-    last_write_checksum: sha1:ab15e8f6aebb47b57be8a0f1ece817e913fdbaca
-    pristine_git_object: 3848c8b4771950af59049773ebb01a7e774aa6e5
+    last_write_checksum: sha1:3eb91c8f3fb3271580473b24778bc62366ec7062
+    pristine_git_object: 0fb602bb878393525b4ac7e259d3f91a83a56d69
   docs/sdks/chat/README.mdx:
     id: 1dd859c23fe1
     last_write_checksum: sha1:2903cd6f4de2f951f72c1eec3966b530844cf7d5
@@ -9637,8 +9637,8 @@ trackedFiles:
     pristine_git_object: 68fdcc465de382bd2ff2bc778b55a3cb2cc774e2
   docs/sdks/observability/README.mdx:
     id: 75811527e651
-    last_write_checksum: sha1:3696b71d13a03ba5150fe761028cebd4b50919cf
-    pristine_git_object: f26db505897d39275d8af46dc83da241b0a7b1ae
+    last_write_checksum: sha1:76cbd0331e59170063ff3200510e54b06432ff07
+    pristine_git_object: 752f745d5421acc3d5f6db7c37656c0ddc685451
   docs/sdks/organization/README.mdx:
     id: f41b85542db0
     last_write_checksum: sha1:1381312affbd31107f4cc461c53b529093745f94
@@ -9665,8 +9665,8 @@ trackedFiles:
     pristine_git_object: ab1b772c84923c7f22077bc350b5d97519758275
   docs/sdks/scim/README.mdx:
     id: fd6d8a91a053
-    last_write_checksum: sha1:1c9120d60770da6bed7c36d7ebb76c7944da7e79
-    pristine_git_object: 4ea2865ff500bf1f3332c835270ea49b665bf2d9
+    last_write_checksum: sha1:ef291a0cdde015fc41ce95b1e7038d48ca13275e
+    pristine_git_object: f4328a9984a420167d1bc054e686b5501a9b8473
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
     last_write_checksum: sha1:4be52c24cf786a69214d2fe20f76f63c4b610433
@@ -13933,12 +13933,12 @@ trackedFiles:
     pristine_git_object: 85c7fabc264bb1e019fdd9200a3688e57604ad61
   observability.go:
     id: 38f7e1f491fb
-    last_write_checksum: sha1:789819294ec486f0a7c26d2803e9301759c8c056
-    pristine_git_object: 5e3a2cdf8cb4ed4f5378b712293cba9c82074f16
+    last_write_checksum: sha1:1c782aef11b62e0763ab1ec91a3c161fefa7e0f7
+    pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:71e4168d11d9d737995bd5b192fad118c9030cb1
-    pristine_git_object: bb61c8d8cff127e464ad1679564ef1ef326e9903
+    last_write_checksum: sha1:61f899102a36eb5d2147d3f370a0e23cb9ede8f2
+    pristine_git_object: 5300e4192a428ca6db2b72ec05da674196b95f1e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13977,8 +13977,8 @@ trackedFiles:
     pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   scim.go:
     id: 7cae7699a750
-    last_write_checksum: sha1:48f78ca0c0ba3acd07dcc4fb3309929788ea5c03
-    pristine_git_object: ae895792dffbffb4196e495fa980116d14a6ecb0
+    last_write_checksum: sha1:0031a04153d699d3b6bf9d27363d9bf8d8853cae
+    pristine_git_object: b477f12be3efa709e58a05b50968925e92757d32
   stt.go:
     id: 04852909348f
     last_write_checksum: sha1:61aae5f91978d326329a231d15b4214b60a20a4c
@@ -15120,6 +15120,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   createBYOKKey:
     speakeasy-default-create-BYOK-key:
       requestBody:
@@ -15149,6 +15151,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getBYOKKey:
     speakeasy-default-get-BYOK-key:
       parameters:
@@ -15163,6 +15167,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   updateBYOKKey:
     speakeasy-default-update-BYOK-key:
       parameters:
@@ -15391,6 +15397,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   createObservabilityDestination:
     speakeasy-default-create-observability-destination:
       requestBody:
@@ -15422,6 +15430,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getObservabilityDestination:
     speakeasy-default-get-observability-destination:
       parameters:
@@ -15436,6 +15446,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   updateObservabilityDestination:
     speakeasy-default-update-observability-destination:
       parameters:
@@ -15782,6 +15794,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   createScimGroupMapping:
     speakeasy-default-create-scim-group-mapping:
       requestBody:
@@ -15799,6 +15813,8 @@ examples:
           application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   deleteScimGroupMapping:
     speakeasy-default-delete-scim-group-mapping:
       parameters:
@@ -15817,6 +15833,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getScimGroupMapping:
     speakeasy-default-get-scim-group-mapping:
       parameters:
@@ -15831,6 +15849,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   updateScimGroupMapping:
     speakeasy-default-update-scim-group-mapping:
       parameters:
@@ -15849,6 +15869,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listScimGroups:
     speakeasy-default-list-scim-groups:
       parameters:
@@ -15864,6 +15886,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getWorkspaceBudget:
     speakeasy-default-get-workspace-budget:
       parameters:
@@ -16028,6 +16052,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getScimSyncJob:
     speakeasy-default-get-scim-sync-job:
       parameters:
@@ -16042,6 +16068,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listInternVaultSecrets:
     speakeasy-default-list-intern-vault-secrets:
       parameters:
@@ -18324,19 +18352,17 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Guardrails.List()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.Delete()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.Get()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.ListGuardrailKeyAssignments()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.BulkUnassignKeys()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.ListGuardrailMemberAssignments()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.BulkAssignMembers()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.BulkUnassignMembers()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.ListKeyAssignments()`:  `error.status[403]` **Added**
-  * `OpenRouter.Guardrails.ListMemberAssignments()`:  `error.status[403]` **Added**
-  * `OpenRouter.Workspaces.List()`:  `error.status[403]` **Added**
-  * `OpenRouter.Workspaces.Get()`:  `error.status[403]` **Added**
-  * `OpenRouter.Workspaces.ListBudgets()`:  `error.status[403]` **Added**
-  * `OpenRouter.Workspaces.DeleteBudget()`:  `error.status[403]` **Added**
-  * `OpenRouter.Workspaces.GetBudget()`:  `error.status[403]` **Added**
-  * `OpenRouter.Workspaces.SetBudget()`:  `error.status[403]` **Added**
+  * `OpenRouter.Byok.List()`:  `error.status[403]` **Added**
+  * `OpenRouter.Byok.Delete()`:  `error.status[403]` **Added**
+  * `OpenRouter.Byok.Get()`:  `error.status[403]` **Added**
+  * `OpenRouter.Observability.List()`:  `error.status[403]` **Added**
+  * `OpenRouter.Observability.Delete()`:  `error.status[403]` **Added**
+  * `OpenRouter.Observability.Get()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.ListMappings()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.Create()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.Delete()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.Read()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.Update()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.ListGroups()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.CreateSyncJob()`:  `error.status[403]` **Added**
+  * `OpenRouter.Scim.GetSyncJob()`:  `error.status[403]` **Added**
