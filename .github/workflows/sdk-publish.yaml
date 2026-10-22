@@ -1,11 +1,16 @@
 name: Publish SDK
 
+# Releases the Go module when a Speakeasy regen lands on main (gen.lock
+# changes): creates the v<releaseVersion> tag and GitHub release, then asks
+# the Go module proxy to fetch it so `go get` sees it immediately. Generation
+# still runs through speakeasy-api/sdk-generation-action; releasing is done
+# here directly rather than through its sdk-publish.yaml reusable workflow.
+#
+# Idempotent: an existing release is left alone, so a failed run can simply
+# be re-run.
+
 permissions:
-  checks: write
   contents: write
-  pull-requests: write
-  statuses: write
-  id-token: write
 
 on:
   push:
@@ -16,21 +21,65 @@ on:
       - RELEASES.md
   workflow_dispatch: {}
 
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
 jobs:
   publish:
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@68f3bfefb79354d39358bf4699863dabd2cea0f6 # v15.60.11
-    with:
-      target: openrouter
-    secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+    name: Release Go module
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
 
-  publish-fallback:
-    needs: publish
-    if: failure()
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@68f3bfefb79354d39358bf4699863dabd2cea0f6 # v15.60.11
-    with:
-      target: openrouter
-    secrets:
-      github_access_token: ${{ secrets.SDK_MERGE_PAT }}
-      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+      - name: Resolve release version
+        id: version
+        run: |
+          VERSION=$(yq '.management.releaseVersion' .speakeasy/gen.lock)
+          GEN_VERSION=$(yq '.go.version' .speakeasy/gen.yaml)
+          MODULE=$(awk '/^module / { print $2; exit }' go.mod)
+          if [ "$VERSION" != "$GEN_VERSION" ]; then
+            echo "::error::gen.lock releaseVersion ($VERSION) does not match gen.yaml go.version ($GEN_VERSION)"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "module=$MODULE" >> "$GITHUB_OUTPUT"
+          echo "Resolved $MODULE v$VERSION"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          MODULE: ${{ steps.version.outputs.module }}
+        run: |
+          TAG="v$VERSION"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists — nothing to do"
+            exit 0
+          fi
+
+          {
+            echo "[$MODULE $TAG](https://pkg.go.dev/$MODULE@$TAG)"
+            yq '.releaseNotes // ""' .speakeasy/gen.lock
+            echo "Generated with [Speakeasy CLI $(yq '.management.speakeasyVersion' .speakeasy/gen.lock)](https://github.com/speakeasy-api/speakeasy/releases)"
+          } > "$RUNNER_TEMP/notes.md"
+
+          ARGS=()
+          if [[ "$VERSION" == *"-"* ]]; then
+            ARGS+=(--prerelease --latest=false)
+          fi
+          gh release create "$TAG" \
+            --target "$GITHUB_SHA" \
+            --title "go - $TAG - $(date -u '+%Y-%m-%d %H:%M:%S')" \
+            --notes-file "$RUNNER_TEMP/notes.md" \
+            "${ARGS[@]}"
+
+      - name: Warm Go module proxy
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          MODULE: ${{ steps.version.outputs.module }}
+        # Best effort: the proxy also fetches the tag on first request. Proxy
+        # paths escape uppercase letters as !lowercase (OpenRouterTeam -> !open!router!team).
+        run: |
+          ESCAPED=$(echo "$MODULE" | sed 's/[A-Z]/!\L&/g')
+          curl -fsS "https://proxy.golang.org/$ESCAPED/@v/v$VERSION.info" || echo "::warning::Go proxy has not indexed v$VERSION yet"
