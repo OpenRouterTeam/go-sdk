@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: dfddb51352d502905a45d97a6e907d20
+  docChecksum: ac3a7b04eaceb931e69063c8dcd71975
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.72
-  configChecksum: b1b7a738bee0cb70933956827d5ff6dd
+  releaseVersion: 0.9.73
+  configChecksum: 3c0ecea634c105ba07e577b84be5332c
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f5fa3da9-a7d4-4c1a-bf98-9f8260bced81
-  pristine_commit_hash: 4fb41065afb6ad662430dcedc42858667baef483
-  pristine_tree_hash: a9448ed29ecf76f5ed301470d135c61cc8f8a42b
+  generation_id: 0a960cc1-56cf-4f78-9c09-1e9d27f5fda2
+  pristine_commit_hash: d439f367a3a5b2773fa4eebf1f80c2092b737b5f
+  pristine_tree_hash: 396a283133a91445b8cc661c17ff5e9d8a15f570
 features:
   go:
     acceptHeaders: 2.81.2
@@ -9605,8 +9605,8 @@ trackedFiles:
     pristine_git_object: 844044ad6d1c3d29314dee5b5accfac86245ff19
   docs/sdks/externalusers/README.mdx:
     id: 16a97e1de35f
-    last_write_checksum: sha1:aace64026b5acdb584e2227c8d8fa788ecec2885
-    pristine_git_object: 779b0d8a3d47eb669eee05df9328e6ea5f9bbeaa
+    last_write_checksum: sha1:c535f2a48e53ea26a9f652e0fe7c2cf75f12e031
+    pristine_git_object: 2ef39284c6420283bf3ac0b1fa8591e1a21f3030
   docs/sdks/files/README.mdx:
     id: 1a0c257e330c
     last_write_checksum: sha1:da8daa3d27a11900b166ed9641b8bf73e6f56f03
@@ -9645,8 +9645,8 @@ trackedFiles:
     pristine_git_object: 90358ce3e079a27c7e30534a2c3ff492579a5a8d
   docs/sdks/presets/README.mdx:
     id: eeb505928d52
-    last_write_checksum: sha1:3ae6f0628fae8a0a1caba0ad13c9a5a6e53b5442
-    pristine_git_object: 95c801d89e51ee2367e2b7a04dfaaed217ed8d32
+    last_write_checksum: sha1:d23a26f85348d8cc9ab5b2ab14c11f0afc24586c
+    pristine_git_object: 45b27b4ecbc7d8b64d19a9821a05549e7ad3172e
   docs/sdks/privateendpoints/README.mdx:
     id: 54dee70b8cc7
     last_write_checksum: sha1:87059c5be0e2e4a50917f8f3c185b86e4efe6092
@@ -9709,8 +9709,8 @@ trackedFiles:
     pristine_git_object: 5f6a868dfd1c4fe9d1589a2e2afc14af039179f2
   externalusers.go:
     id: a9a3bf49aa62
-    last_write_checksum: sha1:f995cb4a31c23ebe2521662d4912c282e8cde1c6
-    pristine_git_object: 031be331e0ff1ea1cc1e32261f5586243d59afbf
+    last_write_checksum: sha1:4c0ed0233dd4e2232d523d10773e99c22d9a1b28
+    pristine_git_object: 1cc813624c7f6639eba39ccca0c7a0efc22b4e9e
   files.go:
     id: 2321d71bc458
     last_write_checksum: sha1:939293c9c1f1702dbb0f6d7bba95d38a5fb12bd8
@@ -13937,8 +13937,8 @@ trackedFiles:
     pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3abb349054b24a5cea27ca1ec1147ec3addb1660
-    pristine_git_object: 2d2ed5380d7c7614abf63caf0cf0c2f0d728745d
+    last_write_checksum: sha1:c0164dcdf9ffb9d45700cc52d29d643d7f2943ed
+    pristine_git_object: 3888c53868bd6c424b897dbd44bbe08d57a545d1
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13953,8 +13953,8 @@ trackedFiles:
     pristine_git_object: 4995257c559fab854853f52e0376dfdf7da73442
   presets.go:
     id: e1866fc48c6b
-    last_write_checksum: sha1:b69e250319a32b3cedd523aee0dbaab40455b2c3
-    pristine_git_object: dfd0ed5ce40a478bee230bd839ea5bf4cf92d9bd
+    last_write_checksum: sha1:a47fef7832cc24bc4bdd9f6c9c863794e8f235b6
+    pristine_git_object: f657c127a315b762c5596e2784d264f9bba058dc
   privateendpoints.go:
     id: 7d1332a9f3d6
     last_write_checksum: sha1:62e43deb1ff1e8e6ab347538db8ee6ecd2654648
@@ -15485,6 +15485,8 @@ examples:
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getPreset:
     speakeasy-default-get-preset:
       parameters:
@@ -15501,6 +15503,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   createPresetsChatCompletions:
     speakeasy-default-create-presets-chat-completions:
       parameters:
@@ -15586,6 +15590,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getPresetVersion:
     speakeasy-default-get-preset-version:
       parameters:
@@ -15603,6 +15609,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   getBenchmarks:
     speakeasy-default-get-benchmarks:
       parameters:
@@ -18262,6 +18270,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   createExternalUser:
     speakeasy-default-create-external-user:
       requestBody:
@@ -18309,6 +18319,8 @@ examples:
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   updateExternalUser:
     speakeasy-default-update-external-user:
       parameters:
@@ -18354,4 +18366,9 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Generations.SubmitFeedback()`:  `error.status[409]` **Added**
+  * `OpenRouter.ExternalUsers.List()`:  `error.status[403]` **Added**
+  * `OpenRouter.ExternalUsers.Get()`:  `error.status[403]` **Added**
+  * `OpenRouter.Presets.List()`:  `error.status[403]` **Added**
+  * `OpenRouter.Presets.Get()`:  `error.status[403]` **Added**
+  * `OpenRouter.Presets.ListVersions()`:  `error.status[403]` **Added**
+  * `OpenRouter.Presets.GetVersion()`:  `error.status[403]` **Added**
