@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: d5f7137b7920c1e06e823276a86fef6f
+  docChecksum: dfddb51352d502905a45d97a6e907d20
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.71
-  configChecksum: 1f198412fc5f67e34bf485a3e4319631
+  releaseVersion: 0.9.72
+  configChecksum: b1b7a738bee0cb70933956827d5ff6dd
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 015d3bec-93d0-439b-8894-b5a2953f1336
-  pristine_commit_hash: dc05bb1b5e7b2d6256215ce8ef22c30c6e68080b
-  pristine_tree_hash: 6fe7f8918187527153c3f5ffbf1d107ad26ee1cf
+  generation_id: f5fa3da9-a7d4-4c1a-bf98-9f8260bced81
+  pristine_commit_hash: 4fb41065afb6ad662430dcedc42858667baef483
+  pristine_tree_hash: a9448ed29ecf76f5ed301470d135c61cc8f8a42b
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6385,8 +6385,8 @@ trackedFiles:
     pristine_git_object: 2ac3f43436e6728e84fbc6390055b85427140ed1
   docs/models/components/privateendpointpricing.mdx:
     id: c8239c97f2aa
-    last_write_checksum: sha1:46342c15ea53a9980843c5382d5158c1aa78ba2b
-    pristine_git_object: 682eab6ff17e12a58b4c4739a188843b44d5014c
+    last_write_checksum: sha1:552d7317cb053b0f2c8f9eed88460ec2e7f1771c
+    pristine_git_object: 5d70b647b0173776cc35bf7ce94692d997cf7d17
   docs/models/components/privateendpointresponse.mdx:
     id: 1cab9b4e1385
     last_write_checksum: sha1:cb352f1c0399a491aed57ec21fa0f9cee1002d42
@@ -9613,8 +9613,8 @@ trackedFiles:
     pristine_git_object: 4450621b2b37244f5112c6892a4bcb3444f870cb
   docs/sdks/generations/README.mdx:
     id: a754fecc8514
-    last_write_checksum: sha1:373679828a2ec6c5defcb590668fc23ad33da8cc
-    pristine_git_object: 796f1e5d99085cd64238a0c32d9752d30eebbf2a
+    last_write_checksum: sha1:a9e20fd48f256f14f3e6e0a8d70a438d36fbaf5c
+    pristine_git_object: 9a2e107940f5cf95d9bc303b34db3eadc5299df5
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
     last_write_checksum: sha1:6f75510b9c36c77e90a32d0d517b492e68a72458
@@ -9717,8 +9717,8 @@ trackedFiles:
     pristine_git_object: 0c805449044890b2963573442c4f3617a9a0bb4f
   generations.go:
     id: ad539e13a3f6
-    last_write_checksum: sha1:6beee0dd40a230f0be8ca33ae3a7b1499e9fbe15
-    pristine_git_object: 8e9a16689fb0b2ef7a283068206e0bc81e027475
+    last_write_checksum: sha1:405d810391b9a48b32223660be530f209a73d5d2
+    pristine_git_object: 81a1bf802ed333019dc9be1abb890593509a1f38
   go.mod:
     id: c47645c391ad
     last_write_checksum: sha1:ba90465104f4b129a0ced01d50d453c828d3cc41
@@ -12405,8 +12405,8 @@ trackedFiles:
     pristine_git_object: a6c8ff3adaa23bc000d0968cdf416c7138cf1146
   models/components/privateendpointpricing.go:
     id: 566bdb20e41e
-    last_write_checksum: sha1:294a093b4511be785017c223fd8c3591fc552f2c
-    pristine_git_object: dcc5af775fd0e0cedc94060347837e6a2e6f93d3
+    last_write_checksum: sha1:fc9ee3bce2679ee634dd9abc70c3ca58b83b94e4
+    pristine_git_object: a0effc643879a3345b6b5f56f778ab260ba4fd94
   models/components/privateendpointresponse.go:
     id: c922e1a3becd
     last_write_checksum: sha1:7d53f9177adbe482db35ce564aecdb7756eab10c
@@ -13937,8 +13937,8 @@ trackedFiles:
     pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:61f899102a36eb5d2147d3f370a0e23cb9ede8f2
-    pristine_git_object: 5300e4192a428ca6db2b72ec05da674196b95f1e
+    last_write_checksum: sha1:3abb349054b24a5cea27ca1ec1147ec3addb1660
+    pristine_git_object: 2d2ed5380d7c7614abf63caf0cf0c2f0d728745d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -15779,6 +15779,8 @@ examples:
           application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
   listScimGroupMappings:
     speakeasy-default-list-scim-group-mappings:
       parameters:
@@ -18352,17 +18354,4 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Byok.List()`:  `error.status[403]` **Added**
-  * `OpenRouter.Byok.Delete()`:  `error.status[403]` **Added**
-  * `OpenRouter.Byok.Get()`:  `error.status[403]` **Added**
-  * `OpenRouter.Observability.List()`:  `error.status[403]` **Added**
-  * `OpenRouter.Observability.Delete()`:  `error.status[403]` **Added**
-  * `OpenRouter.Observability.Get()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.ListMappings()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.Create()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.Delete()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.Read()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.Update()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.ListGroups()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.CreateSyncJob()`:  `error.status[403]` **Added**
-  * `OpenRouter.Scim.GetSyncJob()`:  `error.status[403]` **Added**
+  * `OpenRouter.Generations.SubmitFeedback()`:  `error.status[409]` **Added**
