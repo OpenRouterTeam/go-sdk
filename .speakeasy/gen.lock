@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ac3a7b04eaceb931e69063c8dcd71975
+  docChecksum: a93462ad95eb961164f13303e6e306c6
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.73
-  configChecksum: 3c0ecea634c105ba07e577b84be5332c
+  releaseVersion: 0.9.74
+  configChecksum: 9ebde78a96f3570169ff9e14545b3061
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 0a960cc1-56cf-4f78-9c09-1e9d27f5fda2
-  pristine_commit_hash: d439f367a3a5b2773fa4eebf1f80c2092b737b5f
-  pristine_tree_hash: 396a283133a91445b8cc661c17ff5e9d8a15f570
+  generation_id: 2660e758-e0dc-4f93-a997-295b7c6bbbe2
+  pristine_commit_hash: 1cd01256422af856d41358b72c2774edc7a4e861
+  pristine_tree_hash: 638c69310ae5dc307867cc2f64ae5bfd85bace00
 features:
   go:
     acceptHeaders: 2.81.2
@@ -9613,8 +9613,8 @@ trackedFiles:
     pristine_git_object: 4450621b2b37244f5112c6892a4bcb3444f870cb
   docs/sdks/generations/README.mdx:
     id: a754fecc8514
-    last_write_checksum: sha1:a9e20fd48f256f14f3e6e0a8d70a438d36fbaf5c
-    pristine_git_object: 9a2e107940f5cf95d9bc303b34db3eadc5299df5
+    last_write_checksum: sha1:6441d3933a67b128d2f9a9eaf142734fbe7b36e0
+    pristine_git_object: ce8b298011d2a75efa1ec34e78309aaed8ccf592
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
     last_write_checksum: sha1:6f75510b9c36c77e90a32d0d517b492e68a72458
@@ -9717,8 +9717,8 @@ trackedFiles:
     pristine_git_object: 0c805449044890b2963573442c4f3617a9a0bb4f
   generations.go:
     id: ad539e13a3f6
-    last_write_checksum: sha1:405d810391b9a48b32223660be530f209a73d5d2
-    pristine_git_object: 81a1bf802ed333019dc9be1abb890593509a1f38
+    last_write_checksum: sha1:6b40a654009d58094d7feeb34cb7e1ac94c3e608
+    pristine_git_object: b7bdaa3c9dae9373949d3207a59adf262e241090
   go.mod:
     id: c47645c391ad
     last_write_checksum: sha1:ba90465104f4b129a0ced01d50d453c828d3cc41
@@ -13937,8 +13937,8 @@ trackedFiles:
     pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:c0164dcdf9ffb9d45700cc52d29d643d7f2943ed
-    pristine_git_object: 3888c53868bd6c424b897dbd44bbe08d57a545d1
+    last_write_checksum: sha1:5ec60bbd95c0f0613d9f0d522a9033d10ea2472d
+    pristine_git_object: 9309fb9c086bb133311caa7d424052207c6bcb4b
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -14195,6 +14195,8 @@ examples:
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
   listModelsCount:
     speakeasy-default-list-models-count:
       responses:
@@ -18366,9 +18368,4 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.ExternalUsers.List()`:  `error.status[403]` **Added**
-  * `OpenRouter.ExternalUsers.Get()`:  `error.status[403]` **Added**
-  * `OpenRouter.Presets.List()`:  `error.status[403]` **Added**
-  * `OpenRouter.Presets.Get()`:  `error.status[403]` **Added**
-  * `OpenRouter.Presets.ListVersions()`:  `error.status[403]` **Added**
-  * `OpenRouter.Presets.GetVersion()`:  `error.status[403]` **Added**
+  * `OpenRouter.Generations.GetGeneration()`:  `error.status[403]` **Added**
