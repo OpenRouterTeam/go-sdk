@@ -95,8 +95,6 @@ type OpenRouter struct {
 	Guardrails *Guardrails
 	// Images endpoints
 	Images *Images
-	// Create, inspect, update, provision, suspend and delete OpenRouter interns through an API key, and talk to them: the chat route streams OpenAI-compatible completions from one intern, pausing as an `openrouter.provide_input` tool call when the intern needs your permission or an answer. Available to interns programme members; other callers receive 404. See https://openrouter.ai/docs/guides/ori/intern-chat.
-	Interns *Interns
 	// API key management endpoints
 	APIKeys *APIKeys
 	// Model information endpoints
@@ -219,9 +217,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.9.74",
+		SDKVersion: "0.9.75",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.9.74 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			UserAgent:  "speakeasy-sdk/go 0.9.75 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
 			Globals:    globals.Globals{},
 			ServerList: ServerList,
 		},
@@ -267,7 +265,6 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Images = newImages(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Interns = newInterns(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Observability = newObservability(sdk, sdk.sdkConfiguration, sdk.hooks)
