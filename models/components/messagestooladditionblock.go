@@ -9,6 +9,60 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
+type TypeToolDefinition string
+
+const (
+	TypeToolDefinitionToolDefinition TypeToolDefinition = "tool_definition"
+)
+
+func (e TypeToolDefinition) ToPointer() *TypeToolDefinition {
+	return &e
+}
+func (e *TypeToolDefinition) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "tool_definition":
+		*e = TypeToolDefinition(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeToolDefinition: %v", v)
+	}
+}
+
+type ToolToolDefinition struct {
+	// An Anthropic tool definition: a client-defined tool with a JSON Schema `input_schema`, or a server tool (bash, text editor, web search).
+	Definition AnthropicToolUnion `json:"definition"`
+	Type       TypeToolDefinition `json:"type"`
+}
+
+func (t ToolToolDefinition) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *ToolToolDefinition) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *ToolToolDefinition) GetDefinition() AnthropicToolUnion {
+	if t == nil {
+		return AnthropicToolUnion{}
+	}
+	return t.Definition
+}
+
+func (t *ToolToolDefinition) GetType() TypeToolDefinition {
+	if t == nil {
+		return TypeToolDefinition("")
+	}
+	return t.Type
+}
+
 type MessagesToolAdditionBlockTypeMcpToolsetReference string
 
 const (
@@ -182,12 +236,14 @@ const (
 	MessagesToolAdditionBlockToolUnionTypeToolReference       MessagesToolAdditionBlockToolUnionType = "tool_reference"
 	MessagesToolAdditionBlockToolUnionTypeMcpToolReference    MessagesToolAdditionBlockToolUnionType = "mcp_tool_reference"
 	MessagesToolAdditionBlockToolUnionTypeMcpToolsetReference MessagesToolAdditionBlockToolUnionType = "mcp_toolset_reference"
+	MessagesToolAdditionBlockToolUnionTypeToolDefinition      MessagesToolAdditionBlockToolUnionType = "tool_definition"
 )
 
 type MessagesToolAdditionBlockToolUnion struct {
 	MessagesToolAdditionBlockToolToolReference       *MessagesToolAdditionBlockToolToolReference       `queryParam:"inline" union:"member"`
 	MessagesToolAdditionBlockToolMcpToolReference    *MessagesToolAdditionBlockToolMcpToolReference    `queryParam:"inline" union:"member"`
 	MessagesToolAdditionBlockToolMcpToolsetReference *MessagesToolAdditionBlockToolMcpToolsetReference `queryParam:"inline" union:"member"`
+	ToolToolDefinition                               *ToolToolDefinition                               `queryParam:"inline" union:"member"`
 
 	Type MessagesToolAdditionBlockToolUnionType
 }
@@ -225,6 +281,18 @@ func CreateMessagesToolAdditionBlockToolUnionMcpToolsetReference(mcpToolsetRefer
 	return MessagesToolAdditionBlockToolUnion{
 		MessagesToolAdditionBlockToolMcpToolsetReference: &mcpToolsetReference,
 		Type: typ,
+	}
+}
+
+func CreateMessagesToolAdditionBlockToolUnionToolDefinition(toolDefinition ToolToolDefinition) MessagesToolAdditionBlockToolUnion {
+	typ := MessagesToolAdditionBlockToolUnionTypeToolDefinition
+
+	typStr := TypeToolDefinition(typ)
+	toolDefinition.Type = typStr
+
+	return MessagesToolAdditionBlockToolUnion{
+		ToolToolDefinition: &toolDefinition,
+		Type:               typ,
 	}
 }
 
@@ -267,6 +335,15 @@ func (u *MessagesToolAdditionBlockToolUnion) UnmarshalJSON(data []byte) error {
 		u.MessagesToolAdditionBlockToolMcpToolsetReference = messagesToolAdditionBlockToolMcpToolsetReference
 		u.Type = MessagesToolAdditionBlockToolUnionTypeMcpToolsetReference
 		return nil
+	case "tool_definition":
+		toolToolDefinition := new(ToolToolDefinition)
+		if err := utils.UnmarshalJSON(data, &toolToolDefinition, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tool_definition) type ToolToolDefinition within MessagesToolAdditionBlockToolUnion: %w", string(data), err)
+		}
+
+		u.ToolToolDefinition = toolToolDefinition
+		u.Type = MessagesToolAdditionBlockToolUnionTypeToolDefinition
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesToolAdditionBlockToolUnion", string(data))
@@ -283,6 +360,10 @@ func (u MessagesToolAdditionBlockToolUnion) MarshalJSON() ([]byte, error) {
 
 	if u.MessagesToolAdditionBlockToolMcpToolsetReference != nil {
 		return utils.MarshalJSON(u.MessagesToolAdditionBlockToolMcpToolsetReference, "", true)
+	}
+
+	if u.ToolToolDefinition != nil {
+		return utils.MarshalJSON(u.ToolToolDefinition, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesToolAdditionBlockToolUnion: all fields are null")
@@ -311,7 +392,7 @@ func (e *TypeToolAddition) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// MessagesToolAdditionBlock - Loads a previously deferred tool (declared in `tools` with `defer_loading: true`) mid-conversation without invalidating the prompt cache. Only valid in `role: "system"` messages. Not supported on Claude Sonnet 5 or models older than Claude Opus 4.8.
+// MessagesToolAdditionBlock - Adds a tool mid-conversation without invalidating the prompt cache: either a previously deferred tool (declared in `tools` with `defer_loading: true`, referenced by name) or a full inline `tool_definition`. Only valid in `role: "system"` messages. Not supported on Claude Sonnet 5 or models older than Claude Opus 4.8.
 type MessagesToolAdditionBlock struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective    `json:"cache_control,omitzero"`
@@ -354,6 +435,10 @@ func (m *MessagesToolAdditionBlock) GetToolMcpToolReference() *MessagesToolAddit
 
 func (m *MessagesToolAdditionBlock) GetToolMcpToolsetReference() *MessagesToolAdditionBlockToolMcpToolsetReference {
 	return m.GetTool().MessagesToolAdditionBlockToolMcpToolsetReference
+}
+
+func (m *MessagesToolAdditionBlock) GetToolToolDefinition() *ToolToolDefinition {
+	return m.GetTool().ToolToolDefinition
 }
 
 func (m *MessagesToolAdditionBlock) GetType() TypeToolAddition {

@@ -22,6 +22,12 @@ messagesToolAdditionBlockToolUnion := components.CreateMessagesToolAdditionBlock
 messagesToolAdditionBlockToolUnion := components.CreateMessagesToolAdditionBlockToolUnionMcpToolsetReference(components.MessagesToolAdditionBlockToolMcpToolsetReference{/* values here */})
 ```
 
+### ToolToolDefinition
+
+```go
+messagesToolAdditionBlockToolUnion := components.CreateMessagesToolAdditionBlockToolUnionToolDefinition(components.ToolToolDefinition{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -34,5 +40,7 @@ switch messagesToolAdditionBlockToolUnion.Type {
 		// messagesToolAdditionBlockToolUnion.MessagesToolAdditionBlockToolMcpToolReference is populated
 	case components.MessagesToolAdditionBlockToolUnionTypeMcpToolsetReference:
 		// messagesToolAdditionBlockToolUnion.MessagesToolAdditionBlockToolMcpToolsetReference is populated
+	case components.MessagesToolAdditionBlockToolUnionTypeToolDefinition:
+		// messagesToolAdditionBlockToolUnion.ToolToolDefinition is populated
 }
 ```

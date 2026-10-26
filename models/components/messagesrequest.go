@@ -2184,49 +2184,49 @@ func (t *ToolAdvisor20260301) GetType() TypeAdvisor20260301 {
 // #region class-body-tooladvisor20260301
 // #endregion class-body-tooladvisor20260301
 
-type NameWebSearch2 string
+type MessagesRequestNameWebSearch2 string
 
 const (
-	NameWebSearch2WebSearch NameWebSearch2 = "web_search"
+	MessagesRequestNameWebSearch2WebSearch MessagesRequestNameWebSearch2 = "web_search"
 )
 
-func (e NameWebSearch2) ToPointer() *NameWebSearch2 {
+func (e MessagesRequestNameWebSearch2) ToPointer() *MessagesRequestNameWebSearch2 {
 	return &e
 }
-func (e *NameWebSearch2) UnmarshalJSON(data []byte) error {
+func (e *MessagesRequestNameWebSearch2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "web_search":
-		*e = NameWebSearch2(v)
+		*e = MessagesRequestNameWebSearch2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for NameWebSearch2: %v", v)
+		return fmt.Errorf("invalid value for MessagesRequestNameWebSearch2: %v", v)
 	}
 }
 
-type TypeWebSearch20260209 string
+type ToolTypeWebSearch20260209 string
 
 const (
-	TypeWebSearch20260209WebSearch20260209 TypeWebSearch20260209 = "web_search_20260209"
+	ToolTypeWebSearch20260209WebSearch20260209 ToolTypeWebSearch20260209 = "web_search_20260209"
 )
 
-func (e TypeWebSearch20260209) ToPointer() *TypeWebSearch20260209 {
+func (e ToolTypeWebSearch20260209) ToPointer() *ToolTypeWebSearch20260209 {
 	return &e
 }
-func (e *TypeWebSearch20260209) UnmarshalJSON(data []byte) error {
+func (e *ToolTypeWebSearch20260209) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "web_search_20260209":
-		*e = TypeWebSearch20260209(v)
+		*e = ToolTypeWebSearch20260209(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeWebSearch20260209: %v", v)
+		return fmt.Errorf("invalid value for ToolTypeWebSearch20260209: %v", v)
 	}
 }
 
@@ -2237,8 +2237,8 @@ type ToolWebSearch20260209 struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective                                       `json:"cache_control,omitzero"`
 	MaxUses      optionalnullable.OptionalNullable[int64]                              `json:"max_uses,omitzero"`
-	Name         NameWebSearch2                                                        `json:"name"`
-	Type         TypeWebSearch20260209                                                 `json:"type"`
+	Name         MessagesRequestNameWebSearch2                                         `json:"name"`
+	Type         ToolTypeWebSearch20260209                                             `json:"type"`
 	UserLocation optionalnullable.OptionalNullable[AnthropicWebSearchToolUserLocation] `json:"user_location,omitzero"`
 }
 
@@ -2288,16 +2288,16 @@ func (t *ToolWebSearch20260209) GetMaxUses() optionalnullable.OptionalNullable[i
 	return t.MaxUses
 }
 
-func (t *ToolWebSearch20260209) GetName() NameWebSearch2 {
+func (t *ToolWebSearch20260209) GetName() MessagesRequestNameWebSearch2 {
 	if t == nil {
-		return NameWebSearch2("")
+		return MessagesRequestNameWebSearch2("")
 	}
 	return t.Name
 }
 
-func (t *ToolWebSearch20260209) GetType() TypeWebSearch20260209 {
+func (t *ToolWebSearch20260209) GetType() ToolTypeWebSearch20260209 {
 	if t == nil {
-		return TypeWebSearch20260209("")
+		return ToolTypeWebSearch20260209("")
 	}
 	return t.Type
 }
@@ -2312,49 +2312,49 @@ func (t *ToolWebSearch20260209) GetUserLocation() optionalnullable.OptionalNulla
 // #region class-body-toolwebsearch20260209
 // #endregion class-body-toolwebsearch20260209
 
-type NameWebSearch1 string
+type MessagesRequestNameWebSearch1 string
 
 const (
-	NameWebSearch1WebSearch NameWebSearch1 = "web_search"
+	MessagesRequestNameWebSearch1WebSearch MessagesRequestNameWebSearch1 = "web_search"
 )
 
-func (e NameWebSearch1) ToPointer() *NameWebSearch1 {
+func (e MessagesRequestNameWebSearch1) ToPointer() *MessagesRequestNameWebSearch1 {
 	return &e
 }
-func (e *NameWebSearch1) UnmarshalJSON(data []byte) error {
+func (e *MessagesRequestNameWebSearch1) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "web_search":
-		*e = NameWebSearch1(v)
+		*e = MessagesRequestNameWebSearch1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for NameWebSearch1: %v", v)
+		return fmt.Errorf("invalid value for MessagesRequestNameWebSearch1: %v", v)
 	}
 }
 
-type TypeWebSearch20250305 string
+type ToolTypeWebSearch20250305 string
 
 const (
-	TypeWebSearch20250305WebSearch20250305 TypeWebSearch20250305 = "web_search_20250305"
+	ToolTypeWebSearch20250305WebSearch20250305 ToolTypeWebSearch20250305 = "web_search_20250305"
 )
 
-func (e TypeWebSearch20250305) ToPointer() *TypeWebSearch20250305 {
+func (e ToolTypeWebSearch20250305) ToPointer() *ToolTypeWebSearch20250305 {
 	return &e
 }
-func (e *TypeWebSearch20250305) UnmarshalJSON(data []byte) error {
+func (e *ToolTypeWebSearch20250305) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "web_search_20250305":
-		*e = TypeWebSearch20250305(v)
+		*e = ToolTypeWebSearch20250305(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeWebSearch20250305: %v", v)
+		return fmt.Errorf("invalid value for ToolTypeWebSearch20250305: %v", v)
 	}
 }
 
@@ -2364,8 +2364,8 @@ type ToolWebSearch20250305 struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective                                       `json:"cache_control,omitzero"`
 	MaxUses      optionalnullable.OptionalNullable[int64]                              `json:"max_uses,omitzero"`
-	Name         NameWebSearch1                                                        `json:"name"`
-	Type         TypeWebSearch20250305                                                 `json:"type"`
+	Name         MessagesRequestNameWebSearch1                                         `json:"name"`
+	Type         ToolTypeWebSearch20250305                                             `json:"type"`
 	UserLocation optionalnullable.OptionalNullable[AnthropicWebSearchToolUserLocation] `json:"user_location,omitzero"`
 }
 
@@ -2408,16 +2408,16 @@ func (t *ToolWebSearch20250305) GetMaxUses() optionalnullable.OptionalNullable[i
 	return t.MaxUses
 }
 
-func (t *ToolWebSearch20250305) GetName() NameWebSearch1 {
+func (t *ToolWebSearch20250305) GetName() MessagesRequestNameWebSearch1 {
 	if t == nil {
-		return NameWebSearch1("")
+		return MessagesRequestNameWebSearch1("")
 	}
 	return t.Name
 }
 
-func (t *ToolWebSearch20250305) GetType() TypeWebSearch20250305 {
+func (t *ToolWebSearch20250305) GetType() ToolTypeWebSearch20250305 {
 	if t == nil {
-		return TypeWebSearch20250305("")
+		return ToolTypeWebSearch20250305("")
 	}
 	return t.Type
 }
@@ -2432,57 +2432,57 @@ func (t *ToolWebSearch20250305) GetUserLocation() optionalnullable.OptionalNulla
 // #region class-body-toolwebsearch20250305
 // #endregion class-body-toolwebsearch20250305
 
-type NameStrReplaceEditor string
+type MessagesRequestNameStrReplaceEditor string
 
 const (
-	NameStrReplaceEditorStrReplaceEditor NameStrReplaceEditor = "str_replace_editor"
+	MessagesRequestNameStrReplaceEditorStrReplaceEditor MessagesRequestNameStrReplaceEditor = "str_replace_editor"
 )
 
-func (e NameStrReplaceEditor) ToPointer() *NameStrReplaceEditor {
+func (e MessagesRequestNameStrReplaceEditor) ToPointer() *MessagesRequestNameStrReplaceEditor {
 	return &e
 }
-func (e *NameStrReplaceEditor) UnmarshalJSON(data []byte) error {
+func (e *MessagesRequestNameStrReplaceEditor) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "str_replace_editor":
-		*e = NameStrReplaceEditor(v)
+		*e = MessagesRequestNameStrReplaceEditor(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for NameStrReplaceEditor: %v", v)
+		return fmt.Errorf("invalid value for MessagesRequestNameStrReplaceEditor: %v", v)
 	}
 }
 
-type TypeTextEditor20250124 string
+type ToolTypeTextEditor20250124 string
 
 const (
-	TypeTextEditor20250124TextEditor20250124 TypeTextEditor20250124 = "text_editor_20250124"
+	ToolTypeTextEditor20250124TextEditor20250124 ToolTypeTextEditor20250124 = "text_editor_20250124"
 )
 
-func (e TypeTextEditor20250124) ToPointer() *TypeTextEditor20250124 {
+func (e ToolTypeTextEditor20250124) ToPointer() *ToolTypeTextEditor20250124 {
 	return &e
 }
-func (e *TypeTextEditor20250124) UnmarshalJSON(data []byte) error {
+func (e *ToolTypeTextEditor20250124) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "text_editor_20250124":
-		*e = TypeTextEditor20250124(v)
+		*e = ToolTypeTextEditor20250124(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeTextEditor20250124: %v", v)
+		return fmt.Errorf("invalid value for ToolTypeTextEditor20250124: %v", v)
 	}
 }
 
 type ToolTextEditor20250124 struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
-	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
-	Name         NameStrReplaceEditor            `json:"name"`
-	Type         TypeTextEditor20250124          `json:"type"`
+	CacheControl *AnthropicCacheControlDirective     `json:"cache_control,omitzero"`
+	Name         MessagesRequestNameStrReplaceEditor `json:"name"`
+	Type         ToolTypeTextEditor20250124          `json:"type"`
 }
 
 func (t ToolTextEditor20250124) MarshalJSON() ([]byte, error) {
@@ -2503,16 +2503,16 @@ func (t *ToolTextEditor20250124) GetCacheControl() *AnthropicCacheControlDirecti
 	return t.CacheControl
 }
 
-func (t *ToolTextEditor20250124) GetName() NameStrReplaceEditor {
+func (t *ToolTextEditor20250124) GetName() MessagesRequestNameStrReplaceEditor {
 	if t == nil {
-		return NameStrReplaceEditor("")
+		return MessagesRequestNameStrReplaceEditor("")
 	}
 	return t.Name
 }
 
-func (t *ToolTextEditor20250124) GetType() TypeTextEditor20250124 {
+func (t *ToolTextEditor20250124) GetType() ToolTypeTextEditor20250124 {
 	if t == nil {
-		return TypeTextEditor20250124("")
+		return ToolTypeTextEditor20250124("")
 	}
 	return t.Type
 }
@@ -2520,57 +2520,57 @@ func (t *ToolTextEditor20250124) GetType() TypeTextEditor20250124 {
 // #region class-body-tooltexteditor20250124
 // #endregion class-body-tooltexteditor20250124
 
-type NameBash string
+type MessagesRequestNameBash string
 
 const (
-	NameBashBash NameBash = "bash"
+	MessagesRequestNameBashBash MessagesRequestNameBash = "bash"
 )
 
-func (e NameBash) ToPointer() *NameBash {
+func (e MessagesRequestNameBash) ToPointer() *MessagesRequestNameBash {
 	return &e
 }
-func (e *NameBash) UnmarshalJSON(data []byte) error {
+func (e *MessagesRequestNameBash) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "bash":
-		*e = NameBash(v)
+		*e = MessagesRequestNameBash(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for NameBash: %v", v)
+		return fmt.Errorf("invalid value for MessagesRequestNameBash: %v", v)
 	}
 }
 
-type TypeBash20250124 string
+type ToolTypeBash20250124 string
 
 const (
-	TypeBash20250124Bash20250124 TypeBash20250124 = "bash_20250124"
+	ToolTypeBash20250124Bash20250124 ToolTypeBash20250124 = "bash_20250124"
 )
 
-func (e TypeBash20250124) ToPointer() *TypeBash20250124 {
+func (e ToolTypeBash20250124) ToPointer() *ToolTypeBash20250124 {
 	return &e
 }
-func (e *TypeBash20250124) UnmarshalJSON(data []byte) error {
+func (e *ToolTypeBash20250124) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "bash_20250124":
-		*e = TypeBash20250124(v)
+		*e = ToolTypeBash20250124(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TypeBash20250124: %v", v)
+		return fmt.Errorf("invalid value for ToolTypeBash20250124: %v", v)
 	}
 }
 
 type ToolBash20250124 struct {
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
-	Name         NameBash                        `json:"name"`
-	Type         TypeBash20250124                `json:"type"`
+	Name         MessagesRequestNameBash         `json:"name"`
+	Type         ToolTypeBash20250124            `json:"type"`
 }
 
 func (t ToolBash20250124) MarshalJSON() ([]byte, error) {
@@ -2591,16 +2591,16 @@ func (t *ToolBash20250124) GetCacheControl() *AnthropicCacheControlDirective {
 	return t.CacheControl
 }
 
-func (t *ToolBash20250124) GetName() NameBash {
+func (t *ToolBash20250124) GetName() MessagesRequestNameBash {
 	if t == nil {
-		return NameBash("")
+		return MessagesRequestNameBash("")
 	}
 	return t.Name
 }
 
-func (t *ToolBash20250124) GetType() TypeBash20250124 {
+func (t *ToolBash20250124) GetType() ToolTypeBash20250124 {
 	if t == nil {
-		return TypeBash20250124("")
+		return ToolTypeBash20250124("")
 	}
 	return t.Type
 }
@@ -2608,50 +2608,50 @@ func (t *ToolBash20250124) GetType() TypeBash20250124 {
 // #region class-body-toolbash20250124
 // #endregion class-body-toolbash20250124
 
-type InputSchema struct {
+type MessagesRequestInputSchema struct {
 	Properties           any                                         `json:"properties,omitzero"`
 	Required             optionalnullable.OptionalNullable[[]string] `json:"required,omitzero"`
 	Type                 *string                                     `default:"object" json:"type"`
 	AdditionalProperties map[string]any                              `additionalProperties:"true" json:"-"`
 }
 
-func (i InputSchema) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (m MessagesRequestInputSchema) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
 }
 
-func (i *InputSchema) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (m *MessagesRequestInputSchema) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputSchema) GetProperties() any {
-	if i == nil {
+func (m *MessagesRequestInputSchema) GetProperties() any {
+	if m == nil {
 		return nil
 	}
-	return i.Properties
+	return m.Properties
 }
 
-func (i *InputSchema) GetRequired() optionalnullable.OptionalNullable[[]string] {
-	if i == nil {
+func (m *MessagesRequestInputSchema) GetRequired() optionalnullable.OptionalNullable[[]string] {
+	if m == nil {
 		return nil
 	}
-	return i.Required
+	return m.Required
 }
 
-func (i *InputSchema) GetType() *string {
-	if i == nil {
+func (m *MessagesRequestInputSchema) GetType() *string {
+	if m == nil {
 		return nil
 	}
-	return i.Type
+	return m.Type
 }
 
-func (i *InputSchema) GetAdditionalProperties() map[string]any {
-	if i == nil {
+func (m *MessagesRequestInputSchema) GetAdditionalProperties() map[string]any {
+	if m == nil {
 		return nil
 	}
-	return i.AdditionalProperties
+	return m.AdditionalProperties
 }
 
 type ToolTypeCustom string
@@ -2682,7 +2682,7 @@ type ToolCustom struct {
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	DeferLoading *bool                           `json:"defer_loading,omitzero"`
 	Description  *string                         `json:"description,omitzero"`
-	InputSchema  InputSchema                     `json:"input_schema"`
+	InputSchema  MessagesRequestInputSchema      `json:"input_schema"`
 	Name         string                          `json:"name"`
 	Strict       *bool                           `json:"strict,omitzero"`
 	Type         *ToolTypeCustom                 `json:"type,omitzero"`
@@ -2720,9 +2720,9 @@ func (t *ToolCustom) GetDescription() *string {
 	return t.Description
 }
 
-func (t *ToolCustom) GetInputSchema() InputSchema {
+func (t *ToolCustom) GetInputSchema() MessagesRequestInputSchema {
 	if t == nil {
-		return InputSchema{}
+		return MessagesRequestInputSchema{}
 	}
 	return t.InputSchema
 }
