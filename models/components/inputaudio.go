@@ -8,19 +8,19 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type FormatEnum string
+type InputAudioFormat string
 
 const (
-	FormatEnumMp3 FormatEnum = "mp3"
-	FormatEnumWav FormatEnum = "wav"
+	InputAudioFormatMp3 InputAudioFormat = "mp3"
+	InputAudioFormatWav InputAudioFormat = "wav"
 )
 
-func (e FormatEnum) ToPointer() *FormatEnum {
+func (e InputAudioFormat) ToPointer() *InputAudioFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FormatEnum) IsExact() bool {
+func (e *InputAudioFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "mp3", "wav":
@@ -31,8 +31,8 @@ func (e *FormatEnum) IsExact() bool {
 }
 
 type InputAudioInputAudio struct {
-	Data   string     `json:"data"`
-	Format FormatEnum `json:"format"`
+	Data   string           `json:"data"`
+	Format InputAudioFormat `json:"format"`
 }
 
 func (i InputAudioInputAudio) MarshalJSON() ([]byte, error) {
@@ -53,9 +53,9 @@ func (i *InputAudioInputAudio) GetData() string {
 	return i.Data
 }
 
-func (i *InputAudioInputAudio) GetFormat() FormatEnum {
+func (i *InputAudioInputAudio) GetFormat() InputAudioFormat {
 	if i == nil {
-		return FormatEnum("")
+		return InputAudioFormat("")
 	}
 	return i.Format
 }

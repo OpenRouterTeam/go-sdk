@@ -267,6 +267,8 @@ func (u State) MarshalJSON() ([]byte, error) {
 }
 
 type DecisionsRequest struct {
+	// Images keyed by reference string, as in TypeSafe's API. Write a reference wherever the image belongs in `state`, `instructions`, or `criteria`; every asset must be referenced at least once. Jev reads a reference as a whole string value or inside longer text. Other Decisions models read a whole-string reference wherever they read an `image_url` part and reject a reference inside longer text.
+	Assets    map[string]DecisionsImageAsset                         `json:"assets,omitzero"`
 	Model     string                                                 `json:"model"`
 	Provider  optionalnullable.OptionalNullable[ProviderPreferences] `json:"provider,omitzero"`
 	Questions map[string]Questions                                   `json:"questions"`
@@ -288,6 +290,13 @@ func (d *DecisionsRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (d *DecisionsRequest) GetAssets() map[string]DecisionsImageAsset {
+	if d == nil {
+		return nil
+	}
+	return d.Assets
 }
 
 func (d *DecisionsRequest) GetModel() string {
