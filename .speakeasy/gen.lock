@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 068c54f4d63cb1efcc887a0dfb86fb85
+  docChecksum: c1efa0a41a7796f3b1a7fa6115f95021
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.79
-  configChecksum: b4c4648e1480dd948a0b92bb30e2dd10
+  releaseVersion: 0.9.80
+  configChecksum: 68d2dafbd74eb16ad33fa9c7b23b4469
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 988b5374-da25-4022-9165-e7627e96d51d
-  pristine_commit_hash: 731afeb8242d7b016a6dfbd2be4a03d6607dca0d
-  pristine_tree_hash: ead7ad2264c4a3a5eb0635e9f7041514bc28d1b0
+  generation_id: 2e02b1f2-964a-4383-ad36-d3c20d2205df
+  pristine_commit_hash: b2f916e1b901bfccbe335b524ffcc17451c3a50b
+  pristine_tree_hash: 659c5436e61a1d458804de95ed66623d7eaf1529
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2713,8 +2713,8 @@ trackedFiles:
     pristine_git_object: 1dc095a80002310904b9b3ad17387a53ce87f154
   docs/models/components/createprivateendpointrequest.mdx:
     id: 6276579d0789
-    last_write_checksum: sha1:d05d248e84e5ef96406b8b77daebeb333f1aa96f
-    pristine_git_object: 7a1afd27ab01dc3d01d4e16b2079799e0b836241
+    last_write_checksum: sha1:224a3f2edf912f871ec8f4c6f0a1106c96650f18
+    pristine_git_object: ebf621a7b37a4b0c3e501f0574e20b1b3e8f6a69
   docs/models/components/createprivateendpointrequestdeclaredregion.mdx:
     id: 3ac51e240905
     last_write_checksum: sha1:b423197df0eaae5ee0cd28a301b0e1caccc35bd1
@@ -4277,8 +4277,8 @@ trackedFiles:
     pristine_git_object: cd0be419deaa4d13dc5402aa08ce40bf72c831d6
   docs/models/components/managedprivateendpoint.mdx:
     id: 091be9d7d450
-    last_write_checksum: sha1:58ba0c4f696cf0fe24e766c9c125693640d0a862
-    pristine_git_object: e1e30d353de7475caf89c872391f8a887dac3cda
+    last_write_checksum: sha1:efcd7bfa5fded2c3b94c0796c241c7990ef265d5
+    pristine_git_object: 903db46badb6db963d035fbd8beb331f892e43f7
   docs/models/components/managedprivateendpointresponse.mdx:
     id: a7f52cf2930b
     last_write_checksum: sha1:e43d16cbf219731e8900fc0c61f5ae8d668f3940
@@ -6205,8 +6205,8 @@ trackedFiles:
     pristine_git_object: b32a2cf13a70604a5354347bfd1a284af37b6f00
   docs/models/components/privateendpoint.mdx:
     id: 85b0f1c39439
-    last_write_checksum: sha1:2a6a903337b2a0f1d519ba632ad40cc09daf72fe
-    pristine_git_object: 898b0654000349c06baf419e7b5e1c73e7bedd4f
+    last_write_checksum: sha1:c655202cf09630937c7b25581e2b1278309a75d1
+    pristine_git_object: 30827533b38df0ee6657540013fe81a9d6ec1e2b
   docs/models/components/privateendpointactivation.mdx:
     id: 5490d014ffcc
     last_write_checksum: sha1:fe5c50aa1b970228ef87daf1cef949fb6ff8b6ab
@@ -6219,18 +6219,26 @@ trackedFiles:
     id: 31d6e9b93d89
     last_write_checksum: sha1:a39df321ba52e95e8db80353ff6cf33a1421a263
     pristine_git_object: 48f8462b840cc4d180c986ebda0d3fc15030d96d
+  docs/models/components/privateendpointdeclaredparameter.mdx:
+    id: 062046b2a870
+    last_write_checksum: sha1:213cf82d0297bd6fa157b85ae83e41541d849e4f
+    pristine_git_object: 159fa1089e7088bebd25da60ced6547ee4ba7685
   docs/models/components/privateendpointdeclaredregion.mdx:
     id: 20d8e30e518c
     last_write_checksum: sha1:5a6db193b0059a1d203c4ceb9dc866eda0983a30
     pristine_git_object: 2ac3f43436e6728e84fbc6390055b85427140ed1
+  docs/models/components/privateendpointparametercheck.mdx:
+    id: 2c8a831e1ab2
+    last_write_checksum: sha1:a844ce7a225738dc9f56b1ee86f2582fe9af0c1e
+    pristine_git_object: b43c617e810ba189085caf0f58bfc6511147cd22
   docs/models/components/privateendpointpricing.mdx:
     id: c8239c97f2aa
     last_write_checksum: sha1:552d7317cb053b0f2c8f9eed88460ec2e7f1771c
     pristine_git_object: 5d70b647b0173776cc35bf7ce94692d997cf7d17
   docs/models/components/privateendpointresponse.mdx:
     id: 1cab9b4e1385
-    last_write_checksum: sha1:cb352f1c0399a491aed57ec21fa0f9cee1002d42
-    pristine_git_object: e2c4af098bb73f847518814df5c8e82880f3ed6e
+    last_write_checksum: sha1:e6be16ac07872ffc014aadad1fafb206592fcdae
+    pristine_git_object: 87c62b1b3d3ad5a78268fa29e422f276d48d67ec
   docs/models/components/privateendpointstatus.mdx:
     id: 8aeff29388f0
     last_write_checksum: sha1:a4d9c6ad54ce85c697de534ef16d555327fc14c0
@@ -6241,12 +6249,12 @@ trackedFiles:
     pristine_git_object: 9b2b9bc9a50b8a12b0f4dd0a45640adbd1631896
   docs/models/components/privateendpointvalidation.mdx:
     id: aa7e03c6e40e
-    last_write_checksum: sha1:275d13dee67617f718627df732fc2c19765c305f
-    pristine_git_object: 275a5325dc797f64bfc218d9f60ee7f90a686e56
+    last_write_checksum: sha1:c014e4b5b50216876e4658e1459918ffb2f55f3a
+    pristine_git_object: ef8ee3fd731af475400cf76f3b3b0a6c0ef8a6f5
   docs/models/components/privateendpointvalidationnullable.mdx:
     id: 0b7697b59643
-    last_write_checksum: sha1:954c2b833205f17b5b8e9d82d755dfb926cf05ce
-    pristine_git_object: 2874980d4b436d62022eea5da136de31fc795c9b
+    last_write_checksum: sha1:eba2ee787b0482e12ec05b224017eababa9b4bb7
+    pristine_git_object: 50b4d31a38d9943a5acd42628147b2bffb6156d4
   docs/models/components/privateendpointvalidationresponse.mdx:
     id: 17e1eb6b5019
     last_write_checksum: sha1:54f63a1c5b4e4f9bd26b29cb522da85690902113
@@ -7767,6 +7775,10 @@ trackedFiles:
     id: d20b9b2dd02d
     last_write_checksum: sha1:393d64917b1db1c9f376c5fd81b34e70b8eebed9
     pristine_git_object: 235c01e6f5965902014aa6601bf991dfa8b22bd0
+  docs/models/components/updateprivateendpointparametersrequest.mdx:
+    id: 00ec1a3ad12a
+    last_write_checksum: sha1:7bf0c0def198152290f2fd588212a68d3aa732df
+    pristine_git_object: 49c0377733ebae2229bbe25354e8ddd2d9fd3afc
   docs/models/components/updateprivateendpointpricingrequest.mdx:
     id: 88ce9aaaff85
     last_write_checksum: sha1:f06a81f525afb634945d201625a01099c000d3ba
@@ -8269,8 +8281,8 @@ trackedFiles:
     pristine_git_object: 6bb668f9e1215ebeb43ad5d362a10ad7d29dc726
   docs/models/operations/createprivateendpointrequest.mdx:
     id: 875d7a8b2217
-    last_write_checksum: sha1:5b0e5f7f8c0833fc76379d0614f4a8f480d3f062
-    pristine_git_object: fa8fcbf24d6c19bc1fb8643b77a845dc23546373
+    last_write_checksum: sha1:76bff0c42f648d2724a42f9242b1aab98e86cac1
+    pristine_git_object: 4c32010f8cb43392357cd63ecae4c486838f0c7e
   docs/models/operations/creatererankrequest.mdx:
     id: 01a779a95974
     last_write_checksum: sha1:dd027a4c59c9c9c1d57bec1ef51d6f95c77531c1
@@ -9095,6 +9107,10 @@ trackedFiles:
     id: ed5376ad67c3
     last_write_checksum: sha1:3aacac054448a19017bf0f5f4f5c34964515244a
     pristine_git_object: d635bc0725404ff86a57c8ec14e1898b23a49e17
+  docs/models/operations/updateprivateendpointparametersrequest.mdx:
+    id: e4c20c38b57e
+    last_write_checksum: sha1:32f2e5812456b2b4fbd1418e843926de67acb8f0
+    pristine_git_object: ef68d70827f251b50ffbdd9467fa05fe1e2c798e
   docs/models/operations/updateprivateendpointpricingrequest.mdx:
     id: 7f47bc0b082e
     last_write_checksum: sha1:8ab9b7016a554df0fa7147e132614d3e81938d1d
@@ -9365,8 +9381,8 @@ trackedFiles:
     pristine_git_object: 2ef9c9c96d6200ee0577d9ef87c48ef1c13859a6
   docs/sdks/privateendpoints/README.mdx:
     id: 54dee70b8cc7
-    last_write_checksum: sha1:87059c5be0e2e4a50917f8f3c185b86e4efe6092
-    pristine_git_object: 1eec3acc5fdd0b4d7c47abac96b3fbdc5524d3d5
+    last_write_checksum: sha1:cbdbf8fe5f0c0142d876103f1097636eb55a3bf0
+    pristine_git_object: 7014d6fe4e8d98171d5016f21b560a14960cafbf
   docs/sdks/providers/README.mdx:
     id: 5ea9af111324
     last_write_checksum: sha1:ea26a7377de9d03260436dc4494d817c8912e062
@@ -10629,8 +10645,8 @@ trackedFiles:
     pristine_git_object: f45732edeb348309c2c00f5d8cc71bf2576d7f3c
   models/components/createprivateendpointrequest.go:
     id: da2593d248e5
-    last_write_checksum: sha1:5f700c1c43d1fbf080f490662b5fb749a54297fb
-    pristine_git_object: 287560498097c396dfc1719f7f3e39a2e2057fec
+    last_write_checksum: sha1:54c3f9f6f39f1291d4caf307914e257b3bfa6c66
+    pristine_git_object: 13442ad64c6ea6724cec21eaf70d89ac8da3b464
   models/components/createprivateendpointvalidationfailedresponseerror.go:
     id: 56f9c26057bb
     last_write_checksum: sha1:905af947927baf728041736082b5fe957ac2ad70
@@ -11305,8 +11321,8 @@ trackedFiles:
     pristine_git_object: 5d38ed298b9ebb0603a6ef5307494645a5712527
   models/components/managedprivateendpoint.go:
     id: da068f5be83c
-    last_write_checksum: sha1:faa02509aeb9b83d02c6656a69fbe6ad8610183f
-    pristine_git_object: 6e3ad4ce6aaf9e144146726c927e8c2eaf0c4859
+    last_write_checksum: sha1:98d311d5adcf6b877a22a2af268fcd94afbdb827
+    pristine_git_object: a2f7cf5bae73cb931d41075621fc5318eae4c10a
   models/components/managedprivateendpointresponse.go:
     id: c182c89ae653
     last_write_checksum: sha1:8aa7d44acda9cb5eb3b508e1f2d6a52c2966f96d
@@ -11961,8 +11977,8 @@ trackedFiles:
     pristine_git_object: 008512144e9697ac90bee9134cd576fe8e74f66a
   models/components/privateendpoint.go:
     id: b36192ae6ca6
-    last_write_checksum: sha1:0a645b842f4dbfc388287df6a2f99350b4d8c36a
-    pristine_git_object: 628164285c4a3bccfa2bbd6b25b0f7d7c2f071bb
+    last_write_checksum: sha1:f9536ec802ce9e86804ebbdc9500ecfbf8614abc
+    pristine_git_object: d0665acb9f17de980f272067fa0c2491d33fbec9
   models/components/privateendpointactivation.go:
     id: 187689a6cb98
     last_write_checksum: sha1:c9e74cc9ac2c76e3e44ed86a23454e61f0ed1a4b
@@ -11975,10 +11991,18 @@ trackedFiles:
     id: dbd899a35717
     last_write_checksum: sha1:83f80f7ca1ba9f26452e841972f03490146ab600
     pristine_git_object: 515fa4b45e73ec040a0a9ddf4cacdc3a824d777c
+  models/components/privateendpointdeclaredparameter.go:
+    id: b9ed9bdade70
+    last_write_checksum: sha1:52e6a5cff199577603f6f0cf8fc9f73db2cba485
+    pristine_git_object: 4401fdea935ec20f9eb6e0f9e75a44e234f2703a
   models/components/privateendpointdeclaredregion.go:
     id: 8b0483bcc4bc
     last_write_checksum: sha1:dd4cbd3d71300a882f3f3c242c29b0b9ce4a74ae
     pristine_git_object: a6c8ff3adaa23bc000d0968cdf416c7138cf1146
+  models/components/privateendpointparametercheck.go:
+    id: e98d4867903d
+    last_write_checksum: sha1:20c4243d49c01d058a8e6efc527e713282ff80aa
+    pristine_git_object: a57892f6d6f203f07ddfbea16953c9640c534fb0
   models/components/privateendpointpricing.go:
     id: 566bdb20e41e
     last_write_checksum: sha1:fc9ee3bce2679ee634dd9abc70c3ca58b83b94e4
@@ -11997,12 +12021,12 @@ trackedFiles:
     pristine_git_object: af5afe7ace3e00869cfcb79cdf6465d7c3cff8cd
   models/components/privateendpointvalidation.go:
     id: be000fefbc39
-    last_write_checksum: sha1:fd94de41676aa3fe11ed9762e7470ba2f8ef8ba8
-    pristine_git_object: 11f6d5724afba37ba01918281077ddc7df54e8af
+    last_write_checksum: sha1:ea6f55fc702f43bec7ab425ca6431bf6c17202e0
+    pristine_git_object: 0ae2a959ee54e696318a3bc93107a324193956ac
   models/components/privateendpointvalidationnullable.go:
     id: 5eda635780cc
-    last_write_checksum: sha1:e5667837dae18ebde40d40d50d48d1a62197a0b5
-    pristine_git_object: 9bb244477d05f19c3a402317e325380c552d4a9b
+    last_write_checksum: sha1:b540c93fcb57145a3278028d3c1f8dfbc2157a38
+    pristine_git_object: 7210c06d5939e78fd6a706749e81d4d1de7f1c61
   models/components/privateendpointvalidationresponse.go:
     id: 2c169f0d87ea
     last_write_checksum: sha1:65d856da76df32783872a1458571f338a56614f6
@@ -12639,6 +12663,10 @@ trackedFiles:
     id: 633fb731d574
     last_write_checksum: sha1:656575565f335e97fa6798f5fa54ad410a56b16c
     pristine_git_object: 6789bc29c35a66698f5ab6b905a261bc9607da0f
+  models/components/updateprivateendpointparametersrequest.go:
+    id: ddcd7d1bdbcf
+    last_write_checksum: sha1:ab4f12c85b48fd6085ce25010ad3999f21422e37
+    pristine_git_object: 3ffffe419d6cdc9444c633ecae23437d342fb349
   models/components/updateprivateendpointpricingrequest.go:
     id: c22b18c0fbcc
     last_write_checksum: sha1:8b03c71464d132c0af7b3496b6a4a5fe70d1cde9
@@ -12901,8 +12929,8 @@ trackedFiles:
     pristine_git_object: 1c31733f07011e5eed25ae005cf1f46296656095
   models/operations/createprivateendpoint.go:
     id: 03c283adffaf
-    last_write_checksum: sha1:247f79b4cc34980f1f01131f6d398f4d2444c971
-    pristine_git_object: 1f238da44de239bb03ad050ce6933101fc83059d
+    last_write_checksum: sha1:a832ee2654ac9aadb90ddaaf95aa17a90c42d8bc
+    pristine_git_object: 053911d94f56568766fd3c79d15b7b7c8c249a10
   models/operations/creatererank.go:
     id: 801e27951edc
     last_write_checksum: sha1:8175a159077590f8c3dc327182deb02ec0bbfd4b
@@ -13295,6 +13323,10 @@ trackedFiles:
     id: 84f9d0d7ce0d
     last_write_checksum: sha1:ce724476efb18b13477236a0088bfa8ec2dc7c66
     pristine_git_object: 88dc20fe1e8befa6ba877a74e8f142196b42c396
+  models/operations/updateprivateendpointparameters.go:
+    id: bf5f30398c10
+    last_write_checksum: sha1:1ae6212e1cdd0101f7cbadcf7a672ba227ccf54b
+    pristine_git_object: aa565930ea0c7413ad4152c9a719930e233a2b11
   models/operations/updateprivateendpointpricing.go:
     id: e3b55a89d25d
     last_write_checksum: sha1:8f2d75fac1953baec3165261a0ff12cfc85dfca8
@@ -13425,8 +13457,8 @@ trackedFiles:
     pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:de7c030b59cd2475a8272deedee1387415e024fe
-    pristine_git_object: 1106304dd1d89cfbc91c1698956d129d2558d3a0
+    last_write_checksum: sha1:4935b7d2a5bd985260e502b7965e172f5bb4d771
+    pristine_git_object: 256f746d9098517952988781d798641d8f1596d6
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13445,8 +13477,8 @@ trackedFiles:
     pristine_git_object: 0ca54b81a995dd47281cede74247f33471b8964b
   privateendpoints.go:
     id: 7d1332a9f3d6
-    last_write_checksum: sha1:62e43deb1ff1e8e6ab347538db8ee6ecd2654648
-    pristine_git_object: 73887ed9954851a10bb4f5b490077e6bd8533b4a
+    last_write_checksum: sha1:15a0b6dba116ab5162d43039e63053d2dd84f8b7
+    pristine_git_object: e6dad3b1861009d3b914c444eba558ffe665c5ee
   providers.go:
     id: e89bb17ecd7b
     last_write_checksum: sha1:18b0624b4cd205dd08316121e303572a7fdb2f44
@@ -17114,7 +17146,7 @@ examples:
           id: "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11"
       responses:
         "200":
-          application/json: {"data": {"base_url": "https://contoso.openai.azure.com", "declared_region": "us", "declared_zdr": true, "id": "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11", "model_name": "OpenAI: GPT-4o", "model_permaslug": "openai/gpt-4o-2024-08-06", "model_slug": "openai/gpt-4o", "pricing": {"completion": "0.00001", "prompt": "0.0000025"}, "provider_name": "Azure", "provider_slug": "azure", "status": "active", "upstream_model_id": "gpt-4o-prod"}}
+          application/json: {"data": {"base_url": "https://contoso.openai.azure.com", "declared_parameters": ["temperature", "seed"], "declared_region": "us", "declared_zdr": true, "id": "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11", "model_name": "OpenAI: GPT-4o", "model_permaslug": "openai/gpt-4o-2024-08-06", "model_slug": "openai/gpt-4o", "pricing": {"completion": "0.00001", "prompt": "0.0000025"}, "provider_name": "Azure", "provider_slug": "azure", "status": "active", "tested_parameters": ["tools", "tool_choice", "response_format"], "upstream_model_id": "gpt-4o-prod"}}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "403":
@@ -17134,7 +17166,7 @@ examples:
         application/json: {"upstream_model_id": "gpt-4o-prod"}
       responses:
         "200":
-          application/json: {"data": {"base_url": "https://contoso.openai.azure.com", "declared_region": "us", "declared_zdr": true, "id": "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11", "model_name": "OpenAI: GPT-4o", "model_permaslug": "openai/gpt-4o-2024-08-06", "model_slug": "openai/gpt-4o", "pricing": {"completion": "0.00001", "prompt": "0.0000025"}, "provider_name": "Azure", "provider_slug": "azure", "status": "active", "upstream_model_id": "gpt-4o-prod"}}
+          application/json: {"data": {"base_url": "https://contoso.openai.azure.com", "declared_parameters": ["temperature", "seed"], "declared_region": "us", "declared_zdr": true, "id": "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11", "model_name": "OpenAI: GPT-4o", "model_permaslug": "openai/gpt-4o-2024-08-06", "model_slug": "openai/gpt-4o", "pricing": {"completion": "0.00001", "prompt": "0.0000025"}, "provider_name": "Azure", "provider_slug": "azure", "status": "active", "tested_parameters": ["tools", "tool_choice", "response_format"], "upstream_model_id": "gpt-4o-prod"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -17240,7 +17272,7 @@ examples:
         application/json: {"pricing": {"completion": "0.00001", "prompt": "0.0000025"}}
       responses:
         "200":
-          application/json: {"data": {"base_url": "https://contoso.openai.azure.com", "declared_region": "us", "declared_zdr": true, "id": "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11", "model_name": "OpenAI: GPT-4o", "model_permaslug": "openai/gpt-4o-2024-08-06", "model_slug": "openai/gpt-4o", "pricing": {"completion": "0.00001", "prompt": "0.0000025"}, "provider_name": "Azure", "provider_slug": "azure", "status": "active", "upstream_model_id": "gpt-4o-prod"}}
+          application/json: {"data": {"base_url": "https://contoso.openai.azure.com", "declared_parameters": ["temperature", "seed"], "declared_region": "us", "declared_zdr": true, "id": "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11", "model_name": "OpenAI: GPT-4o", "model_permaslug": "openai/gpt-4o-2024-08-06", "model_slug": "openai/gpt-4o", "pricing": {"completion": "0.00001", "prompt": "0.0000025"}, "provider_name": "Azure", "provider_slug": "azure", "status": "active", "tested_parameters": ["tools", "tool_choice", "response_format"], "upstream_model_id": "gpt-4o-prod"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -17873,15 +17905,33 @@ examples:
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
+  updatePrivateEndpointParameters:
+    speakeasy-default-update-private-endpoint-parameters:
+      parameters:
+        path:
+          id: "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11"
+      requestBody:
+        application/json: {"declared_parameters": ["temperature", "seed"]}
+      responses:
+        "200":
+          application/json: {"data": {"base_url": "https://contoso.openai.azure.com", "declared_parameters": ["temperature", "seed"], "declared_region": "us", "declared_zdr": true, "id": "5b1c4c4e-7d0a-4a8e-9f3a-2d6c1b0e8a11", "model_name": "OpenAI: GPT-4o", "model_permaslug": "openai/gpt-4o-2024-08-06", "model_slug": "openai/gpt-4o", "pricing": {"completion": "0.00001", "prompt": "0.0000025"}, "provider_name": "Azure", "provider_slug": "azure", "status": "active", "tested_parameters": ["tools", "tool_choice", "response_format"], "upstream_model_id": "gpt-4o-prod"}}
+        "400":
+          application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "408":
+          application/json: {"error": {"code": 408, "message": "Operation timed out. Please try again later."}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+        "422":
+          application/json: {"error": {"code": 422, "message": "Invalid argument"}}
+        "500":
+          application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
+        "502":
+          application/json: {"error": {"code": 502, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `error.status[503]` **Added**
-  * `OpenRouter.Endpoints.List()`:  `error.status[503]` **Added**
-  * `OpenRouter.Generations.SubmitFeedback()`:  `error` **Changed**
-  * `OpenRouter.Models.List()`:  `error.status[503]` **Added**
-  * `OpenRouter.Models.ListForUser()`:  `error.status[503]` **Added**
-  * `OpenRouter.Presets.List()`:  `error.status[503]` **Added**
-  * `OpenRouter.Presets.Get()`:  `error.status[503]` **Added**
-  * `OpenRouter.Presets.ListVersions()`:  `error.status[503]` **Added**
-  * `OpenRouter.Presets.GetVersion()`:  `error.status[503]` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.PrivateEndpoints.UpdateParameters()`: **Added**\n* `OpenRouter.PrivateEndpoints.Create()`: \n  *  `request.CreatePrivateEndpointRequest` **Changed**\n  *  `response.Data.MaxCompletionTokens` **Added**\n  *  `error.union(CreatePrivateEndpointValidationFailedResponse).Data` **Changed**\n* `OpenRouter.PrivateEndpoints.Get()`:  `response.Data` **Changed**\n* `OpenRouter.PrivateEndpoints.Update()`:  `response.Data` **Changed**\n* `OpenRouter.PrivateEndpoints.Activate()`:  `response.Data.MaxCompletionTokens` **Added**\n* `OpenRouter.PrivateEndpoints.Disable()`:  `response.Data.MaxCompletionTokens` **Added**\n* `OpenRouter.PrivateEndpoints.Enable()`:  `response.Data.MaxCompletionTokens` **Added**\n* `OpenRouter.PrivateEndpoints.UpdatePricing()`:  `response.Data` **Changed**\n* `OpenRouter.PrivateEndpoints.Validate()`:  `response.Data.Parameters` **Added**\n"

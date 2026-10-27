@@ -8,6 +8,8 @@ import (
 
 type PrivateEndpointValidationNullable struct {
 	Checks []PrivateEndpointCheck `json:"checks"`
+	// Request parameters probed after the checks passed, each with whether the upstream honored it. Supported ones are recorded in `tested_parameters`. Absent on a failed run and for providers that run no parameter probes; empty when every probe group was already proven.
+	Parameters []PrivateEndpointParameterCheck `json:"parameters,omitzero"`
 	// Whether every check passed.
 	Passed bool `json:"passed"`
 }
@@ -28,6 +30,13 @@ func (p *PrivateEndpointValidationNullable) GetChecks() []PrivateEndpointCheck {
 		return []PrivateEndpointCheck{}
 	}
 	return p.Checks
+}
+
+func (p *PrivateEndpointValidationNullable) GetParameters() []PrivateEndpointParameterCheck {
+	if p == nil {
+		return nil
+	}
+	return p.Parameters
 }
 
 func (p *PrivateEndpointValidationNullable) GetPassed() bool {

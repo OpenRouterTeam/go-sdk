@@ -2,10 +2,27 @@
 
 package components
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+)
+
 type PrivateEndpointValidation struct {
 	Checks []PrivateEndpointCheck `json:"checks"`
+	// Request parameters probed after the checks passed, each with whether the upstream honored it. Supported ones are recorded in `tested_parameters`. Absent on a failed run and for providers that run no parameter probes; empty when every probe group was already proven.
+	Parameters []PrivateEndpointParameterCheck `json:"parameters,omitzero"`
 	// Whether every check passed.
 	Passed bool `json:"passed"`
+}
+
+func (p PrivateEndpointValidation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PrivateEndpointValidation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (p *PrivateEndpointValidation) GetChecks() []PrivateEndpointCheck {
@@ -13,6 +30,13 @@ func (p *PrivateEndpointValidation) GetChecks() []PrivateEndpointCheck {
 		return []PrivateEndpointCheck{}
 	}
 	return p.Checks
+}
+
+func (p *PrivateEndpointValidation) GetParameters() []PrivateEndpointParameterCheck {
+	if p == nil {
+		return nil
+	}
+	return p.Parameters
 }
 
 func (p *PrivateEndpointValidation) GetPassed() bool {
