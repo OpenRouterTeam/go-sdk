@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 2468f1b04b9c527842da58c63127a43d
+  docChecksum: ce31dfbfd7e5761a7c18028a46759cd2
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.77
-  configChecksum: ab2cc8301ec4c92ec97c71579bd9f8bb
+  releaseVersion: 0.9.78
+  configChecksum: 5d4e55dd604b3d01f0ac857f69538b3b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: d25781b1-fcf1-4482-a181-06a6bb865cb2
-  pristine_commit_hash: f7799a12b7f5b46d936525e86d56e3e8ee4a6f09
-  pristine_tree_hash: f4d4dbc37b7489f702425423906f705dba9a421a
+  generation_id: e6043416-43fd-4a16-aa2e-e953cac9e496
+  pristine_commit_hash: 6e8224225eb6c39688fc532e89a4c67c8255c9bd
+  pristine_tree_hash: 5730e6578e81004490e527dffa9a48adc100952c
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1375,6 +1375,10 @@ trackedFiles:
     id: b2df30b470b1
     last_write_checksum: sha1:990f1b525e7991180d134464d92c5233982f50ed
     pristine_git_object: a520320b1605e945e8cfff1bdc458aeaf9ecccb7
+  docs/models/components/authmode.mdx:
+    id: ae1b802f02fe
+    last_write_checksum: sha1:46706ce94ffbe9dc746e974d730de049a22f7290
+    pristine_git_object: 22d77b599aa885f02020080b4d7e9c73c150f35b
   docs/models/components/autobetarouterplugin.mdx:
     id: 604b3c68d3cd
     last_write_checksum: sha1:e1033c6c51ab0b045888f3ee7fe1644ecfeb9d33
@@ -4925,8 +4929,8 @@ trackedFiles:
     pristine_git_object: 21c7e59045b415a520bc19d983683c87cc0af05a
   docs/models/components/observabilitys3destinationconfig.mdx:
     id: b6e66e3fbcf9
-    last_write_checksum: sha1:eb4dfe1f8bb32e110dd9ff02761ace2a67f373b7
-    pristine_git_object: fb2e4f95cb5d089f09dc8ce0717eacf33bd9c1cb
+    last_write_checksum: sha1:ac2b27ed2652c85b0e9b23a0e6c79d69d7fe2cc2
+    pristine_git_object: e0787873bfc07b373a63328ab211176fa3a7e7f1
   docs/models/components/observabilitys3destinationtype.mdx:
     id: 36f3222e1d4d
     last_write_checksum: sha1:fa2fc328fc9a9549974638df460009581e0bf4f3
@@ -6275,6 +6279,10 @@ trackedFiles:
     id: b9404ce1620e
     last_write_checksum: sha1:9a45cae039e6df88467508848bdc68d88b7f7668
     pristine_git_object: d2753c8699c8177a7c216ce099da70b730697b05
+  docs/models/components/providerenum.mdx:
+    id: 5192191c3f49
+    last_write_checksum: sha1:18298b59e68b98c5f36753acd26078adc649b5b1
+    pristine_git_object: e0d70c37be829e0c240dfb190e908973303e587c
   docs/models/components/providername.mdx:
     id: 8e0a10860f62
     last_write_checksum: sha1:08c05bee9a0fe3cf8965890c5601123c1ddeaf2d
@@ -11529,8 +11537,8 @@ trackedFiles:
     pristine_git_object: 30d82d87412c1bb785ecffc825f8ccbc7093a249
   models/components/observabilitys3destination.go:
     id: 5edccceac5ed
-    last_write_checksum: sha1:648ff9cdab4526beb5ae6c7dfe78bd42b844fd9b
-    pristine_git_object: 0671f3b69ce46eefbb072a3d257c0a43c148fde5
+    last_write_checksum: sha1:3c4d8943a75b36582edb207a737937e245320b18
+    pristine_git_object: 1465442d6a2c1e51203e1a7a356096ac942898fe
   models/components/observabilitysentrydestination.go:
     id: 1b8e83bcac45
     last_write_checksum: sha1:2f92a24d0a308b50bf4d69ec7796c330f6000892
@@ -13417,8 +13425,8 @@ trackedFiles:
     pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:59fac8d8f3aedad758909131f148bcf975766bca
-    pristine_git_object: d4c6dca4fd773703f8ef36c38b86224325d8153e
+    last_write_checksum: sha1:c99957636136c1d346c87d249e32c47bb2b2c915
+    pristine_git_object: 3b8c98b8b4060e8c9d9a891e471f32f837ff280b
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -17846,4 +17854,9 @@ examples:
         "500":
           application/json: {"error": {"code": 404, "message": "Intern not found"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Messages[].Content.union(Array<>)[].union(tool_addition).Tool.union(tool_definition)` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Observability.List()`:  `response.Data[].union(s3).Config` **Changed**
+  * `OpenRouter.Observability.Create()`:  `response.Data.union(s3).Config` **Changed**
+  * `OpenRouter.Observability.Get()`:  `response.Data.union(s3).Config` **Changed**
+  * `OpenRouter.Observability.Update()`:  `response.Data.union(s3).Config` **Changed**
