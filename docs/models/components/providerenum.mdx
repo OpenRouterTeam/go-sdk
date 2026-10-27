@@ -1,0 +1,28 @@
+---
+title: "ProviderEnum"
+---
+
+The object storage service that hosts the bucket. AWS S3 supports IAM role authentication; the other providers use access keys.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ProviderEnumAws
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ProviderEnum("custom_value")
+```
+
+
+## Values
+
+| Name                       | Value                      |
+| -------------------------- | -------------------------- |
+| `ProviderEnumAws`          | aws                        |
+| `ProviderEnumCloudflareR2` | cloudflare_r2              |
+| `ProviderEnumGcs`          | gcs                        |
+| `ProviderEnumOther`        | other                      |
