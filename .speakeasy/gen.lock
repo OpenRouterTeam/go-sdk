@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ce31dfbfd7e5761a7c18028a46759cd2
+  docChecksum: 068c54f4d63cb1efcc887a0dfb86fb85
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.78
-  configChecksum: 5d4e55dd604b3d01f0ac857f69538b3b
+  releaseVersion: 0.9.79
+  configChecksum: b4c4648e1480dd948a0b92bb30e2dd10
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: a97c962b-6f36-4d62-8c94-7e1291f0bd5b
-  pristine_commit_hash: 998b810a73c7c554027fbdfe563dbef1eed05b5e
-  pristine_tree_hash: 5730e6578e81004490e527dffa9a48adc100952c
+  generation_id: 988b5374-da25-4022-9165-e7627e96d51d
+  pristine_commit_hash: 731afeb8242d7b016a6dfbd2be4a03d6607dca0d
+  pristine_tree_hash: ead7ad2264c4a3a5eb0635e9f7041514bc28d1b0
 features:
   go:
     acceptHeaders: 2.81.2
@@ -9321,8 +9321,8 @@ trackedFiles:
     pristine_git_object: d85fdd6c9e3304a43f8644269cef7715083e7465
   docs/sdks/endpoints/README.mdx:
     id: 62dfac9f7b71
-    last_write_checksum: sha1:2295f7bba3abe6fb0c1e89c54df1c244bf290cb0
-    pristine_git_object: 844044ad6d1c3d29314dee5b5accfac86245ff19
+    last_write_checksum: sha1:0afd7ca75840d9ef853d4f39656835a55f32c40f
+    pristine_git_object: 92a3d80027b2d1ebf724ebdad2ba193009e8f5b4
   docs/sdks/externalusers/README.mdx:
     id: 16a97e1de35f
     last_write_checksum: sha1:c535f2a48e53ea26a9f652e0fe7c2cf75f12e031
@@ -9333,8 +9333,8 @@ trackedFiles:
     pristine_git_object: 4450621b2b37244f5112c6892a4bcb3444f870cb
   docs/sdks/generations/README.mdx:
     id: a754fecc8514
-    last_write_checksum: sha1:6441d3933a67b128d2f9a9eaf142734fbe7b36e0
-    pristine_git_object: ce8b298011d2a75efa1ec34e78309aaed8ccf592
+    last_write_checksum: sha1:926b206182593223f46a7dde91d945988fd68905
+    pristine_git_object: f63100c5b9ace0a46b7362a78622193d0caf9257
   docs/sdks/guardrails/README.mdx:
     id: a0cd4218b8fa
     last_write_checksum: sha1:6f75510b9c36c77e90a32d0d517b492e68a72458
@@ -9345,8 +9345,8 @@ trackedFiles:
     pristine_git_object: 9abe56d206a750df1fe07c405a206502219594d7
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
-    last_write_checksum: sha1:29f111b12edbecd9a5e0b178ef36b990cee1ba2c
-    pristine_git_object: e54ccf4bd8e7e98595284c0d4924e8c191783350
+    last_write_checksum: sha1:a5c65d60e786d36feab6dd14ec20f7ea968a19c6
+    pristine_git_object: 0fba408c407a08770d9eda2e84e5f1d587f72bc5
   docs/sdks/oauth/README.mdx:
     id: 42b5079343d2
     last_write_checksum: sha1:ee024d7dd66428dd7eb18401cbd2ba066de14151
@@ -9361,8 +9361,8 @@ trackedFiles:
     pristine_git_object: 90358ce3e079a27c7e30534a2c3ff492579a5a8d
   docs/sdks/presets/README.mdx:
     id: eeb505928d52
-    last_write_checksum: sha1:d23a26f85348d8cc9ab5b2ab14c11f0afc24586c
-    pristine_git_object: 45b27b4ecbc7d8b64d19a9821a05549e7ad3172e
+    last_write_checksum: sha1:08b06118493d140583cd78feabc4726df45ee761
+    pristine_git_object: 2ef9c9c96d6200ee0577d9ef87c48ef1c13859a6
   docs/sdks/privateendpoints/README.mdx:
     id: 54dee70b8cc7
     last_write_checksum: sha1:87059c5be0e2e4a50917f8f3c185b86e4efe6092
@@ -9421,8 +9421,8 @@ trackedFiles:
     pristine_git_object: 01d94528197bd02988df91065c4db3a0e73a0153
   endpoints.go:
     id: fca50a3c2336
-    last_write_checksum: sha1:4ff8dcc824651a38c91f51bf1754dec818104b0e
-    pristine_git_object: 5f6a868dfd1c4fe9d1589a2e2afc14af039179f2
+    last_write_checksum: sha1:fb700dfbf393a843320c551ae34a7941a1153eb4
+    pristine_git_object: 3d201ea296de0683b2dd056a5ac90f4d5e62d338
   externalusers.go:
     id: a9a3bf49aa62
     last_write_checksum: sha1:4c0ed0233dd4e2232d523d10773e99c22d9a1b28
@@ -9433,8 +9433,8 @@ trackedFiles:
     pristine_git_object: 0c805449044890b2963573442c4f3617a9a0bb4f
   generations.go:
     id: ad539e13a3f6
-    last_write_checksum: sha1:6b40a654009d58094d7feeb34cb7e1ac94c3e608
-    pristine_git_object: b7bdaa3c9dae9373949d3207a59adf262e241090
+    last_write_checksum: sha1:a2096885df295f064406cab03cd73956eeab1821
+    pristine_git_object: 099e8da1c231a4131daef61024ff81e691925394
   go.mod:
     id: c47645c391ad
     last_write_checksum: sha1:ba90465104f4b129a0ced01d50d453c828d3cc41
@@ -9513,8 +9513,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   models.go:
     id: 3af78faf181b
-    last_write_checksum: sha1:1d110cfd364a059f442cb1fce1fac776fc4977ec
-    pristine_git_object: 1a3736f10030fa7ec5d12b424e2ae570f8053953
+    last_write_checksum: sha1:f4168549c3ed7abc0f1ebe82535053a65aa56b56
+    pristine_git_object: 0076f71a62d11f50be5d3627dce76ca3941e0f30
   models/components/aabenchmarkentry.go:
     id: 4c2460857b24
     last_write_checksum: sha1:f1dcb4e0a7a18fc3b6c701e6608ac599c5a0f280
@@ -13425,8 +13425,8 @@ trackedFiles:
     pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:c99957636136c1d346c87d249e32c47bb2b2c915
-    pristine_git_object: 3b8c98b8b4060e8c9d9a891e471f32f837ff280b
+    last_write_checksum: sha1:de7c030b59cd2475a8272deedee1387415e024fe
+    pristine_git_object: 1106304dd1d89cfbc91c1698956d129d2558d3a0
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13441,8 +13441,8 @@ trackedFiles:
     pristine_git_object: 4995257c559fab854853f52e0376dfdf7da73442
   presets.go:
     id: e1866fc48c6b
-    last_write_checksum: sha1:a47fef7832cc24bc4bdd9f6c9c863794e8f235b6
-    pristine_git_object: f657c127a315b762c5596e2784d264f9bba058dc
+    last_write_checksum: sha1:1f828fe59bde354bb89abd5d27f5e970508e9c3f
+    pristine_git_object: 0ca54b81a995dd47281cede74247f33471b8964b
   privateendpoints.go:
     id: 7d1332a9f3d6
     last_write_checksum: sha1:62e43deb1ff1e8e6ab347538db8ee6ecd2654648
@@ -13711,6 +13711,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   listModelsUser:
     speakeasy-default-list-models-user:
       parameters:
@@ -13728,6 +13730,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   listEndpoints:
     speakeasy-default-list-endpoints:
       parameters:
@@ -13743,6 +13747,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   listEndpointsZdr:
     speakeasy-default-list-endpoints-zdr:
       responses:
@@ -13752,6 +13758,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   listProviders:
     speakeasy-default-list-providers:
       responses:
@@ -14977,6 +14985,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   getPreset:
     speakeasy-default-get-preset:
       parameters:
@@ -14995,6 +15005,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   createPresetsChatCompletions:
     speakeasy-default-create-presets-chat-completions:
       parameters:
@@ -15082,6 +15094,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   getPresetVersion:
     speakeasy-default-get-preset-version:
       parameters:
@@ -15101,6 +15115,8 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "403":
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   getBenchmarks:
     speakeasy-default-get-benchmarks:
       parameters:
@@ -15279,6 +15295,10 @@ examples:
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
         "409":
           application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+        "403":
+          application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
+        "503":
+          application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
   listScimGroupMappings:
     speakeasy-default-list-scim-group-mappings:
       parameters:
@@ -17856,7 +17876,12 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Observability.List()`:  `response.Data[].union(s3).Config` **Changed**
-  * `OpenRouter.Observability.Create()`:  `response.Data.union(s3).Config` **Changed**
-  * `OpenRouter.Observability.Get()`:  `response.Data.union(s3).Config` **Changed**
-  * `OpenRouter.Observability.Update()`:  `response.Data.union(s3).Config` **Changed**
+  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `error.status[503]` **Added**
+  * `OpenRouter.Endpoints.List()`:  `error.status[503]` **Added**
+  * `OpenRouter.Generations.SubmitFeedback()`:  `error` **Changed**
+  * `OpenRouter.Models.List()`:  `error.status[503]` **Added**
+  * `OpenRouter.Models.ListForUser()`:  `error.status[503]` **Added**
+  * `OpenRouter.Presets.List()`:  `error.status[503]` **Added**
+  * `OpenRouter.Presets.Get()`:  `error.status[503]` **Added**
+  * `OpenRouter.Presets.ListVersions()`:  `error.status[503]` **Added**
+  * `OpenRouter.Presets.GetVersion()`:  `error.status[503]` **Added**
