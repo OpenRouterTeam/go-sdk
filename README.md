@@ -356,6 +356,7 @@ func main() {
 * [Activate](docs/sdks/privateendpoints/README.md#activate) - Activate a validated private endpoint
 * [Disable](docs/sdks/privateendpoints/README.md#disable) - Disable a private endpoint
 * [Enable](docs/sdks/privateendpoints/README.md#enable) - Enable a private endpoint
+* [UpdateParameters](docs/sdks/privateendpoints/README.md#updateparameters) - Set private endpoint supported parameters
 * [UpdatePricing](docs/sdks/privateendpoints/README.md#updatepricing) - Set private endpoint pricing
 * [Validate](docs/sdks/privateendpoints/README.md#validate) - Validate a draft private endpoint
 
