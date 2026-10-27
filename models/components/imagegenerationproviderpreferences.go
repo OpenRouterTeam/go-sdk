@@ -294,6 +294,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Perplexity               map[string]any `json:"perplexity,omitzero"`
 	Phala                    map[string]any `json:"phala,omitzero"`
 	Poolside                 map[string]any `json:"poolside,omitzero"`
+	Primalabs                map[string]any `json:"primalabs,omitzero"`
 	Primeintellect           map[string]any `json:"primeintellect,omitzero"`
 	Quiver                   map[string]any `json:"quiver,omitzero"`
 	Recraft                  map[string]any `json:"recraft,omitzero"`
@@ -1083,6 +1084,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetPoolside() map[string]any
 		return nil
 	}
 	return i.Poolside
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetPrimalabs() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Primalabs
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetPrimeintellect() map[string]any {
