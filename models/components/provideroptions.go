@@ -113,6 +113,7 @@ type ProviderOptions struct {
 	Perplexity               map[string]any `json:"perplexity,omitzero"`
 	Phala                    map[string]any `json:"phala,omitzero"`
 	Poolside                 map[string]any `json:"poolside,omitzero"`
+	Primalabs                map[string]any `json:"primalabs,omitzero"`
 	Primeintellect           map[string]any `json:"primeintellect,omitzero"`
 	Quiver                   map[string]any `json:"quiver,omitzero"`
 	Recraft                  map[string]any `json:"recraft,omitzero"`
@@ -902,6 +903,13 @@ func (p *ProviderOptions) GetPoolside() map[string]any {
 		return nil
 	}
 	return p.Poolside
+}
+
+func (p *ProviderOptions) GetPrimalabs() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Primalabs
 }
 
 func (p *ProviderOptions) GetPrimeintellect() map[string]any {
