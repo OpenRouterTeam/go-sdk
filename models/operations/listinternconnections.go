@@ -2,6 +2,10 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type ListInternConnectionsRequest struct {
 	// UUID of an intern in the workspace selected by the API key.
 	InternID string `pathParam:"style=simple,explode=false,name=internId"`
@@ -28,6 +32,10 @@ func (l *ListInternConnectionsData) GetKey() string {
 // ListInternConnectionsResponse - The connections the intern can use.
 type ListInternConnectionsResponse struct {
 	Data []ListInternConnectionsData `json:"data"`
+	// The intern's routing table, for the intern's own key only; null for any other caller or when the vault could not build it in time. The keys still list.
+	Routing *components.VaultRoutingTable `json:"routing"`
+	// The routing table as the plain lines the intern reads in its instructions' Connections section, or a notice that it could not be read; null for a caller other than the intern.
+	RoutingText *string `json:"routing_text"`
 }
 
 func (l *ListInternConnectionsResponse) GetData() []ListInternConnectionsData {
@@ -35,4 +43,18 @@ func (l *ListInternConnectionsResponse) GetData() []ListInternConnectionsData {
 		return []ListInternConnectionsData{}
 	}
 	return l.Data
+}
+
+func (l *ListInternConnectionsResponse) GetRouting() *components.VaultRoutingTable {
+	if l == nil {
+		return nil
+	}
+	return l.Routing
+}
+
+func (l *ListInternConnectionsResponse) GetRoutingText() *string {
+	if l == nil {
+		return nil
+	}
+	return l.RoutingText
 }

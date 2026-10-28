@@ -1,0 +1,26 @@
+---
+title: "TokenScope"
+---
+
+`workspace` applies to every intern of the workspace; `intern` to this intern alone.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TokenScopeWorkspace
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.TokenScope("custom_value")
+```
+
+
+## Values
+
+| Name                  | Value                 |
+| --------------------- | --------------------- |
+| `TokenScopeWorkspace` | workspace             |
+| `TokenScopeIntern`    | intern                |

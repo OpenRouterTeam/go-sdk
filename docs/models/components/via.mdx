@@ -1,0 +1,27 @@
+---
+title: "Via"
+---
+
+How the vault picks this link for the App, by the same selection egress uses.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ViaAppLink
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.Via("custom_value")
+```
+
+
+## Values
+
+| Name         | Value        |
+| ------------ | ------------ |
+| `ViaAppLink` | app_link     |
+| `ViaToken`   | token        |
+| `ViaAnyLink` | any_link     |
