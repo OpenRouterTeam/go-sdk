@@ -10,30 +10,6 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-// ChatDeveloperMessageConfigurationUpdate - OpenRouter extension. Same as the system message `configuration_update`: changes reasoning effort from this point in the conversation onward without invalidating the prompt cache for the preceding turns.
-type ChatDeveloperMessageConfigurationUpdate struct {
-	// Reasoning settings applied from this point in the conversation onward
-	Reasoning ConfigurationUpdateReasoning `json:"reasoning"`
-}
-
-func (c ChatDeveloperMessageConfigurationUpdate) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ChatDeveloperMessageConfigurationUpdate) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ChatDeveloperMessageConfigurationUpdate) GetReasoning() ConfigurationUpdateReasoning {
-	if c == nil {
-		return ConfigurationUpdateReasoning{}
-	}
-	return c.Reasoning
-}
-
 type ChatDeveloperMessageContentType string
 
 const (
@@ -150,7 +126,7 @@ func (e *ChatDeveloperMessageRole) UnmarshalJSON(data []byte) error {
 // ChatDeveloperMessage - Developer message
 type ChatDeveloperMessage struct {
 	// OpenRouter extension. Same as the system message `configuration_update`: changes reasoning effort from this point in the conversation onward without invalidating the prompt cache for the preceding turns.
-	ConfigurationUpdate optionalnullable.OptionalNullable[ChatDeveloperMessageConfigurationUpdate] `json:"configuration_update,omitzero"`
+	ConfigurationUpdate optionalnullable.OptionalNullable[ConfigurationUpdate] `json:"configuration_update,omitzero"`
 	// Developer message content
 	Content ChatDeveloperMessageContent `json:"content"`
 	// Optional name for the developer message
@@ -169,7 +145,7 @@ func (c *ChatDeveloperMessage) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *ChatDeveloperMessage) GetConfigurationUpdate() optionalnullable.OptionalNullable[ChatDeveloperMessageConfigurationUpdate] {
+func (c *ChatDeveloperMessage) GetConfigurationUpdate() optionalnullable.OptionalNullable[ConfigurationUpdate] {
 	if c == nil {
 		return nil
 	}
