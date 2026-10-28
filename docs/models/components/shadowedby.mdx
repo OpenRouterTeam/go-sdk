@@ -1,0 +1,26 @@
+---
+title: "ShadowedBy"
+---
+
+What egress uses instead of this installation for a request to its account: an earlier installation on the same account, or a token pinned to the account. Null when this installation answers.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ShadowedByInstallation
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ShadowedBy("custom_value")
+```
+
+
+## Values
+
+| Name                     | Value                    |
+| ------------------------ | ------------------------ |
+| `ShadowedByInstallation` | installation             |
+| `ShadowedByToken`        | token                    |

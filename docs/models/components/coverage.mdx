@@ -1,0 +1,14 @@
+---
+title: "Coverage"
+---
+
+What GitHub says the installation covers; null until read.
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `CheckedAt`                                                                | [time.Time](https://pkg.go.dev/time#Time)                                  | :heavy_check_mark:                                                         | When GitHub answered, through the installation token the vault holds.      |
+| `RepositoryCount`                                                          | `*int64`                                                                   | :heavy_check_mark:                                                         | Repositories the installation covers; null when GitHub did not count them. |
+| `Selection`                                                                | [components.Selection](../../models/components/selection.mdx)               | :heavy_check_mark:                                                         | N/A                                                                        |
