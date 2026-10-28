@@ -5,7 +5,7 @@ package components
 type OrganizationSettings struct {
 	// ID of the organization the settings belong to
 	ID string `json:"id"`
-	// When true, `GET /api/v1/models` called with one of the organization's API keys returns only the models that key can use (the `/api/v1/models/user` catalog), and the signed-in dashboard shows the same list. Anonymous requests always receive the public catalog.
+	// When true, the signed-in dashboard lists only the models the organization can use. `GET /api/v1/models` called with an API key always returns only the models that key can use, whatever this setting says; anonymous requests receive the public catalog.
 	IsFilteredModelCatalogEnabled bool `json:"is_filtered_model_catalog_enabled"`
 }
 
