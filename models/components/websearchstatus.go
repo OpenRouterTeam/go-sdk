@@ -9,6 +9,7 @@ const (
 	WebSearchStatusSearching  WebSearchStatus = "searching"
 	WebSearchStatusInProgress WebSearchStatus = "in_progress"
 	WebSearchStatusFailed     WebSearchStatus = "failed"
+	WebSearchStatusIncomplete WebSearchStatus = "incomplete"
 )
 
 func (e WebSearchStatus) ToPointer() *WebSearchStatus {
@@ -19,7 +20,7 @@ func (e WebSearchStatus) ToPointer() *WebSearchStatus {
 func (e *WebSearchStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "completed", "searching", "in_progress", "failed":
+		case "completed", "searching", "in_progress", "failed", "incomplete":
 			return true
 		}
 	}
