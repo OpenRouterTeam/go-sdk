@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 0c6e8129a2a8553605353428300acf84
+  docChecksum: 4f8c26fec0e5c3dbbc3c399ab93afb53
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.86
-  configChecksum: 55b20afee4f73d2853b4423b35ef8d67
+  releaseVersion: 0.9.87
+  configChecksum: 43ec5911d8afd89cea7065d2a805fb7e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: cc5fffc3-f71c-4d8e-9781-16df078b2a3f
-  pristine_commit_hash: 931e5da2c6c5d916daa15035e3ffcaceac2cfe2c
-  pristine_tree_hash: fb48817ddee41acb5627b344263f2aef7c3f367f
+  generation_id: fda2ba78-0c15-48a9-879d-133852f9892f
+  pristine_commit_hash: 6aa7a6baf7ba635116a07d8ada7505929be16f6d
+  pristine_tree_hash: cdb73ca43f6356d7bcb41bbc8f4d196f0ee24f42
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2709,8 +2709,8 @@ trackedFiles:
     pristine_git_object: 6bc17eafd83f6821380285244877fab31100e3c3
   docs/models/components/createguardrailrequest.mdx:
     id: f2be013836bb
-    last_write_checksum: sha1:abc6a9213d4159a0c944fc374f2964517a237696
-    pristine_git_object: 35e8e2eb69ef055ae231e28afab41826b00885c2
+    last_write_checksum: sha1:cc092ad9a62555f3dd84b4feeae7a17863fe4e13
+    pristine_git_object: ca7fdc8617f87058bad94b6fd31c305908898abd
   docs/models/components/createguardrailresponse.mdx:
     id: 71fa8e3f3541
     last_write_checksum: sha1:8c851c460e81b66a7af229734927c13edda8fc5c
@@ -3665,8 +3665,8 @@ trackedFiles:
     pristine_git_object: 0c18b6c7242ec163a11c89329f8207a9d9c66ef7
   docs/models/components/guardrail.mdx:
     id: f08bb1289d4f
-    last_write_checksum: sha1:8dee7202c7d8e8ab2df912dbbb4afe474ff8c440
-    pristine_git_object: ee1b236fe1f0d77d075e02a3ab82d099744032b5
+    last_write_checksum: sha1:7bf2fca92038f5afa50967986e3595a5ecbfd5d5
+    pristine_git_object: e4b444a86965852431a16985e5cc978256dd0085
   docs/models/components/guardraildataregion.mdx:
     id: fdec32c8c684
     last_write_checksum: sha1:6c48ad000a52c35e94916a498ffff6dcf168746b
@@ -5433,8 +5433,8 @@ trackedFiles:
     pristine_git_object: baf921a79beefefdf400f48c98486fbde36f3225
   docs/models/components/organizationsettings.mdx:
     id: ac2e9367f390
-    last_write_checksum: sha1:239abf62726f3ecd4fdf10716436400667191e2b
-    pristine_git_object: 02a0c023588071b2b71ac8de67214c169ce1fba7
+    last_write_checksum: sha1:0eab1d9dbe93f2a5c8bcb6e612deb9c94791bef1
+    pristine_git_object: 4f164f8601d8bcf325a5bddce6800b6892e9b3ca
   docs/models/components/outcome.mdx:
     id: 72409b4b590c
     last_write_checksum: sha1:ce890d47dd0de32cb3af16550646dfcc2900df20
@@ -7865,8 +7865,8 @@ trackedFiles:
     pristine_git_object: 32ca7abc42375b581e63830b5072fcb5e5929d81
   docs/models/components/updateguardrailrequest.mdx:
     id: edddc69821ba
-    last_write_checksum: sha1:9e53de496b4afaf8066516ff2a4780d1bdabce8c
-    pristine_git_object: 208149a4531f63356f3af055241ae2cc692b0979
+    last_write_checksum: sha1:b5599f7f13240d8fb2a2dafc4c35b76f86e7166c
+    pristine_git_object: 4d35aeb231759e6b0ddafe4441cc7eb9fb666b54
   docs/models/components/updateguardrailresponse.mdx:
     id: c4d79f6839a6
     last_write_checksum: sha1:1569028cf5d86c763fbafe47f0e0beb5e4d88b84
@@ -7881,8 +7881,8 @@ trackedFiles:
     pristine_git_object: 51ebeab2ca4e24c740795b43ebec68981a524d12
   docs/models/components/updateorganizationsettingsrequest.mdx:
     id: d20b9b2dd02d
-    last_write_checksum: sha1:a9c6d943e699d739563a8ce1160b009707943b23
-    pristine_git_object: 9f341b72ece45a9e177d3bbde31c98429fd1648c
+    last_write_checksum: sha1:192ad09a99cd3efc113a99448d7d94c3286a3422
+    pristine_git_object: 1b2833a85c36b1c5d28e71b762f6ffc692b5427f
   docs/models/components/updateprivateendpointparametersrequest.mdx:
     id: 00ec1a3ad12a
     last_write_checksum: sha1:98b9989233577b3a919791a575751fea6d198c65
@@ -9477,8 +9477,8 @@ trackedFiles:
     pristine_git_object: c140645c7822921a2278f2dc9305698fd8c403a0
   docs/sdks/models/README.mdx:
     id: 58f1ca464e0b
-    last_write_checksum: sha1:74926cdb2f52d3c846d81ab62af2749fa00e2e2a
-    pristine_git_object: 2139c5a5735596a11d7e5c30570aff58f6547c91
+    last_write_checksum: sha1:408546d438a4ff252821ff6d1302583a656f8a3f
+    pristine_git_object: 17e55b6b7fc0446a004aad609d4bd6ad86217950
   docs/sdks/oauth/README.mdx:
     id: 42b5079343d2
     last_write_checksum: sha1:5ba32560e9929d779f2e81de608a4c0977ab322a
@@ -9645,8 +9645,8 @@ trackedFiles:
     pristine_git_object: 7bd3a6588032f3be35c7dc8bc7d07ce62b190868
   models.go:
     id: 3af78faf181b
-    last_write_checksum: sha1:7263f3164982ec2dbc597a953b829a57b149789c
-    pristine_git_object: 47093fdc87581190aaef466223fc3c4205fc13bc
+    last_write_checksum: sha1:9448359f6ae08602a0276049f0b2209977b5717c
+    pristine_git_object: b980c39612a2052aa00b6b0a4c43a5c313f78f5a
   models/components/aabenchmarkentry.go:
     id: 4c2460857b24
     last_write_checksum: sha1:f1dcb4e0a7a18fc3b6c701e6608ac599c5a0f280
@@ -10741,8 +10741,8 @@ trackedFiles:
     pristine_git_object: 8200d7017784bae4784b9af91729faa08d50e432
   models/components/createguardrailrequest.go:
     id: a62ed1a0ae01
-    last_write_checksum: sha1:97331e9c7439f493288cd8b1cc09d156a6cc1e5c
-    pristine_git_object: a6c8638c645e01773f563aa644b603d15ff43daa
+    last_write_checksum: sha1:9b601c7c021d3452bde4d15b1939fef226bd3d61
+    pristine_git_object: 8507aca67ab513421625657504f1874955dec397
   models/components/createguardrailresponse.go:
     id: 65e5b5cb6746
     last_write_checksum: sha1:53c063df40ab8f40e29a1ed628f4537f21b1cf3f
@@ -11173,8 +11173,8 @@ trackedFiles:
     pristine_git_object: 89ffb3d964cb71352e08aadabe2394d1443160f9
   models/components/guardrail.go:
     id: 0a53b6641f18
-    last_write_checksum: sha1:a3790d938850e7bd189d8a236356e47b67704176
-    pristine_git_object: d1a250a551f78c96e11483ffe3fdaa0f61964a46
+    last_write_checksum: sha1:0a96fb74324a69942dd88b894660edf9ac7688bb
+    pristine_git_object: 5b88f409f3ab57ab1a20271aee1d4e85d0bc1c54
   models/components/guardraildataregion.go:
     id: 3e9e61b3998c
     last_write_checksum: sha1:19d8f3ab37ee7e228509b1e18ce0130a1d77e621
@@ -11817,8 +11817,8 @@ trackedFiles:
     pristine_git_object: f4cae5a72485167d8a49bf5e44f3805483cc213c
   models/components/organizationsettings.go:
     id: a2c211cf0da8
-    last_write_checksum: sha1:abfc32394e5b5ccaef489386a72162de5409bd15
-    pristine_git_object: 7f3a025dfac269978ff2e2787f00aebb8eb50a1b
+    last_write_checksum: sha1:e482acb6bd6e18418c44b1ec71c47dfec7b0dd7f
+    pristine_git_object: 850d7a8fcfb62a16f0beaf592cd1889079b82f2b
   models/components/outputadvisorservertoolitem.go:
     id: 69bf870221cc
     last_write_checksum: sha1:3f5215dfa62899ef2f8c923bb9406195ae27aaee
@@ -12765,8 +12765,8 @@ trackedFiles:
     pristine_git_object: 07ef290eecf5042c9299d2ff805257edccfe4e37
   models/components/updateguardrailrequest.go:
     id: 0a41a686a6ba
-    last_write_checksum: sha1:e53aaaa35c0ecdf900eb257ef709f20e84135d3a
-    pristine_git_object: 2174aa9bf314a154effcb9c60b0988c8afd8a94d
+    last_write_checksum: sha1:3175d09284623240d8bd2222b4d6346defb3b873
+    pristine_git_object: 7fb4426a5d478e149fb8a2fc279ea4644ce7f68a
   models/components/updateguardrailresponse.go:
     id: 5a3580ea8a15
     last_write_checksum: sha1:e17b7dc763b86b36d0ee259e888303506f220c9c
@@ -12781,8 +12781,8 @@ trackedFiles:
     pristine_git_object: 32b614e8c3843f8fcaf8c2dcd742f75c9a91db7e
   models/components/updateorganizationsettingsrequest.go:
     id: 633fb731d574
-    last_write_checksum: sha1:656575565f335e97fa6798f5fa54ad410a56b16c
-    pristine_git_object: 6789bc29c35a66698f5ab6b905a261bc9607da0f
+    last_write_checksum: sha1:f3ac0ed45dac2e4734018de4a572be841b300926
+    pristine_git_object: e5d3a044a65ecb34f1376d4c393ae06bedbcb16f
   models/components/updateprivateendpointparametersrequest.go:
     id: ddcd7d1bdbcf
     last_write_checksum: sha1:ab4f12c85b48fd6085ce25010ad3999f21422e37
@@ -13585,8 +13585,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3f98e7c615327305e3a38b436f8bdcc3c20d23e8
-    pristine_git_object: 17266ec4d6ebddd16b7a1e86102c20e71720c17f
+    last_write_checksum: sha1:42be2f1c164b8d84f2263d5bf3b950ea5935c0ab
+    pristine_git_object: 4aafda5af0f86981ad81e6af6be4944921788e3e
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -13873,6 +13873,16 @@ examples:
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
+        "401":
+          application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
+        "404":
+          application/json: {"error": {"code": 404, "message": "Resource not found"}}
+        "408":
+          application/json: {"error": {"code": 408, "message": "Operation timed out. Please try again later."}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
   listModelsUser:
     speakeasy-default-list-models-user:
       parameters:
@@ -13892,6 +13902,12 @@ examples:
           application/json: {"error": {"code": 403, "message": "Only management keys can perform this operation"}}
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
+        "408":
+          application/json: {"error": {"code": 408, "message": "Operation timed out. Please try again later."}}
+        "409":
+          application/json: {"error": {"code": 409, "message": "Resource conflict. Please try again later."}}
+        "429":
+          application/json: {"error": {"code": 429, "message": "Rate limit exceeded"}}
   listEndpoints:
     speakeasy-default-list-endpoints:
       parameters:
