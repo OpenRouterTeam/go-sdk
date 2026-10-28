@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6e5d32592ab791328288c2432c09dfea
+  docChecksum: 9f984d3d94d0b1b53ce0b23c640d2325
   docVersion: 1.0.0
   speakeasyVersion: 1.787.0
   generationVersion: 2.914.0
-  releaseVersion: 0.9.82
-  configChecksum: d25bf23437944c4e486c56e178f0ce79
+  releaseVersion: 0.9.83
+  configChecksum: 45a6f26569f9ba6a4217186b37c4b01b
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: fd2f5cbf-9956-4d05-9686-fd744728e20b
-  pristine_commit_hash: 525bc688b1ad11662c9f8099cccd0812733aff55
-  pristine_tree_hash: cafa3665ec54daf95d6ae2870d1ce550ee8006f7
+  generation_id: 549784fd-7cfb-4ed3-8da9-3ef9d9b0318e
+  pristine_commit_hash: 988de42e53f19235b09236b28aaee83e1cdbb47c
+  pristine_tree_hash: 5b43a27423b2876e3fa63b25e238e231e020739f
 features:
   go:
     acceptHeaders: 2.81.2
@@ -9393,8 +9393,8 @@ trackedFiles:
     pristine_git_object: 2ef9c9c96d6200ee0577d9ef87c48ef1c13859a6
   docs/sdks/privateendpoints/README.mdx:
     id: 54dee70b8cc7
-    last_write_checksum: sha1:cbdbf8fe5f0c0142d876103f1097636eb55a3bf0
-    pristine_git_object: 7014d6fe4e8d98171d5016f21b560a14960cafbf
+    last_write_checksum: sha1:76d06e1cc449483580547187c76fbe1a2c3db503
+    pristine_git_object: d660c9ef98a3d06b6180d3bef6c3cf4ede790cd0
   docs/sdks/providers/README.mdx:
     id: 5ea9af111324
     last_write_checksum: sha1:ea26a7377de9d03260436dc4494d817c8912e062
@@ -13473,8 +13473,8 @@ trackedFiles:
     pristine_git_object: 46df65b755cfb5609b7c6763fcbb8e7d3cbd44b4
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:44ea90fa7e0ff79594adeebe7f122068c26e16c8
-    pristine_git_object: 0b374a306e6093e323c643442d1c00b55d4abdca
+    last_write_checksum: sha1:c615eef837fbbb7284101795d00828d57416f18f
+    pristine_git_object: 624c2e113f4861b25a0b20200b6a9d2a7eefa019
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:d6aff1a420c31e025ea21d46cf056e305ae76fe8
@@ -13493,8 +13493,8 @@ trackedFiles:
     pristine_git_object: 0ca54b81a995dd47281cede74247f33471b8964b
   privateendpoints.go:
     id: 7d1332a9f3d6
-    last_write_checksum: sha1:15a0b6dba116ab5162d43039e63053d2dd84f8b7
-    pristine_git_object: e6dad3b1861009d3b914c444eba558ffe665c5ee
+    last_write_checksum: sha1:1d829cb3c05fbd3dd89a174441e0a84efbcb5c1a
+    pristine_git_object: 9c02e730f077ec56c512cb7dd111e2505006c2d1
   providers.go:
     id: e89bb17ecd7b
     last_write_checksum: sha1:18b0624b4cd205dd08316121e303572a7fdb2f44
@@ -17950,4 +17950,3 @@ examples:
         "502":
           application/json: {"error": {"code": 502, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Alpha.Decisions.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Primalabs` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Primalabs` **Added**\n* `OpenRouter.Batch.CreateBatches()`: \n  *  `request.Request.Provider.Only[].union(ProviderName).Enum(primaLabs)` **Added**\n* `OpenRouter.Chat.Send()`: \n  *  `request.ChatRequest.Provider` **Changed**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(primaLabs)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(primaLabs)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(primaLabs)` **Added**\n* `OpenRouter.Images.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.Beta.Responses.Send()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.SystemOne.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Primalabs` **Added**\n"
