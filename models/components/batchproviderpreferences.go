@@ -41,7 +41,14 @@ func CreateBatchProviderPreferencesOnlyStr(str string) BatchProviderPreferencesO
 	}
 }
 
-func (u *BatchProviderPreferencesOnly) UnmarshalJSON(data []byte) error {
+func (u *BatchProviderPreferencesOnly) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BatchProviderPreferencesOnly{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

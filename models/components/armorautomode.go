@@ -40,7 +40,14 @@ func CreateAllowArmorRule(armorRule ArmorRule) Allow {
 	}
 }
 
-func (u *Allow) UnmarshalJSON(data []byte) error {
+func (u *Allow) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Allow{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -129,7 +136,14 @@ func CreateEnvironmentArmorEnvironmentEntry(armorEnvironmentEntry ArmorEnvironme
 	}
 }
 
-func (u *Environment) UnmarshalJSON(data []byte) error {
+func (u *Environment) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Environment{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -218,7 +232,14 @@ func CreateHardDenyArmorRule(armorRule ArmorRule) HardDeny {
 	}
 }
 
-func (u *HardDeny) UnmarshalJSON(data []byte) error {
+func (u *HardDeny) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = HardDeny{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -307,7 +328,14 @@ func CreateSoftDenyArmorRule(armorRule ArmorRule) SoftDeny {
 	}
 }
 
-func (u *SoftDeny) UnmarshalJSON(data []byte) error {
+func (u *SoftDeny) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = SoftDeny{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

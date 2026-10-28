@@ -53,7 +53,14 @@ func CreateDecisionsBoxQuestionInstructionsArrayOfAny(arrayOfAny []any) Decision
 	}
 }
 
-func (u *DecisionsBoxQuestionInstructions) UnmarshalJSON(data []byte) error {
+func (u *DecisionsBoxQuestionInstructions) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = DecisionsBoxQuestionInstructions{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

@@ -1,6 +1,6 @@
 module github.com/OpenRouterTeam/go-sdk/examples/generation
 
-go 1.25.10
+go 1.26.10
 
 require github.com/OpenRouterTeam/go-sdk v0.9.86
 

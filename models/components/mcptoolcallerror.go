@@ -63,7 +63,14 @@ func CreateMcpToolCallErrorMcpHTTPError(mcpHTTPError McpHTTPError) McpToolCallEr
 	}
 }
 
-func (u *McpToolCallError) UnmarshalJSON(data []byte) error {
+func (u *McpToolCallError) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = McpToolCallError{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

@@ -16,15 +16,18 @@ type HTTPClient interface {
 }
 
 type SDKConfiguration struct {
-	Client      HTTPClient
-	Security    func(context.Context) (interface{}, error)
-	ServerURL   string
-	Server      string
-	ServerList  map[string]string
-	UserAgent   string
-	Globals     globals.Globals
-	RetryConfig *retry.Config
-	Timeout     *time.Duration
+	Client            HTTPClient
+	Security          func(context.Context) (interface{}, error)
+	ServerURL         string
+	Server            string
+	ServerList        map[string]string
+	UserAgent         string
+	SDKVersion        string
+	GenVersion        string
+	OpenAPIDocVersion string
+	Globals           globals.Globals
+	RetryConfig       *retry.Config
+	Timeout           *time.Duration
 }
 
 func (c *SDKConfiguration) GetServerDetails() (string, map[string]string) {

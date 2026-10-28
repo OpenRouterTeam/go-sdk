@@ -2,7 +2,7 @@
 
 package openrouter
 
-// Generated from OpenAPI doc version 1.0.0 and generator version 2.914.0
+// Generated from OpenAPI doc version 1.0.0 and generator version 2.950.13
 
 import (
 	"context"
@@ -219,9 +219,12 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
 		SDKVersion: "0.9.86",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.9.86 2.914.0 1.0.0 github.com/OpenRouterTeam/go-sdk",
-			Globals:    globals.Globals{},
-			ServerList: ServerList,
+			UserAgent:         "speakeasy-sdk/go 0.9.86 2.950.13 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			SDKVersion:        "0.9.86",
+			GenVersion:        "2.950.13",
+			OpenAPIDocVersion: "1.0.0",
+			Globals:           globals.Globals{},
+			ServerList:        ServerList,
 		},
 		hooks: hooks.New(),
 	}

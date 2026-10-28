@@ -62,7 +62,14 @@ func CreateInputReferenceVideoURL(videoURL ContentPartVideo) InputReference {
 	}
 }
 
-func (u *InputReference) UnmarshalJSON(data []byte) error {
+func (u *InputReference) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = InputReference{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`

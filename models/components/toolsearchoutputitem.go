@@ -548,7 +548,14 @@ func CreateToolSearchOutputItemToolUnionToolSearchOutputItemTool(toolSearchOutpu
 	}
 }
 
-func (u *ToolSearchOutputItemToolUnion) UnmarshalJSON(data []byte) error {
+func (u *ToolSearchOutputItemToolUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ToolSearchOutputItemToolUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

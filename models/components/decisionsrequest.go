@@ -77,7 +77,14 @@ func CreateQuestionsScore(score DecisionsScoreQuestion) Questions {
 	}
 }
 
-func (u *Questions) UnmarshalJSON(data []byte) error {
+func (u *Questions) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Questions{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -194,7 +201,14 @@ func CreateStateArrayOfAny(arrayOfAny []any) State {
 	}
 }
 
-func (u *State) UnmarshalJSON(data []byte) error {
+func (u *State) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = State{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

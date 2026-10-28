@@ -65,7 +65,14 @@ func (u AnthropicDocumentBlockSource) IsUnknown() bool {
 	return u.Type == AnthropicDocumentBlockSourceTypeUnknown
 }
 
-func (u *AnthropicDocumentBlockSource) UnmarshalJSON(data []byte) error {
+func (u *AnthropicDocumentBlockSource) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnthropicDocumentBlockSource{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		MediaType string `json:"media_type"`
@@ -73,6 +80,10 @@ func (u *AnthropicDocumentBlockSource) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = AnthropicDocumentBlockSourceTypeUnknown
 		return nil

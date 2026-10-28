@@ -92,7 +92,14 @@ func (u OpenAIResponseInputMessageItemContent) IsUnknown() bool {
 	return u.Type == OpenAIResponseInputMessageItemContentTypeUnknown
 }
 
-func (u *OpenAIResponseInputMessageItemContent) UnmarshalJSON(data []byte) error {
+func (u *OpenAIResponseInputMessageItemContent) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OpenAIResponseInputMessageItemContent{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -100,6 +107,10 @@ func (u *OpenAIResponseInputMessageItemContent) UnmarshalJSON(data []byte) error
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OpenAIResponseInputMessageItemContentTypeUnknown
 		return nil
@@ -290,7 +301,14 @@ func CreateOpenAIResponseInputMessageItemRoleUnionOpenAIResponseInputMessageItem
 	}
 }
 
-func (u *OpenAIResponseInputMessageItemRoleUnion) UnmarshalJSON(data []byte) error {
+func (u *OpenAIResponseInputMessageItemRoleUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OpenAIResponseInputMessageItemRoleUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

@@ -44,7 +44,14 @@ func CreateBadGatewayBadGatewayResponseError(badGatewayResponseError BadGatewayR
 	}
 }
 
-func (u *BadGateway) UnmarshalJSON(data []byte) error {
+func (u *BadGateway) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BadGateway{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -149,7 +156,14 @@ func CreateInternalServerErrorInternalServerResponseError(internalServerResponse
 	}
 }
 
-func (u *InternalServerError) UnmarshalJSON(data []byte) error {
+func (u *InternalServerError) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = InternalServerError{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -254,7 +268,14 @@ func CreateUnprocessableEntityUnprocessableEntityResponseError(unprocessableEnti
 	}
 }
 
-func (u *UnprocessableEntity) UnmarshalJSON(data []byte) error {
+func (u *UnprocessableEntity) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = UnprocessableEntity{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -359,7 +380,14 @@ func CreateConflictConflictResponseError(conflictResponseError ConflictResponseE
 	}
 }
 
-func (u *Conflict) UnmarshalJSON(data []byte) error {
+func (u *Conflict) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Conflict{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -464,7 +492,14 @@ func CreateNotFoundNotFoundResponseError(notFoundResponseError NotFoundResponseE
 	}
 }
 
-func (u *NotFound) UnmarshalJSON(data []byte) error {
+func (u *NotFound) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = NotFound{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

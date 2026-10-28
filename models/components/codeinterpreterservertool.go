@@ -127,7 +127,14 @@ func CreateContainerContainerAuto(containerAuto ContainerAuto) Container {
 	}
 }
 
-func (u *Container) UnmarshalJSON(data []byte) error {
+func (u *Container) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Container{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

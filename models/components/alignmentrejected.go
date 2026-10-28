@@ -40,7 +40,14 @@ func CreateAlignmentRejectedArrayOfAlignmentResponsesRejected(arrayOfAlignmentRe
 	}
 }
 
-func (u *AlignmentRejected) UnmarshalJSON(data []byte) error {
+func (u *AlignmentRejected) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AlignmentRejected{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

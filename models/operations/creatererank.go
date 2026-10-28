@@ -76,7 +76,14 @@ func CreateDocumentDocumentRequest(documentRequest DocumentRequest) Document {
 	}
 }
 
-func (u *Document) UnmarshalJSON(data []byte) error {
+func (u *Document) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Document{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -395,7 +402,14 @@ func CreateCreateRerankResponseStr(str string) CreateRerankResponse {
 	}
 }
 
-func (u *CreateRerankResponse) UnmarshalJSON(data []byte) error {
+func (u *CreateRerankResponse) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = CreateRerankResponse{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

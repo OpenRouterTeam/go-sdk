@@ -41,7 +41,14 @@ func CreateSpeechInputArrayOfSpeechTurn(arrayOfSpeechTurn []SpeechTurn) SpeechIn
 	}
 }
 
-func (u *SpeechInput) UnmarshalJSON(data []byte) error {
+func (u *SpeechInput) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = SpeechInput{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

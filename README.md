@@ -40,6 +40,19 @@ See [examples/README.md](examples/README.md) for runnable examples, starting wit
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [OpenRouter Go SDK](#openrouter-go-sdk)
+  * [Overview](#overview)
+  * [SDK Installation](#sdk-installation)
+  * [Requirements](#requirements)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Authentication](#authentication)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Server-sent event streaming](#server-sent-event-streaming)
+  * [Pagination](#pagination)
+  * [Retries](#retries)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+  * [Custom HTTP Client](#custom-http-client)
+  * [Special Types](#special-types)
 * [Development](#development)
   * [Maturity](#maturity)
   * [Contributions](#contributions)
@@ -58,7 +71,7 @@ go get github.com/OpenRouterTeam/go-sdk
 <!-- Start Requirements [requirements] -->
 ## Requirements
 
-This SDK requires Go 1.25 or higher.
+This SDK requires Go 1.26.10 or higher.
 <!-- End Requirements [requirements] -->
 
 <!-- Start SDK Example Usage [usage] -->

@@ -90,7 +90,14 @@ func CreateStopServerToolsWhenConditionStepCountIs(stepCountIs StopServerToolsWh
 	}
 }
 
-func (u *StopServerToolsWhenCondition) UnmarshalJSON(data []byte) error {
+func (u *StopServerToolsWhenCondition) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = StopServerToolsWhenCondition{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`

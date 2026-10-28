@@ -41,7 +41,14 @@ func CreateImageGenerationProviderPreferencesIgnoreStr(str string) ImageGenerati
 	}
 }
 
-func (u *ImageGenerationProviderPreferencesIgnore) UnmarshalJSON(data []byte) error {
+func (u *ImageGenerationProviderPreferencesIgnore) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ImageGenerationProviderPreferencesIgnore{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -130,7 +137,14 @@ func CreateImageGenerationProviderPreferencesOnlyStr(str string) ImageGeneration
 	}
 }
 
-func (u *ImageGenerationProviderPreferencesOnly) UnmarshalJSON(data []byte) error {
+func (u *ImageGenerationProviderPreferencesOnly) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ImageGenerationProviderPreferencesOnly{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -1434,7 +1448,14 @@ func CreateImageGenerationProviderPreferencesOrderStr(str string) ImageGeneratio
 	}
 }
 
-func (u *ImageGenerationProviderPreferencesOrder) UnmarshalJSON(data []byte) error {
+func (u *ImageGenerationProviderPreferencesOrder) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ImageGenerationProviderPreferencesOrder{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -1524,7 +1545,14 @@ func CreateImageGenerationProviderPreferencesSortProviderSortConfig(providerSort
 	}
 }
 
-func (u *ImageGenerationProviderPreferencesSort) UnmarshalJSON(data []byte) error {
+func (u *ImageGenerationProviderPreferencesSort) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ImageGenerationProviderPreferencesSort{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

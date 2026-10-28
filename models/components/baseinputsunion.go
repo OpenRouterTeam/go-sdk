@@ -93,7 +93,14 @@ func (u BaseInputsContent1) IsUnknown() bool {
 	return u.Type == BaseInputsContent1TypeUnknown
 }
 
-func (u *BaseInputsContent1) UnmarshalJSON(data []byte) error {
+func (u *BaseInputsContent1) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BaseInputsContent1{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -101,6 +108,10 @@ func (u *BaseInputsContent1) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = BaseInputsContent1TypeUnknown
 		return nil
@@ -211,7 +222,14 @@ func CreateBaseInputsContent2Str(str string) BaseInputsContent2 {
 	}
 }
 
-func (u *BaseInputsContent2) UnmarshalJSON(data []byte) error {
+func (u *BaseInputsContent2) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BaseInputsContent2{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -346,7 +364,14 @@ func CreateBaseInputsPhaseUnionBaseInputsPhaseFinalAnswer(baseInputsPhaseFinalAn
 	}
 }
 
-func (u *BaseInputsPhaseUnion) UnmarshalJSON(data []byte) error {
+func (u *BaseInputsPhaseUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BaseInputsPhaseUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -549,7 +574,14 @@ func CreateBaseInputsRoleUnionBaseInputsRoleDeveloper(baseInputsRoleDeveloper Ba
 	}
 }
 
-func (u *BaseInputsRoleUnion) UnmarshalJSON(data []byte) error {
+func (u *BaseInputsRoleUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BaseInputsRoleUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -836,7 +868,14 @@ func CreateBaseInputsUnion1ConfigurationUpdateItem(configurationUpdateItem Confi
 	}
 }
 
-func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) error {
+func (u *BaseInputsUnion1) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BaseInputsUnion1{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -1060,7 +1099,14 @@ func CreateBaseInputsUnionArrayOfBaseInputsUnion1(arrayOfBaseInputsUnion1 []Base
 	}
 }
 
-func (u *BaseInputsUnion) UnmarshalJSON(data []byte) error {
+func (u *BaseInputsUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = BaseInputsUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

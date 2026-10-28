@@ -72,7 +72,14 @@ func CreateAllowedToolsUnionAllowedTools(allowedTools AllowedTools) AllowedTools
 	}
 }
 
-func (u *AllowedToolsUnion) UnmarshalJSON(data []byte) error {
+func (u *AllowedToolsUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AllowedToolsUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -320,7 +327,14 @@ func CreateRequireApprovalUnionRequireApprovalNever(requireApprovalNever Require
 	}
 }
 
-func (u *RequireApprovalUnion) UnmarshalJSON(data []byte) error {
+func (u *RequireApprovalUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = RequireApprovalUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

@@ -79,7 +79,14 @@ func (u FileDeleteResponse) IsUnknown() bool {
 	return u.Type == FileDeleteResponseTypeUnknown
 }
 
-func (u *FileDeleteResponse) UnmarshalJSON(data []byte) error {
+func (u *FileDeleteResponse) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = FileDeleteResponse{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Shape string `json:"_shape"`
@@ -87,6 +94,10 @@ func (u *FileDeleteResponse) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = FileDeleteResponseTypeUnknown
 		return nil

@@ -163,7 +163,14 @@ func CreateEmbeddingStr(str string) Embedding {
 	}
 }
 
-func (u *Embedding) UnmarshalJSON(data []byte) error {
+func (u *Embedding) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Embedding{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -1342,7 +1349,14 @@ func (u AnnotationContentUnion) IsUnknown() bool {
 	return u.Type == AnnotationContentUnionTypeUnknown
 }
 
-func (u *AnnotationContentUnion) UnmarshalJSON(data []byte) error {
+func (u *AnnotationContentUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnnotationContentUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -1350,6 +1364,10 @@ func (u *AnnotationContentUnion) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = AnnotationContentUnionTypeUnknown
 		return nil
@@ -1562,7 +1580,14 @@ func (u Annotation) IsUnknown() bool {
 	return u.Type == AnnotationTypeUnknown
 }
 
-func (u *Annotation) UnmarshalJSON(data []byte) error {
+func (u *Annotation) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Annotation{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -1570,6 +1595,10 @@ func (u *Annotation) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = AnnotationTypeUnknown
 		return nil
@@ -1793,7 +1822,14 @@ func (u ReasoningDetail) IsUnknown() bool {
 	return u.Type == ReasoningDetailTypeUnknown
 }
 
-func (u *ReasoningDetail) UnmarshalJSON(data []byte) error {
+func (u *ReasoningDetail) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ReasoningDetail{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -1801,6 +1837,10 @@ func (u *ReasoningDetail) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = ReasoningDetailTypeUnknown
 		return nil
@@ -2697,7 +2737,14 @@ func CreateBodyBodyList(bodyList BodyList) Body {
 	}
 }
 
-func (u *Body) UnmarshalJSON(data []byte) error {
+func (u *Body) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = Body{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

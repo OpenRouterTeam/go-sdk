@@ -294,7 +294,14 @@ func CreateChatFunctionToolChatDynamicServerTool(chatDynamicServerTool ChatDynam
 	}
 }
 
-func (u *ChatFunctionTool) UnmarshalJSON(data []byte) error {
+func (u *ChatFunctionTool) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ChatFunctionTool{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

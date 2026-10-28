@@ -144,7 +144,14 @@ func CreateChatToolChoiceChatServerToolChoice(chatServerToolChoice ChatServerToo
 	}
 }
 
-func (u *ChatToolChoice) UnmarshalJSON(data []byte) error {
+func (u *ChatToolChoice) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ChatToolChoice{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

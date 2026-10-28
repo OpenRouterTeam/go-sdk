@@ -92,7 +92,14 @@ func (u AnthropicTextEditorCodeExecutionContent) IsUnknown() bool {
 	return u.Type == AnthropicTextEditorCodeExecutionContentTypeUnknown
 }
 
-func (u *AnthropicTextEditorCodeExecutionContent) UnmarshalJSON(data []byte) error {
+func (u *AnthropicTextEditorCodeExecutionContent) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnthropicTextEditorCodeExecutionContent{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -100,6 +107,10 @@ func (u *AnthropicTextEditorCodeExecutionContent) UnmarshalJSON(data []byte) err
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = AnthropicTextEditorCodeExecutionContentTypeUnknown
 		return nil

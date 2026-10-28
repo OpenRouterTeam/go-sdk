@@ -663,7 +663,14 @@ func CreateAnthropicToolUnionAnthropicToolUnionWebSearch20260209(anthropicToolUn
 	}
 }
 
-func (u *AnthropicToolUnion) UnmarshalJSON(data []byte) error {
+func (u *AnthropicToolUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnthropicToolUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
