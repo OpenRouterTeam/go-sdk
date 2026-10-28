@@ -230,7 +230,7 @@ func (s *Models) Get(ctx context.Context, author string, slug string, opts ...op
 
 			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -251,7 +251,7 @@ func (s *Models) Get(ctx context.Context, author string, slug string, opts ...op
 
 			var out sdkerrors.NotFoundResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -272,7 +272,7 @@ func (s *Models) Get(ctx context.Context, author string, slug string, opts ...op
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -346,6 +346,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 	if timeout == nil {
 		timeout = s.sdkConfiguration.Timeout
 	}
+	paginationCtx := ctx
 
 	if timeout != nil {
 		var cancel context.CancelFunc
@@ -471,6 +472,9 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 	res := &operations.GetModelsResponse{}
 	res.Next = func() (*operations.GetModelsResponse, error) {
+		if request == nil {
+			request = &operations.GetModelsRequest{}
+		}
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -511,7 +515,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 		request.Offset = optionalnullable.From(&nOS)
 
 		return s.List(
-			ctx,
+			paginationCtx,
 			request,
 			opts...,
 		)
@@ -549,7 +553,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.BadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -570,7 +574,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.UnauthorizedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -591,7 +595,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -612,7 +616,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.NotFoundResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -633,7 +637,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.RequestTimeoutResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -654,7 +658,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.ConflictResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -675,7 +679,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.TooManyRequestsResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -696,7 +700,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -717,7 +721,7 @@ func (s *Models) List(ctx context.Context, request *operations.GetModelsRequest,
 
 			var out sdkerrors.ServiceUnavailableResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -950,7 +954,7 @@ func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...op
 
 			var out sdkerrors.BadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -971,7 +975,7 @@ func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...op
 
 			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -992,7 +996,7 @@ func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...op
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1074,6 +1078,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 	if timeout == nil {
 		timeout = s.sdkConfiguration.Timeout
 	}
+	paginationCtx := ctx
 
 	if timeout != nil {
 		var cancel context.CancelFunc
@@ -1238,7 +1243,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 		nOS := int64(oS + len(arr))
 
 		return s.ListForUser(
-			ctx,
+			paginationCtx,
 			security,
 			optionalnullable.From(&nOS),
 			limit,
@@ -1280,7 +1285,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.UnauthorizedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1301,7 +1306,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1322,7 +1327,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.NotFoundResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1343,7 +1348,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.RequestTimeoutResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1364,7 +1369,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.ConflictResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1385,7 +1390,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.TooManyRequestsResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1406,7 +1411,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1427,7 +1432,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 			var out sdkerrors.ServiceUnavailableResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out

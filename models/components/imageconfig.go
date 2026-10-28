@@ -51,7 +51,14 @@ func CreateImageConfigArrayOfAny(arrayOfAny []any) ImageConfig {
 	}
 }
 
-func (u *ImageConfig) UnmarshalJSON(data []byte) error {
+func (u *ImageConfig) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ImageConfig{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

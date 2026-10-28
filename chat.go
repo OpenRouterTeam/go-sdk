@@ -83,10 +83,17 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 		timeout = s.sdkConfiguration.Timeout
 	}
 
+	var streamCancel context.CancelFunc
+
 	if timeout != nil {
 		var cancel context.CancelFunc
 		ctx, cancel = context.WithTimeout(ctx, *timeout)
-		defer cancel()
+		streamCancel = cancel
+		defer func() {
+			if streamCancel != nil {
+				streamCancel()
+			}
+		}()
 	}
 
 	req, err := http.NewRequestWithContext(ctx, "POST", opURL, bodyReader)
@@ -234,7 +241,8 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 					return components.ChatStreamingResponse{}, err
 				}
 				return e, nil
-			}, "[DONE]")
+			}, "[DONE]", stream.WithCancel[components.ChatStreamingResponse](streamCancel))
+			streamCancel = nil
 			result := operations.CreateSendChatCompletionRequestResponseEventStream(out)
 			return &result, nil
 		default:
@@ -254,7 +262,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.BadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -275,7 +283,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.UnauthorizedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -296,7 +304,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.PaymentRequiredResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -317,7 +325,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -338,7 +346,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.NotFoundResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -359,7 +367,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.RequestTimeoutResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -380,7 +388,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.PayloadTooLargeResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -401,7 +409,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.UnprocessableEntityResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -422,7 +430,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.TooManyRequestsResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -443,7 +451,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -464,7 +472,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.BadGatewayResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -485,7 +493,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.ServiceUnavailableResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -506,7 +514,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.EdgeNetworkTimeoutResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -527,7 +535,7 @@ func (s *Chat) Send(ctx context.Context, chatRequest components.ChatRequest, xOp
 
 			var out sdkerrors.ProviderOverloadedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out

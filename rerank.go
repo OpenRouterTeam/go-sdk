@@ -244,7 +244,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.BadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -265,7 +265,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.UnauthorizedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -286,7 +286,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.PaymentRequiredResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -307,7 +307,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.ForbiddenResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -328,7 +328,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.NotFoundResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -349,7 +349,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.PayloadTooLargeResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -370,7 +370,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.TooManyRequestsResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -391,7 +391,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -412,7 +412,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.BadGatewayResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -433,7 +433,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.ServiceUnavailableResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -454,7 +454,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.EdgeNetworkTimeoutResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -475,7 +475,7 @@ func (s *Rerank) Rerank(ctx context.Context, request operations.CreateRerankRequ
 
 			var out sdkerrors.ProviderOverloadedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out

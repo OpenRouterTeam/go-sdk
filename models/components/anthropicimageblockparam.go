@@ -61,7 +61,14 @@ func CreateAnthropicImageBlockParamSourceURLObj(urlT AnthropicURLImageSource) An
 	}
 }
 
-func (u *AnthropicImageBlockParamSource) UnmarshalJSON(data []byte) error {
+func (u *AnthropicImageBlockParamSource) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnthropicImageBlockParamSource{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`

@@ -62,7 +62,14 @@ func CreateUnifiedBenchmarksResponseDataUnifiedBenchmarksSearchItem(unifiedBench
 	}
 }
 
-func (u *UnifiedBenchmarksResponseData) UnmarshalJSON(data []byte) error {
+func (u *UnifiedBenchmarksResponseData) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = UnifiedBenchmarksResponseData{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

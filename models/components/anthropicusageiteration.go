@@ -62,7 +62,14 @@ func CreateAnthropicUsageIterationAnthropicUnknownUsageIteration(anthropicUnknow
 	}
 }
 
-func (u *AnthropicUsageIteration) UnmarshalJSON(data []byte) error {
+func (u *AnthropicUsageIteration) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnthropicUsageIteration{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

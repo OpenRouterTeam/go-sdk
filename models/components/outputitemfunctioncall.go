@@ -121,7 +121,14 @@ func CreateOutputItemFunctionCallStatusUnionOutputItemFunctionCallStatusInProgre
 	}
 }
 
-func (u *OutputItemFunctionCallStatusUnion) UnmarshalJSON(data []byte) error {
+func (u *OutputItemFunctionCallStatusUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OutputItemFunctionCallStatusUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

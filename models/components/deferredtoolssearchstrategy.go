@@ -62,7 +62,14 @@ func CreateDeferredToolsSearchStrategyRegex(regex DeferredRegexSearch) DeferredT
 	}
 }
 
-func (u *DeferredToolsSearchStrategy) UnmarshalJSON(data []byte) error {
+func (u *DeferredToolsSearchStrategy) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = DeferredToolsSearchStrategy{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`

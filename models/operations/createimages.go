@@ -42,7 +42,14 @@ func CreateCreateImagesResponseEventStream(eventStream *stream.EventStream[compo
 	}
 }
 
-func (u *CreateImagesResponse) UnmarshalJSON(data []byte) error {
+func (u *CreateImagesResponse) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = CreateImagesResponse{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

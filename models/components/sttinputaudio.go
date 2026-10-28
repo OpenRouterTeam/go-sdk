@@ -41,7 +41,14 @@ func CreateSTTInputAudioSTTURLInputAudio(sttURLInputAudio STTURLInputAudio) STTI
 	}
 }
 
-func (u *STTInputAudio) UnmarshalJSON(data []byte) error {
+func (u *STTInputAudio) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = STTInputAudio{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

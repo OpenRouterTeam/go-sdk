@@ -127,7 +127,14 @@ func CreateObservabilityFilterRuleGroupValueNumber(number float64) Observability
 	}
 }
 
-func (u *ObservabilityFilterRuleGroupValue) UnmarshalJSON(data []byte) error {
+func (u *ObservabilityFilterRuleGroupValue) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ObservabilityFilterRuleGroupValue{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

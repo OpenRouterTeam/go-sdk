@@ -42,7 +42,14 @@ func CreateChatToolMessageContentArrayOfChatContentItems(arrayOfChatContentItems
 	}
 }
 
-func (u *ChatToolMessageContent) UnmarshalJSON(data []byte) error {
+func (u *ChatToolMessageContent) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ChatToolMessageContent{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

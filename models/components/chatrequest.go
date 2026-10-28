@@ -239,7 +239,14 @@ func CreateChatRequestPluginWebFetch(webFetch WebFetchPlugin) ChatRequestPlugin 
 	}
 }
 
-func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) error {
+func (u *ChatRequestPlugin) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ChatRequestPlugin{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		ID string `json:"id"`
@@ -600,7 +607,14 @@ func CreateResponseFormatText(text ChatFormatTextConfig) ResponseFormat {
 	}
 }
 
-func (u *ResponseFormat) UnmarshalJSON(data []byte) error {
+func (u *ResponseFormat) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ResponseFormat{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -747,7 +761,14 @@ func CreateChatRequestStopArrayOfStr(arrayOfStr []string) ChatRequestStop {
 	}
 }
 
-func (u *ChatRequestStop) UnmarshalJSON(data []byte) error {
+func (u *ChatRequestStop) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ChatRequestStop{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

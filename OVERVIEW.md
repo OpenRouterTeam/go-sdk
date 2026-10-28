@@ -120,7 +120,7 @@ For beta releases, pin an explicit version:
 go get github.com/OpenRouterTeam/go-sdk@v0.9.87
 ```
 
-**Requirements:** Go 1.25 or higher
+**Requirements:** Go 1.26.10 or higher
 
 Get your API key from [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys).
 

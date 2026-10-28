@@ -217,7 +217,14 @@ func CreateResponsesRequestPluginWebFetch(webFetch WebFetchPlugin) ResponsesRequ
 	}
 }
 
-func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) error {
+func (u *ResponsesRequestPlugin) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ResponsesRequestPlugin{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		ID string `json:"id"`
@@ -534,7 +541,14 @@ func CreateResponsesRequestStopArrayOfStr(arrayOfStr []string) ResponsesRequestS
 	}
 }
 
-func (u *ResponsesRequestStop) UnmarshalJSON(data []byte) error {
+func (u *ResponsesRequestStop) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ResponsesRequestStop{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -1127,7 +1141,14 @@ func CreateResponsesRequestToolUnionOpenrouterToolSearch(openrouterToolSearch To
 	}
 }
 
-func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) error {
+func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ResponsesRequestToolUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`

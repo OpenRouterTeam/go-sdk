@@ -156,7 +156,14 @@ func CreateFunctionCallOutputItemOutputUnion1InputFile(inputFile InputFile) Func
 	}
 }
 
-func (u *FunctionCallOutputItemOutputUnion1) UnmarshalJSON(data []byte) error {
+func (u *FunctionCallOutputItemOutputUnion1) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = FunctionCallOutputItemOutputUnion1{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -248,7 +255,14 @@ func CreateFunctionCallOutputItemOutputUnion2ArrayOfFunctionCallOutputItemOutput
 	}
 }
 
-func (u *FunctionCallOutputItemOutputUnion2) UnmarshalJSON(data []byte) error {
+func (u *FunctionCallOutputItemOutputUnion2) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = FunctionCallOutputItemOutputUnion2{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

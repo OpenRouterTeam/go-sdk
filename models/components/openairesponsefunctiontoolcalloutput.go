@@ -79,7 +79,14 @@ func (u OpenAIResponseFunctionToolCallOutputOutput1) IsUnknown() bool {
 	return u.Type == OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown
 }
 
-func (u *OpenAIResponseFunctionToolCallOutputOutput1) UnmarshalJSON(data []byte) error {
+func (u *OpenAIResponseFunctionToolCallOutputOutput1) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OpenAIResponseFunctionToolCallOutputOutput1{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -87,6 +94,10 @@ func (u *OpenAIResponseFunctionToolCallOutputOutput1) UnmarshalJSON(data []byte)
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OpenAIResponseFunctionToolCallOutputOutput1TypeUnknown
 		return nil
@@ -184,7 +195,14 @@ func CreateOpenAIResponseFunctionToolCallOutputOutput2ArrayOfOpenAIResponseFunct
 	}
 }
 
-func (u *OpenAIResponseFunctionToolCallOutputOutput2) UnmarshalJSON(data []byte) error {
+func (u *OpenAIResponseFunctionToolCallOutputOutput2) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OpenAIResponseFunctionToolCallOutputOutput2{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

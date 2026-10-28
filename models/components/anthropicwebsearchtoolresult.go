@@ -41,7 +41,14 @@ func CreateAnthropicWebSearchToolResultContentAnthropicWebSearchToolResultError(
 	}
 }
 
-func (u *AnthropicWebSearchToolResultContent) UnmarshalJSON(data []byte) error {
+func (u *AnthropicWebSearchToolResultContent) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnthropicWebSearchToolResultContent{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

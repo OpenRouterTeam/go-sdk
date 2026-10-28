@@ -15,9 +15,9 @@ type ListBatchesRequest struct {
 	// Repeat this parameter to include more than one status.
 	Status []components.BatchListStatus `queryParam:"style=form,explode=true,name=status"`
 	// Only include batches created strictly after this timestamp.
-	CreatedAfter *components.BatchListTimestamp `queryParam:"style=form,explode=true,name=created_after"`
+	CreatedAfter any `queryParam:"style=form,explode=true,name=created_after"`
 	// Only include batches created strictly before this timestamp.
-	CreatedBefore *components.BatchListTimestamp `queryParam:"style=form,explode=true,name=created_before"`
+	CreatedBefore any `queryParam:"style=form,explode=true,name=created_before"`
 }
 
 func (l ListBatchesRequest) MarshalJSON() ([]byte, error) {
@@ -52,14 +52,14 @@ func (l *ListBatchesRequest) GetStatus() []components.BatchListStatus {
 	return l.Status
 }
 
-func (l *ListBatchesRequest) GetCreatedAfter() *components.BatchListTimestamp {
+func (l *ListBatchesRequest) GetCreatedAfter() any {
 	if l == nil {
 		return nil
 	}
 	return l.CreatedAfter
 }
 
-func (l *ListBatchesRequest) GetCreatedBefore() *components.BatchListTimestamp {
+func (l *ListBatchesRequest) GetCreatedBefore() any {
 	if l == nil {
 		return nil
 	}

@@ -62,7 +62,14 @@ func CreateSendChatCompletionRequestResponseEventStream(eventStream *stream.Even
 	}
 }
 
-func (u *SendChatCompletionRequestResponse) UnmarshalJSON(data []byte) error {
+func (u *SendChatCompletionRequestResponse) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = SendChatCompletionRequestResponse{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

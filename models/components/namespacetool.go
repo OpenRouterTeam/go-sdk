@@ -64,7 +64,14 @@ func (u NamespaceToolTool) IsUnknown() bool {
 	return u.Type == NamespaceToolToolTypeUnknown
 }
 
-func (u *NamespaceToolTool) UnmarshalJSON(data []byte) error {
+func (u *NamespaceToolTool) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = NamespaceToolTool{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -72,6 +79,10 @@ func (u *NamespaceToolTool) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = NamespaceToolToolTypeUnknown
 		return nil

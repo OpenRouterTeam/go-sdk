@@ -65,7 +65,14 @@ func (u OutputMessageItemContent) IsUnknown() bool {
 	return u.Type == OutputMessageItemContentTypeUnknown
 }
 
-func (u *OutputMessageItemContent) UnmarshalJSON(data []byte) error {
+func (u *OutputMessageItemContent) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OutputMessageItemContent{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -73,6 +80,10 @@ func (u *OutputMessageItemContent) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OutputMessageItemContentTypeUnknown
 		return nil
@@ -204,7 +215,14 @@ func CreateOutputMessageItemPhaseUnionOutputMessageItemPhaseFinalAnswer(outputMe
 	}
 }
 
-func (u *OutputMessageItemPhaseUnion) UnmarshalJSON(data []byte) error {
+func (u *OutputMessageItemPhaseUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OutputMessageItemPhaseUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -396,7 +414,14 @@ func CreateOutputMessageItemStatusUnionOutputMessageItemStatusInProgress(outputM
 	}
 }
 
-func (u *OutputMessageItemStatusUnion) UnmarshalJSON(data []byte) error {
+func (u *OutputMessageItemStatusUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = OutputMessageItemStatusUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

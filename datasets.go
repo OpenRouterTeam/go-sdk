@@ -98,6 +98,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 	if timeout == nil {
 		timeout = s.sdkConfiguration.Timeout
 	}
+	paginationCtx := ctx
 
 	if timeout != nil {
 		var cancel context.CancelFunc
@@ -223,6 +224,9 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 
 	res := &operations.GetAppRankingsResponse{}
 	res.Next = func() (*operations.GetAppRankingsResponse, error) {
+		if request == nil {
+			request = &operations.GetAppRankingsRequest{}
+		}
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -263,7 +267,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 		request.Offset = optionalnullable.From(&nOS)
 
 		return s.GetAppRankings(
-			ctx,
+			paginationCtx,
 			request,
 			opts...,
 		)
@@ -301,7 +305,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 
 			var out sdkerrors.BadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -322,7 +326,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 
 			var out sdkerrors.UnauthorizedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -343,7 +347,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 
 			var out sdkerrors.TooManyRequestsResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -364,7 +368,7 @@ func (s *Datasets) GetAppRankings(ctx context.Context, request *operations.GetAp
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -621,7 +625,7 @@ func (s *Datasets) GetRankingsDaily(ctx context.Context, request *operations.Get
 
 			var out sdkerrors.BadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -642,7 +646,7 @@ func (s *Datasets) GetRankingsDaily(ctx context.Context, request *operations.Get
 
 			var out sdkerrors.UnauthorizedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -663,7 +667,7 @@ func (s *Datasets) GetRankingsDaily(ctx context.Context, request *operations.Get
 
 			var out sdkerrors.TooManyRequestsResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -684,7 +688,7 @@ func (s *Datasets) GetRankingsDaily(ctx context.Context, request *operations.Get
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -767,6 +771,7 @@ func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSe
 	if timeout == nil {
 		timeout = s.sdkConfiguration.Timeout
 	}
+	paginationCtx := ctx
 
 	if timeout != nil {
 		var cancel context.CancelFunc
@@ -892,6 +897,9 @@ func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSe
 
 	res := &operations.GetSessionCostResponse{}
 	res.Next = func() (*operations.GetSessionCostResponse, error) {
+		if request == nil {
+			request = &operations.GetSessionCostRequest{}
+		}
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -932,7 +940,7 @@ func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSe
 		request.Offset = optionalnullable.From(&nOS)
 
 		return s.GetSessionCost(
-			ctx,
+			paginationCtx,
 			request,
 			opts...,
 		)
@@ -970,7 +978,7 @@ func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSe
 
 			var out sdkerrors.BadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -991,7 +999,7 @@ func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSe
 
 			var out sdkerrors.UnauthorizedResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1012,7 +1020,7 @@ func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSe
 
 			var out sdkerrors.TooManyRequestsResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1033,7 +1041,7 @@ func (s *Datasets) GetSessionCost(ctx context.Context, request *operations.GetSe
 
 			var out sdkerrors.InternalServerResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out

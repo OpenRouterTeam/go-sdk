@@ -63,7 +63,14 @@ func CreateKeepMembersBoolean(boolean bool) KeepMembers {
 	}
 }
 
-func (u *KeepMembers) UnmarshalJSON(data []byte) error {
+func (u *KeepMembers) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = KeepMembers{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

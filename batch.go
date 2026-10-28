@@ -75,6 +75,7 @@ func (s *Batch) List(ctx context.Context, request *operations.ListBatchesRequest
 	if timeout == nil {
 		timeout = s.sdkConfiguration.Timeout
 	}
+	paginationCtx := ctx
 
 	if timeout != nil {
 		var cancel context.CancelFunc
@@ -200,6 +201,9 @@ func (s *Batch) List(ctx context.Context, request *operations.ListBatchesRequest
 
 	res := &operations.ListBatchesResponse{}
 	res.Next = func() (*operations.ListBatchesResponse, error) {
+		if request == nil {
+			request = &operations.ListBatchesRequest{}
+		}
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -252,7 +256,7 @@ func (s *Batch) List(ctx context.Context, request *operations.ListBatchesRequest
 		request.After = &nCVal
 
 		return s.List(
-			ctx,
+			paginationCtx,
 			request,
 			opts...,
 		)
@@ -294,7 +298,7 @@ func (s *Batch) List(ctx context.Context, request *operations.ListBatchesRequest
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -317,7 +321,7 @@ func (s *Batch) List(ctx context.Context, request *operations.ListBatchesRequest
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -564,7 +568,7 @@ func (s *Batch) CreateBatches(ctx context.Context, request components.BatchSubmi
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -587,7 +591,7 @@ func (s *Batch) CreateBatches(ctx context.Context, request components.BatchSubmi
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -823,7 +827,7 @@ func (s *Batch) Delete(ctx context.Context, id string, opts ...operations.Option
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -846,7 +850,7 @@ func (s *Batch) Delete(ctx context.Context, id string, opts ...operations.Option
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1076,7 +1080,7 @@ func (s *Batch) GetBatches(ctx context.Context, id string, opts ...operations.Op
 
 			var out sdkerrors.BatchPaymentRequiredResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1103,7 +1107,7 @@ func (s *Batch) GetBatches(ctx context.Context, id string, opts ...operations.Op
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1126,7 +1130,7 @@ func (s *Batch) GetBatches(ctx context.Context, id string, opts ...operations.Op
 
 			var out sdkerrors.BatchErrorResponse
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out

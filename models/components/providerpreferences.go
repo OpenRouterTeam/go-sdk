@@ -67,7 +67,14 @@ func CreateProviderPreferencesIgnoreStr(str string) ProviderPreferencesIgnore {
 	}
 }
 
-func (u *ProviderPreferencesIgnore) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesIgnore) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ProviderPreferencesIgnore{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -205,7 +212,14 @@ func CreateProviderPreferencesOnlyStr(str string) ProviderPreferencesOnly {
 	}
 }
 
-func (u *ProviderPreferencesOnly) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesOnly) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ProviderPreferencesOnly{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -294,7 +308,14 @@ func CreateProviderPreferencesOrderStr(str string) ProviderPreferencesOrder {
 	}
 }
 
-func (u *ProviderPreferencesOrder) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesOrder) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ProviderPreferencesOrder{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 
@@ -384,7 +405,14 @@ func CreateProviderPreferencesSortProviderSortConfig(providerSortConfig Provider
 	}
 }
 
-func (u *ProviderPreferencesSort) UnmarshalJSON(data []byte) error {
+func (u *ProviderPreferencesSort) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = ProviderPreferencesSort{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

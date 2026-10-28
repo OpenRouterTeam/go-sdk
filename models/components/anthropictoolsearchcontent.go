@@ -64,7 +64,14 @@ func (u AnthropicToolSearchContent) IsUnknown() bool {
 	return u.Type == AnthropicToolSearchContentTypeUnknown
 }
 
-func (u *AnthropicToolSearchContent) UnmarshalJSON(data []byte) error {
+func (u *AnthropicToolSearchContent) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AnthropicToolSearchContent{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -72,6 +79,10 @@ func (u *AnthropicToolSearchContent) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = AnthropicToolSearchContentTypeUnknown
 		return nil
