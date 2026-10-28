@@ -30,6 +30,8 @@ type UpdateGuardrailRequest struct {
 	EnableFreeModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_free_model_training,omitzero"`
 	// Whether this guardrail allows paid endpoints that train on request data.
 	EnablePaidModelTraining optionalnullable.OptionalNullable[bool] `json:"enable_paid_model_training,omitzero"`
+	// Whether coding harnesses list only their vendor's own models: Codex lists OpenAI models and Claude Code and Claude Desktop list Anthropic models. Affects only the model list those harnesses request from GET /models; a model the client names directly is still routed. Any true across the workspace default, member, and API key guardrails applies.
+	EnforceFirstPartyHarnessModels optionalnullable.OptionalNullable[bool] `json:"enforce_first_party_harness_models,omitzero"`
 	// Deprecated. Use enforce_zdr_anthropic, enforce_zdr_openai, enforce_zdr_google, enforce_zdr_xai, and enforce_zdr_other instead. When provided, its value is copied into any of those per-provider fields that are not explicitly specified on the request.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -144,6 +146,13 @@ func (u *UpdateGuardrailRequest) GetEnablePaidModelTraining() optionalnullable.O
 		return nil
 	}
 	return u.EnablePaidModelTraining
+}
+
+func (u *UpdateGuardrailRequest) GetEnforceFirstPartyHarnessModels() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.EnforceFirstPartyHarnessModels
 }
 
 func (u *UpdateGuardrailRequest) GetEnforceZdr() optionalnullable.OptionalNullable[bool] {
