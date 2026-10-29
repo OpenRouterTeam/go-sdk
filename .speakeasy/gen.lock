@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 5d7fd4885212f13806cb9d4d86297858
+  docChecksum: e87fea559828135493c5af1d65e5b188
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.88
-  configChecksum: a98b4873acc9c0d5892c167a9aa865ab
+  releaseVersion: 0.9.89
+  configChecksum: 529bf65c2b802e72017782601d296bfb
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 0957d19f-dfa4-43e8-84d0-3a6628a48440
-  pristine_commit_hash: fc3f1bb567f7da9b22f69ec20b3da0979ffd35d3
-  pristine_tree_hash: f58a6375aac70663e568d852188885d875e16cff
+  generation_id: 8129c9b4-83a5-4dc0-a8bc-986f653364a4
+  pristine_commit_hash: 87f6f3b3583b9a0d0a6cfd65cffe573d9801576c
+  pristine_tree_hash: 34ccfdf2d6be8a6c0df1ae7d9bf449b17694882a
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6369,8 +6369,8 @@ trackedFiles:
     pristine_git_object: 24a4fa312a92f5e1903816b7e95fb4b0151ceed4
   docs/models/components/privateprovider.mdx:
     id: 8946018b4fdd
-    last_write_checksum: sha1:b6d92102a60c3b927c3e4aeb4cac42732114914b
-    pristine_git_object: 8396c15b1d016e6862f590b93231a7bbdb5f2456
+    last_write_checksum: sha1:b405facb0221a6cb20735a3ba5ba28cf4971f0bb
+    pristine_git_object: a110a8472dab7de2e5f17e5f94249e753837af5c
   docs/models/components/privateproviderdatapolicy.mdx:
     id: 6e3825996ab5
     last_write_checksum: sha1:3af1a62dac5784d8bfa943dc51f565f106648cf4
@@ -12289,8 +12289,8 @@ trackedFiles:
     pristine_git_object: f8fbeb10954f73ea22ade7f60f00261dbed08205
   models/components/privateprovider.go:
     id: 897e93acbe71
-    last_write_checksum: sha1:13e2f78ad1656a7dd8fe0383807ca5ff5d51c767
-    pristine_git_object: 7fd9a2c8e1f84df6ee3f14664fc127fa57d16897
+    last_write_checksum: sha1:4a3c616c6d1d3af754b59136bb2fce788a5a2cc6
+    pristine_git_object: 6a2af29b4333ce472129eadf5582f663174e9c5d
   models/components/privateproviderdatapolicy.go:
     id: f9702fba7898
     last_write_checksum: sha1:d5bf2cf2c9db654ef2e255d59191894e4a9549d2
@@ -13757,8 +13757,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:c52b15634ab0b29d49c8e9114a9b0039c9c4dcfe
-    pristine_git_object: e16f46810f412e0f4fe3c703e52c989afc22b068
+    last_write_checksum: sha1:6143f02e5b8ba046208cd61ad0ce8a952ed3cb97
+    pristine_git_object: 5dbae91169a4db4ecad460dff9dc712c742a6c8a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -18366,4 +18366,3 @@ examples:
         "502":
           application/json: {"error": {"code": 502, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.PrivateProviders.List()`: **Added**\n* `OpenRouter.PrivateProviders.Create()`: **Added**\n* `OpenRouter.PrivateProviders.Delete()`: **Added**\n* `OpenRouter.PrivateProviders.Get()`: **Added**\n* `OpenRouter.PrivateProviders.Update()`: **Added**\n* `OpenRouter.PrivateEndpoints.Create()`: \n  *  `request.CreatePrivateEndpointRequest.Settings` **Added**\n* `OpenRouter.PrivateEndpoints.Get()`:  `response.Data.Settings` **Added**\n* `OpenRouter.PrivateEndpoints.Update()`: \n  *  `request.UpdatePrivateEndpointRequest` **Changed**\n  *  `response.Data.Settings` **Added**\n* `OpenRouter.PrivateEndpoints.UpdateParameters()`: **Deprecated**\n* `OpenRouter.PrivateEndpoints.UpdateParameters()`:  `response.Data.Settings` **Added**\n* `OpenRouter.PrivateEndpoints.UpdatePricing()`: **Deprecated**\n* `OpenRouter.PrivateEndpoints.UpdatePricing()`:  `response.Data.Settings` **Added**\n"
