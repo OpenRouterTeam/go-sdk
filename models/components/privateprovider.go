@@ -41,9 +41,10 @@ type PrivateProvider struct {
 	BaseURL   *string `json:"base_url"`
 	CreatedAt string  `json:"created_at"`
 	// Your declared data policy, or `null` when none was declared.
-	DataPolicy  *PrivateProviderDataPolicy1 `json:"data_policy"`
-	DisplayName string                      `json:"display_name"`
-	// Provider name, shown in your activity, logs and Broadcast output. 2-64 letters, numbers, spaces, dots, underscores or hyphens. Cannot be changed later. Neither the name nor its slug may match a public provider name or slug (case-insensitive); other customers may use the same name.
+	DataPolicy *PrivateProviderDataPolicy1 `json:"data_policy"`
+	// Human-readable provider name shown in the UI.
+	DisplayName string `json:"display_name"`
+	// Provider name, shown in your activity, logs and Broadcast output.
 	Name string `json:"name"`
 	// The slug you chose, unique within your account. Use it as `provider_slug` when creating private endpoints and BYOK keys, and in `provider.order`, `only` and `ignore`.
 	Slug string `json:"slug"`
