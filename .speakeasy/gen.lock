@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: da04b32fb019f2d8f0991a675406dd35
+  docChecksum: f72ff71678d75e8ef4f7dac1c8c989b4
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.90
-  configChecksum: 34bf0a6c8ae2405b21fefb4a1f2e87c9
+  releaseVersion: 0.9.91
+  configChecksum: 675b886cfc38abf6ce5bc183b71e23a1
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: ec69e4d5-6b67-4240-8fc7-7ab4846cc404
-  pristine_commit_hash: cc7e0300958e8c4d7bf9667d841f55334cff4059
-  pristine_tree_hash: ba4f46d61d4e38e87aac8f2280e12cafd818fde0
+  generation_id: 7c31507a-7ad9-4c4f-90b5-4c1bab8a590a
+  pristine_commit_hash: be1e28c26e7a2b65ab7c4952646262d1af92b7c2
+  pristine_tree_hash: 60d67296e42e7d78cf445e1710ba2bdde104b6c8
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4165,8 +4165,8 @@ trackedFiles:
     pristine_git_object: 92ecc4557016f980d69965a02659571d176b5fdb
   docs/models/components/jevrouterplugin.mdx:
     id: 9c8962fbd491
-    last_write_checksum: sha1:bcc1cf2833ecbbbf03d5feeb7b8c579e5c61f92d
-    pristine_git_object: b507a4571c6d1b4686d0ccb22699fa2e582f9cca
+    last_write_checksum: sha1:0ddc9258a07ded0cd593309835712c31a6f88840
+    pristine_git_object: 6774e4034481d198ba7e3db62be5fb075444c3f0
   docs/models/components/jevrouterpluginid.mdx:
     id: 757e9fe716c2
     last_write_checksum: sha1:bf779305d2b703870b358bb7d596de0d4741d995
@@ -8653,8 +8653,8 @@ trackedFiles:
     pristine_git_object: b291f9903ed3ce2b4660337658fc3cbf94133207
   docs/models/operations/external.mdx:
     id: d6f7056cb9b4
-    last_write_checksum: sha1:6e4166c540bf11036dd2329742d1966910498bdd
-    pristine_git_object: f9cdb66daece2118d1028d2eda9c7110c0550647
+    last_write_checksum: sha1:967523790c5d9f4dc8cfee21f1fc349523c3a1cf
+    pristine_git_object: dcde02d8cb71b30c2df0d0377af529c8f1b7dbc9
   docs/models/operations/filter.mdx:
     id: 39bf0945d515
     last_write_checksum: sha1:a337b3d4aa00ebbe784d3ec915eb0678a4296db2
@@ -11469,8 +11469,8 @@ trackedFiles:
     pristine_git_object: 86de458cf0304749072d79284ad50ab2707bd525
   models/components/jevrouterplugin.go:
     id: de5341af7443
-    last_write_checksum: sha1:86c7c7fed5f543fc71c72d1bed858579fe0ce4d9
-    pristine_git_object: 38bdb28e16908096247a5e6be8be6103c2a45eb7
+    last_write_checksum: sha1:02098823ba0b618eedfd6c875c07850c77b5970f
+    pristine_git_object: 46e564c21802cb2ed3891a77bf94362afcb8d587
   models/components/keyassignment.go:
     id: 6e32615a3eec
     last_write_checksum: sha1:683bd140357e1d9c2169453dd76377a078c638fa
@@ -13189,8 +13189,8 @@ trackedFiles:
     pristine_git_object: 67c548809d55734fe2679131a1ace1e8eb97c6ac
   models/operations/createkeys.go:
     id: c511faeda898
-    last_write_checksum: sha1:6966259327d92e6981b36084662aa916597b59d4
-    pristine_git_object: 74f08e44ee01983ff5aa5cb2ed8d63ac36c9c4ce
+    last_write_checksum: sha1:1ff90ca95b903c5fc717b874e2232894994dbf6b
+    pristine_git_object: 4da316d9067bc785c627795b810651353cdd8d89
   models/operations/createpresetschatcompletions.go:
     id: 46c66731be0e
     last_write_checksum: sha1:fd2b99954de027a6886cbec87c82b789c4313fb4
@@ -13757,8 +13757,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:4c317630198b4afb26cb80eb09f75c7819ccb066
-    pristine_git_object: 7d672a93ef35934aa74c5f16cb778429cdbb4a39
+    last_write_checksum: sha1:5492762c47b680d7a14c8566b19e347e55d94bab
+    pristine_git_object: 69b42f548eeab7d891375de53f868d37347e511d
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -18366,4 +18366,3 @@ examples:
         "502":
           application/json: {"error": {"code": 502, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Alpha.Decisions.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Kt` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Kt` **Added**\n* `OpenRouter.Batch.CreateBatches()`: \n  *  `request.Request.Provider.Only[].union(ProviderName).Enum(kt)` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(kt)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(kt)` **Added**\n  *  `response.Data.Provider.Enum(kt)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(kt)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(kt)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(kt)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(kt)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(kt)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.SystemOne.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Kt` **Added**\n"

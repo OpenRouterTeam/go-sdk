@@ -12,7 +12,7 @@ import (
 type External struct {
 	// Optional partner-supplied API key with a minimum length of 32 characters and sufficient entropy. Stored as a SHA-256 hash and never returned.
 	APIKey *string `json:"api_key,omitzero"`
-	// Partner's end-user identifier for attribution.
+	// Partner's external user identifier for attribution: 1 to 512 characters after surrounding whitespace is trimmed, well-formed Unicode, no NUL. For organization keys outside HIPAA workspaces, the value is registered as an external user if it does not exist yet, and the key is linked to it.
 	User string `json:"user"`
 }
 
