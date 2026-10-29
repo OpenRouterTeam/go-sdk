@@ -273,6 +273,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Ionstream                map[string]any `json:"ionstream,omitzero"`
 	Klusterai                map[string]any `json:"klusterai,omitzero"`
 	Krea                     map[string]any `json:"krea,omitzero"`
+	Kt                       map[string]any `json:"kt,omitzero"`
 	Lambda                   map[string]any `json:"lambda,omitzero"`
 	Lepton                   map[string]any `json:"lepton,omitzero"`
 	Liquid                   map[string]any `json:"liquid,omitzero"`
@@ -854,6 +855,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetKrea() map[string]any {
 		return nil
 	}
 	return i.Krea
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetKt() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Kt
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetLambda() map[string]any {
