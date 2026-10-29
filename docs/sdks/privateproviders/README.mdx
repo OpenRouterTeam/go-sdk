@@ -1,0 +1,312 @@
+---
+title: "Private Providers"
+description: "Private Providers endpoints"
+---
+
+## Overview
+
+Private Providers endpoints
+
+### Available Operations
+
+* [List](#list) - List private providers
+* [Create](#create) - Create a private provider
+* [Delete](#delete) - Delete a private provider
+* [Get](#get) - Get a private provider
+* [Update](#update) - Update a private provider
+
+## List
+
+List the organization's private providers. Requires the private endpoints entitlement. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.PrivateProviders.List(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | ✔️                                       | The context to use for the request.                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | ➖                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.ListPrivateProvidersResponse](../../models/operations/listprivateprovidersresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## Create
+
+Create a private, bring-your-own-key provider visible only to your organization. Use its slug as `provider_slug` when creating private endpoints. Requires both the private endpoints and the private providers entitlements. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.PrivateProviders.Create(ctx, components.CreatePrivateProviderRequest{
+        Name: "Acme",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | ✔️                                                                                 | The context to use for the request.                                                                |
+| `request`                                                                                          | [components.CreatePrivateProviderRequest](../../models/components/createprivateproviderrequest.mdx) | ✔️                                                                                 | The request object to use for the request.                                                         |
+| `opts`                                                                                             | [][operations.Option](../../models/operations/option.mdx)                                           | ➖                                                                                 | The options for this request.                                                                      |
+
+### Response
+
+**[*operations.CreatePrivateProviderResponse](../../models/operations/createprivateproviderresponse.mdx), error**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| sdkerrors.BadRequestResponseError          | 400                                        | application/json                           |
+| sdkerrors.UnauthorizedResponseError        | 401                                        | application/json                           |
+| sdkerrors.ForbiddenResponseError           | 403                                        | application/json                           |
+| sdkerrors.NotFoundResponseError            | 404                                        | application/json                           |
+| sdkerrors.RequestTimeoutResponseError      | 408                                        | application/json                           |
+| sdkerrors.ConflictResponseError            | 409                                        | application/json                           |
+| sdkerrors.UnprocessableEntityResponseError | 422                                        | application/json                           |
+| sdkerrors.TooManyRequestsResponseError     | 429                                        | application/json                           |
+| sdkerrors.InternalServerResponseError      | 500                                        | application/json                           |
+| sdkerrors.BadGatewayResponseError          | 502                                        | application/json                           |
+| sdkerrors.APIError                         | 4XX, 5XX                                   | \*/\*                                      |
+
+## Delete
+
+Delete a private provider. Refuses (409) while any private endpoint still runs under it. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.PrivateProviders.Delete(ctx, "acme")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | ✔️                                       | The context to use for the request.                      |                                                          |
+| `slug`                                                   | `string`                                                 | ✔️                                       | N/A                                                      | acme                                                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | ➖                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*operations.DeletePrivateProviderResponse](../../models/operations/deleteprivateproviderresponse.mdx), error**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| sdkerrors.BadRequestResponseError          | 400                                        | application/json                           |
+| sdkerrors.UnauthorizedResponseError        | 401                                        | application/json                           |
+| sdkerrors.ForbiddenResponseError           | 403                                        | application/json                           |
+| sdkerrors.NotFoundResponseError            | 404                                        | application/json                           |
+| sdkerrors.RequestTimeoutResponseError      | 408                                        | application/json                           |
+| sdkerrors.ConflictResponseError            | 409                                        | application/json                           |
+| sdkerrors.UnprocessableEntityResponseError | 422                                        | application/json                           |
+| sdkerrors.TooManyRequestsResponseError     | 429                                        | application/json                           |
+| sdkerrors.InternalServerResponseError      | 500                                        | application/json                           |
+| sdkerrors.BadGatewayResponseError          | 502                                        | application/json                           |
+| sdkerrors.APIError                         | 4XX, 5XX                                   | \*/\*                                      |
+
+## Get
+
+Get one of the organization’s private providers by slug. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.PrivateProviders.Get(ctx, "acme")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | ✔️                                       | The context to use for the request.                      |                                                          |
+| `slug`                                                   | `string`                                                 | ✔️                                       | N/A                                                      | acme                                                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | ➖                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*operations.GetPrivateProviderResponse](../../models/operations/getprivateproviderresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## Update
+
+Update a private provider’s details or declared data policy. The name and slug cannot change. Refuses (409) a data-policy change while OpenRouter pins the declared policy on one of its endpoints. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.PrivateProviders.Update(ctx, "acme", components.UpdatePrivateProviderRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        | Example                                                                                            |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | ✔️                                                                                 | The context to use for the request.                                                                |                                                                                                    |
+| `slug`                                                                                             | `string`                                                                                           | ✔️                                                                                 | N/A                                                                                                | acme                                                                                               |
+| `updatePrivateProviderRequest`                                                                     | [components.UpdatePrivateProviderRequest](../../models/components/updateprivateproviderrequest.mdx) | ✔️                                                                                 | N/A                                                                                                |                                                                                                    |
+| `opts`                                                                                             | [][operations.Option](../../models/operations/option.mdx)                                           | ➖                                                                                 | The options for this request.                                                                      |                                                                                                    |
+
+### Response
+
+**[*operations.UpdatePrivateProviderResponse](../../models/operations/updateprivateproviderresponse.mdx), error**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| sdkerrors.BadRequestResponseError          | 400                                        | application/json                           |
+| sdkerrors.UnauthorizedResponseError        | 401                                        | application/json                           |
+| sdkerrors.ForbiddenResponseError           | 403                                        | application/json                           |
+| sdkerrors.NotFoundResponseError            | 404                                        | application/json                           |
+| sdkerrors.RequestTimeoutResponseError      | 408                                        | application/json                           |
+| sdkerrors.ConflictResponseError            | 409                                        | application/json                           |
+| sdkerrors.UnprocessableEntityResponseError | 422                                        | application/json                           |
+| sdkerrors.TooManyRequestsResponseError     | 429                                        | application/json                           |
+| sdkerrors.InternalServerResponseError      | 500                                        | application/json                           |
+| sdkerrors.BadGatewayResponseError          | 502                                        | application/json                           |
+| sdkerrors.APIError                         | 4XX, 5XX                                   | \*/\*                                      |

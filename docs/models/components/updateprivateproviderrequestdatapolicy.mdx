@@ -1,0 +1,11 @@
+---
+title: "UpdatePrivateProviderRequestDataPolicy"
+---
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `PromptRetentionDays`                                                       | optionalnullable.OptionalNullable[`int64`]                                  | ➖                                                          | Days prompts are retained. Must be `null` unless `retains_prompts` is true. |
+| `RetainsPrompts`                                                            | `*bool`                                                                     | ➖                                                          | Whether the provider retains prompts or completions.                        |
+| `Training`                                                                  | `*bool`                                                                     | ➖                                                          | Whether the provider trains on prompts.                                     |

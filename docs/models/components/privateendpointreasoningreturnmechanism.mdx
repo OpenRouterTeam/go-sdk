@@ -1,0 +1,28 @@
+---
+title: "PrivateEndpointReasoningReturnMechanism"
+---
+
+Where the upstream puts reasoning tokens in its response: `reasoning` and `reasoning-content` are response fields, `content-string` is inline in the message, `none` returns no reasoning. `null` uses the provider default.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.PrivateEndpointReasoningReturnMechanismContentString
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PrivateEndpointReasoningReturnMechanism("custom_value")
+```
+
+
+## Values
+
+| Name                                                      | Value                                                     |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| `PrivateEndpointReasoningReturnMechanismContentString`    | content-string                                            |
+| `PrivateEndpointReasoningReturnMechanismReasoningContent` | reasoning-content                                         |
+| `PrivateEndpointReasoningReturnMechanismReasoning`        | reasoning                                                 |
+| `PrivateEndpointReasoningReturnMechanismNone`             | none                                                      |
