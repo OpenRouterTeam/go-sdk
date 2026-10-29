@@ -78,6 +78,7 @@ type ProviderOptions struct {
 	Ionstream                map[string]any `json:"ionstream,omitzero"`
 	Klusterai                map[string]any `json:"klusterai,omitzero"`
 	Krea                     map[string]any `json:"krea,omitzero"`
+	Kt                       map[string]any `json:"kt,omitzero"`
 	Lambda                   map[string]any `json:"lambda,omitzero"`
 	Lepton                   map[string]any `json:"lepton,omitzero"`
 	Liquid                   map[string]any `json:"liquid,omitzero"`
@@ -659,6 +660,13 @@ func (p *ProviderOptions) GetKrea() map[string]any {
 		return nil
 	}
 	return p.Krea
+}
+
+func (p *ProviderOptions) GetKt() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Kt
 }
 
 func (p *ProviderOptions) GetLambda() map[string]any {
