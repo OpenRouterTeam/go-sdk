@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
@@ -30,15 +31,31 @@ func (e *UpdatePrivateEndpointRequestDeclaredRegion) IsExact() bool {
 	return false
 }
 
+// UpdatePrivateEndpointRequest - Only the fields present change. `base_url`, `upstream_model_id`, `declared_zdr` and `declared_region` are accepted on a draft only; `pricing` and `declared_parameters` replace their value; `settings` is itself a partial update where `null` clears a limit or restores the provider default.
 type UpdatePrivateEndpointRequest struct {
 	// HTTPS base URL of your deployment. Required unless the provider derives its URL from the BYOK credential (Azure, Amazon Bedrock, Google Vertex).
 	BaseURL *string `json:"base_url,omitzero"`
+	// Parameters the upstream supports beyond the tested ones. Replaces the earlier declaration; tested parameters stay. Order and repeated names are ignored, but the list holds at most as many entries as there are declarable parameters, repeats included. `tool_choice` requires `tools` to be tested or declared.
+	DeclaredParameters []PrivateEndpointDeclaredParameter `json:"declared_parameters,omitzero"`
 	// Attest where this deployment processes data.
 	DeclaredRegion optionalnullable.OptionalNullable[UpdatePrivateEndpointRequestDeclaredRegion] `json:"declared_region,omitzero"`
 	// Attest that this deployment retains no prompt or completion data.
 	DeclaredZdr optionalnullable.OptionalNullable[bool] `json:"declared_zdr,omitzero"`
+	Pricing     *PrivateEndpointPricing                 `json:"pricing,omitzero"`
+	Settings    *UpdatePrivateEndpointSettingsRequest   `json:"settings,omitzero"`
 	// Model or deployment identifier sent to the upstream provider.
-	UpstreamModelID string `json:"upstream_model_id"`
+	UpstreamModelID *string `json:"upstream_model_id,omitzero"`
+}
+
+func (u UpdatePrivateEndpointRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdatePrivateEndpointRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UpdatePrivateEndpointRequest) GetBaseURL() *string {
@@ -46,6 +63,13 @@ func (u *UpdatePrivateEndpointRequest) GetBaseURL() *string {
 		return nil
 	}
 	return u.BaseURL
+}
+
+func (u *UpdatePrivateEndpointRequest) GetDeclaredParameters() []PrivateEndpointDeclaredParameter {
+	if u == nil {
+		return nil
+	}
+	return u.DeclaredParameters
 }
 
 func (u *UpdatePrivateEndpointRequest) GetDeclaredRegion() optionalnullable.OptionalNullable[UpdatePrivateEndpointRequestDeclaredRegion] {
@@ -62,9 +86,23 @@ func (u *UpdatePrivateEndpointRequest) GetDeclaredZdr() optionalnullable.Optiona
 	return u.DeclaredZdr
 }
 
-func (u *UpdatePrivateEndpointRequest) GetUpstreamModelID() string {
+func (u *UpdatePrivateEndpointRequest) GetPricing() *PrivateEndpointPricing {
 	if u == nil {
-		return ""
+		return nil
+	}
+	return u.Pricing
+}
+
+func (u *UpdatePrivateEndpointRequest) GetSettings() *UpdatePrivateEndpointSettingsRequest {
+	if u == nil {
+		return nil
+	}
+	return u.Settings
+}
+
+func (u *UpdatePrivateEndpointRequest) GetUpstreamModelID() *string {
+	if u == nil {
+		return nil
 	}
 	return u.UpstreamModelID
 }

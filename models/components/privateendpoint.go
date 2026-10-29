@@ -31,6 +31,8 @@ type PrivateEndpoint struct {
 	ProviderName string `json:"provider_name"`
 	// Slug of the upstream provider, or `null` when the provider is no longer listed.
 	ProviderSlug *string `json:"provider_slug"`
+	// Capabilities and limits routing uses for this endpoint. A new endpoint copies them from the public endpoint for the same model and provider, or from the model, and the owner can change them. Rate limits are not part of this object: a private endpoint is billed to its own upstream key, so request limits stay with the provider.
+	Settings PrivateEndpointSettings `json:"settings"`
 	// Lifecycle state. `draft` endpoints are not routable until validated and activated; `disabled` endpoints are activated but temporarily not routable.
 	Status PrivateEndpointStatus `json:"status"`
 	// Parameters a validation run proved the upstream honors (`tools`, `tool_choice`, `response_format`, `structured_outputs`, `stop`). Read-only; cleared when the upstream configuration changes.
@@ -121,6 +123,13 @@ func (p *PrivateEndpoint) GetProviderSlug() *string {
 		return nil
 	}
 	return p.ProviderSlug
+}
+
+func (p *PrivateEndpoint) GetSettings() PrivateEndpointSettings {
+	if p == nil {
+		return PrivateEndpointSettings{}
+	}
+	return p.Settings
 }
 
 func (p *PrivateEndpoint) GetStatus() PrivateEndpointStatus {

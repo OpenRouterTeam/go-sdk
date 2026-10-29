@@ -365,13 +365,21 @@ func main() {
 * [Create](docs/sdks/privateendpoints/README.md#create) - Create a private endpoint
 * [Delete](docs/sdks/privateendpoints/README.md#delete) - Delete a private endpoint
 * [Get](docs/sdks/privateendpoints/README.md#get) - Get a private endpoint
-* [Update](docs/sdks/privateendpoints/README.md#update) - Update a draft private endpoint
+* [Update](docs/sdks/privateendpoints/README.md#update) - Update a private endpoint
 * [Activate](docs/sdks/privateendpoints/README.md#activate) - Activate a validated private endpoint
 * [Disable](docs/sdks/privateendpoints/README.md#disable) - Disable a private endpoint
 * [Enable](docs/sdks/privateendpoints/README.md#enable) - Enable a private endpoint
-* [UpdateParameters](docs/sdks/privateendpoints/README.md#updateparameters) - Set private endpoint supported parameters
-* [UpdatePricing](docs/sdks/privateendpoints/README.md#updatepricing) - Set private endpoint pricing
+* [~~UpdateParameters~~](docs/sdks/privateendpoints/README.md#updateparameters) - Set private endpoint supported parameters (deprecated) :warning: **Deprecated**
+* [~~UpdatePricing~~](docs/sdks/privateendpoints/README.md#updatepricing) - Set private endpoint pricing (deprecated) :warning: **Deprecated**
 * [Validate](docs/sdks/privateendpoints/README.md#validate) - Validate a draft private endpoint
+
+### [PrivateProviders](docs/sdks/privateproviders/README.md)
+
+* [List](docs/sdks/privateproviders/README.md#list) - List private providers
+* [Create](docs/sdks/privateproviders/README.md#create) - Create a private provider
+* [Delete](docs/sdks/privateproviders/README.md#delete) - Delete a private provider
+* [Get](docs/sdks/privateproviders/README.md#get) - Get a private provider
+* [Update](docs/sdks/privateproviders/README.md#update) - Update a private provider
 
 ### [Providers](docs/sdks/providers/README.md)
 

@@ -50,6 +50,8 @@ type CreatePrivateEndpointRequest struct {
 	Pricing *PrivateEndpointPricing `json:"pricing,omitzero"`
 	// Slug of the upstream provider.
 	ProviderSlug string `json:"provider_slug"`
+	// Capabilities and limits to set over the ones copied from the public endpoint for this model and provider (or from the model). Omitted fields keep the copied values.
+	Settings *UpdatePrivateEndpointSettingsRequest `json:"settings,omitzero"`
 	// Model or deployment identifier sent to the upstream provider.
 	UpstreamModelID string `json:"upstream_model_id"`
 }
@@ -126,6 +128,13 @@ func (c *CreatePrivateEndpointRequest) GetProviderSlug() string {
 		return ""
 	}
 	return c.ProviderSlug
+}
+
+func (c *CreatePrivateEndpointRequest) GetSettings() *UpdatePrivateEndpointSettingsRequest {
+	if c == nil {
+		return nil
+	}
+	return c.Settings
 }
 
 func (c *CreatePrivateEndpointRequest) GetUpstreamModelID() string {

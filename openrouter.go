@@ -107,6 +107,8 @@ type OpenRouter struct {
 	Presets *Presets
 	// Private Endpoints endpoints
 	PrivateEndpoints *PrivateEndpoints
+	// Private Providers endpoints
+	PrivateProviders *PrivateProviders
 	// Provider information endpoints
 	Providers *Providers
 	// Rerank endpoints
@@ -217,10 +219,10 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.9.87",
+		SDKVersion: "0.9.88",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:         "speakeasy-sdk/go 0.9.87 2.950.13 1.0.0 github.com/OpenRouterTeam/go-sdk",
-			SDKVersion:        "0.9.87",
+			UserAgent:         "speakeasy-sdk/go 0.9.88 2.950.13 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			SDKVersion:        "0.9.88",
 			GenVersion:        "2.950.13",
 			OpenAPIDocVersion: "1.0.0",
 			Globals:           globals.Globals{},
@@ -274,6 +276,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Organization = newOrganization(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Presets = newPresets(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.PrivateEndpoints = newPrivateEndpoints(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.PrivateProviders = newPrivateProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Providers = newProviders(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Rerank = newRerank(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Responses = newResponses(sdk, sdk.sdkConfiguration, sdk.hooks)

@@ -1,0 +1,14 @@
+---
+title: "PrivateProviderDataPolicy1"
+---
+
+Your declared data policy, or `null` when none was declared.
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `PromptRetentionDays`                                                       | `*int64`                                                                    | ✔️                                                          | Days prompts are retained. Must be `null` unless `retains_prompts` is true. |
+| `RetainsPrompts`                                                            | `bool`                                                                      | ✔️                                                          | Whether the provider retains prompts or completions.                        |
+| `Training`                                                                  | `bool`                                                                      | ✔️                                                          | Whether the provider trains on prompts.                                     |
