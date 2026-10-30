@@ -25,6 +25,8 @@ type Model struct {
 	DefaultParameters *DefaultParameters `json:"default_parameters"`
 	// Description of the model
 	Description *string `json:"description,omitzero"`
+	// Request API paths that serve this model, derived from the same modality and adapter rules the routers use. A model served only through an alpha surface lists only that path.
+	Endpoints []string `json:"endpoints"`
 	// The date after which the model may be removed. ISO 8601 date string (YYYY-MM-DD) or null if no expiration.
 	ExpirationDate optionalnullable.OptionalNullable[string] `json:"expiration_date,omitzero"`
 	// Hugging Face model identifier, if applicable
@@ -116,6 +118,13 @@ func (m *Model) GetDescription() *string {
 		return nil
 	}
 	return m.Description
+}
+
+func (m *Model) GetEndpoints() []string {
+	if m == nil {
+		return []string{}
+	}
+	return m.Endpoints
 }
 
 func (m *Model) GetExpirationDate() optionalnullable.OptionalNullable[string] {
