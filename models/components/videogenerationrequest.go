@@ -36,7 +36,7 @@ func (e *VideoGenerationRequestAspectRatio) IsExact() bool {
 	return false
 }
 
-// VideoGenerationRequestOptions - Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
+// VideoGenerationRequestOptions - Provider-specific options keyed by provider slug. The provider segment is case-insensitive; an endpoint tag after `/` must match the endpoint slug exactly. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 type VideoGenerationRequestOptions struct {
 	Oneai                    map[string]any `json:"01ai,omitzero"`
 	Ai21                     map[string]any `json:"ai21,omitzero"`
