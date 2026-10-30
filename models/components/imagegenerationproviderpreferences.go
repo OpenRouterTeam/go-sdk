@@ -201,7 +201,7 @@ func (u ImageGenerationProviderPreferencesOnly) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ImageGenerationProviderPreferencesOnly: all fields are null")
 }
 
-// ImageGenerationProviderPreferencesOptions - Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
+// ImageGenerationProviderPreferencesOptions - Provider-specific options keyed by provider slug. The provider segment is case-insensitive; an endpoint tag after `/` must match the endpoint slug exactly. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 type ImageGenerationProviderPreferencesOptions struct {
 	Oneai                    map[string]any `json:"01ai,omitzero"`
 	Ai21                     map[string]any `json:"ai21,omitzero"`

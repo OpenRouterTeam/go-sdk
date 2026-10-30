@@ -6,7 +6,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// ProviderOptions - Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
+// ProviderOptions - Provider-specific options keyed by provider slug. The provider segment is case-insensitive; an endpoint tag after `/` must match the endpoint slug exactly. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 type ProviderOptions struct {
 	Oneai                    map[string]any `json:"01ai,omitzero"`
 	Ai21                     map[string]any `json:"ai21,omitzero"`

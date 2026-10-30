@@ -40,7 +40,7 @@ type STTRequestProvider struct {
 	//
 	// - deny: use only providers which do not collect user data.
 	DataCollection optionalnullable.OptionalNullable[STTRequestDataCollection] `json:"data_collection,omitzero"`
-	// Provider-specific options keyed by provider slug. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
+	// Provider-specific options keyed by provider slug. The provider segment is case-insensitive; an endpoint tag after `/` must match the endpoint slug exactly. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 	Options *ProviderOptions `json:"options,omitzero"`
 	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
 	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
