@@ -1,0 +1,35 @@
+---
+title: "OperatorEnum"
+---
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.OperatorEnumEquals
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.OperatorEnum("custom_value")
+```
+
+
+## Values
+
+| Name                      | Value                     |
+| ------------------------- | ------------------------- |
+| `OperatorEnumEquals`      | equals                    |
+| `OperatorEnumNotEquals`   | not_equals                |
+| `OperatorEnumContains`    | contains                  |
+| `OperatorEnumNotContains` | not_contains              |
+| `OperatorEnumRegex`       | regex                     |
+| `OperatorEnumStartsWith`  | starts_with               |
+| `OperatorEnumEndsWith`    | ends_with                 |
+| `OperatorEnumGt`          | gt                        |
+| `OperatorEnumLt`          | lt                        |
+| `OperatorEnumGte`         | gte                       |
+| `OperatorEnumLte`         | lte                       |
+| `OperatorEnumExists`      | exists                    |
+| `OperatorEnumNotExists`   | not_exists                |

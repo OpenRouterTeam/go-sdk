@@ -1,0 +1,30 @@
+---
+title: "ClassifierSetFilterValue"
+---
+
+## Supported Types
+
+### 
+
+```go
+classifierSetFilterValue := components.CreateClassifierSetFilterValueStr(string{/* values here */})
+```
+
+### 
+
+```go
+classifierSetFilterValue := components.CreateClassifierSetFilterValueNumber(float64{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch classifierSetFilterValue.Type {
+	case components.ClassifierSetFilterValueTypeStr:
+		// classifierSetFilterValue.Str is populated
+	case components.ClassifierSetFilterValueTypeNumber:
+		// classifierSetFilterValue.Number is populated
+}
+```

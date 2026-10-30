@@ -5,7 +5,7 @@ package operations
 type DeleteInternVaultSecretRequest struct {
 	// UUID of an intern in the workspace selected by the API key.
 	InternID string `pathParam:"style=simple,explode=false,name=internId"`
-	// Secret name. Lowercase letters, digits and single underscores, starting with a letter and not ending with an underscore, 1 to 255 characters.
+	// Existing secret name. Accepts legacy names stored before the 255-character write bound; new writes still require the documented name format.
 	Name string `pathParam:"style=simple,explode=false,name=name"`
 }
 

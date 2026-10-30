@@ -168,7 +168,7 @@ type ImageGenerationRequest struct {
 	Model string `json:"model"`
 	// Upper bound on the number of images to generate (1-10). Providers may return fewer images, and providers that only support single-image generation reject n > 1.
 	N *int64 `json:"n,omitzero"`
-	// Compression level (0-100) for webp/jpeg output. Ignored for png and by providers without a compression knob.
+	// Compression level (0-100) for jpeg/webp output. Ignored by providers without a compression knob; providers that honor it may reject it with other output formats (e.g. OpenAI requires output_format "jpeg" or "webp").
 	OutputCompression *int64 `json:"output_compression,omitzero"`
 	// Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`.
 	OutputFormat *ImageGenerationRequestOutputFormat `json:"output_format,omitzero"`
@@ -184,7 +184,7 @@ type ImageGenerationRequest struct {
 	Seed *int64 `json:"seed,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
-	// Optional. A convenience shorthand for output dimensions — pass a tier ("2K", "4K") or explicit pixels ("2048x2048") and we normalize it to the right dimensions for the chosen provider. A tier size is equivalent to setting `resolution` and combines with `aspect_ratio`. An explicit pixel size is authoritative: a mismatched `resolution` or `aspect_ratio` alongside it is rejected with a 400.
+	// Optional. A convenience shorthand for output dimensions — pass a tier ("2K", "4K") or explicit pixels ("2048x2048"). A tier size is equivalent to setting `resolution` and combines with `aspect_ratio`. Explicit pixel sizes are provider-dependent: providers that accept them treat the value as authoritative and reject a mismatched `resolution` or `aspect_ratio` alongside it with a 400. xAI and Sourceful V2/V2.5 reject explicit pixel sizes (use `resolution` and `aspect_ratio` there); Sourceful V2.6 supports them within its dimension limits and does not allow combining them with `resolution` or `aspect_ratio`.
 	Size *string `json:"size,omitzero"`
 	// If true, partial images are streamed as SSE events as they become available. Only supported by providers with native streaming (currently OpenAI). Non-streaming providers ignore this flag and return a buffered response.
 	Stream *bool `json:"stream,omitzero"`

@@ -1,0 +1,30 @@
+---
+title: "ClassifierFiltersFilter"
+---
+
+## Supported Types
+
+### ClassifierScalarFilter
+
+```go
+classifierFiltersFilter := components.CreateClassifierFiltersFilterClassifierScalarFilter(components.ClassifierScalarFilter{/* values here */})
+```
+
+### ClassifierSetFilter
+
+```go
+classifierFiltersFilter := components.CreateClassifierFiltersFilterClassifierSetFilter(components.ClassifierSetFilter{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch classifierFiltersFilter.Type {
+	case components.ClassifierFiltersFilterTypeClassifierScalarFilter:
+		// classifierFiltersFilter.ClassifierScalarFilter is populated
+	case components.ClassifierFiltersFilterTypeClassifierSetFilter:
+		// classifierFiltersFilter.ClassifierSetFilter is populated
+}
+```

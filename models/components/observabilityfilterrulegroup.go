@@ -62,30 +62,30 @@ func (e *Field) IsExact() bool {
 	return false
 }
 
-type Operator string
+type OperatorEnum string
 
 const (
-	OperatorEquals      Operator = "equals"
-	OperatorNotEquals   Operator = "not_equals"
-	OperatorContains    Operator = "contains"
-	OperatorNotContains Operator = "not_contains"
-	OperatorRegex       Operator = "regex"
-	OperatorStartsWith  Operator = "starts_with"
-	OperatorEndsWith    Operator = "ends_with"
-	OperatorGt          Operator = "gt"
-	OperatorLt          Operator = "lt"
-	OperatorGte         Operator = "gte"
-	OperatorLte         Operator = "lte"
-	OperatorExists      Operator = "exists"
-	OperatorNotExists   Operator = "not_exists"
+	OperatorEnumEquals      OperatorEnum = "equals"
+	OperatorEnumNotEquals   OperatorEnum = "not_equals"
+	OperatorEnumContains    OperatorEnum = "contains"
+	OperatorEnumNotContains OperatorEnum = "not_contains"
+	OperatorEnumRegex       OperatorEnum = "regex"
+	OperatorEnumStartsWith  OperatorEnum = "starts_with"
+	OperatorEnumEndsWith    OperatorEnum = "ends_with"
+	OperatorEnumGt          OperatorEnum = "gt"
+	OperatorEnumLt          OperatorEnum = "lt"
+	OperatorEnumGte         OperatorEnum = "gte"
+	OperatorEnumLte         OperatorEnum = "lte"
+	OperatorEnumExists      OperatorEnum = "exists"
+	OperatorEnumNotExists   OperatorEnum = "not_exists"
 )
 
-func (e Operator) ToPointer() *Operator {
+func (e OperatorEnum) ToPointer() *OperatorEnum {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Operator) IsExact() bool {
+func (e *OperatorEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "equals", "not_equals", "contains", "not_contains", "regex", "starts_with", "ends_with", "gt", "lt", "gte", "lte", "exists", "not_exists":
@@ -193,7 +193,7 @@ func (u ObservabilityFilterRuleGroupValue) MarshalJSON() ([]byte, error) {
 
 type Rule struct {
 	Field    Field                              `json:"field"`
-	Operator Operator                           `json:"operator"`
+	Operator OperatorEnum                       `json:"operator"`
 	Value    *ObservabilityFilterRuleGroupValue `json:"value,omitzero"`
 }
 
@@ -215,9 +215,9 @@ func (r *Rule) GetField() Field {
 	return r.Field
 }
 
-func (r *Rule) GetOperator() Operator {
+func (r *Rule) GetOperator() OperatorEnum {
 	if r == nil {
-		return Operator("")
+		return OperatorEnum("")
 	}
 	return r.Operator
 }

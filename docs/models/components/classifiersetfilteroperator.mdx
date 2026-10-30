@@ -1,0 +1,26 @@
+---
+title: "ClassifierSetFilterOperator"
+---
+
+Set-membership operator taking an array filter value.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ClassifierSetFilterOperatorIn
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ClassifierSetFilterOperator("custom_value")
+```
+
+
+## Values
+
+| Name                               | Value                              |
+| ---------------------------------- | ---------------------------------- |
+| `ClassifierSetFilterOperatorIn`    | in                                 |
+| `ClassifierSetFilterOperatorNotIn` | not_in                             |
