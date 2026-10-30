@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastAnswerValue"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastAnswerValue := components.CreateExtractionForecastAnswerValueNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastAnswerValue := components.CreateExtractionForecastAnswerValueStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastAnswerValue.Type {
+	case components.ExtractionForecastAnswerValueTypeNumber:
+		// extractionForecastAnswerValue.Number is populated
+	case components.ExtractionForecastAnswerValueTypeStr:
+		// extractionForecastAnswerValue.Str is populated
+}
+```

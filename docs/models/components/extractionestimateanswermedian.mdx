@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateAnswerMedian"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateAnswerMedian := components.CreateExtractionEstimateAnswerMedianNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateAnswerMedian := components.CreateExtractionEstimateAnswerMedianStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateAnswerMedian.Type {
+	case components.ExtractionEstimateAnswerMedianTypeNumber:
+		// extractionEstimateAnswerMedian.Number is populated
+	case components.ExtractionEstimateAnswerMedianTypeStr:
+		// extractionEstimateAnswerMedian.Str is populated
+}
+```

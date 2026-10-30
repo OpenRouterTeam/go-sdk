@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastStepQuantile"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastStepQuantile := components.CreateExtractionForecastStepQuantileNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastStepQuantile := components.CreateExtractionForecastStepQuantileStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastStepQuantile.Type {
+	case components.ExtractionForecastStepQuantileTypeNumber:
+		// extractionForecastStepQuantile.Number is populated
+	case components.ExtractionForecastStepQuantileTypeStr:
+		// extractionForecastStepQuantile.Str is populated
+}
+```

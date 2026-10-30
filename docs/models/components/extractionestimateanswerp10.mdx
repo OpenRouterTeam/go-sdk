@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateAnswerP10"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateAnswerP10 := components.CreateExtractionEstimateAnswerP10Number(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateAnswerP10 := components.CreateExtractionEstimateAnswerP10Str(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateAnswerP10.Type {
+	case components.ExtractionEstimateAnswerP10TypeNumber:
+		// extractionEstimateAnswerP10.Number is populated
+	case components.ExtractionEstimateAnswerP10TypeStr:
+		// extractionEstimateAnswerP10.Str is populated
+}
+```

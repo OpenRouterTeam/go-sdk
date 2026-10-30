@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateAnswerQuantile"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateAnswerQuantile := components.CreateExtractionEstimateAnswerQuantileNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateAnswerQuantile := components.CreateExtractionEstimateAnswerQuantileStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateAnswerQuantile.Type {
+	case components.ExtractionEstimateAnswerQuantileTypeNumber:
+		// extractionEstimateAnswerQuantile.Number is populated
+	case components.ExtractionEstimateAnswerQuantileTypeStr:
+		// extractionEstimateAnswerQuantile.Str is populated
+}
+```

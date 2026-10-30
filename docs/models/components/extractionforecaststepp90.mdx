@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastStepP90"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastStepP90 := components.CreateExtractionForecastStepP90Number(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastStepP90 := components.CreateExtractionForecastStepP90Str(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastStepP90.Type {
+	case components.ExtractionForecastStepP90TypeNumber:
+		// extractionForecastStepP90.Number is populated
+	case components.ExtractionForecastStepP90TypeStr:
+		// extractionForecastStepP90.Str is populated
+}
+```

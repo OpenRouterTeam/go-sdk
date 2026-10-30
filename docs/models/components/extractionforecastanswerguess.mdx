@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastAnswerGuess"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastAnswerGuess := components.CreateExtractionForecastAnswerGuessNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastAnswerGuess := components.CreateExtractionForecastAnswerGuessStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastAnswerGuess.Type {
+	case components.ExtractionForecastAnswerGuessTypeNumber:
+		// extractionForecastAnswerGuess.Number is populated
+	case components.ExtractionForecastAnswerGuessTypeStr:
+		// extractionForecastAnswerGuess.Str is populated
+}
+```

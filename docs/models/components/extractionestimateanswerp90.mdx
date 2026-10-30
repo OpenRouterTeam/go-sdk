@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateAnswerP90"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateAnswerP90 := components.CreateExtractionEstimateAnswerP90Number(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateAnswerP90 := components.CreateExtractionEstimateAnswerP90Str(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateAnswerP90.Type {
+	case components.ExtractionEstimateAnswerP90TypeNumber:
+		// extractionEstimateAnswerP90.Number is populated
+	case components.ExtractionEstimateAnswerP90TypeStr:
+		// extractionEstimateAnswerP90.Str is populated
+}
+```

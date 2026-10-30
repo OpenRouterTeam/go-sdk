@@ -1,0 +1,120 @@
+---
+title: "Alpha.Extractions"
+description: "Alpha feature endpoints for Extractions requests"
+---
+
+## Overview
+
+Alpha feature endpoints for Extractions requests
+
+### Available Operations
+
+* [Create](#create) - Submit an Extractions request
+
+## Create
+
+Extracts, computes, estimates or forecasts typed fields from a state string and image assets using an extraction-style System One model. Alpha: the shape is not stable.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Alpha.Extractions.Create(ctx, components.ExtractionsRequest{
+        Fields: map[string]components.Fields{
+            "contacts": components.CreateFieldsList(
+                components.ExtractionListField{
+                    Items: components.ItemsText,
+                    Type: components.ExtractionListFieldTypeList,
+                },
+            ),
+            "days_to_pay": components.CreateFieldsEstimate(
+                components.ExtractionEstimateField{
+                    Max: components.CreateExtractionEstimateFieldMaxNumber(
+                        120.0,
+                    ),
+                    Min: components.CreateExtractionEstimateFieldMinNumber(
+                        0.0,
+                    ),
+                    Step: openrouter.Pointer(components.CreateExtractionEstimateFieldStepUnionNumber(
+                        1.0,
+                    )),
+                    Type: components.ExtractionEstimateFieldTypeEstimate,
+                },
+            ),
+            "due_date": components.CreateFieldsDate(
+                components.ExtractionDateField{
+                    Instructions: openrouter.Pointer("Issue date plus the net payment days"),
+                    Type: components.ExtractionDateFieldTypeDate,
+                },
+            ),
+            "invoice_number": components.CreateFieldsText(
+                components.ExtractionTextField{
+                    Type: components.ExtractionTextFieldTypeText,
+                },
+            ),
+            "total": components.CreateFieldsNumber(
+                components.ExtractionNumberField{
+                    Decimals: openrouter.Pointer[int64](2),
+                    Type: components.ExtractionNumberFieldTypeNumber,
+                    Unit: openrouter.Pointer("USD"),
+                },
+            ),
+        },
+        Model: "cloudflare/clairic",
+        ReferenceDate: openrouter.Pointer("2026-10-28"),
+        State: "Invoice INV-2291 issued 2026-09-02, net 30. Contacts: Dana Ruiz, Priya Shah. Total $1080.",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | ✔️                                                             | The context to use for the request.                                            |
+| `request`                                                                      | [components.ExtractionsRequest](../../models/components/extractionsrequest.mdx) | ✔️                                                             | The request object to use for the request.                                     |
+| `opts`                                                                         | [][operations.Option](../../models/operations/option.mdx)                       | ➖                                                             | The options for this request.                                                  |
+
+### Response
+
+**[*components.ExtractionsResponse](../../models/components/extractionsresponse.mdx), error**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| sdkerrors.BadRequestResponseError         | 400                                       | application/json                          |
+| sdkerrors.UnauthorizedResponseError       | 401                                       | application/json                          |
+| sdkerrors.PaymentRequiredResponseError    | 402                                       | application/json                          |
+| sdkerrors.ForbiddenResponseError          | 403                                       | application/json                          |
+| sdkerrors.NotFoundResponseError           | 404                                       | application/json                          |
+| sdkerrors.PayloadTooLargeResponseError    | 413                                       | application/json                          |
+| sdkerrors.TooManyRequestsResponseError    | 429                                       | application/json                          |
+| sdkerrors.InternalServerResponseError     | 500                                       | application/json                          |
+| sdkerrors.BadGatewayResponseError         | 502                                       | application/json                          |
+| sdkerrors.ServiceUnavailableResponseError | 503                                       | application/json                          |
+| sdkerrors.EdgeNetworkTimeoutResponseError | 524                                       | application/json                          |
+| sdkerrors.ProviderOverloadedResponseError | 529                                       | application/json                          |
+| sdkerrors.APIError                        | 4XX, 5XX                                  | \*/\*                                     |

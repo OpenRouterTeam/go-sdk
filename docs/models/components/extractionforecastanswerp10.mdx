@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastAnswerP10"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastAnswerP10 := components.CreateExtractionForecastAnswerP10Number(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastAnswerP10 := components.CreateExtractionForecastAnswerP10Str(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastAnswerP10.Type {
+	case components.ExtractionForecastAnswerP10TypeNumber:
+		// extractionForecastAnswerP10.Number is populated
+	case components.ExtractionForecastAnswerP10TypeStr:
+		// extractionForecastAnswerP10.Str is populated
+}
+```

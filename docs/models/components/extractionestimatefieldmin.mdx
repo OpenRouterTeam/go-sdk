@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateFieldMin"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateFieldMin := components.CreateExtractionEstimateFieldMinNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateFieldMin := components.CreateExtractionEstimateFieldMinStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateFieldMin.Type {
+	case components.ExtractionEstimateFieldMinTypeNumber:
+		// extractionEstimateFieldMin.Number is populated
+	case components.ExtractionEstimateFieldMinTypeStr:
+		// extractionEstimateFieldMin.Str is populated
+}
+```

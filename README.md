@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.92
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.93
 > ```
 
 <!-- No Summary [summary] -->
@@ -203,6 +203,10 @@ func main() {
 ### [Alpha.Decisions](docs/sdks/decisions/README.md)
 
 * [Create](docs/sdks/decisions/README.md#create) - Submit a Decisions request
+
+### [Alpha.Extractions](docs/sdks/extractions/README.md)
+
+* [Create](docs/sdks/extractions/README.md#create) - Submit an Extractions request
 
 ### [Analytics](docs/sdks/analytics/README.md)
 

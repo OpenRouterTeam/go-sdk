@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastStepMedian"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastStepMedian := components.CreateExtractionForecastStepMedianNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastStepMedian := components.CreateExtractionForecastStepMedianStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastStepMedian.Type {
+	case components.ExtractionForecastStepMedianTypeNumber:
+		// extractionForecastStepMedian.Number is populated
+	case components.ExtractionForecastStepMedianTypeStr:
+		// extractionForecastStepMedian.Str is populated
+}
+```

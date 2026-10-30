@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateFieldMax"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateFieldMax := components.CreateExtractionEstimateFieldMaxNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateFieldMax := components.CreateExtractionEstimateFieldMaxStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateFieldMax.Type {
+	case components.ExtractionEstimateFieldMaxTypeNumber:
+		// extractionEstimateFieldMax.Number is populated
+	case components.ExtractionEstimateFieldMaxTypeStr:
+		// extractionEstimateFieldMax.Str is populated
+}
+```
