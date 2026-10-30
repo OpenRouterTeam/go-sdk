@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8f5fffa127f220ebc9389c545d7f63ff
+  docChecksum: 5386ae563850b2c0914a747383a04549
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.97
-  configChecksum: 4bd7ccdb9d7ded255b5431debf0f0cf6
+  releaseVersion: 0.9.98
+  configChecksum: e0cf9e62f0ee408ce68bffed63538dc1
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 98e871ab-56f6-4b9f-a3f4-7b6d3bb349a6
-  pristine_commit_hash: 2e886324f9b1388281594fc08d4f8430708d0dde
-  pristine_tree_hash: 03d301cf005e5e8bbe1b9a9458d23b71f1078315
+  generation_id: 0cebef95-9c3a-4639-b97e-08b065006e6d
+  pristine_commit_hash: aa0edfe8c3f98a7f3953f57756f91792ffa8b4cd
+  pristine_tree_hash: c90cfd1978dbf3c4e365647aef40b87f16c7f5ba
 features:
   go:
     acceptHeaders: 2.81.2
@@ -5097,8 +5097,8 @@ trackedFiles:
     pristine_git_object: 423489f7a2782394c22fd003281f0a72593211b5
   docs/models/components/model.mdx:
     id: c67ec76988ce
-    last_write_checksum: sha1:3858f3da738fe44f7ff430a08b7b64d615591223
-    pristine_git_object: 9e0b25cfc7ff8e585bbe191b851c5efc0af9db75
+    last_write_checksum: sha1:0e6d2c02d7c97c705fca805e623ba5b90a46ba0d
+    pristine_git_object: 3da52327e489999401a698f98221e5ded5de0367
   docs/models/components/modelaliastarget.mdx:
     id: d64122b470aa
     last_write_checksum: sha1:e4585720142597013789cbc43fa3ff85412f555b
@@ -8813,8 +8813,8 @@ trackedFiles:
     pristine_git_object: 66035bb786089ca77ded7e6d07bd75521f8f457a
   docs/models/operations/client.mdx:
     id: fbc92d03f310
-    last_write_checksum: sha1:b64967e9a2750d8e92d45932c0449145e9059927
-    pristine_git_object: 962afa91cdd91d54d8c56ce41ccbe0d210836eb2
+    last_write_checksum: sha1:16ecf8cb969207ac3607c36129f9d2d0cf98c0c3
+    pristine_git_object: 9ee8054f1cc78d7fd3bd0382792a16297afde2bf
   docs/models/operations/content.mdx:
     id: 3885c021e578
     last_write_checksum: sha1:d0aceb45ff8cb9b61a0faebc658e64517e943ba2
@@ -9449,8 +9449,8 @@ trackedFiles:
     pristine_git_object: dfd5dd9f0adc5ca265553b0beab570dab34eefb5
   docs/models/operations/listmodelsuserrequest.mdx:
     id: 05ad0997f444
-    last_write_checksum: sha1:8a015673953c9958a4f51a288ce60a9c5e3b085d
-    pristine_git_object: 02f647c3add9d644f0e3b327241a6c4ac63e9315
+    last_write_checksum: sha1:116e0ed749e3b72cf0b3510e730b63269cffe961
+    pristine_git_object: 8f76c65e49e20a47a5384f6e342493723c41a7ff
   docs/models/operations/listmodelsuserresponse.mdx:
     id: d3822e9ceb84
     last_write_checksum: sha1:7c69c701bc3e5b6154bf376e4dc875cbfd82d52b
@@ -12189,8 +12189,8 @@ trackedFiles:
     pristine_git_object: 2f70d5178b9ad68926c3a8b23eb16629272dcc04
   models/components/model.go:
     id: 8dd64e4e5c29
-    last_write_checksum: sha1:cbbb9a912600408957ec442c84fb4bc995e33868
-    pristine_git_object: a0131bac3e4e25e4260adb2f2e7a194b3fd5a16a
+    last_write_checksum: sha1:bf208b5bca9ec5a425112b538af3f01ee42487e3
+    pristine_git_object: 89e1ab065384f8bb7577025eea83222f5eaf952b
   models/components/modelaliastarget.go:
     id: 4ad9b0f062ad
     last_write_checksum: sha1:74581797ad6f1429625af9aa7a14394d9d5c106b
@@ -14061,8 +14061,8 @@ trackedFiles:
     pristine_git_object: dfcbf6bd8b56df9d2704fa7e19d77d1ea6fac098
   models/operations/listmodelsuser.go:
     id: c454494b1752
-    last_write_checksum: sha1:7a7527e67acd6bca250ec5551eb4b8afbcfe5728
-    pristine_git_object: bdbc171ff618ed3d44c11db422a02f099162726c
+    last_write_checksum: sha1:d653f9e658d690cadd23846dacb6963a95ee94ee
+    pristine_git_object: 409d5d706d96643cbdc776469bbb7b9f60233837
   models/operations/listobservabilitydestinations.go:
     id: a7bcd0598f86
     last_write_checksum: sha1:79cce4b505d17798069ce7829ef8ff31c9383c9c
@@ -14313,8 +14313,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:783d91497ea38b543095a6b44f7cc55a2db6b8a3
-    pristine_git_object: 1b4067f12a3cc1347ae12429eed6a59096f78b3a
+    last_write_checksum: sha1:0b81fd759f163963d60090bff29a174d054ef8ac
+    pristine_git_object: d9d578fde1f4dfb5c44c90e70b2e4c160f459ffa
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -14544,7 +14544,7 @@ examples:
           limit: 500
       responses:
         "200":
-          application/json: {"data": [{"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens", "frequency_penalty", "presence_penalty"], "supported_voices": null, "top_provider": {"is_moderated": true}}], "links": {"next": "/api/v1/models?offset=500&limit=500"}, "total_count": 150}
+          application/json: {"data": [{"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "endpoints": ["/api/v1/chat/completions", "/api/v1/completions", "/api/v1/messages", "/api/v1/responses"], "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens", "frequency_penalty", "presence_penalty"], "supported_voices": null, "top_provider": {"is_moderated": true}}], "links": {"next": "/api/v1/models?offset=500&limit=500"}, "total_count": 150}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "500":
@@ -14596,7 +14596,7 @@ examples:
           limit: 500
       responses:
         "200":
-          application/json: {"data": [{"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens", "frequency_penalty", "presence_penalty"], "supported_voices": null, "top_provider": {"is_moderated": true}}], "links": {"next": "/api/v1/models?offset=500&limit=500"}, "total_count": 150}
+          application/json: {"data": [{"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "endpoints": ["/api/v1/chat/completions", "/api/v1/completions", "/api/v1/messages", "/api/v1/responses"], "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens", "frequency_penalty", "presence_penalty"], "supported_voices": null, "top_provider": {"is_moderated": true}}], "links": {"next": "/api/v1/models?offset=500&limit=500"}, "total_count": 150}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "500":
@@ -14623,7 +14623,7 @@ examples:
           limit: 500
       responses:
         "200":
-          application/json: {"data": [{"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens", "frequency_penalty", "presence_penalty"], "supported_voices": null, "top_provider": {"is_moderated": true}}], "links": {"next": "/api/v1/models?offset=500&limit=500"}, "total_count": 150}
+          application/json: {"data": [{"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "endpoints": ["/api/v1/chat/completions", "/api/v1/completions", "/api/v1/messages", "/api/v1/responses"], "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens", "frequency_penalty", "presence_penalty"], "supported_voices": null, "top_provider": {"is_moderated": true}}], "links": {"next": "/api/v1/models?offset=500&limit=500"}, "total_count": 150}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "404":
@@ -15781,7 +15781,7 @@ examples:
           slug: "gpt-4"
       responses:
         "200":
-          application/json: {"data": {"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens"], "supported_voices": null, "top_provider": {"is_moderated": true}}}
+          application/json: {"data": {"architecture": {"input_modalities": ["text"], "modality": "text->text", "output_modalities": ["text"]}, "canonical_slug": "openai/gpt-4", "context_length": 8192, "created": 1692901234, "default_parameters": null, "endpoints": ["/api/v1/chat/completions", "/api/v1/completions", "/api/v1/messages", "/api/v1/responses"], "id": "openai/gpt-4", "links": {"details": "/api/v1/models/openai/gpt-4/endpoints"}, "name": "GPT-4", "per_request_limits": null, "pricing": {"completion": "0.00006", "prompt": "0.00003"}, "supported_parameters": ["temperature", "top_p", "max_tokens"], "supported_voices": null, "top_provider": {"is_moderated": true}}}
         "404":
           application/json: {"error": {"code": 404, "message": "Resource not found"}}
         "500":
@@ -18953,4 +18953,9 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Alpha.Extractions.Create()`: \n  *  `request.Request.Assets.Map<ExtractionAsset>` **Changed**\n  *  `response.Answers.Map<answers>` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Embeddings.ListModels()`:  `response.Data[].Endpoints` **Added**
+  * `OpenRouter.Models.Get()`:  `response.Data.Endpoints` **Added**
+  * `OpenRouter.Models.List()`:  `response.Data[].Endpoints` **Added**
+  * `OpenRouter.Models.ListForUser()`:  `response.Data[].Endpoints` **Added**
