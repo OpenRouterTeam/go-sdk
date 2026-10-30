@@ -52,6 +52,30 @@ func (e *ListModelsUserSort) IsExact() bool {
 	return false
 }
 
+// Client - Filter models and presets by the named harness's eligibility policy: tool calling is required, and when one of your guardrails sets `enforce_first_party_harness_models`, only the harness vendor's own models remain (OpenAI for codex, Anthropic for claude_code and claude_desktop). This filter doesn't apply the harness's ranking, caps or Claude Desktop model ID aliases, so returned IDs stay routable. One of: claude_code, claude_desktop, codex. Omit it to get every model you can use.
+type Client string
+
+const (
+	ClientClaudeCode    Client = "claude_code"
+	ClientClaudeDesktop Client = "claude_desktop"
+	ClientCodex         Client = "codex"
+)
+
+func (e Client) ToPointer() *Client {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Client) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "claude_code", "claude_desktop", "codex":
+			return true
+		}
+	}
+	return false
+}
+
 type ListModelsUserRequest struct {
 	// Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
@@ -61,6 +85,8 @@ type ListModelsUserRequest struct {
 	OutputModalities *string `queryParam:"style=form,explode=true,name=output_modalities"`
 	// Sort the returned models server-side. Prefer this over fetching the full list and sorting client-side. Options: pricing-low-to-high, pricing-high-to-low (average prompt/completion price), context-high-to-low (context length), throughput-high-to-low, latency-low-to-high (recent median performance), most-popular, top-weekly (tokens processed in the last week), newest (creation date), intelligence-high-to-low, coding-high-to-low, agentic-high-to-low (Artificial Analysis indices), design-arena-elo-high-to-low (best Design Arena ELO across arenas). Models without a score for the chosen benchmark are placed last. When omitted, the existing default ordering is preserved.
 	Sort *ListModelsUserSort `queryParam:"style=form,explode=true,name=sort"`
+	// Filter models and presets by the named harness's eligibility policy: tool calling is required, and when one of your guardrails sets `enforce_first_party_harness_models`, only the harness vendor's own models remain (OpenAI for codex, Anthropic for claude_code and claude_desktop). This filter doesn't apply the harness's ranking, caps or Claude Desktop model ID aliases, so returned IDs stay routable. One of: claude_code, claude_desktop, codex. Omit it to get every model you can use.
+	Client *Client `queryParam:"style=form,explode=true,name=client"`
 }
 
 func (l ListModelsUserRequest) MarshalJSON() ([]byte, error) {
@@ -100,6 +126,13 @@ func (l *ListModelsUserRequest) GetSort() *ListModelsUserSort {
 		return nil
 	}
 	return l.Sort
+}
+
+func (l *ListModelsUserRequest) GetClient() *Client {
+	if l == nil {
+		return nil
+	}
+	return l.Client
 }
 
 type ListModelsUserResponse struct {
