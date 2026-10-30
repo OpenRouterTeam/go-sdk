@@ -158,7 +158,6 @@ import (
 	"context"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
-	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -170,7 +169,7 @@ func main() {
 
 	res, err := s.Models.ListForUser(ctx, operations.ListModelsUserSecurity{
 		Bearer: os.Getenv("OPENROUTER_BEARER"),
-	}, optionalnullable.From(openrouter.Pointer[int64](0)), openrouter.Pointer[int64](500), nil, nil)
+	}, &operations.ListModelsUserRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}

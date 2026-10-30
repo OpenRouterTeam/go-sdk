@@ -1033,14 +1033,7 @@ func (s *Models) Count(ctx context.Context, outputModalities *string, opts ...op
 
 // ListForUser - List models filtered by user provider preferences, privacy settings, and guardrails
 // List models filtered by user provider preferences, [privacy settings](https://openrouter.ai/docs/guides/privacy/provider-logging), and [guardrails](https://openrouter.ai/docs/guides/features/guardrails). Returns text-output models by default; pass `output_modalities` (a comma-separated list of `text`, `image`, `embeddings`, `audio`, `video`, `rerank`, `speech`, `transcription`, or `all`) to include other modalities. If requesting through a regional hostname, the results will be filtered to models that satisfy in-region routing for that region.
-func (s *Models) ListForUser(ctx context.Context, security operations.ListModelsUserSecurity, offset optionalnullable.OptionalNullable[int64], limit *int64, outputModalities *string, sort *operations.ListModelsUserSort, opts ...operations.Option) (*operations.ListModelsUserResponse, error) {
-	request := operations.ListModelsUserRequest{
-		Offset:           offset,
-		Limit:            limit,
-		OutputModalities: outputModalities,
-		Sort:             sort,
-	}
-
+func (s *Models) ListForUser(ctx context.Context, security operations.ListModelsUserSecurity, request *operations.ListModelsUserRequest, opts ...operations.Option) (*operations.ListModelsUserResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1204,6 +1197,9 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 
 	res := &operations.ListModelsUserResponse{}
 	res.Next = func() (*operations.ListModelsUserResponse, error) {
+		if request == nil {
+			request = &operations.ListModelsUserRequest{}
+		}
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
 			return nil, err
@@ -1215,7 +1211,7 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 		}
 
 		oS := 0
-		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+		if offsetVal, ok := request.Offset.Get(); ok && offsetVal != nil {
 			oS = int(*offsetVal)
 		}
 		r, err := ajson.Eval(b, "$.data")
@@ -1234,21 +1230,19 @@ func (s *Models) ListForUser(ctx context.Context, security operations.ListModels
 		}
 
 		l := 0
-		if limit != nil {
-			l = int(*limit)
+		if request.Limit != nil {
+			l = int(*request.Limit)
 		}
 		if len(arr) < l {
 			return nil, nil
 		}
 		nOS := int64(oS + len(arr))
+		request.Offset = optionalnullable.From(&nOS)
 
 		return s.ListForUser(
 			paginationCtx,
 			security,
-			optionalnullable.From(&nOS),
-			limit,
-			outputModalities,
-			sort,
+			request,
 			opts...,
 		)
 	}
