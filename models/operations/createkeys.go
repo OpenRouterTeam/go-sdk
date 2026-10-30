@@ -69,7 +69,7 @@ type CreateKeysRequest struct {
 	LimitReset optionalnullable.OptionalNullable[CreateKeysLimitReset] `json:"limit_reset,omitzero"`
 	// Name for the new API key
 	Name string `json:"name"`
-	// The workspace to create the API key in. Defaults to the default workspace if not provided.
+	// The workspace to create the API key in. Defaults to the default workspace for an organization-scoped management key, or to the management key's own workspace for a workspace-scoped one, which cannot create keys elsewhere.
 	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 
