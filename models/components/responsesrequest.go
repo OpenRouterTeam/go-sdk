@@ -11,6 +11,41 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/types"
 )
 
+type ResponsesRequestCyber string
+
+const (
+	ResponsesRequestCyberStandard     ResponsesRequestCyber = "standard"
+	ResponsesRequestCyberDaybreakBlue ResponsesRequestCyber = "daybreak_blue"
+	ResponsesRequestCyberDaybreakRed  ResponsesRequestCyber = "daybreak_red"
+)
+
+func (e ResponsesRequestCyber) ToPointer() *ResponsesRequestCyber {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ResponsesRequestCyber) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "standard", "daybreak_blue", "daybreak_red":
+			return true
+		}
+	}
+	return false
+}
+
+// ResponsesRequestAccessPrograms - OpenAI access programs for this request. `cyber` selects the Cyber access program: `standard`, `daybreak_blue`, or `daybreak_red`. A program other than `standard` is supported only on BYOK requests that run on your own OpenAI key enrolled in that program; any other endpoint, including OpenRouter's own OpenAI credentials, rejects it with a 400 error. Requests on OpenRouter's OpenAI credentials always run `standard`. Omit the field unless your key is enrolled in a Daybreak program.
+type ResponsesRequestAccessPrograms struct {
+	Cyber *ResponsesRequestCyber `json:"cyber,omitzero"`
+}
+
+func (r *ResponsesRequestAccessPrograms) GetCyber() *ResponsesRequestCyber {
+	if r == nil {
+		return nil
+	}
+	return r.Cyber
+}
+
 type ResponsesRequestPluginType string
 
 const (
@@ -1535,7 +1570,9 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 
 // ResponsesRequest - Request schema for Responses endpoint
 type ResponsesRequest struct {
-	Background optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
+	// OpenAI access programs for this request. `cyber` selects the Cyber access program: `standard`, `daybreak_blue`, or `daybreak_red`. A program other than `standard` is supported only on BYOK requests that run on your own OpenAI key enrolled in that program; any other endpoint, including OpenRouter's own OpenAI credentials, rejects it with a 400 error. Requests on OpenRouter's OpenAI credentials always run `standard`. Omit the field unless your key is enrolled in a Daybreak program.
+	AccessPrograms *ResponsesRequestAccessPrograms         `json:"access_programs,omitzero"`
+	Background     optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
@@ -1609,6 +1646,13 @@ func (r *ResponsesRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (r *ResponsesRequest) GetAccessPrograms() *ResponsesRequestAccessPrograms {
+	if r == nil {
+		return nil
+	}
+	return r.AccessPrograms
 }
 
 func (r *ResponsesRequest) GetBackground() optionalnullable.OptionalNullable[bool] {
