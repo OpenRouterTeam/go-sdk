@@ -15,7 +15,7 @@ type ListRequest struct {
 	IncludeExpired *bool `queryParam:"style=form,explode=true,name=include_expired"`
 	// Number of API keys to skip for pagination
 	Offset optionalnullable.OptionalNullable[int64] `queryParam:"style=form,explode=true,name=offset"`
-	// Filter API keys by workspace ID. By default, keys in the default workspace are returned.
+	// Filter API keys by workspace ID. By default an organization-scoped management key gets the default workspace; a workspace-scoped management key always gets its own workspace and cannot list another.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
