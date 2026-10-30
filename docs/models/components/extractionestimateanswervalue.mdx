@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateAnswerValue"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateAnswerValue := components.CreateExtractionEstimateAnswerValueNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateAnswerValue := components.CreateExtractionEstimateAnswerValueStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateAnswerValue.Type {
+	case components.ExtractionEstimateAnswerValueTypeNumber:
+		// extractionEstimateAnswerValue.Number is populated
+	case components.ExtractionEstimateAnswerValueTypeStr:
+		// extractionEstimateAnswerValue.Str is populated
+}
+```

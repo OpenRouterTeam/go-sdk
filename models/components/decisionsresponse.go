@@ -9,93 +9,93 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type AnswersType string
+type DecisionsResponseAnswersType string
 
 const (
-	AnswersTypeBox     AnswersType = "box"
-	AnswersTypeChoice  AnswersType = "choice"
-	AnswersTypeNoul    AnswersType = "noul"
-	AnswersTypeScore   AnswersType = "score"
-	AnswersTypeUnknown AnswersType = "UNKNOWN"
+	DecisionsResponseAnswersTypeBox     DecisionsResponseAnswersType = "box"
+	DecisionsResponseAnswersTypeChoice  DecisionsResponseAnswersType = "choice"
+	DecisionsResponseAnswersTypeNoul    DecisionsResponseAnswersType = "noul"
+	DecisionsResponseAnswersTypeScore   DecisionsResponseAnswersType = "score"
+	DecisionsResponseAnswersTypeUnknown DecisionsResponseAnswersType = "UNKNOWN"
 )
 
-// Answers - A Decisions answer using a boolean, choice, score, or image bounding-box evaluation.
-type Answers struct {
+// DecisionsResponseAnswers - A Decisions answer using a boolean, choice, score, or image bounding-box evaluation.
+type DecisionsResponseAnswers struct {
 	DecisionsNoulAnswer   *DecisionsNoulAnswer   `queryParam:"inline" union:"member"`
 	DecisionsChoiceAnswer *DecisionsChoiceAnswer `queryParam:"inline" union:"member"`
 	DecisionsScoreAnswer  *DecisionsScoreAnswer  `queryParam:"inline" union:"member"`
 	DecisionsBoxAnswer    *DecisionsBoxAnswer    `queryParam:"inline" union:"member"`
 	UnknownRaw            json.RawMessage        `json:"-" union:"unknown"`
 
-	Type AnswersType
+	Type DecisionsResponseAnswersType
 }
 
-func CreateAnswersBox(box DecisionsBoxAnswer) Answers {
-	typ := AnswersTypeBox
+func CreateDecisionsResponseAnswersBox(box DecisionsBoxAnswer) DecisionsResponseAnswers {
+	typ := DecisionsResponseAnswersTypeBox
 
 	typStr := DecisionsBoxAnswerType(typ)
 	box.Type = typStr
 
-	return Answers{
+	return DecisionsResponseAnswers{
 		DecisionsBoxAnswer: &box,
 		Type:               typ,
 	}
 }
 
-func CreateAnswersChoice(choice DecisionsChoiceAnswer) Answers {
-	typ := AnswersTypeChoice
+func CreateDecisionsResponseAnswersChoice(choice DecisionsChoiceAnswer) DecisionsResponseAnswers {
+	typ := DecisionsResponseAnswersTypeChoice
 
 	typStr := DecisionsChoiceAnswerType(typ)
 	choice.Type = typStr
 
-	return Answers{
+	return DecisionsResponseAnswers{
 		DecisionsChoiceAnswer: &choice,
 		Type:                  typ,
 	}
 }
 
-func CreateAnswersNoul(noul DecisionsNoulAnswer) Answers {
-	typ := AnswersTypeNoul
+func CreateDecisionsResponseAnswersNoul(noul DecisionsNoulAnswer) DecisionsResponseAnswers {
+	typ := DecisionsResponseAnswersTypeNoul
 
 	typStr := DecisionsNoulAnswerType(typ)
 	noul.Type = typStr
 
-	return Answers{
+	return DecisionsResponseAnswers{
 		DecisionsNoulAnswer: &noul,
 		Type:                typ,
 	}
 }
 
-func CreateAnswersScore(score DecisionsScoreAnswer) Answers {
-	typ := AnswersTypeScore
+func CreateDecisionsResponseAnswersScore(score DecisionsScoreAnswer) DecisionsResponseAnswers {
+	typ := DecisionsResponseAnswersTypeScore
 
 	typStr := DecisionsScoreAnswerType(typ)
 	score.Type = typStr
 
-	return Answers{
+	return DecisionsResponseAnswers{
 		DecisionsScoreAnswer: &score,
 		Type:                 typ,
 	}
 }
 
-func CreateAnswersUnknown(raw json.RawMessage) Answers {
-	return Answers{
+func CreateDecisionsResponseAnswersUnknown(raw json.RawMessage) DecisionsResponseAnswers {
+	return DecisionsResponseAnswers{
 		UnknownRaw: raw,
-		Type:       AnswersTypeUnknown,
+		Type:       DecisionsResponseAnswersTypeUnknown,
 	}
 }
 
-func (u Answers) GetUnknownRaw() json.RawMessage {
+func (u DecisionsResponseAnswers) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u Answers) IsUnknown() bool {
-	return u.Type == AnswersTypeUnknown
+func (u DecisionsResponseAnswers) IsUnknown() bool {
+	return u.Type == DecisionsResponseAnswersTypeUnknown
 }
 
-func (u *Answers) UnmarshalJSON(data []byte) (err error) {
+func (u *DecisionsResponseAnswers) UnmarshalJSON(data []byte) (err error) {
 	previous := *u
-	*u = Answers{}
+	*u = DecisionsResponseAnswers{}
 	defer func() {
 		if err != nil {
 			*u = previous
@@ -113,12 +113,12 @@ func (u *Answers) UnmarshalJSON(data []byte) (err error) {
 			return fmt.Errorf("could not unmarshal discriminator: %w", err)
 		}
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AnswersTypeUnknown
+		u.Type = DecisionsResponseAnswersTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AnswersTypeUnknown
+		u.Type = DecisionsResponseAnswersTypeUnknown
 		return nil
 	}
 
@@ -126,48 +126,48 @@ func (u *Answers) UnmarshalJSON(data []byte) (err error) {
 	case "box":
 		decisionsBoxAnswer := new(DecisionsBoxAnswer)
 		if err := utils.UnmarshalJSON(data, &decisionsBoxAnswer, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == box) type DecisionsBoxAnswer within Answers: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == box) type DecisionsBoxAnswer within DecisionsResponseAnswers: %w", string(data), err)
 		}
 
 		u.DecisionsBoxAnswer = decisionsBoxAnswer
-		u.Type = AnswersTypeBox
+		u.Type = DecisionsResponseAnswersTypeBox
 		return nil
 	case "choice":
 		decisionsChoiceAnswer := new(DecisionsChoiceAnswer)
 		if err := utils.UnmarshalJSON(data, &decisionsChoiceAnswer, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == choice) type DecisionsChoiceAnswer within Answers: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == choice) type DecisionsChoiceAnswer within DecisionsResponseAnswers: %w", string(data), err)
 		}
 
 		u.DecisionsChoiceAnswer = decisionsChoiceAnswer
-		u.Type = AnswersTypeChoice
+		u.Type = DecisionsResponseAnswersTypeChoice
 		return nil
 	case "noul":
 		decisionsNoulAnswer := new(DecisionsNoulAnswer)
 		if err := utils.UnmarshalJSON(data, &decisionsNoulAnswer, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == noul) type DecisionsNoulAnswer within Answers: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == noul) type DecisionsNoulAnswer within DecisionsResponseAnswers: %w", string(data), err)
 		}
 
 		u.DecisionsNoulAnswer = decisionsNoulAnswer
-		u.Type = AnswersTypeNoul
+		u.Type = DecisionsResponseAnswersTypeNoul
 		return nil
 	case "score":
 		decisionsScoreAnswer := new(DecisionsScoreAnswer)
 		if err := utils.UnmarshalJSON(data, &decisionsScoreAnswer, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == score) type DecisionsScoreAnswer within Answers: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == score) type DecisionsScoreAnswer within DecisionsResponseAnswers: %w", string(data), err)
 		}
 
 		u.DecisionsScoreAnswer = decisionsScoreAnswer
-		u.Type = AnswersTypeScore
+		u.Type = DecisionsResponseAnswersTypeScore
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = AnswersTypeUnknown
+		u.Type = DecisionsResponseAnswersTypeUnknown
 		return nil
 	}
 
 }
 
-func (u Answers) MarshalJSON() ([]byte, error) {
+func (u DecisionsResponseAnswers) MarshalJSON() ([]byte, error) {
 	if u.DecisionsNoulAnswer != nil {
 		return utils.MarshalJSON(u.DecisionsNoulAnswer, "", true)
 	}
@@ -187,7 +187,7 @@ func (u Answers) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type Answers: all fields are null")
+	return nil, errors.New("could not marshal union type DecisionsResponseAnswers: all fields are null")
 }
 
 type DecisionsResponseUsage struct {
@@ -218,16 +218,16 @@ func (d *DecisionsResponseUsage) GetOutputTokens() int64 {
 }
 
 type DecisionsResponse struct {
-	Answers  map[string]Answers     `json:"answers"`
-	ID       *string                `json:"id,omitzero"`
-	Model    string                 `json:"model"`
-	Provider *string                `json:"provider,omitzero"`
-	Usage    DecisionsResponseUsage `json:"usage"`
+	Answers  map[string]DecisionsResponseAnswers `json:"answers"`
+	ID       *string                             `json:"id,omitzero"`
+	Model    string                              `json:"model"`
+	Provider *string                             `json:"provider,omitzero"`
+	Usage    DecisionsResponseUsage              `json:"usage"`
 }
 
-func (d *DecisionsResponse) GetAnswers() map[string]Answers {
+func (d *DecisionsResponse) GetAnswers() map[string]DecisionsResponseAnswers {
 	if d == nil {
-		return map[string]Answers{}
+		return map[string]DecisionsResponseAnswers{}
 	}
 	return d.Answers
 }

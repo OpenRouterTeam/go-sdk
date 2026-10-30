@@ -204,6 +204,10 @@ func main() {
 
 * [Create](docs/sdks/decisions/README.md#create) - Submit a Decisions request
 
+### [Alpha.Extractions](docs/sdks/extractions/README.md)
+
+* [Create](docs/sdks/extractions/README.md#create) - Submit an Extractions request
+
 ### [Analytics](docs/sdks/analytics/README.md)
 
 * [GetUserActivity](docs/sdks/analytics/README.md#getuseractivity) - Get user activity grouped by endpoint

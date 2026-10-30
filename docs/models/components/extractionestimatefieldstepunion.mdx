@@ -1,0 +1,38 @@
+---
+title: "ExtractionEstimateFieldStepUnion"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateFieldStepUnion := components.CreateExtractionEstimateFieldStepUnionNumber(float64{/* values here */})
+```
+
+### ExtractionEstimateFieldStepMonth
+
+```go
+extractionEstimateFieldStepUnion := components.CreateExtractionEstimateFieldStepUnionExtractionEstimateFieldStepMonth(components.ExtractionEstimateFieldStepMonth{/* values here */})
+```
+
+### ExtractionEstimateFieldStepYear
+
+```go
+extractionEstimateFieldStepUnion := components.CreateExtractionEstimateFieldStepUnionExtractionEstimateFieldStepYear(components.ExtractionEstimateFieldStepYear{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateFieldStepUnion.Type {
+	case components.ExtractionEstimateFieldStepUnionTypeNumber:
+		// extractionEstimateFieldStepUnion.Number is populated
+	case components.ExtractionEstimateFieldStepUnionTypeExtractionEstimateFieldStepMonth:
+		// extractionEstimateFieldStepUnion.ExtractionEstimateFieldStepMonth is populated
+	case components.ExtractionEstimateFieldStepUnionTypeExtractionEstimateFieldStepYear:
+		// extractionEstimateFieldStepUnion.ExtractionEstimateFieldStepYear is populated
+}
+```

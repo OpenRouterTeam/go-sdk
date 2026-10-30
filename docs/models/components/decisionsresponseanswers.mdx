@@ -1,0 +1,51 @@
+---
+title: "DecisionsResponseAnswers"
+---
+
+A Decisions answer using a boolean, choice, score, or image bounding-box evaluation.
+
+
+## Supported Types
+
+### DecisionsBoxAnswer
+
+```go
+decisionsResponseAnswers := components.CreateDecisionsResponseAnswersBox(components.DecisionsBoxAnswer{/* values here */})
+```
+
+### DecisionsChoiceAnswer
+
+```go
+decisionsResponseAnswers := components.CreateDecisionsResponseAnswersChoice(components.DecisionsChoiceAnswer{/* values here */})
+```
+
+### DecisionsNoulAnswer
+
+```go
+decisionsResponseAnswers := components.CreateDecisionsResponseAnswersNoul(components.DecisionsNoulAnswer{/* values here */})
+```
+
+### DecisionsScoreAnswer
+
+```go
+decisionsResponseAnswers := components.CreateDecisionsResponseAnswersScore(components.DecisionsScoreAnswer{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch decisionsResponseAnswers.Type {
+	case components.DecisionsResponseAnswersTypeBox:
+		// decisionsResponseAnswers.DecisionsBoxAnswer is populated
+	case components.DecisionsResponseAnswersTypeChoice:
+		// decisionsResponseAnswers.DecisionsChoiceAnswer is populated
+	case components.DecisionsResponseAnswersTypeNoul:
+		// decisionsResponseAnswers.DecisionsNoulAnswer is populated
+	case components.DecisionsResponseAnswersTypeScore:
+		// decisionsResponseAnswers.DecisionsScoreAnswer is populated
+	default:
+		// Unknown type - use decisionsResponseAnswers.GetUnknownRaw() for raw JSON
+}
+```

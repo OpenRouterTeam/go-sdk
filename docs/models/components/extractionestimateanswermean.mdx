@@ -1,0 +1,30 @@
+---
+title: "ExtractionEstimateAnswerMean"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateAnswerMean := components.CreateExtractionEstimateAnswerMeanNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateAnswerMean := components.CreateExtractionEstimateAnswerMeanStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateAnswerMean.Type {
+	case components.ExtractionEstimateAnswerMeanTypeNumber:
+		// extractionEstimateAnswerMean.Number is populated
+	case components.ExtractionEstimateAnswerMeanTypeStr:
+		// extractionEstimateAnswerMean.Str is populated
+}
+```

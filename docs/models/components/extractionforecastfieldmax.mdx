@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastFieldMax"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastFieldMax := components.CreateExtractionForecastFieldMaxNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastFieldMax := components.CreateExtractionForecastFieldMaxStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastFieldMax.Type {
+	case components.ExtractionForecastFieldMaxTypeNumber:
+		// extractionForecastFieldMax.Number is populated
+	case components.ExtractionForecastFieldMaxTypeStr:
+		// extractionForecastFieldMax.Str is populated
+}
+```

@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastStepMean"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastStepMean := components.CreateExtractionForecastStepMeanNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastStepMean := components.CreateExtractionForecastStepMeanStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastStepMean.Type {
+	case components.ExtractionForecastStepMeanTypeNumber:
+		// extractionForecastStepMean.Number is populated
+	case components.ExtractionForecastStepMeanTypeStr:
+		// extractionForecastStepMean.Str is populated
+}
+```

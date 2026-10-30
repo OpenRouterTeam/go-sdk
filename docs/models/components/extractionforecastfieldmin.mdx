@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastFieldMin"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastFieldMin := components.CreateExtractionForecastFieldMinNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastFieldMin := components.CreateExtractionForecastFieldMinStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastFieldMin.Type {
+	case components.ExtractionForecastFieldMinTypeNumber:
+		// extractionForecastFieldMin.Number is populated
+	case components.ExtractionForecastFieldMinTypeStr:
+		// extractionForecastFieldMin.Str is populated
+}
+```

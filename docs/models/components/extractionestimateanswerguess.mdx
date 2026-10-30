@@ -1,0 +1,33 @@
+---
+title: "ExtractionEstimateAnswerGuess"
+---
+
+The most likely value even when `value` is null because `p_null` crossed the threshold.
+
+
+## Supported Types
+
+### 
+
+```go
+extractionEstimateAnswerGuess := components.CreateExtractionEstimateAnswerGuessNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionEstimateAnswerGuess := components.CreateExtractionEstimateAnswerGuessStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionEstimateAnswerGuess.Type {
+	case components.ExtractionEstimateAnswerGuessTypeNumber:
+		// extractionEstimateAnswerGuess.Number is populated
+	case components.ExtractionEstimateAnswerGuessTypeStr:
+		// extractionEstimateAnswerGuess.Str is populated
+}
+```

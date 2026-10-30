@@ -1,0 +1,91 @@
+---
+title: "ExtractionsResponseAnswers"
+---
+
+One answer per requested field. `value` is null when the state does not determine it.
+
+
+## Supported Types
+
+### ExtractionDateAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersDate(components.ExtractionDateAnswer{/* values here */})
+```
+
+### ExtractionDatetimeAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersDatetime(components.ExtractionDatetimeAnswer{/* values here */})
+```
+
+### ExtractionDurationAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersDuration(components.ExtractionDurationAnswer{/* values here */})
+```
+
+### ExtractionEstimateAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersEstimate(components.ExtractionEstimateAnswer{/* values here */})
+```
+
+### ExtractionForecastAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersForecast(components.ExtractionForecastAnswer{/* values here */})
+```
+
+### ExtractionListAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersList(components.ExtractionListAnswer{/* values here */})
+```
+
+### ExtractionNumberAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersNumber(components.ExtractionNumberAnswer{/* values here */})
+```
+
+### ExtractionTextAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersText(components.ExtractionTextAnswer{/* values here */})
+```
+
+### ExtractionTimeAnswer
+
+```go
+extractionsResponseAnswers := components.CreateExtractionsResponseAnswersTime(components.ExtractionTimeAnswer{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionsResponseAnswers.Type {
+	case components.ExtractionsResponseAnswersTypeDate:
+		// extractionsResponseAnswers.ExtractionDateAnswer is populated
+	case components.ExtractionsResponseAnswersTypeDatetime:
+		// extractionsResponseAnswers.ExtractionDatetimeAnswer is populated
+	case components.ExtractionsResponseAnswersTypeDuration:
+		// extractionsResponseAnswers.ExtractionDurationAnswer is populated
+	case components.ExtractionsResponseAnswersTypeEstimate:
+		// extractionsResponseAnswers.ExtractionEstimateAnswer is populated
+	case components.ExtractionsResponseAnswersTypeForecast:
+		// extractionsResponseAnswers.ExtractionForecastAnswer is populated
+	case components.ExtractionsResponseAnswersTypeList:
+		// extractionsResponseAnswers.ExtractionListAnswer is populated
+	case components.ExtractionsResponseAnswersTypeNumber:
+		// extractionsResponseAnswers.ExtractionNumberAnswer is populated
+	case components.ExtractionsResponseAnswersTypeText:
+		// extractionsResponseAnswers.ExtractionTextAnswer is populated
+	case components.ExtractionsResponseAnswersTypeTime:
+		// extractionsResponseAnswers.ExtractionTimeAnswer is populated
+	default:
+		// Unknown type - use extractionsResponseAnswers.GetUnknownRaw() for raw JSON
+}
+```

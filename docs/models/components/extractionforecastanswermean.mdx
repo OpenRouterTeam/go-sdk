@@ -1,0 +1,30 @@
+---
+title: "ExtractionForecastAnswerMean"
+---
+
+## Supported Types
+
+### 
+
+```go
+extractionForecastAnswerMean := components.CreateExtractionForecastAnswerMeanNumber(float64{/* values here */})
+```
+
+### 
+
+```go
+extractionForecastAnswerMean := components.CreateExtractionForecastAnswerMeanStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch extractionForecastAnswerMean.Type {
+	case components.ExtractionForecastAnswerMeanTypeNumber:
+		// extractionForecastAnswerMean.Number is populated
+	case components.ExtractionForecastAnswerMeanTypeStr:
+		// extractionForecastAnswerMean.Str is populated
+}
+```

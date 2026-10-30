@@ -1,0 +1,89 @@
+---
+title: "Fields"
+---
+
+A typed field to extract, compute, estimate or forecast from the state. Which types a model answers is model-specific; unsupported types are rejected with 400.
+
+
+## Supported Types
+
+### ExtractionDateField
+
+```go
+fields := components.CreateFieldsDate(components.ExtractionDateField{/* values here */})
+```
+
+### ExtractionDatetimeField
+
+```go
+fields := components.CreateFieldsDatetime(components.ExtractionDatetimeField{/* values here */})
+```
+
+### ExtractionDurationField
+
+```go
+fields := components.CreateFieldsDuration(components.ExtractionDurationField{/* values here */})
+```
+
+### ExtractionEstimateField
+
+```go
+fields := components.CreateFieldsEstimate(components.ExtractionEstimateField{/* values here */})
+```
+
+### ExtractionForecastField
+
+```go
+fields := components.CreateFieldsForecast(components.ExtractionForecastField{/* values here */})
+```
+
+### ExtractionListField
+
+```go
+fields := components.CreateFieldsList(components.ExtractionListField{/* values here */})
+```
+
+### ExtractionNumberField
+
+```go
+fields := components.CreateFieldsNumber(components.ExtractionNumberField{/* values here */})
+```
+
+### ExtractionTextField
+
+```go
+fields := components.CreateFieldsText(components.ExtractionTextField{/* values here */})
+```
+
+### ExtractionTimeField
+
+```go
+fields := components.CreateFieldsTime(components.ExtractionTimeField{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch fields.Type {
+	case components.FieldsTypeDate:
+		// fields.ExtractionDateField is populated
+	case components.FieldsTypeDatetime:
+		// fields.ExtractionDatetimeField is populated
+	case components.FieldsTypeDuration:
+		// fields.ExtractionDurationField is populated
+	case components.FieldsTypeEstimate:
+		// fields.ExtractionEstimateField is populated
+	case components.FieldsTypeForecast:
+		// fields.ExtractionForecastField is populated
+	case components.FieldsTypeList:
+		// fields.ExtractionListField is populated
+	case components.FieldsTypeNumber:
+		// fields.ExtractionNumberField is populated
+	case components.FieldsTypeText:
+		// fields.ExtractionTextField is populated
+	case components.FieldsTypeTime:
+		// fields.ExtractionTimeField is populated
+}
+```
