@@ -832,6 +832,52 @@ func (u *Usage) GetServerToolUseDetails() optionalnullable.OptionalNullable[Serv
 	return u.ServerToolUseDetails
 }
 
+type OpenResponsesResultCyber string
+
+const (
+	OpenResponsesResultCyberStandard     OpenResponsesResultCyber = "standard"
+	OpenResponsesResultCyberDaybreakBlue OpenResponsesResultCyber = "daybreak_blue"
+	OpenResponsesResultCyberDaybreakRed  OpenResponsesResultCyber = "daybreak_red"
+)
+
+func (e OpenResponsesResultCyber) ToPointer() *OpenResponsesResultCyber {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OpenResponsesResultCyber) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "standard", "daybreak_blue", "daybreak_red":
+			return true
+		}
+	}
+	return false
+}
+
+// OpenResponsesResultAccessPrograms - Access program the upstream provider reported for this response (OpenAI `access_programs`). `null` when the provider reported none, including OpenAI's implicit Standard program.
+type OpenResponsesResultAccessPrograms struct {
+	Cyber OpenResponsesResultCyber `json:"cyber"`
+}
+
+func (o OpenResponsesResultAccessPrograms) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OpenResponsesResultAccessPrograms) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OpenResponsesResultAccessPrograms) GetCyber() OpenResponsesResultCyber {
+	if o == nil {
+		return OpenResponsesResultCyber("")
+	}
+	return o.Cyber
+}
+
 // OpenResponsesResult - Complete non-streaming response from the Responses API
 type OpenResponsesResult struct {
 	Background  optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
@@ -874,6 +920,8 @@ type OpenResponsesResult struct {
 	// Token usage information for the response
 	Usage optionalnullable.OptionalNullable[Usage]  `json:"usage,omitzero"`
 	User  optionalnullable.OptionalNullable[string] `json:"user,omitzero"`
+	// Access program the upstream provider reported for this response (OpenAI `access_programs`). `null` when the provider reported none, including OpenAI's implicit Standard program.
+	AccessPrograms optionalnullable.OptionalNullable[OpenResponsesResultAccessPrograms] `json:"access_programs,omitzero"`
 	// Beta. The result of the alignment plugin for this request; the shape may change.
 	Alignment *Alignment `json:"alignment,omitzero"`
 	// Canonical OpenRouter error type, stable across all API formats
@@ -1137,6 +1185,13 @@ func (o *OpenResponsesResult) GetUser() optionalnullable.OptionalNullable[string
 		return nil
 	}
 	return o.User
+}
+
+func (o *OpenResponsesResult) GetAccessPrograms() optionalnullable.OptionalNullable[OpenResponsesResultAccessPrograms] {
+	if o == nil {
+		return nil
+	}
+	return o.AccessPrograms
 }
 
 func (o *OpenResponsesResult) GetAlignment() *Alignment {
