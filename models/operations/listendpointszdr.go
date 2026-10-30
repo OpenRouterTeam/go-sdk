@@ -8,12 +8,12 @@ import (
 
 // ListEndpointsZdrResponse - Returns a list of endpoints
 type ListEndpointsZdrResponse struct {
-	Data []components.PublicEndpoint `json:"data"`
+	Data []components.PublicZdrEndpoint `json:"data"`
 }
 
-func (l *ListEndpointsZdrResponse) GetData() []components.PublicEndpoint {
+func (l *ListEndpointsZdrResponse) GetData() []components.PublicZdrEndpoint {
 	if l == nil {
-		return []components.PublicEndpoint{}
+		return []components.PublicZdrEndpoint{}
 	}
 	return l.Data
 }
