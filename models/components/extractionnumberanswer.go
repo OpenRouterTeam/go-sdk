@@ -8,12 +8,13 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// ExtractionNumberAnswerSource - Set to `image` when the answer was read from an image rather than the state text.
+// ExtractionNumberAnswerSource - Set to `image` or `document` when the answer was read from an image or a PDF rather than the state text.
 type ExtractionNumberAnswerSource string
 
 const (
-	ExtractionNumberAnswerSourceState ExtractionNumberAnswerSource = "state"
-	ExtractionNumberAnswerSourceImage ExtractionNumberAnswerSource = "image"
+	ExtractionNumberAnswerSourceState    ExtractionNumberAnswerSource = "state"
+	ExtractionNumberAnswerSourceImage    ExtractionNumberAnswerSource = "image"
+	ExtractionNumberAnswerSourceDocument ExtractionNumberAnswerSource = "document"
 )
 
 func (e ExtractionNumberAnswerSource) ToPointer() *ExtractionNumberAnswerSource {
@@ -24,7 +25,7 @@ func (e ExtractionNumberAnswerSource) ToPointer() *ExtractionNumberAnswerSource 
 func (e *ExtractionNumberAnswerSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "state", "image":
+		case "state", "image", "document":
 			return true
 		}
 	}
@@ -60,7 +61,7 @@ type ExtractionNumberAnswer struct {
 	Guess *float64 `json:"guess,omitzero"`
 	// Probability that the state contains nothing for this field.
 	PNull *float64 `json:"p_null,omitzero"`
-	// Set to `image` when the answer was read from an image rather than the state text.
+	// Set to `image` or `document` when the answer was read from an image or a PDF rather than the state text.
 	Source *ExtractionNumberAnswerSource `json:"source,omitzero"`
 	// Unicode code point offsets [start, end) into the state text: index code points (not UTF-16 code units or UTF-8 bytes), so an emoji or accented letter counts once.
 	Span []int64 `json:"span,omitzero"`

@@ -293,8 +293,8 @@ func (u Fields) MarshalJSON() ([]byte, error) {
 }
 
 type ExtractionsRequest struct {
-	// Images keyed by reference string, as in TypeSafe's API. Write a reference wherever the image belongs in `state`, `instructions`, or `criteria`; every asset must be referenced at least once. Jev reads a reference as a whole string value or inside longer text. Other Decisions models read a whole-string reference wherever they read an `image_url` part and reject a reference inside longer text.
-	Assets map[string]DecisionsImageAsset `json:"assets,omitzero"`
+	// Assets keyed by reference string. Write a reference wherever the asset belongs in `state` or a field `instructions`; every asset must be referenced at least once. A `state` that is exactly the sole asset's key carries no text of its own and is read as file-only. A model that reads either text or a document per request, not both (ScaleDown Extract with a PDF), needs that form: any other text around the key is state text and is rejected with 400.
+	Assets map[string]ExtractionAsset `json:"assets,omitzero"`
 	// Map of field name to typed field spec.
 	Fields   map[string]Fields                                      `json:"fields"`
 	Model    string                                                 `json:"model"`
@@ -321,7 +321,7 @@ func (e *ExtractionsRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (e *ExtractionsRequest) GetAssets() map[string]DecisionsImageAsset {
+func (e *ExtractionsRequest) GetAssets() map[string]ExtractionAsset {
 	if e == nil {
 		return nil
 	}

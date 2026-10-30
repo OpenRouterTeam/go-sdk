@@ -105,12 +105,13 @@ func (u ExtractionListAnswerGuess) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ExtractionListAnswerGuess: all fields are null")
 }
 
-// ExtractionListAnswerSource - Set to `image` when the answer was read from an image rather than the state text.
+// ExtractionListAnswerSource - Set to `image` or `document` when the answer was read from an image or a PDF rather than the state text.
 type ExtractionListAnswerSource string
 
 const (
-	ExtractionListAnswerSourceState ExtractionListAnswerSource = "state"
-	ExtractionListAnswerSourceImage ExtractionListAnswerSource = "image"
+	ExtractionListAnswerSourceState    ExtractionListAnswerSource = "state"
+	ExtractionListAnswerSourceImage    ExtractionListAnswerSource = "image"
+	ExtractionListAnswerSourceDocument ExtractionListAnswerSource = "document"
 )
 
 func (e ExtractionListAnswerSource) ToPointer() *ExtractionListAnswerSource {
@@ -121,7 +122,7 @@ func (e ExtractionListAnswerSource) ToPointer() *ExtractionListAnswerSource {
 func (e *ExtractionListAnswerSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "state", "image":
+		case "state", "image", "document":
 			return true
 		}
 	}
@@ -249,11 +250,13 @@ func (u ExtractionListAnswerValue) MarshalJSON() ([]byte, error) {
 
 type ExtractionListAnswer struct {
 	Confidence *float64 `json:"confidence,omitzero"`
+	// One confidence per item of `value`, in the same order.
+	Confidences []float64 `json:"confidences,omitzero"`
 	// The most likely value even when `value` is null because `p_null` crossed the threshold.
 	Guess []ExtractionListAnswerGuess `json:"guess,omitzero"`
 	// Probability that the state contains nothing for this field.
 	PNull *float64 `json:"p_null,omitzero"`
-	// Set to `image` when the answer was read from an image rather than the state text.
+	// Set to `image` or `document` when the answer was read from an image or a PDF rather than the state text.
 	Source *ExtractionListAnswerSource `json:"source,omitzero"`
 	Spans  [][]int64                   `json:"spans,omitzero"`
 	// Confidence in the spelling of text read from an image.
@@ -278,6 +281,13 @@ func (e *ExtractionListAnswer) GetConfidence() *float64 {
 		return nil
 	}
 	return e.Confidence
+}
+
+func (e *ExtractionListAnswer) GetConfidences() []float64 {
+	if e == nil {
+		return nil
+	}
+	return e.Confidences
 }
 
 func (e *ExtractionListAnswer) GetGuess() []ExtractionListAnswerGuess {

@@ -1,0 +1,14 @@
+---
+title: "ExtractionAsset"
+---
+
+An image or PDF sent once and referenced by its key in the `assets` map. `data_base64` is the file in standard base64 with no `data:` prefix. PDF is read by document models only.
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `DataBase64`                                                                         | `string`                                                                             | ✔️                                                                   | N/A                                                                                  |
+| `Format`                                                                             | [components.ExtractionAssetFormat](../../models/components/extractionassetformat.mdx) | ✔️                                                                   | N/A                                                                                  |
+| `Type`                                                                               | [*components.ExtractionAssetType](../../models/components/extractionassettype.mdx)    | ➖                                                                   | N/A                                                                                  |

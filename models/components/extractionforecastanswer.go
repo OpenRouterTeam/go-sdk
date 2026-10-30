@@ -489,12 +489,13 @@ func (u ExtractionForecastAnswerP90) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type ExtractionForecastAnswerP90: all fields are null")
 }
 
-// ExtractionForecastAnswerSource - Set to `image` when the answer was read from an image rather than the state text.
+// ExtractionForecastAnswerSource - Set to `image` or `document` when the answer was read from an image or a PDF rather than the state text.
 type ExtractionForecastAnswerSource string
 
 const (
-	ExtractionForecastAnswerSourceState ExtractionForecastAnswerSource = "state"
-	ExtractionForecastAnswerSourceImage ExtractionForecastAnswerSource = "image"
+	ExtractionForecastAnswerSourceState    ExtractionForecastAnswerSource = "state"
+	ExtractionForecastAnswerSourceImage    ExtractionForecastAnswerSource = "image"
+	ExtractionForecastAnswerSourceDocument ExtractionForecastAnswerSource = "document"
 )
 
 func (e ExtractionForecastAnswerSource) ToPointer() *ExtractionForecastAnswerSource {
@@ -505,7 +506,7 @@ func (e ExtractionForecastAnswerSource) ToPointer() *ExtractionForecastAnswerSou
 func (e *ExtractionForecastAnswerSource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "state", "image":
+		case "state", "image", "document":
 			return true
 		}
 	}
@@ -641,7 +642,7 @@ type ExtractionForecastAnswer struct {
 	PNull *float64                      `json:"p_null,omitzero"`
 	P10   []ExtractionForecastAnswerP10 `json:"p10,omitzero"`
 	P90   []ExtractionForecastAnswerP90 `json:"p90,omitzero"`
-	// Set to `image` when the answer was read from an image rather than the state text.
+	// Set to `image` or `document` when the answer was read from an image or a PDF rather than the state text.
 	Source *ExtractionForecastAnswerSource `json:"source,omitzero"`
 	// Confidence in the spelling of text read from an image.
 	SpellConfidence *float64                        `json:"spell_confidence,omitzero"`
