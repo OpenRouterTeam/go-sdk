@@ -1,0 +1,30 @@
+---
+title: "Filter"
+---
+
+## Supported Types
+
+### ScalarFilter
+
+```go
+filter := components.CreateFilterScalarFilter(components.ScalarFilter{/* values here */})
+```
+
+### SetFilter
+
+```go
+filter := components.CreateFilterSetFilter(components.SetFilter{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch filter.Type {
+	case components.FilterTypeScalarFilter:
+		// filter.ScalarFilter is populated
+	case components.FilterTypeSetFilter:
+		// filter.SetFilter is populated
+}
+```

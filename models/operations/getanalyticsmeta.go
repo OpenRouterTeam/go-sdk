@@ -2,6 +2,10 @@
 
 package operations
 
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
 type Dimension struct {
 	// Human-readable label
 	DisplayLabel string `json:"display_label"`
@@ -23,23 +27,23 @@ func (d *Dimension) GetName() string {
 	return d.Name
 }
 
-// GranularityName - Granularity identifier
-type GranularityName string
+// Name - Granularity identifier
+type Name string
 
 const (
-	GranularityNameMinute GranularityName = "minute"
-	GranularityNameHour   GranularityName = "hour"
-	GranularityNameDay    GranularityName = "day"
-	GranularityNameWeek   GranularityName = "week"
-	GranularityNameMonth  GranularityName = "month"
+	NameMinute Name = "minute"
+	NameHour   Name = "hour"
+	NameDay    Name = "day"
+	NameWeek   Name = "week"
+	NameMonth  Name = "month"
 )
 
-func (e GranularityName) ToPointer() *GranularityName {
+func (e Name) ToPointer() *Name {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *GranularityName) IsExact() bool {
+func (e *Name) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "minute", "hour", "day", "week", "month":
@@ -53,7 +57,7 @@ type Granularity struct {
 	// Human-readable label
 	DisplayLabel string `json:"display_label"`
 	// Granularity identifier
-	Name GranularityName `json:"name"`
+	Name Name `json:"name"`
 }
 
 func (g *Granularity) GetDisplayLabel() string {
@@ -63,9 +67,9 @@ func (g *Granularity) GetDisplayLabel() string {
 	return g.DisplayLabel
 }
 
-func (g *Granularity) GetName() GranularityName {
+func (g *Granularity) GetName() Name {
 	if g == nil {
-		return GranularityName("")
+		return Name("")
 	}
 	return g.Name
 }
@@ -135,84 +139,11 @@ func (m *Metric) GetName() string {
 	return m.Name
 }
 
-// OperatorName - Operator identifier used in filter definitions
-type OperatorName string
-
-const (
-	OperatorNameEq    OperatorName = "eq"
-	OperatorNameNeq   OperatorName = "neq"
-	OperatorNameIn    OperatorName = "in"
-	OperatorNameNotIn OperatorName = "not_in"
-	OperatorNameGt    OperatorName = "gt"
-	OperatorNameGte   OperatorName = "gte"
-	OperatorNameLt    OperatorName = "lt"
-	OperatorNameLte   OperatorName = "lte"
-)
-
-func (e OperatorName) ToPointer() *OperatorName {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OperatorName) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "eq", "neq", "in", "not_in", "gt", "gte", "lt", "lte":
-			return true
-		}
-	}
-	return false
-}
-
-// ValueType - Whether the operator expects a single value or an array
-type ValueType string
-
-const (
-	ValueTypeScalar ValueType = "scalar"
-	ValueTypeArray  ValueType = "array"
-)
-
-func (e ValueType) ToPointer() *ValueType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ValueType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "scalar", "array":
-			return true
-		}
-	}
-	return false
-}
-
-type Operator struct {
-	// Operator identifier used in filter definitions
-	Name OperatorName `json:"name"`
-	// Whether the operator expects a single value or an array
-	ValueType ValueType `json:"value_type"`
-}
-
-func (o *Operator) GetName() OperatorName {
-	if o == nil {
-		return OperatorName("")
-	}
-	return o.Name
-}
-
-func (o *Operator) GetValueType() ValueType {
-	if o == nil {
-		return ValueType("")
-	}
-	return o.ValueType
-}
-
 type GetAnalyticsMetaData struct {
-	Dimensions    []Dimension   `json:"dimensions"`
-	Granularities []Granularity `json:"granularities"`
-	Metrics       []Metric      `json:"metrics"`
-	Operators     []Operator    `json:"operators"`
+	Dimensions    []Dimension           `json:"dimensions"`
+	Granularities []Granularity         `json:"granularities"`
+	Metrics       []Metric              `json:"metrics"`
+	Operators     []components.Operator `json:"operators"`
 }
 
 func (g *GetAnalyticsMetaData) GetDimensions() []Dimension {
@@ -236,9 +167,9 @@ func (g *GetAnalyticsMetaData) GetMetrics() []Metric {
 	return g.Metrics
 }
 
-func (g *GetAnalyticsMetaData) GetOperators() []Operator {
+func (g *GetAnalyticsMetaData) GetOperators() []components.Operator {
 	if g == nil {
-		return []Operator{}
+		return []components.Operator{}
 	}
 	return g.Operators
 }
