@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 4f6e06afe3ad4d84525d6e11f8ca32f6
+  docChecksum: 02a5d82bdad76dd83d99d3207fbfefcc
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.100
-  configChecksum: ed0a19f847aa37fd1f9d48cffe5d271a
+  releaseVersion: 0.9.101
+  configChecksum: d64632d7d527365078bb630723dc0a28
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 0ee23dbd-2c74-4859-817d-afb9bba3c815
-  pristine_commit_hash: 872f815723f0175715524010c5574871b2f560da
-  pristine_tree_hash: cfc8102d10cf17280ea21ae7580a75e0d6a0916e
+  generation_id: b401d4c2-2bba-41e3-9628-fbd695e5fc5e
+  pristine_commit_hash: d62b98deacd71098cebb667d203e874652253348
+  pristine_tree_hash: 1593e353df09ff1bffb683af920f78ad73790df4
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2773,8 +2773,8 @@ trackedFiles:
     pristine_git_object: a33751bd8d3047c19e617f341445e42058e49c9b
   docs/models/components/createprivateproviderrequest.mdx:
     id: 2aef47a5e76e
-    last_write_checksum: sha1:e31d8aebdb3752e7580b3dca528367e67cd99035
-    pristine_git_object: b03b15c7fd3e33a5d780514d7ed3d496646bb292
+    last_write_checksum: sha1:54b81fc94d6415bf8c32d4718728640abea7cd2c
+    pristine_git_object: db513beb8f2dd85c0e3f7f65f40fb6b516eab4e4
   docs/models/components/createscimgroupmappingrequest.mdx:
     id: 7a850ab74f21
     last_write_checksum: sha1:e0c34009618f1a12b1bc52adf904a91f6bae0215
@@ -6773,16 +6773,8 @@ trackedFiles:
     pristine_git_object: 24a4fa312a92f5e1903816b7e95fb4b0151ceed4
   docs/models/components/privateprovider.mdx:
     id: 8946018b4fdd
-    last_write_checksum: sha1:b405facb0221a6cb20735a3ba5ba28cf4971f0bb
-    pristine_git_object: a110a8472dab7de2e5f17e5f94249e753837af5c
-  docs/models/components/privateproviderdatapolicy.mdx:
-    id: 6e3825996ab5
-    last_write_checksum: sha1:3af1a62dac5784d8bfa943dc51f565f106648cf4
-    pristine_git_object: 08920bee008f9cd3e38ffd5d84c4fff6cfb68bc1
-  docs/models/components/privateproviderdatapolicy1.mdx:
-    id: 7386fbb18596
-    last_write_checksum: sha1:135020749ccd9db16961df92e73558118bca4d0e
-    pristine_git_object: 91343ee05c2280934fd2b4100231da1ce388c17a
+    last_write_checksum: sha1:17cbdd6823be0ff62dfc1da6ebfdd6d990fc7fc0
+    pristine_git_object: 197070d19ad351fce39121f2c4552e1191ba01b1
   docs/models/components/profile.mdx:
     id: 288f05812862
     last_write_checksum: sha1:67ce090713f4dc2debf9b1154ece474063783db0
@@ -8413,12 +8405,8 @@ trackedFiles:
     pristine_git_object: f8c35f6a99ab48b397ee871376018cda629702fe
   docs/models/components/updateprivateproviderrequest.mdx:
     id: eaeb8a0066fb
-    last_write_checksum: sha1:74a3604fac8497d01bd43f33d163bd582b840cff
-    pristine_git_object: a8b814c4688a493fcfd5920133aca6106bcedb44
-  docs/models/components/updateprivateproviderrequestdatapolicy.mdx:
-    id: e3a5021c54d5
-    last_write_checksum: sha1:5fe23a3609091a863a47b94338c0b4c36a4c93a6
-    pristine_git_object: c9a03688d3fd68318ddbdc98dceb85e6e746da8b
+    last_write_checksum: sha1:43650ca83774873dc95cb30db0c9711b39825897
+    pristine_git_object: 4e1818f0f08ffdab0f247d718797afc845a21cf7
   docs/models/components/updatescimgroupmappingrequest.mdx:
     id: 8462b717a788
     last_write_checksum: sha1:b924175fee7e804188508772aa9420f5fbe68dfb
@@ -8921,8 +8909,8 @@ trackedFiles:
     pristine_git_object: 87cacdb319a1b74e37994af02d27269afca20b64
   docs/models/operations/createprivateproviderresponse.mdx:
     id: 47daa3ba64f7
-    last_write_checksum: sha1:616d2b37d3348714af6e0d88f4d3274aa7494d11
-    pristine_git_object: a535211e67eb043741aee7c16c335f8af8e852d8
+    last_write_checksum: sha1:4347599558bab9c907d1945e086150870604d2c2
+    pristine_git_object: 20c8c9287dca2a5849cde88f2875754de2d93bde
   docs/models/operations/creatererankrequest.mdx:
     id: 01a779a95974
     last_write_checksum: sha1:8502492b7fcba8c1f3077c8aec9bf3359f192a11
@@ -9225,8 +9213,8 @@ trackedFiles:
     pristine_git_object: b218046f744ed934bec7f0096239c6a887fecf7e
   docs/models/operations/getprivateproviderresponse.mdx:
     id: 85f939b9b876
-    last_write_checksum: sha1:f347b2c886f0a959b8417446c5131ffa49c65ee0
-    pristine_git_object: 0cf6defff8dd894a4e9bee7411f76a548ccd2722
+    last_write_checksum: sha1:3f43080c2b3bfe0bc81f4b9f99e8039797ef78d2
+    pristine_git_object: a4470209cbc66b7271d0346440bccabb67d766f1
   docs/models/operations/getrankingsdailycategory.mdx:
     id: 9307256562a8
     last_write_checksum: sha1:54cbc5eeff2ad4d6135fe8f00fc2e7f8985e0255
@@ -9777,8 +9765,8 @@ trackedFiles:
     pristine_git_object: 10fce4403f42fe4187c0168b6379fd1cd2aaf210
   docs/models/operations/updateprivateproviderresponse.mdx:
     id: 0485273f4c2d
-    last_write_checksum: sha1:a2b691d1ca76b2d753dea7aa040907d24eafb034
-    pristine_git_object: 924ab941d5f70d1a9025c73d83c65501dc0077e7
+    last_write_checksum: sha1:a444dd187eaedb48a5b85ed3519067d3121282d9
+    pristine_git_object: d03fd79d5a9394ea4ed25b0e43c7426345370ec2
   docs/models/operations/updatescimgroupmappingrequest.mdx:
     id: 43c83b37300b
     last_write_checksum: sha1:984022ca3a1ccdc622349c0c008604839c1898f0
@@ -10033,8 +10021,8 @@ trackedFiles:
     pristine_git_object: ebf88faa45e9b78f1cc00fd6e5b9e88d981ba1c2
   docs/sdks/privateproviders/README.mdx:
     id: 517c31195442
-    last_write_checksum: sha1:2a0d7d9276018959a5e31dfccbce3c2dbdf61407
-    pristine_git_object: fecfd78edc8af0bbab2acfe50ceabc43cf281ca4
+    last_write_checksum: sha1:61e0bd2720662add4c029183add924462d10d0d5
+    pristine_git_object: b7974bed89daeed450ec76b4a669cd0b927404ce
   docs/sdks/providers/README.mdx:
     id: 5ea9af111324
     last_write_checksum: sha1:b87961797dfa49843093abcd329624eb287b6e1a
@@ -11329,8 +11317,8 @@ trackedFiles:
     pristine_git_object: cc2aadd987ad8385fbfa1845fa9b2d2f69ff62d5
   models/components/createprivateproviderrequest.go:
     id: 5ca8183f2d19
-    last_write_checksum: sha1:5bdc72ffdd1267f22a0144b3b2a4a835d3465c08
-    pristine_git_object: 02dd964e1220d9e1dd4e31baeacd0d83207b1725
+    last_write_checksum: sha1:dc0ca59b381df4cd221de3630d0af0236c1bdfea
+    pristine_git_object: 5a6ac56eec78d523c1c4403efd118a07ca392f83
   models/components/createscimgroupmappingrequest.go:
     id: d0877fd73b57
     last_write_checksum: sha1:0cac272fcedc1714c806037c85815c830f7d4de5
@@ -12853,12 +12841,8 @@ trackedFiles:
     pristine_git_object: f8fbeb10954f73ea22ade7f60f00261dbed08205
   models/components/privateprovider.go:
     id: 897e93acbe71
-    last_write_checksum: sha1:4a3c616c6d1d3af754b59136bb2fce788a5a2cc6
-    pristine_git_object: 6a2af29b4333ce472129eadf5582f663174e9c5d
-  models/components/privateproviderdatapolicy.go:
-    id: f9702fba7898
-    last_write_checksum: sha1:d5bf2cf2c9db654ef2e255d59191894e4a9549d2
-    pristine_git_object: d2bd02f7d53061966b2bcc59c1a468635c5828ec
+    last_write_checksum: sha1:3d2f082e056dae1ba912c172d616a8dd861e4229
+    pristine_git_object: 5543cc0f9c25a5a3db0ffccf034d66faf36982a2
   models/components/promptcachebreakpoint.go:
     id: e860a0ecba2b
     last_write_checksum: sha1:d4bfe44f0653f4d9b02e822a4392e7653e3bf415
@@ -13549,8 +13533,8 @@ trackedFiles:
     pristine_git_object: 598064a0d04db0cd4a7ed13f0ab4258d16bf9d86
   models/components/updateprivateproviderrequest.go:
     id: 79dbb8f5f752
-    last_write_checksum: sha1:c244d8f26c49d7b1333e40f98411b9d529662924
-    pristine_git_object: 4d6b02d318d6e0d808c3aef048734df7137a0c6a
+    last_write_checksum: sha1:35f3a676afce306c375a677aea2397c6997c9295
+    pristine_git_object: 77adaec2979142bfb9792a5c2887f4e35d158a36
   models/components/updatescimgroupmappingrequest.go:
     id: 4963afd201a4
     last_write_checksum: sha1:95039b12fec3c92275510b1d1fd7d14189d0a797
@@ -14369,8 +14353,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:17101ded535cb4360bd452a471f9bf7c485608b4
-    pristine_git_object: 77f903633831854d0a5a3572f93144c9aabf2a0f
+    last_write_checksum: sha1:e6d3e6ed114848bf42a89d48cbb36d73e442836c
+    pristine_git_object: 0c5b2d1dc7bbdade013849a50f839ab88e26c81a
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -14393,8 +14377,8 @@ trackedFiles:
     pristine_git_object: 98a863826b6ecf05a434d4473a0bba345477c37b
   privateproviders.go:
     id: 6bf379ba5780
-    last_write_checksum: sha1:6c85c7490f0e6c972d1c91edde48f4e88e4fad92
-    pristine_git_object: 352b637ae9183ee7201a8db2c3b8970cf77f1944
+    last_write_checksum: sha1:d829e985a85256c2a0ea72540e085614eb5a6ac2
+    pristine_git_object: 0c32eb69af0a0176ea74257069929b0bff64d9ba
   providers.go:
     id: e89bb17ecd7b
     last_write_checksum: sha1:f7efa5132e6f08282ebf8658f92e67d2f5c38242
@@ -18875,7 +18859,7 @@ examples:
     speakeasy-default-list-private-providers:
       responses:
         "200":
-          application/json: {"data": [{"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "data_policy": {"prompt_retention_days": null, "retains_prompts": false, "training": false}, "display_name": "Acme", "name": "Acme", "slug": "acme"}]}
+          application/json: {"data": [{"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "display_name": "Acme", "name": "Acme", "slug": "acme"}]}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "403":
@@ -18888,7 +18872,7 @@ examples:
         application/json: {"name": "Acme"}
       responses:
         "201":
-          application/json: {"data": {"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "data_policy": {"prompt_retention_days": null, "retains_prompts": false, "training": false}, "display_name": "Acme", "name": "Acme", "slug": "acme"}}
+          application/json: {"data": {"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "display_name": "Acme", "name": "Acme", "slug": "acme"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -18944,7 +18928,7 @@ examples:
           slug: "acme"
       responses:
         "200":
-          application/json: {"data": {"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "data_policy": {"prompt_retention_days": null, "retains_prompts": false, "training": false}, "display_name": "Acme", "name": "Acme", "slug": "acme"}}
+          application/json: {"data": {"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "display_name": "Acme", "name": "Acme", "slug": "acme"}}
         "401":
           application/json: {"error": {"code": 401, "message": "Missing Authentication header"}}
         "403":
@@ -18962,7 +18946,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"data": {"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "data_policy": {"prompt_retention_days": null, "retains_prompts": false, "training": false}, "display_name": "Acme", "name": "Acme", "slug": "acme"}}
+          application/json: {"data": {"base_url": "https://inference.example.com/v1", "created_at": "2026-10-06T12:00:00.000Z", "display_name": "Acme", "name": "Acme", "slug": "acme"}}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "401":
@@ -19015,8 +18999,4 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.ApiKeys.List()`:  `error.status[403]` **Added**
-  * `OpenRouter.ApiKeys.Delete()`:  `error.status[403]` **Added**
-  * `OpenRouter.ApiKeys.Get()`:  `error.status[403]` **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.PrivateProviders.List()`:  `response.Data[].DataPolicy` **Removed** (Breaking ⚠️)\n* `OpenRouter.PrivateProviders.Create()`: \n  *  `request.Request.DataPolicy` **Removed** (Breaking ⚠️)\n  *  `response.Data.DataPolicy` **Removed** (Breaking ⚠️)\n* `OpenRouter.PrivateProviders.Get()`:  `response.Data.DataPolicy` **Removed** (Breaking ⚠️)\n* `OpenRouter.PrivateProviders.Update()`: \n  *  `request.UpdatePrivateProviderRequest.DataPolicy` **Removed** (Breaking ⚠️)\n  *  `response.Data.DataPolicy` **Removed** (Breaking ⚠️)\n"

@@ -2,46 +2,10 @@
 
 package components
 
-// PrivateProviderDataPolicy1 - Your declared data policy, or `null` when none was declared.
-type PrivateProviderDataPolicy1 struct {
-	// Days prompts are retained. Must be `null` unless `retains_prompts` is true.
-	PromptRetentionDays *int64 `json:"prompt_retention_days"`
-	// Whether the provider retains prompts or completions.
-	RetainsPrompts bool `json:"retains_prompts"`
-	// Whether the provider trains on prompts.
-	Training bool `json:"training"`
-}
-
-func (p *PrivateProviderDataPolicy1) GetPromptRetentionDays() *int64 {
-	if p == nil {
-		return nil
-	}
-	return p.PromptRetentionDays
-}
-
-func (p *PrivateProviderDataPolicy1) GetRetainsPrompts() bool {
-	if p == nil {
-		return false
-	}
-	return p.RetainsPrompts
-}
-
-func (p *PrivateProviderDataPolicy1) GetTraining() bool {
-	if p == nil {
-		return false
-	}
-	return p.Training
-}
-
-// #region class-body-privateproviderdatapolicy1
-// #endregion class-body-privateproviderdatapolicy1
-
 type PrivateProvider struct {
 	// HTTPS base URL of an OpenAI-compatible API, used by private endpoints under this provider that set no URL of their own. Without it, each endpoint must set its own. Private, internal, metadata and OpenRouter hosts are rejected.
 	BaseURL   *string `json:"base_url"`
 	CreatedAt string  `json:"created_at"`
-	// Your declared data policy, or `null` when none was declared.
-	DataPolicy *PrivateProviderDataPolicy1 `json:"data_policy"`
 	// Human-readable provider name shown in the UI.
 	DisplayName string `json:"display_name"`
 	// Provider name, shown in your activity, logs and Broadcast output.
@@ -62,13 +26,6 @@ func (p *PrivateProvider) GetCreatedAt() string {
 		return ""
 	}
 	return p.CreatedAt
-}
-
-func (p *PrivateProvider) GetDataPolicy() *PrivateProviderDataPolicy1 {
-	if p == nil {
-		return nil
-	}
-	return p.DataPolicy
 }
 
 func (p *PrivateProvider) GetDisplayName() string {
