@@ -2,15 +2,10 @@
 
 package components
 
-import (
-	"github.com/OpenRouterTeam/go-sdk/internal/utils"
-)
-
+// CreatePrivateProviderRequest - A private provider serves only your organization, so its endpoints are recorded as retaining no prompts, training on none and publishing none, and pass every data-policy filter your account or guardrails apply.
 type CreatePrivateProviderRequest struct {
 	// HTTPS base URL of an OpenAI-compatible API, used by private endpoints under this provider that set no URL of their own. Without it, each endpoint must set its own. Private, internal, metadata and OpenRouter hosts are rejected.
 	BaseURL *string `json:"base_url,omitzero"`
-	// Defaults to training on and retaining prompts, the most conservative declaration. Your own declaration; it applies to your own traffic and OpenRouter does not verify it.
-	DataPolicy *PrivateProviderDataPolicy `json:"data_policy,omitzero"`
 	// Defaults to `name`.
 	DisplayName *string `json:"display_name,omitzero"`
 	// Provider name, shown in your activity, logs and Broadcast output. 2-64 letters, numbers, spaces, dots, underscores or hyphens. Cannot be changed later. Neither the name nor its slug may match a public provider name or slug (case-insensitive); other customers may use the same name.
@@ -19,29 +14,11 @@ type CreatePrivateProviderRequest struct {
 	Slug *string `json:"slug,omitzero"`
 }
 
-func (c CreatePrivateProviderRequest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreatePrivateProviderRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (c *CreatePrivateProviderRequest) GetBaseURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseURL
-}
-
-func (c *CreatePrivateProviderRequest) GetDataPolicy() *PrivateProviderDataPolicy {
-	if c == nil {
-		return nil
-	}
-	return c.DataPolicy
 }
 
 func (c *CreatePrivateProviderRequest) GetDisplayName() *string {
