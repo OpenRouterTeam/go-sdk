@@ -47,6 +47,7 @@ type VideoGenerationRequestOptions struct {
 	AmazonBedrockClaudeOnAws map[string]any `json:"amazon-bedrock/claude-on-aws,omitzero"`
 	AmazonNova               map[string]any `json:"amazon-nova,omitzero"`
 	Ambient                  map[string]any `json:"ambient,omitzero"`
+	Antdigital               map[string]any `json:"antdigital,omitzero"`
 	Anthropic                map[string]any `json:"anthropic,omitzero"`
 	Anthropic2               map[string]any `json:"anthropic/2,omitzero"`
 	Anyscale                 map[string]any `json:"anyscale,omitzero"`
@@ -264,6 +265,13 @@ func (v *VideoGenerationRequestOptions) GetAmbient() map[string]any {
 		return nil
 	}
 	return v.Ambient
+}
+
+func (v *VideoGenerationRequestOptions) GetAntdigital() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Antdigital
 }
 
 func (v *VideoGenerationRequestOptions) GetAnthropic() map[string]any {
