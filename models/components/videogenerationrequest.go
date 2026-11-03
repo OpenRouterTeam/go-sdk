@@ -141,6 +141,7 @@ type VideoGenerationRequestOptions struct {
 	Parasail                 map[string]any `json:"parasail,omitzero"`
 	ParetoAlpha              map[string]any `json:"pareto-alpha,omitzero"`
 	ParticleAi               map[string]any `json:"particle-ai,omitzero"`
+	PearlResearch            map[string]any `json:"pearl-research,omitzero"`
 	Perceptron               map[string]any `json:"perceptron,omitzero"`
 	Perplexity               map[string]any `json:"perplexity,omitzero"`
 	Phala                    map[string]any `json:"phala,omitzero"`
@@ -921,6 +922,13 @@ func (v *VideoGenerationRequestOptions) GetParticleAi() map[string]any {
 		return nil
 	}
 	return v.ParticleAi
+}
+
+func (v *VideoGenerationRequestOptions) GetPearlResearch() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.PearlResearch
 }
 
 func (v *VideoGenerationRequestOptions) GetPerceptron() map[string]any {
