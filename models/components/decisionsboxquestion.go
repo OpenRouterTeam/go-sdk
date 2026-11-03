@@ -17,7 +17,7 @@ const (
 	DecisionsBoxQuestionInstructionsTypeArrayOfAny DecisionsBoxQuestionInstructionsType = "arrayOfAny"
 )
 
-// DecisionsBoxQuestionInstructions - A plain string, or a JSON object or array of structured guidance.
+// DecisionsBoxQuestionInstructions - A description of the target to find, naming the image in `state` it is in; not a command, and no `criteria`.
 type DecisionsBoxQuestionInstructions struct {
 	Str        *string        `queryParam:"inline" union:"member"`
 	MapOfAny   map[string]any `queryParam:"inline" union:"member"`
@@ -155,8 +155,9 @@ func (e *DecisionsBoxQuestionType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// DecisionsBoxQuestion - Finds one target in an image in `state` and answers with one bounding box (`top`, `bottom`, `left`, `right` as fractions of the image). Served by TypeSafe Jev endpoints only; every other provider rejects a box question with `400` before anything is sent upstream.
 type DecisionsBoxQuestion struct {
-	// A plain string, or a JSON object or array of structured guidance.
+	// A description of the target to find, naming the image in `state` it is in; not a command, and no `criteria`.
 	Instructions DecisionsBoxQuestionInstructions `json:"instructions"`
 	Type         DecisionsBoxQuestionType         `json:"type"`
 }
