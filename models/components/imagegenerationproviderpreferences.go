@@ -212,6 +212,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	AmazonBedrockClaudeOnAws map[string]any `json:"amazon-bedrock/claude-on-aws,omitzero"`
 	AmazonNova               map[string]any `json:"amazon-nova,omitzero"`
 	Ambient                  map[string]any `json:"ambient,omitzero"`
+	Antdigital               map[string]any `json:"antdigital,omitzero"`
 	Anthropic                map[string]any `json:"anthropic,omitzero"`
 	Anthropic2               map[string]any `json:"anthropic/2,omitzero"`
 	Anyscale                 map[string]any `json:"anyscale,omitzero"`
@@ -429,6 +430,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetAmbient() map[string]any 
 		return nil
 	}
 	return i.Ambient
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetAntdigital() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Antdigital
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetAnthropic() map[string]any {

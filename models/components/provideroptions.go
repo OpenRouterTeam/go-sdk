@@ -17,6 +17,7 @@ type ProviderOptions struct {
 	AmazonBedrockClaudeOnAws map[string]any `json:"amazon-bedrock/claude-on-aws,omitzero"`
 	AmazonNova               map[string]any `json:"amazon-nova,omitzero"`
 	Ambient                  map[string]any `json:"ambient,omitzero"`
+	Antdigital               map[string]any `json:"antdigital,omitzero"`
 	Anthropic                map[string]any `json:"anthropic,omitzero"`
 	Anthropic2               map[string]any `json:"anthropic/2,omitzero"`
 	Anyscale                 map[string]any `json:"anyscale,omitzero"`
@@ -234,6 +235,13 @@ func (p *ProviderOptions) GetAmbient() map[string]any {
 		return nil
 	}
 	return p.Ambient
+}
+
+func (p *ProviderOptions) GetAntdigital() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Antdigital
 }
 
 func (p *ProviderOptions) GetAnthropic() map[string]any {
