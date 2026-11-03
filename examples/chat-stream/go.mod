@@ -2,6 +2,6 @@ module github.com/OpenRouterTeam/go-sdk/examples/chat-stream
 
 go 1.26.10
 
-require github.com/OpenRouterTeam/go-sdk v0.9.103
+require github.com/OpenRouterTeam/go-sdk v0.9.104
 
 require github.com/spyzhov/ajson v0.9.6 // indirect
