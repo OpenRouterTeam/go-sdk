@@ -191,9 +191,22 @@ func (u DecisionsResponseAnswers) MarshalJSON() ([]byte, error) {
 }
 
 type DecisionsResponseUsage struct {
-	Cost         *float64 `json:"cost,omitzero"`
-	InputTokens  int64    `json:"input_tokens"`
-	OutputTokens int64    `json:"output_tokens"`
+	Cost        *float64 `json:"cost,omitzero"`
+	InputTokens int64    `json:"input_tokens"`
+	// Of `input_tokens`, those the provider served from its prompt cache.
+	InputTokensDetails *DecisionsUsageInputTokensDetails `json:"input_tokens_details,omitzero"`
+	OutputTokens       int64                             `json:"output_tokens"`
+}
+
+func (d DecisionsResponseUsage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DecisionsResponseUsage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DecisionsResponseUsage) GetCost() *float64 {
@@ -208,6 +221,13 @@ func (d *DecisionsResponseUsage) GetInputTokens() int64 {
 		return 0
 	}
 	return d.InputTokens
+}
+
+func (d *DecisionsResponseUsage) GetInputTokensDetails() *DecisionsUsageInputTokensDetails {
+	if d == nil {
+		return nil
+	}
+	return d.InputTokensDetails
 }
 
 func (d *DecisionsResponseUsage) GetOutputTokens() int64 {

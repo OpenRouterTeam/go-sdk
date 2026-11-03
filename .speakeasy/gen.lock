@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: fc29333ddf4d53bd14d2992fe9d431a1
+  docChecksum: 053bc9f7cbc3bf2536f463b9a3e93992
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.105
-  configChecksum: 882927bf7df66e49a460ce4dae559d2c
+  releaseVersion: 0.9.106
+  configChecksum: 98a5b081e4120e6ccacd410b78e160fb
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b2076cbe-b5a6-4663-893b-60fed67cfc46
-  pristine_commit_hash: 14f9fcfa46a5c8b4082d26e247abcaca5187081a
-  pristine_tree_hash: 30dbb977020b8809af8ec63cf4231138be4dfc2c
+  generation_id: 2820b506-693b-42e7-b6f4-a345f7df54f1
+  pristine_commit_hash: 1d59185b61feaef5a3b17b08f954035e0b97fd95
+  pristine_tree_hash: fbd064edac21d3408d3676609f7b26df4db8f8e4
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3021,8 +3021,8 @@ trackedFiles:
     pristine_git_object: b553b37fa80fbb8ae645bb318071e8b4269bfa0c
   docs/models/components/decisionsresponseusage.mdx:
     id: 5f71cc828ed1
-    last_write_checksum: sha1:ea9a45337148752ba7d786d16893744b9e239e45
-    pristine_git_object: d959b8a1c52cd77524a7ef79a3d852c2413832f6
+    last_write_checksum: sha1:49a05b21e1a9140d45e121094634c0f51baef0d6
+    pristine_git_object: 5de1e5f53a4760821664ff59878959c38652febe
   docs/models/components/decisionsscoreanswer.mdx:
     id: 95de1dad7f4b
     last_write_checksum: sha1:e03e1c05b4c4aeb56066af75efa54336c9287e95
@@ -3043,6 +3043,10 @@ trackedFiles:
     id: d63f0c5e9a58
     last_write_checksum: sha1:975f88e9a422cb7e218fb16a544c71521043c99b
     pristine_git_object: d0d05eb4ed3d813f4527d54829451925859f6233
+  docs/models/components/decisionsusageinputtokensdetails.mdx:
+    id: 7da909d24b5d
+    last_write_checksum: sha1:89430809e30c3f43f60a4217031fb86700d2cbc2
+    pristine_git_object: 53bcbca3469ebe3aa86060cde554cbe1e8c6da6d
   docs/models/components/defaulteffort.mdx:
     id: c5ea88acb139
     last_write_checksum: sha1:0d8c4301a0799ee62f6228181df1a76beea8dbc0
@@ -11413,8 +11417,8 @@ trackedFiles:
     pristine_git_object: 5403af6abe65e9de74275e94b2e8d7a605e53041
   models/components/decisionsresponse.go:
     id: 1b2105695179
-    last_write_checksum: sha1:28b41690ef558cfc2bd03cf6da3294f41f8ebb07
-    pristine_git_object: 2e98160e51fdfd5034fe5078dce54c882b675e26
+    last_write_checksum: sha1:d4b78440d6ae56406a1fb54f3b77c46ea634c0af
+    pristine_git_object: c790301baf09a4b29e0c09db06a3d605b299376c
   models/components/decisionsscoreanswer.go:
     id: 4e6dfd67aedf
     last_write_checksum: sha1:d7a226bec7220a9aae568a79c4ad5bf4406f3099
@@ -11423,6 +11427,10 @@ trackedFiles:
     id: e012f364be2e
     last_write_checksum: sha1:a32f09df8d9d8a980867af64e461c9cedeeac119
     pristine_git_object: 194ecaa1da7eca9636f319ed08cf848145770654
+  models/components/decisionsusageinputtokensdetails.go:
+    id: 446ffc25a78a
+    last_write_checksum: sha1:271b75c89cf5bc0dc561a47fc35e177b98489824
+    pristine_git_object: c5c589c2728972b42f5e1f869b4421bffc56fa7f
   models/components/defaultparameters.go:
     id: 10efe2631c2c
     last_write_checksum: sha1:5b1129447a5d31e9195bc1770335d78de6d96d9a
@@ -14353,8 +14361,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:707657b9fddcc752080b03a42b759ae75bb5c8ee
-    pristine_git_object: 8ba8f36629ab360882bff1f9e1a4294c653569c0
+    last_write_checksum: sha1:79afa6ecedac1a5c0622db62567d11020e8659fd
+    pristine_git_object: d93b5aff0e010a92c46a4c6514ffaedd6f4a7874
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -18999,4 +19007,7 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Include[].Enum(output.encryptedContent)` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Alpha.Decisions.Create()`:  `response.Usage.InputTokensDetails` **Added**
+  * `OpenRouter.SystemOne.Create()`:  `response.Usage.InputTokensDetails` **Added**
