@@ -3,6 +3,8 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
@@ -33,15 +35,314 @@ func (e *STTRequestDataCollection) IsExact() bool {
 	return false
 }
 
-// STTRequestProvider - Provider configuration: data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
+type STTRequestIgnoreType string
+
+const (
+	STTRequestIgnoreTypeProviderName STTRequestIgnoreType = "ProviderName"
+	STTRequestIgnoreTypeStr          STTRequestIgnoreType = "str"
+)
+
+type STTRequestIgnore struct {
+	ProviderName *ProviderName `queryParam:"inline" union:"member"`
+	Str          *string       `queryParam:"inline" union:"member"`
+
+	Type STTRequestIgnoreType
+}
+
+func CreateSTTRequestIgnoreProviderName(providerName ProviderName) STTRequestIgnore {
+	typ := STTRequestIgnoreTypeProviderName
+
+	return STTRequestIgnore{
+		ProviderName: &providerName,
+		Type:         typ,
+	}
+}
+
+func CreateSTTRequestIgnoreStr(str string) STTRequestIgnore {
+	typ := STTRequestIgnoreTypeStr
+
+	return STTRequestIgnore{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *STTRequestIgnore) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = STTRequestIgnore{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var providerName ProviderName = ProviderName("")
+	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTRequestIgnoreTypeProviderName,
+			Value: &providerName,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTRequestIgnoreTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestIgnore", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestIgnore", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(STTRequestIgnoreType)
+	switch best.Type {
+	case STTRequestIgnoreTypeProviderName:
+		u.ProviderName = best.Value.(*ProviderName)
+		return nil
+	case STTRequestIgnoreTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestIgnore", string(data))
+}
+
+func (u STTRequestIgnore) MarshalJSON() ([]byte, error) {
+	if u.ProviderName != nil {
+		return utils.MarshalJSON(u.ProviderName, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type STTRequestIgnore: all fields are null")
+}
+
+type STTRequestOnlyType string
+
+const (
+	STTRequestOnlyTypeProviderName STTRequestOnlyType = "ProviderName"
+	STTRequestOnlyTypeStr          STTRequestOnlyType = "str"
+)
+
+type STTRequestOnly struct {
+	ProviderName *ProviderName `queryParam:"inline" union:"member"`
+	Str          *string       `queryParam:"inline" union:"member"`
+
+	Type STTRequestOnlyType
+}
+
+func CreateSTTRequestOnlyProviderName(providerName ProviderName) STTRequestOnly {
+	typ := STTRequestOnlyTypeProviderName
+
+	return STTRequestOnly{
+		ProviderName: &providerName,
+		Type:         typ,
+	}
+}
+
+func CreateSTTRequestOnlyStr(str string) STTRequestOnly {
+	typ := STTRequestOnlyTypeStr
+
+	return STTRequestOnly{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *STTRequestOnly) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = STTRequestOnly{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var providerName ProviderName = ProviderName("")
+	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTRequestOnlyTypeProviderName,
+			Value: &providerName,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTRequestOnlyTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestOnly", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestOnly", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(STTRequestOnlyType)
+	switch best.Type {
+	case STTRequestOnlyTypeProviderName:
+		u.ProviderName = best.Value.(*ProviderName)
+		return nil
+	case STTRequestOnlyTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestOnly", string(data))
+}
+
+func (u STTRequestOnly) MarshalJSON() ([]byte, error) {
+	if u.ProviderName != nil {
+		return utils.MarshalJSON(u.ProviderName, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type STTRequestOnly: all fields are null")
+}
+
+type STTRequestOrderType string
+
+const (
+	STTRequestOrderTypeProviderName STTRequestOrderType = "ProviderName"
+	STTRequestOrderTypeStr          STTRequestOrderType = "str"
+)
+
+type STTRequestOrder struct {
+	ProviderName *ProviderName `queryParam:"inline" union:"member"`
+	Str          *string       `queryParam:"inline" union:"member"`
+
+	Type STTRequestOrderType
+}
+
+func CreateSTTRequestOrderProviderName(providerName ProviderName) STTRequestOrder {
+	typ := STTRequestOrderTypeProviderName
+
+	return STTRequestOrder{
+		ProviderName: &providerName,
+		Type:         typ,
+	}
+}
+
+func CreateSTTRequestOrderStr(str string) STTRequestOrder {
+	typ := STTRequestOrderTypeStr
+
+	return STTRequestOrder{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *STTRequestOrder) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = STTRequestOrder{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var providerName ProviderName = ProviderName("")
+	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTRequestOrderTypeProviderName,
+			Value: &providerName,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  STTRequestOrderTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestOrder", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestOrder", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(STTRequestOrderType)
+	switch best.Type {
+	case STTRequestOrderTypeProviderName:
+		u.ProviderName = best.Value.(*ProviderName)
+		return nil
+	case STTRequestOrderTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for STTRequestOrder", string(data))
+}
+
+func (u STTRequestOrder) MarshalJSON() ([]byte, error) {
+	if u.ProviderName != nil {
+		return utils.MarshalJSON(u.ProviderName, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type STTRequestOrder: all fields are null")
+}
+
+// STTRequestProvider - Provider configuration: provider routing preferences (`order`, `only`, `ignore`, `allow_fallbacks`), data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 type STTRequestProvider struct {
+	// Whether to allow backup providers to serve requests
+	// - true: (default) when the primary provider (or your custom providers in "order") is unavailable, use the next best provider.
+	// - false: use only the primary/custom provider, and return the upstream error if it's unavailable.
+	//
+	AllowFallbacks optionalnullable.OptionalNullable[bool] `json:"allow_fallbacks,omitzero"`
 	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
 	// - allow: (default) allow providers which store user data non-transiently and may train on it
 	//
 	// - deny: use only providers which do not collect user data.
 	DataCollection optionalnullable.OptionalNullable[STTRequestDataCollection] `json:"data_collection,omitzero"`
+	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
+	Ignore optionalnullable.OptionalNullable[[]STTRequestIgnore] `json:"ignore,omitzero"`
+	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
+	Only optionalnullable.OptionalNullable[[]STTRequestOnly] `json:"only,omitzero"`
 	// Provider-specific options keyed by provider slug. The provider segment is case-insensitive; an endpoint tag after `/` must match the endpoint slug exactly. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 	Options *ProviderOptions `json:"options,omitzero"`
+	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
+	Order optionalnullable.OptionalNullable[[]STTRequestOrder] `json:"order,omitzero"`
 	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
 	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 }
@@ -57,6 +358,13 @@ func (s *STTRequestProvider) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (s *STTRequestProvider) GetAllowFallbacks() optionalnullable.OptionalNullable[bool] {
+	if s == nil {
+		return nil
+	}
+	return s.AllowFallbacks
+}
+
 func (s *STTRequestProvider) GetDataCollection() optionalnullable.OptionalNullable[STTRequestDataCollection] {
 	if s == nil {
 		return nil
@@ -64,11 +372,32 @@ func (s *STTRequestProvider) GetDataCollection() optionalnullable.OptionalNullab
 	return s.DataCollection
 }
 
+func (s *STTRequestProvider) GetIgnore() optionalnullable.OptionalNullable[[]STTRequestIgnore] {
+	if s == nil {
+		return nil
+	}
+	return s.Ignore
+}
+
+func (s *STTRequestProvider) GetOnly() optionalnullable.OptionalNullable[[]STTRequestOnly] {
+	if s == nil {
+		return nil
+	}
+	return s.Only
+}
+
 func (s *STTRequestProvider) GetOptions() *ProviderOptions {
 	if s == nil {
 		return nil
 	}
 	return s.Options
+}
+
+func (s *STTRequestProvider) GetOrder() optionalnullable.OptionalNullable[[]STTRequestOrder] {
+	if s == nil {
+		return nil
+	}
+	return s.Order
 }
 
 func (s *STTRequestProvider) GetZdr() optionalnullable.OptionalNullable[bool] {
@@ -113,7 +442,7 @@ type STTRequest struct {
 	Language *string `json:"language,omitzero"`
 	// STT model identifier
 	Model string `json:"model"`
-	// Provider configuration: data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
+	// Provider configuration: provider routing preferences (`order`, `only`, `ignore`, `allow_fallbacks`), data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 	Provider *STTRequestProvider `json:"provider,omitzero"`
 	// Output format. "json" (default) returns { text, usage }. "verbose_json" additionally returns task, language, duration, and segment-level timestamps; only supported by OpenAI-compatible providers.
 	ResponseFormat *STTRequestResponseFormat `json:"response_format,omitzero"`

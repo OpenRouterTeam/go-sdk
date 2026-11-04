@@ -1,0 +1,30 @@
+---
+title: "SpeechRequestOrder"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+speechRequestOrder := components.CreateSpeechRequestOrderProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+speechRequestOrder := components.CreateSpeechRequestOrderStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch speechRequestOrder.Type {
+	case components.SpeechRequestOrderTypeProviderName:
+		// speechRequestOrder.ProviderName is populated
+	case components.SpeechRequestOrderTypeStr:
+		// speechRequestOrder.Str is populated
+}
+```

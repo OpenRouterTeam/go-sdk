@@ -3,6 +3,8 @@
 package components
 
 import (
+	"errors"
+	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
@@ -33,15 +35,314 @@ func (e *SpeechRequestDataCollection) IsExact() bool {
 	return false
 }
 
-// SpeechRequestProvider - Provider configuration: data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
+type SpeechRequestIgnoreType string
+
+const (
+	SpeechRequestIgnoreTypeProviderName SpeechRequestIgnoreType = "ProviderName"
+	SpeechRequestIgnoreTypeStr          SpeechRequestIgnoreType = "str"
+)
+
+type SpeechRequestIgnore struct {
+	ProviderName *ProviderName `queryParam:"inline" union:"member"`
+	Str          *string       `queryParam:"inline" union:"member"`
+
+	Type SpeechRequestIgnoreType
+}
+
+func CreateSpeechRequestIgnoreProviderName(providerName ProviderName) SpeechRequestIgnore {
+	typ := SpeechRequestIgnoreTypeProviderName
+
+	return SpeechRequestIgnore{
+		ProviderName: &providerName,
+		Type:         typ,
+	}
+}
+
+func CreateSpeechRequestIgnoreStr(str string) SpeechRequestIgnore {
+	typ := SpeechRequestIgnoreTypeStr
+
+	return SpeechRequestIgnore{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *SpeechRequestIgnore) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = SpeechRequestIgnore{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var providerName ProviderName = ProviderName("")
+	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SpeechRequestIgnoreTypeProviderName,
+			Value: &providerName,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SpeechRequestIgnoreTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestIgnore", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestIgnore", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(SpeechRequestIgnoreType)
+	switch best.Type {
+	case SpeechRequestIgnoreTypeProviderName:
+		u.ProviderName = best.Value.(*ProviderName)
+		return nil
+	case SpeechRequestIgnoreTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestIgnore", string(data))
+}
+
+func (u SpeechRequestIgnore) MarshalJSON() ([]byte, error) {
+	if u.ProviderName != nil {
+		return utils.MarshalJSON(u.ProviderName, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type SpeechRequestIgnore: all fields are null")
+}
+
+type SpeechRequestOnlyType string
+
+const (
+	SpeechRequestOnlyTypeProviderName SpeechRequestOnlyType = "ProviderName"
+	SpeechRequestOnlyTypeStr          SpeechRequestOnlyType = "str"
+)
+
+type SpeechRequestOnly struct {
+	ProviderName *ProviderName `queryParam:"inline" union:"member"`
+	Str          *string       `queryParam:"inline" union:"member"`
+
+	Type SpeechRequestOnlyType
+}
+
+func CreateSpeechRequestOnlyProviderName(providerName ProviderName) SpeechRequestOnly {
+	typ := SpeechRequestOnlyTypeProviderName
+
+	return SpeechRequestOnly{
+		ProviderName: &providerName,
+		Type:         typ,
+	}
+}
+
+func CreateSpeechRequestOnlyStr(str string) SpeechRequestOnly {
+	typ := SpeechRequestOnlyTypeStr
+
+	return SpeechRequestOnly{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *SpeechRequestOnly) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = SpeechRequestOnly{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var providerName ProviderName = ProviderName("")
+	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SpeechRequestOnlyTypeProviderName,
+			Value: &providerName,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SpeechRequestOnlyTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestOnly", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestOnly", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(SpeechRequestOnlyType)
+	switch best.Type {
+	case SpeechRequestOnlyTypeProviderName:
+		u.ProviderName = best.Value.(*ProviderName)
+		return nil
+	case SpeechRequestOnlyTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestOnly", string(data))
+}
+
+func (u SpeechRequestOnly) MarshalJSON() ([]byte, error) {
+	if u.ProviderName != nil {
+		return utils.MarshalJSON(u.ProviderName, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type SpeechRequestOnly: all fields are null")
+}
+
+type SpeechRequestOrderType string
+
+const (
+	SpeechRequestOrderTypeProviderName SpeechRequestOrderType = "ProviderName"
+	SpeechRequestOrderTypeStr          SpeechRequestOrderType = "str"
+)
+
+type SpeechRequestOrder struct {
+	ProviderName *ProviderName `queryParam:"inline" union:"member"`
+	Str          *string       `queryParam:"inline" union:"member"`
+
+	Type SpeechRequestOrderType
+}
+
+func CreateSpeechRequestOrderProviderName(providerName ProviderName) SpeechRequestOrder {
+	typ := SpeechRequestOrderTypeProviderName
+
+	return SpeechRequestOrder{
+		ProviderName: &providerName,
+		Type:         typ,
+	}
+}
+
+func CreateSpeechRequestOrderStr(str string) SpeechRequestOrder {
+	typ := SpeechRequestOrderTypeStr
+
+	return SpeechRequestOrder{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func (u *SpeechRequestOrder) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = SpeechRequestOrder{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var providerName ProviderName = ProviderName("")
+	if err := utils.UnmarshalJSON(data, &providerName, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SpeechRequestOrderTypeProviderName,
+			Value: &providerName,
+		})
+	}
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  SpeechRequestOrderTypeStr,
+			Value: &str,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestOrder", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestOrder", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(SpeechRequestOrderType)
+	switch best.Type {
+	case SpeechRequestOrderTypeProviderName:
+		u.ProviderName = best.Value.(*ProviderName)
+		return nil
+	case SpeechRequestOrderTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for SpeechRequestOrder", string(data))
+}
+
+func (u SpeechRequestOrder) MarshalJSON() ([]byte, error) {
+	if u.ProviderName != nil {
+		return utils.MarshalJSON(u.ProviderName, "", true)
+	}
+
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type SpeechRequestOrder: all fields are null")
+}
+
+// SpeechRequestProvider - Provider configuration: provider routing preferences (`order`, `only`, `ignore`, `allow_fallbacks`), data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 type SpeechRequestProvider struct {
+	// Whether to allow backup providers to serve requests
+	// - true: (default) when the primary provider (or your custom providers in "order") is unavailable, use the next best provider.
+	// - false: use only the primary/custom provider, and return the upstream error if it's unavailable.
+	//
+	AllowFallbacks optionalnullable.OptionalNullable[bool] `json:"allow_fallbacks,omitzero"`
 	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
 	// - allow: (default) allow providers which store user data non-transiently and may train on it
 	//
 	// - deny: use only providers which do not collect user data.
 	DataCollection optionalnullable.OptionalNullable[SpeechRequestDataCollection] `json:"data_collection,omitzero"`
+	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
+	Ignore optionalnullable.OptionalNullable[[]SpeechRequestIgnore] `json:"ignore,omitzero"`
+	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
+	Only optionalnullable.OptionalNullable[[]SpeechRequestOnly] `json:"only,omitzero"`
 	// Provider-specific options keyed by provider slug. The provider segment is case-insensitive; an endpoint tag after `/` must match the endpoint slug exactly. Only options for the matched provider are forwarded; the rest are ignored. Unrecognized keys are silently dropped.
 	Options *ProviderOptions `json:"options,omitzero"`
+	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
+	Order optionalnullable.OptionalNullable[[]SpeechRequestOrder] `json:"order,omitzero"`
 	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
 	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 }
@@ -57,6 +358,13 @@ func (s *SpeechRequestProvider) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (s *SpeechRequestProvider) GetAllowFallbacks() optionalnullable.OptionalNullable[bool] {
+	if s == nil {
+		return nil
+	}
+	return s.AllowFallbacks
+}
+
 func (s *SpeechRequestProvider) GetDataCollection() optionalnullable.OptionalNullable[SpeechRequestDataCollection] {
 	if s == nil {
 		return nil
@@ -64,11 +372,32 @@ func (s *SpeechRequestProvider) GetDataCollection() optionalnullable.OptionalNul
 	return s.DataCollection
 }
 
+func (s *SpeechRequestProvider) GetIgnore() optionalnullable.OptionalNullable[[]SpeechRequestIgnore] {
+	if s == nil {
+		return nil
+	}
+	return s.Ignore
+}
+
+func (s *SpeechRequestProvider) GetOnly() optionalnullable.OptionalNullable[[]SpeechRequestOnly] {
+	if s == nil {
+		return nil
+	}
+	return s.Only
+}
+
 func (s *SpeechRequestProvider) GetOptions() *ProviderOptions {
 	if s == nil {
 		return nil
 	}
 	return s.Options
+}
+
+func (s *SpeechRequestProvider) GetOrder() optionalnullable.OptionalNullable[[]SpeechRequestOrder] {
+	if s == nil {
+		return nil
+	}
+	return s.Order
 }
 
 func (s *SpeechRequestProvider) GetZdr() optionalnullable.OptionalNullable[bool] {
@@ -111,7 +440,7 @@ type SpeechRequest struct {
 	Instructions *string `json:"instructions,omitzero"`
 	// TTS model identifier
 	Model string `json:"model"`
-	// Provider configuration: data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
+	// Provider configuration: provider routing preferences (`order`, `only`, `ignore`, `allow_fallbacks`), data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 	Provider *SpeechRequestProvider `json:"provider,omitzero"`
 	// Audio output format
 	ResponseFormat *SpeechRequestResponseFormat `default:"pcm" json:"response_format"`

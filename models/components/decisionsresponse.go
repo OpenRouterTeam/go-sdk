@@ -15,17 +15,19 @@ const (
 	DecisionsResponseAnswersTypeBox     DecisionsResponseAnswersType = "box"
 	DecisionsResponseAnswersTypeChoice  DecisionsResponseAnswersType = "choice"
 	DecisionsResponseAnswersTypeNoul    DecisionsResponseAnswersType = "noul"
+	DecisionsResponseAnswersTypeRefusal DecisionsResponseAnswersType = "refusal"
 	DecisionsResponseAnswersTypeScore   DecisionsResponseAnswersType = "score"
 	DecisionsResponseAnswersTypeUnknown DecisionsResponseAnswersType = "UNKNOWN"
 )
 
-// DecisionsResponseAnswers - A Decisions answer using a boolean, choice, score, or image bounding-box evaluation.
+// DecisionsResponseAnswers - A Decisions answer using a boolean, choice, score, or image bounding-box evaluation, or a refusal of that question.
 type DecisionsResponseAnswers struct {
-	DecisionsNoulAnswer   *DecisionsNoulAnswer   `queryParam:"inline" union:"member"`
-	DecisionsChoiceAnswer *DecisionsChoiceAnswer `queryParam:"inline" union:"member"`
-	DecisionsScoreAnswer  *DecisionsScoreAnswer  `queryParam:"inline" union:"member"`
-	DecisionsBoxAnswer    *DecisionsBoxAnswer    `queryParam:"inline" union:"member"`
-	UnknownRaw            json.RawMessage        `json:"-" union:"unknown"`
+	DecisionsNoulAnswer    *DecisionsNoulAnswer    `queryParam:"inline" union:"member"`
+	DecisionsChoiceAnswer  *DecisionsChoiceAnswer  `queryParam:"inline" union:"member"`
+	DecisionsScoreAnswer   *DecisionsScoreAnswer   `queryParam:"inline" union:"member"`
+	DecisionsBoxAnswer     *DecisionsBoxAnswer     `queryParam:"inline" union:"member"`
+	DecisionsRefusalAnswer *DecisionsRefusalAnswer `queryParam:"inline" union:"member"`
+	UnknownRaw             json.RawMessage         `json:"-" union:"unknown"`
 
 	Type DecisionsResponseAnswersType
 }
@@ -63,6 +65,18 @@ func CreateDecisionsResponseAnswersNoul(noul DecisionsNoulAnswer) DecisionsRespo
 	return DecisionsResponseAnswers{
 		DecisionsNoulAnswer: &noul,
 		Type:                typ,
+	}
+}
+
+func CreateDecisionsResponseAnswersRefusal(refusal DecisionsRefusalAnswer) DecisionsResponseAnswers {
+	typ := DecisionsResponseAnswersTypeRefusal
+
+	typStr := DecisionsRefusalAnswerType(typ)
+	refusal.Type = typStr
+
+	return DecisionsResponseAnswers{
+		DecisionsRefusalAnswer: &refusal,
+		Type:                   typ,
 	}
 }
 
@@ -150,6 +164,15 @@ func (u *DecisionsResponseAnswers) UnmarshalJSON(data []byte) (err error) {
 		u.DecisionsNoulAnswer = decisionsNoulAnswer
 		u.Type = DecisionsResponseAnswersTypeNoul
 		return nil
+	case "refusal":
+		decisionsRefusalAnswer := new(DecisionsRefusalAnswer)
+		if err := utils.UnmarshalJSON(data, &decisionsRefusalAnswer, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == refusal) type DecisionsRefusalAnswer within DecisionsResponseAnswers: %w", string(data), err)
+		}
+
+		u.DecisionsRefusalAnswer = decisionsRefusalAnswer
+		u.Type = DecisionsResponseAnswersTypeRefusal
+		return nil
 	case "score":
 		decisionsScoreAnswer := new(DecisionsScoreAnswer)
 		if err := utils.UnmarshalJSON(data, &decisionsScoreAnswer, "", true, nil); err != nil {
@@ -182,6 +205,10 @@ func (u DecisionsResponseAnswers) MarshalJSON() ([]byte, error) {
 
 	if u.DecisionsBoxAnswer != nil {
 		return utils.MarshalJSON(u.DecisionsBoxAnswer, "", true)
+	}
+
+	if u.DecisionsRefusalAnswer != nil {
+		return utils.MarshalJSON(u.DecisionsRefusalAnswer, "", true)
 	}
 
 	if u.UnknownRaw != nil {
@@ -238,11 +265,31 @@ func (d *DecisionsResponseUsage) GetOutputTokens() int64 {
 }
 
 type DecisionsResponse struct {
-	Answers  map[string]DecisionsResponseAnswers `json:"answers"`
-	ID       *string                             `json:"id,omitzero"`
-	Model    string                              `json:"model"`
-	Provider *string                             `json:"provider,omitzero"`
-	Usage    DecisionsResponseUsage              `json:"usage"`
+	// Sources for the request as a whole, when the provider returns them. Not attributed to individual answers.
+	Annotations []DecisionsURLCitationAnnotation    `json:"annotations,omitzero"`
+	Answers     map[string]DecisionsResponseAnswers `json:"answers"`
+	ID          *string                             `json:"id,omitzero"`
+	Model       string                              `json:"model"`
+	Provider    *string                             `json:"provider,omitzero"`
+	Usage       DecisionsResponseUsage              `json:"usage"`
+}
+
+func (d DecisionsResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DecisionsResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DecisionsResponse) GetAnnotations() []DecisionsURLCitationAnnotation {
+	if d == nil {
+		return nil
+	}
+	return d.Annotations
 }
 
 func (d *DecisionsResponse) GetAnswers() map[string]DecisionsResponseAnswers {

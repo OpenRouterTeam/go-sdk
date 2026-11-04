@@ -1,0 +1,30 @@
+---
+title: "SpeechRequestOnly"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+speechRequestOnly := components.CreateSpeechRequestOnlyProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+speechRequestOnly := components.CreateSpeechRequestOnlyStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch speechRequestOnly.Type {
+	case components.SpeechRequestOnlyTypeProviderName:
+		// speechRequestOnly.ProviderName is populated
+	case components.SpeechRequestOnlyTypeStr:
+		// speechRequestOnly.Str is populated
+}
+```
