@@ -42,8 +42,6 @@ type CreatePrivateEndpointRequest struct {
 	DeclaredRegion optionalnullable.OptionalNullable[CreatePrivateEndpointRequestDeclaredRegion] `json:"declared_region,omitzero"`
 	// Attest that this deployment retains no prompt or completion data.
 	DeclaredZdr optionalnullable.OptionalNullable[bool] `json:"declared_zdr,omitzero"`
-	// Cap on completion tokens per request. Requests asking for more skip this endpoint, and the default output length stays within it. When omitted, the cap is copied from the public endpoint for the same model and provider, if there is one.
-	MaxCompletionTokens *int64 `json:"max_completion_tokens,omitzero"`
 	// Permanent slug of the model this endpoint serves.
 	ModelPermaslug string `json:"model_permaslug"`
 	// Negotiated per-token rates reported for requests routed to this endpoint.
@@ -100,13 +98,6 @@ func (c *CreatePrivateEndpointRequest) GetDeclaredZdr() optionalnullable.Optiona
 		return nil
 	}
 	return c.DeclaredZdr
-}
-
-func (c *CreatePrivateEndpointRequest) GetMaxCompletionTokens() *int64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxCompletionTokens
 }
 
 func (c *CreatePrivateEndpointRequest) GetModelPermaslug() string {
