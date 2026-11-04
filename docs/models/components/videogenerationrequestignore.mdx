@@ -1,0 +1,30 @@
+---
+title: "VideoGenerationRequestIgnore"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+videoGenerationRequestIgnore := components.CreateVideoGenerationRequestIgnoreProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+videoGenerationRequestIgnore := components.CreateVideoGenerationRequestIgnoreStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch videoGenerationRequestIgnore.Type {
+	case components.VideoGenerationRequestIgnoreTypeProviderName:
+		// videoGenerationRequestIgnore.ProviderName is populated
+	case components.VideoGenerationRequestIgnoreTypeStr:
+		// videoGenerationRequestIgnore.Str is populated
+}
+```
