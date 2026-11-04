@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6f9d2c018b760b5ac91077d95b57a525
+  docChecksum: 97cdea269ea2a4f10bc893df61b6ad69
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.111
-  configChecksum: 3d5511ae8c5835ddb10decdc7f6e650f
+  releaseVersion: 0.9.112
+  configChecksum: 848d2514167cbe07a4c7ff3dc930bf5a
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f45ade46-8562-4ca3-9a80-bc0eb5d52b83
-  pristine_commit_hash: 16c24400f1b0c869110ddc020e82bb7f64286fc1
-  pristine_tree_hash: bab57d96f275253542a0ead68442f8383225d836
+  generation_id: ec7ac89c-218d-4313-a53c-5cde6bbd5958
+  pristine_commit_hash: c5e0b332dfddcd6614601e36be3539519a5a97d6
+  pristine_tree_hash: 8acd96b5a026dad1ac228cdddf3deef605a9e9fa
 features:
   go:
     acceptHeaders: 2.81.2
@@ -3551,6 +3551,10 @@ trackedFiles:
     id: 28d825f1c4b1
     last_write_checksum: sha1:5a94a54785e0744f44780d116687dfacf33fd796
     pristine_git_object: 286fa7314f48ee4d5c7b429b5cb133f04c04aab3
+  docs/models/components/extractions.mdx:
+    id: af47c62e77c5
+    last_write_checksum: sha1:c2e2134dba151740840ff82fd6736ec3838ab2c2
+    pristine_git_object: 85ab9461148fe560ae66613d489299b9c4d818e6
   docs/models/components/extractionsrequest.mdx:
     id: ea8a8db756ac
     last_write_checksum: sha1:2516f0485057de07502ff5588660c243262bb906
@@ -6577,8 +6581,8 @@ trackedFiles:
     pristine_git_object: 7a536ff3c452c0391a764cba451a195500f9ca71
   docs/models/components/perflast30mbyworkload.mdx:
     id: b3c9012eeeab
-    last_write_checksum: sha1:60e2f7911528cfc4ed184b6439f6d08f42cecd31
-    pristine_git_object: 318aa1803944e5d70271bd48fda765f2322d4508
+    last_write_checksum: sha1:af1fb51b104e79998680ca13f627e8f2e43050be
+    pristine_git_object: 8b11dc519f8ab8cd76ea6b707a1aaa7469ec8df7
   docs/models/components/perrequestlimits.mdx:
     id: ad1bc39d07f7
     last_write_checksum: sha1:0193f85577f76b7d6a33e4952285dc30b566d421
@@ -11571,6 +11575,10 @@ trackedFiles:
     id: d07f3016d00e
     last_write_checksum: sha1:fa5312668ca4997d8df263433b37b2e7e443e37d
     pristine_git_object: 54705f3ad55e4278b5431f58385d81da8d0a13d7
+  models/components/extractions.go:
+    id: 12791143e87f
+    last_write_checksum: sha1:a434e2ede1cfa4609fb030cd4252eafebc80da57
+    pristine_git_object: c1b06ee968dba04c532a5226276263e5e24937f1
   models/components/extractionsrequest.go:
     id: 93164d2427e4
     last_write_checksum: sha1:96fe2e9fc1a266363b00ded8660be7c212726d71
@@ -12697,8 +12705,8 @@ trackedFiles:
     pristine_git_object: b8e72a5156ce5a18b0f3bc9df95eb3b0627a92a4
   models/components/perflast30mbyworkload.go:
     id: 8454158a3d92
-    last_write_checksum: sha1:efab9499da54ed2597a2a3b3832591d81301831f
-    pristine_git_object: 279384327ffcdeb0408323be0a8a3a3d503ddcc5
+    last_write_checksum: sha1:8a1a306f676c3ee07b3c3a3d25cec11ddf19e18c
+    pristine_git_object: 012568f699e79860f7ca7583656e34f62ad00717
   models/components/perrequestlimits.go:
     id: 1bb3a7374b22
     last_write_checksum: sha1:bb106e3b25a00a549908e0eddc8aa66a3db5ce46
@@ -14329,8 +14337,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:331919e14e258bf06c142cba6977a0792848707b
-    pristine_git_object: 60b4407189cfc6591a6f5d3fa6cb37da32de49d2
+    last_write_checksum: sha1:dbba98accad1443ee55e0e01b9f34b049ea76781
+    pristine_git_object: dad14b6569b900cfb1ea2b75c7b107eb400659e3
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -18977,4 +18985,5 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Generations.GetGeneration()`:  `response.Data.ApiType.Enum(toolsInvoke)` **Added**
+  * `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].PerfLast30mByWorkload.Extractions` **Added**
+  * `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].PerfLast30mByWorkload.Extractions` **Added**

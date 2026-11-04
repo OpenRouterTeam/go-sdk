@@ -10,6 +10,7 @@ import (
 type PerfLast30mByWorkload struct {
 	Decisions       *Decisions       `json:"decisions,omitzero"`
 	Embeddings      *Embeddings      `json:"embeddings,omitzero"`
+	Extractions     *Extractions     `json:"extractions,omitzero"`
 	ImageGeneration *ImageGeneration `json:"image_generation,omitzero"`
 	Rerank          *Rerank          `json:"rerank,omitzero"`
 	STT             *STT             `json:"stt,omitzero"`
@@ -42,6 +43,13 @@ func (p *PerfLast30mByWorkload) GetEmbeddings() *Embeddings {
 		return nil
 	}
 	return p.Embeddings
+}
+
+func (p *PerfLast30mByWorkload) GetExtractions() *Extractions {
+	if p == nil {
+		return nil
+	}
+	return p.Extractions
 }
 
 func (p *PerfLast30mByWorkload) GetImageGeneration() *ImageGeneration {
