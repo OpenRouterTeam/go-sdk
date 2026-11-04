@@ -109,6 +109,7 @@ type ProviderOptions struct {
 	Ollama                   map[string]any `json:"ollama,omitzero"`
 	OpenInference            map[string]any `json:"open-inference,omitzero"`
 	Openai                   map[string]any `json:"openai,omitzero"`
+	Parallel                 map[string]any `json:"parallel,omitzero"`
 	Parasail                 map[string]any `json:"parasail,omitzero"`
 	ParetoAlpha              map[string]any `json:"pareto-alpha,omitzero"`
 	ParticleAi               map[string]any `json:"particle-ai,omitzero"`
@@ -879,6 +880,13 @@ func (p *ProviderOptions) GetOpenai() map[string]any {
 		return nil
 	}
 	return p.Openai
+}
+
+func (p *ProviderOptions) GetParallel() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Parallel
 }
 
 func (p *ProviderOptions) GetParasail() map[string]any {

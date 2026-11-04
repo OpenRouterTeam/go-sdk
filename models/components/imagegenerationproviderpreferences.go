@@ -304,6 +304,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Ollama                   map[string]any `json:"ollama,omitzero"`
 	OpenInference            map[string]any `json:"open-inference,omitzero"`
 	Openai                   map[string]any `json:"openai,omitzero"`
+	Parallel                 map[string]any `json:"parallel,omitzero"`
 	Parasail                 map[string]any `json:"parasail,omitzero"`
 	ParetoAlpha              map[string]any `json:"pareto-alpha,omitzero"`
 	ParticleAi               map[string]any `json:"particle-ai,omitzero"`
@@ -1074,6 +1075,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetOpenai() map[string]any {
 		return nil
 	}
 	return i.Openai
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetParallel() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Parallel
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetParasail() map[string]any {
