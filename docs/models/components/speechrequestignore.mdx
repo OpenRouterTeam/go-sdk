@@ -1,0 +1,30 @@
+---
+title: "SpeechRequestIgnore"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+speechRequestIgnore := components.CreateSpeechRequestIgnoreProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+speechRequestIgnore := components.CreateSpeechRequestIgnoreStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch speechRequestIgnore.Type {
+	case components.SpeechRequestIgnoreTypeProviderName:
+		// speechRequestIgnore.ProviderName is populated
+	case components.SpeechRequestIgnoreTypeStr:
+		// speechRequestIgnore.Str is populated
+}
+```

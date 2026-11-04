@@ -1,0 +1,30 @@
+---
+title: "STTRequestOnly"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+sttRequestOnly := components.CreateSTTRequestOnlyProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+sttRequestOnly := components.CreateSTTRequestOnlyStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch sttRequestOnly.Type {
+	case components.STTRequestOnlyTypeProviderName:
+		// sttRequestOnly.ProviderName is populated
+	case components.STTRequestOnlyTypeStr:
+		// sttRequestOnly.Str is populated
+}
+```

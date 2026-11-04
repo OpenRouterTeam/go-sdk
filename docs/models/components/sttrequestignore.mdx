@@ -1,0 +1,30 @@
+---
+title: "STTRequestIgnore"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+sttRequestIgnore := components.CreateSTTRequestIgnoreProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+sttRequestIgnore := components.CreateSTTRequestIgnoreStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch sttRequestIgnore.Type {
+	case components.STTRequestIgnoreTypeProviderName:
+		// sttRequestIgnore.ProviderName is populated
+	case components.STTRequestIgnoreTypeStr:
+		// sttRequestIgnore.Str is populated
+}
+```

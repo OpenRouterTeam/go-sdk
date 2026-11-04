@@ -1,0 +1,30 @@
+---
+title: "STTRequestOrder"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+sttRequestOrder := components.CreateSTTRequestOrderProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+sttRequestOrder := components.CreateSTTRequestOrderStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch sttRequestOrder.Type {
+	case components.STTRequestOrderTypeProviderName:
+		// sttRequestOrder.ProviderName is populated
+	case components.STTRequestOrderTypeStr:
+		// sttRequestOrder.Str is populated
+}
+```

@@ -2,7 +2,7 @@
 title: "DecisionsResponseAnswers"
 ---
 
-A Decisions answer using a boolean, choice, score, or image bounding-box evaluation.
+A Decisions answer using a boolean, choice, score, or image bounding-box evaluation, or a refusal of that question.
 
 
 ## Supported Types
@@ -25,6 +25,12 @@ decisionsResponseAnswers := components.CreateDecisionsResponseAnswersChoice(comp
 decisionsResponseAnswers := components.CreateDecisionsResponseAnswersNoul(components.DecisionsNoulAnswer{/* values here */})
 ```
 
+### DecisionsRefusalAnswer
+
+```go
+decisionsResponseAnswers := components.CreateDecisionsResponseAnswersRefusal(components.DecisionsRefusalAnswer{/* values here */})
+```
+
 ### DecisionsScoreAnswer
 
 ```go
@@ -43,6 +49,8 @@ switch decisionsResponseAnswers.Type {
 		// decisionsResponseAnswers.DecisionsChoiceAnswer is populated
 	case components.DecisionsResponseAnswersTypeNoul:
 		// decisionsResponseAnswers.DecisionsNoulAnswer is populated
+	case components.DecisionsResponseAnswersTypeRefusal:
+		// decisionsResponseAnswers.DecisionsRefusalAnswer is populated
 	case components.DecisionsResponseAnswersTypeScore:
 		// decisionsResponseAnswers.DecisionsScoreAnswer is populated
 	default:
