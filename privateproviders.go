@@ -301,7 +301,7 @@ func (s *PrivateProviders) List(ctx context.Context, opts ...operations.Option) 
 }
 
 // Create a private provider
-// Create a private, bring-your-own-key provider visible only to your organization. Use its slug as `provider_slug` when creating private endpoints. Requires both the private endpoints and the private providers entitlements. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Create a private, bring-your-own-key provider visible only to your organization. Use its slug as `provider_slug` when creating private endpoints. Requires the private endpoints entitlement. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *PrivateProviders) Create(ctx context.Context, request components.CreatePrivateProviderRequest, opts ...operations.Option) (*operations.CreatePrivateProviderResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
