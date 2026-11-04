@@ -55,7 +55,7 @@ func (e *CreateKeysLimitReset) IsExact() bool {
 }
 
 type CreateKeysRequest struct {
-	// Optional user ID of the key creator. Only meaningful for organization-owned keys where a specific member is creating the key.
+	// Optional user ID of the key creator. Only meaningful for organization-owned keys where a specific member is creating the key. A workspace-scoped management key may only name a member of its own workspace.
 	CreatorUserID optionalnullable.OptionalNullable[string] `json:"creator_user_id,omitzero"`
 	// Optional ISO 8601 UTC expiration timestamp. Must include seconds (YYYY-MM-DDTHH:MM:SSZ; fractional seconds allowed); minute-precision timestamps are rejected.
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expires_at,omitzero"`
