@@ -385,6 +385,7 @@ func main() {
 ### [Providers](docs/sdks/providers/README.md)
 
 * [List](docs/sdks/providers/README.md#list) - List all providers
+* [ListProviderEndpoints](docs/sdks/providers/README.md#listproviderendpoints) - List a provider's endpoints with provider-wide stats
 
 ### [Rerank](docs/sdks/rerank/README.md)
 
