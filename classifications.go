@@ -52,7 +52,7 @@ func newClassifications(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, 
 //
 // When republishing or quoting this data, cite as:
 // "Source: OpenRouter (openrouter.ai/rankings), as of {as_of}."
-func (s *Classifications) GetTaskClassifications(ctx context.Context, window *operations.Window, opts ...operations.Option) (*components.TaskClassificationResponse, error) {
+func (s *Classifications) GetTaskClassifications(ctx context.Context, window *operations.GetTaskClassificationsWindow, opts ...operations.Option) (*components.TaskClassificationResponse, error) {
 	request := operations.GetTaskClassificationsRequest{
 		Window: window,
 	}
