@@ -53,7 +53,7 @@ func main() {
         openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
     )
 
-    res, err := s.Classifications.GetTaskClassifications(ctx, operations.GetTaskClassificationsWindowSevend.ToPointer())
+    res, err := s.Classifications.GetTaskClassifications(ctx, operations.WindowSevend.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
@@ -68,7 +68,7 @@ func main() {
 | Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           | Example                                                                                               |
 | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                 | ✔️                                                                                    | The context to use for the request.                                                                   |                                                                                                       |
-| `window`                                                                                              | [*operations.GetTaskClassificationsWindow](../../models/operations/gettaskclassificationswindow.mdx)   | ➖                                                                                    | Trailing time window for the classification data. Currently only `7d` (trailing 7 days) is supported. | 7d                                                                                                    |
+| `window`                                                                                              | [*operations.Window](../../models/operations/window.mdx)                                               | ➖                                                                                    | Trailing time window for the classification data. Currently only `7d` (trailing 7 days) is supported. | 7d                                                                                                    |
 | `opts`                                                                                                | [][operations.Option](../../models/operations/option.mdx)                                              | ➖                                                                                    | The options for this request.                                                                         |                                                                                                       |
 
 ### Response

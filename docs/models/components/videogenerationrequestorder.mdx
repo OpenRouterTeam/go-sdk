@@ -1,0 +1,30 @@
+---
+title: "VideoGenerationRequestOrder"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+videoGenerationRequestOrder := components.CreateVideoGenerationRequestOrderProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+videoGenerationRequestOrder := components.CreateVideoGenerationRequestOrderStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch videoGenerationRequestOrder.Type {
+	case components.VideoGenerationRequestOrderTypeProviderName:
+		// videoGenerationRequestOrder.ProviderName is populated
+	case components.VideoGenerationRequestOrderTypeStr:
+		// videoGenerationRequestOrder.Str is populated
+}
+```

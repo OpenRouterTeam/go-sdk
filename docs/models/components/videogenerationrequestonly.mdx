@@ -1,0 +1,30 @@
+---
+title: "VideoGenerationRequestOnly"
+---
+
+## Supported Types
+
+### ProviderName
+
+```go
+videoGenerationRequestOnly := components.CreateVideoGenerationRequestOnlyProviderName(components.ProviderName{/* values here */})
+```
+
+### 
+
+```go
+videoGenerationRequestOnly := components.CreateVideoGenerationRequestOnlyStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch videoGenerationRequestOnly.Type {
+	case components.VideoGenerationRequestOnlyTypeProviderName:
+		// videoGenerationRequestOnly.ProviderName is populated
+	case components.VideoGenerationRequestOnlyTypeStr:
+		// videoGenerationRequestOnly.Str is populated
+}
+```

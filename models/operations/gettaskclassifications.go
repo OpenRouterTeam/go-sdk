@@ -8,33 +8,33 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-// GetTaskClassificationsWindow - Trailing time window for the classification data. Currently only `7d` (trailing 7 days) is supported.
-type GetTaskClassificationsWindow string
+// Window - Trailing time window for the classification data. Currently only `7d` (trailing 7 days) is supported.
+type Window string
 
 const (
-	GetTaskClassificationsWindowSevend GetTaskClassificationsWindow = "7d"
+	WindowSevend Window = "7d"
 )
 
-func (e GetTaskClassificationsWindow) ToPointer() *GetTaskClassificationsWindow {
+func (e Window) ToPointer() *Window {
 	return &e
 }
-func (e *GetTaskClassificationsWindow) UnmarshalJSON(data []byte) error {
+func (e *Window) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "7d":
-		*e = GetTaskClassificationsWindow(v)
+		*e = Window(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetTaskClassificationsWindow: %v", v)
+		return fmt.Errorf("invalid value for Window: %v", v)
 	}
 }
 
 type GetTaskClassificationsRequest struct {
 	// Trailing time window for the classification data. Currently only `7d` (trailing 7 days) is supported.
-	Window *GetTaskClassificationsWindow `default:"7d" queryParam:"style=form,explode=true,name=window"`
+	Window *Window `default:"7d" queryParam:"style=form,explode=true,name=window"`
 }
 
 func (g GetTaskClassificationsRequest) MarshalJSON() ([]byte, error) {
@@ -48,7 +48,7 @@ func (g *GetTaskClassificationsRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GetTaskClassificationsRequest) GetWindow() *GetTaskClassificationsWindow {
+func (g *GetTaskClassificationsRequest) GetWindow() *Window {
 	if g == nil {
 		return nil
 	}
