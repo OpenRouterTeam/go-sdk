@@ -2,12 +2,14 @@
 
 package components
 
-// WorkspaceMemberRole - Role of the member in the workspace
+// WorkspaceMemberRole - Role of the member in the workspace. `viewer` and `restricted_viewer` are read-only: `viewer` can view the whole workspace, and `restricted_viewer` can view only their own activity.
 type WorkspaceMemberRole string
 
 const (
-	WorkspaceMemberRoleAdmin  WorkspaceMemberRole = "admin"
-	WorkspaceMemberRoleMember WorkspaceMemberRole = "member"
+	WorkspaceMemberRoleAdmin            WorkspaceMemberRole = "admin"
+	WorkspaceMemberRoleMember           WorkspaceMemberRole = "member"
+	WorkspaceMemberRoleViewer           WorkspaceMemberRole = "viewer"
+	WorkspaceMemberRoleRestrictedViewer WorkspaceMemberRole = "restricted_viewer"
 )
 
 func (e WorkspaceMemberRole) ToPointer() *WorkspaceMemberRole {
@@ -18,7 +20,7 @@ func (e WorkspaceMemberRole) ToPointer() *WorkspaceMemberRole {
 func (e *WorkspaceMemberRole) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "admin", "member":
+		case "admin", "member", "viewer", "restricted_viewer":
 			return true
 		}
 	}
@@ -30,7 +32,7 @@ type WorkspaceMember struct {
 	CreatedAt string `json:"created_at"`
 	// Unique identifier for the workspace membership
 	ID string `json:"id"`
-	// Role of the member in the workspace
+	// Role of the member in the workspace. `viewer` and `restricted_viewer` are read-only: `viewer` can view the whole workspace, and `restricted_viewer` can view only their own activity.
 	Role WorkspaceMemberRole `json:"role"`
 	// Clerk user ID of the member
 	UserID string `json:"user_id"`
