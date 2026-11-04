@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 64f9babd845ee92dc13dc947c229acce
+  docChecksum: 6f9d2c018b760b5ac91077d95b57a525
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.110
-  configChecksum: c61d9839c547d662e3bfcb48303199a7
+  releaseVersion: 0.9.111
+  configChecksum: 3d5511ae8c5835ddb10decdc7f6e650f
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f4b41da8-ca2d-4e6b-b987-94f3e05ad42f
-  pristine_commit_hash: ebbf748e0770b6ea4b84a034f1bfa1f3d755cfb2
-  pristine_tree_hash: 6138194326589a6d93ec3ef7918b935f5eb6af33
+  generation_id: f45ade46-8562-4ca3-9a80-bc0eb5d52b83
+  pristine_commit_hash: 16c24400f1b0c869110ddc020e82bb7f64286fc1
+  pristine_tree_hash: bab57d96f275253542a0ead68442f8383225d836
 features:
   go:
     acceptHeaders: 2.81.2
@@ -1233,8 +1233,8 @@ trackedFiles:
     pristine_git_object: f499d5880c2bbb30fcfb549005f13c9f1ef07605
   docs/models/components/apitype.mdx:
     id: cd725a011961
-    last_write_checksum: sha1:58a3cb9f6085806029527a406015b159c9417f2e
-    pristine_git_object: 5fb24a9cd1ac4a6ac808ecad4142ea85a2c3bc24
+    last_write_checksum: sha1:4012bf0c146b15211949f129acbd382fa303c932
+    pristine_git_object: e1f0835ad09739d737719629c4aa9adb093f9e57
   docs/models/components/app.mdx:
     id: dfe3d69036e7
     last_write_checksum: sha1:c1a2b0b1267b12100e02a40bbd6dbd0b0210e2a4
@@ -10009,8 +10009,8 @@ trackedFiles:
     pristine_git_object: fb81149424c71119e90d86551c11e3288c864a83
   docs/sdks/privateproviders/README.mdx:
     id: 517c31195442
-    last_write_checksum: sha1:61e0bd2720662add4c029183add924462d10d0d5
-    pristine_git_object: b7974bed89daeed450ec76b4a669cd0b927404ce
+    last_write_checksum: sha1:f443997da386e4cea0acad4280cc639538ab6256
+    pristine_git_object: ced8c623d4c82bf4014441213c228c9ca18704af
   docs/sdks/providers/README.mdx:
     id: 5ea9af111324
     last_write_checksum: sha1:b87961797dfa49843093abcd329624eb287b6e1a
@@ -11773,8 +11773,8 @@ trackedFiles:
     pristine_git_object: 9fa4e66f1b9e1a0882870f2633e90ffec3e2f698
   models/components/generationresponse.go:
     id: 89ce21b091ac
-    last_write_checksum: sha1:ad1a18153333af579db0f3a7c7ac854c7cb7ed3c
-    pristine_git_object: 0db0d68bc133584d2c0812b2cd4dd9c2b94cd90e
+    last_write_checksum: sha1:bcab6f26bc3458a89b4e797d9c1fc8c6f202ea03
+    pristine_git_object: da11b9d27b5f07cf431ccb7bfe2c91e8d7d2d682
   models/components/getbyokkeyresponse.go:
     id: 7a2bc074b2e0
     last_write_checksum: sha1:2c730a305b0f4628e664405f1a4f9e23a2285cf4
@@ -14329,8 +14329,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:6d7d96ebeddeb6a8605674f58a5162f07167b0fb
-    pristine_git_object: 929bac5d3da9da2be57364c7ca810b0c823f7a2b
+    last_write_checksum: sha1:331919e14e258bf06c142cba6977a0792848707b
+    pristine_git_object: 60b4407189cfc6591a6f5d3fa6cb37da32de49d2
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -14353,8 +14353,8 @@ trackedFiles:
     pristine_git_object: f5b9cf58d938b4f4853695b218012bf8cecb2124
   privateproviders.go:
     id: 6bf379ba5780
-    last_write_checksum: sha1:d829e985a85256c2a0ea72540e085614eb5a6ac2
-    pristine_git_object: 0c32eb69af0a0176ea74257069929b0bff64d9ba
+    last_write_checksum: sha1:361191cc22d1a00077dcbd7702ced5e498da6b74
+    pristine_git_object: 125ae2d2209d08b1f8a2d01d13d6e04e31470f4f
   providers.go:
     id: e89bb17ecd7b
     last_write_checksum: sha1:f7efa5132e6f08282ebf8658f92e67d2f5c38242
@@ -18975,4 +18975,6 @@ examples:
         "529":
           application/json: {"error": {"code": 529, "message": "Provider returned error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Alpha.Decisions.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Alpha.Extractions.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider.Options.Parallel` **Added**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider.Options.Parallel` **Added**\n* `OpenRouter.Batch.CreateBatches()`: \n  *  `request.Request.Provider.Only[].union(ProviderName).Enum(parallel)` **Added**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider.Enum(parallel)` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider.Enum(parallel)` **Added**\n  *  `response.Data.Provider.Enum(parallel)` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider.Enum(parallel)` **Added**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider.Enum(parallel)` **Added**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`:  `response.Data[].ProviderName.Enum(parallel)` **Added**\n* `OpenRouter.Endpoints.List()`:  `response.Data.Endpoints[].ProviderName.Enum(parallel)` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName.Enum(parallel)` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`: \n  *  `request.ChatRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`: \n  *  `request.MessagesRequest.Provider` **Changed**\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.Provider` **Changed**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.SystemOne.Create()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider.Options.Parallel` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Generations.GetGeneration()`:  `response.Data.ApiType.Enum(toolsInvoke)` **Added**
