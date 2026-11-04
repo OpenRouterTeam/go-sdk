@@ -3609,3 +3609,13 @@ Based on:
 - [go v0.9.109] .
 ### Releases
 - [Go v0.9.109] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.9.109 - .
+
+## 2026-11-04 05:18:53
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.803.2 (2.950.13) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.9.110] .
+### Releases
+- [Go v0.9.110] https://github.com/OpenRouterTeam/go-sdk/releases/tag/v0.9.110 - .
