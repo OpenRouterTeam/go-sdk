@@ -2,7 +2,7 @@
 title: "WorkspaceMemberRole"
 ---
 
-Role of the member in the workspace
+Role of the member in the workspace. `viewer` and `restricted_viewer` are read-only: `viewer` can view the whole workspace, and `restricted_viewer` can view only their own activity.
 
 ## Example Usage
 
@@ -20,7 +20,9 @@ custom := components.WorkspaceMemberRole("custom_value")
 
 ## Values
 
-| Name                        | Value                       |
-| --------------------------- | --------------------------- |
-| `WorkspaceMemberRoleAdmin`  | admin                       |
-| `WorkspaceMemberRoleMember` | member                      |
+| Name                                  | Value                                 |
+| ------------------------------------- | ------------------------------------- |
+| `WorkspaceMemberRoleAdmin`            | admin                                 |
+| `WorkspaceMemberRoleMember`           | member                                |
+| `WorkspaceMemberRoleViewer`           | viewer                                |
+| `WorkspaceMemberRoleRestrictedViewer` | restricted_viewer                     |

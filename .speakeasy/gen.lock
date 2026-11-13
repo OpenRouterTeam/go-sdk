@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 9fe7016a8daddde6bb787590978b0254
+  docChecksum: f14fc81aeeea893f63ec99debfee6659
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.116
-  configChecksum: 242d124d0989813552a5f471b5f325b4
+  releaseVersion: 0.9.117
+  configChecksum: f9defee30a09821085622fffa2c6f716
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 3d788b61-0a53-415c-9086-4945f0d48676
-  pristine_commit_hash: f05e57f5d5f809bd7ed5c80f5b38b3fdea767b23
-  pristine_tree_hash: 506d16a8a8953a9dfe8616df709196ea874368d5
+  generation_id: 1e129c1b-241e-4f2f-82c9-7bedae31386a
+  pristine_commit_hash: 72f62b41390e83cc0b846b0390a2f07abf444800
+  pristine_tree_hash: 13409383a9852aac30beadb1933f3949c069c2a3
 features:
   go:
     acceptHeaders: 2.81.2
@@ -8797,12 +8797,12 @@ trackedFiles:
     pristine_git_object: 7148843f171334c8d1d1cbf98e6d4da224366d81
   docs/models/components/workspacemember.mdx:
     id: 38650f2af191
-    last_write_checksum: sha1:bae22da8e5eb94959d56ea95a50fa2cbfbb530f4
-    pristine_git_object: d38d23addbe41181bff5074932fa418579a49686
+    last_write_checksum: sha1:ae254e60d2b946676c531649a1fefe61245e830d
+    pristine_git_object: 6dc4d50873f3b536c22516529c8e78056cbcb683
   docs/models/components/workspacememberrole.mdx:
     id: 942ec3bdf245
-    last_write_checksum: sha1:96689fe5807b75374b9158354142b2b3d9af1935
-    pristine_git_object: 11df894e4041712401e6f39d0010d1b59411fa50
+    last_write_checksum: sha1:a8f7ab6a1936ddb60fab3f69b79118a2e1ad48c6
+    pristine_git_object: 47f5763d2b139ec396f46cd81027444fb3a7a36c
   docs/models/components/xsearchoptions.mdx:
     id: 8b3b8a136a27
     last_write_checksum: sha1:c2bf90f6ef1433a139e70d0617a12b3d356a681d
@@ -13777,8 +13777,8 @@ trackedFiles:
     pristine_git_object: fa37ab0de3569e26ebb8d04ae2c8ef200902fccd
   models/components/workspacemember.go:
     id: 5565c176e512
-    last_write_checksum: sha1:815c205fdc5811f38e0e912d616af5ebef9207e6
-    pristine_git_object: a46942dab29cb874b94ecf99236166f4c57da879
+    last_write_checksum: sha1:6a3242ca6321ed8dab37fef8f641c1c683bac54b
+    pristine_git_object: 621d1c4a1f41e89a1f256ff9cca0cc7145e74c15
   models/components/xsearchoptions.go:
     id: e5924236a544
     last_write_checksum: sha1:9a5395b00e74298420887a372ff31e2d46149105
@@ -14401,8 +14401,8 @@ trackedFiles:
     pristine_git_object: 742ef08e3a695f4aa613fc5f9e2d8ad55ae3d564
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:1d3c8c2bec04d9efed7e05651f13a9d22ad79be9
-    pristine_git_object: 6ba27a200dca62b3305e8f5ea6e2ce5e9d09440d
+    last_write_checksum: sha1:800aea2f3f76de47961c78a86b3bb30b5b2bbeae
+    pristine_git_object: 8f57b46f1355b496f310e8082954548e512a03ba
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -19069,4 +19069,7 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Providers.ListProviderEndpoints()`: **Removed** (Breaking ⚠️)\n* `OpenRouter.VideoGeneration.Generate()`: \n  *  `request.Request.Provider` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Workspaces.ListMembers()`:  `response.Data[].Role` **Changed**
+  * `OpenRouter.Workspaces.BulkAddMembers()`:  `response.Data[].Role` **Changed**
