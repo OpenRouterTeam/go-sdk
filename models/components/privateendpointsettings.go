@@ -47,6 +47,7 @@ const (
 	PrivateEndpointSettingsExcludedParameterSeed                PrivateEndpointSettingsExcludedParameter = "seed"
 	PrivateEndpointSettingsExcludedParameterResponseFormat      PrivateEndpointSettingsExcludedParameter = "response_format"
 	PrivateEndpointSettingsExcludedParameterStructuredOutputs   PrivateEndpointSettingsExcludedParameter = "structured_outputs"
+	PrivateEndpointSettingsExcludedParameterStrictToolSchemas   PrivateEndpointSettingsExcludedParameter = "strict_tool_schemas"
 	PrivateEndpointSettingsExcludedParameterStop                PrivateEndpointSettingsExcludedParameter = "stop"
 	PrivateEndpointSettingsExcludedParameterTools               PrivateEndpointSettingsExcludedParameter = "tools"
 	PrivateEndpointSettingsExcludedParameterToolChoice          PrivateEndpointSettingsExcludedParameter = "tool_choice"
@@ -66,7 +67,7 @@ func (e PrivateEndpointSettingsExcludedParameter) ToPointer() *PrivateEndpointSe
 func (e *PrivateEndpointSettingsExcludedParameter) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "temperature", "top_p", "top_k", "min_p", "top_a", "frequency_penalty", "presence_penalty", "repetition_penalty", "max_tokens", "max_completion_tokens", "logit_bias", "logprobs", "top_logprobs", "prediction", "seed", "response_format", "structured_outputs", "stop", "tools", "tool_choice", "parallel_tool_calls", "include_reasoning", "reasoning", "reasoning_effort", "web_search_options", "verbosity":
+		case "temperature", "top_p", "top_k", "min_p", "top_a", "frequency_penalty", "presence_penalty", "repetition_penalty", "max_tokens", "max_completion_tokens", "logit_bias", "logprobs", "top_logprobs", "prediction", "seed", "response_format", "structured_outputs", "strict_tool_schemas", "stop", "tools", "tool_choice", "parallel_tool_calls", "include_reasoning", "reasoning", "reasoning_effort", "web_search_options", "verbosity":
 			return true
 		}
 	}

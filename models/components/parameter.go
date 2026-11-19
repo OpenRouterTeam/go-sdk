@@ -22,6 +22,7 @@ const (
 	ParameterSeed                Parameter = "seed"
 	ParameterResponseFormat      Parameter = "response_format"
 	ParameterStructuredOutputs   Parameter = "structured_outputs"
+	ParameterStrictToolSchemas   Parameter = "strict_tool_schemas"
 	ParameterStop                Parameter = "stop"
 	ParameterTools               Parameter = "tools"
 	ParameterToolChoice          Parameter = "tool_choice"
@@ -41,7 +42,7 @@ func (e Parameter) ToPointer() *Parameter {
 func (e *Parameter) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "temperature", "top_p", "top_k", "min_p", "top_a", "frequency_penalty", "presence_penalty", "repetition_penalty", "max_tokens", "max_completion_tokens", "logit_bias", "logprobs", "top_logprobs", "prediction", "seed", "response_format", "structured_outputs", "stop", "tools", "tool_choice", "parallel_tool_calls", "include_reasoning", "reasoning", "reasoning_effort", "web_search_options", "verbosity":
+		case "temperature", "top_p", "top_k", "min_p", "top_a", "frequency_penalty", "presence_penalty", "repetition_penalty", "max_tokens", "max_completion_tokens", "logit_bias", "logprobs", "top_logprobs", "prediction", "seed", "response_format", "structured_outputs", "strict_tool_schemas", "stop", "tools", "tool_choice", "parallel_tool_calls", "include_reasoning", "reasoning", "reasoning_effort", "web_search_options", "verbosity":
 			return true
 		}
 	}
