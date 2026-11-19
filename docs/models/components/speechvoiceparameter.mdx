@@ -1,0 +1,14 @@
+---
+title: "SpeechVoiceParameter"
+---
+
+`enum` lists the documented voices in `values`; some providers also accept voice IDs not listed there (custom or cloned voices). `unknown` means the field is accepted but no voices are listed.
+
+
+## Fields
+
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `References`                                                                                                             | [*components.References](../../models/components/references.mdx)                                                          | ➖                                                                                                       | `excluded`: `voice` is rejected when the request also sends a nonempty `input_references`. Absent: they can be combined. |
+| `Type`                                                                                                                   | [components.SpeechVoiceParameterType](../../models/components/speechvoiceparametertype.mdx)                               | ✔️                                                                                                       | N/A                                                                                                                      |
+| `Values`                                                                                                                 | []`string`                                                                                                               | ➖                                                                                                       | N/A                                                                                                                      |

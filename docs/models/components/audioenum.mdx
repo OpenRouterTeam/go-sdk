@@ -1,0 +1,26 @@
+---
+title: "AudioEnum"
+---
+
+`required`: an image reference is accepted only together with an audio reference. `excluded`: only without one. Absent: either.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.AudioEnumRequired
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.AudioEnum("custom_value")
+```
+
+
+## Values
+
+| Name                | Value               |
+| ------------------- | ------------------- |
+| `AudioEnumRequired` | required            |
+| `AudioEnumExcluded` | excluded            |

@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.118
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.119
 > ```
 
 <!-- No Summary [summary] -->
@@ -450,6 +450,8 @@ func main() {
 ### [TTS](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
+* [ListModels](docs/sdks/tts/README.md#listmodels) - List text-to-speech models
+* [GetModel](docs/sdks/tts/README.md#getmodel) - Get a text-to-speech model
 
 ### [Vault](docs/sdks/vault/README.md)
 
