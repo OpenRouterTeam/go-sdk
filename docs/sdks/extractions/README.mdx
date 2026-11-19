@@ -78,7 +78,7 @@ func main() {
         },
         Model: "cloudflare/clairic",
         ReferenceDate: openrouter.Pointer("2026-10-28"),
-        State: "Invoice INV-2291 issued 2026-09-02, net 30. Contacts: Dana Ruiz, Priya Shah. Total $1080.",
+        State: openrouter.Pointer("Invoice INV-2291 issued 2026-09-02, net 30. Contacts: Dana Ruiz, Priya Shah. Total $1080."),
     })
     if err != nil {
         log.Fatal(err)

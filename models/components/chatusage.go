@@ -97,6 +97,8 @@ type ChatUsage struct {
 	Cost optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
 	// Breakdown of upstream inference costs
 	CostDetails optionalnullable.OptionalNullable[CostDetails] `json:"cost_details,omitzero"`
+	// Totals across every upstream model call of a deferred-tools run. The native usage fields report only the final call; cost covers every call.
+	DeferredToolsDetails *DeferredToolsDetails `json:"deferred_tools_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
 	IsBYOK *bool `json:"is_byok,omitzero"`
 	// Number of tokens in the prompt
@@ -146,6 +148,13 @@ func (c *ChatUsage) GetCostDetails() optionalnullable.OptionalNullable[CostDetai
 		return nil
 	}
 	return c.CostDetails
+}
+
+func (c *ChatUsage) GetDeferredToolsDetails() *DeferredToolsDetails {
+	if c == nil {
+		return nil
+	}
+	return c.DeferredToolsDetails
 }
 
 func (c *ChatUsage) GetIsBYOK() *bool {

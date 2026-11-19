@@ -1,0 +1,30 @@
+---
+title: "McpServerToolAllowedToolsUnion"
+---
+
+## Supported Types
+
+### 
+
+```go
+mcpServerToolAllowedToolsUnion := components.CreateMcpServerToolAllowedToolsUnionArrayOfStr([]string{/* values here */})
+```
+
+### McpServerToolAllowedTools
+
+```go
+mcpServerToolAllowedToolsUnion := components.CreateMcpServerToolAllowedToolsUnionMcpServerToolAllowedTools(components.McpServerToolAllowedTools{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch mcpServerToolAllowedToolsUnion.Type {
+	case components.McpServerToolAllowedToolsUnionTypeArrayOfStr:
+		// mcpServerToolAllowedToolsUnion.ArrayOfStr is populated
+	case components.McpServerToolAllowedToolsUnionTypeMcpServerToolAllowedTools:
+		// mcpServerToolAllowedToolsUnion.McpServerToolAllowedTools is populated
+}
+```

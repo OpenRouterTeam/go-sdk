@@ -1,0 +1,46 @@
+---
+title: "Error"
+---
+
+## Supported Types
+
+### 
+
+```go
+error := components.CreateErrorStr(string{/* values here */})
+```
+
+### ErrorMcpProtocolError
+
+```go
+error := components.CreateErrorErrorMcpProtocolError(components.ErrorMcpProtocolError{/* values here */})
+```
+
+### ErrorMcpToolExecutionError
+
+```go
+error := components.CreateErrorErrorMcpToolExecutionError(components.ErrorMcpToolExecutionError{/* values here */})
+```
+
+### ErrorHTTPError
+
+```go
+error := components.CreateErrorErrorHTTPError(components.ErrorHTTPError{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch error.Type {
+	case components.ErrorTypeStr:
+		// error.Str is populated
+	case components.ErrorTypeErrorMcpProtocolError:
+		// error.ErrorMcpProtocolError is populated
+	case components.ErrorTypeErrorMcpToolExecutionError:
+		// error.ErrorMcpToolExecutionError is populated
+	case components.ErrorTypeErrorHTTPError:
+		// error.ErrorHTTPError is populated
+}
+```

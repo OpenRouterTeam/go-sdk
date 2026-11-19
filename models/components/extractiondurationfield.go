@@ -36,7 +36,8 @@ type ExtractionDurationField struct {
 	Decimals *int64 `json:"decimals,omitzero"`
 	// What the field should contain.
 	Instructions *string `json:"instructions,omitzero"`
-	Integer      *bool   `json:"integer,omitzero"`
+	// Whole numbers only.
+	Integer *bool `json:"integer,omitzero"`
 	// Probability of null above which `value` is null. Default 0.5.
 	NullThreshold *float64                    `json:"null_threshold,omitzero"`
 	Type          ExtractionDurationFieldType `json:"type"`

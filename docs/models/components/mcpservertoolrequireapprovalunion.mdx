@@ -1,0 +1,38 @@
+---
+title: "McpServerToolRequireApprovalUnion"
+---
+
+## Supported Types
+
+### McpServerToolRequireApproval
+
+```go
+mcpServerToolRequireApprovalUnion := components.CreateMcpServerToolRequireApprovalUnionMcpServerToolRequireApproval(components.McpServerToolRequireApproval{/* values here */})
+```
+
+### McpServerToolRequireApprovalAlways
+
+```go
+mcpServerToolRequireApprovalUnion := components.CreateMcpServerToolRequireApprovalUnionMcpServerToolRequireApprovalAlways(components.McpServerToolRequireApprovalAlways{/* values here */})
+```
+
+### McpServerToolRequireApprovalNever
+
+```go
+mcpServerToolRequireApprovalUnion := components.CreateMcpServerToolRequireApprovalUnionMcpServerToolRequireApprovalNever(components.McpServerToolRequireApprovalNever{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch mcpServerToolRequireApprovalUnion.Type {
+	case components.McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApproval:
+		// mcpServerToolRequireApprovalUnion.McpServerToolRequireApproval is populated
+	case components.McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalAlways:
+		// mcpServerToolRequireApprovalUnion.McpServerToolRequireApprovalAlways is populated
+	case components.McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalNever:
+		// mcpServerToolRequireApprovalUnion.McpServerToolRequireApprovalNever is populated
+}
+```

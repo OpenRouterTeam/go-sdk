@@ -1,0 +1,15 @@
+---
+title: "DeferredToolsDetails"
+---
+
+Totals across every upstream model call of a deferred-tools run. The native usage fields report only the final call; cost covers every call.
+
+
+## Fields
+
+| Field                                             | Type                                              | Required                                          | Description                                       |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `CompletionTokens`                                | `int64`                                           | ✔️                                | Completion tokens summed over every upstream call |
+| `PromptTokens`                                    | `int64`                                           | ✔️                                | Prompt tokens summed over every upstream call     |
+| `TotalTokens`                                     | `int64`                                           | ✔️                                | Sum of the above two fields                       |
+| `Turns`                                           | `int64`                                           | ✔️                                | Upstream model calls the run made                 |

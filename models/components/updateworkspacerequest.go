@@ -16,6 +16,7 @@ const (
 	UpdateWorkspaceRequestDisabledServerToolOpenrouterDatetime                 UpdateWorkspaceRequestDisabledServerTool = "openrouter:datetime"
 	UpdateWorkspaceRequestDisabledServerToolOpenrouterFusion                   UpdateWorkspaceRequestDisabledServerTool = "openrouter:fusion"
 	UpdateWorkspaceRequestDisabledServerToolOpenrouterImageGeneration          UpdateWorkspaceRequestDisabledServerTool = "openrouter:image_generation"
+	UpdateWorkspaceRequestDisabledServerToolOpenrouterMcp                      UpdateWorkspaceRequestDisabledServerTool = "openrouter:mcp"
 	UpdateWorkspaceRequestDisabledServerToolOpenrouterExperimentalSearchModels UpdateWorkspaceRequestDisabledServerTool = "openrouter:experimental__search_models"
 	UpdateWorkspaceRequestDisabledServerToolOpenrouterShell                    UpdateWorkspaceRequestDisabledServerTool = "openrouter:shell"
 	UpdateWorkspaceRequestDisabledServerToolOpenrouterSubagent                 UpdateWorkspaceRequestDisabledServerTool = "openrouter:subagent"
@@ -32,7 +33,7 @@ func (e UpdateWorkspaceRequestDisabledServerTool) ToPointer() *UpdateWorkspaceRe
 func (e *UpdateWorkspaceRequestDisabledServerTool) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "openrouter:advisor", "openrouter:apply_patch", "openrouter:bash", "openrouter:datetime", "openrouter:fusion", "openrouter:image_generation", "openrouter:experimental__search_models", "openrouter:shell", "openrouter:subagent", "openrouter:tool_search", "openrouter:web_fetch", "openrouter:web_search":
+		case "openrouter:advisor", "openrouter:apply_patch", "openrouter:bash", "openrouter:datetime", "openrouter:fusion", "openrouter:image_generation", "openrouter:mcp", "openrouter:experimental__search_models", "openrouter:shell", "openrouter:subagent", "openrouter:tool_search", "openrouter:web_fetch", "openrouter:web_search":
 			return true
 		}
 	}
@@ -50,15 +51,15 @@ type UpdateWorkspaceRequest struct {
 	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
 	// OpenRouter server tools that requests in this workspace may not invoke. Requests naming a disabled tool are rejected with 403. An empty array or null clears the list.
 	DisabledServerTools optionalnullable.OptionalNullable[[]UpdateWorkspaceRequestDisabledServerTool] `json:"disabled_server_tools,omitzero"`
-	// Optional array of API key IDs to filter I/O logging
+	// Optional array of API key IDs to filter I/O logging. Read-only for management keys: any value other than the stored one returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingAPIKeyIds optionalnullable.OptionalNullable[[]int64] `json:"io_logging_api_key_ids,omitzero"`
-	// Sampling rate for I/O logging (0.0001-1)
+	// Sampling rate for I/O logging (0.0001-1). Read-only for management keys: any value other than the stored one returns 403. Change it in the OpenRouter dashboard.
 	IoLoggingSamplingRate *float64 `json:"io_logging_sampling_rate,omitzero"`
-	// Whether data discount logging is enabled
+	// Whether data discount logging is enabled. Read-only for management keys: any value other than the stored one returns 403. Change it in the OpenRouter dashboard.
 	IsDataDiscountLoggingEnabled *bool `json:"is_data_discount_logging_enabled,omitzero"`
 	// Whether broadcast is enabled
 	IsObservabilityBroadcastEnabled *bool `json:"is_observability_broadcast_enabled,omitzero"`
-	// Whether private logging is enabled
+	// Whether private logging is enabled. Read-only for management keys: any value other than the stored one returns 403. Change it in the OpenRouter dashboard.
 	IsObservabilityIoLoggingEnabled *bool `json:"is_observability_io_logging_enabled,omitzero"`
 	// New name for the workspace
 	Name *string `json:"name,omitzero"`

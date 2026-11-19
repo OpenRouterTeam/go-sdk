@@ -3,7 +3,7 @@
 package components
 
 type BulkAddWorkspaceMembersResponse struct {
-	// Number of workspace memberships created or updated
+	// Number of workspace memberships created
 	AddedCount int64 `json:"added_count"`
 	// List of added workspace memberships
 	Data []WorkspaceMember `json:"data"`

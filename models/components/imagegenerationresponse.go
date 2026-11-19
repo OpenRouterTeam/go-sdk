@@ -7,17 +7,39 @@ import (
 )
 
 type ImageGenerationResponseData struct {
-	// Base64-encoded image bytes
-	B64JSON string `json:"b64_json"`
+	// Base64-encoded image bytes. Present unless the request asked for `response_format: "url"` and `url` was issued.
+	B64JSON *string `json:"b64_json,omitzero"`
+	// Layer metadata, present when the request asked the provider to split the image into layers (Seedream: `provider.options.seed.layer_decomposition: true` with the required `layer_decomposition_options.max_images`, 2 to 16). Decomposition requires `n` to be 1 or omitted; the response returns up to `max_images` images (the base image plus its layers).
+	Layer *ImageGenerationLayer `json:"layer,omitzero"`
 	// Media type (MIME type) of the image, e.g. `image/png`, `image/jpeg`, `image/webp`, `image/svg+xml`. May be omitted if the format could not be determined.
 	MediaType *string `json:"media_type,omitzero"`
+	// Signed download URL for the image bytes, issued for `response_format: "url"` requests. Valid until `expires_at`. Absent when the response fell back to `b64_json`.
+	URL *string `json:"url,omitzero"`
 }
 
-func (i *ImageGenerationResponseData) GetB64JSON() string {
+func (i ImageGenerationResponseData) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *ImageGenerationResponseData) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *ImageGenerationResponseData) GetB64JSON() *string {
 	if i == nil {
-		return ""
+		return nil
 	}
 	return i.B64JSON
+}
+
+func (i *ImageGenerationResponseData) GetLayer() *ImageGenerationLayer {
+	if i == nil {
+		return nil
+	}
+	return i.Layer
 }
 
 func (i *ImageGenerationResponseData) GetMediaType() *string {
@@ -27,12 +49,21 @@ func (i *ImageGenerationResponseData) GetMediaType() *string {
 	return i.MediaType
 }
 
+func (i *ImageGenerationResponseData) GetURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.URL
+}
+
 // ImageGenerationResponse - Image generation response
 type ImageGenerationResponse struct {
 	// Unix timestamp (seconds) when the image was generated
 	Created int64 `json:"created"`
 	// Generated images
 	Data []ImageGenerationResponseData `json:"data"`
+	// Unix timestamp (seconds) of the earliest expiry among the `url`s in `data`; treat every URL as expired after it. Present only when URLs were issued.
+	ExpiresAt *int64 `json:"expires_at,omitzero"`
 	// Token and cost usage for the image generation request, when available
 	Usage *ImageGenerationUsage `json:"usage,omitzero"`
 }
@@ -60,6 +91,13 @@ func (i *ImageGenerationResponse) GetData() []ImageGenerationResponseData {
 		return []ImageGenerationResponseData{}
 	}
 	return i.Data
+}
+
+func (i *ImageGenerationResponse) GetExpiresAt() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.ExpiresAt
 }
 
 func (i *ImageGenerationResponse) GetUsage() *ImageGenerationUsage {

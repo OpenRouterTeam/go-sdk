@@ -1,0 +1,28 @@
+---
+title: "GetMemberPolicyAssignmentPolicyType"
+---
+
+Policy type the assignment is read or changed for
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+)
+
+value := operations.GetMemberPolicyAssignmentPolicyTypeBudget
+
+// Open enum: custom values can be created with a direct type cast
+custom := operations.GetMemberPolicyAssignmentPolicyType("custom_value")
+```
+
+
+## Values
+
+| Name                                                   | Value                                                  |
+| ------------------------------------------------------ | ------------------------------------------------------ |
+| `GetMemberPolicyAssignmentPolicyTypeBudget`            | budget                                                 |
+| `GetMemberPolicyAssignmentPolicyTypeModelAvailability` | model_availability                                     |
+| `GetMemberPolicyAssignmentPolicyTypeModeration`        | moderation                                             |
+| `GetMemberPolicyAssignmentPolicyTypeRateLimit`         | rate_limit                                             |

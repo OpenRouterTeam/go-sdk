@@ -32,7 +32,7 @@ func (e *CreateBYOKKeyRequestDeclaredRegion) IsExact() bool {
 }
 
 type CreateBYOKKeyRequest struct {
-	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) that may use this credential. `null` means no restriction. Must contain at least one hash if provided. Hashes that do not belong to your account return a 400.
+	// Optional allowlist of OpenRouter API key hashes (`api_keys.hash`) that may use this credential. `null` means no restriction. Must contain at least one hash if provided. Hashes that do not belong to your account return a 400; for a credential pinned to a workspace, so do hashes of API keys outside that workspace.
 	AllowedAPIKeyHashes optionalnullable.OptionalNullable[[]string] `json:"allowed_api_key_hashes,omitzero"`
 	// Optional allowlist of model slugs this credential may be used for. `null` means no restriction.
 	AllowedModels optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
@@ -56,7 +56,7 @@ type CreateBYOKKeyRequest struct {
 	Name optionalnullable.OptionalNullable[string] `json:"name,omitzero"`
 	// The upstream provider this credential authenticates against, as a lowercase slug (e.g. `openai`, `anthropic`, `amazon-bedrock`).
 	Provider BYOKProviderSlug `json:"provider"`
-	// Optional workspace ID to scope the credential to. When omitted, the credential is created in the account's default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly.
+	// Optional workspace ID to scope the credential to. When omitted, a workspace-scoped management key creates it in its own workspace. An organization management key creates it in the account's default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly.
 	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 

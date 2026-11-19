@@ -1,0 +1,33 @@
+---
+title: "Code"
+---
+
+Integer HTTP status, or a Responses API error code string (e.g. `invalid_prompt`) when the request body fails validation
+
+
+## Supported Types
+
+### 
+
+```go
+code := components.CreateCodeInteger(int64{/* values here */})
+```
+
+### 
+
+```go
+code := components.CreateCodeStr(string{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch code.Type {
+	case components.CodeTypeInteger:
+		// code.Integer is populated
+	case components.CodeTypeStr:
+		// code.Str is populated
+}
+```

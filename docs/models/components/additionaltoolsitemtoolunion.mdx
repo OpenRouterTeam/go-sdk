@@ -178,6 +178,12 @@ additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionToo
 additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionAdditionalToolsItemTool(components.AdditionalToolsItemTool{/* values here */})
 ```
 
+### McpServerToolOpenRouter
+
+```go
+additionalToolsItemToolUnion := components.CreateAdditionalToolsItemToolUnionMcpServerToolOpenRouter(components.McpServerToolOpenRouter{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -242,5 +248,7 @@ switch additionalToolsItemToolUnion.Type {
 		// additionalToolsItemToolUnion.ToolSearchServerTool is populated
 	case components.AdditionalToolsItemToolUnionTypeAdditionalToolsItemTool:
 		// additionalToolsItemToolUnion.AdditionalToolsItemTool is populated
+	case components.AdditionalToolsItemToolUnionTypeMcpServerToolOpenRouter:
+		// additionalToolsItemToolUnion.McpServerToolOpenRouter is populated
 }
 ```

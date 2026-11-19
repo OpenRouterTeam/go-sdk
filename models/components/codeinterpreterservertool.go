@@ -214,7 +214,7 @@ func (e *TypeCodeInterpreter) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// CodeInterpreterServerTool - Code interpreter tool configuration
+// CodeInterpreterServerTool - Code interpreter tool configuration. An existing container id or `container.file_ids` requires BYOK (your own OpenAI key); requests on OpenRouter credits must use `auto` with no `file_ids`.
 type CodeInterpreterServerTool struct {
 	Container Container           `json:"container"`
 	Type      TypeCodeInterpreter `json:"type"`

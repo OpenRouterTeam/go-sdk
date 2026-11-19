@@ -17,7 +17,7 @@ Observability endpoints
 
 ## List
 
-List the observability destinations configured for the authenticated entity's default workspace. Use the `workspace_id` query parameter to scope the result to a different workspace. Only destinations with stable release status are surfaced — destinations of other types are excluded. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+List the observability destinations configured for the authenticated entity's default workspace, or a workspace-scoped management key's own workspace. Use the `workspace_id` query parameter to scope the result to a different workspace. A workspace-scoped management key can only list its own workspace; any other `workspace_id` returns 403. Only destinations with stable release status are surfaced — destinations of other types are excluded. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -63,13 +63,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   | Example                                                                                       |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                         | ✔️                                                                            | The context to use for the request.                                                           |                                                                                               |
-| `offset`                                                                                      | optionalnullable.OptionalNullable[`int64`]                                                    | ➖                                                                            | Number of records to skip for pagination                                                      | 0                                                                                             |
-| `limit`                                                                                       | `*int64`                                                                                      | ➖                                                                            | Maximum number of records to return (max 100)                                                 | 50                                                                                            |
-| `workspaceID`                                                                                 | `*string`                                                                                     | ➖                                                                            | Optional workspace ID to filter by. Defaults to the authenticated entity's default workspace. | 550e8400-e29b-41d4-a716-446655440000                                                          |
-| `opts`                                                                                        | [][operations.Option](../../models/operations/option.mdx)                                      | ➖                                                                            | The options for this request.                                                                 |                                                                                               |
+| Parameter                                                                                                                                           | Type                                                                                                                                                | Required                                                                                                                                            | Description                                                                                                                                         | Example                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                               | [context.Context](https://pkg.go.dev/context#Context)                                                                                               | ✔️                                                                                                                                  | The context to use for the request.                                                                                                                 |                                                                                                                                                     |
+| `offset`                                                                                                                                            | optionalnullable.OptionalNullable[`int64`]                                                                                                          | ➖                                                                                                                                  | Number of records to skip for pagination                                                                                                            | 0                                                                                                                                                   |
+| `limit`                                                                                                                                             | `*int64`                                                                                                                                            | ➖                                                                                                                                  | Maximum number of records to return (max 100)                                                                                                       | 50                                                                                                                                                  |
+| `workspaceID`                                                                                                                                       | `*string`                                                                                                                                           | ➖                                                                                                                                  | Optional workspace ID to filter by. Defaults to the authenticated entity's default workspace, or a workspace-scoped management key's own workspace. | 550e8400-e29b-41d4-a716-446655440000                                                                                                                |
+| `opts`                                                                                                                                              | [][operations.Option](../../models/operations/option.mdx)                                                                                            | ➖                                                                                                                                  | The options for this request.                                                                                                                       |                                                                                                                                                     |
 
 ### Response
 
@@ -87,7 +87,7 @@ func main() {
 
 ## Create
 
-Create a new observability destination. A maximum of 5 destinations per type is allowed. Defaults to the authenticated entity's default workspace; use the `workspace_id` body field to scope to a different workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+Create a new observability destination. A maximum of 5 destinations per type is allowed. Defaults to the authenticated entity's default workspace, or a workspace-scoped management key's own workspace; use the `workspace_id` body field to scope to a different workspace. A workspace-scoped management key can only create in its own workspace; any other `workspace_id` returns 403. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -190,7 +190,7 @@ func main() {
 
 ## Delete
 
-Delete an existing observability destination. This performs a soft delete. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+Delete an existing observability destination. This performs a soft delete. A workspace-scoped management key only reaches destinations in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -245,7 +245,7 @@ func main() {
 
 ## Get
 
-Fetch a single observability destination by its UUID. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+Fetch a single observability destination by its UUID. A workspace-scoped management key only reaches destinations in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 
@@ -339,7 +339,7 @@ func main() {
 
 ## Update
 
-Update an existing observability destination. Only the fields provided in the request body are updated. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+Update an existing observability destination. Only the fields provided in the request body are updated. A workspace-scoped management key only reaches destinations in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 
 ### Example Usage
 

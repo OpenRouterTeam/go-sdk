@@ -37,12 +37,14 @@ type OutputWebFetchServerToolItem struct {
 	// The error message if the fetch failed.
 	Error *string `json:"error,omitzero"`
 	// The HTTP status code returned by the upstream URL fetch.
-	HTTPStatus *int64                           `json:"httpStatus,omitzero"`
-	ID         *string                          `json:"id,omitzero"`
-	Status     ToolCallStatus                   `json:"status"`
-	Title      *string                          `json:"title,omitzero"`
-	Type       OutputWebFetchServerToolItemType `json:"type"`
-	URL        *string                          `json:"url,omitzero"`
+	HTTPStatus *int64  `json:"httpStatus,omitzero"`
+	ID         *string `json:"id,omitzero"`
+	// The time the content was fetched, as an ISO 8601 timestamp.
+	RetrievedAt *string                          `json:"retrieved_at,omitzero"`
+	Status      ToolCallStatus                   `json:"status"`
+	Title       *string                          `json:"title,omitzero"`
+	Type        OutputWebFetchServerToolItemType `json:"type"`
+	URL         *string                          `json:"url,omitzero"`
 }
 
 func (o OutputWebFetchServerToolItem) MarshalJSON() ([]byte, error) {
@@ -82,6 +84,13 @@ func (o *OutputWebFetchServerToolItem) GetID() *string {
 		return nil
 	}
 	return o.ID
+}
+
+func (o *OutputWebFetchServerToolItem) GetRetrievedAt() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RetrievedAt
 }
 
 func (o *OutputWebFetchServerToolItem) GetStatus() ToolCallStatus {

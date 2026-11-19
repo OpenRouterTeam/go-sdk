@@ -1,0 +1,15 @@
+---
+title: "OutputCompactionItem"
+---
+
+A compaction output item carrying the encrypted summary of the compacted conversation. Emitted in reply to a `compaction_trigger` input item.
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `CreatedBy`                                                                                | `*string`                                                                                  | ➖                                                                         | N/A                                                                                        |
+| `EncryptedContent`                                                                         | `string`                                                                                   | ✔️                                                                         | N/A                                                                                        |
+| `ID`                                                                                       | `string`                                                                                   | ✔️                                                                         | N/A                                                                                        |
+| `Type`                                                                                     | [components.OutputCompactionItemType](../../models/components/outputcompactionitemtype.mdx) | ✔️                                                                         | N/A                                                                                        |

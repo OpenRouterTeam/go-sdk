@@ -146,6 +146,38 @@ func (r *ResponsesStreamingResponse) GetDataResponseIncomplete() *StreamEventsRe
 	return r.GetData().StreamEventsResponseIncomplete
 }
 
+func (r *ResponsesStreamingResponse) GetDataResponseMcpCallArgumentsDelta() *McpCallArgumentsDeltaEvent {
+	return r.GetData().McpCallArgumentsDeltaEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseMcpCallArgumentsDone() *McpCallArgumentsDoneEvent {
+	return r.GetData().McpCallArgumentsDoneEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseMcpCallCompleted() *McpCallCompletedEvent {
+	return r.GetData().McpCallCompletedEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseMcpCallFailed() *McpCallFailedEvent {
+	return r.GetData().McpCallFailedEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseMcpCallInProgress() *McpCallInProgressEvent {
+	return r.GetData().McpCallInProgressEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseMcpListToolsCompleted() *McpListToolsCompletedEvent {
+	return r.GetData().McpListToolsCompletedEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseMcpListToolsFailed() *McpListToolsFailedEvent {
+	return r.GetData().McpListToolsFailedEvent
+}
+
+func (r *ResponsesStreamingResponse) GetDataResponseMcpListToolsInProgress() *McpListToolsInProgressEvent {
+	return r.GetData().McpListToolsInProgressEvent
+}
+
 func (r *ResponsesStreamingResponse) GetDataResponseOutputItemAdded() *StreamEventsResponseOutputItemAdded {
 	return r.GetData().StreamEventsResponseOutputItemAdded
 }

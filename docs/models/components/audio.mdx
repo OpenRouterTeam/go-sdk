@@ -1,0 +1,30 @@
+---
+title: "Audio"
+---
+
+## Supported Types
+
+### AudioPcm1
+
+```go
+audio := components.CreateAudioAudioPcm1(components.AudioPcm1{/* values here */})
+```
+
+### AudioPcm2
+
+```go
+audio := components.CreateAudioAudioPcm2(components.AudioPcm2{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch audio.Type {
+	case components.AudioTypeAudioPcm1:
+		// audio.AudioPcm1 is populated
+	case components.AudioTypeAudioPcm2:
+		// audio.AudioPcm2 is populated
+}
+```

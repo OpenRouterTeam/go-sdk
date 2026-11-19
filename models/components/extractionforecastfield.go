@@ -450,12 +450,13 @@ type ExtractionForecastField struct {
 	Interval     Interval                   `json:"interval"`
 	Max          ExtractionForecastFieldMax `json:"max"`
 	Min          ExtractionForecastFieldMin `json:"min"`
-	// Probability of null above which `value` is null. Default 0.5.
+	// Not read on this field type: no model takes a null threshold here, and a request that sets it fails with a 400.
 	NullThreshold *float64                          `json:"null_threshold,omitzero"`
 	Scale         *ExtractionForecastFieldScale     `json:"scale,omitzero"`
 	Step          *ExtractionForecastFieldStepUnion `json:"step,omitzero"`
 	Type          ExtractionForecastFieldType       `json:"type"`
-	Unit          *string                           `json:"unit,omitzero"`
+	// Unit label for the value.
+	Unit *string `json:"unit,omitzero"`
 }
 
 func (e ExtractionForecastField) MarshalJSON() ([]byte, error) {

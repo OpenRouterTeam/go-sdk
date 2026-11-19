@@ -8,7 +8,9 @@ import (
 
 type CreatePresetsChatCompletionsRequest struct {
 	// URL-safe slug identifying the preset. Created if it does not exist.
-	Slug        string                 `pathParam:"style=simple,explode=false,name=slug"`
+	Slug string `pathParam:"style=simple,explode=false,name=slug"`
+	// Workspace to act in. Also accepted as a `workspace_id` field in a JSON request body. Defaults to the key's workspace for a key limited to one workspace, otherwise to the account's default workspace.
+	WorkspaceID *string                `queryParam:"style=form,explode=true,name=workspace_id"`
 	ChatRequest components.ChatRequest `request:"mediaType=application/json"`
 }
 
@@ -17,6 +19,13 @@ func (c *CreatePresetsChatCompletionsRequest) GetSlug() string {
 		return ""
 	}
 	return c.Slug
+}
+
+func (c *CreatePresetsChatCompletionsRequest) GetWorkspaceID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.WorkspaceID
 }
 
 func (c *CreatePresetsChatCompletionsRequest) GetChatRequest() components.ChatRequest {

@@ -370,6 +370,8 @@ type BatchListItem struct {
 	ID          string              `json:"id"`
 	Model       string              `json:"model"`
 	Object      BatchListItemObject `json:"object"`
+	// The output location of a batch submitted with `input`, whose `results` are `null`. Returned only by `GET /batches/{id}`, once the batch has ended and the provider reported an output folder or table. Batch lists and responses for a batch with an unpaid charge leave it out.
+	Output *BatchOutputReference `json:"output,omitzero"`
 	// Provider OpenRouter assigned to run the batch, using the same name as the `provider` field of sync responses.
 	Provider      *string                    `json:"provider"`
 	RequestCounts BatchListItemRequestCounts `json:"request_counts"`
@@ -377,6 +379,17 @@ type BatchListItem struct {
 	Results any                 `json:"results"`
 	Status  BatchListItemStatus `json:"status"`
 	Usage   *BatchListItemUsage `json:"usage"`
+}
+
+func (b BatchListItem) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *BatchListItem) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (b *BatchListItem) GetCompletionWindow() BatchListItemCompletionWindow {
@@ -440,6 +453,13 @@ func (b *BatchListItem) GetObject() BatchListItemObject {
 		return BatchListItemObject("")
 	}
 	return b.Object
+}
+
+func (b *BatchListItem) GetOutput() *BatchOutputReference {
+	if b == nil {
+		return nil
+	}
+	return b.Output
 }
 
 func (b *BatchListItem) GetProvider() *string {

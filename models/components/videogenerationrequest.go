@@ -9,7 +9,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-// VideoGenerationRequestAspectRatio - Aspect ratio of the generated video
+// VideoGenerationRequestAspectRatio - Aspect ratio of the generated video. Omit it to use the model default, which on models with adaptive aspect ratio (e.g. BytePlus Seedance) follows the input image or video.
 type VideoGenerationRequestAspectRatio string
 
 const (
@@ -22,6 +22,8 @@ const (
 	VideoGenerationRequestAspectRatioTwentyThree             VideoGenerationRequestAspectRatio = "2:3"
 	VideoGenerationRequestAspectRatioTwoHundredAndNineteen   VideoGenerationRequestAspectRatio = "21:9"
 	VideoGenerationRequestAspectRatioNineHundredAndTwentyOne VideoGenerationRequestAspectRatio = "9:21"
+	VideoGenerationRequestAspectRatioTwentyOne               VideoGenerationRequestAspectRatio = "2:1"
+	VideoGenerationRequestAspectRatioFiftyTwo                VideoGenerationRequestAspectRatio = "5:2"
 )
 
 func (e VideoGenerationRequestAspectRatio) ToPointer() *VideoGenerationRequestAspectRatio {
@@ -32,7 +34,33 @@ func (e VideoGenerationRequestAspectRatio) ToPointer() *VideoGenerationRequestAs
 func (e *VideoGenerationRequestAspectRatio) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "16:9", "9:16", "1:1", "4:3", "3:4", "3:2", "2:3", "21:9", "9:21":
+		case "16:9", "9:16", "1:1", "4:3", "3:4", "3:2", "2:3", "21:9", "9:21", "2:1", "5:2":
+			return true
+		}
+	}
+	return false
+}
+
+// VideoGenerationRequestDataCollection - Data collection setting. If no available model provider meets the requirement, your request will return an error.
+// - allow: (default) allow providers that may train on user data
+//
+// - deny: use only providers that do not train on user data. Providers may still retain prompts; set `zdr: true` to exclude retention.
+type VideoGenerationRequestDataCollection string
+
+const (
+	VideoGenerationRequestDataCollectionDeny  VideoGenerationRequestDataCollection = "deny"
+	VideoGenerationRequestDataCollectionAllow VideoGenerationRequestDataCollection = "allow"
+)
+
+func (e VideoGenerationRequestDataCollection) ToPointer() *VideoGenerationRequestDataCollection {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *VideoGenerationRequestDataCollection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "deny", "allow":
 			return true
 		}
 	}
@@ -277,6 +305,7 @@ type VideoGenerationRequestOptions struct {
 	Deepseek                 map[string]any `json:"deepseek,omitzero"`
 	Dekallm                  map[string]any `json:"dekallm,omitzero"`
 	Digitalocean             map[string]any `json:"digitalocean,omitzero"`
+	Doubleword               map[string]any `json:"doubleword,omitzero"`
 	Elevenlabs               map[string]any `json:"elevenlabs,omitzero"`
 	Enfer                    map[string]any `json:"enfer,omitzero"`
 	FakeProvider             map[string]any `json:"fake-provider,omitzero"`
@@ -354,6 +383,7 @@ type VideoGenerationRequestOptions struct {
 	Relace                   map[string]any `json:"relace,omitzero"`
 	Replicate                map[string]any `json:"replicate,omitzero"`
 	Respan                   map[string]any `json:"respan,omitzero"`
+	River                    map[string]any `json:"river,omitzero"`
 	Runway                   map[string]any `json:"runway,omitzero"`
 	SailResearch             map[string]any `json:"sail-research,omitzero"`
 	Sakana                   map[string]any `json:"sakana,omitzero"`
@@ -365,6 +395,7 @@ type VideoGenerationRequestOptions struct {
 	SfCompute                map[string]any `json:"sf-compute,omitzero"`
 	Siliconflow              map[string]any `json:"siliconflow,omitzero"`
 	Sourceful                map[string]any `json:"sourceful,omitzero"`
+	Speechify                map[string]any `json:"speechify,omitzero"`
 	Stealth                  map[string]any `json:"stealth,omitzero"`
 	Stepfun                  map[string]any `json:"stepfun,omitzero"`
 	Streamlake               map[string]any `json:"streamlake,omitzero"`
@@ -706,6 +737,13 @@ func (v *VideoGenerationRequestOptions) GetDigitalocean() map[string]any {
 		return nil
 	}
 	return v.Digitalocean
+}
+
+func (v *VideoGenerationRequestOptions) GetDoubleword() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Doubleword
 }
 
 func (v *VideoGenerationRequestOptions) GetElevenlabs() map[string]any {
@@ -1247,6 +1285,13 @@ func (v *VideoGenerationRequestOptions) GetRespan() map[string]any {
 	return v.Respan
 }
 
+func (v *VideoGenerationRequestOptions) GetRiver() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.River
+}
+
 func (v *VideoGenerationRequestOptions) GetRunway() map[string]any {
 	if v == nil {
 		return nil
@@ -1322,6 +1367,13 @@ func (v *VideoGenerationRequestOptions) GetSourceful() map[string]any {
 		return nil
 	}
 	return v.Sourceful
+}
+
+func (v *VideoGenerationRequestOptions) GetSpeechify() map[string]any {
+	if v == nil {
+		return nil
+	}
+	return v.Speechify
 }
 
 func (v *VideoGenerationRequestOptions) GetStealth() map[string]any {
@@ -1574,8 +1626,13 @@ func (u VideoGenerationRequestOrder) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type VideoGenerationRequestOrder: all fields are null")
 }
 
-// VideoGenerationRequestProvider - Provider routing preferences (order, only, ignore) and provider-specific passthrough configuration
+// VideoGenerationRequestProvider - Provider routing preferences (order, only, ignore), request-level data policy (zdr, data_collection) and provider-specific passthrough configuration. No video endpoint currently offers Zero Data Retention, so `zdr: true` fails routing.
 type VideoGenerationRequestProvider struct {
+	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
+	// - allow: (default) allow providers that may train on user data
+	//
+	// - deny: use only providers that do not train on user data. Providers may still retain prompts; set `zdr: true` to exclude retention.
+	DataCollection optionalnullable.OptionalNullable[VideoGenerationRequestDataCollection] `json:"data_collection,omitzero"`
 	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
 	Ignore optionalnullable.OptionalNullable[[]VideoGenerationRequestIgnore] `json:"ignore,omitzero"`
 	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
@@ -1583,6 +1640,8 @@ type VideoGenerationRequestProvider struct {
 	Options *VideoGenerationRequestOptions                                  `json:"options,omitzero"`
 	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
 	Order optionalnullable.OptionalNullable[[]VideoGenerationRequestOrder] `json:"order,omitzero"`
+	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
+	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 }
 
 func (v VideoGenerationRequestProvider) MarshalJSON() ([]byte, error) {
@@ -1594,6 +1653,13 @@ func (v *VideoGenerationRequestProvider) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (v *VideoGenerationRequestProvider) GetDataCollection() optionalnullable.OptionalNullable[VideoGenerationRequestDataCollection] {
+	if v == nil {
+		return nil
+	}
+	return v.DataCollection
 }
 
 func (v *VideoGenerationRequestProvider) GetIgnore() optionalnullable.OptionalNullable[[]VideoGenerationRequestIgnore] {
@@ -1622,6 +1688,13 @@ func (v *VideoGenerationRequestProvider) GetOrder() optionalnullable.OptionalNul
 		return nil
 	}
 	return v.Order
+}
+
+func (v *VideoGenerationRequestProvider) GetZdr() optionalnullable.OptionalNullable[bool] {
+	if v == nil {
+		return nil
+	}
+	return v.Zdr
 }
 
 // VideoGenerationRequestResolution - Resolution of the generated video
@@ -1654,17 +1727,17 @@ func (e *VideoGenerationRequestResolution) IsExact() bool {
 }
 
 type VideoGenerationRequest struct {
-	// Aspect ratio of the generated video
+	// Aspect ratio of the generated video. Omit it to use the model default, which on models with adaptive aspect ratio (e.g. BytePlus Seedance) follows the input image or video.
 	AspectRatio *VideoGenerationRequestAspectRatio `json:"aspect_ratio,omitzero"`
 	// URL to receive a webhook notification when the video generation job completes. Overrides the workspace-level default callback URL if set. Must be HTTPS.
 	CallbackURL *string `json:"callback_url,omitzero"`
 	// Creativity level for video upscaling models only. This parameter is not supported by video generation models.
 	Creativity *int64 `json:"creativity,omitzero"`
-	// Duration of the generated video in seconds
+	// Duration of the generated video in seconds, or -1 to let the provider choose the length (e.g. following an input video). -1 is only accepted by models that list it in supported_durations.
 	Duration *int64 `json:"duration,omitzero"`
 	// Images to use as the first and/or last frame of the generated video. Each image must specify a frame_type of first_frame or last_frame.
 	FrameImages []FrameImage `json:"frame_images,omitzero"`
-	// Whether to generate audio alongside the video. Defaults to the endpoint's generate_audio capability flag, false if not set.
+	// Whether to generate audio alongside the video. Defaults to the endpoint's generate_audio capability flag, false if not set. When neither is set, some providers (such as xAI) apply their own default and generate audio, so send false to request a silent video. Some models always include audio and ignore false.
 	GenerateAudio *bool `json:"generate_audio,omitzero"`
 	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (including BytePlus Seedance generation 2 and newer); other providers use image references and ignore the rest.
 	InputReferences []InputReference `json:"input_references,omitzero"`
@@ -1673,7 +1746,7 @@ type VideoGenerationRequest struct {
 	PreviousJobID *string `json:"previous_job_id,omitzero"`
 	// Text prompt describing the video to generate. Optional for models that support generating a video from image input alone; required by all other models.
 	Prompt *string `json:"prompt,omitzero"`
-	// Provider routing preferences (order, only, ignore) and provider-specific passthrough configuration
+	// Provider routing preferences (order, only, ignore), request-level data policy (zdr, data_collection) and provider-specific passthrough configuration. No video endpoint currently offers Zero Data Retention, so `zdr: true` fails routing.
 	Provider *VideoGenerationRequestProvider `json:"provider,omitzero"`
 	// Resolution of the generated video
 	Resolution *VideoGenerationRequestResolution `json:"resolution,omitzero"`

@@ -9,6 +9,31 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+type McpCallItemStatus string
+
+const (
+	McpCallItemStatusInProgress McpCallItemStatus = "in_progress"
+	McpCallItemStatusCompleted  McpCallItemStatus = "completed"
+	McpCallItemStatusIncomplete McpCallItemStatus = "incomplete"
+	McpCallItemStatusCalling    McpCallItemStatus = "calling"
+	McpCallItemStatusFailed     McpCallItemStatus = "failed"
+)
+
+func (e McpCallItemStatus) ToPointer() *McpCallItemStatus {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *McpCallItemStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "in_progress", "completed", "incomplete", "calling", "failed":
+			return true
+		}
+	}
+	return false
+}
+
 type McpCallItemType string
 
 const (
@@ -34,13 +59,15 @@ func (e *McpCallItemType) UnmarshalJSON(data []byte) error {
 
 // McpCallItem - An MCP tool call with its output or error
 type McpCallItem struct {
-	Arguments string `json:"arguments"`
+	ApprovalRequestID optionalnullable.OptionalNullable[string] `json:"approval_request_id,omitzero"`
+	Arguments         string                                    `json:"arguments"`
 	// Error from an MCP tool call, either a plain message or a structured error
 	Error       optionalnullable.OptionalNullable[McpToolCallError] `json:"error,omitzero"`
 	ID          string                                              `json:"id"`
 	Name        string                                              `json:"name"`
 	Output      optionalnullable.OptionalNullable[string]           `json:"output,omitzero"`
 	ServerLabel string                                              `json:"server_label"`
+	Status      *McpCallItemStatus                                  `json:"status,omitzero"`
 	Type        McpCallItemType                                     `json:"type"`
 }
 
@@ -53,6 +80,13 @@ func (m *McpCallItem) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (m *McpCallItem) GetApprovalRequestID() optionalnullable.OptionalNullable[string] {
+	if m == nil {
+		return nil
+	}
+	return m.ApprovalRequestID
 }
 
 func (m *McpCallItem) GetArguments() string {
@@ -95,6 +129,13 @@ func (m *McpCallItem) GetServerLabel() string {
 		return ""
 	}
 	return m.ServerLabel
+}
+
+func (m *McpCallItem) GetStatus() *McpCallItemStatus {
+	if m == nil {
+		return nil
+	}
+	return m.Status
 }
 
 func (m *McpCallItem) GetType() McpCallItemType {

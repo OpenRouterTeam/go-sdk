@@ -43,7 +43,7 @@ type UpdateKeysRequestBody struct {
 	LimitReset optionalnullable.OptionalNullable[UpdateKeysLimitReset] `json:"limit_reset,omitzero"`
 	// New name for the API key
 	Name *string `json:"name,omitzero"`
-	// Move the API key to this workspace. The key keeps its value; guardrail selections move with it, while other workspace-scoped settings (presets, BYOK keys, broadcast destinations, routing rules) do not. Sending the key's current workspace is a no-op.
+	// Move the API key to this workspace. The key keeps its value; guardrail selections move with it, except direct guardrail assignments owned by the key's current workspace, which are removed along with the selections derived from them, while other workspace-scoped settings (presets, BYOK keys, broadcast destinations, routing rules) do not. Sending the key's current workspace is a no-op.
 	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 

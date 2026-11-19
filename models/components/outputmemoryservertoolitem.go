@@ -8,20 +8,20 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
-type ActionEnum string
+type OutputMemoryServerToolItemAction string
 
 const (
-	ActionEnumRead   ActionEnum = "read"
-	ActionEnumWrite  ActionEnum = "write"
-	ActionEnumDelete ActionEnum = "delete"
+	OutputMemoryServerToolItemActionRead   OutputMemoryServerToolItemAction = "read"
+	OutputMemoryServerToolItemActionWrite  OutputMemoryServerToolItemAction = "write"
+	OutputMemoryServerToolItemActionDelete OutputMemoryServerToolItemAction = "delete"
 )
 
-func (e ActionEnum) ToPointer() *ActionEnum {
+func (e OutputMemoryServerToolItemAction) ToPointer() *OutputMemoryServerToolItemAction {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ActionEnum) IsExact() bool {
+func (e *OutputMemoryServerToolItemAction) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "read", "write", "delete":
@@ -56,12 +56,12 @@ func (e *OutputMemoryServerToolItemType) UnmarshalJSON(data []byte) error {
 
 // OutputMemoryServerToolItem - An openrouter:memory server tool output item
 type OutputMemoryServerToolItem struct {
-	Action *ActionEnum                    `json:"action,omitzero"`
-	ID     *string                        `json:"id,omitzero"`
-	Key    *string                        `json:"key,omitzero"`
-	Status ToolCallStatus                 `json:"status"`
-	Type   OutputMemoryServerToolItemType `json:"type"`
-	Value  any                            `json:"value,omitzero"`
+	Action *OutputMemoryServerToolItemAction `json:"action,omitzero"`
+	ID     *string                           `json:"id,omitzero"`
+	Key    *string                           `json:"key,omitzero"`
+	Status ToolCallStatus                    `json:"status"`
+	Type   OutputMemoryServerToolItemType    `json:"type"`
+	Value  any                               `json:"value,omitzero"`
 }
 
 func (o OutputMemoryServerToolItem) MarshalJSON() ([]byte, error) {
@@ -75,7 +75,7 @@ func (o *OutputMemoryServerToolItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *OutputMemoryServerToolItem) GetAction() *ActionEnum {
+func (o *OutputMemoryServerToolItem) GetAction() *OutputMemoryServerToolItemAction {
 	if o == nil {
 		return nil
 	}

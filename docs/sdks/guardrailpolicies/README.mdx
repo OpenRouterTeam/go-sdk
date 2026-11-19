@@ -1,0 +1,1510 @@
+---
+title: "Guardrail Policies"
+description: "Guardrail Policies endpoints"
+---
+
+## Overview
+
+Guardrail Policies endpoints
+
+### Available Operations
+
+* [ListAccountPolicies](#listaccountpolicies) - List workspace-wide policies
+* [CreateAccountPolicy](#createaccountpolicy) - Create a workspace-wide policy
+* [DeleteAccountPolicy](#deleteaccountpolicy) - Delete a workspace-wide policy
+* [UpdateAccountPolicy](#updateaccountpolicy) - Update a workspace-wide policy
+* [GetAPIKeyPolicyAssignment](#getapikeypolicyassignment) - Get an API key policy assignment
+* [ChangeAPIKeyPolicyAssignment](#changeapikeypolicyassignment) - Change an API key policy assignment
+* [GetMemberPolicyAssignment](#getmemberpolicyassignment) - Get a member policy assignment
+* [ChangeMemberPolicyAssignment](#changememberpolicyassignment) - Change a member policy assignment
+* [ListBudgetPolicies](#listbudgetpolicies) - List budget policies
+* [CreateBudgetPolicy](#createbudgetpolicy) - Create a budget policy
+* [DeleteBudgetPolicy](#deletebudgetpolicy) - Delete a budget policy
+* [GetBudgetPolicy](#getbudgetpolicy) - Get a budget policy
+* [UpdateBudgetPolicy](#updatebudgetpolicy) - Update a budget policy
+* [ListModelAvailabilityPolicies](#listmodelavailabilitypolicies) - List model availability policies
+* [CreateModelAvailabilityPolicy](#createmodelavailabilitypolicy) - Create a model availability policy
+* [DeleteModelAvailabilityPolicy](#deletemodelavailabilitypolicy) - Delete a model availability policy
+* [GetModelAvailabilityPolicy](#getmodelavailabilitypolicy) - Get a model availability policy
+* [UpdateModelAvailabilityPolicy](#updatemodelavailabilitypolicy) - Update a model availability policy
+* [ListModerationPolicies](#listmoderationpolicies) - List moderation policies
+* [CreateModerationPolicy](#createmoderationpolicy) - Create a moderation policy
+* [DeleteModerationPolicy](#deletemoderationpolicy) - Delete a moderation policy
+* [GetModerationPolicy](#getmoderationpolicy) - Get a moderation policy
+* [UpdateModerationPolicy](#updatemoderationpolicy) - Update a moderation policy
+
+## ListAccountPolicies
+
+List the workspace-wide policies that apply across workspaces in the account. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.ListAccountPolicies(ctx, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      | Example                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                            | ✔️                                                                                               | The context to use for the request.                                                                              |                                                                                                                  |
+| `offset`                                                                                                         | `*int64`                                                                                                         | ➖                                                                                               | Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned      | 0                                                                                                                |
+| `limit`                                                                                                          | `*int64`                                                                                                         | ➖                                                                                               | Maximum number of records to return (max 100). When both offset and limit are omitted, the full list is returned | 50                                                                                                               |
+| `opts`                                                                                                           | [][operations.Option](../../models/operations/option.mdx)                                                         | ➖                                                                                               | The options for this request.                                                                                    |                                                                                                                  |
+
+### Response
+
+**[*operations.ListAccountPoliciesResponse](../../models/operations/listaccountpoliciesresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreateAccountPolicy
+
+Create a workspace-wide budget, moderation, or model availability policy. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.CreateAccountPolicy(ctx, components.CreateAccountGuardrailPolicyRequestBudget(
+        components.BudgetAccountGuardrailPolicyRequest{
+            Config: components.GuardrailBudgetPolicyAuthoringConfig{
+                IncludeBYOKInBudgets: false,
+                LimitUsd: openrouter.Pointer[float64](200.0),
+                ResetInterval: components.GuardrailBudgetPolicyAuthoringConfigResetIntervalMonthly.ToPointer(),
+            },
+            Name: "Engineering monthly budget",
+            PolicyType: components.BudgetAccountGuardrailPolicyRequestPolicyTypeBudget,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        switch res.Data.Type {
+            case components.AccountGuardrailPolicyTypeBudget:
+                // res.Data.BudgetAccountGuardrailPolicy is populated
+            case components.AccountGuardrailPolicyTypeModelAvailability:
+                // res.Data.ModelAvailabilityAccountGuardrailPolicy is populated
+            case components.AccountGuardrailPolicyTypeModeration:
+                // res.Data.ModerationAccountGuardrailPolicy is populated
+            default:
+                // Unknown type - use res.Data.GetUnknownRaw() for raw JSON
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                | ✔️                                                                                   | The context to use for the request.                                                                  |
+| `request`                                                                                            | [components.AccountGuardrailPolicyRequest](../../models/components/accountguardrailpolicyrequest.mdx) | ✔️                                                                                   | The request object to use for the request.                                                           |
+| `opts`                                                                                               | [][operations.Option](../../models/operations/option.mdx)                                             | ➖                                                                                   | The options for this request.                                                                        |
+
+### Response
+
+**[*components.AccountGuardrailPolicyResponse](../../models/components/accountguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## DeleteAccountPolicy
+
+Delete a workspace-wide policy. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.DeleteAccountPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | ✔️                                       | The context to use for the request.                      |                                                          |
+| `id`                                                     | `string`                                                 | ✔️                                       | Policy ID                                                | 550e8400-e29b-41d4-a716-446655440000                     |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.mdx) | ➖                                       | The options for this request.                            |                                                          |
+
+### Response
+
+**[*components.DeleteGuardrailPolicyResponse](../../models/components/deleteguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## UpdateAccountPolicy
+
+Replace a workspace-wide policy and its workspace coverage. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.UpdateAccountPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", components.CreateAccountGuardrailPolicyRequestBudget(
+        components.BudgetAccountGuardrailPolicyRequest{
+            Config: components.GuardrailBudgetPolicyAuthoringConfig{
+                IncludeBYOKInBudgets: false,
+                LimitUsd: openrouter.Pointer[float64](200.0),
+                ResetInterval: components.GuardrailBudgetPolicyAuthoringConfigResetIntervalMonthly.ToPointer(),
+            },
+            Name: "Engineering monthly budget",
+            PolicyType: components.BudgetAccountGuardrailPolicyRequestPolicyTypeBudget,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        switch res.Data.Type {
+            case components.AccountGuardrailPolicyTypeBudget:
+                // res.Data.BudgetAccountGuardrailPolicy is populated
+            case components.AccountGuardrailPolicyTypeModelAvailability:
+                // res.Data.ModelAvailabilityAccountGuardrailPolicy is populated
+            case components.AccountGuardrailPolicyTypeModeration:
+                // res.Data.ModerationAccountGuardrailPolicy is populated
+            default:
+                // Unknown type - use res.Data.GetUnknownRaw() for raw JSON
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          | Example                                                                                              |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                | ✔️                                                                                   | The context to use for the request.                                                                  |                                                                                                      |
+| `id`                                                                                                 | `string`                                                                                             | ✔️                                                                                   | Policy ID                                                                                            | 550e8400-e29b-41d4-a716-446655440000                                                                 |
+| `accountGuardrailPolicyRequest`                                                                      | [components.AccountGuardrailPolicyRequest](../../models/components/accountguardrailpolicyrequest.mdx) | ✔️                                                                                   | N/A                                                                                                  |                                                                                                      |
+| `opts`                                                                                               | [][operations.Option](../../models/operations/option.mdx)                                             | ➖                                                                                   | The options for this request.                                                                        |                                                                                                      |
+
+### Response
+
+**[*components.AccountGuardrailPolicyResponse](../../models/components/accountguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetAPIKeyPolicyAssignment
+
+Get the policies of one type that apply to an API key in a workspace. Requires a management key with write access. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.GetAPIKeyPolicyAssignment(ctx, "c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93", operations.GetAPIKeyPolicyAssignmentPolicyTypeBudget, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `hash`                                                                                                                                                         | `string`                                                                                                                                                       | ✔️                                                                                                                                             | API key hash                                                                                                                                                   | c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93                                                                                               |
+| `policyType`                                                                                                                                                   | [operations.GetAPIKeyPolicyAssignmentPolicyType](../../models/operations/getapikeypolicyassignmentpolicytype.mdx)                                               | ✔️                                                                                                                                             | Policy type the assignment is read or changed for                                                                                                              | budget                                                                                                                                                         |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.GuardrailPolicyAssignmentResponse](../../models/components/guardrailpolicyassignmentresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ChangeAPIKeyPolicyAssignment
+
+Assign or unassign one policy for an API key. Fails with 409 when `expected_assignment` no longer matches the stored state. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.ChangeAPIKeyPolicyAssignment(ctx, "c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93", components.ChangeGuardrailPolicyAssignmentRequest{
+        Assigned: true,
+        ExpectedAssignment: components.GuardrailPolicyAssignmentState{
+            OptedOut: false,
+            PolicyIds: []string{},
+            WorkspaceDefaultPolicyIds: []string{
+                "2c6f1a4e-0b7d-4e59-9a61-3f8d2e7c1b90",
+            },
+        },
+        PolicyID: "550e8400-e29b-41d4-a716-446655440000",
+        PolicyType: components.ChangeGuardrailPolicyAssignmentRequestPolicyTypeBudget,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                  | ✔️                                                                                                     | The context to use for the request.                                                                                    |                                                                                                                        |
+| `hash`                                                                                                                 | `string`                                                                                                               | ✔️                                                                                                     | API key hash                                                                                                           | c56454edb818d6b14bc0d61c46025f1450b0f4012d12304ab40aacb519fcbc93                                                       |
+| `changeGuardrailPolicyAssignmentRequest`                                                                               | [components.ChangeGuardrailPolicyAssignmentRequest](../../models/components/changeguardrailpolicyassignmentrequest.mdx) | ✔️                                                                                                     | N/A                                                                                                                    |                                                                                                                        |
+| `opts`                                                                                                                 | [][operations.Option](../../models/operations/option.mdx)                                                               | ➖                                                                                                     | The options for this request.                                                                                          |                                                                                                                        |
+
+### Response
+
+**[*components.ChangeGuardrailPolicyAssignmentResponse](../../models/components/changeguardrailpolicyassignmentresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetMemberPolicyAssignment
+
+Get the policies of one type that apply to a member in a workspace. Requires a management key with write access. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.GetMemberPolicyAssignment(ctx, "user_2abcDEFghiJKLmnoPQRstu", operations.GetMemberPolicyAssignmentPolicyTypeBudget, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `memberID`                                                                                                                                                     | `string`                                                                                                                                                       | ✔️                                                                                                                                             | Organization member user ID                                                                                                                                    | user_2abcDEFghiJKLmnoPQRstu                                                                                                                                    |
+| `policyType`                                                                                                                                                   | [operations.GetMemberPolicyAssignmentPolicyType](../../models/operations/getmemberpolicyassignmentpolicytype.mdx)                                               | ✔️                                                                                                                                             | Policy type the assignment is read or changed for                                                                                                              | budget                                                                                                                                                         |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.GuardrailPolicyAssignmentResponse](../../models/components/guardrailpolicyassignmentresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ChangeMemberPolicyAssignment
+
+Assign or unassign one policy for a member. Fails with 409 when `expected_assignment` no longer matches the stored state. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.ChangeMemberPolicyAssignment(ctx, "user_2abcDEFghiJKLmnoPQRstu", components.ChangeGuardrailPolicyAssignmentRequest{
+        Assigned: true,
+        ExpectedAssignment: components.GuardrailPolicyAssignmentState{
+            OptedOut: false,
+            PolicyIds: []string{},
+            WorkspaceDefaultPolicyIds: []string{
+                "2c6f1a4e-0b7d-4e59-9a61-3f8d2e7c1b90",
+            },
+        },
+        PolicyID: "550e8400-e29b-41d4-a716-446655440000",
+        PolicyType: components.ChangeGuardrailPolicyAssignmentRequestPolicyTypeBudget,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                  | ✔️                                                                                                     | The context to use for the request.                                                                                    |                                                                                                                        |
+| `memberID`                                                                                                             | `string`                                                                                                               | ✔️                                                                                                     | Organization member user ID                                                                                            | user_2abcDEFghiJKLmnoPQRstu                                                                                            |
+| `changeGuardrailPolicyAssignmentRequest`                                                                               | [components.ChangeGuardrailPolicyAssignmentRequest](../../models/components/changeguardrailpolicyassignmentrequest.mdx) | ✔️                                                                                                     | N/A                                                                                                                    |                                                                                                                        |
+| `opts`                                                                                                                 | [][operations.Option](../../models/operations/option.mdx)                                                               | ➖                                                                                                     | The options for this request.                                                                                          |                                                                                                                        |
+
+### Response
+
+**[*components.ChangeGuardrailPolicyAssignmentResponse](../../models/components/changeguardrailpolicyassignmentresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListBudgetPolicies
+
+List the budget policies in a workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.ListBudgetPolicies(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `offset`                                                                                                                                                       | `*int64`                                                                                                                                                       | ➖                                                                                                                                             | Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned                                                    | 0                                                                                                                                                              |
+| `limit`                                                                                                                                                        | `*int64`                                                                                                                                                       | ➖                                                                                                                                             | Maximum number of records to return (max 100). When both offset and limit are omitted, the full list is returned                                               | 50                                                                                                                                                             |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*operations.ListBudgetPoliciesResponse](../../models/operations/listbudgetpoliciesresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreateBudgetPolicy
+
+Create a budget policy in a workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.CreateBudgetPolicy(ctx, components.CreateBudgetGuardrailPolicyRequest{
+        Config: components.GuardrailBudgetPolicyAuthoringConfig{
+            IncludeBYOKInBudgets: false,
+            LimitUsd: openrouter.Pointer[float64](200.0),
+            ResetInterval: components.GuardrailBudgetPolicyAuthoringConfigResetIntervalMonthly.ToPointer(),
+        },
+        Name: "Engineering monthly budget",
+        PolicyType: components.CreateBudgetGuardrailPolicyRequestPolicyTypeBudget,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                      | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                          | ✔️                                                                                             | The context to use for the request.                                                                            |
+| `request`                                                                                                      | [components.CreateBudgetGuardrailPolicyRequest](../../models/components/createbudgetguardrailpolicyrequest.mdx) | ✔️                                                                                             | The request object to use for the request.                                                                     |
+| `opts`                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                       | ➖                                                                                             | The options for this request.                                                                                  |
+
+### Response
+
+**[*components.BudgetGuardrailPolicyResponse](../../models/components/budgetguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## DeleteBudgetPolicy
+
+Delete a budget policy. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.DeleteBudgetPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `id`                                                                                                                                                           | `string`                                                                                                                                                       | ✔️                                                                                                                                             | Policy ID                                                                                                                                                      | 550e8400-e29b-41d4-a716-446655440000                                                                                                                           |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.DeleteGuardrailPolicyResponse](../../models/components/deleteguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetBudgetPolicy
+
+Get a budget policy with its member and API key assignments. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.GetBudgetPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `id`                                                                                                                                                           | `string`                                                                                                                                                       | ✔️                                                                                                                                             | Policy ID                                                                                                                                                      | 550e8400-e29b-41d4-a716-446655440000                                                                                                                           |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.BudgetGuardrailPolicyDetailResponse](../../models/components/budgetguardrailpolicydetailresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## UpdateBudgetPolicy
+
+Replace a budget policy's name and config, and optionally its assignments. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.UpdateBudgetPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", components.UpdateBudgetGuardrailPolicyRequest{
+        Config: components.GuardrailBudgetPolicyAuthoringConfig{
+            IncludeBYOKInBudgets: false,
+            LimitUsd: openrouter.Pointer[float64](200.0),
+            ResetInterval: components.GuardrailBudgetPolicyAuthoringConfigResetIntervalMonthly.ToPointer(),
+        },
+        Name: "Engineering monthly budget",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                      | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    | Example                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                          | ✔️                                                                                             | The context to use for the request.                                                                            |                                                                                                                |
+| `id`                                                                                                           | `string`                                                                                                       | ✔️                                                                                             | Policy ID                                                                                                      | 550e8400-e29b-41d4-a716-446655440000                                                                           |
+| `updateBudgetGuardrailPolicyRequest`                                                                           | [components.UpdateBudgetGuardrailPolicyRequest](../../models/components/updatebudgetguardrailpolicyrequest.mdx) | ✔️                                                                                             | N/A                                                                                                            |                                                                                                                |
+| `opts`                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                       | ➖                                                                                             | The options for this request.                                                                                  |                                                                                                                |
+
+### Response
+
+**[*components.BudgetGuardrailPolicyResponse](../../models/components/budgetguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListModelAvailabilityPolicies
+
+List the model availability policies in a workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.ListModelAvailabilityPolicies(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `offset`                                                                                                                                                       | `*int64`                                                                                                                                                       | ➖                                                                                                                                             | Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned                                                    | 0                                                                                                                                                              |
+| `limit`                                                                                                                                                        | `*int64`                                                                                                                                                       | ➖                                                                                                                                             | Maximum number of records to return (max 100). When both offset and limit are omitted, the full list is returned                                               | 50                                                                                                                                                             |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*operations.ListModelAvailabilityPoliciesResponse](../../models/operations/listmodelavailabilitypoliciesresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreateModelAvailabilityPolicy
+
+Create a model availability policy in a workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.CreateModelAvailabilityPolicy(ctx, components.CreateModelAvailabilityGuardrailPolicyRequest{
+        Config: components.GuardrailModelAvailabilityPolicyAuthoringConfig{},
+        Name: "Engineering monthly budget",
+        PolicyType: components.CreateModelAvailabilityGuardrailPolicyRequestPolicyTypeModelAvailability,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                            | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                                                | ✔️                                                                                                                   | The context to use for the request.                                                                                                  |
+| `request`                                                                                                                            | [components.CreateModelAvailabilityGuardrailPolicyRequest](../../models/components/createmodelavailabilityguardrailpolicyrequest.mdx) | ✔️                                                                                                                   | The request object to use for the request.                                                                                           |
+| `opts`                                                                                                                               | [][operations.Option](../../models/operations/option.mdx)                                                                             | ➖                                                                                                                   | The options for this request.                                                                                                        |
+
+### Response
+
+**[*components.ModelAvailabilityGuardrailPolicyResponse](../../models/components/modelavailabilityguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## DeleteModelAvailabilityPolicy
+
+Delete a model availability policy. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.DeleteModelAvailabilityPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `id`                                                                                                                                                           | `string`                                                                                                                                                       | ✔️                                                                                                                                             | Policy ID                                                                                                                                                      | 550e8400-e29b-41d4-a716-446655440000                                                                                                                           |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.DeleteGuardrailPolicyResponse](../../models/components/deleteguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetModelAvailabilityPolicy
+
+Get a model availability policy with its member and API key assignments. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.GetModelAvailabilityPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `id`                                                                                                                                                           | `string`                                                                                                                                                       | ✔️                                                                                                                                             | Policy ID                                                                                                                                                      | 550e8400-e29b-41d4-a716-446655440000                                                                                                                           |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.ModelAvailabilityGuardrailPolicyDetailResponse](../../models/components/modelavailabilityguardrailpolicydetailresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## UpdateModelAvailabilityPolicy
+
+Replace a model availability policy's name and config, and optionally its assignments. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.UpdateModelAvailabilityPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", components.UpdateModelAvailabilityGuardrailPolicyRequest{
+        Config: components.GuardrailModelAvailabilityPolicyAuthoringConfig{},
+        Name: "Engineering monthly budget",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                            | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          | Example                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                                                | ✔️                                                                                                                   | The context to use for the request.                                                                                                  |                                                                                                                                      |
+| `id`                                                                                                                                 | `string`                                                                                                                             | ✔️                                                                                                                   | Policy ID                                                                                                                            | 550e8400-e29b-41d4-a716-446655440000                                                                                                 |
+| `updateModelAvailabilityGuardrailPolicyRequest`                                                                                      | [components.UpdateModelAvailabilityGuardrailPolicyRequest](../../models/components/updatemodelavailabilityguardrailpolicyrequest.mdx) | ✔️                                                                                                                   | N/A                                                                                                                                  |                                                                                                                                      |
+| `opts`                                                                                                                               | [][operations.Option](../../models/operations/option.mdx)                                                                             | ➖                                                                                                                   | The options for this request.                                                                                                        |                                                                                                                                      |
+
+### Response
+
+**[*components.ModelAvailabilityGuardrailPolicyResponse](../../models/components/modelavailabilityguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## ListModerationPolicies
+
+List the moderation policies in a workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.ListModerationPolicies(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `offset`                                                                                                                                                       | `*int64`                                                                                                                                                       | ➖                                                                                                                                             | Number of records to skip for pagination. When both offset and limit are omitted, the full list is returned                                                    | 0                                                                                                                                                              |
+| `limit`                                                                                                                                                        | `*int64`                                                                                                                                                       | ➖                                                                                                                                             | Maximum number of records to return (max 100). When both offset and limit are omitted, the full list is returned                                               | 50                                                                                                                                                             |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*operations.ListModerationPoliciesResponse](../../models/operations/listmoderationpoliciesresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## CreateModerationPolicy
+
+Create a moderation policy in a workspace. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.CreateModerationPolicy(ctx, components.CreateModerationGuardrailPolicyRequest{
+        Config: components.GuardrailModerationPolicyConfig{},
+        Name: "Engineering monthly budget",
+        PolicyType: components.CreateModerationGuardrailPolicyRequestPolicyTypeModeration,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                  | ✔️                                                                                                     | The context to use for the request.                                                                                    |
+| `request`                                                                                                              | [components.CreateModerationGuardrailPolicyRequest](../../models/components/createmoderationguardrailpolicyrequest.mdx) | ✔️                                                                                                     | The request object to use for the request.                                                                             |
+| `opts`                                                                                                                 | [][operations.Option](../../models/operations/option.mdx)                                                               | ➖                                                                                                     | The options for this request.                                                                                          |
+
+### Response
+
+**[*components.ModerationGuardrailPolicyResponse](../../models/components/moderationguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## DeleteModerationPolicy
+
+Delete a moderation policy. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.DeleteModerationPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `id`                                                                                                                                                           | `string`                                                                                                                                                       | ✔️                                                                                                                                             | Policy ID                                                                                                                                                      | 550e8400-e29b-41d4-a716-446655440000                                                                                                                           |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.DeleteGuardrailPolicyResponse](../../models/components/deleteguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## GetModerationPolicy
+
+Get a moderation policy with its member and API key assignments. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.GetModerationPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                                                                          | ✔️                                                                                                                                             | The context to use for the request.                                                                                                                            |                                                                                                                                                                |
+| `id`                                                                                                                                                           | `string`                                                                                                                                                       | ✔️                                                                                                                                             | Policy ID                                                                                                                                                      | 550e8400-e29b-41d4-a716-446655440000                                                                                                                           |
+| `workspaceID`                                                                                                                                                  | `*string`                                                                                                                                                      | ➖                                                                                                                                             | Workspace the policy belongs to. Required for an organization management key; a workspace-scoped key defaults to its own workspace and gets 403 for any other. | 0df9e665-d932-5740-b2c7-b52af166bc11                                                                                                                           |
+| `opts`                                                                                                                                                         | [][operations.Option](../../models/operations/option.mdx)                                                                                                       | ➖                                                                                                                                             | The options for this request.                                                                                                                                  |                                                                                                                                                                |
+
+### Response
+
+**[*components.ModerationGuardrailPolicyDetailResponse](../../models/components/moderationguardrailpolicydetailresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |
+
+## UpdateModerationPolicy
+
+Replace a moderation policy's name and config, and optionally its assignments. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.GuardrailPolicies.UpdateModerationPolicy(ctx, "550e8400-e29b-41d4-a716-446655440000", components.UpdateModerationGuardrailPolicyRequest{
+        Config: components.GuardrailModerationPolicyConfig{},
+        Name: "Engineering monthly budget",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            | Example                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                                  | ✔️                                                                                                     | The context to use for the request.                                                                                    |                                                                                                                        |
+| `id`                                                                                                                   | `string`                                                                                                               | ✔️                                                                                                     | Policy ID                                                                                                              | 550e8400-e29b-41d4-a716-446655440000                                                                                   |
+| `updateModerationGuardrailPolicyRequest`                                                                               | [components.UpdateModerationGuardrailPolicyRequest](../../models/components/updatemoderationguardrailpolicyrequest.mdx) | ✔️                                                                                                     | N/A                                                                                                                    |                                                                                                                        |
+| `opts`                                                                                                                 | [][operations.Option](../../models/operations/option.mdx)                                                               | ➖                                                                                                     | The options for this request.                                                                                          |                                                                                                                        |
+
+### Response
+
+**[*components.ModerationGuardrailPolicyResponse](../../models/components/moderationguardrailpolicyresponse.mdx), error**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| sdkerrors.BadRequestResponseError     | 400                                   | application/json                      |
+| sdkerrors.UnauthorizedResponseError   | 401                                   | application/json                      |
+| sdkerrors.ForbiddenResponseError      | 403                                   | application/json                      |
+| sdkerrors.NotFoundResponseError       | 404                                   | application/json                      |
+| sdkerrors.ConflictResponseError       | 409                                   | application/json                      |
+| sdkerrors.InternalServerResponseError | 500                                   | application/json                      |
+| sdkerrors.APIError                    | 4XX, 5XX                              | \*/\*                                 |

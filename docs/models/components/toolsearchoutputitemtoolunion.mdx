@@ -178,6 +178,12 @@ toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionT
 toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionToolSearchOutputItemTool(components.ToolSearchOutputItemTool{/* values here */})
 ```
 
+### McpServerToolOpenRouter
+
+```go
+toolSearchOutputItemToolUnion := components.CreateToolSearchOutputItemToolUnionMcpServerToolOpenRouter(components.McpServerToolOpenRouter{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -242,5 +248,7 @@ switch toolSearchOutputItemToolUnion.Type {
 		// toolSearchOutputItemToolUnion.ToolSearchServerTool is populated
 	case components.ToolSearchOutputItemToolUnionTypeToolSearchOutputItemTool:
 		// toolSearchOutputItemToolUnion.ToolSearchOutputItemTool is populated
+	case components.ToolSearchOutputItemToolUnionTypeMcpServerToolOpenRouter:
+		// toolSearchOutputItemToolUnion.McpServerToolOpenRouter is populated
 }
 ```

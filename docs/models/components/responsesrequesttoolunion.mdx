@@ -172,6 +172,12 @@ responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenroute
 responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterToolSearch(components.ToolSearchServerTool{/* values here */})
 ```
 
+### McpServerToolOpenRouter
+
+```go
+responsesRequestToolUnion := components.CreateResponsesRequestToolUnionOpenrouterMcp(components.McpServerToolOpenRouter{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -234,5 +240,7 @@ switch responsesRequestToolUnion.Type {
 		// responsesRequestToolUnion.ShellServerToolOpenRouter is populated
 	case components.ResponsesRequestToolUnionTypeOpenrouterToolSearch:
 		// responsesRequestToolUnion.ToolSearchServerTool is populated
+	case components.ResponsesRequestToolUnionTypeOpenrouterMcp:
+		// responsesRequestToolUnion.McpServerToolOpenRouter is populated
 }
 ```

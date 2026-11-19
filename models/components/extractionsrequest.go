@@ -293,7 +293,7 @@ func (u Fields) MarshalJSON() ([]byte, error) {
 }
 
 type ExtractionsRequest struct {
-	// Assets keyed by reference string. Write a reference wherever the asset belongs in `state` or a field `instructions`; every asset must be referenced at least once. A `state` that is exactly the sole asset's key carries no text of its own and is read as file-only. A model that reads either text or a document per request, not both (ScaleDown Extract with a PDF), needs that form: any other text around the key is state text and is rejected with 400.
+	// Assets keyed by reference string. Write a reference wherever the asset belongs in `state` or a field `instructions`; every asset must be referenced at least once, unless `state` is empty or omitted, in which case the assets are read without a reference. A `state` that is exactly the sole asset's key carries no text of its own and is read as file-only. A model that reads either text or a document per request, not both (ScaleDown Extract with a PDF), takes that form or an empty or omitted `state`: any other text around the key is state text and is rejected with 400.
 	Assets map[string]ExtractionAsset `json:"assets,omitzero"`
 	// Map of field name to typed field spec.
 	Fields   map[string]Fields                                      `json:"fields"`
@@ -303,8 +303,8 @@ type ExtractionsRequest struct {
 	ReferenceDate *string `json:"reference_date,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
-	// The text to read from. May be empty only when the request carries image assets.
-	State string `json:"state"`
+	// The text to read from. May be empty or omitted only when the request carries assets, which are then read without being referenced by key.
+	State *string `default:"" json:"state"`
 	// Metadata for observability and tracing. Known keys (trace_id, trace_name, span_name, generation_name, parent_span_id) have special handling. Additional keys are passed through as custom metadata to configured broadcast destinations.
 	Trace *TraceConfig `json:"trace,omitzero"`
 	User  *string      `json:"user,omitzero"`
@@ -363,9 +363,9 @@ func (e *ExtractionsRequest) GetSessionID() *string {
 	return e.SessionID
 }
 
-func (e *ExtractionsRequest) GetState() string {
+func (e *ExtractionsRequest) GetState() *string {
 	if e == nil {
-		return ""
+		return nil
 	}
 	return e.State
 }

@@ -432,7 +432,7 @@ func (e *SpeechRequestResponseFormat) IsExact() bool {
 
 // SpeechRequest - Text-to-speech request input
 type SpeechRequest struct {
-	// Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is supported by Gemini TTS models and by Fish Audio models other than S1.
+	// Text to synthesize, or a list of turns for multi-speaker input. Each turn has its own text, voice, and instructions. Multi-speaker input is supported by Gemini TTS models, by Fish Audio models other than S1, and by Speechify dialogue models.
 	Input SpeechInput `json:"input"`
 	// Reference content for stateless voice cloning or voice design. Audio mode: one to three `input_audio` parts, each optionally paired with a `text` part carrying its transcript (a single clip accepts its transcript before or after it; with multiple clips each transcript immediately follows its clip), plus at most one `image_url` part as a scene image on providers that condition the cloned voice on its setting; only routed to endpoints that support voice cloning (and multiple references or image references when those parts are sent). Image mode: exactly one `image_url` part; only routed to endpoints that support image references. An empty array is treated as no reference.
 	InputReferences []SpeechInputReference `json:"input_references,omitzero"`
@@ -452,7 +452,7 @@ type SpeechRequest struct {
 	Trace *TraceConfig `json:"trace,omitzero"`
 	// A unique identifier representing your end-user. Forwarded to Broadcast and private logging as the end-user id; never sent to the provider.
 	User *string `json:"user,omitzero"`
-	// Voice identifier (provider-specific).
+	// Voice identifier (provider-specific). Required by most providers; only Seed Audio, HeyGen, Fish Audio, AssemblyAI, Speechify accept requests without it.
 	Voice *string `json:"voice,omitzero"`
 }
 

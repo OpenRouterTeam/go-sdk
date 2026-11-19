@@ -1,0 +1,26 @@
+---
+title: "GuardrailModerationPolicyConfigMode"
+---
+
+`enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `on_error`. Default `enforce`.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.GuardrailModerationPolicyConfigModeEnforce
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.GuardrailModerationPolicyConfigMode("custom_value")
+```
+
+
+## Values
+
+| Name                                         | Value                                        |
+| -------------------------------------------- | -------------------------------------------- |
+| `GuardrailModerationPolicyConfigModeEnforce` | enforce                                      |
+| `GuardrailModerationPolicyConfigModeAudit`   | audit                                        |

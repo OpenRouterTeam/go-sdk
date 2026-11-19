@@ -7,6 +7,8 @@ type GetPresetVersionRequest struct {
 	Slug string `pathParam:"style=simple,explode=false,name=slug"`
 	// Version number of the preset.
 	Version string `pathParam:"style=simple,explode=false,name=version"`
+	// Workspace to act in. Also accepted as a `workspace_id` field in a JSON request body. Defaults to the key's workspace for a key limited to one workspace, otherwise to the account's default workspace.
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
 func (g *GetPresetVersionRequest) GetSlug() string {
@@ -21,4 +23,11 @@ func (g *GetPresetVersionRequest) GetVersion() string {
 		return ""
 	}
 	return g.Version
+}
+
+func (g *GetPresetVersionRequest) GetWorkspaceID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.WorkspaceID
 }

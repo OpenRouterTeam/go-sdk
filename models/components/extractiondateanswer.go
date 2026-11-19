@@ -63,7 +63,7 @@ type ExtractionDateAnswer struct {
 	PNull *float64 `json:"p_null,omitzero"`
 	// Set to `image` or `document` when the answer was read from an image or a PDF rather than the state text.
 	Source *ExtractionDateAnswerSource `json:"source,omitzero"`
-	// Unicode code point offsets [start, end) into the state text: index code points (not UTF-16 code units or UTF-8 bytes), so an emoji or accented letter counts once.
+	// Unicode code point offsets [start, end) into the state text: index code points (not UTF-16 code units or UTF-8 bytes), so an emoji or accented letter counts once. Absent for an answer that has no offsets in the state text, for example a null answer, one read from an image or a document, or one the provider returned without offsets that delimit it.
 	Span []int64 `json:"span,omitzero"`
 	// Confidence in the spelling of text read from an image.
 	SpellConfidence *float64                 `json:"spell_confidence,omitzero"`

@@ -8,7 +8,7 @@ import (
 
 // ModelBenchmarks - Third-party benchmark rankings for this model. Omitted when no benchmark data is available.
 type ModelBenchmarks struct {
-	// Artificial Analysis benchmark index scores.
+	// Benchmark index scores published by Artificial Analysis (artificialanalysis.ai), one field per index. Each score is the model's best on that index across the configurations Artificial Analysis evaluated (for example reasoning levels), so two indexes of one model can come from different configurations. The deprecated Coding Index and Agentic Index fields are null for every model: Artificial Analysis has retired those indexes. Attribute Artificial Analysis when you republish them. Omitted when Artificial Analysis has scored the model on none of them.
 	ArtificialAnalysis *AABenchmarkEntry `json:"artificial_analysis,omitzero"`
 	// Design Arena ELO rankings across arena+category pairs.
 	DesignArena []DABenchmarkEntry `json:"design_arena"`

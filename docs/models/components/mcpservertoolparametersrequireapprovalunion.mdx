@@ -1,0 +1,41 @@
+---
+title: "McpServerToolParametersRequireApprovalUnion"
+---
+
+Approval policy for tool calls. Defaults to always: a call that needs approval ends the response with an mcp_approval_request item, answered with an mcp_approval_response on the next request.
+
+
+## Supported Types
+
+### McpServerToolParametersRequireApproval
+
+```go
+mcpServerToolParametersRequireApprovalUnion := components.CreateMcpServerToolParametersRequireApprovalUnionMcpServerToolParametersRequireApproval(components.McpServerToolParametersRequireApproval{/* values here */})
+```
+
+### McpServerToolParametersRequireApprovalAlways
+
+```go
+mcpServerToolParametersRequireApprovalUnion := components.CreateMcpServerToolParametersRequireApprovalUnionMcpServerToolParametersRequireApprovalAlways(components.McpServerToolParametersRequireApprovalAlways{/* values here */})
+```
+
+### McpServerToolParametersRequireApprovalNever
+
+```go
+mcpServerToolParametersRequireApprovalUnion := components.CreateMcpServerToolParametersRequireApprovalUnionMcpServerToolParametersRequireApprovalNever(components.McpServerToolParametersRequireApprovalNever{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch mcpServerToolParametersRequireApprovalUnion.Type {
+	case components.McpServerToolParametersRequireApprovalUnionTypeMcpServerToolParametersRequireApproval:
+		// mcpServerToolParametersRequireApprovalUnion.McpServerToolParametersRequireApproval is populated
+	case components.McpServerToolParametersRequireApprovalUnionTypeMcpServerToolParametersRequireApprovalAlways:
+		// mcpServerToolParametersRequireApprovalUnion.McpServerToolParametersRequireApprovalAlways is populated
+	case components.McpServerToolParametersRequireApprovalUnionTypeMcpServerToolParametersRequireApprovalNever:
+		// mcpServerToolParametersRequireApprovalUnion.McpServerToolParametersRequireApprovalNever is populated
+}
+```

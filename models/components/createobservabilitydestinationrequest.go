@@ -46,7 +46,7 @@ func (e *CreateObservabilityDestinationRequestType) IsExact() bool {
 }
 
 type CreateObservabilityDestinationRequest struct {
-	// Optional allowlist of OpenRouter API key hashes whose traffic is forwarded. `null` or omitted means all keys. Must contain at least one hash if provided.
+	// Optional allowlist of OpenRouter API key hashes whose traffic is forwarded. `null` or omitted means all keys. Must contain at least one hash if provided. Every hash must belong to an API key in the destination's workspace; any other hash returns 400.
 	APIKeyHashes optionalnullable.OptionalNullable[[]string] `json:"api_key_hashes,omitzero"`
 	// When true, include cost and billing generation metadata.
 	BroadcastGenerationCost *bool `default:"false" json:"broadcast_generation_cost"`
@@ -72,7 +72,7 @@ type CreateObservabilityDestinationRequest struct {
 	SamplingRate *float64 `json:"sampling_rate,omitzero"`
 	// The destination type. Only stable destination types are accepted.
 	Type CreateObservabilityDestinationRequestType `json:"type"`
-	// Optional workspace ID. Defaults to the authenticated entity's default workspace.
+	// Optional workspace ID. Defaults to the authenticated entity's default workspace, or a workspace-scoped management key's own workspace.
 	WorkspaceID *string `json:"workspace_id,omitzero"`
 }
 

@@ -28,6 +28,12 @@ body := components.CreateBodyBodyMessage(components.BodyMessage{/* values here *
 body := components.CreateBodyBodyList(components.BodyList{/* values here */})
 ```
 
+### BodyAudioSpeech
+
+```go
+body := components.CreateBodyBodyAudioSpeech(components.BodyAudioSpeech{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -42,5 +48,7 @@ switch body.Type {
 		// body.BodyMessage is populated
 	case components.BodyTypeBodyList:
 		// body.BodyList is populated
+	case components.BodyTypeBodyAudioSpeech:
+		// body.BodyAudioSpeech is populated
 }
 ```

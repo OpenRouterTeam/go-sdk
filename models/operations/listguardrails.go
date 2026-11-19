@@ -13,7 +13,7 @@ type ListGuardrailsRequest struct {
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
-	// Filter guardrails by workspace ID. By default, guardrails in the default workspace are returned.
+	// Filter guardrails by workspace ID. When omitted, an organization management key gets guardrails in the default workspace and a workspace-scoped key gets guardrails in its own workspace. A workspace-scoped key gets 403 for any other workspace.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 

@@ -205,6 +205,54 @@ streamEvents := components.CreateStreamEventsResponseInProgress(components.OpenR
 streamEvents := components.CreateStreamEventsResponseIncomplete(components.StreamEventsResponseIncomplete{/* values here */})
 ```
 
+### McpCallArgumentsDeltaEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpCallArgumentsDelta(components.McpCallArgumentsDeltaEvent{/* values here */})
+```
+
+### McpCallArgumentsDoneEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpCallArgumentsDone(components.McpCallArgumentsDoneEvent{/* values here */})
+```
+
+### McpCallCompletedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpCallCompleted(components.McpCallCompletedEvent{/* values here */})
+```
+
+### McpCallFailedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpCallFailed(components.McpCallFailedEvent{/* values here */})
+```
+
+### McpCallInProgressEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpCallInProgress(components.McpCallInProgressEvent{/* values here */})
+```
+
+### McpListToolsCompletedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpListToolsCompleted(components.McpListToolsCompletedEvent{/* values here */})
+```
+
+### McpListToolsFailedEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpListToolsFailed(components.McpListToolsFailedEvent{/* values here */})
+```
+
+### McpListToolsInProgressEvent
+
+```go
+streamEvents := components.CreateStreamEventsResponseMcpListToolsInProgress(components.McpListToolsInProgressEvent{/* values here */})
+```
+
 ### StreamEventsResponseOutputItemAdded
 
 ```go
@@ -373,6 +421,22 @@ switch streamEvents.Type {
 		// streamEvents.OpenResponsesInProgressEvent is populated
 	case components.StreamEventsTypeResponseIncomplete:
 		// streamEvents.StreamEventsResponseIncomplete is populated
+	case components.StreamEventsTypeResponseMcpCallArgumentsDelta:
+		// streamEvents.McpCallArgumentsDeltaEvent is populated
+	case components.StreamEventsTypeResponseMcpCallArgumentsDone:
+		// streamEvents.McpCallArgumentsDoneEvent is populated
+	case components.StreamEventsTypeResponseMcpCallCompleted:
+		// streamEvents.McpCallCompletedEvent is populated
+	case components.StreamEventsTypeResponseMcpCallFailed:
+		// streamEvents.McpCallFailedEvent is populated
+	case components.StreamEventsTypeResponseMcpCallInProgress:
+		// streamEvents.McpCallInProgressEvent is populated
+	case components.StreamEventsTypeResponseMcpListToolsCompleted:
+		// streamEvents.McpListToolsCompletedEvent is populated
+	case components.StreamEventsTypeResponseMcpListToolsFailed:
+		// streamEvents.McpListToolsFailedEvent is populated
+	case components.StreamEventsTypeResponseMcpListToolsInProgress:
+		// streamEvents.McpListToolsInProgressEvent is populated
 	case components.StreamEventsTypeResponseOutputItemAdded:
 		// streamEvents.StreamEventsResponseOutputItemAdded is populated
 	case components.StreamEventsTypeResponseOutputItemDone:

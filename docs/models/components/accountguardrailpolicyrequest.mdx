@@ -1,0 +1,38 @@
+---
+title: "AccountGuardrailPolicyRequest"
+---
+
+## Supported Types
+
+### BudgetAccountGuardrailPolicyRequest
+
+```go
+accountGuardrailPolicyRequest := components.CreateAccountGuardrailPolicyRequestBudget(components.BudgetAccountGuardrailPolicyRequest{/* values here */})
+```
+
+### ModelAvailabilityAccountGuardrailPolicyRequest
+
+```go
+accountGuardrailPolicyRequest := components.CreateAccountGuardrailPolicyRequestModelAvailability(components.ModelAvailabilityAccountGuardrailPolicyRequest{/* values here */})
+```
+
+### ModerationAccountGuardrailPolicyRequest
+
+```go
+accountGuardrailPolicyRequest := components.CreateAccountGuardrailPolicyRequestModeration(components.ModerationAccountGuardrailPolicyRequest{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch accountGuardrailPolicyRequest.Type {
+	case components.AccountGuardrailPolicyRequestTypeBudget:
+		// accountGuardrailPolicyRequest.BudgetAccountGuardrailPolicyRequest is populated
+	case components.AccountGuardrailPolicyRequestTypeModelAvailability:
+		// accountGuardrailPolicyRequest.ModelAvailabilityAccountGuardrailPolicyRequest is populated
+	case components.AccountGuardrailPolicyRequestTypeModeration:
+		// accountGuardrailPolicyRequest.ModerationAccountGuardrailPolicyRequest is populated
+}
+```

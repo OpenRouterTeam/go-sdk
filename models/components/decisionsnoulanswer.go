@@ -32,8 +32,9 @@ func (e *DecisionsNoulAnswerType) UnmarshalJSON(data []byte) error {
 }
 
 type DecisionsNoulAnswer struct {
-	Noul float64                 `json:"noul"`
-	Type DecisionsNoulAnswerType `json:"type"`
+	Confidence *float64                `json:"confidence,omitzero"`
+	Noul       float64                 `json:"noul"`
+	Type       DecisionsNoulAnswerType `json:"type"`
 }
 
 func (d DecisionsNoulAnswer) MarshalJSON() ([]byte, error) {
@@ -45,6 +46,13 @@ func (d *DecisionsNoulAnswer) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (d *DecisionsNoulAnswer) GetConfidence() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Confidence
 }
 
 func (d *DecisionsNoulAnswer) GetNoul() float64 {

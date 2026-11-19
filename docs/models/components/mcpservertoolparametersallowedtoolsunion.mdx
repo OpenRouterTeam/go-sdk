@@ -1,0 +1,33 @@
+---
+title: "McpServerToolParametersAllowedToolsUnion"
+---
+
+Restrict the tools exposed to the model to this list or filter.
+
+
+## Supported Types
+
+### 
+
+```go
+mcpServerToolParametersAllowedToolsUnion := components.CreateMcpServerToolParametersAllowedToolsUnionArrayOfStr([]string{/* values here */})
+```
+
+### McpServerToolParametersAllowedTools
+
+```go
+mcpServerToolParametersAllowedToolsUnion := components.CreateMcpServerToolParametersAllowedToolsUnionMcpServerToolParametersAllowedTools(components.McpServerToolParametersAllowedTools{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch mcpServerToolParametersAllowedToolsUnion.Type {
+	case components.McpServerToolParametersAllowedToolsUnionTypeArrayOfStr:
+		// mcpServerToolParametersAllowedToolsUnion.ArrayOfStr is populated
+	case components.McpServerToolParametersAllowedToolsUnionTypeMcpServerToolParametersAllowedTools:
+		// mcpServerToolParametersAllowedToolsUnion.McpServerToolParametersAllowedTools is populated
+}
+```

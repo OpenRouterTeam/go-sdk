@@ -13,6 +13,8 @@ type ListKeyAssignmentsRequest struct {
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
+	// Only list assignments of guardrails in this workspace. When omitted, an organization management key lists every workspace and a workspace-scoped key lists its own workspace. A workspace-scoped key gets 403 for any other workspace.
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
 func (l ListKeyAssignmentsRequest) MarshalJSON() ([]byte, error) {
@@ -38,6 +40,13 @@ func (l *ListKeyAssignmentsRequest) GetLimit() *int64 {
 		return nil
 	}
 	return l.Limit
+}
+
+func (l *ListKeyAssignmentsRequest) GetWorkspaceID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.WorkspaceID
 }
 
 type ListKeyAssignmentsResponse struct {

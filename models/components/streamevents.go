@@ -45,6 +45,14 @@ const (
 	StreamEventsTypeResponseImageGenerationCallPartialImage  StreamEventsType = "response.image_generation_call.partial_image"
 	StreamEventsTypeResponseInProgress                       StreamEventsType = "response.in_progress"
 	StreamEventsTypeResponseIncomplete                       StreamEventsType = "response.incomplete"
+	StreamEventsTypeResponseMcpCallArgumentsDelta            StreamEventsType = "response.mcp_call_arguments.delta"
+	StreamEventsTypeResponseMcpCallArgumentsDone             StreamEventsType = "response.mcp_call_arguments.done"
+	StreamEventsTypeResponseMcpCallCompleted                 StreamEventsType = "response.mcp_call.completed"
+	StreamEventsTypeResponseMcpCallFailed                    StreamEventsType = "response.mcp_call.failed"
+	StreamEventsTypeResponseMcpCallInProgress                StreamEventsType = "response.mcp_call.in_progress"
+	StreamEventsTypeResponseMcpListToolsCompleted            StreamEventsType = "response.mcp_list_tools.completed"
+	StreamEventsTypeResponseMcpListToolsFailed               StreamEventsType = "response.mcp_list_tools.failed"
+	StreamEventsTypeResponseMcpListToolsInProgress           StreamEventsType = "response.mcp_list_tools.in_progress"
 	StreamEventsTypeResponseOutputItemAdded                  StreamEventsType = "response.output_item.added"
 	StreamEventsTypeResponseOutputItemDone                   StreamEventsType = "response.output_item.done"
 	StreamEventsTypeResponseOutputTextAnnotationAdded        StreamEventsType = "response.output_text.annotation.added"
@@ -114,6 +122,14 @@ type StreamEvents struct {
 	FusionCallAnalysisInProgressEvent     *FusionCallAnalysisInProgressEvent     `queryParam:"inline" union:"member"`
 	FusionCallAnalysisCompletedEvent      *FusionCallAnalysisCompletedEvent      `queryParam:"inline" union:"member"`
 	FusionCallCompletedEvent              *FusionCallCompletedEvent              `queryParam:"inline" union:"member"`
+	McpListToolsInProgressEvent           *McpListToolsInProgressEvent           `queryParam:"inline" union:"member"`
+	McpListToolsCompletedEvent            *McpListToolsCompletedEvent            `queryParam:"inline" union:"member"`
+	McpListToolsFailedEvent               *McpListToolsFailedEvent               `queryParam:"inline" union:"member"`
+	McpCallInProgressEvent                *McpCallInProgressEvent                `queryParam:"inline" union:"member"`
+	McpCallArgumentsDeltaEvent            *McpCallArgumentsDeltaEvent            `queryParam:"inline" union:"member"`
+	McpCallArgumentsDoneEvent             *McpCallArgumentsDoneEvent             `queryParam:"inline" union:"member"`
+	McpCallCompletedEvent                 *McpCallCompletedEvent                 `queryParam:"inline" union:"member"`
+	McpCallFailedEvent                    *McpCallFailedEvent                    `queryParam:"inline" union:"member"`
 	DebugEvent                            *DebugEvent                            `queryParam:"inline" union:"member"`
 	UnknownRaw                            json.RawMessage                        `json:"-" union:"unknown"`
 
@@ -513,6 +529,102 @@ func CreateStreamEventsResponseIncomplete(responseIncomplete StreamEventsRespons
 	return StreamEvents{
 		StreamEventsResponseIncomplete: &responseIncomplete,
 		Type:                           typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpCallArgumentsDelta(responseMcpCallArgumentsDelta McpCallArgumentsDeltaEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpCallArgumentsDelta
+
+	typStr := McpCallArgumentsDeltaEventType(typ)
+	responseMcpCallArgumentsDelta.Type = typStr
+
+	return StreamEvents{
+		McpCallArgumentsDeltaEvent: &responseMcpCallArgumentsDelta,
+		Type:                       typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpCallArgumentsDone(responseMcpCallArgumentsDone McpCallArgumentsDoneEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpCallArgumentsDone
+
+	typStr := McpCallArgumentsDoneEventType(typ)
+	responseMcpCallArgumentsDone.Type = typStr
+
+	return StreamEvents{
+		McpCallArgumentsDoneEvent: &responseMcpCallArgumentsDone,
+		Type:                      typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpCallCompleted(responseMcpCallCompleted McpCallCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpCallCompleted
+
+	typStr := McpCallCompletedEventType(typ)
+	responseMcpCallCompleted.Type = typStr
+
+	return StreamEvents{
+		McpCallCompletedEvent: &responseMcpCallCompleted,
+		Type:                  typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpCallFailed(responseMcpCallFailed McpCallFailedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpCallFailed
+
+	typStr := McpCallFailedEventType(typ)
+	responseMcpCallFailed.Type = typStr
+
+	return StreamEvents{
+		McpCallFailedEvent: &responseMcpCallFailed,
+		Type:               typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpCallInProgress(responseMcpCallInProgress McpCallInProgressEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpCallInProgress
+
+	typStr := McpCallInProgressEventType(typ)
+	responseMcpCallInProgress.Type = typStr
+
+	return StreamEvents{
+		McpCallInProgressEvent: &responseMcpCallInProgress,
+		Type:                   typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpListToolsCompleted(responseMcpListToolsCompleted McpListToolsCompletedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpListToolsCompleted
+
+	typStr := McpListToolsCompletedEventType(typ)
+	responseMcpListToolsCompleted.Type = typStr
+
+	return StreamEvents{
+		McpListToolsCompletedEvent: &responseMcpListToolsCompleted,
+		Type:                       typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpListToolsFailed(responseMcpListToolsFailed McpListToolsFailedEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpListToolsFailed
+
+	typStr := McpListToolsFailedEventType(typ)
+	responseMcpListToolsFailed.Type = typStr
+
+	return StreamEvents{
+		McpListToolsFailedEvent: &responseMcpListToolsFailed,
+		Type:                    typ,
+	}
+}
+
+func CreateStreamEventsResponseMcpListToolsInProgress(responseMcpListToolsInProgress McpListToolsInProgressEvent) StreamEvents {
+	typ := StreamEventsTypeResponseMcpListToolsInProgress
+
+	typStr := McpListToolsInProgressEventType(typ)
+	responseMcpListToolsInProgress.Type = typStr
+
+	return StreamEvents{
+		McpListToolsInProgressEvent: &responseMcpListToolsInProgress,
+		Type:                        typ,
 	}
 }
 
@@ -1050,6 +1162,78 @@ func (u *StreamEvents) UnmarshalJSON(data []byte) (err error) {
 		u.StreamEventsResponseIncomplete = streamEventsResponseIncomplete
 		u.Type = StreamEventsTypeResponseIncomplete
 		return nil
+	case "response.mcp_call_arguments.delta":
+		mcpCallArgumentsDeltaEvent := new(McpCallArgumentsDeltaEvent)
+		if err := utils.UnmarshalJSON(data, &mcpCallArgumentsDeltaEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_call_arguments.delta) type McpCallArgumentsDeltaEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpCallArgumentsDeltaEvent = mcpCallArgumentsDeltaEvent
+		u.Type = StreamEventsTypeResponseMcpCallArgumentsDelta
+		return nil
+	case "response.mcp_call_arguments.done":
+		mcpCallArgumentsDoneEvent := new(McpCallArgumentsDoneEvent)
+		if err := utils.UnmarshalJSON(data, &mcpCallArgumentsDoneEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_call_arguments.done) type McpCallArgumentsDoneEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpCallArgumentsDoneEvent = mcpCallArgumentsDoneEvent
+		u.Type = StreamEventsTypeResponseMcpCallArgumentsDone
+		return nil
+	case "response.mcp_call.completed":
+		mcpCallCompletedEvent := new(McpCallCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &mcpCallCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_call.completed) type McpCallCompletedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpCallCompletedEvent = mcpCallCompletedEvent
+		u.Type = StreamEventsTypeResponseMcpCallCompleted
+		return nil
+	case "response.mcp_call.failed":
+		mcpCallFailedEvent := new(McpCallFailedEvent)
+		if err := utils.UnmarshalJSON(data, &mcpCallFailedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_call.failed) type McpCallFailedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpCallFailedEvent = mcpCallFailedEvent
+		u.Type = StreamEventsTypeResponseMcpCallFailed
+		return nil
+	case "response.mcp_call.in_progress":
+		mcpCallInProgressEvent := new(McpCallInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &mcpCallInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_call.in_progress) type McpCallInProgressEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpCallInProgressEvent = mcpCallInProgressEvent
+		u.Type = StreamEventsTypeResponseMcpCallInProgress
+		return nil
+	case "response.mcp_list_tools.completed":
+		mcpListToolsCompletedEvent := new(McpListToolsCompletedEvent)
+		if err := utils.UnmarshalJSON(data, &mcpListToolsCompletedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_list_tools.completed) type McpListToolsCompletedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpListToolsCompletedEvent = mcpListToolsCompletedEvent
+		u.Type = StreamEventsTypeResponseMcpListToolsCompleted
+		return nil
+	case "response.mcp_list_tools.failed":
+		mcpListToolsFailedEvent := new(McpListToolsFailedEvent)
+		if err := utils.UnmarshalJSON(data, &mcpListToolsFailedEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_list_tools.failed) type McpListToolsFailedEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpListToolsFailedEvent = mcpListToolsFailedEvent
+		u.Type = StreamEventsTypeResponseMcpListToolsFailed
+		return nil
+	case "response.mcp_list_tools.in_progress":
+		mcpListToolsInProgressEvent := new(McpListToolsInProgressEvent)
+		if err := utils.UnmarshalJSON(data, &mcpListToolsInProgressEvent, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response.mcp_list_tools.in_progress) type McpListToolsInProgressEvent within StreamEvents: %w", string(data), err)
+		}
+
+		u.McpListToolsInProgressEvent = mcpListToolsInProgressEvent
+		u.Type = StreamEventsTypeResponseMcpListToolsInProgress
+		return nil
 	case "response.output_item.added":
 		streamEventsResponseOutputItemAdded := new(StreamEventsResponseOutputItemAdded)
 		if err := utils.UnmarshalJSON(data, &streamEventsResponseOutputItemAdded, "", true, nil); err != nil {
@@ -1393,6 +1577,38 @@ func (u StreamEvents) MarshalJSON() ([]byte, error) {
 
 	if u.FusionCallCompletedEvent != nil {
 		return utils.MarshalJSON(u.FusionCallCompletedEvent, "", true)
+	}
+
+	if u.McpListToolsInProgressEvent != nil {
+		return utils.MarshalJSON(u.McpListToolsInProgressEvent, "", true)
+	}
+
+	if u.McpListToolsCompletedEvent != nil {
+		return utils.MarshalJSON(u.McpListToolsCompletedEvent, "", true)
+	}
+
+	if u.McpListToolsFailedEvent != nil {
+		return utils.MarshalJSON(u.McpListToolsFailedEvent, "", true)
+	}
+
+	if u.McpCallInProgressEvent != nil {
+		return utils.MarshalJSON(u.McpCallInProgressEvent, "", true)
+	}
+
+	if u.McpCallArgumentsDeltaEvent != nil {
+		return utils.MarshalJSON(u.McpCallArgumentsDeltaEvent, "", true)
+	}
+
+	if u.McpCallArgumentsDoneEvent != nil {
+		return utils.MarshalJSON(u.McpCallArgumentsDoneEvent, "", true)
+	}
+
+	if u.McpCallCompletedEvent != nil {
+		return utils.MarshalJSON(u.McpCallCompletedEvent, "", true)
+	}
+
+	if u.McpCallFailedEvent != nil {
+		return utils.MarshalJSON(u.McpCallFailedEvent, "", true)
 	}
 
 	if u.DebugEvent != nil {

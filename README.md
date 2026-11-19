@@ -302,6 +302,32 @@ func main() {
 * [ListGenerationContent](docs/sdks/generations/README.md#listgenerationcontent) - Get stored prompt, completion, and error content for a generation
 * [SubmitFeedback](docs/sdks/generations/README.md#submitfeedback) - Submit feedback for a generation
 
+### [GuardrailPolicies](docs/sdks/guardrailpolicies/README.md)
+
+* [ListAccountPolicies](docs/sdks/guardrailpolicies/README.md#listaccountpolicies) - List workspace-wide policies
+* [CreateAccountPolicy](docs/sdks/guardrailpolicies/README.md#createaccountpolicy) - Create a workspace-wide policy
+* [DeleteAccountPolicy](docs/sdks/guardrailpolicies/README.md#deleteaccountpolicy) - Delete a workspace-wide policy
+* [UpdateAccountPolicy](docs/sdks/guardrailpolicies/README.md#updateaccountpolicy) - Update a workspace-wide policy
+* [GetAPIKeyPolicyAssignment](docs/sdks/guardrailpolicies/README.md#getapikeypolicyassignment) - Get an API key policy assignment
+* [ChangeAPIKeyPolicyAssignment](docs/sdks/guardrailpolicies/README.md#changeapikeypolicyassignment) - Change an API key policy assignment
+* [GetMemberPolicyAssignment](docs/sdks/guardrailpolicies/README.md#getmemberpolicyassignment) - Get a member policy assignment
+* [ChangeMemberPolicyAssignment](docs/sdks/guardrailpolicies/README.md#changememberpolicyassignment) - Change a member policy assignment
+* [ListBudgetPolicies](docs/sdks/guardrailpolicies/README.md#listbudgetpolicies) - List budget policies
+* [CreateBudgetPolicy](docs/sdks/guardrailpolicies/README.md#createbudgetpolicy) - Create a budget policy
+* [DeleteBudgetPolicy](docs/sdks/guardrailpolicies/README.md#deletebudgetpolicy) - Delete a budget policy
+* [GetBudgetPolicy](docs/sdks/guardrailpolicies/README.md#getbudgetpolicy) - Get a budget policy
+* [UpdateBudgetPolicy](docs/sdks/guardrailpolicies/README.md#updatebudgetpolicy) - Update a budget policy
+* [ListModelAvailabilityPolicies](docs/sdks/guardrailpolicies/README.md#listmodelavailabilitypolicies) - List model availability policies
+* [CreateModelAvailabilityPolicy](docs/sdks/guardrailpolicies/README.md#createmodelavailabilitypolicy) - Create a model availability policy
+* [DeleteModelAvailabilityPolicy](docs/sdks/guardrailpolicies/README.md#deletemodelavailabilitypolicy) - Delete a model availability policy
+* [GetModelAvailabilityPolicy](docs/sdks/guardrailpolicies/README.md#getmodelavailabilitypolicy) - Get a model availability policy
+* [UpdateModelAvailabilityPolicy](docs/sdks/guardrailpolicies/README.md#updatemodelavailabilitypolicy) - Update a model availability policy
+* [ListModerationPolicies](docs/sdks/guardrailpolicies/README.md#listmoderationpolicies) - List moderation policies
+* [CreateModerationPolicy](docs/sdks/guardrailpolicies/README.md#createmoderationpolicy) - Create a moderation policy
+* [DeleteModerationPolicy](docs/sdks/guardrailpolicies/README.md#deletemoderationpolicy) - Delete a moderation policy
+* [GetModerationPolicy](docs/sdks/guardrailpolicies/README.md#getmoderationpolicy) - Get a moderation policy
+* [UpdateModerationPolicy](docs/sdks/guardrailpolicies/README.md#updatemoderationpolicy) - Update a moderation policy
+
 ### [Guardrails](docs/sdks/guardrails/README.md)
 
 * [List](docs/sdks/guardrails/README.md#list) - List guardrails
@@ -355,10 +381,12 @@ func main() {
 ### [Presets](docs/sdks/presets/README.md)
 
 * [List](docs/sdks/presets/README.md#list) - List presets
+* [Delete](docs/sdks/presets/README.md#delete) - Delete a preset
 * [Get](docs/sdks/presets/README.md#get) - Get a preset
 * [CreatePresetsChatCompletions](docs/sdks/presets/README.md#createpresetschatcompletions) - Create a preset from a chat-completions request body
 * [CreatePresetsMessages](docs/sdks/presets/README.md#createpresetsmessages) - Create a preset from a messages request body
 * [CreatePresetsResponses](docs/sdks/presets/README.md#createpresetsresponses) - Create a preset from a responses request body
+* [Restore](docs/sdks/presets/README.md#restore) - Restore a preset
 * [ListVersions](docs/sdks/presets/README.md#listversions) - List versions of a preset
 * [GetVersion](docs/sdks/presets/README.md#getversion) - Get a specific version of a preset
 
@@ -397,12 +425,12 @@ func main() {
 ### [Scim](docs/sdks/scim/README.md)
 
 * [ListMappings](docs/sdks/scim/README.md#listmappings) - List SCIM group mappings
-* [Create](docs/sdks/scim/README.md#create) - Create a SCIM group mapping
-* [Delete](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping
+* [~~Create~~](docs/sdks/scim/README.md#create) - Create a SCIM group mapping :warning: **Deprecated**
+* [~~Delete~~](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping :warning: **Deprecated**
 * [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
-* [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
+* [~~Update~~](docs/sdks/scim/README.md#update) - Update a SCIM group mapping :warning: **Deprecated**
 * [ListGroups](docs/sdks/scim/README.md#listgroups) - List SCIM groups
-* [CreateSyncJob](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync
+* [~~CreateSyncJob~~](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync :warning: **Deprecated**
 * [GetSyncJob](docs/sdks/scim/README.md#getsyncjob) - Get SCIM directory sync status
 
 ### [STT](docs/sdks/stt/README.md)
@@ -816,6 +844,7 @@ import (
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
 	"github.com/OpenRouterTeam/go-sdk/models/operations"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 	"os"
 )
@@ -833,16 +862,16 @@ func main() {
 			"is_bug": components.CreateQuestionsNoul(
 				components.DecisionsNoulQuestion{
 					Criteria: &components.DecisionsNoulQuestionCriteria{
-						False: components.CreateFalseStr(
+						False: optionalnullable.From(openrouter.Pointer(components.CreateFalseStr(
 							"The customer is asking a question or requesting a feature.",
-						),
-						True: components.CreateTrueStr(
+						))),
+						True: optionalnullable.From(openrouter.Pointer(components.CreateTrueStr(
 							"The customer describes broken or unexpected product behavior.",
-						),
+						))),
 					},
-					Instructions: components.CreateDecisionsNoulQuestionInstructionsStr(
+					Instructions: optionalnullable.From(openrouter.Pointer(components.CreateDecisionsNoulQuestionInstructionsStr(
 						"Is the customer reporting a software defect?",
-					),
+					))),
 					Type: components.DecisionsNoulQuestionTypeNoul,
 				},
 			),
@@ -859,9 +888,9 @@ func main() {
 							"Checkout, billing, or payment processing issues.",
 						)),
 					},
-					Instructions: components.CreateDecisionsChoiceQuestionInstructionsStr(
+					Instructions: optionalnullable.From(openrouter.Pointer(components.CreateDecisionsChoiceQuestionInstructionsStr(
 						"Which team should own this ticket?",
-					),
+					))),
 					Type: components.DecisionsChoiceQuestionTypeChoice,
 				},
 			),
@@ -878,9 +907,9 @@ func main() {
 							"Blocking revenue right now",
 						),
 					},
-					Instructions: components.CreateDecisionsScoreQuestionInstructionsStr(
+					Instructions: optionalnullable.From(openrouter.Pointer(components.CreateDecisionsScoreQuestionInstructionsStr(
 						"How urgent is this ticket?",
-					),
+					))),
 					Type: components.DecisionsScoreQuestionTypeScore,
 				},
 			),

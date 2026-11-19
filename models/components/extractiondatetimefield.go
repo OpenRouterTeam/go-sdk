@@ -37,6 +37,8 @@ type ExtractionDatetimeField struct {
 	// Probability of null above which `value` is null. Default 0.5.
 	NullThreshold *float64                    `json:"null_threshold,omitzero"`
 	Type          ExtractionDatetimeFieldType `json:"type"`
+	// Unit label for the value.
+	Unit *string `json:"unit,omitzero"`
 }
 
 func (e ExtractionDatetimeField) MarshalJSON() ([]byte, error) {
@@ -69,4 +71,11 @@ func (e *ExtractionDatetimeField) GetType() ExtractionDatetimeFieldType {
 		return ExtractionDatetimeFieldType("")
 	}
 	return e.Type
+}
+
+func (e *ExtractionDatetimeField) GetUnit() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Unit
 }

@@ -93,6 +93,8 @@ type OpenRouter struct {
 	Generations *Generations
 	// Guardrails endpoints
 	Guardrails *Guardrails
+	// Guardrail Policies endpoints
+	GuardrailPolicies *GuardrailPolicies
 	// Images endpoints
 	Images *Images
 	// API key management endpoints
@@ -219,10 +221,10 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.9.116",
+		SDKVersion: "0.9.117",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:         "speakeasy-sdk/go 0.9.116 2.950.13 1.0.0 github.com/OpenRouterTeam/go-sdk",
-			SDKVersion:        "0.9.116",
+			UserAgent:         "speakeasy-sdk/go 0.9.117 2.950.13 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			SDKVersion:        "0.9.117",
 			GenVersion:        "2.950.13",
 			OpenAPIDocVersion: "1.0.0",
 			Globals:           globals.Globals{},
@@ -269,6 +271,7 @@ func New(opts ...SDKOption) *OpenRouter {
 	sdk.Files = newFiles(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Generations = newGenerations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Guardrails = newGuardrails(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.GuardrailPolicies = newGuardrailPolicies(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Images = newImages(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.APIKeys = newAPIKeys(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Models = newModels(sdk, sdk.sdkConfiguration, sdk.hooks)

@@ -268,15 +268,28 @@ func (l *ListData) GetWorkspaceID() string {
 	return l.WorkspaceID
 }
 
-// ListResponse - List of API keys
-type ListResponse struct {
+// ListResponseBody - List of API keys
+type ListResponseBody struct {
 	// List of API keys
 	Data []ListData `json:"data"`
 }
 
-func (l *ListResponse) GetData() []ListData {
+func (l *ListResponseBody) GetData() []ListData {
 	if l == nil {
 		return []ListData{}
 	}
 	return l.Data
+}
+
+type ListResponse struct {
+	Result ListResponseBody
+
+	Next func() (*ListResponse, error)
+}
+
+func (l *ListResponse) GetResult() ListResponseBody {
+	if l == nil {
+		return ListResponseBody{}
+	}
+	return l.Result
 }

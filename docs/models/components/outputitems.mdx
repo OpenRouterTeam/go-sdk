@@ -19,6 +19,12 @@ outputItems := components.CreateOutputItemsApplyPatchCall(components.OutputApply
 outputItems := components.CreateOutputItemsCodeInterpreterCall(components.OutputCodeInterpreterCallItem{/* values here */})
 ```
 
+### OutputCompactionItem
+
+```go
+outputItems := components.CreateOutputItemsCompaction(components.OutputCompactionItem{/* values here */})
+```
+
 ### OutputComputerCallItem
 
 ```go
@@ -47,6 +53,24 @@ outputItems := components.CreateOutputItemsFunctionCall(components.OutputFunctio
 
 ```go
 outputItems := components.CreateOutputItemsImageGenerationCall(components.OutputImageGenerationCallItem{/* values here */})
+```
+
+### McpApprovalRequestItem
+
+```go
+outputItems := components.CreateOutputItemsMcpApprovalRequest(components.McpApprovalRequestItem{/* values here */})
+```
+
+### McpCallItem
+
+```go
+outputItems := components.CreateOutputItemsMcpCall(components.McpCallItem{/* values here */})
+```
+
+### McpListToolsItem
+
+```go
+outputItems := components.CreateOutputItemsMcpListTools(components.McpListToolsItem{/* values here */})
 ```
 
 ### OutputMessageItem
@@ -125,12 +149,6 @@ outputItems := components.CreateOutputItemsOpenrouterFusion(components.OutputFus
 
 ```go
 outputItems := components.CreateOutputItemsOpenrouterImageGeneration(components.OutputImageGenerationServerToolItem{/* values here */})
-```
-
-### OutputMcpServerToolItem
-
-```go
-outputItems := components.CreateOutputItemsOpenrouterMcp(components.OutputMcpServerToolItem{/* values here */})
 ```
 
 ### OutputMemoryServerToolItem
@@ -215,6 +233,8 @@ switch outputItems.Type {
 		// outputItems.OutputApplyPatchCallItem is populated
 	case components.OutputItemsTypeCodeInterpreterCall:
 		// outputItems.OutputCodeInterpreterCallItem is populated
+	case components.OutputItemsTypeCompaction:
+		// outputItems.OutputCompactionItem is populated
 	case components.OutputItemsTypeComputerCall:
 		// outputItems.OutputComputerCallItem is populated
 	case components.OutputItemsTypeCustomToolCall:
@@ -225,6 +245,12 @@ switch outputItems.Type {
 		// outputItems.OutputFunctionCallItem is populated
 	case components.OutputItemsTypeImageGenerationCall:
 		// outputItems.OutputImageGenerationCallItem is populated
+	case components.OutputItemsTypeMcpApprovalRequest:
+		// outputItems.McpApprovalRequestItem is populated
+	case components.OutputItemsTypeMcpCall:
+		// outputItems.McpCallItem is populated
+	case components.OutputItemsTypeMcpListTools:
+		// outputItems.McpListToolsItem is populated
 	case components.OutputItemsTypeMessage:
 		// outputItems.OutputMessageItem is populated
 	case components.OutputItemsTypeOpenrouterAdvisor:
@@ -251,8 +277,6 @@ switch outputItems.Type {
 		// outputItems.OutputFusionServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterImageGeneration:
 		// outputItems.OutputImageGenerationServerToolItem is populated
-	case components.OutputItemsTypeOpenrouterMcp:
-		// outputItems.OutputMcpServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterMemory:
 		// outputItems.OutputMemoryServerToolItem is populated
 	case components.OutputItemsTypeOpenrouterShell:

@@ -362,6 +362,7 @@ type InputUnionType string
 const (
 	InputUnionTypeStr                  InputUnionType = "str"
 	InputUnionTypeArrayOfStr           InputUnionType = "arrayOfStr"
+	InputUnionTypeArrayOfArrayOfStr    InputUnionType = "arrayOfArrayOfStr"
 	InputUnionTypeArrayOfNumber        InputUnionType = "arrayOfNumber"
 	InputUnionTypeArrayOfArrayOfNumber InputUnionType = "arrayOfArrayOfNumber"
 	InputUnionTypeArrayOfInput         InputUnionType = "arrayOfInput"
@@ -371,6 +372,7 @@ const (
 type InputUnion struct {
 	Str                  *string     `queryParam:"inline" union:"member"`
 	ArrayOfStr           []string    `queryParam:"inline" union:"member"`
+	ArrayOfArrayOfStr    [][]string  `queryParam:"inline" union:"member"`
 	ArrayOfNumber        []float64   `queryParam:"inline" union:"member"`
 	ArrayOfArrayOfNumber [][]float64 `queryParam:"inline" union:"member"`
 	ArrayOfInput         []Input     `queryParam:"inline" union:"member"`
@@ -393,6 +395,15 @@ func CreateInputUnionArrayOfStr(arrayOfStr []string) InputUnion {
 	return InputUnion{
 		ArrayOfStr: arrayOfStr,
 		Type:       typ,
+	}
+}
+
+func CreateInputUnionArrayOfArrayOfStr(arrayOfArrayOfStr [][]string) InputUnion {
+	typ := InputUnionTypeArrayOfArrayOfStr
+
+	return InputUnion{
+		ArrayOfArrayOfStr: arrayOfArrayOfStr,
+		Type:              typ,
 	}
 }
 
@@ -451,6 +462,14 @@ func (u *InputUnion) UnmarshalJSON(data []byte) (err error) {
 		})
 	}
 
+	var arrayOfArrayOfStr [][]string = [][]string{}
+	if err := utils.UnmarshalJSON(data, &arrayOfArrayOfStr, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputUnionTypeArrayOfArrayOfStr,
+			Value: arrayOfArrayOfStr,
+		})
+	}
+
 	var arrayOfNumber []float64 = []float64{}
 	if err := utils.UnmarshalJSON(data, &arrayOfNumber, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
@@ -494,6 +513,9 @@ func (u *InputUnion) UnmarshalJSON(data []byte) (err error) {
 	case InputUnionTypeArrayOfStr:
 		u.ArrayOfStr = best.Value.([]string)
 		return nil
+	case InputUnionTypeArrayOfArrayOfStr:
+		u.ArrayOfArrayOfStr = best.Value.([][]string)
+		return nil
 	case InputUnionTypeArrayOfNumber:
 		u.ArrayOfNumber = best.Value.([]float64)
 		return nil
@@ -515,6 +537,10 @@ func (u InputUnion) MarshalJSON() ([]byte, error) {
 
 	if u.ArrayOfStr != nil {
 		return utils.MarshalJSON(u.ArrayOfStr, "", true)
+	}
+
+	if u.ArrayOfArrayOfStr != nil {
+		return utils.MarshalJSON(u.ArrayOfArrayOfStr, "", true)
 	}
 
 	if u.ArrayOfNumber != nil {
@@ -540,7 +566,7 @@ type CreateEmbeddingsRequest struct {
 	EncodingFormat *EncodingFormat `json:"encoding_format,omitzero"`
 	// Text, token, or multimodal input(s) to embed
 	Input InputUnion `json:"input"`
-	// The type of input (e.g. search_query, search_document)
+	// The type of input (e.g. search_query, search_document). Document-chunk input (`string[][]`) is only valid with a document input type.
 	InputType *string `json:"input_type,omitzero"`
 	// The model to use for embeddings
 	Model    string                                                            `json:"model"`
@@ -749,11 +775,20 @@ func (e *ObjectEmbedding) UnmarshalJSON(data []byte) error {
 
 // CreateEmbeddingsData - A single embedding object
 type CreateEmbeddingsData struct {
+	// Index of the source document when `input` was a list of documents (contextual embeddings). Absent otherwise.
+	DocumentIndex *int64 `json:"document_index,omitzero"`
 	// Embedding vector as an array of floats or a base64 string
 	Embedding Embedding `json:"embedding"`
 	// Index of the embedding in the input list
 	Index  *int64          `json:"index,omitzero"`
 	Object ObjectEmbedding `json:"object"`
+}
+
+func (c *CreateEmbeddingsData) GetDocumentIndex() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.DocumentIndex
 }
 
 func (c *CreateEmbeddingsData) GetEmbedding() Embedding {

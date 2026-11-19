@@ -37,6 +37,8 @@ type ExtractionTextField struct {
 	// Probability of null above which `value` is null. Default 0.5.
 	NullThreshold *float64                `json:"null_threshold,omitzero"`
 	Type          ExtractionTextFieldType `json:"type"`
+	// Unit label for the value.
+	Unit *string `json:"unit,omitzero"`
 }
 
 func (e ExtractionTextField) MarshalJSON() ([]byte, error) {
@@ -69,4 +71,11 @@ func (e *ExtractionTextField) GetType() ExtractionTextFieldType {
 		return ExtractionTextFieldType("")
 	}
 	return e.Type
+}
+
+func (e *ExtractionTextField) GetUnit() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Unit
 }

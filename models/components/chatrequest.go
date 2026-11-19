@@ -479,9 +479,26 @@ func (e *ChatRequestEffort) IsExact() bool {
 
 // ChatRequestReasoning - Configuration options for reasoning models
 type ChatRequestReasoning struct {
+	// Controls which reasoning is available to the model. `auto` uses the model default (same as omitting); `all_turns` includes reasoning from earlier turns passed in input; `current_turn` limits to the current turn only. Only supported by OpenAI GPT-5.6 and newer.
+	Context optionalnullable.OptionalNullable[ReasoningContext] `json:"context,omitzero"`
 	// Constrains effort on reasoning for reasoning models
-	Effort  optionalnullable.OptionalNullable[ChatRequestEffort]                 `json:"effort,omitzero"`
+	Effort optionalnullable.OptionalNullable[ChatRequestEffort] `json:"effort,omitzero"`
+	// Enables reasoning with default settings. Defaults to being inferred from `effort` or `max_tokens`.
+	Enabled *bool `json:"enabled,omitzero"`
+	// When true, the model still reasons but the reasoning is omitted from the response. Defaults to false.
+	Exclude *bool `json:"exclude,omitzero"`
+	// Maximum number of tokens the model may spend on reasoning, for models that take a reasoning token budget instead of an effort level. Cannot be combined with `reasoning.effort` or the top-level `reasoning_effort`: a request that sets both is rejected with "Only one of "reasoning.effort" and "reasoning.max_tokens" can be specified".
+	MaxTokens optionalnullable.OptionalNullable[int64] `json:"max_tokens,omitzero"`
+	// Selects the reasoning mode. `standard` is the default; `pro` engages deeper reasoning on models that support it, billed at standard token rates. Only supported by OpenAI GPT-5.6 and newer.
+	Mode    optionalnullable.OptionalNullable[ReasoningMode]                     `json:"mode,omitzero"`
 	Summary optionalnullable.OptionalNullable[ChatReasoningSummaryVerbosityEnum] `json:"summary,omitzero"`
+}
+
+func (c *ChatRequestReasoning) GetContext() optionalnullable.OptionalNullable[ReasoningContext] {
+	if c == nil {
+		return nil
+	}
+	return c.Context
 }
 
 func (c *ChatRequestReasoning) GetEffort() optionalnullable.OptionalNullable[ChatRequestEffort] {
@@ -489,6 +506,34 @@ func (c *ChatRequestReasoning) GetEffort() optionalnullable.OptionalNullable[Cha
 		return nil
 	}
 	return c.Effort
+}
+
+func (c *ChatRequestReasoning) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+func (c *ChatRequestReasoning) GetExclude() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Exclude
+}
+
+func (c *ChatRequestReasoning) GetMaxTokens() optionalnullable.OptionalNullable[int64] {
+	if c == nil {
+		return nil
+	}
+	return c.MaxTokens
+}
+
+func (c *ChatRequestReasoning) GetMode() optionalnullable.OptionalNullable[ReasoningMode] {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
 }
 
 func (c *ChatRequestReasoning) GetSummary() optionalnullable.OptionalNullable[ChatReasoningSummaryVerbosityEnum] {
@@ -831,7 +876,7 @@ type ChatRequest struct {
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
 	Debug *ChatDebugOptions `json:"debug,omitzero"`
-	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation; keep the catalog unchanged.
+	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation. The portable profile needs the catalog unchanged across a continuation; the universal profile accepts a changed catalog and, with `announce_catalog_changes`, tells the model about it.
 	DeferredTools *DeferredToolsControl `json:"deferred_tools,omitzero"`
 	// Frequency penalty (-2.0 to 2.0)
 	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
