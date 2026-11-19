@@ -82,6 +82,8 @@ type CreateAudioTranscriptionsMultipartRequest struct {
 	Language *string `multipartForm:"name=language"`
 	// The model to use for transcription.
 	Model string `multipartForm:"name=model"`
+	// Context to guide transcription on providers that support contextual prompting. Takes precedence over provider-specific prompt options, including when empty.
+	Prompt *string `multipartForm:"name=prompt"`
 	// JSON-encoded provider preferences object, the same shape as the JSON body field: { "zdr": true, "data_collection": "deny", "options": { "<provider-slug>": { ... } } }. Only options for the matched provider are forwarded. Must decode to a JSON object.
 	Provider *string `multipartForm:"name=provider"`
 	// The response format. "json" (default) returns { text, usage }; "verbose_json" additionally returns task, language, duration, and segment-level timestamps (OpenAI-compatible providers only).
@@ -144,6 +146,13 @@ func (c *CreateAudioTranscriptionsMultipartRequest) GetModel() string {
 		return ""
 	}
 	return c.Model
+}
+
+func (c *CreateAudioTranscriptionsMultipartRequest) GetPrompt() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Prompt
 }
 
 func (c *CreateAudioTranscriptionsMultipartRequest) GetProvider() *string {

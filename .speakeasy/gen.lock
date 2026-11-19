@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 62e970e5bd7c30703a2cc16a82d14b12
+  docChecksum: d7a13f375e7aa7a1f87091384e6bc8aa
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.117
-  configChecksum: f9defee30a09821085622fffa2c6f716
+  releaseVersion: 0.9.118
+  configChecksum: 854244b843b04209f3834748308e3396
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 026a1d0e-f2f6-42a6-b0dd-bbbb52e4d0c8
-  pristine_commit_hash: a07dd709d9a60e86763cd44a4a2259ab46a8e81f
-  pristine_tree_hash: c1614a7af2bc9acad93b3aa6fe545a0f374eb897
+  generation_id: d777eb77-4d9a-4213-9f3c-fe086ef6a46b
+  pristine_commit_hash: fa1496a136df4d0f55bb3a83119cecaec402ef20
+  pristine_tree_hash: 5e83238fd374992595bbdb06f638b04a6925bfa3
 features:
   go:
     acceptHeaders: 2.81.2
@@ -8353,8 +8353,8 @@ trackedFiles:
     pristine_git_object: bb1d120bea69304cb2a12a530d738b2ca42a51b7
   docs/models/components/sttrequest.mdx:
     id: 1e6ea423fbb6
-    last_write_checksum: sha1:e132442c13d6c8999e7926f9fe4d44930b1d2ff5
-    pristine_git_object: f39ccf7a8f5be58f12afd7f9efbb7cec50662cba
+    last_write_checksum: sha1:eb61f248f3efde6e3bc5b4d940db1e1c3ef87bd2
+    pristine_git_object: 94627f417a235349900ae6e50c63cb61f63c5e86
   docs/models/components/sttrequestdatacollection.mdx:
     id: 4f136a402e39
     last_write_checksum: sha1:d06c3e97a3c53e6e80ad0988e2baff471c1f39b2
@@ -9561,8 +9561,8 @@ trackedFiles:
     pristine_git_object: a542ba75478681db05492c30cb23e4f95d49f90a
   docs/models/operations/createaudiotranscriptionsmultipartrequest.mdx:
     id: 063ada7c42d4
-    last_write_checksum: sha1:20dd8b52f27f3b151120bdf1b5edfa3e7459cbd8
-    pristine_git_object: 7029973d59a09bc52b95b785308e617a472e7c13
+    last_write_checksum: sha1:590991ebdd3974aa654d19451fa556c16af8547f
+    pristine_git_object: d179a877f6616baec8c95607ea4fd4bcf9e48909
   docs/models/operations/createauthkeyscodecodechallengemethod.mdx:
     id: 57aefdf3bb42
     last_write_checksum: sha1:fe52a741a4e0bd95106fe2993895f3846f1d87a6
@@ -14417,8 +14417,8 @@ trackedFiles:
     pristine_git_object: e6f0642c0f0be7c006cd6204214dc64eaf3208bc
   models/components/sttrequest.go:
     id: 307b6fe641a4
-    last_write_checksum: sha1:80366bf9d3d30a038abd205876f0bb68ba446124
-    pristine_git_object: 0e592202b8e11f3495eda94683a3deeb53a61f6a
+    last_write_checksum: sha1:b1b2eec1a543f7e252dc62e12361f0c47d1b9f65
+    pristine_git_object: 9c6ae78cb8546318f854b5ed40bb8558a3afe4de
   models/components/sttresponse.go:
     id: 7af2c26acdda
     last_write_checksum: sha1:18e10b264189ea341e617377fd36608c9cac518c
@@ -14909,8 +14909,8 @@ trackedFiles:
     pristine_git_object: 6e814075ee1d8551b415d5e9fd5a7b70eac3d4b7
   models/operations/createaudiotranscriptionsmultipart.go:
     id: 01ede35bc595
-    last_write_checksum: sha1:073454d0b9862a1811bebd5dc8f82ba9135f2b62
-    pristine_git_object: 70ab2f548ff154591438013703eaec5fb9bb374c
+    last_write_checksum: sha1:1aab943020616b86d0727df6ba778b6df919925b
+    pristine_git_object: 7ebd8712b2bd0ca3e6109e9393b2517227b3818b
   models/operations/createauthkeyscode.go:
     id: ae6ada25c1c9
     last_write_checksum: sha1:97f8021c3ccdf90d718833533927e9ddd96db141
@@ -15565,8 +15565,8 @@ trackedFiles:
     pristine_git_object: 11309c981a7811ab2d429cf4f210c75f35f27d5d
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:45c3fe278f26e21e4ed9cd579bd55c17fbaa40e0
-    pristine_git_object: 31488544a634dcf793621558308641fbe8825ed6
+    last_write_checksum: sha1:33b7a1cd81d956f0e6aa228ce0b02e1263af2d2c
+    pristine_git_object: 9e87ee58d2dd8ff4e131ce0d3089a7b430276cab
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -20737,4 +20737,4 @@ examples:
         "500":
           application/json: {"error": {"code": 500, "message": "Internal Server Error"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Batch.CreateBatches()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `OpenRouter.Batch.GetBatches()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.Output` **Added**\n* `OpenRouter.Presets.CreatePresetsResponses()`:  `request` **Changed** (Breaking ⚠️)\n* `OpenRouter.GuardrailPolicies.ListAccountPolicies()`: **Added**\n* `OpenRouter.GuardrailPolicies.CreateAccountPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.DeleteAccountPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.UpdateAccountPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.GetApiKeyPolicyAssignment()`: **Added**\n* `OpenRouter.GuardrailPolicies.ChangeApiKeyPolicyAssignment()`: **Added**\n* `OpenRouter.GuardrailPolicies.GetMemberPolicyAssignment()`: **Added**\n* `OpenRouter.GuardrailPolicies.ChangeMemberPolicyAssignment()`: **Added**\n* `OpenRouter.GuardrailPolicies.ListBudgetPolicies()`: **Added**\n* `OpenRouter.GuardrailPolicies.CreateBudgetPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.DeleteBudgetPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.GetBudgetPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.UpdateBudgetPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.ListModelAvailabilityPolicies()`: **Added**\n* `OpenRouter.GuardrailPolicies.CreateModelAvailabilityPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.DeleteModelAvailabilityPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.GetModelAvailabilityPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.UpdateModelAvailabilityPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.ListModerationPolicies()`: **Added**\n* `OpenRouter.GuardrailPolicies.CreateModerationPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.DeleteModerationPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.GetModerationPolicy()`: **Added**\n* `OpenRouter.GuardrailPolicies.UpdateModerationPolicy()`: **Added**\n* `OpenRouter.Presets.Delete()`: **Added**\n* `OpenRouter.Presets.Restore()`: **Added**\n* `OpenRouter.Alpha.Decisions.Create()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.Alpha.Extractions.Create()`:  `request.Request` **Changed**\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.OAuth.CreateAuthCode()`:  `error.status[503]` **Added**\n* `OpenRouter.Batch.List()`:  `response.Data[].Output` **Added**\n* `OpenRouter.Benchmarks.GetBenchmarks()`: \n  *  `request.Request.TaskType` **Changed**\n  *  `response.Data[].union(UnifiedBenchmarksAAItem)` **Changed**\n* `OpenRouter.Byok.List()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[].Provider` **Changed**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.Provider` **Changed**\n  *  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Get()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Byok.Update()`:  `response.Data.Provider` **Changed**\n* `OpenRouter.Embeddings.Generate()`: \n  *  `request.Request` **Changed**\n  *  `response.Data[].DocumentIndex` **Added**\n* `OpenRouter.Embeddings.ListModels()`:  `response.Data[].Benchmarks.ArtificialAnalysis` **Changed**\n* `OpenRouter.Endpoints.ListZdrEndpoints()`: \n  *  `response.Data[].ProviderName` **Changed**\n  *  `error.status[401]` **Added**\n* `OpenRouter.Endpoints.List()`: \n  *  `response.Data.Endpoints[].ProviderName` **Changed**\n  *  `error.status[401]` **Added**\n* `OpenRouter.Generations.GetGeneration()`:  `response.Data.ProviderResponses[].ProviderName` **Changed**\n* `OpenRouter.Generations.ListGenerationContent()`:  `error.status[503]` **Added**\n* `OpenRouter.Guardrails.List()`:  `response.Data[].ContentFilters[].IsEnforced` **Added**\n* `OpenRouter.Guardrails.Create()`:  `response.Data.ContentFilters[].IsEnforced` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.ContentFilters[].IsEnforced` **Added**\n* `OpenRouter.Guardrails.Update()`:  `response.Data.ContentFilters[].IsEnforced` **Added**\n* `OpenRouter.Guardrails.ListKeyAssignments()`:  `request.WorkspaceId` **Added**\n* `OpenRouter.Guardrails.ListMemberAssignments()`:  `request.WorkspaceId` **Added**\n* `OpenRouter.Models.Get()`:  `response.Data.Benchmarks.ArtificialAnalysis` **Changed**\n* `OpenRouter.Models.List()`: \n  *  `request.Request` **Changed**\n  *  `response.Data[].Benchmarks.ArtificialAnalysis` **Changed**\n* `OpenRouter.Models.ListForUser()`: \n  *  `request.Request.Sort` **Changed**\n  *  `response.Data[].Benchmarks.ArtificialAnalysis` **Changed**\n* `OpenRouter.Observability.List()`:  `response.Data[].union(otel-collector).Config` **Changed**\n* `OpenRouter.Observability.Create()`:  `response.Data.union(otel-collector).Config` **Changed**\n* `OpenRouter.Observability.Get()`:  `response.Data.union(otel-collector).Config` **Changed**\n* `OpenRouter.Observability.Update()`:  `response.Data.union(otel-collector).Config` **Changed**\n* `OpenRouter.Organization.ListMembers()`:  `response.Data[].Role.Enum(org:viewer)` **Added**\n* `OpenRouter.Presets.List()`: \n  *  `request.WorkspaceId` **Added**\n  *  `error.status[404]` **Added**\n* `OpenRouter.Presets.Get()`:  `request.WorkspaceId` **Added**\n* `OpenRouter.Presets.CreatePresetsChatCompletions()`:  `request` **Changed**\n* `OpenRouter.Presets.CreatePresetsMessages()`:  `request` **Changed**\n* `OpenRouter.Presets.ListVersions()`:  `request.WorkspaceId` **Added**\n* `OpenRouter.Presets.GetVersion()`:  `request.WorkspaceId` **Added**\n* `OpenRouter.PrivateEndpoints.Create()`: \n  *  `request.CreatePrivateEndpointRequest.Settings.PromptCaching` **Added**\n* `OpenRouter.PrivateEndpoints.Get()`:  `response.Data.Settings.PromptCaching` **Added**\n* `OpenRouter.PrivateEndpoints.Update()`: \n  *  `request.UpdatePrivateEndpointRequest.Settings.PromptCaching` **Added**\n  *  `response.Data.Settings.PromptCaching` **Added**\n* `OpenRouter.Rerank.Rerank()`: \n  *  `request.Request.Provider` **Changed**\n* `OpenRouter.Scim.Create()`: **Deprecated**\n* `OpenRouter.Scim.Delete()`: **Deprecated**\n* `OpenRouter.Scim.Update()`: **Deprecated**\n* `OpenRouter.Scim.CreateSyncJob()`: **Deprecated**\n* `OpenRouter.SystemOne.Create()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed**\n* `OpenRouter.VideoGeneration.Generate()`:  `request.Request` **Changed**\n* `OpenRouter.VideoGeneration.ListVideosModels()`:  `response.Data[]` **Changed**\n* `OpenRouter.Workspaces.Create()`: \n  *  `request.Request.DisabledServerTools[].Enum(openrouter:mcp)` **Added**\n* `OpenRouter.Workspaces.Update()`: \n  *  `request.UpdateWorkspaceRequest.DisabledServerTools[].Enum(openrouter:mcp)` **Added**\n* `OpenRouter.Workspaces.ListMembers()`:  `response.Data[].Role` **Changed**\n* `OpenRouter.Workspaces.BulkAddMembers()`:  `response.Data[].Role` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Stt.CreateTranscription()`: \n  *  `request.Request.Prompt` **Added**\n* `OpenRouter.Stt.CreateTranscriptionMultipart()`: \n  *  `request.Request.Prompt` **Added**\n"
