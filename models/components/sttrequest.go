@@ -442,6 +442,8 @@ type STTRequest struct {
 	Language *string `json:"language,omitzero"`
 	// STT model identifier
 	Model string `json:"model"`
+	// Context to guide transcription, such as domain vocabulary or a previous segment. Honored by OpenAI (except gpt-4o-transcribe-diarize), Azure OpenAI, Groq, Together, Alibaba, and AssemblyAI endpoints with prompted pricing configured. Other providers ignore it; use keyterms for supported keyword boosting. Takes precedence over provider-specific prompt options, including when empty.
+	Prompt *string `json:"prompt,omitzero"`
 	// Provider configuration: provider routing preferences (`order`, `only`, `ignore`, `allow_fallbacks`), data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 	Provider *STTRequestProvider `json:"provider,omitzero"`
 	// Output format. "json" (default) returns { text, usage }. "verbose_json" additionally returns task, language, duration, and segment-level timestamps; only supported by OpenAI-compatible providers.
@@ -502,6 +504,13 @@ func (s *STTRequest) GetModel() string {
 		return ""
 	}
 	return s.Model
+}
+
+func (s *STTRequest) GetPrompt() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Prompt
 }
 
 func (s *STTRequest) GetProvider() *STTRequestProvider {
