@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 6803898adfe78d97cb1134b9a67dd591
+  docChecksum: d06c15bb43c8072d1fa34ec02af62b90
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.119
-  configChecksum: f0c1ac41a5b53ea94e28fe7cb4d3399a
+  releaseVersion: 0.9.120
+  configChecksum: 6b146e677c497140bb1f283d54c50c0e
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 3bd95258-a442-4b75-9fd9-74a3197a7f1d
-  pristine_commit_hash: df2943f72a7ea748916fc17118d567b6a3226836
-  pristine_tree_hash: 379a080ce0b752a1861337472cff73ea147dfcda
+  generation_id: b5a20611-2035-463a-b1d6-777dc42f4ff4
+  pristine_commit_hash: 5c7319cf74f530c974256e0bea2f5b2119baf444
+  pristine_tree_hash: f9f57e1a6b30f892e59d998a3683872709bf9ef4
 features:
   go:
     acceptHeaders: 2.81.2
@@ -8331,6 +8331,10 @@ trackedFiles:
     id: 1287e55f4d4a
     last_write_checksum: sha1:3ef6897b42d4fb8e9ea8f94368da6887bacbd1cb
     pristine_git_object: 64ce8ad801a05eb39109e0fd3a1ff9923c9fd560
+  docs/models/components/statusdetail.mdx:
+    id: 0cd1d76c50ad
+    last_write_checksum: sha1:bc2529aaf78137da59c7ef182524288ffadb6ae7
+    pristine_git_object: e097defd349b61b57ef3c1d276147adc27a41ddc
   docs/models/components/stopservertoolswhencondition.mdx:
     id: b537c8479830
     last_write_checksum: sha1:0823279da288e154e8e0f837a57f4efa5e8f0b60
@@ -9397,8 +9401,8 @@ trackedFiles:
     pristine_git_object: c818c74c9c0ee41358835c5bafc54d306fe86ddc
   docs/models/components/videogenerationresponse.mdx:
     id: c34243f010f7
-    last_write_checksum: sha1:6ff0259bd8d232c48bcb24baf68552e3f348ee93
-    pristine_git_object: 1bf9f9fb5323358674de060b4c0403845227a504
+    last_write_checksum: sha1:6f4d98cd1ea01016bdacc916a869e772fe712190
+    pristine_git_object: cc63258bf195737859a5ed9ae574ebbec36173df
   docs/models/components/videogenerationresponsestatus.mdx:
     id: 10a9a5c57135
     last_write_checksum: sha1:43a591bc7b6a286cce7f2192547897a2248a5720
@@ -14905,8 +14909,8 @@ trackedFiles:
     pristine_git_object: 6c72b2faf5b686f85d167e7814bd5864b457ed62
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
-    last_write_checksum: sha1:17d8e9f426ba771a35a1284972b8f3b07efecb85
-    pristine_git_object: ec29f35f13c06e7fd6a143f2295338b90f8c9d4e
+    last_write_checksum: sha1:92fa811bd767aa11526ec2ea50d59d7c581f6aac
+    pristine_git_object: a1469a34dafd50066d0d0e8172c9af3db3bb2113
   models/components/videogenerationusage.go:
     id: 87ab46b77bbf
     last_write_checksum: sha1:77faab3760c9778d5c4fa37cc6de9549cb3096be
@@ -15729,8 +15733,8 @@ trackedFiles:
     pristine_git_object: 11309c981a7811ab2d429cf4f210c75f35f27d5d
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:3e745826ebeeb10793d2025f6470b48c7c6f3215
-    pristine_git_object: 4b165a4e21891c0806f91cdff58c7baaec45709c
+    last_write_checksum: sha1:97128bd46e96f491b5692548024c2fff9fd5fef3
+    pristine_git_object: 008b0be6fead0c0aa510591068f6382c9b544843
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -20931,5 +20935,5 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Go SDK Changes:
-  * `OpenRouter.Tts.ListModels()`: **Added**
-  * `OpenRouter.Tts.GetModel()`: **Added**
+  * `OpenRouter.VideoGeneration.Generate()`:  `response` **Changed**
+  * `OpenRouter.VideoGeneration.GetGeneration()`:  `response` **Changed**
