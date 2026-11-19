@@ -450,6 +450,8 @@ func main() {
 ### [TTS](docs/sdks/tts/README.md)
 
 * [CreateSpeech](docs/sdks/tts/README.md#createspeech) - Create speech
+* [ListModels](docs/sdks/tts/README.md#listmodels) - List text-to-speech models
+* [GetModel](docs/sdks/tts/README.md#getmodel) - Get a text-to-speech model
 
 ### [Vault](docs/sdks/vault/README.md)
 

@@ -1,0 +1,15 @@
+---
+title: "SpeechModelEndpoint"
+---
+
+One endpoint serving a speech model, with the inputs and parameters it accepts.
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `InputModalities`                                                                    | [][components.SpeechInputModality](../../models/components/speechinputmodality.mdx)   | ✔️                                                                   | N/A                                                                                  |                                                                                      |
+| `OutputModalities`                                                                   | [][components.SpeechOutputModality](../../models/components/speechoutputmodality.mdx) | ✔️                                                                   | N/A                                                                                  |                                                                                      |
+| `ProviderName`                                                                       | `string`                                                                             | ✔️                                                                   | Provider display name                                                                | OpenAI                                                                               |
+| `ProviderSlug`                                                                       | `string`                                                                             | ✔️                                                                   | Provider slug                                                                        | openai                                                                               |

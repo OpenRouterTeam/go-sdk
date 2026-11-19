@@ -1,0 +1,26 @@
+---
+title: "Turns"
+---
+
+`optional`: `input` may also be a multi-speaker turn array, which cannot be combined with `input_references`. `required`: `input` must be a turn array with at least two distinct voices. Absent: `input` is a string.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.TurnsRequired
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.Turns("custom_value")
+```
+
+
+## Values
+
+| Name            | Value           |
+| --------------- | --------------- |
+| `TurnsRequired` | required        |
+| `TurnsOptional` | optional        |

@@ -1,0 +1,43 @@
+---
+title: "SpeechInputModality"
+---
+
+An input the model accepts. `audio` and `image` are `input_references` for voice cloning and voice design.
+
+
+## Supported Types
+
+### SpeechInputModalityText
+
+```go
+speechInputModality := components.CreateSpeechInputModalityText(components.SpeechInputModalityText{/* values here */})
+```
+
+### SpeechInputModalityAudio
+
+```go
+speechInputModality := components.CreateSpeechInputModalityAudio(components.SpeechInputModalityAudio{/* values here */})
+```
+
+### SpeechInputModalityImage
+
+```go
+speechInputModality := components.CreateSpeechInputModalityImage(components.SpeechInputModalityImage{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch speechInputModality.Type {
+	case components.SpeechInputModalityTypeTextValue:
+		// speechInputModality.SpeechInputModalityText is populated
+	case components.SpeechInputModalityTypeAudio:
+		// speechInputModality.SpeechInputModalityAudio is populated
+	case components.SpeechInputModalityTypeImageValue:
+		// speechInputModality.SpeechInputModalityImage is populated
+	default:
+		// Unknown type - use speechInputModality.GetUnknownRaw() for raw JSON
+}
+```
