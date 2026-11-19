@@ -1,0 +1,26 @@
+---
+title: "ImageGenerationRequestResponseFormat"
+---
+
+`b64_json` (default) returns the image bytes inline. `url` stores each output in OpenRouter storage and returns a signed download URL in place of the bytes. The URL is a bearer link: anyone holding it can download the image until it expires, up to 24 hours after the image was stored (use `expires_at`); the stored copy is deleted by the storage lifecycle within the following day. The response falls back to `b64_json` when a URL cannot be issued: streaming responses, zero-data-retention requests (account settings, guardrails or `provider.zdr`) or endpoints, or storage being unavailable.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.ImageGenerationRequestResponseFormatB64JSON
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.ImageGenerationRequestResponseFormat("custom_value")
+```
+
+
+## Values
+
+| Name                                          | Value                                         |
+| --------------------------------------------- | --------------------------------------------- |
+| `ImageGenerationRequestResponseFormatB64JSON` | b64_json                                      |
+| `ImageGenerationRequestResponseFormatURL`     | url                                           |

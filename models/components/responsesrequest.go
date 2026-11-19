@@ -805,6 +805,7 @@ const (
 	ResponsesRequestToolUnionTypeOpenrouterBash                     ResponsesRequestToolUnionType = "openrouter:bash"
 	ResponsesRequestToolUnionTypeOpenrouterShell                    ResponsesRequestToolUnionType = "openrouter:shell"
 	ResponsesRequestToolUnionTypeOpenrouterToolSearch               ResponsesRequestToolUnionType = "openrouter:tool_search"
+	ResponsesRequestToolUnionTypeOpenrouterMcp                      ResponsesRequestToolUnionType = "openrouter:mcp"
 )
 
 type ResponsesRequestToolUnion struct {
@@ -836,6 +837,7 @@ type ResponsesRequestToolUnion struct {
 	BashServerTool                      *BashServerTool                      `queryParam:"inline" union:"member"`
 	ShellServerToolOpenRouter           *ShellServerToolOpenRouter           `queryParam:"inline" union:"member"`
 	ToolSearchServerTool                *ToolSearchServerTool                `queryParam:"inline" union:"member"`
+	McpServerToolOpenRouter             *McpServerToolOpenRouter             `queryParam:"inline" union:"member"`
 
 	Type ResponsesRequestToolUnionType
 }
@@ -1176,6 +1178,18 @@ func CreateResponsesRequestToolUnionOpenrouterToolSearch(openrouterToolSearch To
 	}
 }
 
+func CreateResponsesRequestToolUnionOpenrouterMcp(openrouterMcp McpServerToolOpenRouter) ResponsesRequestToolUnion {
+	typ := ResponsesRequestToolUnionTypeOpenrouterMcp
+
+	typStr := McpServerToolOpenRouterType(typ)
+	openrouterMcp.Type = typStr
+
+	return ResponsesRequestToolUnion{
+		McpServerToolOpenRouter: &openrouterMcp,
+		Type:                    typ,
+	}
+}
+
 func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) (err error) {
 	previous := *u
 	*u = ResponsesRequestToolUnion{}
@@ -1447,6 +1461,15 @@ func (u *ResponsesRequestToolUnion) UnmarshalJSON(data []byte) (err error) {
 		u.ToolSearchServerTool = toolSearchServerTool
 		u.Type = ResponsesRequestToolUnionTypeOpenrouterToolSearch
 		return nil
+	case "openrouter:mcp":
+		mcpServerToolOpenRouter := new(McpServerToolOpenRouter)
+		if err := utils.UnmarshalJSON(data, &mcpServerToolOpenRouter, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == openrouter:mcp) type McpServerToolOpenRouter within ResponsesRequestToolUnion: %w", string(data), err)
+		}
+
+		u.McpServerToolOpenRouter = mcpServerToolOpenRouter
+		u.Type = ResponsesRequestToolUnionTypeOpenrouterMcp
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ResponsesRequestToolUnion", string(data))
@@ -1565,6 +1588,10 @@ func (u ResponsesRequestToolUnion) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.ToolSearchServerTool, "", true)
 	}
 
+	if u.McpServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.McpServerToolOpenRouter, "", true)
+	}
+
 	return nil, errors.New("could not marshal union type ResponsesRequestToolUnion: all fields are null")
 }
 
@@ -1577,7 +1604,7 @@ type ResponsesRequest struct {
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
 	Debug *ChatDebugOptions `json:"debug,omitzero"`
-	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation; keep the catalog unchanged.
+	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation. The portable profile needs the catalog unchanged across a continuation; the universal profile accepts a changed catalog and, with `announce_catalog_changes`, tells the model about it.
 	DeferredTools    *DeferredToolsControl                      `json:"deferred_tools,omitzero"`
 	FrequencyPenalty optionalnullable.OptionalNullable[float64] `json:"frequency_penalty,omitzero"`
 	// Provider-specific image configuration options. Keys and values vary by model/provider. See https://openrouter.ai/docs/guides/overview/multimodal/image-generation for more details.

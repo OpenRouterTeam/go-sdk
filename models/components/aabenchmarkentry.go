@@ -2,14 +2,38 @@
 
 package components
 
-// AABenchmarkEntry - Artificial Analysis benchmark index scores.
+// AABenchmarkEntry - Benchmark index scores published by Artificial Analysis (artificialanalysis.ai), one field per index. Each score is the model's best on that index across the configurations Artificial Analysis evaluated (for example reasoning levels), so two indexes of one model can come from different configurations. The deprecated Coding Index and Agentic Index fields are null for every model: Artificial Analysis has retired those indexes. Attribute Artificial Analysis when you republish them. Omitted when Artificial Analysis has scored the model on none of them.
 type AABenchmarkEntry struct {
-	// Artificial Analysis Agentic Index score
+	// Deprecated: Artificial Analysis has retired its Agentic Index and no longer publishes it. Always null.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AgenticIndex *float64 `json:"agentic_index"`
-	// Artificial Analysis Coding Index score
+	// Deprecated: Artificial Analysis has retired its Coding Index and no longer publishes it. Always null.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	CodingIndex *float64 `json:"coding_index"`
-	// Artificial Analysis Intelligence Index score
+	// Artificial Analysis Cyber Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+	CyberIndex *float64 `json:"cyber_index"`
+	// Artificial Analysis Decision Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Published for decision models and for the language models Artificial Analysis evaluates on decision tasks. Null when Artificial Analysis has not published a score for the model.
+	DecisionIndex *float64 `json:"decision_index"`
+	// Artificial Analysis Economics Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	EconomicsIndex *float64 `json:"economics_index"`
+	// Artificial Analysis Engineering Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	EngineeringIndex *float64 `json:"engineering_index"`
+	// Artificial Analysis Finance & Accounting Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	FinanceAndAccountingIndex *float64 `json:"finance_and_accounting_index"`
+	// Artificial Analysis Healthcare & Medical Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	HealthcareAndMedicalIndex *float64 `json:"healthcare_and_medical_index"`
+	// Artificial Analysis Intelligence Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
 	IntelligenceIndex *float64 `json:"intelligence_index"`
+	// Artificial Analysis Legal Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	LegalIndex *float64 `json:"legal_index"`
+	// Artificial Analysis Multilingual Index score, as a fraction from 0 to 1: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+	MultilingualIndex *float64 `json:"multilingual_index"`
+	// Artificial Analysis Openness Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+	OpennessIndex *float64 `json:"openness_index"`
+	// Artificial Analysis Strategy & Ops Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	StrategyAndOpsIndex *float64 `json:"strategy_and_ops_index"`
 }
 
 func (a *AABenchmarkEntry) GetAgenticIndex() *float64 {
@@ -26,9 +50,79 @@ func (a *AABenchmarkEntry) GetCodingIndex() *float64 {
 	return a.CodingIndex
 }
 
+func (a *AABenchmarkEntry) GetCyberIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.CyberIndex
+}
+
+func (a *AABenchmarkEntry) GetDecisionIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.DecisionIndex
+}
+
+func (a *AABenchmarkEntry) GetEconomicsIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.EconomicsIndex
+}
+
+func (a *AABenchmarkEntry) GetEngineeringIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.EngineeringIndex
+}
+
+func (a *AABenchmarkEntry) GetFinanceAndAccountingIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.FinanceAndAccountingIndex
+}
+
+func (a *AABenchmarkEntry) GetHealthcareAndMedicalIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.HealthcareAndMedicalIndex
+}
+
 func (a *AABenchmarkEntry) GetIntelligenceIndex() *float64 {
 	if a == nil {
 		return nil
 	}
 	return a.IntelligenceIndex
+}
+
+func (a *AABenchmarkEntry) GetLegalIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.LegalIndex
+}
+
+func (a *AABenchmarkEntry) GetMultilingualIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.MultilingualIndex
+}
+
+func (a *AABenchmarkEntry) GetOpennessIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.OpennessIndex
+}
+
+func (a *AABenchmarkEntry) GetStrategyAndOpsIndex() *float64 {
+	if a == nil {
+		return nil
+	}
+	return a.StrategyAndOpsIndex
 }

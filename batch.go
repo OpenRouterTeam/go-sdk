@@ -357,7 +357,7 @@ func (s *Batch) List(ctx context.Context, request *operations.ListBatchesRequest
 }
 
 // CreateBatches - Create a batch
-// Creates a batch of requests that run asynchronously against a single endpoint (`/v1/chat/completions`, `/v1/responses`, `/v1/messages`, `/v1/embeddings`). Returns `202` with `status: "validating"`. Poll `GET /batches/{id}` for progress and results. See the [Batch API Quickstart](https://openrouter.ai/docs/batch-quickstart).
+// Creates a batch of requests that run asynchronously against a single endpoint (`/v1/chat/completions`, `/v1/responses`, `/v1/messages`, `/v1/embeddings`, `/v1/audio/speech`). Returns `202` with `status: "validating"`. Poll `GET /batches/{id}` for progress and results. See the [Batch API Quickstart](https://openrouter.ai/docs/batch-quickstart).
 func (s *Batch) CreateBatches(ctx context.Context, request components.BatchSubmitBody, opts ...operations.Option) (*components.BatchObject, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

@@ -52,6 +52,7 @@ type ProviderOptions struct {
 	Deepseek                 map[string]any `json:"deepseek,omitzero"`
 	Dekallm                  map[string]any `json:"dekallm,omitzero"`
 	Digitalocean             map[string]any `json:"digitalocean,omitzero"`
+	Doubleword               map[string]any `json:"doubleword,omitzero"`
 	Elevenlabs               map[string]any `json:"elevenlabs,omitzero"`
 	Enfer                    map[string]any `json:"enfer,omitzero"`
 	FakeProvider             map[string]any `json:"fake-provider,omitzero"`
@@ -129,6 +130,7 @@ type ProviderOptions struct {
 	Relace                   map[string]any `json:"relace,omitzero"`
 	Replicate                map[string]any `json:"replicate,omitzero"`
 	Respan                   map[string]any `json:"respan,omitzero"`
+	River                    map[string]any `json:"river,omitzero"`
 	Runway                   map[string]any `json:"runway,omitzero"`
 	SailResearch             map[string]any `json:"sail-research,omitzero"`
 	Sakana                   map[string]any `json:"sakana,omitzero"`
@@ -140,6 +142,7 @@ type ProviderOptions struct {
 	SfCompute                map[string]any `json:"sf-compute,omitzero"`
 	Siliconflow              map[string]any `json:"siliconflow,omitzero"`
 	Sourceful                map[string]any `json:"sourceful,omitzero"`
+	Speechify                map[string]any `json:"speechify,omitzero"`
 	Stealth                  map[string]any `json:"stealth,omitzero"`
 	Stepfun                  map[string]any `json:"stepfun,omitzero"`
 	Streamlake               map[string]any `json:"streamlake,omitzero"`
@@ -481,6 +484,13 @@ func (p *ProviderOptions) GetDigitalocean() map[string]any {
 		return nil
 	}
 	return p.Digitalocean
+}
+
+func (p *ProviderOptions) GetDoubleword() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Doubleword
 }
 
 func (p *ProviderOptions) GetElevenlabs() map[string]any {
@@ -1022,6 +1032,13 @@ func (p *ProviderOptions) GetRespan() map[string]any {
 	return p.Respan
 }
 
+func (p *ProviderOptions) GetRiver() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.River
+}
+
 func (p *ProviderOptions) GetRunway() map[string]any {
 	if p == nil {
 		return nil
@@ -1097,6 +1114,13 @@ func (p *ProviderOptions) GetSourceful() map[string]any {
 		return nil
 	}
 	return p.Sourceful
+}
+
+func (p *ProviderOptions) GetSpeechify() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Speechify
 }
 
 func (p *ProviderOptions) GetStealth() map[string]any {

@@ -13,6 +13,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/models/sdkerrors"
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"github.com/OpenRouterTeam/go-sdk/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -326,6 +327,7 @@ func (s *APIKeys) List(ctx context.Context, includeDisabled *bool, includeExpire
 	if timeout == nil {
 		timeout = s.sdkConfiguration.Timeout
 	}
+	paginationCtx := ctx
 
 	if timeout != nil {
 		var cancel context.CancelFunc
@@ -449,6 +451,48 @@ func (s *APIKeys) List(ctx context.Context, includeDisabled *bool, includeExpire
 		}
 	}
 
+	res := &operations.ListResponse{}
+	res.Next = func() (*operations.ListResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offsetVal, ok := offset.Get(); ok && offsetVal != nil {
+			oS = int(*offsetVal)
+		}
+		r, err := ajson.Eval(b, "$.data")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			paginationCtx,
+			includeDisabled,
+			includeExpired,
+			optionalnullable.From(&nOS),
+			workspaceID,
+			opts...,
+		)
+	}
+
 	switch {
 	case httpRes.StatusCode == 200:
 		switch {
@@ -458,12 +502,12 @@ func (s *APIKeys) List(ctx context.Context, includeDisabled *bool, includeExpire
 				return nil, err
 			}
 
-			var out operations.ListResponse
+			var out operations.ListResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			return &out, nil
+			res.Result = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -617,7 +661,7 @@ func (s *APIKeys) List(ctx context.Context, includeDisabled *bool, includeExpire
 		return nil, sdkerrors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil, nil
+	return res, nil
 
 }
 

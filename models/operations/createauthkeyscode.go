@@ -58,7 +58,7 @@ func (e *UsageLimitType) IsExact() bool {
 type CreateAuthKeysCodeRequest struct {
 	// The callback URL to redirect to after authorization. Supports https URLs and localhost/127.0.0.1 URLs on any port for local CLI tools.
 	CallbackURL string `json:"callback_url"`
-	// PKCE code challenge for enhanced security
+	// PKCE code challenge: the base64url-encoded SHA-256 hash of your `code_verifier`. Send it with `code_challenge_method` set to `S256`.
 	CodeChallenge *string `json:"code_challenge,omitzero"`
 	// The method used to generate the code challenge
 	CodeChallengeMethod *CreateAuthKeysCodeCodeChallengeMethod `json:"code_challenge_method,omitzero"`

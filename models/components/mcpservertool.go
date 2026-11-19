@@ -10,71 +10,79 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
-type AllowedTools struct {
-	ReadOnly  *bool    `json:"read_only,omitzero"`
-	ToolNames []string `json:"tool_names,omitzero"`
+type McpServerToolAllowedTools struct {
+	ReadOnly             *bool          `json:"read_only,omitzero"`
+	ToolNames            []string       `json:"tool_names,omitzero"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
-func (a AllowedTools) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (m McpServerToolAllowedTools) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
 }
 
-func (a *AllowedTools) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (m *McpServerToolAllowedTools) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AllowedTools) GetReadOnly() *bool {
-	if a == nil {
+func (m *McpServerToolAllowedTools) GetReadOnly() *bool {
+	if m == nil {
 		return nil
 	}
-	return a.ReadOnly
+	return m.ReadOnly
 }
 
-func (a *AllowedTools) GetToolNames() []string {
-	if a == nil {
+func (m *McpServerToolAllowedTools) GetToolNames() []string {
+	if m == nil {
 		return nil
 	}
-	return a.ToolNames
+	return m.ToolNames
 }
 
-type AllowedToolsUnionType string
+func (m *McpServerToolAllowedTools) GetAdditionalProperties() map[string]any {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalProperties
+}
+
+type McpServerToolAllowedToolsUnionType string
 
 const (
-	AllowedToolsUnionTypeArrayOfStr   AllowedToolsUnionType = "arrayOfStr"
-	AllowedToolsUnionTypeAllowedTools AllowedToolsUnionType = "allowed_tools"
+	McpServerToolAllowedToolsUnionTypeArrayOfStr                McpServerToolAllowedToolsUnionType = "arrayOfStr"
+	McpServerToolAllowedToolsUnionTypeMcpServerToolAllowedTools McpServerToolAllowedToolsUnionType = "McpServerTool_allowed_tools"
 )
 
-type AllowedToolsUnion struct {
-	ArrayOfStr   []string      `queryParam:"inline" union:"member"`
-	AllowedTools *AllowedTools `queryParam:"inline" union:"member"`
+type McpServerToolAllowedToolsUnion struct {
+	ArrayOfStr                []string                   `queryParam:"inline" union:"member"`
+	McpServerToolAllowedTools *McpServerToolAllowedTools `queryParam:"inline" union:"member"`
 
-	Type AllowedToolsUnionType
+	Type McpServerToolAllowedToolsUnionType
 }
 
-func CreateAllowedToolsUnionArrayOfStr(arrayOfStr []string) AllowedToolsUnion {
-	typ := AllowedToolsUnionTypeArrayOfStr
+func CreateMcpServerToolAllowedToolsUnionArrayOfStr(arrayOfStr []string) McpServerToolAllowedToolsUnion {
+	typ := McpServerToolAllowedToolsUnionTypeArrayOfStr
 
-	return AllowedToolsUnion{
+	return McpServerToolAllowedToolsUnion{
 		ArrayOfStr: arrayOfStr,
 		Type:       typ,
 	}
 }
 
-func CreateAllowedToolsUnionAllowedTools(allowedTools AllowedTools) AllowedToolsUnion {
-	typ := AllowedToolsUnionTypeAllowedTools
+func CreateMcpServerToolAllowedToolsUnionMcpServerToolAllowedTools(mcpServerToolAllowedTools McpServerToolAllowedTools) McpServerToolAllowedToolsUnion {
+	typ := McpServerToolAllowedToolsUnionTypeMcpServerToolAllowedTools
 
-	return AllowedToolsUnion{
-		AllowedTools: &allowedTools,
-		Type:         typ,
+	return McpServerToolAllowedToolsUnion{
+		McpServerToolAllowedTools: &mcpServerToolAllowedTools,
+		Type:                      typ,
 	}
 }
 
-func (u *AllowedToolsUnion) UnmarshalJSON(data []byte) (err error) {
+func (u *McpServerToolAllowedToolsUnion) UnmarshalJSON(data []byte) (err error) {
 	previous := *u
-	*u = AllowedToolsUnion{}
+	*u = McpServerToolAllowedToolsUnion{}
 	defer func() {
 		if err != nil {
 			*u = previous
@@ -87,249 +95,261 @@ func (u *AllowedToolsUnion) UnmarshalJSON(data []byte) (err error) {
 	var arrayOfStr []string = []string{}
 	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AllowedToolsUnionTypeArrayOfStr,
+			Type:  McpServerToolAllowedToolsUnionTypeArrayOfStr,
 			Value: arrayOfStr,
 		})
 	}
 
-	var allowedTools AllowedTools = AllowedTools{}
-	if err := utils.UnmarshalJSON(data, &allowedTools, "", true, nil); err == nil {
+	var mcpServerToolAllowedTools McpServerToolAllowedTools = McpServerToolAllowedTools{}
+	if err := utils.UnmarshalJSON(data, &mcpServerToolAllowedTools, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AllowedToolsUnionTypeAllowedTools,
-			Value: &allowedTools,
+			Type:  McpServerToolAllowedToolsUnionTypeMcpServerToolAllowedTools,
+			Value: &mcpServerToolAllowedTools,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for AllowedToolsUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for McpServerToolAllowedToolsUnion", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for AllowedToolsUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for McpServerToolAllowedToolsUnion", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(AllowedToolsUnionType)
+	u.Type = best.Type.(McpServerToolAllowedToolsUnionType)
 	switch best.Type {
-	case AllowedToolsUnionTypeArrayOfStr:
+	case McpServerToolAllowedToolsUnionTypeArrayOfStr:
 		u.ArrayOfStr = best.Value.([]string)
 		return nil
-	case AllowedToolsUnionTypeAllowedTools:
-		u.AllowedTools = best.Value.(*AllowedTools)
+	case McpServerToolAllowedToolsUnionTypeMcpServerToolAllowedTools:
+		u.McpServerToolAllowedTools = best.Value.(*McpServerToolAllowedTools)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for AllowedToolsUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for McpServerToolAllowedToolsUnion", string(data))
 }
 
-func (u AllowedToolsUnion) MarshalJSON() ([]byte, error) {
+func (u McpServerToolAllowedToolsUnion) MarshalJSON() ([]byte, error) {
 	if u.ArrayOfStr != nil {
 		return utils.MarshalJSON(u.ArrayOfStr, "", true)
 	}
 
-	if u.AllowedTools != nil {
-		return utils.MarshalJSON(u.AllowedTools, "", true)
+	if u.McpServerToolAllowedTools != nil {
+		return utils.MarshalJSON(u.McpServerToolAllowedTools, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type AllowedToolsUnion: all fields are null")
+	return nil, errors.New("could not marshal union type McpServerToolAllowedToolsUnion: all fields are null")
 }
 
-type ConnectorID string
+type McpServerToolRequireApprovalNever string
 
 const (
-	ConnectorIDConnectorDropbox         ConnectorID = "connector_dropbox"
-	ConnectorIDConnectorGmail           ConnectorID = "connector_gmail"
-	ConnectorIDConnectorGooglecalendar  ConnectorID = "connector_googlecalendar"
-	ConnectorIDConnectorGoogledrive     ConnectorID = "connector_googledrive"
-	ConnectorIDConnectorMicrosoftteams  ConnectorID = "connector_microsoftteams"
-	ConnectorIDConnectorOutlookcalendar ConnectorID = "connector_outlookcalendar"
-	ConnectorIDConnectorOutlookemail    ConnectorID = "connector_outlookemail"
-	ConnectorIDConnectorSharepoint      ConnectorID = "connector_sharepoint"
+	McpServerToolRequireApprovalNeverNever McpServerToolRequireApprovalNever = "never"
 )
 
-func (e ConnectorID) ToPointer() *ConnectorID {
+func (e McpServerToolRequireApprovalNever) ToPointer() *McpServerToolRequireApprovalNever {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ConnectorID) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "connector_dropbox", "connector_gmail", "connector_googlecalendar", "connector_googledrive", "connector_microsoftteams", "connector_outlookcalendar", "connector_outlookemail", "connector_sharepoint":
-			return true
-		}
-	}
-	return false
-}
-
-type RequireApprovalNever string
-
-const (
-	RequireApprovalNeverNever RequireApprovalNever = "never"
-)
-
-func (e RequireApprovalNever) ToPointer() *RequireApprovalNever {
-	return &e
-}
-func (e *RequireApprovalNever) UnmarshalJSON(data []byte) error {
+func (e *McpServerToolRequireApprovalNever) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "never":
-		*e = RequireApprovalNever(v)
+		*e = McpServerToolRequireApprovalNever(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for RequireApprovalNever: %v", v)
+		return fmt.Errorf("invalid value for McpServerToolRequireApprovalNever: %v", v)
 	}
 }
 
-type RequireApprovalAlways string
+type McpServerToolRequireApprovalAlways string
 
 const (
-	RequireApprovalAlwaysAlways RequireApprovalAlways = "always"
+	McpServerToolRequireApprovalAlwaysAlways McpServerToolRequireApprovalAlways = "always"
 )
 
-func (e RequireApprovalAlways) ToPointer() *RequireApprovalAlways {
+func (e McpServerToolRequireApprovalAlways) ToPointer() *McpServerToolRequireApprovalAlways {
 	return &e
 }
-func (e *RequireApprovalAlways) UnmarshalJSON(data []byte) error {
+func (e *McpServerToolRequireApprovalAlways) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "always":
-		*e = RequireApprovalAlways(v)
+		*e = McpServerToolRequireApprovalAlways(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for RequireApprovalAlways: %v", v)
+		return fmt.Errorf("invalid value for McpServerToolRequireApprovalAlways: %v", v)
 	}
 }
 
-type Always struct {
-	ToolNames []string `json:"tool_names,omitzero"`
+type McpServerToolAlways struct {
+	ReadOnly             *bool          `json:"read_only,omitzero"`
+	ToolNames            []string       `json:"tool_names,omitzero"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
 
-func (a Always) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (m McpServerToolAlways) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
 }
 
-func (a *Always) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (m *McpServerToolAlways) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *Always) GetToolNames() []string {
-	if a == nil {
+func (m *McpServerToolAlways) GetReadOnly() *bool {
+	if m == nil {
 		return nil
 	}
-	return a.ToolNames
+	return m.ReadOnly
 }
 
-type Never struct {
-	ToolNames []string `json:"tool_names,omitzero"`
+func (m *McpServerToolAlways) GetToolNames() []string {
+	if m == nil {
+		return nil
+	}
+	return m.ToolNames
 }
 
-func (n Never) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(n, "", false)
+func (m *McpServerToolAlways) GetAdditionalProperties() map[string]any {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalProperties
 }
 
-func (n *Never) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &n, "", false, nil); err != nil {
+type McpServerToolNever struct {
+	ReadOnly             *bool          `json:"read_only,omitzero"`
+	ToolNames            []string       `json:"tool_names,omitzero"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+}
+
+func (m McpServerToolNever) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *McpServerToolNever) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (n *Never) GetToolNames() []string {
-	if n == nil {
+func (m *McpServerToolNever) GetReadOnly() *bool {
+	if m == nil {
 		return nil
 	}
-	return n.ToolNames
+	return m.ReadOnly
 }
 
-type RequireApproval struct {
-	Always *Always `json:"always,omitzero"`
-	Never  *Never  `json:"never,omitzero"`
+func (m *McpServerToolNever) GetToolNames() []string {
+	if m == nil {
+		return nil
+	}
+	return m.ToolNames
 }
 
-func (r RequireApproval) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
+func (m *McpServerToolNever) GetAdditionalProperties() map[string]any {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalProperties
 }
 
-func (r *RequireApproval) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+type McpServerToolRequireApproval struct {
+	Always               *McpServerToolAlways `json:"always,omitzero"`
+	Never                *McpServerToolNever  `json:"never,omitzero"`
+	AdditionalProperties map[string]any       `additionalProperties:"true" json:"-"`
+}
+
+func (m McpServerToolRequireApproval) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(m, "", false)
+}
+
+func (m *McpServerToolRequireApproval) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RequireApproval) GetAlways() *Always {
-	if r == nil {
+func (m *McpServerToolRequireApproval) GetAlways() *McpServerToolAlways {
+	if m == nil {
 		return nil
 	}
-	return r.Always
+	return m.Always
 }
 
-func (r *RequireApproval) GetNever() *Never {
-	if r == nil {
+func (m *McpServerToolRequireApproval) GetNever() *McpServerToolNever {
+	if m == nil {
 		return nil
 	}
-	return r.Never
+	return m.Never
 }
 
-type RequireApprovalUnionType string
+func (m *McpServerToolRequireApproval) GetAdditionalProperties() map[string]any {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalProperties
+}
+
+type McpServerToolRequireApprovalUnionType string
 
 const (
-	RequireApprovalUnionTypeRequireApproval       RequireApprovalUnionType = "require_approval"
-	RequireApprovalUnionTypeRequireApprovalAlways RequireApprovalUnionType = "require_approval_Always"
-	RequireApprovalUnionTypeRequireApprovalNever  RequireApprovalUnionType = "require_approval_Never"
+	McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApproval       McpServerToolRequireApprovalUnionType = "McpServerTool_require_approval"
+	McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalAlways McpServerToolRequireApprovalUnionType = "McpServerTool_require_approval_Always"
+	McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalNever  McpServerToolRequireApprovalUnionType = "McpServerTool_require_approval_Never"
 )
 
-type RequireApprovalUnion struct {
-	RequireApproval       *RequireApproval       `queryParam:"inline" union:"member"`
-	RequireApprovalAlways *RequireApprovalAlways `queryParam:"inline" union:"member"`
-	RequireApprovalNever  *RequireApprovalNever  `queryParam:"inline" union:"member"`
+type McpServerToolRequireApprovalUnion struct {
+	McpServerToolRequireApproval       *McpServerToolRequireApproval       `queryParam:"inline" union:"member"`
+	McpServerToolRequireApprovalAlways *McpServerToolRequireApprovalAlways `queryParam:"inline" union:"member"`
+	McpServerToolRequireApprovalNever  *McpServerToolRequireApprovalNever  `queryParam:"inline" union:"member"`
 
-	Type RequireApprovalUnionType
+	Type McpServerToolRequireApprovalUnionType
 }
 
-func CreateRequireApprovalUnionRequireApproval(requireApproval RequireApproval) RequireApprovalUnion {
-	typ := RequireApprovalUnionTypeRequireApproval
+func CreateMcpServerToolRequireApprovalUnionMcpServerToolRequireApproval(mcpServerToolRequireApproval McpServerToolRequireApproval) McpServerToolRequireApprovalUnion {
+	typ := McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApproval
 
-	return RequireApprovalUnion{
-		RequireApproval: &requireApproval,
-		Type:            typ,
+	return McpServerToolRequireApprovalUnion{
+		McpServerToolRequireApproval: &mcpServerToolRequireApproval,
+		Type:                         typ,
 	}
 }
 
-func CreateRequireApprovalUnionRequireApprovalAlways(requireApprovalAlways RequireApprovalAlways) RequireApprovalUnion {
-	typ := RequireApprovalUnionTypeRequireApprovalAlways
+func CreateMcpServerToolRequireApprovalUnionMcpServerToolRequireApprovalAlways(mcpServerToolRequireApprovalAlways McpServerToolRequireApprovalAlways) McpServerToolRequireApprovalUnion {
+	typ := McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalAlways
 
-	return RequireApprovalUnion{
-		RequireApprovalAlways: &requireApprovalAlways,
-		Type:                  typ,
+	return McpServerToolRequireApprovalUnion{
+		McpServerToolRequireApprovalAlways: &mcpServerToolRequireApprovalAlways,
+		Type:                               typ,
 	}
 }
 
-func CreateRequireApprovalUnionRequireApprovalNever(requireApprovalNever RequireApprovalNever) RequireApprovalUnion {
-	typ := RequireApprovalUnionTypeRequireApprovalNever
+func CreateMcpServerToolRequireApprovalUnionMcpServerToolRequireApprovalNever(mcpServerToolRequireApprovalNever McpServerToolRequireApprovalNever) McpServerToolRequireApprovalUnion {
+	typ := McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalNever
 
-	return RequireApprovalUnion{
-		RequireApprovalNever: &requireApprovalNever,
-		Type:                 typ,
+	return McpServerToolRequireApprovalUnion{
+		McpServerToolRequireApprovalNever: &mcpServerToolRequireApprovalNever,
+		Type:                              typ,
 	}
 }
 
-func (u *RequireApprovalUnion) UnmarshalJSON(data []byte) (err error) {
+func (u *McpServerToolRequireApprovalUnion) UnmarshalJSON(data []byte) (err error) {
 	previous := *u
-	*u = RequireApprovalUnion{}
+	*u = McpServerToolRequireApprovalUnion{}
 	defer func() {
 		if err != nil {
 			*u = previous
@@ -339,71 +359,71 @@ func (u *RequireApprovalUnion) UnmarshalJSON(data []byte) (err error) {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var requireApproval RequireApproval = RequireApproval{}
-	if err := utils.UnmarshalJSON(data, &requireApproval, "", true, nil); err == nil {
+	var mcpServerToolRequireApproval McpServerToolRequireApproval = McpServerToolRequireApproval{}
+	if err := utils.UnmarshalJSON(data, &mcpServerToolRequireApproval, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RequireApprovalUnionTypeRequireApproval,
-			Value: &requireApproval,
+			Type:  McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApproval,
+			Value: &mcpServerToolRequireApproval,
 		})
 	}
 
-	var requireApprovalAlways RequireApprovalAlways = RequireApprovalAlways("")
-	if err := utils.UnmarshalJSON(data, &requireApprovalAlways, "", true, nil); err == nil {
+	var mcpServerToolRequireApprovalAlways McpServerToolRequireApprovalAlways = McpServerToolRequireApprovalAlways("")
+	if err := utils.UnmarshalJSON(data, &mcpServerToolRequireApprovalAlways, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RequireApprovalUnionTypeRequireApprovalAlways,
-			Value: &requireApprovalAlways,
+			Type:  McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalAlways,
+			Value: &mcpServerToolRequireApprovalAlways,
 		})
 	}
 
-	var requireApprovalNever RequireApprovalNever = RequireApprovalNever("")
-	if err := utils.UnmarshalJSON(data, &requireApprovalNever, "", true, nil); err == nil {
+	var mcpServerToolRequireApprovalNever McpServerToolRequireApprovalNever = McpServerToolRequireApprovalNever("")
+	if err := utils.UnmarshalJSON(data, &mcpServerToolRequireApprovalNever, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RequireApprovalUnionTypeRequireApprovalNever,
-			Value: &requireApprovalNever,
+			Type:  McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalNever,
+			Value: &mcpServerToolRequireApprovalNever,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RequireApprovalUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for McpServerToolRequireApprovalUnion", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RequireApprovalUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for McpServerToolRequireApprovalUnion", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(RequireApprovalUnionType)
+	u.Type = best.Type.(McpServerToolRequireApprovalUnionType)
 	switch best.Type {
-	case RequireApprovalUnionTypeRequireApproval:
-		u.RequireApproval = best.Value.(*RequireApproval)
+	case McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApproval:
+		u.McpServerToolRequireApproval = best.Value.(*McpServerToolRequireApproval)
 		return nil
-	case RequireApprovalUnionTypeRequireApprovalAlways:
-		u.RequireApprovalAlways = best.Value.(*RequireApprovalAlways)
+	case McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalAlways:
+		u.McpServerToolRequireApprovalAlways = best.Value.(*McpServerToolRequireApprovalAlways)
 		return nil
-	case RequireApprovalUnionTypeRequireApprovalNever:
-		u.RequireApprovalNever = best.Value.(*RequireApprovalNever)
+	case McpServerToolRequireApprovalUnionTypeMcpServerToolRequireApprovalNever:
+		u.McpServerToolRequireApprovalNever = best.Value.(*McpServerToolRequireApprovalNever)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RequireApprovalUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for McpServerToolRequireApprovalUnion", string(data))
 }
 
-func (u RequireApprovalUnion) MarshalJSON() ([]byte, error) {
-	if u.RequireApproval != nil {
-		return utils.MarshalJSON(u.RequireApproval, "", true)
+func (u McpServerToolRequireApprovalUnion) MarshalJSON() ([]byte, error) {
+	if u.McpServerToolRequireApproval != nil {
+		return utils.MarshalJSON(u.McpServerToolRequireApproval, "", true)
 	}
 
-	if u.RequireApprovalAlways != nil {
-		return utils.MarshalJSON(u.RequireApprovalAlways, "", true)
+	if u.McpServerToolRequireApprovalAlways != nil {
+		return utils.MarshalJSON(u.McpServerToolRequireApprovalAlways, "", true)
 	}
 
-	if u.RequireApprovalNever != nil {
-		return utils.MarshalJSON(u.RequireApprovalNever, "", true)
+	if u.McpServerToolRequireApprovalNever != nil {
+		return utils.MarshalJSON(u.McpServerToolRequireApprovalNever, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type RequireApprovalUnion: all fields are null")
+	return nil, errors.New("could not marshal union type McpServerToolRequireApprovalUnion: all fields are null")
 }
 
 type McpServerToolType string
@@ -431,15 +451,16 @@ func (e *McpServerToolType) UnmarshalJSON(data []byte) error {
 
 // McpServerTool - MCP (Model Context Protocol) tool configuration
 type McpServerTool struct {
-	AllowedTools      optionalnullable.OptionalNullable[AllowedToolsUnion]    `json:"allowed_tools,omitzero"`
-	Authorization     *string                                                 `json:"authorization,omitzero"`
-	ConnectorID       *ConnectorID                                            `json:"connector_id,omitzero"`
-	Headers           optionalnullable.OptionalNullable[map[string]string]    `json:"headers,omitzero"`
-	RequireApproval   optionalnullable.OptionalNullable[RequireApprovalUnion] `json:"require_approval,omitzero"`
-	ServerDescription *string                                                 `json:"server_description,omitzero"`
-	ServerLabel       string                                                  `json:"server_label"`
-	ServerURL         *string                                                 `json:"server_url,omitzero"`
-	Type              McpServerToolType                                       `json:"type"`
+	AllowedTools         optionalnullable.OptionalNullable[McpServerToolAllowedToolsUnion]    `json:"allowed_tools,omitzero"`
+	Authorization        *string                                                              `json:"authorization,omitzero"`
+	ConnectorID          *string                                                              `json:"connector_id,omitzero"`
+	Headers              optionalnullable.OptionalNullable[map[string]string]                 `json:"headers,omitzero"`
+	RequireApproval      optionalnullable.OptionalNullable[McpServerToolRequireApprovalUnion] `json:"require_approval,omitzero"`
+	ServerDescription    *string                                                              `json:"server_description,omitzero"`
+	ServerLabel          string                                                               `json:"server_label"`
+	ServerURL            *string                                                              `json:"server_url,omitzero"`
+	Type                 McpServerToolType                                                    `json:"type"`
+	AdditionalProperties map[string]any                                                       `additionalProperties:"true" json:"-"`
 }
 
 func (m McpServerTool) MarshalJSON() ([]byte, error) {
@@ -453,7 +474,7 @@ func (m *McpServerTool) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (m *McpServerTool) GetAllowedTools() optionalnullable.OptionalNullable[AllowedToolsUnion] {
+func (m *McpServerTool) GetAllowedTools() optionalnullable.OptionalNullable[McpServerToolAllowedToolsUnion] {
 	if m == nil {
 		return nil
 	}
@@ -467,7 +488,7 @@ func (m *McpServerTool) GetAuthorization() *string {
 	return m.Authorization
 }
 
-func (m *McpServerTool) GetConnectorID() *ConnectorID {
+func (m *McpServerTool) GetConnectorID() *string {
 	if m == nil {
 		return nil
 	}
@@ -481,7 +502,7 @@ func (m *McpServerTool) GetHeaders() optionalnullable.OptionalNullable[map[strin
 	return m.Headers
 }
 
-func (m *McpServerTool) GetRequireApproval() optionalnullable.OptionalNullable[RequireApprovalUnion] {
+func (m *McpServerTool) GetRequireApproval() optionalnullable.OptionalNullable[McpServerToolRequireApprovalUnion] {
 	if m == nil {
 		return nil
 	}
@@ -514,4 +535,11 @@ func (m *McpServerTool) GetType() McpServerToolType {
 		return McpServerToolType("")
 	}
 	return m.Type
+}
+
+func (m *McpServerTool) GetAdditionalProperties() map[string]any {
+	if m == nil {
+		return nil
+	}
+	return m.AdditionalProperties
 }

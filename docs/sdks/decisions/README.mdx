@@ -25,6 +25,7 @@ import(
 	"os"
 	openrouter "github.com/OpenRouterTeam/go-sdk"
 	"github.com/OpenRouterTeam/go-sdk/models/components"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 	"log"
 )
 
@@ -41,16 +42,16 @@ func main() {
             "is_bug": components.CreateQuestionsNoul(
                 components.DecisionsNoulQuestion{
                     Criteria: &components.DecisionsNoulQuestionCriteria{
-                        False: components.CreateFalseStr(
+                        False: optionalnullable.From(openrouter.Pointer(components.CreateFalseStr(
                             "The customer is asking a question or requesting a feature.",
-                        ),
-                        True: components.CreateTrueStr(
+                        ))),
+                        True: optionalnullable.From(openrouter.Pointer(components.CreateTrueStr(
                             "The customer describes broken or unexpected product behavior.",
-                        ),
+                        ))),
                     },
-                    Instructions: components.CreateDecisionsNoulQuestionInstructionsStr(
+                    Instructions: optionalnullable.From(openrouter.Pointer(components.CreateDecisionsNoulQuestionInstructionsStr(
                         "Is the customer reporting a software defect?",
-                    ),
+                    ))),
                     Type: components.DecisionsNoulQuestionTypeNoul,
                 },
             ),
@@ -67,9 +68,9 @@ func main() {
                             "Checkout, billing, or payment processing issues.",
                         )),
                     },
-                    Instructions: components.CreateDecisionsChoiceQuestionInstructionsStr(
+                    Instructions: optionalnullable.From(openrouter.Pointer(components.CreateDecisionsChoiceQuestionInstructionsStr(
                         "Which team should own this ticket?",
-                    ),
+                    ))),
                     Type: components.DecisionsChoiceQuestionTypeChoice,
                 },
             ),
@@ -86,9 +87,9 @@ func main() {
                             "Blocking revenue right now",
                         ),
                     },
-                    Instructions: components.CreateDecisionsScoreQuestionInstructionsStr(
+                    Instructions: optionalnullable.From(openrouter.Pointer(components.CreateDecisionsScoreQuestionInstructionsStr(
                         "How urgent is this ticket?",
-                    ),
+                    ))),
                     Type: components.DecisionsScoreQuestionTypeScore,
                 },
             ),

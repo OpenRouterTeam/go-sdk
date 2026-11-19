@@ -15,6 +15,8 @@ type ListPresetVersionsRequest struct {
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
+	// Workspace to act in. Also accepted as a `workspace_id` field in a JSON request body. Defaults to the key's workspace for a key limited to one workspace, otherwise to the account's default workspace.
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
 func (l ListPresetVersionsRequest) MarshalJSON() ([]byte, error) {
@@ -47,6 +49,13 @@ func (l *ListPresetVersionsRequest) GetLimit() *int64 {
 		return nil
 	}
 	return l.Limit
+}
+
+func (l *ListPresetVersionsRequest) GetWorkspaceID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.WorkspaceID
 }
 
 type ListPresetVersionsResponse struct {

@@ -21,7 +21,7 @@ type Guardrail struct {
 	// Builtin content filters applied to requests. Includes PII detectors and the regex-based prompt injection detector.
 	ContentFilterBuiltins optionalnullable.OptionalNullable[[]ContentFilterBuiltinEntry] `json:"content_filter_builtins,omitzero"`
 	// Custom regex content filters applied to request messages
-	ContentFilters optionalnullable.OptionalNullable[[]ContentFilterEntry] `json:"content_filters,omitzero"`
+	ContentFilters optionalnullable.OptionalNullable[[]ContentFilterReadEntry] `json:"content_filters,omitzero"`
 	// ISO 8601 timestamp of when the guardrail was created
 	CreatedAt string `json:"created_at"`
 	// Description of the guardrail
@@ -121,7 +121,7 @@ func (g *Guardrail) GetContentFilterBuiltins() optionalnullable.OptionalNullable
 	return g.ContentFilterBuiltins
 }
 
-func (g *Guardrail) GetContentFilters() optionalnullable.OptionalNullable[[]ContentFilterEntry] {
+func (g *Guardrail) GetContentFilters() optionalnullable.OptionalNullable[[]ContentFilterReadEntry] {
 	if g == nil {
 		return nil
 	}

@@ -166,12 +166,6 @@ inputsUnion1 := components.CreateInputsUnion1OutputMemoryServerToolItem(componen
 inputsUnion1 := components.CreateInputsUnion1OutputArmorBlockedItem(components.OutputArmorBlockedItem{/* values here */})
 ```
 
-### OutputMcpServerToolItem
-
-```go
-inputsUnion1 := components.CreateInputsUnion1OutputMcpServerToolItem(components.OutputMcpServerToolItem{/* values here */})
-```
-
 ### OutputSearchModelsServerToolItem
 
 ```go
@@ -266,6 +260,12 @@ inputsUnion1 := components.CreateInputsUnion1CustomToolCallItem(components.Custo
 
 ```go
 inputsUnion1 := components.CreateInputsUnion1CustomToolCallOutputItem(components.CustomToolCallOutputItem{/* values here */})
+```
+
+### CompactionTriggerItem
+
+```go
+inputsUnion1 := components.CreateInputsUnion1CompactionTriggerItem(components.CompactionTriggerItem{/* values here */})
 ```
 
 ### CompactionItem
@@ -376,8 +376,6 @@ switch inputsUnion1.Type {
 		// inputsUnion1.OutputMemoryServerToolItem is populated
 	case components.InputsUnion1TypeOutputArmorBlockedItem:
 		// inputsUnion1.OutputArmorBlockedItem is populated
-	case components.InputsUnion1TypeOutputMcpServerToolItem:
-		// inputsUnion1.OutputMcpServerToolItem is populated
 	case components.InputsUnion1TypeOutputSearchModelsServerToolItem:
 		// inputsUnion1.OutputSearchModelsServerToolItem is populated
 	case components.InputsUnion1TypeOutputFusionServerToolItem:
@@ -410,6 +408,8 @@ switch inputsUnion1.Type {
 		// inputsUnion1.CustomToolCallItem is populated
 	case components.InputsUnion1TypeCustomToolCallOutputItem:
 		// inputsUnion1.CustomToolCallOutputItem is populated
+	case components.InputsUnion1TypeCompactionTriggerItem:
+		// inputsUnion1.CompactionTriggerItem is populated
 	case components.InputsUnion1TypeCompactionItem:
 		// inputsUnion1.CompactionItem is populated
 	case components.InputsUnion1TypeContextCompactionItem:

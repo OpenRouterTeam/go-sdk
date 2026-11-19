@@ -8,7 +8,9 @@ import (
 )
 
 type PrivateEndpointCheck struct {
-	// Model the upstream reported serving, when it differs from the request.
+	// Deprecated: validation no longer compares the model the upstream reports, so this field is never returned.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	ActualModel optionalnullable.OptionalNullable[string] `json:"actual_model,omitzero"`
 	// Check name.
 	Name   string `json:"name"`

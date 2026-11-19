@@ -5,6 +5,8 @@ package operations
 type GetPresetRequest struct {
 	// URL-safe slug identifying the preset.
 	Slug string `pathParam:"style=simple,explode=false,name=slug"`
+	// Workspace to act in. Also accepted as a `workspace_id` field in a JSON request body. Defaults to the key's workspace for a key limited to one workspace, otherwise to the account's default workspace.
+	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 
 func (g *GetPresetRequest) GetSlug() string {
@@ -12,4 +14,11 @@ func (g *GetPresetRequest) GetSlug() string {
 		return ""
 	}
 	return g.Slug
+}
+
+func (g *GetPresetRequest) GetWorkspaceID() *string {
+	if g == nil {
+		return nil
+	}
+	return g.WorkspaceID
 }

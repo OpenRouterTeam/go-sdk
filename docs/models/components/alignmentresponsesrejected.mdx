@@ -16,6 +16,12 @@ alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedApplyPa
 alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedCodeInterpreterCall(components.OutputItemCodeInterpreterCall{/* values here */})
 ```
 
+### OutputItemCompaction
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedCompaction(components.OutputItemCompaction{/* values here */})
+```
+
 ### OutputItemCustomToolCall
 
 ```go
@@ -38,6 +44,24 @@ alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedFunctio
 
 ```go
 alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedImageGenerationCall(components.OutputItemImageGenerationCall{/* values here */})
+```
+
+### OutputItemMcpApprovalRequest
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedMcpApprovalRequest(components.OutputItemMcpApprovalRequest{/* values here */})
+```
+
+### OutputItemMcpCall
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedMcpCall(components.OutputItemMcpCall{/* values here */})
+```
+
+### OutputItemMcpListTools
+
+```go
+alignmentResponsesRejected := components.CreateAlignmentResponsesRejectedMcpListTools(components.OutputItemMcpListTools{/* values here */})
 ```
 
 ### OutputMessage
@@ -68,6 +92,8 @@ switch alignmentResponsesRejected.Type {
 		// alignmentResponsesRejected.OutputItemApplyPatchCall is populated
 	case components.AlignmentResponsesRejectedTypeCodeInterpreterCall:
 		// alignmentResponsesRejected.OutputItemCodeInterpreterCall is populated
+	case components.AlignmentResponsesRejectedTypeCompaction:
+		// alignmentResponsesRejected.OutputItemCompaction is populated
 	case components.AlignmentResponsesRejectedTypeCustomToolCall:
 		// alignmentResponsesRejected.OutputItemCustomToolCall is populated
 	case components.AlignmentResponsesRejectedTypeFileSearchCall:
@@ -76,6 +102,12 @@ switch alignmentResponsesRejected.Type {
 		// alignmentResponsesRejected.OutputItemFunctionCall is populated
 	case components.AlignmentResponsesRejectedTypeImageGenerationCall:
 		// alignmentResponsesRejected.OutputItemImageGenerationCall is populated
+	case components.AlignmentResponsesRejectedTypeMcpApprovalRequest:
+		// alignmentResponsesRejected.OutputItemMcpApprovalRequest is populated
+	case components.AlignmentResponsesRejectedTypeMcpCall:
+		// alignmentResponsesRejected.OutputItemMcpCall is populated
+	case components.AlignmentResponsesRejectedTypeMcpListTools:
+		// alignmentResponsesRejected.OutputItemMcpListTools is populated
 	case components.AlignmentResponsesRejectedTypeMessage:
 		// alignmentResponsesRejected.OutputMessage is populated
 	case components.AlignmentResponsesRejectedTypeReasoning:

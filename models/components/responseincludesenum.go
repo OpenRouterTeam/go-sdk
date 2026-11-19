@@ -11,6 +11,8 @@ const (
 	ResponseIncludesEnumReasoningEncryptedContent        ResponseIncludesEnum = "reasoning.encrypted_content"
 	ResponseIncludesEnumOutputEncryptedContent           ResponseIncludesEnum = "output.encrypted_content"
 	ResponseIncludesEnumCodeInterpreterCallOutputs       ResponseIncludesEnum = "code_interpreter_call.outputs"
+	ResponseIncludesEnumWebSearchCallResults             ResponseIncludesEnum = "web_search_call.results"
+	ResponseIncludesEnumWebSearchCallActionSources       ResponseIncludesEnum = "web_search_call.action.sources"
 )
 
 func (e ResponseIncludesEnum) ToPointer() *ResponseIncludesEnum {
@@ -21,7 +23,7 @@ func (e ResponseIncludesEnum) ToPointer() *ResponseIncludesEnum {
 func (e *ResponseIncludesEnum) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "file_search_call.results", "message.input_image.image_url", "computer_call_output.output.image_url", "reasoning.encrypted_content", "output.encrypted_content", "code_interpreter_call.outputs":
+		case "file_search_call.results", "message.input_image.image_url", "computer_call_output.output.image_url", "reasoning.encrypted_content", "output.encrypted_content", "code_interpreter_call.outputs", "web_search_call.results", "web_search_call.action.sources":
 			return true
 		}
 	}

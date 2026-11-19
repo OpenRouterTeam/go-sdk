@@ -8,6 +8,7 @@ const (
 	ExtractionAssetFormatPng  ExtractionAssetFormat = "png"
 	ExtractionAssetFormatJpg  ExtractionAssetFormat = "jpg"
 	ExtractionAssetFormatJpeg ExtractionAssetFormat = "jpeg"
+	ExtractionAssetFormatWebp ExtractionAssetFormat = "webp"
 	ExtractionAssetFormatPdf  ExtractionAssetFormat = "pdf"
 )
 
@@ -19,7 +20,7 @@ func (e ExtractionAssetFormat) ToPointer() *ExtractionAssetFormat {
 func (e *ExtractionAssetFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "png", "jpg", "jpeg", "pdf":
+		case "png", "jpg", "jpeg", "webp", "pdf":
 			return true
 		}
 	}
@@ -48,7 +49,7 @@ func (e *ExtractionAssetType) IsExact() bool {
 	return false
 }
 
-// ExtractionAsset - An image or PDF sent once and referenced by its key in the `assets` map. `data_base64` is the file in standard base64 with no `data:` prefix. PDF is read by document models only.
+// ExtractionAsset - An image or PDF sent once and referenced by its key in the `assets` map. `data_base64` is the file in standard base64 with no `data:` prefix. Which formats are read is model-specific: a format the model cannot read fails with a 400.
 type ExtractionAsset struct {
 	DataBase64 string                `json:"data_base64"`
 	Format     ExtractionAssetFormat `json:"format"`

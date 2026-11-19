@@ -3,6 +3,8 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
 )
 
@@ -12,10 +14,12 @@ type ImageGenerationRequestAspectRatio string
 const (
 	ImageGenerationRequestAspectRatioEleven                     ImageGenerationRequestAspectRatio = "1:1"
 	ImageGenerationRequestAspectRatioTwelve                     ImageGenerationRequestAspectRatio = "1:2"
+	ImageGenerationRequestAspectRatioThirteen                   ImageGenerationRequestAspectRatio = "1:3"
 	ImageGenerationRequestAspectRatioFourteen                   ImageGenerationRequestAspectRatio = "1:4"
 	ImageGenerationRequestAspectRatioEighteen                   ImageGenerationRequestAspectRatio = "1:8"
 	ImageGenerationRequestAspectRatioTwentyOne                  ImageGenerationRequestAspectRatio = "2:1"
 	ImageGenerationRequestAspectRatioTwentyThree                ImageGenerationRequestAspectRatio = "2:3"
+	ImageGenerationRequestAspectRatioThirtyOne                  ImageGenerationRequestAspectRatio = "3:1"
 	ImageGenerationRequestAspectRatioTwoDot351                  ImageGenerationRequestAspectRatio = "2.35:1"
 	ImageGenerationRequestAspectRatioThirtyTwo                  ImageGenerationRequestAspectRatio = "3:2"
 	ImageGenerationRequestAspectRatioThirtyFour                 ImageGenerationRequestAspectRatio = "3:4"
@@ -46,7 +50,7 @@ func (e ImageGenerationRequestAspectRatio) ToPointer() *ImageGenerationRequestAs
 func (e *ImageGenerationRequestAspectRatio) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "1:1", "1:2", "1:4", "1:8", "2:1", "2:3", "2.35:1", "3:2", "3:4", "4:1", "4:3", "4:5", "5:2", "5:4", "5:7", "7:5", "8:1", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto":
+		case "1:1", "1:2", "1:3", "1:4", "1:8", "2:1", "2:3", "3:1", "2.35:1", "3:2", "3:4", "4:1", "4:3", "4:5", "5:2", "5:4", "5:7", "7:5", "8:1", "9:16", "16:9", "9:19.5", "19.5:9", "9:20", "20:9", "9:21", "21:9", "auto":
 			return true
 		}
 	}
@@ -77,7 +81,61 @@ func (e *ImageGenerationRequestBackground) IsExact() bool {
 	return false
 }
 
-// ImageGenerationRequestOutputFormat - Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`.
+type ImageGenerationRequestImageURL struct {
+	URL string `json:"url"`
+}
+
+func (i *ImageGenerationRequestImageURL) GetURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.URL
+}
+
+type ImageGenerationRequestType string
+
+const (
+	ImageGenerationRequestTypeImageURL ImageGenerationRequestType = "image_url"
+)
+
+func (e ImageGenerationRequestType) ToPointer() *ImageGenerationRequestType {
+	return &e
+}
+func (e *ImageGenerationRequestType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "image_url":
+		*e = ImageGenerationRequestType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ImageGenerationRequestType: %v", v)
+	}
+}
+
+// Markup - A transparent PNG overlay (arrows, circles, annotations) with the same dimensions as the first reference image, as a base64 data URL or HTTP(S) URL, guiding where an edit applies. Image-to-image requests only; honored by models with markup-guided editing (OpenAI gpt-image-2.6) and ignored otherwise.
+type Markup struct {
+	ImageURL ImageGenerationRequestImageURL `json:"image_url"`
+	Type     ImageGenerationRequestType     `json:"type"`
+}
+
+func (m *Markup) GetImageURL() ImageGenerationRequestImageURL {
+	if m == nil {
+		return ImageGenerationRequestImageURL{}
+	}
+	return m.ImageURL
+}
+
+func (m *Markup) GetType() ImageGenerationRequestType {
+	if m == nil {
+		return ImageGenerationRequestType("")
+	}
+	return m.Type
+}
+
+// ImageGenerationRequestOutputFormat - Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`. GIF produces an animation on models that support it (OpenAI gpt-image-2.6; see `frame_count`).
 type ImageGenerationRequestOutputFormat string
 
 const (
@@ -85,6 +143,7 @@ const (
 	ImageGenerationRequestOutputFormatJpeg ImageGenerationRequestOutputFormat = "jpeg"
 	ImageGenerationRequestOutputFormatWebp ImageGenerationRequestOutputFormat = "webp"
 	ImageGenerationRequestOutputFormatSvg  ImageGenerationRequestOutputFormat = "svg"
+	ImageGenerationRequestOutputFormatGif  ImageGenerationRequestOutputFormat = "gif"
 )
 
 func (e ImageGenerationRequestOutputFormat) ToPointer() *ImageGenerationRequestOutputFormat {
@@ -95,7 +154,7 @@ func (e ImageGenerationRequestOutputFormat) ToPointer() *ImageGenerationRequestO
 func (e *ImageGenerationRequestOutputFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "png", "jpeg", "webp", "svg":
+		case "png", "jpeg", "webp", "svg", "gif":
 			return true
 		}
 	}
@@ -156,21 +215,50 @@ func (e *ImageGenerationRequestResolution) IsExact() bool {
 	return false
 }
 
+// ImageGenerationRequestResponseFormat - `b64_json` (default) returns the image bytes inline. `url` stores each output in OpenRouter storage and returns a signed download URL in place of the bytes. The URL is a bearer link: anyone holding it can download the image until it expires, up to 24 hours after the image was stored (use `expires_at`); the stored copy is deleted by the storage lifecycle within the following day. The response falls back to `b64_json` when a URL cannot be issued: streaming responses, zero-data-retention requests (account settings, guardrails or `provider.zdr`) or endpoints, or storage being unavailable.
+type ImageGenerationRequestResponseFormat string
+
+const (
+	ImageGenerationRequestResponseFormatB64JSON ImageGenerationRequestResponseFormat = "b64_json"
+	ImageGenerationRequestResponseFormatURL     ImageGenerationRequestResponseFormat = "url"
+)
+
+func (e ImageGenerationRequestResponseFormat) ToPointer() *ImageGenerationRequestResponseFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ImageGenerationRequestResponseFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "b64_json", "url":
+			return true
+		}
+	}
+	return false
+}
+
 // ImageGenerationRequest - Image generation request input
 type ImageGenerationRequest struct {
 	// Normalized aspect ratio of the generated image. Providers clamp to their supported subset.
 	AspectRatio *ImageGenerationRequestAspectRatio `json:"aspect_ratio,omitzero"`
 	// Background treatment. `transparent` requires an output_format that supports alpha (png or webp).
 	Background *ImageGenerationRequestBackground `json:"background,omitzero"`
+	// Number of animation frames (2-64) when `output_format` is `gif`. Only honored by models that produce animations; each accepts its own range and rejects values outside it. Ignored otherwise.
+	FrameCount *int64 `json:"frame_count,omitzero"`
+	// Display time of each animation frame in milliseconds (20-2000) when `output_format` is `gif`. Ignored by models that do not produce animations.
+	FrameDurationMs *int64 `json:"frame_duration_ms,omitzero"`
 	// Reference images to guide image-to-image generation, as base64 data URLs or HTTP(S) URLs.
 	InputReferences []ContentPartImage `json:"input_references,omitzero"`
+	// A transparent PNG overlay (arrows, circles, annotations) with the same dimensions as the first reference image, as a base64 data URL or HTTP(S) URL, guiding where an edit applies. Image-to-image requests only; honored by models with markup-guided editing (OpenAI gpt-image-2.6) and ignored otherwise.
+	Markup *Markup `json:"markup,omitzero"`
 	// The image generation model to use
 	Model string `json:"model"`
 	// Upper bound on the number of images to generate (1-10). Providers may return fewer images, and providers that only support single-image generation reject n > 1.
 	N *int64 `json:"n,omitzero"`
 	// Compression level (0-100) for jpeg/webp output. Ignored by providers without a compression knob; providers that honor it may reject it with other output formats (e.g. OpenAI requires output_format "jpeg" or "webp").
 	OutputCompression *int64 `json:"output_compression,omitzero"`
-	// Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`.
+	// Encoding of the returned image bytes. Most models produce raster formats (png, jpeg, webp). SVG is supported by vectorization models (e.g. Quiver) — the SVG markup is UTF-8 base64-encoded in `b64_json`. GIF produces an animation on models that support it (OpenAI gpt-image-2.6; see `frame_count`).
 	OutputFormat *ImageGenerationRequestOutputFormat `json:"output_format,omitzero"`
 	// Text description of the desired image
 	Prompt string `json:"prompt"`
@@ -180,6 +268,8 @@ type ImageGenerationRequest struct {
 	Quality *ImageGenerationRequestQuality `json:"quality,omitzero"`
 	// Normalized resolution tier of the generated image. Concrete pixel dimensions are derived per-provider.
 	Resolution *ImageGenerationRequestResolution `json:"resolution,omitzero"`
+	// `b64_json` (default) returns the image bytes inline. `url` stores each output in OpenRouter storage and returns a signed download URL in place of the bytes. The URL is a bearer link: anyone holding it can download the image until it expires, up to 24 hours after the image was stored (use `expires_at`); the stored copy is deleted by the storage lifecycle within the following day. The response falls back to `b64_json` when a URL cannot be issued: streaming responses, zero-data-retention requests (account settings, guardrails or `provider.zdr`) or endpoints, or storage being unavailable.
+	ResponseFormat *ImageGenerationRequestResponseFormat `json:"response_format,omitzero"`
 	// If specified, the generation will sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed for all providers.
 	Seed *int64 `json:"seed,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
@@ -219,11 +309,32 @@ func (i *ImageGenerationRequest) GetBackground() *ImageGenerationRequestBackgrou
 	return i.Background
 }
 
+func (i *ImageGenerationRequest) GetFrameCount() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.FrameCount
+}
+
+func (i *ImageGenerationRequest) GetFrameDurationMs() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.FrameDurationMs
+}
+
 func (i *ImageGenerationRequest) GetInputReferences() []ContentPartImage {
 	if i == nil {
 		return nil
 	}
 	return i.InputReferences
+}
+
+func (i *ImageGenerationRequest) GetMarkup() *Markup {
+	if i == nil {
+		return nil
+	}
+	return i.Markup
 }
 
 func (i *ImageGenerationRequest) GetModel() string {
@@ -280,6 +391,13 @@ func (i *ImageGenerationRequest) GetResolution() *ImageGenerationRequestResoluti
 		return nil
 	}
 	return i.Resolution
+}
+
+func (i *ImageGenerationRequest) GetResponseFormat() *ImageGenerationRequestResponseFormat {
+	if i == nil {
+		return nil
+	}
+	return i.ResponseFormat
 }
 
 func (i *ImageGenerationRequest) GetSeed() *int64 {

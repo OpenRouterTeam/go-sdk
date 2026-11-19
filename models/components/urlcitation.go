@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/types"
 )
 
 type URLCitationType string
@@ -37,7 +38,9 @@ type URLCitation struct {
 	StartIndex int64           `json:"start_index"`
 	Title      string          `json:"title"`
 	Type       URLCitationType `json:"type"`
-	URL        string          `json:"url"`
+	//lint:ignore U1000 accessed via reflection for JSON marshaling
+	uncited *bool  `const:"true" json:"uncited,omitzero"`
+	URL     string `json:"url"`
 }
 
 func (u URLCitation) MarshalJSON() ([]byte, error) {
@@ -84,6 +87,10 @@ func (u *URLCitation) GetType() URLCitationType {
 		return URLCitationType("")
 	}
 	return u.Type
+}
+
+func (u *URLCitation) GetUncited() *bool {
+	return types.Pointer(true)
 }
 
 func (u *URLCitation) GetURL() string {

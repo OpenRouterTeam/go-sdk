@@ -52,6 +52,12 @@ openAIResponsesToolChoiceUnion := components.CreateOpenAIResponsesToolChoiceUnio
 openAIResponsesToolChoiceUnion := components.CreateOpenAIResponsesToolChoiceUnionOpenAIResponsesToolChoiceShell(components.OpenAIResponsesToolChoiceShell{/* values here */})
 ```
 
+### ToolChoiceMcp
+
+```go
+openAIResponsesToolChoiceUnion := components.CreateOpenAIResponsesToolChoiceUnionToolChoiceMcp(components.ToolChoiceMcp{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -74,5 +80,7 @@ switch openAIResponsesToolChoiceUnion.Type {
 		// openAIResponsesToolChoiceUnion.OpenAIResponsesToolChoiceApplyPatch is populated
 	case components.OpenAIResponsesToolChoiceUnionTypeOpenAIResponsesToolChoiceShell:
 		// openAIResponsesToolChoiceUnion.OpenAIResponsesToolChoiceShell is populated
+	case components.OpenAIResponsesToolChoiceUnionTypeToolChoiceMcp:
+		// openAIResponsesToolChoiceUnion.ToolChoiceMcp is populated
 }
 ```

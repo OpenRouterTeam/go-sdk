@@ -1,0 +1,13 @@
+---
+title: "AudioPcm1"
+---
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `BitsPerSample`                                                                | `float64`                                                                      | ✔️                                                             | N/A                                                                            |
+| `Channels`                                                                     | `int64`                                                                        | ✔️                                                             | N/A                                                                            |
+| `Data`                                                                         | `string`                                                                       | ✔️                                                             | Base64-encoded PCM16 audio in the format the sibling fields give.              |
+| `Format`                                                                       | [components.BatchObjectFormat1](../../models/components/batchobjectformat1.mdx) | ✔️                                                             | N/A                                                                            |
+| `SampleRate`                                                                   | `int64`                                                                        | ✔️                                                             | N/A                                                                            |

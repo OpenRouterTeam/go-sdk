@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-// UnifiedBenchmarksMetaSource - The source filter applied, or null when all sources are returned.
+// UnifiedBenchmarksMetaSource - The one source the response is limited to: the `source` filter, or Artificial Analysis for a `task_type` only it answers. Null when the response draws on every source.
 type UnifiedBenchmarksMetaSource string
 
 const (
@@ -58,13 +58,13 @@ func (e *UnifiedBenchmarksMetaVersion) UnmarshalJSON(data []byte) error {
 type UnifiedBenchmarksMeta struct {
 	// ISO-8601 timestamp of when this data was last updated.
 	AsOf string `json:"as_of"`
-	// Required attribution when republishing this data, or null when results span multiple sources (attribute each item individually by its `source` discriminator).
+	// Required attribution when republishing this data. Always set when `source` is set. When `source` is null, set if every returned item comes from one source, and null if the items span sources (attribute each item by its `source` discriminator) or there are none.
 	Citation *string `json:"citation"`
 	// Number of unique models in the response.
 	ModelCount int64 `json:"model_count"`
-	// The source filter applied, or null when all sources are returned.
+	// The one source the response is limited to: the `source` filter, or Artificial Analysis for a `task_type` only it answers. Null when the response draws on every source.
 	Source *UnifiedBenchmarksMetaSource `json:"source"`
-	// URL of the upstream data source, or null when results span multiple sources.
+	// URL of the upstream data source. Always set when `source` is set. When `source` is null, set if every returned item comes from one source, and null if the items span sources or there are none.
 	SourceURL *string `json:"source_url"`
 	// The task_type filter applied, or null if showing all.
 	TaskType *string `json:"task_type"`

@@ -1,0 +1,26 @@
+---
+title: "BudgetGuardrailPolicyDetailReference"
+---
+
+`legacy_mapping` when the policy is synced from a v1 guardrail, `account_default` when it is an account-wide default, otherwise `null`
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.BudgetGuardrailPolicyDetailReferenceLegacyMapping
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.BudgetGuardrailPolicyDetailReference("custom_value")
+```
+
+
+## Values
+
+| Name                                                 | Value                                                |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| `BudgetGuardrailPolicyDetailReferenceLegacyMapping`  | legacy_mapping                                       |
+| `BudgetGuardrailPolicyDetailReferenceAccountDefault` | account_default                                      |

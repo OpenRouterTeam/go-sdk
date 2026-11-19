@@ -31,7 +31,7 @@ func (e *UpdatePrivateEndpointRequestDeclaredRegion) IsExact() bool {
 	return false
 }
 
-// UpdatePrivateEndpointRequest - Only the fields present change. `base_url`, `upstream_model_id`, `declared_zdr` and `declared_region` are accepted on a draft only; `pricing` and `declared_parameters` replace their value; `settings` is itself a partial update where `null` clears a limit or restores the provider default.
+// UpdatePrivateEndpointRequest - Only the fields present change. `base_url` and `upstream_model_id` are accepted on a draft only; `declared_zdr` and `declared_region` on drafts and active endpoints; `pricing` and `declared_parameters` replace their value; `settings` is itself a partial update where `null` clears a limit or restores the provider default.
 type UpdatePrivateEndpointRequest struct {
 	// HTTPS base URL of your deployment. Required unless the provider derives its URL from the BYOK credential (Azure, Amazon Bedrock, Google Vertex).
 	BaseURL *string `json:"base_url,omitzero"`

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type CriteriaType string
@@ -281,8 +282,8 @@ func (e *DecisionsChoiceQuestionType) UnmarshalJSON(data []byte) error {
 type DecisionsChoiceQuestion struct {
 	Criteria map[string]*Criteria `json:"criteria"`
 	// A plain string, or a JSON object or array of structured guidance.
-	Instructions DecisionsChoiceQuestionInstructions `json:"instructions"`
-	Type         DecisionsChoiceQuestionType         `json:"type"`
+	Instructions optionalnullable.OptionalNullable[DecisionsChoiceQuestionInstructions] `json:"instructions,omitzero"`
+	Type         DecisionsChoiceQuestionType                                            `json:"type"`
 }
 
 func (d DecisionsChoiceQuestion) MarshalJSON() ([]byte, error) {
@@ -303,9 +304,9 @@ func (d *DecisionsChoiceQuestion) GetCriteria() map[string]*Criteria {
 	return d.Criteria
 }
 
-func (d *DecisionsChoiceQuestion) GetInstructions() DecisionsChoiceQuestionInstructions {
+func (d *DecisionsChoiceQuestion) GetInstructions() optionalnullable.OptionalNullable[DecisionsChoiceQuestionInstructions] {
 	if d == nil {
-		return DecisionsChoiceQuestionInstructions{}
+		return nil
 	}
 	return d.Instructions
 }

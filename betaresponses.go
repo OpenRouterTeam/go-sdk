@@ -261,7 +261,7 @@ func (s *BetaResponses) Send(ctx context.Context, responsesRequest components.Re
 				return nil, err
 			}
 
-			var out sdkerrors.BadRequestResponseError
+			var out sdkerrors.ResponsesBadRequestResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}

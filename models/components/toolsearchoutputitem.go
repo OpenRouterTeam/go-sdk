@@ -251,6 +251,7 @@ const (
 	ToolSearchOutputItemToolUnionTypeShellServerToolOpenRouter           ToolSearchOutputItemToolUnionType = "ShellServerTool_OpenRouter"
 	ToolSearchOutputItemToolUnionTypeToolSearchServerTool                ToolSearchOutputItemToolUnionType = "ToolSearchServerTool"
 	ToolSearchOutputItemToolUnionTypeToolSearchOutputItemTool            ToolSearchOutputItemToolUnionType = "ToolSearchOutputItem_tool"
+	ToolSearchOutputItemToolUnionTypeMcpServerToolOpenRouter             ToolSearchOutputItemToolUnionType = "McpServerTool_OpenRouter"
 )
 
 type ToolSearchOutputItemToolUnion struct {
@@ -283,6 +284,7 @@ type ToolSearchOutputItemToolUnion struct {
 	ShellServerToolOpenRouter           *ShellServerToolOpenRouter           `queryParam:"inline" union:"member"`
 	ToolSearchServerTool                *ToolSearchServerTool                `queryParam:"inline" union:"member"`
 	ToolSearchOutputItemTool            *ToolSearchOutputItemTool            `queryParam:"inline" union:"member"`
+	McpServerToolOpenRouter             *McpServerToolOpenRouter             `queryParam:"inline" union:"member"`
 
 	Type ToolSearchOutputItemToolUnionType
 }
@@ -548,6 +550,15 @@ func CreateToolSearchOutputItemToolUnionToolSearchOutputItemTool(toolSearchOutpu
 	}
 }
 
+func CreateToolSearchOutputItemToolUnionMcpServerToolOpenRouter(mcpServerToolOpenRouter McpServerToolOpenRouter) ToolSearchOutputItemToolUnion {
+	typ := ToolSearchOutputItemToolUnionTypeMcpServerToolOpenRouter
+
+	return ToolSearchOutputItemToolUnion{
+		McpServerToolOpenRouter: &mcpServerToolOpenRouter,
+		Type:                    typ,
+	}
+}
+
 func (u *ToolSearchOutputItemToolUnion) UnmarshalJSON(data []byte) (err error) {
 	previous := *u
 	*u = ToolSearchOutputItemToolUnion{}
@@ -792,6 +803,14 @@ func (u *ToolSearchOutputItemToolUnion) UnmarshalJSON(data []byte) (err error) {
 		})
 	}
 
+	var mcpServerToolOpenRouter McpServerToolOpenRouter = McpServerToolOpenRouter{}
+	if err := utils.UnmarshalJSON(data, &mcpServerToolOpenRouter, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ToolSearchOutputItemToolUnionTypeMcpServerToolOpenRouter,
+			Value: &mcpServerToolOpenRouter,
+		})
+	}
+
 	if len(candidates) == 0 {
 		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ToolSearchOutputItemToolUnion", string(data))
 	}
@@ -891,6 +910,9 @@ func (u *ToolSearchOutputItemToolUnion) UnmarshalJSON(data []byte) (err error) {
 		return nil
 	case ToolSearchOutputItemToolUnionTypeToolSearchOutputItemTool:
 		u.ToolSearchOutputItemTool = best.Value.(*ToolSearchOutputItemTool)
+		return nil
+	case ToolSearchOutputItemToolUnionTypeMcpServerToolOpenRouter:
+		u.McpServerToolOpenRouter = best.Value.(*McpServerToolOpenRouter)
 		return nil
 	}
 
@@ -1012,6 +1034,10 @@ func (u ToolSearchOutputItemToolUnion) MarshalJSON() ([]byte, error) {
 
 	if u.ToolSearchOutputItemTool != nil {
 		return utils.MarshalJSON(u.ToolSearchOutputItemTool, "", true)
+	}
+
+	if u.McpServerToolOpenRouter != nil {
+		return utils.MarshalJSON(u.McpServerToolOpenRouter, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type ToolSearchOutputItemToolUnion: all fields are null")

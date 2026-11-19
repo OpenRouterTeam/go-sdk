@@ -54,20 +54,20 @@ func (e *ArmorPluginMode) IsExact() bool {
 	return false
 }
 
-// OnError - When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`.
-type OnError string
+// ArmorPluginOnError - When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`.
+type ArmorPluginOnError string
 
 const (
-	OnErrorLog   OnError = "log"
-	OnErrorBlock OnError = "block"
+	ArmorPluginOnErrorLog   ArmorPluginOnError = "log"
+	ArmorPluginOnErrorBlock ArmorPluginOnError = "block"
 )
 
-func (e OnError) ToPointer() *OnError {
+func (e ArmorPluginOnError) ToPointer() *ArmorPluginOnError {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OnError) IsExact() bool {
+func (e *ArmorPluginOnError) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "log", "block":
@@ -113,7 +113,7 @@ type ArmorPlugin struct {
 	// `enforce` withholds blocked calls; `audit` evaluates and reports the same verdicts without withholding any calls, regardless of `on_error`. Default `enforce`.
 	Mode *ArmorPluginMode `json:"mode,omitzero"`
 	// When the classifier cannot answer (timeout, upstream error, context too long) the call is reported `unavailable`; `block` rejects it and `log` releases it. Default `block`.
-	OnError *OnError `json:"on_error,omitzero"`
+	OnError *ArmorPluginOnError `json:"on_error,omitzero"`
 	// How a blocked call reaches the caller. `text` (the default): the call is withheld and an `<openrouter_armor_blocked>` marker stands in assistant text. `custom_item` (Responses API only): the call is withheld and an `openrouter:armor_blocked` output item carries its id, name, arguments and the rule that fired. `claude_code_compatibility` (Messages API only; the default when the request carries a `dangerous_tool_use` safeguard, i.e. the client speaks Claude Code's protocol): the `tool_use` stays in `content[]` and the verdict is `flagged` in `safeguard_results`, so the client withholds execution and writes the error tool result as under the native classifier. Under `text` and `custom_item` the model received a failure result in the loop and continued in the same request; under `claude_code_compatibility` the turn ends on the flagged call and the model continues on the next request, after the client's denial.
 	OutputMode *OutputMode `json:"output_mode,omitzero"`
 	// Prepend Claude Code's built-in auto-mode rule set (1 hard-deny, 72 soft-deny, 17 allow, 21 environment slots) ahead of every configured rule. Defaults to true on the Anthropic Messages API and false elsewhere.
@@ -166,7 +166,7 @@ func (a *ArmorPlugin) GetMode() *ArmorPluginMode {
 	return a.Mode
 }
 
-func (a *ArmorPlugin) GetOnError() *OnError {
+func (a *ArmorPlugin) GetOnError() *ArmorPluginOnError {
 	if a == nil {
 		return nil
 	}

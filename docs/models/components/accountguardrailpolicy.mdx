@@ -1,0 +1,40 @@
+---
+title: "AccountGuardrailPolicy"
+---
+
+## Supported Types
+
+### BudgetAccountGuardrailPolicy
+
+```go
+accountGuardrailPolicy := components.CreateAccountGuardrailPolicyBudget(components.BudgetAccountGuardrailPolicy{/* values here */})
+```
+
+### ModelAvailabilityAccountGuardrailPolicy
+
+```go
+accountGuardrailPolicy := components.CreateAccountGuardrailPolicyModelAvailability(components.ModelAvailabilityAccountGuardrailPolicy{/* values here */})
+```
+
+### ModerationAccountGuardrailPolicy
+
+```go
+accountGuardrailPolicy := components.CreateAccountGuardrailPolicyModeration(components.ModerationAccountGuardrailPolicy{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch accountGuardrailPolicy.Type {
+	case components.AccountGuardrailPolicyTypeBudget:
+		// accountGuardrailPolicy.BudgetAccountGuardrailPolicy is populated
+	case components.AccountGuardrailPolicyTypeModelAvailability:
+		// accountGuardrailPolicy.ModelAvailabilityAccountGuardrailPolicy is populated
+	case components.AccountGuardrailPolicyTypeModeration:
+		// accountGuardrailPolicy.ModerationAccountGuardrailPolicy is populated
+	default:
+		// Unknown type - use accountGuardrailPolicy.GetUnknownRaw() for raw JSON
+}
+```

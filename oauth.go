@@ -308,7 +308,7 @@ func (s *OAuth) ExchangeAuthCodeForAPIKey(ctx context.Context, request operation
 }
 
 // CreateAuthCode - Create authorization code
-// Create an authorization code for the PKCE flow to generate a user-controlled API key
+// Create an authorization code for the PKCE flow to generate a user-controlled API key. Requires a Clerk session that completed reverification recently (Clerk `lax` level); otherwise the response is `403` with `error.metadata.reverification` set to `lax`, and the caller must reverify the session before retrying.
 func (s *OAuth) CreateAuthCode(ctx context.Context, request operations.CreateAuthKeysCodeRequest, opts ...operations.Option) (*operations.CreateAuthKeysCodeResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -588,6 +588,27 @@ func (s *OAuth) CreateAuthCode(ctx context.Context, request operations.CreateAut
 			}
 
 			var out sdkerrors.InternalServerResponseError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, sdkerrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 503:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out sdkerrors.ServiceUnavailableResponseError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, sdkerrors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}

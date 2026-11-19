@@ -22,6 +22,12 @@ inputUnion := operations.CreateInputUnionArrayOfStr([]string{/* values here */})
 ### 
 
 ```go
+inputUnion := operations.CreateInputUnionArrayOfArrayOfStr([][]string{/* values here */})
+```
+
+### 
+
+```go
 inputUnion := operations.CreateInputUnionArrayOfNumber([]float64{/* values here */})
 ```
 
@@ -47,6 +53,8 @@ switch inputUnion.Type {
 		// inputUnion.Str is populated
 	case operations.InputUnionTypeArrayOfStr:
 		// inputUnion.ArrayOfStr is populated
+	case operations.InputUnionTypeArrayOfArrayOfStr:
+		// inputUnion.ArrayOfArrayOfStr is populated
 	case operations.InputUnionTypeArrayOfNumber:
 		// inputUnion.ArrayOfNumber is populated
 	case operations.InputUnionTypeArrayOfArrayOfNumber:

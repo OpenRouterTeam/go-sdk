@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/OpenRouterTeam/go-sdk/internal/utils"
+	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
 type DecisionsResponseAnswersType string
@@ -218,11 +219,16 @@ func (u DecisionsResponseAnswers) MarshalJSON() ([]byte, error) {
 }
 
 type DecisionsResponseUsage struct {
-	Cost        *float64 `json:"cost,omitzero"`
-	InputTokens int64    `json:"input_tokens"`
+	// What OpenRouter charges for the request, in credits. On a BYOK request this is the OpenRouter fee only.
+	Cost *float64 `json:"cost,omitzero"`
+	// Breakdown of upstream inference costs
+	CostDetails optionalnullable.OptionalNullable[CostDetails] `json:"cost_details,omitzero"`
+	InputTokens int64                                          `json:"input_tokens"`
 	// Of `input_tokens`, those the provider served from its prompt cache.
 	InputTokensDetails *DecisionsUsageInputTokensDetails `json:"input_tokens_details,omitzero"`
-	OutputTokens       int64                             `json:"output_tokens"`
+	// Whether a request was made using a Bring Your Own Key configuration
+	IsBYOK       *bool `json:"is_byok,omitzero"`
+	OutputTokens int64 `json:"output_tokens"`
 }
 
 func (d DecisionsResponseUsage) MarshalJSON() ([]byte, error) {
@@ -243,6 +249,13 @@ func (d *DecisionsResponseUsage) GetCost() *float64 {
 	return d.Cost
 }
 
+func (d *DecisionsResponseUsage) GetCostDetails() optionalnullable.OptionalNullable[CostDetails] {
+	if d == nil {
+		return nil
+	}
+	return d.CostDetails
+}
+
 func (d *DecisionsResponseUsage) GetInputTokens() int64 {
 	if d == nil {
 		return 0
@@ -255,6 +268,13 @@ func (d *DecisionsResponseUsage) GetInputTokensDetails() *DecisionsUsageInputTok
 		return nil
 	}
 	return d.InputTokensDetails
+}
+
+func (d *DecisionsResponseUsage) GetIsBYOK() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.IsBYOK
 }
 
 func (d *DecisionsResponseUsage) GetOutputTokens() int64 {

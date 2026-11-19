@@ -19,6 +19,8 @@ const (
 	SupportedAspectRatioTwentyThree             SupportedAspectRatio = "2:3"
 	SupportedAspectRatioTwoHundredAndNineteen   SupportedAspectRatio = "21:9"
 	SupportedAspectRatioNineHundredAndTwentyOne SupportedAspectRatio = "9:21"
+	SupportedAspectRatioTwentyOne               SupportedAspectRatio = "2:1"
+	SupportedAspectRatioFiftyTwo                SupportedAspectRatio = "5:2"
 )
 
 func (e SupportedAspectRatio) ToPointer() *SupportedAspectRatio {
@@ -29,7 +31,7 @@ func (e SupportedAspectRatio) ToPointer() *SupportedAspectRatio {
 func (e *SupportedAspectRatio) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "16:9", "9:16", "1:1", "4:3", "3:4", "3:2", "2:3", "21:9", "9:21":
+		case "16:9", "9:16", "1:1", "4:3", "3:4", "3:2", "2:3", "21:9", "9:21", "2:1", "5:2":
 			return true
 		}
 	}
@@ -106,6 +108,7 @@ const (
 	SupportedSizeSixHundredAndFortyx360                  SupportedSize = "640x360"
 	SupportedSizeSixHundredAndFortyx480                  SupportedSize = "640x480"
 	SupportedSizeSixHundredAndFortyx640                  SupportedSize = "640x640"
+	SupportedSizeSevenHundredAndTwentyx360               SupportedSize = "720x360"
 	SupportedSizeSevenHundredAndTwentyx480               SupportedSize = "720x480"
 	SupportedSizeSevenHundredAndTwentyx720               SupportedSize = "720x720"
 	SupportedSizeSevenHundredAndTwentyx960               SupportedSize = "720x960"
@@ -122,6 +125,8 @@ const (
 	SupportedSizeEightHundredAndFortyx360                SupportedSize = "840x360"
 	SupportedSizeEightHundredAndFiftyFourx480            SupportedSize = "854x480"
 	SupportedSizeEightHundredAndSixtyFourx496            SupportedSize = "864x496"
+	SupportedSizeNineHundredAndSixtyx480                 SupportedSize = "960x480"
+	SupportedSizeNineHundredx360                         SupportedSize = "900x360"
 	SupportedSizeNineHundredAndSixtyx720                 SupportedSize = "960x720"
 	SupportedSizeNineHundredAndSixtyx960                 SupportedSize = "960x960"
 	SupportedSizeNineHundredAndNinetyTwox432             SupportedSize = "992x432"
@@ -135,8 +140,10 @@ const (
 	SupportedSizeOneThousandOneHundredAndTwelvex834      SupportedSize = "1112x834"
 	SupportedSizeOneThousandOneHundredAndTwentyx480      SupportedSize = "1120x480"
 	SupportedSizeOneThousandOneHundredAndFiftyTwox768    SupportedSize = "1152x768"
+	SupportedSizeOneThousandTwoHundredx480               SupportedSize = "1200x480"
 	SupportedSizeOneThousandTwoHundredAndEightyx720      SupportedSize = "1280x720"
 	SupportedSizeOneThousandThreeHundredAndSixtySixx768  SupportedSize = "1366x768"
+	SupportedSizeOneThousandFourHundredAndFortyx720      SupportedSize = "1440x720"
 	SupportedSizeOneThousandFourHundredAndFortyx1080     SupportedSize = "1440x1080"
 	SupportedSizeOneThousandFourHundredAndFortyx1440     SupportedSize = "1440x1440"
 	SupportedSizeOneThousandFourHundredAndFortyx1920     SupportedSize = "1440x1920"
@@ -144,11 +151,15 @@ const (
 	SupportedSizeOneThousandFourHundredAndFortyx2560     SupportedSize = "1440x2560"
 	SupportedSizeOneThousandFourHundredAndFortyx3360     SupportedSize = "1440x3360"
 	SupportedSizeOneThousandFourHundredAndSeventyx630    SupportedSize = "1470x630"
+	SupportedSizeOneThousandFiveHundredAndThirtySixx768  SupportedSize = "1536x768"
 	SupportedSizeOneThousandSixHundredAndTwentyx1080     SupportedSize = "1620x1080"
 	SupportedSizeOneThousandSixHundredAndEightyx720      SupportedSize = "1680x720"
 	SupportedSizeOneThousandSevenHundredAndNinetyTwox768 SupportedSize = "1792x768"
+	SupportedSizeOneThousandEightHundredx720             SupportedSize = "1800x720"
+	SupportedSizeOneThousandNineHundredAndTwentyx768     SupportedSize = "1920x768"
 	SupportedSizeOneThousandNineHundredAndTwentyx1080    SupportedSize = "1920x1080"
 	SupportedSizeOneThousandNineHundredAndTwentyx1440    SupportedSize = "1920x1440"
+	SupportedSizeTwoThousandOneHundredAndSixtyx1080      SupportedSize = "2160x1080"
 	SupportedSizeTwoThousandOneHundredAndSixtyx1440      SupportedSize = "2160x1440"
 	SupportedSizeTwoThousandOneHundredAndSixtyx2160      SupportedSize = "2160x2160"
 	SupportedSizeTwoThousandOneHundredAndSixtyx2880      SupportedSize = "2160x2880"
@@ -157,11 +168,16 @@ const (
 	SupportedSizeTwoThousandOneHundredAndSixtyx5040      SupportedSize = "2160x5040"
 	SupportedSizeTwoThousandFiveHundredAndTwentyx1080    SupportedSize = "2520x1080"
 	SupportedSizeTwoThousandFiveHundredAndSixtyx1440     SupportedSize = "2560x1440"
+	SupportedSizeTwoThousandEightHundredAndEightyx1440   SupportedSize = "2880x1440"
+	SupportedSizeTwoThousandSevenHundredx1080            SupportedSize = "2700x1080"
 	SupportedSizeTwoThousandEightHundredAndEightyx2160   SupportedSize = "2880x2160"
 	SupportedSizeThreeThousandTwoHundredAndFortyx2160    SupportedSize = "3240x2160"
 	SupportedSizeThreeThousandThreeHundredAndSixtyx1440  SupportedSize = "3360x1440"
+	SupportedSizeThreeThousandSixHundredx1440            SupportedSize = "3600x1440"
 	SupportedSizeThreeThousandEightHundredAndFortyx2160  SupportedSize = "3840x2160"
+	SupportedSizeFourThousandThreeHundredAndTwentyx2160  SupportedSize = "4320x2160"
 	SupportedSizeFiveThousandAndFortyx2160               SupportedSize = "5040x2160"
+	SupportedSizeFiveThousandFourHundredx2160            SupportedSize = "5400x2160"
 )
 
 func (e SupportedSize) ToPointer() *SupportedSize {
@@ -172,7 +188,7 @@ func (e SupportedSize) ToPointer() *SupportedSize {
 func (e *SupportedSize) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "360x360", "360x480", "360x540", "360x640", "360x840", "480x360", "480x480", "480x640", "480x720", "480x854", "480x1120", "496x864", "540x360", "560x752", "640x360", "640x480", "640x640", "720x480", "720x720", "720x960", "720x1080", "720x1280", "720x1680", "752x560", "768x768", "768x1024", "768x1152", "768x1366", "768x1792", "834x1112", "840x360", "854x480", "864x496", "960x720", "960x960", "992x432", "1024x768", "1080x720", "1080x1080", "1080x1440", "1080x1620", "1080x1920", "1080x2520", "1112x834", "1120x480", "1152x768", "1280x720", "1366x768", "1440x1080", "1440x1440", "1440x1920", "1440x2160", "1440x2560", "1440x3360", "1470x630", "1620x1080", "1680x720", "1792x768", "1920x1080", "1920x1440", "2160x1440", "2160x2160", "2160x2880", "2160x3240", "2160x3840", "2160x5040", "2520x1080", "2560x1440", "2880x2160", "3240x2160", "3360x1440", "3840x2160", "5040x2160":
+		case "360x360", "360x480", "360x540", "360x640", "360x840", "480x360", "480x480", "480x640", "480x720", "480x854", "480x1120", "496x864", "540x360", "560x752", "640x360", "640x480", "640x640", "720x360", "720x480", "720x720", "720x960", "720x1080", "720x1280", "720x1680", "752x560", "768x768", "768x1024", "768x1152", "768x1366", "768x1792", "834x1112", "840x360", "854x480", "864x496", "960x480", "900x360", "960x720", "960x960", "992x432", "1024x768", "1080x720", "1080x1080", "1080x1440", "1080x1620", "1080x1920", "1080x2520", "1112x834", "1120x480", "1152x768", "1200x480", "1280x720", "1366x768", "1440x720", "1440x1080", "1440x1440", "1440x1920", "1440x2160", "1440x2560", "1440x3360", "1470x630", "1536x768", "1620x1080", "1680x720", "1792x768", "1800x720", "1920x768", "1920x1080", "1920x1440", "2160x1080", "2160x1440", "2160x2160", "2160x2880", "2160x3240", "2160x3840", "2160x5040", "2520x1080", "2560x1440", "2880x1440", "2700x1080", "2880x2160", "3240x2160", "3360x1440", "3600x1440", "3840x2160", "4320x2160", "5040x2160", "5400x2160":
 			return true
 		}
 	}
@@ -224,7 +240,7 @@ type VideoModel struct {
 	Seed *bool `json:"seed"`
 	// Supported output aspect ratios
 	SupportedAspectRatios []SupportedAspectRatio `json:"supported_aspect_ratios"`
-	// Supported video durations in seconds
+	// Supported video durations in seconds. -1 means the model accepts duration -1 and chooses the length itself.
 	SupportedDurations []int64 `json:"supported_durations"`
 	// Supported frame image types (e.g. first_frame, last_frame)
 	SupportedFrameImages []SupportedFrameImage `json:"supported_frame_images"`

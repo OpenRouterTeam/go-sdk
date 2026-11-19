@@ -13,7 +13,7 @@ type ListObservabilityDestinationsRequest struct {
 	Offset optionalnullable.OptionalNullable[int64] `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Maximum number of records to return (max 100)
 	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
-	// Optional workspace ID to filter by. Defaults to the authenticated entity's default workspace.
+	// Optional workspace ID to filter by. Defaults to the authenticated entity's default workspace, or a workspace-scoped management key's own workspace.
 	WorkspaceID *string `queryParam:"style=form,explode=true,name=workspace_id"`
 }
 

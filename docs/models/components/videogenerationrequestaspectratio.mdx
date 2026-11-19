@@ -2,7 +2,7 @@
 title: "VideoGenerationRequestAspectRatio"
 ---
 
-Aspect ratio of the generated video
+Aspect ratio of the generated video. Omit it to use the model default, which on models with adaptive aspect ratio (e.g. BytePlus Seedance) follows the input image or video.
 
 ## Example Usage
 
@@ -31,3 +31,5 @@ custom := components.VideoGenerationRequestAspectRatio("custom_value")
 | `VideoGenerationRequestAspectRatioTwentyThree`             | 2:3                                                        |
 | `VideoGenerationRequestAspectRatioTwoHundredAndNineteen`   | 21:9                                                       |
 | `VideoGenerationRequestAspectRatioNineHundredAndTwentyOne` | 9:21                                                       |
+| `VideoGenerationRequestAspectRatioTwentyOne`               | 2:1                                                        |
+| `VideoGenerationRequestAspectRatioFiftyTwo`                | 5:2                                                        |

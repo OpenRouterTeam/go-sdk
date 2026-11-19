@@ -9,6 +9,32 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// ImageGenerationRequestDataCollection - Data collection setting. If no available model provider meets the requirement, your request will return an error.
+// - allow: (default) allow providers that may train on user data
+//
+// - deny: use only providers that do not train on user data. Providers may still retain prompts; set `zdr: true` to exclude retention.
+type ImageGenerationRequestDataCollection string
+
+const (
+	ImageGenerationRequestDataCollectionDeny  ImageGenerationRequestDataCollection = "deny"
+	ImageGenerationRequestDataCollectionAllow ImageGenerationRequestDataCollection = "allow"
+)
+
+func (e ImageGenerationRequestDataCollection) ToPointer() *ImageGenerationRequestDataCollection {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *ImageGenerationRequestDataCollection) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "deny", "allow":
+			return true
+		}
+	}
+	return false
+}
+
 type ImageGenerationProviderPreferencesIgnoreType string
 
 const (
@@ -247,6 +273,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Deepseek                 map[string]any `json:"deepseek,omitzero"`
 	Dekallm                  map[string]any `json:"dekallm,omitzero"`
 	Digitalocean             map[string]any `json:"digitalocean,omitzero"`
+	Doubleword               map[string]any `json:"doubleword,omitzero"`
 	Elevenlabs               map[string]any `json:"elevenlabs,omitzero"`
 	Enfer                    map[string]any `json:"enfer,omitzero"`
 	FakeProvider             map[string]any `json:"fake-provider,omitzero"`
@@ -324,6 +351,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Relace                   map[string]any `json:"relace,omitzero"`
 	Replicate                map[string]any `json:"replicate,omitzero"`
 	Respan                   map[string]any `json:"respan,omitzero"`
+	River                    map[string]any `json:"river,omitzero"`
 	Runway                   map[string]any `json:"runway,omitzero"`
 	SailResearch             map[string]any `json:"sail-research,omitzero"`
 	Sakana                   map[string]any `json:"sakana,omitzero"`
@@ -335,6 +363,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	SfCompute                map[string]any `json:"sf-compute,omitzero"`
 	Siliconflow              map[string]any `json:"siliconflow,omitzero"`
 	Sourceful                map[string]any `json:"sourceful,omitzero"`
+	Speechify                map[string]any `json:"speechify,omitzero"`
 	Stealth                  map[string]any `json:"stealth,omitzero"`
 	Stepfun                  map[string]any `json:"stepfun,omitzero"`
 	Streamlake               map[string]any `json:"streamlake,omitzero"`
@@ -676,6 +705,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetDigitalocean() map[string
 		return nil
 	}
 	return i.Digitalocean
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetDoubleword() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Doubleword
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetElevenlabs() map[string]any {
@@ -1217,6 +1253,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetRespan() map[string]any {
 	return i.Respan
 }
 
+func (i *ImageGenerationProviderPreferencesOptions) GetRiver() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.River
+}
+
 func (i *ImageGenerationProviderPreferencesOptions) GetRunway() map[string]any {
 	if i == nil {
 		return nil
@@ -1292,6 +1335,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetSourceful() map[string]an
 		return nil
 	}
 	return i.Sourceful
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetSpeechify() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.Speechify
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetStealth() map[string]any {
@@ -1648,6 +1698,11 @@ type ImageGenerationProviderPreferences struct {
 	// - false: use only the primary/custom provider, and return the upstream error if it's unavailable.
 	//
 	AllowFallbacks optionalnullable.OptionalNullable[bool] `json:"allow_fallbacks,omitzero"`
+	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
+	// - allow: (default) allow providers that may train on user data
+	//
+	// - deny: use only providers that do not train on user data. Providers may still retain prompts; set `zdr: true` to exclude retention.
+	DataCollection optionalnullable.OptionalNullable[ImageGenerationRequestDataCollection] `json:"data_collection,omitzero"`
 	// List of provider slugs to ignore. If provided, this list is merged with your account-wide ignored provider settings for this request.
 	Ignore optionalnullable.OptionalNullable[[]ImageGenerationProviderPreferencesIgnore] `json:"ignore,omitzero"`
 	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
@@ -1657,6 +1712,8 @@ type ImageGenerationProviderPreferences struct {
 	Order optionalnullable.OptionalNullable[[]ImageGenerationProviderPreferencesOrder] `json:"order,omitzero"`
 	// The sorting strategy to use for this request, if "order" is not specified. When set, no load balancing is performed.
 	Sort optionalnullable.OptionalNullable[ImageGenerationProviderPreferencesSort] `json:"sort,omitzero"`
+	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
+	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
 }
 
 func (i ImageGenerationProviderPreferences) MarshalJSON() ([]byte, error) {
@@ -1675,6 +1732,13 @@ func (i *ImageGenerationProviderPreferences) GetAllowFallbacks() optionalnullabl
 		return nil
 	}
 	return i.AllowFallbacks
+}
+
+func (i *ImageGenerationProviderPreferences) GetDataCollection() optionalnullable.OptionalNullable[ImageGenerationRequestDataCollection] {
+	if i == nil {
+		return nil
+	}
+	return i.DataCollection
 }
 
 func (i *ImageGenerationProviderPreferences) GetIgnore() optionalnullable.OptionalNullable[[]ImageGenerationProviderPreferencesIgnore] {
@@ -1710,4 +1774,11 @@ func (i *ImageGenerationProviderPreferences) GetSort() optionalnullable.Optional
 		return nil
 	}
 	return i.Sort
+}
+
+func (i *ImageGenerationProviderPreferences) GetZdr() optionalnullable.OptionalNullable[bool] {
+	if i == nil {
+		return nil
+	}
+	return i.Zdr
 }

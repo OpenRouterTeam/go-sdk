@@ -66,6 +66,10 @@ func (s *StreamEventsResponseOutputItemDone) GetItemCodeInterpreterCall() *Outpu
 	return s.GetItem().OutputCodeInterpreterCallItem
 }
 
+func (s *StreamEventsResponseOutputItemDone) GetItemCompaction() *OutputCompactionItem {
+	return s.GetItem().OutputCompactionItem
+}
+
 func (s *StreamEventsResponseOutputItemDone) GetItemComputerCall() *OutputComputerCallItem {
 	return s.GetItem().OutputComputerCallItem
 }
@@ -84,6 +88,18 @@ func (s *StreamEventsResponseOutputItemDone) GetItemFunctionCall() *OutputFuncti
 
 func (s *StreamEventsResponseOutputItemDone) GetItemImageGenerationCall() *OutputImageGenerationCallItem {
 	return s.GetItem().OutputImageGenerationCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemMcpApprovalRequest() *McpApprovalRequestItem {
+	return s.GetItem().McpApprovalRequestItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemMcpCall() *McpCallItem {
+	return s.GetItem().McpCallItem
+}
+
+func (s *StreamEventsResponseOutputItemDone) GetItemMcpListTools() *McpListToolsItem {
+	return s.GetItem().McpListToolsItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetItemMessage() *OutputMessageItem {
@@ -136,10 +152,6 @@ func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterFusion() *OutputFu
 
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterImageGeneration() *OutputImageGenerationServerToolItem {
 	return s.GetItem().OutputImageGenerationServerToolItem
-}
-
-func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterMcp() *OutputMcpServerToolItem {
-	return s.GetItem().OutputMcpServerToolItem
 }
 
 func (s *StreamEventsResponseOutputItemDone) GetItemOpenrouterMemory() *OutputMemoryServerToolItem {

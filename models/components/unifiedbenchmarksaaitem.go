@@ -32,21 +32,46 @@ func (e *UnifiedBenchmarksAAItemSource) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// UnifiedBenchmarksAAItem - One model's Artificial Analysis index scores. Each score is the model's best on that index across the configurations Artificial Analysis evaluated (for example reasoning levels), so two indexes of one model can come from different configurations. The deprecated Coding Index and Agentic Index fields are null for every model: Artificial Analysis has retired those indexes.
 type UnifiedBenchmarksAAItem struct {
-	// Artificial Analysis Agentic Index composite score. Higher is better.
+	// Deprecated: Artificial Analysis has retired its Agentic Index and no longer publishes it. Always null.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	AgenticIndex *float64 `json:"agentic_index"`
-	// Artificial Analysis Coding Index composite score. Higher is better.
+	// Deprecated: Artificial Analysis has retired its Coding Index and no longer publishes it. Always null.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	CodingIndex *float64 `json:"coding_index"`
+	// Artificial Analysis Cyber Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+	CyberIndex *float64 `json:"cyber_index"`
+	// Artificial Analysis Decision Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Published for decision models and for the language models Artificial Analysis evaluates on decision tasks. Null when Artificial Analysis has not published a score for the model.
+	DecisionIndex *float64 `json:"decision_index"`
 	// Model name as listed on Artificial Analysis.
 	DisplayName string `json:"display_name"`
-	// Artificial Analysis Intelligence Index composite score. Higher is better.
+	// Artificial Analysis Economics Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	EconomicsIndex *float64 `json:"economics_index"`
+	// Artificial Analysis Engineering Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	EngineeringIndex *float64 `json:"engineering_index"`
+	// Artificial Analysis Finance & Accounting Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	FinanceAndAccountingIndex *float64 `json:"finance_and_accounting_index"`
+	// Artificial Analysis Healthcare & Medical Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	HealthcareAndMedicalIndex *float64 `json:"healthcare_and_medical_index"`
+	// Artificial Analysis Intelligence Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
 	IntelligenceIndex *float64 `json:"intelligence_index"`
+	// Artificial Analysis Legal Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	LegalIndex *float64 `json:"legal_index"`
 	// Stable OpenRouter model identifier.
 	ModelPermaslug string `json:"model_permaslug"`
+	// Artificial Analysis Multilingual Index score, as a fraction from 0 to 1: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+	MultilingualIndex *float64 `json:"multilingual_index"`
+	// Artificial Analysis Openness Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. Null when Artificial Analysis has not published a score for the model.
+	OpennessIndex *float64 `json:"openness_index"`
 	// OpenRouter pricing per token for this model. Null if pricing is unavailable.
 	Pricing *UnifiedBenchmarkPricing `json:"pricing"`
 	// Benchmark source discriminator.
 	Source UnifiedBenchmarksAAItemSource `json:"source"`
+	// Artificial Analysis Strategy & Ops Index score, on a 0-100 scale: the model's best across the configurations Artificial Analysis evaluated. Higher is better. One of the six Artificial Analysis Capability Indexes. Null when Artificial Analysis has not published a score for the model.
+	StrategyAndOpsIndex *float64 `json:"strategy_and_ops_index"`
 }
 
 func (u UnifiedBenchmarksAAItem) MarshalJSON() ([]byte, error) {
@@ -74,11 +99,53 @@ func (u *UnifiedBenchmarksAAItem) GetCodingIndex() *float64 {
 	return u.CodingIndex
 }
 
+func (u *UnifiedBenchmarksAAItem) GetCyberIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.CyberIndex
+}
+
+func (u *UnifiedBenchmarksAAItem) GetDecisionIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.DecisionIndex
+}
+
 func (u *UnifiedBenchmarksAAItem) GetDisplayName() string {
 	if u == nil {
 		return ""
 	}
 	return u.DisplayName
+}
+
+func (u *UnifiedBenchmarksAAItem) GetEconomicsIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.EconomicsIndex
+}
+
+func (u *UnifiedBenchmarksAAItem) GetEngineeringIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.EngineeringIndex
+}
+
+func (u *UnifiedBenchmarksAAItem) GetFinanceAndAccountingIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.FinanceAndAccountingIndex
+}
+
+func (u *UnifiedBenchmarksAAItem) GetHealthcareAndMedicalIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.HealthcareAndMedicalIndex
 }
 
 func (u *UnifiedBenchmarksAAItem) GetIntelligenceIndex() *float64 {
@@ -88,11 +155,32 @@ func (u *UnifiedBenchmarksAAItem) GetIntelligenceIndex() *float64 {
 	return u.IntelligenceIndex
 }
 
+func (u *UnifiedBenchmarksAAItem) GetLegalIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.LegalIndex
+}
+
 func (u *UnifiedBenchmarksAAItem) GetModelPermaslug() string {
 	if u == nil {
 		return ""
 	}
 	return u.ModelPermaslug
+}
+
+func (u *UnifiedBenchmarksAAItem) GetMultilingualIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.MultilingualIndex
+}
+
+func (u *UnifiedBenchmarksAAItem) GetOpennessIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.OpennessIndex
 }
 
 func (u *UnifiedBenchmarksAAItem) GetPricing() *UnifiedBenchmarkPricing {
@@ -107,4 +195,11 @@ func (u *UnifiedBenchmarksAAItem) GetSource() UnifiedBenchmarksAAItemSource {
 		return UnifiedBenchmarksAAItemSource("")
 	}
 	return u.Source
+}
+
+func (u *UnifiedBenchmarksAAItem) GetStrategyAndOpsIndex() *float64 {
+	if u == nil {
+		return nil
+	}
+	return u.StrategyAndOpsIndex
 }

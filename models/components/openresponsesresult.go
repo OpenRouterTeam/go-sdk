@@ -752,6 +752,8 @@ type Usage struct {
 	// Cost of the completion
 	Cost        optionalnullable.OptionalNullable[float64] `json:"cost,omitzero"`
 	CostDetails *UsageCostDetails                          `json:"cost_details,omitzero"`
+	// Totals across every upstream model call of a deferred-tools run. The native usage fields report only the final call; cost covers every call.
+	DeferredToolsDetails *DeferredToolsDetails `json:"deferred_tools_details,omitzero"`
 	// Whether a request was made using a Bring Your Own Key configuration
 	IsBYOK *bool `json:"is_byok,omitzero"`
 	// Usage for server-side tool execution (e.g., web search)
@@ -816,6 +818,13 @@ func (u *Usage) GetCostDetails() *UsageCostDetails {
 		return nil
 	}
 	return u.CostDetails
+}
+
+func (u *Usage) GetDeferredToolsDetails() *DeferredToolsDetails {
+	if u == nil {
+		return nil
+	}
+	return u.DeferredToolsDetails
 }
 
 func (u *Usage) GetIsBYOK() *bool {
@@ -925,8 +934,10 @@ type OpenResponsesResult struct {
 	// Beta. The result of the alignment plugin for this request; the shape may change.
 	Alignment *Alignment `json:"alignment,omitzero"`
 	// Canonical OpenRouter error type, stable across all API formats
-	ErrorType          *APIErrorType       `json:"error_type,omitzero"`
-	OpenrouterMetadata *OpenRouterMetadata `json:"openrouter_metadata,omitzero"`
+	ErrorType *APIErrorType `json:"error_type,omitzero"`
+	// Input items the upstream provider changed before inference (OpenAI `input_transformations`). Present only when the provider reported the field; empty when it changed nothing.
+	InputTransformations []ResponsesInputTransformation `json:"input_transformations,omitzero"`
+	OpenrouterMetadata   *OpenRouterMetadata            `json:"openrouter_metadata,omitzero"`
 	// OpenRouter Armor's verdict for each client tool call of this response, present whenever Armor evaluated the response (even when nothing was flagged). Independent of the `openrouter_metadata` opt-in.
 	SafeguardResults []ArmorSafeguardResult `json:"safeguard_results,omitzero"`
 }
@@ -1206,6 +1217,13 @@ func (o *OpenResponsesResult) GetErrorType() *APIErrorType {
 		return nil
 	}
 	return o.ErrorType
+}
+
+func (o *OpenResponsesResult) GetInputTransformations() []ResponsesInputTransformation {
+	if o == nil {
+		return nil
+	}
+	return o.InputTransformations
 }
 
 func (o *OpenResponsesResult) GetOpenrouterMetadata() *OpenRouterMetadata {

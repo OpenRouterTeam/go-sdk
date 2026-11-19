@@ -194,6 +194,8 @@ type UpdatePrivateEndpointSettingsRequest struct {
 	MaxCompletionTokens optionalnullable.OptionalNullable[int64] `json:"max_completion_tokens,omitzero"`
 	// Longest prompt, in tokens, or `null` for no cap below the context length. Cannot exceed `context_length`, or the model context length while `context_length` is `null`.
 	MaxPromptTokens optionalnullable.OptionalNullable[int64] `json:"max_prompt_tokens,omitzero"`
+	// Change only the named prompt-caching flags; omitted flags keep their stored value.
+	PromptCaching *UpdatePrivateEndpointPromptCaching `json:"prompt_caching,omitzero"`
 	// Weight precision the deployment runs at; `unknown` when not stated.
 	Quantization *PrivateEndpointQuantization                    `json:"quantization,omitzero"`
 	Reasoning    *UpdatePrivateEndpointSettingsRequestReasoning  `json:"reasoning,omitzero"`
@@ -251,6 +253,13 @@ func (u *UpdatePrivateEndpointSettingsRequest) GetMaxPromptTokens() optionalnull
 		return nil
 	}
 	return u.MaxPromptTokens
+}
+
+func (u *UpdatePrivateEndpointSettingsRequest) GetPromptCaching() *UpdatePrivateEndpointPromptCaching {
+	if u == nil {
+		return nil
+	}
+	return u.PromptCaching
 }
 
 func (u *UpdatePrivateEndpointSettingsRequest) GetQuantization() *PrivateEndpointQuantization {

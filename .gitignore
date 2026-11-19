@@ -5,6 +5,5 @@
 .speakeasy/reports
 .env
 .env.local
-
 # Claude Code local settings can store secrets from approved commands
 **/.claude/settings.local.json

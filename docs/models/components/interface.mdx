@@ -1,0 +1,26 @@
+---
+title: "Interface"
+---
+
+How the universal profile exposes the hidden catalog to the provider. Absent or `wrappers`: the `tool_search` and `tool_exec` tools. `code_mode`: one `tool_code` tool that runs a short JavaScript program in which `search()` and `call()` reach the catalog, so several searches and calls complete in one tool result. Experimental.
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.InterfaceWrappers
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.Interface("custom_value")
+```
+
+
+## Values
+
+| Name                | Value               |
+| ------------------- | ------------------- |
+| `InterfaceWrappers` | wrappers            |
+| `InterfaceCodeMode` | code_mode           |

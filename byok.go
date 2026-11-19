@@ -35,7 +35,7 @@ func newBYOK(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hook
 }
 
 // List BYOK provider credentials
-// List the bring-your-own-key (BYOK) provider credentials for the authenticated entity's default workspace. Use the `workspace_id` query parameter to scope the result to a different workspace, or the `provider` query parameter to filter by upstream provider. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// List the bring-your-own-key (BYOK) provider credentials for the authenticated entity's default workspace, or a workspace-scoped management key's own workspace. Use the `workspace_id` query parameter to scope the result to a different workspace, or the `provider` query parameter to filter by upstream provider. A workspace-scoped management key can only list its own workspace; any other `workspace_id` returns 403. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *BYOK) List(ctx context.Context, offset optionalnullable.OptionalNullable[int64], limit *int64, workspaceID *string, provider *operations.Provider, opts ...operations.Option) (*operations.ListBYOKKeysResponse, error) {
 	request := operations.ListBYOKKeysRequest{
 		Offset:      offset,
@@ -386,7 +386,7 @@ func (s *BYOK) List(ctx context.Context, offset optionalnullable.OptionalNullabl
 }
 
 // Create a BYOK provider credential
-// Create a new bring-your-own-key (BYOK) provider credential. The raw key is encrypted at rest and never returned in API responses. When `workspace_id` is omitted, the credential is created in the default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly. Treat the raw key as write-only; it is never returned after creation. Use `allowed_api_key_hashes` to restrict the credential to specific OpenRouter API keys. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Create a new bring-your-own-key (BYOK) provider credential. The raw key is encrypted at rest and never returned in API responses. When `workspace_id` is omitted, the credential is created in the default workspace; if that default has been deleted, the request returns a 400 and you must pass `workspace_id` explicitly. A workspace-scoped management key creates the credential in its own workspace when `workspace_id` is omitted, and any other `workspace_id` returns 403. Treat the raw key as write-only; it is never returned after creation. Use `allowed_api_key_hashes` to restrict the credential to specific OpenRouter API keys. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *BYOK) Create(ctx context.Context, request components.CreateBYOKKeyRequest, opts ...operations.Option) (*components.CreateBYOKKeyResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -682,7 +682,7 @@ func (s *BYOK) Create(ctx context.Context, request components.CreateBYOKKeyReque
 }
 
 // Delete a BYOK provider credential
-// Delete (soft-delete) a bring-your-own-key (BYOK) provider credential by its `id`. The encrypted key material is wiped and the record is marked as deleted. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Delete (soft-delete) a bring-your-own-key (BYOK) provider credential by its `id`. The encrypted key material is wiped and the record is marked as deleted. A workspace-scoped management key only reaches credentials in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *BYOK) Delete(ctx context.Context, id string, opts ...operations.Option) (*components.DeleteBYOKKeyResponse, error) {
 	request := operations.DeleteBYOKKeyRequest{
 		ID: id,
@@ -975,7 +975,7 @@ func (s *BYOK) Delete(ctx context.Context, id string, opts ...operations.Option)
 }
 
 // Get a BYOK provider credential
-// Get a single bring-your-own-key (BYOK) provider credential by its `id`. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Get a single bring-your-own-key (BYOK) provider credential by its `id`. A workspace-scoped management key only reaches credentials in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *BYOK) Get(ctx context.Context, id string, opts ...operations.Option) (*components.GetBYOKKeyResponse, error) {
 	request := operations.GetBYOKKeyRequest{
 		ID: id,
@@ -1268,7 +1268,7 @@ func (s *BYOK) Get(ctx context.Context, id string, opts ...operations.Option) (*
 }
 
 // Update a BYOK provider credential
-// Update an existing bring-your-own-key (BYOK) provider credential by its `id`. Include the `key` field to rotate the raw provider API key in-place (the previous key material is overwritten). Use `allowed_api_key_hashes` to restrict the credential to specific OpenRouter API keys (`null` clears the restriction). [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Update an existing bring-your-own-key (BYOK) provider credential by its `id`. Include the `key` field to rotate the raw provider API key in-place (the previous key material is overwritten). Use `allowed_api_key_hashes` to restrict the credential to specific OpenRouter API keys (`null` clears the restriction). A workspace-scoped management key only reaches credentials in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *BYOK) Update(ctx context.Context, id string, updateBYOKKeyRequest components.UpdateBYOKKeyRequest, opts ...operations.Option) (*components.UpdateBYOKKeyResponse, error) {
 	request := operations.UpdateBYOKKeyRequest{
 		ID:                   id,

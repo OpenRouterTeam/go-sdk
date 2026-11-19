@@ -8,7 +8,7 @@ import (
 
 // ImageGenerationServerToolConfig - Configuration for the openrouter:image_generation server tool. Accepts all image_config params (aspect_ratio, quality, size, background, output_format, output_compression, moderation, etc.) plus a model field.
 type ImageGenerationServerToolConfig struct {
-	// Which image generation model to use (e.g. "openai/gpt-5-image"). Defaults to "openai/gpt-5-image".
+	// Which image generation model to use (e.g. "openai/gpt-image-2.6-flare"). Defaults to "openai/gpt-image-2.6-flare".
 	Model                *string                                         `json:"model,omitzero"`
 	AdditionalProperties map[string]ImageGenerationServerToolConfigUnion `additionalProperties:"true" json:"-"`
 }
