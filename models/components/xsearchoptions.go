@@ -7,7 +7,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/types"
 )
 
-// XSearchOptions - Enable SpaceXAI X (Twitter) search alongside native web search, with optional filters. Only applies to SpaceXAI endpoints with native search; omit to search the web only. X search is billed separately by SpaceXAI, per post and per user profile fetched.
+// XSearchOptions - Enable SpaceXSI X (Twitter) search alongside native web search, with optional filters. Only applies to SpaceXSI endpoints with native search; omit to search the web only. X search is billed separately by SpaceXSI, per post and per user profile fetched.
 type XSearchOptions struct {
 	// Only include posts from these X handles (max 20). Cannot be used with excluded_x_handles.
 	AllowedXHandles []string `json:"allowed_x_handles,omitzero"`
