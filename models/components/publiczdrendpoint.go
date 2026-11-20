@@ -29,7 +29,7 @@ type PublicZdrEndpoint struct {
 	ServiceTier         *PublicServiceTier `json:"service_tier"`
 	Status              *EndpointStatus    `json:"status,omitzero"`
 	SupportedParameters []Parameter        `json:"supported_parameters"`
-	// Whether this STT endpoint can label each transcript segment with a speaker (speaker diarization). False when the endpoint has not declared support.
+	// Whether this STT endpoint can label each transcript segment with a speaker (speaker diarization). For transcription endpoints, derived from the serving STT adapter: true when that adapter supports `diarize: true` for this model. Diarized requests also need `response_format: verbose_json`.
 	SupportsDiarization bool `json:"supports_diarization"`
 	// Whether this TTS endpoint accepts an `image_url` reference describing the desired voice. Requests carrying an image reference are only routed to endpoints where this is true.
 	SupportsImageReference  *bool `default:"false" json:"supports_image_reference"`
