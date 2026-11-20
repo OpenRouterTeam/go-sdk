@@ -7,6 +7,7 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// Workspace metadata. Configuration fields are omitted without permission to view workspace settings.
 type Workspace struct {
 	// ISO 8601 timestamp of when the workspace was created
 	CreatedAt string `json:"created_at"`
@@ -15,29 +16,29 @@ type Workspace struct {
 	// Deterministic ID derived from the workspace ID. The default guardrail is materialized when its configuration is first written.
 	DefaultGuardrailID string `json:"default_guardrail_id"`
 	// Default image model for this workspace
-	DefaultImageModel *string `json:"default_image_model"`
+	DefaultImageModel optionalnullable.OptionalNullable[string] `json:"default_image_model,omitzero"`
 	// Default provider sort preference (price, throughput, latency, exacto)
-	DefaultProviderSort *string `json:"default_provider_sort"`
+	DefaultProviderSort optionalnullable.OptionalNullable[string] `json:"default_provider_sort,omitzero"`
 	// Default text model for this workspace
-	DefaultTextModel *string `json:"default_text_model"`
+	DefaultTextModel optionalnullable.OptionalNullable[string] `json:"default_text_model,omitzero"`
 	// Description of the workspace
 	Description *string `json:"description"`
 	// OpenRouter server tools (e.g. openrouter:web_search) that requests in this workspace may not invoke. Null means no tools are disabled.
 	DisabledServerTools optionalnullable.OptionalNullable[[]string] `json:"disabled_server_tools,omitzero"`
 	// Unique identifier for the workspace
 	ID string `json:"id"`
-	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Set it via the workspace budget endpoints.
+	// Whether BYOK (bring-your-own-key) spend counts toward this workspace's budgets. Omitted without settings and budget visibility. Set it via the workspace budget endpoints.
 	IncludeBYOKInBudgets *bool `json:"include_byok_in_budgets,omitzero"`
-	// Optional array of API key IDs to filter I/O logging. Null means all keys are logged.
-	IoLoggingAPIKeyIds []int64 `json:"io_logging_api_key_ids"`
+	// API key IDs used to filter I/O logging. Null means all keys are logged. Omitted without access to workspace settings and API key identifiers.
+	IoLoggingAPIKeyIds optionalnullable.OptionalNullable[[]int64] `json:"io_logging_api_key_ids,omitzero"`
 	// Sampling rate for I/O logging (0.0001-1). 1 means 100% of requests are logged.
-	IoLoggingSamplingRate float64 `json:"io_logging_sampling_rate"`
+	IoLoggingSamplingRate *float64 `json:"io_logging_sampling_rate,omitzero"`
 	// Whether data discount logging is enabled for this workspace
-	IsDataDiscountLoggingEnabled bool `json:"is_data_discount_logging_enabled"`
+	IsDataDiscountLoggingEnabled *bool `json:"is_data_discount_logging_enabled,omitzero"`
 	// Whether broadcast is enabled for this workspace
-	IsObservabilityBroadcastEnabled bool `json:"is_observability_broadcast_enabled"`
+	IsObservabilityBroadcastEnabled *bool `json:"is_observability_broadcast_enabled,omitzero"`
 	// Whether private logging is enabled for this workspace
-	IsObservabilityIoLoggingEnabled bool `json:"is_observability_io_logging_enabled"`
+	IsObservabilityIoLoggingEnabled *bool `json:"is_observability_io_logging_enabled,omitzero"`
 	// Name of the workspace
 	Name string `json:"name"`
 	// URL-friendly slug for the workspace
@@ -78,21 +79,21 @@ func (w *Workspace) GetDefaultGuardrailID() string {
 	return w.DefaultGuardrailID
 }
 
-func (w *Workspace) GetDefaultImageModel() *string {
+func (w *Workspace) GetDefaultImageModel() optionalnullable.OptionalNullable[string] {
 	if w == nil {
 		return nil
 	}
 	return w.DefaultImageModel
 }
 
-func (w *Workspace) GetDefaultProviderSort() *string {
+func (w *Workspace) GetDefaultProviderSort() optionalnullable.OptionalNullable[string] {
 	if w == nil {
 		return nil
 	}
 	return w.DefaultProviderSort
 }
 
-func (w *Workspace) GetDefaultTextModel() *string {
+func (w *Workspace) GetDefaultTextModel() optionalnullable.OptionalNullable[string] {
 	if w == nil {
 		return nil
 	}
@@ -127,37 +128,37 @@ func (w *Workspace) GetIncludeBYOKInBudgets() *bool {
 	return w.IncludeBYOKInBudgets
 }
 
-func (w *Workspace) GetIoLoggingAPIKeyIds() []int64 {
+func (w *Workspace) GetIoLoggingAPIKeyIds() optionalnullable.OptionalNullable[[]int64] {
 	if w == nil {
 		return nil
 	}
 	return w.IoLoggingAPIKeyIds
 }
 
-func (w *Workspace) GetIoLoggingSamplingRate() float64 {
+func (w *Workspace) GetIoLoggingSamplingRate() *float64 {
 	if w == nil {
-		return 0.0
+		return nil
 	}
 	return w.IoLoggingSamplingRate
 }
 
-func (w *Workspace) GetIsDataDiscountLoggingEnabled() bool {
+func (w *Workspace) GetIsDataDiscountLoggingEnabled() *bool {
 	if w == nil {
-		return false
+		return nil
 	}
 	return w.IsDataDiscountLoggingEnabled
 }
 
-func (w *Workspace) GetIsObservabilityBroadcastEnabled() bool {
+func (w *Workspace) GetIsObservabilityBroadcastEnabled() *bool {
 	if w == nil {
-		return false
+		return nil
 	}
 	return w.IsObservabilityBroadcastEnabled
 }
 
-func (w *Workspace) GetIsObservabilityIoLoggingEnabled() bool {
+func (w *Workspace) GetIsObservabilityIoLoggingEnabled() *bool {
 	if w == nil {
-		return false
+		return nil
 	}
 	return w.IsObservabilityIoLoggingEnabled
 }

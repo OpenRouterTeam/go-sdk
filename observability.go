@@ -384,7 +384,7 @@ func (s *Observability) List(ctx context.Context, offset optionalnullable.Option
 }
 
 // Create an observability destination
-// Create a new observability destination. A maximum of 5 destinations per type is allowed. Defaults to the authenticated entity's default workspace, or a workspace-scoped management key's own workspace; use the `workspace_id` body field to scope to a different workspace. A workspace-scoped management key can only create in its own workspace; any other `workspace_id` returns 403. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Create a new observability destination. A maximum of 5 enabled destinations per workspace, across all types, is allowed; disabled destinations do not count. A workspace already above the cap keeps its enabled destinations but cannot create or enable more until fewer than 5 are enabled. Defaults to the authenticated entity's default workspace, or a workspace-scoped management key's own workspace; use the `workspace_id` body field to scope to a different workspace. A workspace-scoped management key can only create in its own workspace; any other `workspace_id` returns 403. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Observability) Create(ctx context.Context, request components.CreateObservabilityDestinationRequest, opts ...operations.Option) (*components.CreateObservabilityDestinationResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -1287,7 +1287,7 @@ func (s *Observability) Get(ctx context.Context, id string, opts ...operations.O
 }
 
 // Update an observability destination
-// Update an existing observability destination. Only the fields provided in the request body are updated. A workspace-scoped management key only reaches destinations in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
+// Update an existing observability destination. Only the fields provided in the request body are updated. Enabling a disabled destination returns 400 while the workspace already has 5 enabled destinations. A workspace-scoped management key only reaches destinations in its own workspace; any other `id` returns 404. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Observability) Update(ctx context.Context, id string, updateObservabilityDestinationRequest components.UpdateObservabilityDestinationRequest, opts ...operations.Option) (*components.UpdateObservabilityDestinationResponse, error) {
 	request := operations.UpdateObservabilityDestinationRequest{
 		ID:                                    id,
