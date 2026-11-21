@@ -113,6 +113,7 @@ type ProviderOptions struct {
 	Parallel                 map[string]any `json:"parallel,omitzero"`
 	Parasail                 map[string]any `json:"parasail,omitzero"`
 	ParetoAlpha              map[string]any `json:"pareto-alpha,omitzero"`
+	ParetoInference          map[string]any `json:"pareto-inference,omitzero"`
 	ParticleAi               map[string]any `json:"particle-ai,omitzero"`
 	PearlResearch            map[string]any `json:"pearl-research,omitzero"`
 	Perceptron               map[string]any `json:"perceptron,omitzero"`
@@ -911,6 +912,13 @@ func (p *ProviderOptions) GetParetoAlpha() map[string]any {
 		return nil
 	}
 	return p.ParetoAlpha
+}
+
+func (p *ProviderOptions) GetParetoInference() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.ParetoInference
 }
 
 func (p *ProviderOptions) GetParticleAi() map[string]any {

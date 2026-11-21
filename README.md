@@ -425,7 +425,7 @@ func main() {
 ### [Scim](docs/sdks/scim/README.md)
 
 * [ListMappings](docs/sdks/scim/README.md#listmappings) - List SCIM group mappings
-* [~~Create~~](docs/sdks/scim/README.md#create) - Create a SCIM group mapping :warning: **Deprecated**
+* [Create](docs/sdks/scim/README.md#create) - Create a SCIM group mapping
 * [Delete](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping
 * [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
 * [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
