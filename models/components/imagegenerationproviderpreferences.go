@@ -334,6 +334,7 @@ type ImageGenerationProviderPreferencesOptions struct {
 	Parallel                 map[string]any `json:"parallel,omitzero"`
 	Parasail                 map[string]any `json:"parasail,omitzero"`
 	ParetoAlpha              map[string]any `json:"pareto-alpha,omitzero"`
+	ParetoInference          map[string]any `json:"pareto-inference,omitzero"`
 	ParticleAi               map[string]any `json:"particle-ai,omitzero"`
 	PearlResearch            map[string]any `json:"pearl-research,omitzero"`
 	Perceptron               map[string]any `json:"perceptron,omitzero"`
@@ -1132,6 +1133,13 @@ func (i *ImageGenerationProviderPreferencesOptions) GetParetoAlpha() map[string]
 		return nil
 	}
 	return i.ParetoAlpha
+}
+
+func (i *ImageGenerationProviderPreferencesOptions) GetParetoInference() map[string]any {
+	if i == nil {
+		return nil
+	}
+	return i.ParetoInference
 }
 
 func (i *ImageGenerationProviderPreferencesOptions) GetParticleAi() map[string]any {

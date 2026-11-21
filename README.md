@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.126
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.127
 > ```
 
 <!-- No Summary [summary] -->
@@ -425,7 +425,7 @@ func main() {
 ### [Scim](docs/sdks/scim/README.md)
 
 * [ListMappings](docs/sdks/scim/README.md#listmappings) - List SCIM group mappings
-* [~~Create~~](docs/sdks/scim/README.md#create) - Create a SCIM group mapping :warning: **Deprecated**
+* [Create](docs/sdks/scim/README.md#create) - Create a SCIM group mapping
 * [Delete](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping
 * [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
 * [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
