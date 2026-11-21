@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.125
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.126
 > ```
 
 <!-- No Summary [summary] -->
@@ -426,11 +426,11 @@ func main() {
 
 * [ListMappings](docs/sdks/scim/README.md#listmappings) - List SCIM group mappings
 * [~~Create~~](docs/sdks/scim/README.md#create) - Create a SCIM group mapping :warning: **Deprecated**
-* [~~Delete~~](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping :warning: **Deprecated**
+* [Delete](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping
 * [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
-* [~~Update~~](docs/sdks/scim/README.md#update) - Update a SCIM group mapping :warning: **Deprecated**
+* [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
 * [ListGroups](docs/sdks/scim/README.md#listgroups) - List SCIM groups
-* [~~CreateSyncJob~~](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync :warning: **Deprecated**
+* [CreateSyncJob](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync
 * [GetSyncJob](docs/sdks/scim/README.md#getsyncjob) - Get SCIM directory sync status
 
 ### [STT](docs/sdks/stt/README.md)
