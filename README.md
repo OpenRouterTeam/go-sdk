@@ -426,11 +426,11 @@ func main() {
 
 * [ListMappings](docs/sdks/scim/README.md#listmappings) - List SCIM group mappings
 * [~~Create~~](docs/sdks/scim/README.md#create) - Create a SCIM group mapping :warning: **Deprecated**
-* [~~Delete~~](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping :warning: **Deprecated**
+* [Delete](docs/sdks/scim/README.md#delete) - Delete a SCIM group mapping
 * [Read](docs/sdks/scim/README.md#read) - Get a SCIM group mapping
-* [~~Update~~](docs/sdks/scim/README.md#update) - Update a SCIM group mapping :warning: **Deprecated**
+* [Update](docs/sdks/scim/README.md#update) - Update a SCIM group mapping
 * [ListGroups](docs/sdks/scim/README.md#listgroups) - List SCIM groups
-* [~~CreateSyncJob~~](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync :warning: **Deprecated**
+* [CreateSyncJob](docs/sdks/scim/README.md#createsyncjob) - Start a SCIM directory sync
 * [GetSyncJob](docs/sdks/scim/README.md#getsyncjob) - Get SCIM directory sync status
 
 ### [STT](docs/sdks/stt/README.md)

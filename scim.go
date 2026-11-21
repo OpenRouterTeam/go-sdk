@@ -722,9 +722,7 @@ func (s *Scim) Create(ctx context.Context, request components.CreateScimGroupMap
 }
 
 // Delete a SCIM group mapping
-// Delete a SCIM group-to-workspace mapping. Disabled: no API key can perform this write, including management keys. Use the organization settings in the dashboard, which require step-up verification. A valid management key for an organization with SCIM access receives 403; an invalid key still receives 401 and an organization without SCIM access receives 404.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+// Delete a SCIM group-to-workspace mapping. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Scim) Delete(ctx context.Context, id string, keepMembers operations.KeepMembers, opts ...operations.Option) (*components.DeleteScimGroupMappingResponse, error) {
 	request := operations.DeleteScimGroupMappingRequest{
 		ID:          id,
@@ -1336,9 +1334,7 @@ func (s *Scim) Read(ctx context.Context, id string, opts ...operations.Option) (
 }
 
 // Update a SCIM group mapping
-// Update a SCIM group mapping role. Disabled: no API key can perform this write, including management keys. Use the organization settings in the dashboard, which require step-up verification. A valid management key for an organization with SCIM access receives 403; an invalid key still receives 401 and an organization without SCIM access receives 404.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+// Update a SCIM group mapping role. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Scim) Update(ctx context.Context, id string, updateScimGroupMappingRequest components.UpdateScimGroupMappingRequest, opts ...operations.Option) (*components.UpdateScimGroupMappingResponse, error) {
 	request := operations.UpdateScimGroupMappingRequest{
 		ID:                            id,
@@ -2011,9 +2007,7 @@ func (s *Scim) ListGroups(ctx context.Context, offset optionalnullable.OptionalN
 }
 
 // CreateSyncJob - Start a SCIM directory sync
-// Start a SCIM directory sync. Disabled: no API key can perform this write, including management keys. Use the organization settings in the dashboard, which require step-up verification. A valid management key for an organization with SCIM access receives 403; an invalid key still receives 401 and an organization without SCIM access receives 404.
-//
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+// Start a SCIM directory sync. [Management key](/docs/guides/overview/auth/management-api-keys) required.
 func (s *Scim) CreateSyncJob(ctx context.Context, opts ...operations.Option) (*operations.CreateScimSyncJobResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
