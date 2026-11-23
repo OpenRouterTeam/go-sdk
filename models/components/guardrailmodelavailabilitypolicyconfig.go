@@ -8,6 +8,7 @@ import (
 )
 
 type GuardrailModelAvailabilityPolicyConfig struct {
+	AllowProvisionalProviders      optionalnullable.OptionalNullable[bool]     `json:"allow_provisional_providers,omitzero"`
 	AllowSafetyRetentionGoogle     optionalnullable.OptionalNullable[bool]     `json:"allow_safety_retention_google,omitzero"`
 	AllowSafetyRetentionOther      optionalnullable.OptionalNullable[bool]     `json:"allow_safety_retention_other,omitzero"`
 	AllowedDataRegions             optionalnullable.OptionalNullable[[]string] `json:"allowed_data_regions,omitzero"`
@@ -40,6 +41,13 @@ func (g *GuardrailModelAvailabilityPolicyConfig) UnmarshalJSON(data []byte) erro
 		return err
 	}
 	return nil
+}
+
+func (g *GuardrailModelAvailabilityPolicyConfig) GetAllowProvisionalProviders() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.AllowProvisionalProviders
 }
 
 func (g *GuardrailModelAvailabilityPolicyConfig) GetAllowSafetyRetentionGoogle() optionalnullable.OptionalNullable[bool] {

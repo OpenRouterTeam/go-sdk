@@ -8,6 +8,8 @@ import (
 )
 
 type UpdateGuardrailRequest struct {
+	// Whether requests may use provisional providers, whose security practices have not been reviewed by OpenRouter. false excludes them. true and null never override an account that excludes them. Inherits the account setting when not provided.
+	AllowProvisionalProviders optionalnullable.OptionalNullable[bool] `json:"allow_provisional_providers,omitzero"`
 	// Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
 	AllowSafetyRetentionGoogle optionalnullable.OptionalNullable[bool] `json:"allow_safety_retention_google,omitzero"`
 	// Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
@@ -69,6 +71,13 @@ func (u *UpdateGuardrailRequest) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (u *UpdateGuardrailRequest) GetAllowProvisionalProviders() optionalnullable.OptionalNullable[bool] {
+	if u == nil {
+		return nil
+	}
+	return u.AllowProvisionalProviders
 }
 
 func (u *UpdateGuardrailRequest) GetAllowSafetyRetentionGoogle() optionalnullable.OptionalNullable[bool] {
