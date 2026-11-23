@@ -1015,26 +1015,28 @@ const (
 	MessagesMessageParamContentUnion4TypeOpenrouterShellToolResult  MessagesMessageParamContentUnion4Type = "openrouter_shell_tool_result"
 	MessagesMessageParamContentUnion4TypeOpenrouterBashToolResult   MessagesMessageParamContentUnion4Type = "openrouter_bash_tool_result"
 	MessagesMessageParamContentUnion4TypeOpenrouterToolSearchResult MessagesMessageParamContentUnion4Type = "openrouter_tool_search_result"
+	MessagesMessageParamContentUnion4TypeToolSearchToolResult       MessagesMessageParamContentUnion4Type = "tool_search_tool_result"
 )
 
 type MessagesMessageParamContentUnion4 struct {
-	AnthropicTextBlockParam          *AnthropicTextBlockParam          `queryParam:"inline" union:"member"`
-	AnthropicImageBlockParam         *AnthropicImageBlockParam         `queryParam:"inline" union:"member"`
-	AnthropicDocumentBlockParam      *AnthropicDocumentBlockParam      `queryParam:"inline" union:"member"`
-	ContentToolUse                   *ContentToolUse                   `queryParam:"inline" union:"member"`
-	ContentToolResult                *ContentToolResult                `queryParam:"inline" union:"member"`
-	ContentThinking                  *ContentThinking                  `queryParam:"inline" union:"member"`
-	ContentRedactedThinking          *ContentRedactedThinking          `queryParam:"inline" union:"member"`
-	ContentServerToolUse             *ContentServerToolUse             `queryParam:"inline" union:"member"`
-	ContentWebSearchToolResult       *ContentWebSearchToolResult       `queryParam:"inline" union:"member"`
-	AnthropicSearchResultBlockParam  *AnthropicSearchResultBlockParam  `queryParam:"inline" union:"member"`
-	ContentCompaction                *ContentCompaction                `queryParam:"inline" union:"member"`
-	MessagesAdvisorToolResultBlock   *MessagesAdvisorToolResultBlock   `queryParam:"inline" union:"member"`
-	MessagesToolAdditionBlock        *MessagesToolAdditionBlock        `queryParam:"inline" union:"member"`
-	MessagesToolRemovalBlock         *MessagesToolRemovalBlock         `queryParam:"inline" union:"member"`
-	MessagesShellToolResultBlock     *MessagesShellToolResultBlock     `queryParam:"inline" union:"member"`
-	MessagesBashToolResultBlock      *MessagesBashToolResultBlock      `queryParam:"inline" union:"member"`
-	ORAnthropicToolSearchResultParam *ORAnthropicToolSearchResultParam `queryParam:"inline" union:"member"`
+	AnthropicTextBlockParam           *AnthropicTextBlockParam           `queryParam:"inline" union:"member"`
+	AnthropicImageBlockParam          *AnthropicImageBlockParam          `queryParam:"inline" union:"member"`
+	AnthropicDocumentBlockParam       *AnthropicDocumentBlockParam       `queryParam:"inline" union:"member"`
+	ContentToolUse                    *ContentToolUse                    `queryParam:"inline" union:"member"`
+	ContentToolResult                 *ContentToolResult                 `queryParam:"inline" union:"member"`
+	ContentThinking                   *ContentThinking                   `queryParam:"inline" union:"member"`
+	ContentRedactedThinking           *ContentRedactedThinking           `queryParam:"inline" union:"member"`
+	ContentServerToolUse              *ContentServerToolUse              `queryParam:"inline" union:"member"`
+	ContentWebSearchToolResult        *ContentWebSearchToolResult        `queryParam:"inline" union:"member"`
+	AnthropicSearchResultBlockParam   *AnthropicSearchResultBlockParam   `queryParam:"inline" union:"member"`
+	ContentCompaction                 *ContentCompaction                 `queryParam:"inline" union:"member"`
+	MessagesAdvisorToolResultBlock    *MessagesAdvisorToolResultBlock    `queryParam:"inline" union:"member"`
+	MessagesToolAdditionBlock         *MessagesToolAdditionBlock         `queryParam:"inline" union:"member"`
+	MessagesToolRemovalBlock          *MessagesToolRemovalBlock          `queryParam:"inline" union:"member"`
+	MessagesShellToolResultBlock      *MessagesShellToolResultBlock      `queryParam:"inline" union:"member"`
+	MessagesBashToolResultBlock       *MessagesBashToolResultBlock       `queryParam:"inline" union:"member"`
+	ORAnthropicToolSearchResultParam  *ORAnthropicToolSearchResultParam  `queryParam:"inline" union:"member"`
+	MessagesToolSearchToolResultBlock *MessagesToolSearchToolResultBlock `queryParam:"inline" union:"member"`
 
 	Type MessagesMessageParamContentUnion4Type
 }
@@ -1243,6 +1245,18 @@ func CreateMessagesMessageParamContentUnion4OpenrouterToolSearchResult(openroute
 	}
 }
 
+func CreateMessagesMessageParamContentUnion4ToolSearchToolResult(toolSearchToolResult MessagesToolSearchToolResultBlock) MessagesMessageParamContentUnion4 {
+	typ := MessagesMessageParamContentUnion4TypeToolSearchToolResult
+
+	typStr := MessagesToolSearchToolResultBlockType(typ)
+	toolSearchToolResult.Type = typStr
+
+	return MessagesMessageParamContentUnion4{
+		MessagesToolSearchToolResultBlock: &toolSearchToolResult,
+		Type:                              typ,
+	}
+}
+
 func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) (err error) {
 	previous := *u
 	*u = MessagesMessageParamContentUnion4{}
@@ -1415,6 +1429,15 @@ func (u *MessagesMessageParamContentUnion4) UnmarshalJSON(data []byte) (err erro
 		u.ORAnthropicToolSearchResultParam = orAnthropicToolSearchResultParam
 		u.Type = MessagesMessageParamContentUnion4TypeOpenrouterToolSearchResult
 		return nil
+	case "tool_search_tool_result":
+		messagesToolSearchToolResultBlock := new(MessagesToolSearchToolResultBlock)
+		if err := utils.UnmarshalJSON(data, &messagesToolSearchToolResultBlock, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == tool_search_tool_result) type MessagesToolSearchToolResultBlock within MessagesMessageParamContentUnion4: %w", string(data), err)
+		}
+
+		u.MessagesToolSearchToolResultBlock = messagesToolSearchToolResultBlock
+		u.Type = MessagesMessageParamContentUnion4TypeToolSearchToolResult
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for MessagesMessageParamContentUnion4", string(data))
@@ -1487,6 +1510,10 @@ func (u MessagesMessageParamContentUnion4) MarshalJSON() ([]byte, error) {
 
 	if u.ORAnthropicToolSearchResultParam != nil {
 		return utils.MarshalJSON(u.ORAnthropicToolSearchResultParam, "", true)
+	}
+
+	if u.MessagesToolSearchToolResultBlock != nil {
+		return utils.MarshalJSON(u.MessagesToolSearchToolResultBlock, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type MessagesMessageParamContentUnion4: all fields are null")

@@ -1,0 +1,33 @@
+---
+title: "MessagesToolSearchToolResultContent"
+---
+
+What a tool search returned: the tools it found, or an error.
+
+
+## Supported Types
+
+### MessagesToolSearchToolResultError
+
+```go
+messagesToolSearchToolResultContent := components.CreateMessagesToolSearchToolResultContentToolSearchToolResultError(components.MessagesToolSearchToolResultError{/* values here */})
+```
+
+### MessagesToolSearchToolSearchResult
+
+```go
+messagesToolSearchToolResultContent := components.CreateMessagesToolSearchToolResultContentToolSearchToolSearchResult(components.MessagesToolSearchToolSearchResult{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch messagesToolSearchToolResultContent.Type {
+	case components.MessagesToolSearchToolResultContentTypeToolSearchToolResultError:
+		// messagesToolSearchToolResultContent.MessagesToolSearchToolResultError is populated
+	case components.MessagesToolSearchToolResultContentTypeToolSearchToolSearchResult:
+		// messagesToolSearchToolResultContent.MessagesToolSearchToolSearchResult is populated
+}
+```
