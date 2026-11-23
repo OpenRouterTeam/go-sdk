@@ -40,6 +40,7 @@ func main() {
     res, err := s.Images.Generate(ctx, components.ImageGenerationRequest{
         Model: "bytedance-seed/seedream-4.5",
         Prompt: "a red panda astronaut floating in space, studio lighting",
+        ResponseFormat: components.ImageGenerationRequestResponseFormatURL.ToPointer(),
     })
     if err != nil {
         log.Fatal(err)
