@@ -1,0 +1,26 @@
+---
+title: "BatchResultEvent"
+---
+
+## Example Usage
+
+```go
+import (
+	"github.com/OpenRouterTeam/go-sdk/models/components"
+)
+
+value := components.BatchResultEventAdapterRequest
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.BatchResultEvent("custom_value")
+```
+
+
+## Values
+
+| Name                                      | Value                                     |
+| ----------------------------------------- | ----------------------------------------- |
+| `BatchResultEventAdapterRequest`          | adapter_request                           |
+| `BatchResultEventUpstreamHeadersReceived` | upstream_headers_received                 |
+| `BatchResultEventFirstTokenReceived`      | first_token_received                      |
+| `BatchResultEventUpstreamBodyEnded`       | upstream_body_ended                       |

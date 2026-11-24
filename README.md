@@ -228,6 +228,7 @@ func main() {
 * [CreateBatches](docs/sdks/batch/README.md#createbatches) - Create a batch
 * [Delete](docs/sdks/batch/README.md#delete) - Delete a batch
 * [GetBatches](docs/sdks/batch/README.md#getbatches) - Get a batch
+* [GetResults](docs/sdks/batch/README.md#getresults) - Get batch results
 
 ### [Benchmarks](docs/sdks/benchmarks/README.md)
 
