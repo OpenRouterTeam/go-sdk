@@ -9,6 +9,29 @@ import (
 	"github.com/OpenRouterTeam/go-sdk/optionalnullable"
 )
 
+// OutputDelivery - `stream` (default) streams the audio bytes directly in the response body. `url` stores the generated audio in OpenRouter storage and returns a JSON response with a signed download `url`, `expires_at`, and `media_type`. The URL is a bearer link: anyone holding it can download the audio until it expires, up to 24 hours after the audio was stored (use `expires_at`); the stored copy is deleted by the storage lifecycle within the following day. Falls back to streaming raw audio bytes when a URL cannot be issued because zero-data-retention applies (account settings, guardrails, `provider.zdr`, or a ZDR endpoint) or the request has no workspace.
+type OutputDelivery string
+
+const (
+	OutputDeliveryStream OutputDelivery = "stream"
+	OutputDeliveryURL    OutputDelivery = "url"
+)
+
+func (e OutputDelivery) ToPointer() *OutputDelivery {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputDelivery) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "stream", "url":
+			return true
+		}
+	}
+	return false
+}
+
 // SpeechRequestDataCollection - Data collection setting. If no available model provider meets the requirement, your request will return an error.
 // - allow: (default) allow providers which store user data non-transiently and may train on it
 //
@@ -440,6 +463,8 @@ type SpeechRequest struct {
 	Instructions *string `json:"instructions,omitzero"`
 	// TTS model identifier
 	Model string `json:"model"`
+	// `stream` (default) streams the audio bytes directly in the response body. `url` stores the generated audio in OpenRouter storage and returns a JSON response with a signed download `url`, `expires_at`, and `media_type`. The URL is a bearer link: anyone holding it can download the audio until it expires, up to 24 hours after the audio was stored (use `expires_at`); the stored copy is deleted by the storage lifecycle within the following day. Falls back to streaming raw audio bytes when a URL cannot be issued because zero-data-retention applies (account settings, guardrails, `provider.zdr`, or a ZDR endpoint) or the request has no workspace.
+	OutputDelivery *OutputDelivery `json:"output_delivery,omitzero"`
 	// Provider configuration: provider routing preferences (`order`, `only`, `ignore`, `allow_fallbacks`), data policy routing preferences (`zdr`, `data_collection`) and provider-specific passthrough options
 	Provider *SpeechRequestProvider `json:"provider,omitzero"`
 	// Audio output format
@@ -493,6 +518,13 @@ func (s *SpeechRequest) GetModel() string {
 		return ""
 	}
 	return s.Model
+}
+
+func (s *SpeechRequest) GetOutputDelivery() *OutputDelivery {
+	if s == nil {
+		return nil
+	}
+	return s.OutputDelivery
 }
 
 func (s *SpeechRequest) GetProvider() *SpeechRequestProvider {
