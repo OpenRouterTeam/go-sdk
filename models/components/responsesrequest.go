@@ -1602,6 +1602,8 @@ type ResponsesRequest struct {
 	Background     optionalnullable.OptionalNullable[bool] `json:"background,omitzero"`
 	// Enable automatic prompt caching. When set at the top level, the system automatically applies cache breakpoints to the last cacheable block in the request. When set on an individual content block, it marks an explicit cache breakpoint; block-level markers also work on OpenAI models that support explicit prompt caching — OpenRouter converts them to the provider's native format.
 	CacheControl *AnthropicCacheControlDirective `json:"cache_control,omitzero"`
+	// Server-side context management (compaction). Supported for OpenAI models served by OpenAI or Azure, which return `compaction` output items. Providers translated to another API format drop it. Replay returned `compaction` items in `input` on later turns.
+	ContextManagement optionalnullable.OptionalNullable[[]ResponsesContextManagement] `json:"context_management,omitzero"`
 	// Debug options for inspecting request transformations (streaming only)
 	Debug *ChatDebugOptions `json:"debug,omitzero"`
 	// Opt-in versioned router-level deferred-tool protocol. Replay assistant reasoning unchanged on continuation. The portable profile needs the catalog unchanged across a continuation; the universal profile accepts a changed catalog and, with `announce_catalog_changes`, tells the model about it.
@@ -1694,6 +1696,13 @@ func (r *ResponsesRequest) GetCacheControl() *AnthropicCacheControlDirective {
 		return nil
 	}
 	return r.CacheControl
+}
+
+func (r *ResponsesRequest) GetContextManagement() optionalnullable.OptionalNullable[[]ResponsesContextManagement] {
+	if r == nil {
+		return nil
+	}
+	return r.ContextManagement
 }
 
 func (r *ResponsesRequest) GetDebug() *ChatDebugOptions {
