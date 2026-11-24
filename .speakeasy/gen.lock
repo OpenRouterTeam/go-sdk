@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 7494f6b880181080fc5462a7126f3bbc
+  docChecksum: 207c516952c1ea0ebd45ad81635451ce
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.134
-  configChecksum: c94c46a4a453296978937a5bcbfb03b9
+  releaseVersion: 0.9.135
+  configChecksum: 26e76a781524a22a9c759836512df1ec
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: b2e94246-ca61-4811-ac4c-1b96cc59bd07
-  pristine_commit_hash: 1d335ecbffe607aef280a3f5335c4ff2cdf8c65a
-  pristine_tree_hash: c0ff82ad2d5ebbc2e06e4b29dffbd9241e3a4177
+  generation_id: 3fe0f0d0-5fcd-4ffc-b412-1a8fe58edd34
+  pristine_commit_hash: cc44fa219050144a5919e7dc2af7edf936f7b584
+  pristine_tree_hash: f90a6c817e27bb997d0489ff2dd9f007b697db71
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7855,14 +7855,18 @@ trackedFiles:
     id: ed974dee0c8f
     last_write_checksum: sha1:03cada7d260d09385200e83d55b4d233d931ebbf
     pristine_git_object: c5808fbd515ec0915e697530d79bbf0f555e48b1
+  docs/models/components/responsescontextmanagement.mdx:
+    id: c20e03df18d3
+    last_write_checksum: sha1:aeb2560e74262f8054251211d25de28bb8b86ecb
+    pristine_git_object: 8a9b801a041b6f960b5bf6f7967ecde74865b43e
   docs/models/components/responsesinputtransformation.mdx:
     id: c9f6b5610a72
     last_write_checksum: sha1:8bfae9630c4d75ebb12fba4820d35b912e1c9899
     pristine_git_object: 1e329e0e614bef2a1332e18c41913f93b90c4eea
   docs/models/components/responsesrequest.mdx:
     id: 1e7388fceb73
-    last_write_checksum: sha1:a5b57528d5226c37c118bcb0481f6a65e45d5a23
-    pristine_git_object: cd6b3eb244761ff2f9c73d9363144c2f49702aa8
+    last_write_checksum: sha1:5c00c62c27bafa7ff278007736d49cfcdc7352a9
+    pristine_git_object: 0a8d9ee577f66d98368857e521ed319066677728
   docs/models/components/responsesrequestaccessprograms.mdx:
     id: c438081445cb
     last_write_checksum: sha1:1a118b023ebabb966f73e37dea735bc95cf0948b
@@ -14327,14 +14331,18 @@ trackedFiles:
     id: b2f8de37b8ee
     last_write_checksum: sha1:95ef9d4e49c88ed6e0723c2dfc2df8085be24643
     pristine_git_object: e4890097ed867e8a522035b4ba69aeca5a5c3021
+  models/components/responsescontextmanagement.go:
+    id: 59e1c3521d61
+    last_write_checksum: sha1:c0acc8bbe20cc76d0f6a3dee9c1c384331538c48
+    pristine_git_object: 604898812ac63597cc7f1cd1bc582853fef6de38
   models/components/responsesinputtransformation.go:
     id: a85083687210
     last_write_checksum: sha1:ec227a4c9bf8b2fc3d0b5524dc1d25f67dcb28ae
     pristine_git_object: 9195aa598ba4570de111df7926c470565a9f5f14
   models/components/responsesrequest.go:
     id: 3fbf1b29b488
-    last_write_checksum: sha1:3184620e80b04014ab2cdb63c05ebc05558e9afb
-    pristine_git_object: 15fec6e08a59b4cffa9a5feb00c58d760fad16ce
+    last_write_checksum: sha1:9e873536c9ef4e09e211e2c6ef3d3961cdd10101
+    pristine_git_object: b15ceac89a11594784eb1fafaec090d7348efbd2
   models/components/responsesstreamingresponse.go:
     id: f5d13584dda6
     last_write_checksum: sha1:ef092669607e00a9439394efaef6a5efba1c6d9f
@@ -15801,8 +15809,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:a230e4357991795dd7ad8d5097e23b639d6cb879
-    pristine_git_object: 6ec4f739ccb6f74b44b15bdcd95c6ec31fde60d1
+    last_write_checksum: sha1:99599437a91c272038b7261cb218b7760ae12477
+    pristine_git_object: 4cfd51039ac70733093ec900920e6e6cab62ba71
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -21001,4 +21009,4 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.OutputDelivery` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Presets.CreatePresetsResponses()`: \n  *  `request.ResponsesRequest.ContextManagement` **Added**\n"
