@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1a71bd7c40b0414015b39d7a7f3868a6
+  docChecksum: 7494f6b880181080fc5462a7126f3bbc
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.133
-  configChecksum: 8154efa1cbd185513109178c05dec159
+  releaseVersion: 0.9.134
+  configChecksum: c94c46a4a453296978937a5bcbfb03b9
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: be6f3ccd-c4d5-497b-a547-49647f2dafb1
-  pristine_commit_hash: 4517b010ebdc95319bc66753435defdd97cae27a
-  pristine_tree_hash: f20b98cfe80cff8374a165cbf63d045b366fe1e8
+  generation_id: b2e94246-ca61-4811-ac4c-1b96cc59bd07
+  pristine_commit_hash: 1d335ecbffe607aef280a3f5335c4ff2cdf8c65a
+  pristine_tree_hash: c0ff82ad2d5ebbc2e06e4b29dffbd9241e3a4177
 features:
   go:
     acceptHeaders: 2.81.2
@@ -6623,6 +6623,10 @@ trackedFiles:
     id: f50518403c21
     last_write_checksum: sha1:ae0afedffe7c2e36a569e02c67cafc1c467b1cd3
     pristine_git_object: ce67435692f8d5ef495ab72e077190db3c564eff
+  docs/models/components/outputdelivery.mdx:
+    id: eaf839504802
+    last_write_checksum: sha1:b096f07af47ba521d399a5a406047c1c782756fb
+    pristine_git_object: b8730b703f322db187405aa0f36603e99b90d98f
   docs/models/components/outputfilesearchcallitem.mdx:
     id: c5f3ed778eee
     last_write_checksum: sha1:d557ac4ca6403c747a2e65a8e78a459d8eff4c52
@@ -8309,8 +8313,8 @@ trackedFiles:
     pristine_git_object: 3828d9fa33d8ee6f1f791c21532eb3c3db82d52e
   docs/models/components/speechrequest.mdx:
     id: 572bb1b07290
-    last_write_checksum: sha1:d10a7d2f021f9cb5aed6be24d3f6af43a09f341d
-    pristine_git_object: 9c7472bd7cf47e6f80fd143f988aeab698218f3d
+    last_write_checksum: sha1:409fce57198f1b267ed6cd7676d70b0f99d64e9c
+    pristine_git_object: 22c4b60c92043a54b68c93972e56837891b67122
   docs/models/components/speechrequestdatacollection.mdx:
     id: 1f570d6a226b
     last_write_checksum: sha1:f20c151f90a4b462e1ae8911b96c41c72b4cbcb0
@@ -11045,8 +11049,8 @@ trackedFiles:
     pristine_git_object: 7f4dbd79c9c2d530d3e0023024072308a5ffce5f
   docs/sdks/tts/README.mdx:
     id: cd1132543884
-    last_write_checksum: sha1:a9feff4765d06f13890a50a5c2a9026681e57c16
-    pristine_git_object: 6cafd7bb44c342978fd88a93e0e8ecc5754053a0
+    last_write_checksum: sha1:278dc76c5dae7ce95dae41f91ffcf61f3f813576
+    pristine_git_object: 66d5bdee9c09cc6709a49e2a9eca4e83338e3cbe
   docs/sdks/vault/README.mdx:
     id: 3738c6722acd
     last_write_checksum: sha1:4999aa63bef7cfc1ac20b726b263c03dccc55b4d
@@ -14549,8 +14553,8 @@ trackedFiles:
     pristine_git_object: d431a225e6b860268d0883770b0056e33eed4851
   models/components/speechrequest.go:
     id: c5f83d3285eb
-    last_write_checksum: sha1:1cf85b473549110eab710dccad68f58e8b7479c6
-    pristine_git_object: 3d024cc3ef5cd6f297d3e15df159a2697f3180f6
+    last_write_checksum: sha1:3952f62754e1c48da96a8a27113afdb78f46ac5c
+    pristine_git_object: 2db4de51a55d4e05b2bd8f4b73d9e70df07bce58
   models/components/speechsupportedparameters.go:
     id: 297439c8d2ac
     last_write_checksum: sha1:fdb9a71f6bf1702bd39f7aeaada651b839bf2e42
@@ -15797,8 +15801,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:e31acc83d460d2792250a56d8658b228f0129f53
-    pristine_git_object: 906709fd84217b1c4a7258791c7f1ef6d35457ef
+    last_write_checksum: sha1:a230e4357991795dd7ad8d5097e23b639d6cb879
+    pristine_git_object: 6ec4f739ccb6f74b44b15bdcd95c6ec31fde60d1
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -15857,8 +15861,8 @@ trackedFiles:
     pristine_git_object: 1dc5824aefb3d149bcc473a8ebf373ebe6195d51
   tts.go:
     id: 9feb76579e2d
-    last_write_checksum: sha1:5516130065bd122905657dcf20d074e7510e682b
-    pristine_git_object: 0050368c23b9b5951e89747f0355de23ba0d82bb
+    last_write_checksum: sha1:288966944bef99df4452913186d0b4ddfbf6d5a2
+    pristine_git_object: 891b382796311f1b14103aee3d46957a796b68df
   types/bigint.go:
     id: 6f911e1a03c3
     last_write_checksum: sha1:49b004005d0461fb04b846eca062b070b0360b31
@@ -20997,3 +21001,4 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.OutputDelivery` **Added**\n"

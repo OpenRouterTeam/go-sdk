@@ -34,7 +34,7 @@ func newTTS(rootSDK *OpenRouter, sdkConfig config.SDKConfiguration, hooks *hooks
 }
 
 // CreateSpeech - Create speech
-// Synthesizes audio from the input text. Returns a raw audio bytestream in the requested format (e.g. mp3, pcm, wav).
+// Synthesizes audio from the input text. Returns a raw audio bytestream in the requested format (e.g. mp3, pcm) by default, or a JSON response with a 24-hour signed download URL when `output_delivery` is set to `"url"`.
 func (s *TTS) CreateSpeech(ctx context.Context, request components.SpeechRequest, opts ...operations.Option) (io.ReadCloser, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
