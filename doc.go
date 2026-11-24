@@ -6,7 +6,7 @@ provider selection, and unified billing.
 
 This SDK is in beta. Pin to a specific module version to avoid unexpected breaking changes:
 
-	go get github.com/OpenRouterTeam/go-sdk@v0.9.132
+	go get github.com/OpenRouterTeam/go-sdk@v0.9.133
 
 For full API documentation, visit: https://openrouter.ai/docs/client-sdks/go/overview
 

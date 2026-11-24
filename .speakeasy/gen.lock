@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8d15dac774fdcaf5c8f46c11d7223a3a
+  docChecksum: 1a71bd7c40b0414015b39d7a7f3868a6
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.132
-  configChecksum: 573619430f8768f9a832fade507ad33c
+  releaseVersion: 0.9.133
+  configChecksum: 8154efa1cbd185513109178c05dec159
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 8be480b6-9ac8-4719-8c68-6099965c9c9b
-  pristine_commit_hash: 48f7d9c09846a3be1851334b92ba0342f269fc21
-  pristine_tree_hash: 2bb679299e025a10e2cd3557f7c9ac948b70a77b
+  generation_id: be6f3ccd-c4d5-497b-a547-49647f2dafb1
+  pristine_commit_hash: 4517b010ebdc95319bc66753435defdd97cae27a
+  pristine_tree_hash: f20b98cfe80cff8374a165cbf63d045b366fe1e8
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4869,12 +4869,12 @@ trackedFiles:
     pristine_git_object: 9144b397cdd5ed95d7d51e5659c03e06ade90f31
   docs/models/components/jevrouterplugin.mdx:
     id: 9c8962fbd491
-    last_write_checksum: sha1:29cd60757907f19a32a93d4a4d105868c0148b59
-    pristine_git_object: 8e30d019692fd1df9dcdb791f10c38d03c8d2a7f
+    last_write_checksum: sha1:dd27680c234f637c74000ab034c300cb36e2fb5d
+    pristine_git_object: 72da21ea507d3df271ad55b4ed9aa8566945c9af
   docs/models/components/jevrouterpluginid.mdx:
     id: 757e9fe716c2
-    last_write_checksum: sha1:bf779305d2b703870b358bb7d596de0d4741d995
-    pristine_git_object: 063671aadd26d86918666cbae8c244725f05cea8
+    last_write_checksum: sha1:f1b2a804507d18c38c4b3b4faaf13e1fdbcfced2
+    pristine_git_object: 6173ded81f0b38ba458e73724dc4082152737cbe
   docs/models/components/keep.mdx:
     id: d0e14366497e
     last_write_checksum: sha1:5bef8be4e5e48d49469d859bdef13ada5ff3e218
@@ -13145,8 +13145,8 @@ trackedFiles:
     pristine_git_object: 86de458cf0304749072d79284ad50ab2707bd525
   models/components/jevrouterplugin.go:
     id: de5341af7443
-    last_write_checksum: sha1:0f7087633bd01da2295ba4ebc31bbe4821ed55b4
-    pristine_git_object: c178071b525320a6ccc6cf2942898117911bae9e
+    last_write_checksum: sha1:90cf2f36a2fe187163edeac0d68f5e113255a77d
+    pristine_git_object: d722856b8331becc80e1794526f59d846b6b2524
   models/components/keyassignment.go:
     id: 6e32615a3eec
     last_write_checksum: sha1:683bd140357e1d9c2169453dd76377a078c638fa
@@ -15797,8 +15797,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:bce82efe9d4fe19765c26c8a50a28e50c8aa472d
-    pristine_git_object: acde0ba05b75ea6cc3189e4a9ddd85fc1bf0ad24
+    last_write_checksum: sha1:e31acc83d460d2792250a56d8658b228f0129f53
+    pristine_git_object: 906709fd84217b1c4a7258791c7f1ef6d35457ef
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -20997,4 +20997,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Byok.List()`:  `response.Data[].IsExclusive` **Added**\n* `OpenRouter.Byok.Create()`: \n  *  `request.Request.IsExclusive` **Added**\n  *  `response.Data.IsExclusive` **Added**\n* `OpenRouter.Byok.Get()`:  `response.Data.IsExclusive` **Added**\n* `OpenRouter.Byok.Update()`: \n  *  `request.UpdateByokKeyRequest.IsExclusive` **Added**\n  *  `response.Data.IsExclusive` **Added**\n"
