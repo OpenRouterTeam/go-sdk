@@ -13,7 +13,7 @@ To learn more, see the [API Reference](https://openrouter.ai/docs/sdks/go/api-re
 > This SDK is in **beta**. Pin to a specific version to avoid unexpected breaking changes:
 >
 > ```bash
-> go get github.com/OpenRouterTeam/go-sdk@v0.9.135
+> go get github.com/OpenRouterTeam/go-sdk@v0.9.136
 > ```
 
 <!-- No Summary [summary] -->
@@ -228,6 +228,7 @@ func main() {
 * [CreateBatches](docs/sdks/batch/README.md#createbatches) - Create a batch
 * [Delete](docs/sdks/batch/README.md#delete) - Delete a batch
 * [GetBatches](docs/sdks/batch/README.md#getbatches) - Get a batch
+* [GetResults](docs/sdks/batch/README.md#getresults) - Get batch results
 
 ### [Benchmarks](docs/sdks/benchmarks/README.md)
 

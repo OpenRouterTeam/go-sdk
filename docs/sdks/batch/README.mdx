@@ -13,6 +13,7 @@ Submit, list, poll, and delete asynchronous batches of inference requests. See h
 * [CreateBatches](#createbatches) - Create a batch
 * [Delete](#delete) - Delete a batch
 * [GetBatches](#getbatches) - Get a batch
+* [GetResults](#getresults) - Get batch results
 
 ## List
 
@@ -336,5 +337,73 @@ func main() {
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
 | sdkerrors.BatchPaymentRequiredResponseError | 402                                         | application/json                            |
 | sdkerrors.BatchErrorResponse                | 401, 404, 410, 429                          | application/json                            |
+| sdkerrors.BatchErrorResponse                | 500, 502                                    | application/json                            |
+| sdkerrors.APIError                          | 4XX, 5XX                                    | \*/\*                                       |
+
+## GetResults
+
+Returns a cursor-paginated page of normalized OpenRouter-format results for a finished batch. Pass the previous page's `next_cursor` as `cursor` to read the next page. Pages are stable across retries for the 30-day artifact retention window. See the [Batch API Quickstart](https://openrouter.ai/docs/batch-quickstart).
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"os"
+	openrouter "github.com/OpenRouterTeam/go-sdk"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := openrouter.New(
+        openrouter.WithSecurity(os.Getenv("OPENROUTER_API_KEY")),
+    )
+
+    res, err := s.Batch.GetResults(ctx, "batch_abc123", nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               | Example                                                                                   |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `ctx`                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                     | ✔️                                                                        | The context to use for the request.                                                       |                                                                                           |
+| `id`                                                                                      | `string`                                                                                  | ✔️                                                                        | The batch job id returned from submit.                                                    | batch_abc123                                                                              |
+| `limit`                                                                                   | `*int64`                                                                                  | ➖                                                                        | Maximum number of result items to return, from 1 through 1000.                            | 500                                                                                       |
+| `cursor`                                                                                  | `*string`                                                                                 | ➖                                                                        | Opaque pagination cursor from the previous page's `next_cursor`. Omit for the first page. | djE6YmF0Y2hfYWJjMTIzOjEwMjQ                                                               |
+| `opts`                                                                                    | [][operations.Option](../../models/operations/option.mdx)                                  | ➖                                                                        | The options for this request.                                                             |                                                                                           |
+
+### Response
+
+**[*operations.GetBatchResultsResponse](../../models/operations/getbatchresultsresponse.mdx), error**
+
+### Errors
+
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| sdkerrors.BatchPaymentRequiredResponseError | 402                                         | application/json                            |
+| sdkerrors.BatchErrorResponse                | 400, 401, 404, 409, 410, 413, 429           | application/json                            |
 | sdkerrors.BatchErrorResponse                | 500, 502                                    | application/json                            |
 | sdkerrors.APIError                          | 4XX, 5XX                                    | \*/\*                                       |
