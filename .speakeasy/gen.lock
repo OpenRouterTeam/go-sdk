@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 1d8935d3cbfb96197c8b4fe3d1753186
+  docChecksum: 832cf7b2755f1aee321fefd5789e8d0e
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.130
-  configChecksum: 8b9ca9c067f3d29ca5be0738b0680c53
+  releaseVersion: 0.9.131
+  configChecksum: adc374846deebab5d7ff5cbfc55cbeff
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: f569c9b2-cf63-4327-8fa7-f28bb74ff7d5
-  pristine_commit_hash: 430382a7a41f5bb8d01567dcafc16e912bf5d441
-  pristine_tree_hash: e1736236fceb5539f5727f3b0ab5643351a5b2b6
+  generation_id: 236caec9-c520-4ac8-bf9f-1fd78d890946
+  pristine_commit_hash: 20fd8a35d6a793ca3297ba87062bbba6a990fa7b
+  pristine_tree_hash: a0d779d2f56b46700abc7ed3b2b1ae449a1feb32
 features:
   go:
     acceptHeaders: 2.81.2
@@ -11029,8 +11029,8 @@ trackedFiles:
     pristine_git_object: 1525e8e64fa3dcfa6bd4a06d1304387a9aee2fc2
   docs/sdks/scim/README.mdx:
     id: fd6d8a91a053
-    last_write_checksum: sha1:c8e92a7f139f5310e1e8cf7c3ee0af6bee0b353a
-    pristine_git_object: c7aba42337e2ae3bb14ccab51b83f007a9567ed2
+    last_write_checksum: sha1:c46031f92d0b25238ed34dc4701bde091f41b2e7
+    pristine_git_object: ab724e331b8b1bf40c007f1cbd09aef3f3d2b077
   docs/sdks/stt/README.mdx:
     id: 190b0dc9a5d1
     last_write_checksum: sha1:4f79905be9c20be9ce3c4cd413c8e9b2d4f104e4
@@ -15797,8 +15797,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:6e018dc5f549683d9a5d02d78c2d0941e31ce783
-    pristine_git_object: 85a700ba64f49fee6b8a0e89120fc521528e68b8
+    last_write_checksum: sha1:7150bb3870ffc09f793861035cb875105a588e42
+    pristine_git_object: 92b2ebca372f3d9db6c3fee67834c983bece76e9
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -15841,8 +15841,8 @@ trackedFiles:
     pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   scim.go:
     id: 7cae7699a750
-    last_write_checksum: sha1:7de5e0ceb3bf6b830966cd1e8ae1600ec59a2c1e
-    pristine_git_object: a2b69af22ac188f10c95d9ff126d800439734cd7
+    last_write_checksum: sha1:731c8b523b37da4bcbea0e10c6bf25d58a1e39ba
+    pristine_git_object: 3dd7506f228cf6371c7ff39bf95c56f05ee8033b
   stt.go:
     id: 04852909348f
     last_write_checksum: sha1:c0176ae2e0777fbb0496824023e57522f884cc1b
@@ -20997,4 +20997,3 @@ examples:
         "503":
           application/json: {"error": {"code": 503, "message": "Service temporarily unavailable"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].AllowProvisionalProviders` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.AllowProvisionalProviders` **Added**\n  *  `response.Data.AllowProvisionalProviders` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.AllowProvisionalProviders` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.AllowProvisionalProviders` **Added**\n  *  `response.Data.AllowProvisionalProviders` **Added**\n* `OpenRouter.GuardrailPolicies.ListAccountPolicies()`:  `response.Data[].union(model_availability).Config.AllowProvisionalProviders` **Added**\n* `OpenRouter.GuardrailPolicies.CreateAccountPolicy()`: \n  *  `request.Request.union(model_availability).Config.AllowProvisionalProviders` **Added**\n  *  `response.Data.union(model_availability).Config.AllowProvisionalProviders` **Added**\n* `OpenRouter.GuardrailPolicies.UpdateAccountPolicy()`: \n  *  `request.AccountGuardrailPolicyRequest.union(model_availability).Config.AllowProvisionalProviders` **Added**\n  *  `response.Data.union(model_availability).Config.AllowProvisionalProviders` **Added**\n* `OpenRouter.GuardrailPolicies.ListModelAvailabilityPolicies()`:  `response.Data[].Config.AllowProvisionalProviders` **Added**\n* `OpenRouter.GuardrailPolicies.CreateModelAvailabilityPolicy()`: \n  *  `request.Request.Config.AllowProvisionalProviders` **Added**\n  *  `response.Data.Config.AllowProvisionalProviders` **Added**\n* `OpenRouter.GuardrailPolicies.GetModelAvailabilityPolicy()`:  `response.Data.Config.AllowProvisionalProviders` **Added**\n* `OpenRouter.GuardrailPolicies.UpdateModelAvailabilityPolicy()`: \n  *  `request.UpdateModelAvailabilityGuardrailPolicyRequest.Config.AllowProvisionalProviders` **Added**\n  *  `response.Data.Config.AllowProvisionalProviders` **Added**\n"
