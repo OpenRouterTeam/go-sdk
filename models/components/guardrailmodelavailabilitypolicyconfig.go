@@ -10,6 +10,7 @@ import (
 type GuardrailModelAvailabilityPolicyConfig struct {
 	AllowProvisionalProviders      optionalnullable.OptionalNullable[bool]     `json:"allow_provisional_providers,omitzero"`
 	AllowSafetyRetentionGoogle     optionalnullable.OptionalNullable[bool]     `json:"allow_safety_retention_google,omitzero"`
+	AllowSafetyRetentionOpenai     optionalnullable.OptionalNullable[bool]     `json:"allow_safety_retention_openai,omitzero"`
 	AllowSafetyRetentionOther      optionalnullable.OptionalNullable[bool]     `json:"allow_safety_retention_other,omitzero"`
 	AllowedDataRegions             optionalnullable.OptionalNullable[[]string] `json:"allowed_data_regions,omitzero"`
 	AllowedModels                  optionalnullable.OptionalNullable[[]string] `json:"allowed_models,omitzero"`
@@ -55,6 +56,13 @@ func (g *GuardrailModelAvailabilityPolicyConfig) GetAllowSafetyRetentionGoogle()
 		return nil
 	}
 	return g.AllowSafetyRetentionGoogle
+}
+
+func (g *GuardrailModelAvailabilityPolicyConfig) GetAllowSafetyRetentionOpenai() optionalnullable.OptionalNullable[bool] {
+	if g == nil {
+		return nil
+	}
+	return g.AllowSafetyRetentionOpenai
 }
 
 func (g *GuardrailModelAvailabilityPolicyConfig) GetAllowSafetyRetentionOther() optionalnullable.OptionalNullable[bool] {

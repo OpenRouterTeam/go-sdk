@@ -12,6 +12,8 @@ type CreateGuardrailRequest struct {
 	AllowProvisionalProviders optionalnullable.OptionalNullable[bool] `json:"allow_provisional_providers,omitzero"`
 	// Whether ZDR-only requests to google/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
 	AllowSafetyRetentionGoogle optionalnullable.OptionalNullable[bool] `json:"allow_safety_retention_google,omitzero"`
+	// Whether ZDR-only requests to openai/* models may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. Applies only while OpenAI ZDR is on for the account or this guardrail; otherwise allow_safety_retention_other applies. Follows allow_safety_retention_other when null; on update, null clears a saved choice and omitting the field leaves it unchanged. While the account enforces ZDR for OpenAI or for other models, a guardrail can only be more restrictive than that account setting.
+	AllowSafetyRetentionOpenai optionalnullable.OptionalNullable[bool] `json:"allow_safety_retention_openai,omitzero"`
 	// Whether ZDR-only requests to models outside the named providers (for example open-weight models on Vertex) may also use Safety Retention endpoints, which may retain prompts and responses from any request, only to prevent abuse, and do not use them for training. false allows only ZDR endpoints. A guardrail can only be more restrictive than the account setting. Inherits the account setting when not provided.
 	AllowSafetyRetentionOther optionalnullable.OptionalNullable[bool] `json:"allow_safety_retention_other,omitzero"`
 	// Data regions through which requests governed by this guardrail must arrive. `global` is https://openrouter.ai, `europe` is https://eu.openrouter.ai, and `us` is https://us.openrouter.ai. Requests arriving through any other region are rejected. `null` leaves the ingress region unrestricted. When several guardrails apply (workspace default, member, API key), the effective regions are the intersection of every non-null value. An empty array is rejected.
@@ -87,6 +89,13 @@ func (c *CreateGuardrailRequest) GetAllowSafetyRetentionGoogle() optionalnullabl
 		return nil
 	}
 	return c.AllowSafetyRetentionGoogle
+}
+
+func (c *CreateGuardrailRequest) GetAllowSafetyRetentionOpenai() optionalnullable.OptionalNullable[bool] {
+	if c == nil {
+		return nil
+	}
+	return c.AllowSafetyRetentionOpenai
 }
 
 func (c *CreateGuardrailRequest) GetAllowSafetyRetentionOther() optionalnullable.OptionalNullable[bool] {
