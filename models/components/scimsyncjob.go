@@ -32,7 +32,7 @@ type ScimSyncJob struct {
 	CreatedAt string `json:"created_at"`
 	// Number of groups deleted, when the job completed successfully.
 	DeletedGroups *int64 `json:"deleted_groups"`
-	// Stable error message when the job failed.
+	// Stable message code, or null. On a failed job, the failure reason. On a succeeded job, set when optional work beyond the group synchronization could not be completed; the groups were still synchronized.
 	ErrorMessage *string `json:"error_message"`
 	// Time when synchronization finished.
 	FinishedAt *string `json:"finished_at"`

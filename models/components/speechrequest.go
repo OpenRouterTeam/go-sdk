@@ -436,6 +436,7 @@ type SpeechRequestResponseFormat string
 const (
 	SpeechRequestResponseFormatMp3 SpeechRequestResponseFormat = "mp3"
 	SpeechRequestResponseFormatPcm SpeechRequestResponseFormat = "pcm"
+	SpeechRequestResponseFormatWav SpeechRequestResponseFormat = "wav"
 )
 
 func (e SpeechRequestResponseFormat) ToPointer() *SpeechRequestResponseFormat {
@@ -446,7 +447,7 @@ func (e SpeechRequestResponseFormat) ToPointer() *SpeechRequestResponseFormat {
 func (e *SpeechRequestResponseFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "mp3", "pcm":
+		case "mp3", "pcm", "wav":
 			return true
 		}
 	}
