@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 46840468cf9237f4ee1de880aac46636
+  docChecksum: ed289fc3a54b29ef859d6710ae586cd7
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.136
-  configChecksum: d9aa4ef6a97ca47d427bffffbd539451
+  releaseVersion: 0.9.137
+  configChecksum: baa3b98be0093fd85c38d1921aa02725
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 25a18726-a811-49ea-a14f-144231cf0020
-  pristine_commit_hash: 8fe763250e8b0e566149c23ba5caaec11fa463e3
-  pristine_tree_hash: aada473646ee06c718b2d691312c5e25e94c392f
+  generation_id: 77a0e2d1-72c0-4ddd-ba9e-f1b7636abf31
+  pristine_commit_hash: 7662de4a1dc0487ddd26be7a514752b69fd959f5
+  pristine_tree_hash: 27d36897f4dd711693e6024f2d9527b45ad78f8b
 features:
   go:
     acceptHeaders: 2.81.2
@@ -2893,8 +2893,8 @@ trackedFiles:
     pristine_git_object: 6bc17eafd83f6821380285244877fab31100e3c3
   docs/models/components/createguardrailrequest.mdx:
     id: f2be013836bb
-    last_write_checksum: sha1:c10cf53cbd4ebc553a06fc8d5d1d4226774ec518
-    pristine_git_object: 7f36330460442e7d34c53e6e3a90382bcdd947f0
+    last_write_checksum: sha1:38f440dbb11e88579bbebdc2321df22619158ac7
+    pristine_git_object: 641bd168f9a38e5bddca3192584fba319ed03f76
   docs/models/components/createguardrailresponse.mdx:
     id: 71fa8e3f3541
     last_write_checksum: sha1:8c851c460e81b66a7af229734927c13edda8fc5c
@@ -4293,8 +4293,8 @@ trackedFiles:
     pristine_git_object: 0c18b6c7242ec163a11c89329f8207a9d9c66ef7
   docs/models/components/guardrail.mdx:
     id: f08bb1289d4f
-    last_write_checksum: sha1:b698d66053a4585c56859d4eeb58831bfd19482d
-    pristine_git_object: 36ce3a2c99fc58abe849d512890cb1104634e377
+    last_write_checksum: sha1:a39fc74b42403c864c7afb4826398792077016f3
+    pristine_git_object: e578549211c1484631cdb3550035e64526673f5d
   docs/models/components/guardrailbudgetpolicyauthoringconfig.mdx:
     id: 15c59c80e545
     last_write_checksum: sha1:7a4024174677e4f41393d4a72be04a799327ba87
@@ -4317,12 +4317,12 @@ trackedFiles:
     pristine_git_object: b6999f26b7b8ff3f47e056041ad454708f0a794b
   docs/models/components/guardrailmodelavailabilitypolicyauthoringconfig.mdx:
     id: e2945d58fe75
-    last_write_checksum: sha1:621ff1d2417bc15685cc52cc2a6ddaa0dc01c7e8
-    pristine_git_object: a728095ae2bed390b1e397266e7b44cda46952df
+    last_write_checksum: sha1:4c5cc3f22b1e37425c86ba334f13036ae9da9bb2
+    pristine_git_object: e08f015d1c31df9dc71a8dcd98f118450af4f2c2
   docs/models/components/guardrailmodelavailabilitypolicyconfig.mdx:
     id: bf3be0d5f596
-    last_write_checksum: sha1:9a1e810ec1dc76d3251d5fd8e7ae49d00c97ccf0
-    pristine_git_object: 7c3ca034798612a3836f8f58534dad9e8309c4e2
+    last_write_checksum: sha1:09895a63a4372f3a8a7f51c678ba7e9388a84547
+    pristine_git_object: 193a64862725a2fb64c7ef7a75dac2eec686da40
   docs/models/components/guardrailmoderationpolicyconfig.mdx:
     id: 874a2714f1b7
     last_write_checksum: sha1:e1e2ff2757684db85a6a3e720b1106850cb85ef9
@@ -9217,8 +9217,8 @@ trackedFiles:
     pristine_git_object: 32ca7abc42375b581e63830b5072fcb5e5929d81
   docs/models/components/updateguardrailrequest.mdx:
     id: edddc69821ba
-    last_write_checksum: sha1:00e2e3c85f57384c276df0481b2a43578ee32318
-    pristine_git_object: 9b1dcde1a493f64654a2e8dbe2cd99c6c651094f
+    last_write_checksum: sha1:cbd0b4d19c5b57503a7cbe2f0aec4884b5f61353
+    pristine_git_object: b4b89bcc278f5fffd4d253dbfa21e5d1248cd2e1
   docs/models/components/updateguardrailresponse.mdx:
     id: c4d79f6839a6
     last_write_checksum: sha1:1569028cf5d86c763fbafe47f0e0beb5e4d88b84
@@ -12385,8 +12385,8 @@ trackedFiles:
     pristine_git_object: 8200d7017784bae4784b9af91729faa08d50e432
   models/components/createguardrailrequest.go:
     id: a62ed1a0ae01
-    last_write_checksum: sha1:bbd513a05969331f99916da5ef01f993db00bb52
-    pristine_git_object: eaad8cacc71c2b141825a2246249c8a8b405af55
+    last_write_checksum: sha1:b9e1e443c155f37f1dd48c5dff7bea5ec727d9f4
+    pristine_git_object: fdb050810533cc70ed68c363d7316235a670ac56
   models/components/createguardrailresponse.go:
     id: 65e5b5cb6746
     last_write_checksum: sha1:53c063df40ab8f40e29a1ed628f4537f21b1cf3f
@@ -12957,8 +12957,8 @@ trackedFiles:
     pristine_git_object: 89ffb3d964cb71352e08aadabe2394d1443160f9
   models/components/guardrail.go:
     id: 0a53b6641f18
-    last_write_checksum: sha1:4df7f75c6bc0340501287e9f394f1e4a5c1576f9
-    pristine_git_object: 3b9e7669987ab698623b7fd704108a10e19ec712
+    last_write_checksum: sha1:43de08b996d627b2c178068a377836d9674a1233
+    pristine_git_object: 83390a8b08a64235b89516c6354260845686d94a
   models/components/guardrailbudgetpolicyauthoringconfig.go:
     id: 39a8b09ce0f1
     last_write_checksum: sha1:39db220bb69082c2768c7c25eb6337c2386341eb
@@ -12977,12 +12977,12 @@ trackedFiles:
     pristine_git_object: 808b4c689c0f247ac778835400aad2cd22f5e4e8
   models/components/guardrailmodelavailabilitypolicyauthoringconfig.go:
     id: 1786efe3dc68
-    last_write_checksum: sha1:c8775a5cbcf027d39cac3d588fef21ba2e76a83f
-    pristine_git_object: a5de4fe3df4600fdb1179360b9902eeedf07ccc8
+    last_write_checksum: sha1:8e658c6650be94156860c232f51a5bccdafe1576
+    pristine_git_object: a148d396d4418b5cb7adc4142bbbae5c8248b902
   models/components/guardrailmodelavailabilitypolicyconfig.go:
     id: 52ceabe55e18
-    last_write_checksum: sha1:4ea6365c487c5b1be6f31c1898b98792944caaeb
-    pristine_git_object: 8fe6fb971785df860db60282917ed9488168b1f3
+    last_write_checksum: sha1:88044594960c9f95c7cfdf903472e312491fc774
+    pristine_git_object: 5ba05f811a2a0144201431415023db894e785560
   models/components/guardrailmoderationpolicyconfig.go:
     id: d951ca459064
     last_write_checksum: sha1:dba2f27d5e2c909dd447ce43be2d894ee8c17d79
@@ -14889,8 +14889,8 @@ trackedFiles:
     pristine_git_object: 07ef290eecf5042c9299d2ff805257edccfe4e37
   models/components/updateguardrailrequest.go:
     id: 0a41a686a6ba
-    last_write_checksum: sha1:282e032442054cd05db784cd13484f494bb9ab95
-    pristine_git_object: af2e9624c45e22105c7439dd830c324a92c63dc3
+    last_write_checksum: sha1:41795a376e5f89d0739993b7415c3b4c4cbc6327
+    pristine_git_object: ea5193c8363d59cfa2dcc4d4167e72538cbb7509
   models/components/updateguardrailresponse.go:
     id: 5a3580ea8a15
     last_write_checksum: sha1:e17b7dc763b86b36d0ee259e888303506f220c9c
@@ -15837,8 +15837,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:401937c65c44124b5f18de06cb285a6d986290bc
-    pristine_git_object: ec0f4be4141d81b163402fcc88ceb7c34d1ea5b6
+    last_write_checksum: sha1:2ab3eb0f8f4b61577682339072ed23402838911b
+    pristine_git_object: fb8ed8e7c7a7e4d40008372d910c2e16cb9b454f
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -21051,6 +21051,4 @@ examples:
         "500":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.Batch.GetResults()`: **Added**
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.ListAccountPolicies()`:  `response.Data[].union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.CreateAccountPolicy()`: \n  *  `request.Request.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.UpdateAccountPolicy()`: \n  *  `request.AccountGuardrailPolicyRequest.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.ListModelAvailabilityPolicies()`:  `response.Data[].Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.CreateModelAvailabilityPolicy()`: \n  *  `request.Request.Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.GetModelAvailabilityPolicy()`:  `response.Data.Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.UpdateModelAvailabilityPolicy()`: \n  *  `request.UpdateModelAvailabilityGuardrailPolicyRequest.Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.Config.AllowSafetyRetentionOpenai` **Added**\n"
