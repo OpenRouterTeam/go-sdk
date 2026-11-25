@@ -282,12 +282,13 @@ func (s *APIKeys) GetCurrentKeyMetadata(ctx context.Context, opts ...operations.
 
 // List API keys
 // List all API keys for the authenticated user. [Management key](/docs/guides/overview/auth/management-api-keys) required.
-func (s *APIKeys) List(ctx context.Context, includeDisabled *bool, includeExpired *bool, offset optionalnullable.OptionalNullable[int64], workspaceID *string, opts ...operations.Option) (*operations.ListResponse, error) {
+func (s *APIKeys) List(ctx context.Context, includeDisabled *bool, includeExpired *bool, offset optionalnullable.OptionalNullable[int64], workspaceID *string, creatorUserID *string, opts ...operations.Option) (*operations.ListResponse, error) {
 	request := operations.ListRequest{
 		IncludeDisabled: includeDisabled,
 		IncludeExpired:  includeExpired,
 		Offset:          offset,
 		WorkspaceID:     workspaceID,
+		CreatorUserID:   creatorUserID,
 	}
 
 	o := operations.Options{}
@@ -489,6 +490,7 @@ func (s *APIKeys) List(ctx context.Context, includeDisabled *bool, includeExpire
 			includeExpired,
 			optionalnullable.From(&nOS),
 			workspaceID,
+			creatorUserID,
 			opts...,
 		)
 	}
