@@ -841,6 +841,8 @@ func (s *Batch) Delete(ctx context.Context, id string, opts ...operations.Option
 	case httpRes.StatusCode == 500:
 		fallthrough
 	case httpRes.StatusCode == 502:
+		fallthrough
+	case httpRes.StatusCode == 503:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)

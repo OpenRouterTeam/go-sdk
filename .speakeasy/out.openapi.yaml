@@ -42718,7 +42718,7 @@ paths:
                   message: 'Upstream batch-api is unavailable.'
               schema:
                 $ref: '#/components/schemas/BatchErrorResponse'
-          description: 'The batch service is unavailable, or an upstream provider operation failed, including batch or file cleanup.'
+          description: 'The batch service is unavailable, or an upstream provider operation failed.'
       summary: 'List batches'
       tags:
         - 'Batch'
@@ -42903,7 +42903,7 @@ paths:
                   message: 'Upstream batch-api is unavailable.'
               schema:
                 $ref: '#/components/schemas/BatchErrorResponse'
-          description: 'The batch service is unavailable, or an upstream provider operation failed, including batch or file cleanup.'
+          description: 'The batch service is unavailable, or an upstream provider operation failed.'
       summary: 'Create a batch'
       tags:
         - 'Batch'
@@ -42992,7 +42992,17 @@ paths:
                   message: 'Upstream batch-api is unavailable.'
               schema:
                 $ref: '#/components/schemas/BatchErrorResponse'
-          description: 'The batch service is unavailable, or an upstream provider operation failed, including batch or file cleanup.'
+          description: 'The batch service is unavailable, or an upstream provider operation failed.'
+        '503':
+          content:
+            application/json:
+              example:
+                error:
+                  code: 503
+                  message: 'Failed to delete the upstream batch or its files; retry the request.'
+              schema:
+                $ref: '#/components/schemas/BatchErrorResponse'
+          description: 'The provider did not confirm batch or file cleanup; retry the request.'
       summary: 'Delete a batch'
       tags:
         - 'Batch'
@@ -43082,7 +43092,7 @@ paths:
                   message: 'Upstream batch-api is unavailable.'
               schema:
                 $ref: '#/components/schemas/BatchErrorResponse'
-          description: 'The batch service is unavailable, or an upstream provider operation failed, including batch or file cleanup.'
+          description: 'The batch service is unavailable, or an upstream provider operation failed.'
       summary: 'Get a batch'
       tags:
         - 'Batch'
@@ -43220,7 +43230,7 @@ paths:
                   message: 'Upstream batch-api is unavailable.'
               schema:
                 $ref: '#/components/schemas/BatchErrorResponse'
-          description: 'The batch service is unavailable, or an upstream provider operation failed, including batch or file cleanup.'
+          description: 'The batch service is unavailable, or an upstream provider operation failed.'
       summary: 'Get batch results'
       tags:
         - 'Batch'
