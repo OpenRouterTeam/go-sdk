@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: ed289fc3a54b29ef859d6710ae586cd7
+  docChecksum: fe320cb1b4e4b852eb25a03ff66f8765
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.137
-  configChecksum: baa3b98be0093fd85c38d1921aa02725
+  releaseVersion: 0.9.138
+  configChecksum: 2cd5977a31a7e56708cbcbe396339bf6
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 77a0e2d1-72c0-4ddd-ba9e-f1b7636abf31
-  pristine_commit_hash: 7662de4a1dc0487ddd26be7a514752b69fd959f5
-  pristine_tree_hash: 27d36897f4dd711693e6024f2d9527b45ad78f8b
+  generation_id: 44a3d571-a59b-48f8-a691-a29c5dcb2c32
+  pristine_commit_hash: e40410cb2ed0a412df9d6193f57bd6f511b7ef85
+  pristine_tree_hash: f0d47b61903b67cf5287e87ce63a64ce2e64cca8
 features:
   go:
     acceptHeaders: 2.81.2
@@ -7977,8 +7977,8 @@ trackedFiles:
     pristine_git_object: fe25a1e0d22aba5c3da66da3c200982fe61b23e5
   docs/models/components/scimsyncjob.mdx:
     id: 29e541485e00
-    last_write_checksum: sha1:c8b3387832f15ed26597646996116cc39b1a85c4
-    pristine_git_object: 8d01ff5d472ff83d3c9e7ba138a617b4d26dd978
+    last_write_checksum: sha1:a1bd7e804838999327f247674ab15d0d69e20530
+    pristine_git_object: d045f9726aa70386ba1b5cc051602342e639a264
   docs/models/components/scimsyncjobstatus.mdx:
     id: b8e635354a01
     last_write_checksum: sha1:227151e39246920c7d074afb2c3bd03b257b7730
@@ -8349,8 +8349,8 @@ trackedFiles:
     pristine_git_object: d22f34efdbe1686fb67930962319bb765cade8ef
   docs/models/components/speechrequestresponseformat.mdx:
     id: 9109b6973bc4
-    last_write_checksum: sha1:255e2f95fce29649de7b55892e1554112634caca
-    pristine_git_object: aa7951a62735bebcd6bb3de7c97fc10ff0722d48
+    last_write_checksum: sha1:53342b2348175910cc71701fecbc6e360a846f2b
+    pristine_git_object: f75b2831c63c9deedd86f4e2320ec891e56be65d
   docs/models/components/speechsupportedparameters.mdx:
     id: df7b06b3e515
     last_write_checksum: sha1:2de735729d5ac2e004fd621b32334ea6d512a4d1
@@ -9421,8 +9421,8 @@ trackedFiles:
     pristine_git_object: 596ba721418978f10059f344647aad630496a172
   docs/models/components/videogenerationrequest.mdx:
     id: cd475ed04a42
-    last_write_checksum: sha1:0b39ede954651e21d07970552df918ef18f41ada
-    pristine_git_object: f000ac4e876175671b6f55ce186b23e03a4e8195
+    last_write_checksum: sha1:d46d088efd82d2d074c5b13f4e1afa9392b2c718
+    pristine_git_object: 004fb7014aa694ffa9e4c48a7a79394df12633f8
   docs/models/components/videogenerationrequestaspectratio.mdx:
     id: 828b3d2d4e1a
     last_write_checksum: sha1:c202a115d3b75fc44efb6b518afea6d6409378a0
@@ -9449,8 +9449,8 @@ trackedFiles:
     pristine_git_object: 959f9e0ae1d7dc4d0b259f9f454321c33d8332f3
   docs/models/components/videogenerationrequestprovider.mdx:
     id: ad830be2196e
-    last_write_checksum: sha1:5b29e3a9f6dd84fd68fca2588c80511fdadc1533
-    pristine_git_object: 56872d4d3378e962f5a88e7a88399fa7171c02dc
+    last_write_checksum: sha1:9d1d0270d8f70ebb7035629ca9840fc3a307bcb0
+    pristine_git_object: 513d0493b86c5c90108c55aa31333e9dbfcc2261
   docs/models/components/videogenerationrequestresolution.mdx:
     id: 21123b09cbfd
     last_write_checksum: sha1:16df512ce246444eaae1f147a611a9615cad2409
@@ -14401,8 +14401,8 @@ trackedFiles:
     pristine_git_object: 9038466204f4af6a0c7a442079bfd6b40b4cfaa7
   models/components/scimsyncjob.go:
     id: 0b7761c3d64a
-    last_write_checksum: sha1:35279881ffe7f2707480868ba7a6612273cae55f
-    pristine_git_object: c16a427522bb18dcc2b2af23537ba57a188407c2
+    last_write_checksum: sha1:4fcb074578084bfbe141e023b6195233290a4145
+    pristine_git_object: 0fb31ba1b5891f4bde31676d3356aac08855291a
   models/components/searchcontextsizeenum.go:
     id: 548a9f82f01b
     last_write_checksum: sha1:e5a55817b6f6922a0f6d94012de27fca4e0d3e97
@@ -14585,8 +14585,8 @@ trackedFiles:
     pristine_git_object: d431a225e6b860268d0883770b0056e33eed4851
   models/components/speechrequest.go:
     id: c5f83d3285eb
-    last_write_checksum: sha1:3952f62754e1c48da96a8a27113afdb78f46ac5c
-    pristine_git_object: 2db4de51a55d4e05b2bd8f4b73d9e70df07bce58
+    last_write_checksum: sha1:7cc9a02d234b2860f4722cd61f3dcda7b114b594
+    pristine_git_object: 3ce1961c03d10f5939acf6753697dc989cc150fe
   models/components/speechsupportedparameters.go:
     id: 297439c8d2ac
     last_write_checksum: sha1:fdb9a71f6bf1702bd39f7aeaada651b839bf2e42
@@ -15005,8 +15005,8 @@ trackedFiles:
     pristine_git_object: 3c344f6030b9dda2bc7a9f7c97594f76cbd8f286
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:b1dd9dbab355e3ab1317108a9dd9e88f14dc321e
-    pristine_git_object: 860b02cab6065e938f6cb00bc70fab8119b5dc8b
+    last_write_checksum: sha1:e2fcb8483b4e30c7daefe89bddeae7295c4968f0
+    pristine_git_object: 8f97a7c56d12a8268f761e9cd51781a9a90b27fa
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
     last_write_checksum: sha1:92fa811bd767aa11526ec2ea50d59d7c581f6aac
@@ -15837,8 +15837,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:2ab3eb0f8f4b61577682339072ed23402838911b
-    pristine_git_object: fb8ed8e7c7a7e4d40008372d910c2e16cb9b454f
+    last_write_checksum: sha1:492ba47c86214a9b4569fb39f96aa1ab28f05d14
+    pristine_git_object: fd1177477e579cec4d08cddf5c104609c7543625
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -16780,7 +16780,7 @@ examples:
     speakeasy-default-list-videos-models:
       responses:
         "200":
-          application/json: {"data": [{"allowed_passthrough_parameters": [], "canonical_slug": "google/veo-3.1", "created": 1700000000, "creativity": [], "generate_audio": true, "id": "google/veo-3.1", "name": "Veo 3.1", "seed": null, "supported_aspect_ratios": ["16:9"], "supported_durations": [5, 8], "supported_frame_images": ["first_frame", "last_frame"], "supported_resolutions": ["720p"], "supported_sizes": null, "upscale_factor": {}}]}
+          application/json: {"data": [{"allowed_passthrough_parameters": ["personGeneration", "aspectRatio", "negativePrompt", "conditioningScale", "enhancePrompt"], "canonical_slug": "google/veo-3.1-20260320", "created": 1774277148, "creativity": null, "generate_audio": true, "id": "google/veo-3.1", "name": "Google: Veo 3.1", "seed": true, "supported_aspect_ratios": ["16:9", "9:16"], "supported_durations": [4, 6, 8], "supported_frame_images": ["first_frame", "last_frame"], "supported_resolutions": ["720p", "1080p", "4K"], "supported_sizes": ["1280x720", "1080x1920", "1920x1080", "720x1280", "3840x2160", "2160x3840"], "upscale_factor": null}]}
         "400":
           application/json: {"error": {"code": 400, "message": "Invalid request parameters"}}
         "500":
@@ -21051,4 +21051,4 @@ examples:
         "500":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Guardrails.List()`:  `response.Data[].AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.Guardrails.Create()`: \n  *  `request.Request.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.Guardrails.Get()`:  `response.Data.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.Guardrails.Update()`: \n  *  `request.UpdateGuardrailRequest.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.ListAccountPolicies()`:  `response.Data[].union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.CreateAccountPolicy()`: \n  *  `request.Request.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.UpdateAccountPolicy()`: \n  *  `request.AccountGuardrailPolicyRequest.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.union(model_availability).Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.ListModelAvailabilityPolicies()`:  `response.Data[].Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.CreateModelAvailabilityPolicy()`: \n  *  `request.Request.Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.GetModelAvailabilityPolicy()`:  `response.Data.Config.AllowSafetyRetentionOpenai` **Added**\n* `OpenRouter.GuardrailPolicies.UpdateModelAvailabilityPolicy()`: \n  *  `request.UpdateModelAvailabilityGuardrailPolicyRequest.Config.AllowSafetyRetentionOpenai` **Added**\n  *  `response.Data.Config.AllowSafetyRetentionOpenai` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.ResponseFormat.Enum(wav)` **Added**\n"

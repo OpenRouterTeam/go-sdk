@@ -1634,7 +1634,7 @@ func (u VideoGenerationRequestOrder) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type VideoGenerationRequestOrder: all fields are null")
 }
 
-// VideoGenerationRequestProvider - Provider routing preferences (order, only, ignore), request-level data policy (zdr, data_collection) and provider-specific passthrough configuration. No video endpoint currently offers Zero Data Retention, so `zdr: true` fails routing.
+// VideoGenerationRequestProvider - Provider routing preferences (order, only, ignore), request-level data policy (zdr, data_collection) and provider-specific passthrough configuration. Sorting by price, latency, or throughput and automatic provider fallbacks are not supported. No video endpoint currently offers Zero Data Retention, so `zdr: true` fails routing.
 type VideoGenerationRequestProvider struct {
 	// Data collection setting. If no available model provider meets the requirement, your request will return an error.
 	// - allow: (default) allow providers that may train on user data
@@ -1646,7 +1646,7 @@ type VideoGenerationRequestProvider struct {
 	// List of provider slugs to allow. If provided, this list is merged with your account-wide allowed provider settings for this request.
 	Only    optionalnullable.OptionalNullable[[]VideoGenerationRequestOnly] `json:"only,omitzero"`
 	Options *VideoGenerationRequestOptions                                  `json:"options,omitzero"`
-	// An ordered list of provider slugs. The router will attempt to use the first provider in the subset of this list that supports your requested model, and fall back to the next if it is unavailable. If no providers are available, the request will fail with an error message.
+	// An ordered list of provider slugs to prefer when choosing an eligible video endpoint. The request is submitted to one endpoint and is not retried on another provider if submission fails.
 	Order optionalnullable.OptionalNullable[[]VideoGenerationRequestOrder] `json:"order,omitzero"`
 	// Whether to restrict routing to only ZDR (Zero Data Retention) endpoints. When true, only endpoints that do not retain prompts will be used.
 	Zdr optionalnullable.OptionalNullable[bool] `json:"zdr,omitzero"`
@@ -1754,7 +1754,7 @@ type VideoGenerationRequest struct {
 	PreviousJobID *string `json:"previous_job_id,omitzero"`
 	// Text prompt describing the video to generate. Optional for models that support generating a video from image input alone; required by all other models.
 	Prompt *string `json:"prompt,omitzero"`
-	// Provider routing preferences (order, only, ignore), request-level data policy (zdr, data_collection) and provider-specific passthrough configuration. No video endpoint currently offers Zero Data Retention, so `zdr: true` fails routing.
+	// Provider routing preferences (order, only, ignore), request-level data policy (zdr, data_collection) and provider-specific passthrough configuration. Sorting by price, latency, or throughput and automatic provider fallbacks are not supported. No video endpoint currently offers Zero Data Retention, so `zdr: true` fails routing.
 	Provider *VideoGenerationRequestProvider `json:"provider,omitzero"`
 	// Resolution of the generated video
 	Resolution *VideoGenerationRequestResolution `json:"resolution,omitzero"`
