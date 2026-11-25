@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: fe320cb1b4e4b852eb25a03ff66f8765
+  docChecksum: 4e8b31cdadb70cb14fbbd9adaba2b881
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.138
-  configChecksum: 2cd5977a31a7e56708cbcbe396339bf6
+  releaseVersion: 0.9.139
+  configChecksum: ceccc92ddf96c03980aece2c64ad2b27
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 44a3d571-a59b-48f8-a691-a29c5dcb2c32
-  pristine_commit_hash: e40410cb2ed0a412df9d6193f57bd6f511b7ef85
-  pristine_tree_hash: f0d47b61903b67cf5287e87ce63a64ce2e64cca8
+  generation_id: 0e5a148e-87a1-4e45-b99d-27363c94e9d9
+  pristine_commit_hash: 65e0399d306674f288ce4a997b5d664ea1604f5a
+  pristine_tree_hash: 01ed56a5102b37c5a8a42a5d900a63c6b927bf4a
 features:
   go:
     acceptHeaders: 2.81.2
@@ -85,8 +85,8 @@ trackedFiles:
     pristine_git_object: e47098bbb50f3358e305e0e5adc441c239923ffe
   batch.go:
     id: f0580a64f821
-    last_write_checksum: sha1:a17a925061c0eb10606769d703653ff177a207eb
-    pristine_git_object: 7e3af8fcae7a45f50c27669bba6ed57b066e01f2
+    last_write_checksum: sha1:2da3b640abf1a6f4045a0de3c865c8af675dd4f8
+    pristine_git_object: 515ed32f5b87a4b39039ffcf459acab90fc107c7
   benchmarks.go:
     id: 645ff3c22b39
     last_write_checksum: sha1:3e0bb94c51784b8af9bea90637f7344a3a052bad
@@ -10937,8 +10937,8 @@ trackedFiles:
     pristine_git_object: 0c5242878aeb8835178a99fff7c24a964222857d
   docs/sdks/batch/README.mdx:
     id: e367aa4f4295
-    last_write_checksum: sha1:690a83ba378bb014758890c881ff657217f11487
-    pristine_git_object: 63517c99b93e77e1d09822f10dce34cf271ce298
+    last_write_checksum: sha1:be9168c06e94903cf0a2f554586aa6f8c05d416d
+    pristine_git_object: 2628e18522e7e3b73c91dcfcce593dcf76778d23
   docs/sdks/benchmarks/README.mdx:
     id: 5b483a6770ba
     last_write_checksum: sha1:aa1d3a7575cc3f286b6a3b8ae8c16565354b3135
@@ -15837,8 +15837,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:492ba47c86214a9b4569fb39f96aa1ab28f05d14
-    pristine_git_object: fd1177477e579cec4d08cddf5c104609c7543625
+    last_write_checksum: sha1:147c4346e317ee261accefe2afd4be65da6ec716
+    pristine_git_object: 45fd2e5f79c8cc70a7e9864a013d6bfc054cec6b
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -21051,4 +21051,6 @@ examples:
         "500":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
 examplesVersion: 1.0.2
-releaseNotes: "## Go SDK Changes:\n* `OpenRouter.Tts.CreateSpeech()`: \n  *  `request.Request.ResponseFormat.Enum(wav)` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `OpenRouter.Batch.Delete()`:  `error.status[503]` **Added**
