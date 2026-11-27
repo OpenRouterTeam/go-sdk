@@ -221,10 +221,10 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *OpenRouter {
 	sdk := &OpenRouter{
-		SDKVersion: "0.9.140",
+		SDKVersion: "0.9.141",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:         "speakeasy-sdk/go 0.9.140 2.950.13 1.0.0 github.com/OpenRouterTeam/go-sdk",
-			SDKVersion:        "0.9.140",
+			UserAgent:         "speakeasy-sdk/go 0.9.141 2.950.13 1.0.0 github.com/OpenRouterTeam/go-sdk",
+			SDKVersion:        "0.9.141",
 			GenVersion:        "2.950.13",
 			OpenAPIDocVersion: "1.0.0",
 			Globals:           globals.Globals{},

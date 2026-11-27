@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 9eea3e30-2722-4060-973b-57b7f1f75dc0
 management:
-  docChecksum: 8c50633f7418f65e5c4c61cecc4be6aa
+  docChecksum: 5e909503b1acadcddd96745a18ac43cd
   docVersion: 1.0.0
   speakeasyVersion: 1.803.2
   generationVersion: 2.950.13
-  releaseVersion: 0.9.140
-  configChecksum: 9706f68ad4cd3ed8204c920983080664
+  releaseVersion: 0.9.141
+  configChecksum: 66b0c9eac336a64ef7075295707b99b3
   repoURL: https://github.com/OpenRouterTeam/go-sdk.git
   installationURL: https://github.com/OpenRouterTeam/go-sdk
 persistentEdits:
-  generation_id: 00664a8e-5b3c-465b-a824-fd5ac1f0e6f4
-  pristine_commit_hash: b4d21df508744fd877249304c8694c131e0a2d11
-  pristine_tree_hash: 0cba481b0699601c82e519131951f74b6bc0ddd3
+  generation_id: 9dd21a36-da1e-4ed3-9267-ab4b6d41ebcc
+  pristine_commit_hash: ac8517c313c7856add4821284a197fcc940204ed
+  pristine_tree_hash: 152b99a0eda3ad4f8c12721a84120bc6f22ff31d
 features:
   go:
     acceptHeaders: 2.81.2
@@ -4737,8 +4737,8 @@ trackedFiles:
     pristine_git_object: ac8f1f63c7759998140c1a73a5a79262e840438a
   docs/models/components/inputreference.mdx:
     id: 55d18f309fe9
-    last_write_checksum: sha1:1fe40e13a71fc20c6afa73c709b31c1fc35d25ab
-    pristine_git_object: 8b27527db606902128bad252bb1d24fb075f5658
+    last_write_checksum: sha1:7c88042d7ba10be04cb64d2c844d6d284d90b356
+    pristine_git_object: 227660fc11d589cc965434db2ef4cd01fec426f3
   docs/models/components/inputscontent1.mdx:
     id: 69da3e2e6c71
     last_write_checksum: sha1:057e6938a3832c91f2fcead612da617a75bf3764
@@ -9421,8 +9421,8 @@ trackedFiles:
     pristine_git_object: 596ba721418978f10059f344647aad630496a172
   docs/models/components/videogenerationrequest.mdx:
     id: cd475ed04a42
-    last_write_checksum: sha1:d46d088efd82d2d074c5b13f4e1afa9392b2c718
-    pristine_git_object: 004fb7014aa694ffa9e4c48a7a79394df12633f8
+    last_write_checksum: sha1:4aab8996268b6cc33e3689c61c0703f62444437e
+    pristine_git_object: e15cf196df5c59cc72adb87e74ff0a0f1ae7aec2
   docs/models/components/videogenerationrequestaspectratio.mdx:
     id: 828b3d2d4e1a
     last_write_checksum: sha1:c202a115d3b75fc44efb6b518afea6d6409378a0
@@ -13149,8 +13149,8 @@ trackedFiles:
     pristine_git_object: 995d3c9d915411272b1482d8d0b526096862b5bf
   models/components/inputreference.go:
     id: 04d0cd9b2ae9
-    last_write_checksum: sha1:c9840a2a1d12955366aa6460a9f72511487479ae
-    pristine_git_object: 8913d0931821de6b5f44bc1f6e7e5ef7313c6326
+    last_write_checksum: sha1:4a86de2062b2066573af655c089b552a9cf73c54
+    pristine_git_object: 0554205d6e33b3b527bb2effb5f287e07a48dbee
   models/components/inputsunion.go:
     id: 9cf7a037c7f6
     last_write_checksum: sha1:1bbea61afe8ced19a7002266331d7a33ffbff676
@@ -15005,8 +15005,8 @@ trackedFiles:
     pristine_git_object: 3c344f6030b9dda2bc7a9f7c97594f76cbd8f286
   models/components/videogenerationrequest.go:
     id: 11162ee57e53
-    last_write_checksum: sha1:e2fcb8483b4e30c7daefe89bddeae7295c4968f0
-    pristine_git_object: 8f97a7c56d12a8268f761e9cd51781a9a90b27fa
+    last_write_checksum: sha1:7ddfd0dd45b31fc04523c407d1b1791f62a50270
+    pristine_git_object: b3691419f50955be6f7ddb68d3d173bf5fd25ec9
   models/components/videogenerationresponse.go:
     id: 5841b7ef3de9
     last_write_checksum: sha1:92fa811bd767aa11526ec2ea50d59d7c581f6aac
@@ -15837,8 +15837,8 @@ trackedFiles:
     pristine_git_object: e30881a55ed9ce2be98ec84daaaf27d53bf1f14a
   openrouter.go:
     id: 207ad004b774
-    last_write_checksum: sha1:52ec83616f4f0c5809c2f859d5576d5f794d09dc
-    pristine_git_object: 4acbd177f9eb043a125b7cca2c8edb7d4ad7f6af
+    last_write_checksum: sha1:cb2311f6b68f432b02d0c02f8b2c6c122ce19d3f
+    pristine_git_object: b36d00fab10651a8a2537429436d0a8387fe4655
   optionalnullable/optionalnullable.go:
     id: ce60f259ead3
     last_write_checksum: sha1:b828c94c45116e632925027e4e2c211e971e04e2
@@ -21051,6 +21051,3 @@ examples:
         "500":
           application/json: {"error": {"code": 400, "message": "custom_id is required on requests[0]."}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Go SDK Changes:
-  * `OpenRouter.ApiKeys.List()`:  `request.CreatorUserId` **Added**
