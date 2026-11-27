@@ -1743,11 +1743,11 @@ type VideoGenerationRequest struct {
 	Creativity *int64 `json:"creativity,omitzero"`
 	// Duration of the generated video in seconds, or -1 to let the provider choose the length (e.g. following an input video). -1 is only accepted by models that list it in supported_durations.
 	Duration *int64 `json:"duration,omitzero"`
-	// Images to use as the first and/or last frame of the generated video. Each image must specify a frame_type of first_frame or last_frame.
+	// Images to use as the first and/or last frame of the generated video. Each image must specify a frame_type of first_frame or last_frame, and each frame_type may appear at most once. Combining frame_images with input_references is provider-specific: some models reject the combination (as a 400 on submit or as a failed job), some use the frame images alone, and some use both (e.g. Runway applies image references as style/guidance alongside the frame anchors).
 	FrameImages []FrameImage `json:"frame_images,omitzero"`
-	// Whether to generate audio alongside the video. Defaults to the endpoint's generate_audio capability flag, false if not set. When neither is set, some providers (such as xAI) apply their own default and generate audio, so send false to request a silent video. Some models always include audio and ignore false.
+	// Whether to generate audio alongside the video. Defaults to the endpoint's generate_audio capability flag, false if not set. When neither is set, some providers (such as xAI) apply their own default and generate audio, so send false to request a silent video. Some models always include audio and ignore false. POST /videos returns 400 for true if every otherwise eligible endpoint explicitly disables audio generation.
 	GenerateAudio *bool `json:"generate_audio,omitzero"`
-	// Reference assets to guide video generation. Accepts image, audio, and video references. Audio and video references are only honored by providers that support them (including BytePlus Seedance generation 2 and newer); other providers use image references and ignore the rest.
+	// Reference assets to guide video generation. Accepts image, audio, and video references. POST /videos rejects the request with a 400 when the model or its provider integration does not support a supplied reference modality. Combining input_references with frame_images is provider-specific: some models reject the combination (as a 400 on submit or as a failed job), some use the frame images alone, and some use both (e.g. Runway applies image references as style/guidance alongside the frame anchors).
 	InputReferences []InputReference `json:"input_references,omitzero"`
 	Model           string           `json:"model"`
 	// ID of a completed video job to edit or extend, as returned by the submit response. The new job runs on the same model and endpoint that produced the previous one. Only models that support continuation accept this field.
@@ -1758,7 +1758,7 @@ type VideoGenerationRequest struct {
 	Provider *VideoGenerationRequestProvider `json:"provider,omitzero"`
 	// Resolution of the generated video
 	Resolution *VideoGenerationRequestResolution `json:"resolution,omitzero"`
-	// If specified, the generation will sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed for all providers.
+	// If specified, the generation will sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed for all providers. POST /videos returns 400 if every otherwise eligible endpoint explicitly declares seed unsupported.
 	Seed *int64 `json:"seed,omitzero"`
 	// A unique identifier for grouping related requests (e.g., a conversation or agent workflow). Used for observability grouping in Broadcast and private logging; never sent to the provider. If provided in both the request body and the x-session-id header, the body value takes precedence. Maximum of 256 characters.
 	SessionID *string `json:"session_id,omitzero"`
