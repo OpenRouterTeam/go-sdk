@@ -1,0 +1,32 @@
+---
+title: "ChatFileAnnotationContentUnion"
+---
+
+## Supported Types
+
+### ContentText
+
+```go
+chatFileAnnotationContentUnion := components.CreateChatFileAnnotationContentUnionText(components.ContentText{/* values here */})
+```
+
+### ContentImageURL
+
+```go
+chatFileAnnotationContentUnion := components.CreateChatFileAnnotationContentUnionImageURL(components.ContentImageURL{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch chatFileAnnotationContentUnion.Type {
+	case components.ChatFileAnnotationContentUnionTypeText:
+		// chatFileAnnotationContentUnion.ContentText is populated
+	case components.ChatFileAnnotationContentUnionTypeImageURL:
+		// chatFileAnnotationContentUnion.ContentImageURL is populated
+	default:
+		// Unknown type - use chatFileAnnotationContentUnion.GetUnknownRaw() for raw JSON
+}
+```
