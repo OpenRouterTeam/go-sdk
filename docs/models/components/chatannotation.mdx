@@ -1,0 +1,43 @@
+---
+title: "ChatAnnotation"
+---
+
+Citation or file annotation on an assistant message
+
+
+## Supported Types
+
+### ChatFileAnnotation
+
+```go
+chatAnnotation := components.CreateChatAnnotationFile(components.ChatFileAnnotation{/* values here */})
+```
+
+### ChatURLCitationAnnotation
+
+```go
+chatAnnotation := components.CreateChatAnnotationURLCitation(components.ChatURLCitationAnnotation{/* values here */})
+```
+
+### ChatWebSearchCitationAnnotation
+
+```go
+chatAnnotation := components.CreateChatAnnotationWebSearchCitation(components.ChatWebSearchCitationAnnotation{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch chatAnnotation.Type {
+	case components.ChatAnnotationTypeFile:
+		// chatAnnotation.ChatFileAnnotation is populated
+	case components.ChatAnnotationTypeURLCitation:
+		// chatAnnotation.ChatURLCitationAnnotation is populated
+	case components.ChatAnnotationTypeWebSearchCitation:
+		// chatAnnotation.ChatWebSearchCitationAnnotation is populated
+	default:
+		// Unknown type - use chatAnnotation.GetUnknownRaw() for raw JSON
+}
+```
